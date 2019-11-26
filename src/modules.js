@@ -3216,11 +3216,14 @@ function settingsPage(){
 	create("span",false,"Version: ",sVersion);
 	create("span","hohStatValue",scriptInfo.version,sVersion);
 	let sHome = create("p",false,"Homepage: ",scriptStats);
+	let sHomeLink = create("a",false,scriptInfo.link,sHome);
+	let sHome2 = create("p",false,"Repository: ",scriptStats);
+	let sHomeLink2 = create("a",false,scriptInfo.repo,sHome2);
 	if(!useScripts.accessToken){
 		create("p",false,"Faded options only have limited functionallity without signing in to the script",scriptStats)
 	}
-	let sHomeLink = create("a",false,scriptInfo.link,sHome);
 	sHomeLink.href = scriptInfo.link;
+	sHomeLink2.href = scriptInfo.repo;
 	let categories = create("div",["container","hohCategories"],false,scriptStats);
 	let catList = ["Notifications","Feeds","Forum","Lists","Profiles","Stats","Media","Navigation","Browse","Script","Login"];
 	let activeCategory = "";
