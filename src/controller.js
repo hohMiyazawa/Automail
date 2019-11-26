@@ -348,7 +348,7 @@ function handleScripts(url,oldUrl){
 			addForumMediaNoAWC()
 		}
 		else if(useScripts.forumMedia){
-			addForumMedia()
+			addForumMediaTitle()
 		};
 		if(useScripts.noImagePolyfill || useScripts.SFWmode){
 			addImageFallback()
@@ -387,8 +387,7 @@ function handleScripts(url,oldUrl){
 		};
 		if(useScripts.showMarkdown){
 			showMarkdown(activityMatch[1])
-		};
-		singleActivityReplyLikes(parseInt(activityMatch[1]))
+		}
 	};
 	if(url.match(/^https:\/\/anilist\.co\/edit/)){//seems to give mixed results. At least it's better than nothing
 		window.onbeforeunload = function(){

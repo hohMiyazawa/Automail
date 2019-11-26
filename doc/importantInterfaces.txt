@@ -1,0 +1,4 @@
+The "create" function
+Used to create new DOM elements
+
+TODO: write documentation

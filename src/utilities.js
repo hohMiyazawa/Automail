@@ -897,3 +897,288 @@ function levDist(s,t){//https://stackoverflow.com/a/11958496/5697837
 	}
 	return d[n][m]
 }
+
+function returnList(list,skipProcessing){
+	if(!list){
+		return null
+	};
+	let retl = [];
+	list.data.MediaListCollection.lists.forEach(mediaList => {
+		mediaList.entries.forEach(entry => {
+			if(!skipProcessing){
+				entry.isCustomList = mediaList.isCustomList;
+				if(entry.isCustomList){
+					entry.listLocations = [mediaList.name]
+				}
+				else{
+					entry.listLocations = []
+				};
+				entry.scoreRaw = Math.min(entry.scoreRaw,100);
+				if(!entry.media.episodes && entry.media.nextAiringEpisode){
+					entry.media.episodes = entry.media.nextAiringEpisode.episode - 1
+				}
+				if(entry.notes){
+					entry.listJSON = parseListJSON(entry.notes)
+				};
+				if(entry.media.a){
+					entry.media.staff = removeGroupedDuplicates(
+						entry.media.a.nodes.concat(
+							entry.media.b.nodes
+						),
+						e => e.id
+					);
+					delete entry.media.a;
+					delete entry.media.b;
+				}
+				if(entry.repeat > 10000){//counting eps as repeat, 10x One Piece as the plausibility baseline
+					entry.repeat = 0
+				}
+				if(entry.status === "REPEATING" && entry.repeat === 0){
+					entry.repeat = 1
+				}
+			};
+			retl.push(entry);
+		})
+	})
+	return removeGroupedDuplicates(
+		retl,
+		e => e.mediaId,
+		(oldElement,newElement) => {
+			if(!skipProcessing){
+				newElement.listLocations = newElement.listLocations.concat(oldElement.listLocations);
+				newElement.isCustomList = oldElement.isCustomList || newElement.isCustomList;
+			}
+		}
+	)
+};
+
+function parseListJSON(listNote){
+	if(!listNote){
+		return null
+	};
+	let commandMatches = listNote.match(/\$({.*})\$/);
+	if(commandMatches){
+		try{
+			let noteContent = JSON.parse(commandMatches[1]);
+			noteContent.adjustValue = noteContent.adjust ? noteContent.adjust : 0;
+			let rangeParser = function(thing){
+				if(typeof thing === "number"){
+					return 1
+				}
+				else if(typeof thing === "string"){
+					thing = thing.split(",")
+				};
+				return thing.reduce(function(acc,item){
+					if(typeof item === "number"){
+						return acc + 1
+					};
+					let multiplierPresent = item.split("x");
+					let value = 1;
+					let rangePresent = multiplierPresent[0].split("-");
+					if(rangePresent.length === 2){//range
+						let minRange = parseFloat(rangePresent[0]);
+						let maxRange = parseFloat(rangePresent[1]);
+						if(minRange && maxRange){
+							value = maxRange - minRange + 1
+						}
+					}
+					if(multiplierPresent.length === 1){//no multiplier
+						return acc + value
+					}
+					if(multiplierPresent.length === 2){//possible multiplier
+						let multiplier = parseFloat(multiplierPresent[1]);
+						if(multiplier || multiplier === 0){
+							return acc + value*multiplier
+						}
+						else{
+							return acc + 1
+						}
+					}
+					else{//unparsable
+						return acc + 1
+					}
+				},0);
+			};
+			if(noteContent.more){
+				noteContent.adjustValue += rangeParser(noteContent.more)
+			};
+			if(noteContent.skip){
+				noteContent.adjustValue -= rangeParser(noteContent.skip)
+			};
+			return noteContent;
+		}
+		catch(e){
+			console.warn("Unable to parse JSON in list note",commandMatches)
+		}
+	}
+	else{
+		return null
+	}
+};
+
+function formatCompat(compatData,targetLocation){
+	let differenceSpan = create("span",false,compatData.difference.roundPlaces(3));
+	if(compatData.difference < 0.9){
+		differenceSpan.style.color = "green"
+	}
+	else if(compatData.difference > 1.1){
+		differenceSpan.style.color = "red"
+	};
+	targetLocation.innerText = "";
+	targetLocation.appendChild(differenceSpan);
+	let countSpan = create("span",false," based on " + compatData.shared + " shared entries. Lower is better. 0.8 - 1.1 is common",targetLocation);
+	let canvas = create("canvas",false,false,targetLocation,"display:block;");
+	canvas.width = 200;
+	canvas.height = 100;
+	let r1 = Math.sqrt(compatData.list1/(compatData.list1 + compatData.list2));
+	let r2 = Math.sqrt(compatData.list2/(compatData.list1 + compatData.list2));
+	let distance;
+	if(compatData.shared === compatData.list1 || compatData.shared === compatData.list2){
+		distance = Math.abs(r1 - r2)
+	}
+	else if(compatData.shared === 0){
+		distance = r1 + r2
+	}
+	else{
+		let areaOfIntersection = function(d,r0,r1){
+			let rr0 = r0 * r0;
+			let rr1 = r1 * r1;
+			let phi = (Math.acos((rr0 + (d * d) - rr1) / (2 * r0 * d))) * 2;
+			let theta = (Math.acos((rr1 + (d * d) - rr0) / (2 * r1 * d))) * 2;
+			let area1 = (theta * rr1 - rr1 * Math.sin(theta))/2;
+			let area2 = (phi * rr0 - rr0 * Math.sin(phi))/2;
+			return area1 + area2;
+		};
+		let overlapArea = Math.PI*compatData.shared/(compatData.list1 + compatData.list2);
+		let pivot0 = Math.abs(r1 - r2);
+		let pivot1 = r1 + r2;
+		while(pivot1 - pivot0 > (r1 + r2)/100){
+			distance = (pivot0 + pivot1)/2;
+			if(areaOfIntersection(distance,r1,r2) > overlapArea){
+				pivot0 = distance
+			}
+			else{
+				pivot1 = distance
+			}
+		}
+	}
+	let ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.fillStyle = "rgb(61,180,242)";
+	ctx.arc(50,50,50*r1,0,2*Math.PI);
+	ctx.fill();
+	ctx.beginPath();
+	ctx.fillStyle = "rgb(250,122,122)";
+	ctx.arc(50 + 50*distance,50,50*r2,0,2*Math.PI);
+	ctx.fill();
+	ctx.beginPath();
+	ctx.fillStyle = "rgb(61,180,242,0.5)";
+	ctx.arc(50,50,50*r1,0,2*Math.PI);
+	ctx.fill();
+}
+
+function compatCheck(list,name,type,callback){
+	const variables = {
+		name: name,
+		listType: type
+	};
+	generalAPIcall(queryMediaListCompat,variables,function(data){
+		list.sort((a,b) => a.mediaId - b.mediaId);
+		let list2 = returnList(data).filter(element => element.scoreRaw);
+		let list3 = [];
+		let indeks1 = 0;
+		let indeks2 = 0;
+		while(indeks1 < list.length && indeks2 < list2.length){
+			if(list2[indeks2].mediaId > list[indeks1].mediaId){
+				indeks1++;
+				continue
+			};
+			if(list2[indeks2].mediaId < list[indeks1].mediaId){
+				indeks2++;
+				continue
+			};
+			if(list2[indeks2].mediaId === list[indeks1].mediaId){
+				list3.push({
+					mediaId: list[indeks1].mediaId,
+					score1: list[indeks1].scoreRaw,
+					score2: list2[indeks2].scoreRaw
+				});
+				indeks1++;
+				indeks2++
+			}
+		};
+		let average1 = 0;
+		let average2 = 0;
+		list3.forEach(item => {
+			average1 += item.score1;
+			average2 += item.score2;
+			item.sdiff = item.score1 - item.score2
+		});
+		average1 = average1/list3.length;
+		average2 = average2/list3.length;
+		let standev1 = 0;
+		let standev2 = 0;
+		list3.forEach(item => {
+			standev1 += Math.pow(item.score1 - average1,2);
+			standev2 += Math.pow(item.score2 - average2,2)
+		});
+		standev1 = Math.sqrt(standev1/(list3.length - 1));
+		standev2 = Math.sqrt(standev2/(list3.length - 1));
+		let difference = 0;
+		list3.forEach(item => {
+			difference += Math.abs(
+				(item.score1 - average1)/standev1
+				- (item.score2 - average2)/standev2
+			)
+		});
+		difference = difference/list3.length;
+		callback({
+			difference: difference,
+			shared: list3.length,
+			list1: list.length,
+			list2: list2.length,
+			user: name
+		})
+	})
+}
+
+//used by the stats module, and to safeguard the manga chapter guesses
+const commonUnfinishedManga = {
+	"53390":{//aot
+		chapters:116,
+		volumes:26
+	},
+	"30002":{//berserk
+		chapters:359,
+		volumes:40
+	},
+	"30013":{//one piece
+		chapters:960,
+		volumes:92
+	},
+	"85486":{//mha
+		chapters:202,
+		volumes:20
+	},
+	"74347":{//opm
+		chapters:119,
+		volumes:17
+	},
+	"30026":{//HxH
+		chapters:390,
+		volumes:36
+	},
+	"30656":{//vagabond
+		chapters:327,
+		volumes:37
+	},
+	"30105":{//yotsuba&
+		chapters:106,
+		volumes:14
+	}
+};
+if(NOW() - new Date(2019,10,1) > 365*24*60*60*1000){
+	console.log("remind hoh to update the commonUnfinishedManga list")
+};
+
+let urlChangedDependence = false;//???
