@@ -1,4 +1,11 @@
-function handleScripts(url,oldURL){
+let modules = [];
+
+function handleScripts(url,oldUrl){
+	modules.forEach(module => {
+		if(useScripts[module.id] && module.urlMatch(url,oldUrl)){
+			module.code()
+		}
+	})
 	if(url === "https://anilist.co/settings/apps"){
 		settingsPage()
 	}
@@ -23,7 +30,7 @@ function handleScripts(url,oldURL){
 		randomButtons()
 	}
 	else if(url === "https://anilist.co/404"){
-		possibleBlocked(oldURL)
+		possibleBlocked(oldUrl)
 	}
 	if(url.match(/^https:\/\/anilist\.co\/(anime|manga)\/\d*\/[\w\-]*\/social/)){
 		if(useScripts.socialTab){
@@ -112,8 +119,7 @@ function handleScripts(url,oldURL){
 		}
 		if(useScripts.embedHentai){
 			embedHentai()
-		};
-		forumLikes()
+		}
 	}
 	else if(
 		url.match(/^https:\/\/anilist\.co\/forum\/?(overview|search\?.*|recent|new|subscribed)?$/)
@@ -394,7 +400,7 @@ function handleScripts(url,oldURL){
 	}
 };
 
-const useScriptsDefinitions = [
+let useScriptsDefinitions = [
 {id: "notifications",
 	description: "Improve notifications",
 	categories: ["Notifications","Login"]
@@ -739,4 +745,17 @@ if(useScripts.aniscriptsAPI){
 		settings: useScripts,
 		logOut: function(){useScripts.accessToken = "";useScripts.save()}
 	}
+}
+
+function exportModule(module){
+	useScriptsDefinitions.push({
+		id: module.id,
+		description: module.description,
+		categories: module.categories
+	});
+	if(!useScripts.hasOwnProperty(module.id)){
+		useScripts[module.id] = module.isDefault;
+		useScripts.save()
+	}
+	modules.push(module)
 }

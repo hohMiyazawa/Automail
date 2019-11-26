@@ -17,13 +17,13 @@ As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/aniscripts/
 "src/" contains a makefile.
 Requires cmake and shell utilities
 
-A makefile is under construciton in src/
+Will build the userscript and the firefox addon
 
 # Scope of this repository
 
 The current structure, release cycle, modularity and contribution guidelines are currently not decided.
 
-Discuss this on IRC, #automaildevs at irc.freenode.net
+IRC:  #automaildevs at irc.freenode.net
 
 The future of Automail can be discussed there.
 
