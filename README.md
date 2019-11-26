@@ -14,8 +14,10 @@ As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/aniscripts/
 
 # Build instructions
 
-The file "automailLEGACY.js" contains the script formatted as a userscript.
-A Firefox addon can be made by renaming it to "automail.js", and zipping it with the icons and manifest.json
+"src/" contains a makefile.
+Requires cmake and shell utilities
+
+A makefile is under construciton in src/
 
 # Scope of this repository
 
