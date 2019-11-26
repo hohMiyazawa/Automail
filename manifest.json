@@ -1,0 +1,23 @@
+{
+	"manifest_version": 2,
+	"name": "Automail",
+	"version": "8.61",
+
+	"description": "Extra parts for Anilist.co",
+
+	"icons": {
+		"48": "icons/aniscripts-48.png"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["https://anilist.co/*"],
+			"js": ["automail.js"]
+		}
+	],
+	"permissions": [
+		"*://graphql.anilist.co/*",
+		"*://myanimelist.net/*",
+		"webRequest"
+	]
+}
