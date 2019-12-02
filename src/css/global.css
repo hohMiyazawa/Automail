@@ -465,6 +465,9 @@ span.hohMediaImageContainer{
 	border-radius: 3px;
 	padding: 8px 12px;
 }
+.media-manga #dubNotice{
+	display: none;
+}
 #hohDraw3x3{
 	margin-top: 5px;
 	cursor: pointer;

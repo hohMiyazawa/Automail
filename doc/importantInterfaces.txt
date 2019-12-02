@@ -2,3 +2,5 @@ The "create" function
 Used to create new DOM elements
 
 TODO: write documentation
+
+graphql.js contains some important functions for interacting with the Anilist API

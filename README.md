@@ -22,9 +22,3 @@ Will build the userscript and the firefox addon
 # Scope of this repository
 
 The current structure, release cycle, modularity and contribution guidelines are currently not decided.
-
-IRC:  #automaildevs at irc.freenode.net
-
-The future of Automail can be discussed there.
-
-Or use the issue system for this repository

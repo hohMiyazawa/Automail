@@ -387,7 +387,7 @@ function create(type,classes,text,appendLocation,cssText){
 		}
 	};
 	if(text || text === 0){
-		element.innerText = text
+		element.innerText = text;
 	};
 	if(appendLocation && appendLocation.appendChild){
 		appendLocation.appendChild(element)

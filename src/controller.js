@@ -750,7 +750,8 @@ function exportModule(module){
 	useScriptsDefinitions.push({
 		id: module.id,
 		description: module.description,
-		categories: module.categories
+		categories: module.categories,
+		visible: module.visible
 	});
 	if(!useScripts.hasOwnProperty(module.id)){
 		useScripts[module.id] = module.isDefault;
