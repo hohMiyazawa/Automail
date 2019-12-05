@@ -730,13 +730,13 @@ Object.keys(localStorage).forEach(key => {
 	}
 });
 
-if(useScripts.aniscriptsAPI){
-	if(document.aniscriptsAPI){
+if(useScripts.automailAPI){
+	if(document.automailAPI){
 		console.warn("Multiple copies of Automail running? Shutting down this instance.");
 		clearInterval(mainLoop);
 		clearInterval(likeLoop);
 	}
-	document.aniscriptsAPI = {
+	document.automailAPI = {
 		scriptInfo: scriptInfo,
 		generalAPIcall: generalAPIcall,//query,variables,callback[,cacheKey[,timeFresh[,useLocalStorage]]]
 		authAPIcall: authAPIcall,

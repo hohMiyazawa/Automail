@@ -78,6 +78,18 @@ const handler = (data,target,idMap) => {
 				e.completedAt.year,
 				e.completedAt.month,
 				e.completedAt.day
+			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-")
+		}
+		if(
+			!e.startedAt.year
+			&& !e.completedAt.year
+			&& e.createdAt.year
+			&& e.status === "PLANNING"
+		){
+			dateString = "planned " + [
+				e.createdAt.year,
+				e.createdAt.month,
+				e.createdAt.day
 			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-");
 		}
 		if(dateString !== " - "){
@@ -154,6 +166,8 @@ function enhanceSocialTab(){
 						progress notes repeat user{id}
 						startedAt{year month day}
 						completedAt{year month day}
+						createdAt{year month day}
+						status
 						media{chapters episodes}
 					}
 				}
