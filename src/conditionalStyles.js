@@ -1135,7 +1135,7 @@ div#nav.transparent{
 /*home stuff*/
 
 .reply .header a.name[href="/user/Abyss/"]::after{
-	content: "Prima Undine";
+	content: "Crocodile Isle";
 	margin-left:10px;
 	padding:3px;
 	border-radius:2px;

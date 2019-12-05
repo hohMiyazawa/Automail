@@ -8,7 +8,7 @@ exportModule({
 		return url.match(/^https:\/\/anilist\.co\/activity\/(\d+)/)
 	},
 	code: function singleActivityReplyLikes(){
-		let id = parseInt(url.match(/^https:\/\/anilist\.co\/activity\/(\d+)/)[1])
+		let id = parseInt(document.URL.match(/^https:\/\/anilist\.co\/activity\/(\d+)/)[1])
 		let adder = function(data){
 			if(!document.URL.includes("activity/" + id || !data)){
 				return
