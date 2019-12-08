@@ -137,7 +137,7 @@ function enhanceCharacter(){//adds a favourite count on every character page
 			});
 			let listBuilder = function(){
 				removeChildren(location)
-				if(data.data.Character.media.edges.length === 1){//spread multiple voice actors when we have the space
+				if(data.data.Character.media.edges.length === 1 && languages.size < 2){//spread multiple voice actors when we have the space
 					data.data.Character.media.edges = data.data.Character.media.edges[0].voiceActors.filter(
 						actor => actor.language === selector.value
 					).map(
