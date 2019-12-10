@@ -1,5 +1,5 @@
 const scriptInfo = {
-	"version" : "8.64",
+	"version" : "8.65",
 	"name" : "Automail",
 	"link" : "https://greasyfork.org/en/scripts/370473-automail",
 	"repo" : "https://github.com/hohMiyazawa/Automail",

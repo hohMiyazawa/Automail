@@ -2017,6 +2017,9 @@ input[list="socialUsers"]{
 .hohNoAWC .info span{
 	padding-left: 10px;
 }
+#hohMALscore:empty{
+	display: none;
+}
 body.TMPreviewScore > .el-tooltip__popper{
 	display: none;
 }

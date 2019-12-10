@@ -451,6 +451,9 @@ let useScriptsDefinitions = [
 },{id: "subTitleInfo",
 	description: "Add basic data below the title on media pages",
 	categories: ["Media"]
+},{id: "infoTable",
+	description: "Use a two-column table layout for info on media pages",
+	categories: ["Media"]
 },{id: "entryScore",
 	description: "Add your score and progress to anime pages",
 	categories: ["Media","Login"]
