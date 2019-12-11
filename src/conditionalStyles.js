@@ -1651,10 +1651,11 @@ if(useScripts.cleanSocial){
 }
 if(useScripts.infoTable){
 	moreStyle.textContent += `
-.media-page-unscoped .data-set{
+.media-page-unscoped .data-set,
+.media-page-unscoped .data-set #hohMALserialization{
 	display: inline-block;
 	width: 100%;
-	padding-bottom: 9px;
+	padding-bottom: 9px!important;
 	padding-top: 4px;
 }
 .media-page-unscoped .data-set ~ .data-set{

@@ -1771,6 +1771,7 @@ meter::-moz-meter-bar{
 }
 a.external::after{
 	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fff" stroke="%2336c" d="M1.5 4.518h5.982V10.5H1.5z"/><path fill="%2336c" d="M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z"/><path fill="%23fff" d="M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z"/></svg>');
+	position: absolute;
 }
 .load-more:hover{
 	color: rgb(var(--color-blue));
@@ -2017,7 +2018,11 @@ input[list="socialUsers"]{
 .hohNoAWC .info span{
 	padding-left: 10px;
 }
-#hohMALscore:empty{
+#hohMALserialization{
+	padding-bottom: 14px;
+}
+#hohMALscore:empty,
+#hohMALserialization:empty{
 	display: none;
 }
 body.TMPreviewScore > .el-tooltip__popper{
