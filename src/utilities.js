@@ -773,15 +773,7 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 }
 
 function scoreFormatter(score,format,name){
-	if(name === "shuurei" && format === "POINT_5"){
-		const shuureiSystem = ["",">:(",":/",":)",":D","<3"];
-		return `<span class="shuureiScore" title="${score}/5 stars">${shuureiSystem[score]}</span>`
-	}
-	else if(name === "shuurei" && format === "POINT_10"){
-		const shuureiSystem = ["",">:(","Ew","Ugh","Hm","Ok","Nice","Ooh","Wow","Fave",":D"];
-		return `<span class="shuureiScore" title="${score}/10">${shuureiSystem[score]}</span>`
-	}
-	else if(format === "POINT_100"){
+	if(format === "POINT_100"){
 		return score + "/100"
 	}
 	else if(

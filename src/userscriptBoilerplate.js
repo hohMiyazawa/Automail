@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Automail
 // @namespace    http://tampermonkey.net/
-// @version      8.65
+// @version      8.66
 // @description  Extra parts for Anilist.co
 // @author       hoh
 // @match        https://anilist.co/*

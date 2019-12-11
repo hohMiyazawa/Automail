@@ -23,7 +23,7 @@ function settingsPage(){
 	sHomeLink.href = scriptInfo.link;
 	sHomeLink2.href = scriptInfo.repo;
 	let categories = create("div",["container","hohCategories"],false,scriptStats);
-	let catList = ["Notifications","Feeds","Forum","Lists","Profiles","Stats","Media","Navigation","Browse","Script","Login"];
+	let catList = ["Notifications","Feeds","Forum","Lists","Profiles","Stats","Media","Navigation","Browse","Script","Login","Newly Added"];
 	let activeCategory = "";
 	catList.forEach(function(category){
 		let catBox = create("div","hohCategory",category,categories);
@@ -39,7 +39,7 @@ function settingsPage(){
 					categories.querySelector(".hohCategory.active").classList.remove("active")
 				};
 				catBox.classList.add("active");
-				hohSettings.classList.add(category);
+				hohSettings.classList.add(category.replace(" ",""));
 				activeCategory = category
 			}
 		}
@@ -96,7 +96,7 @@ function settingsPage(){
 		};
 		if(def.categories){
 			def.categories.forEach(
-				category => setting.classList.add(category)
+				category => setting.classList.add(category.replace(" ",""))
 			)
 		};
 		create("span",false,def.description,setting);

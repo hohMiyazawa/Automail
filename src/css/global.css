@@ -1356,6 +1356,7 @@ meter::-moz-meter-bar{
 #hohSettings.Navigation .hohSetting.Navigation,
 #hohSettings.Browse .hohSetting.Browse,
 #hohSettings.Script .hohSetting.Script,
+#hohSettings.NewlyAdded .hohSetting.NewlyAdded,
 #hohSettings.Login .hohSetting.Login{
 	display: block;
 }

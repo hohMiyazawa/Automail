@@ -1651,6 +1651,12 @@ if(useScripts.cleanSocial){
 }
 if(useScripts.infoTable){
 	moreStyle.textContent += `
+.media-page-unscoped > .content.container{
+	grid-template-columns: 215px auto;
+}
+.media-page-unscoped .sidebar > .data{
+	padding: 15px;
+}
 .media-page-unscoped .data-set,
 .media-page-unscoped .data-set #hohMALserialization{
 	display: inline-block;

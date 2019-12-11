@@ -453,7 +453,7 @@ let useScriptsDefinitions = [
 	categories: ["Media"]
 },{id: "infoTable",
 	description: "Use a two-column table layout for info on media pages",
-	categories: ["Media"]
+	categories: ["Media","Newly Added"]
 },{id: "entryScore",
 	description: "Add your score and progress to anime pages",
 	categories: ["Media","Login"]
@@ -617,7 +617,7 @@ let useScriptsDefinitions = [
 	categories: ["Forum","Profiles"]
 },{id: "hideAWC",
 	description: "Hide AWC threads from the forum preview on the home page. Number of AWC-free threads to display:",
-	categories: ["Forum"]
+	categories: ["Forum","Newly Added"]
 },{
 	id: "forumPreviewNumber",
 	requires: ["hideAWC"],
@@ -625,7 +625,7 @@ let useScriptsDefinitions = [
 	type: "number",
 	"min": 0,
 	"max": 50,
-	categories: ["Forum"]
+	categories: ["Forum","Newly Added"]
 },{id: "expandRight",
 	description: "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
 	categories: ["Feeds"]
