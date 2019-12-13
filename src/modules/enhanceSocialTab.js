@@ -56,7 +56,7 @@ const handler = (data,target,idMap) => {
 		}
 		target[idMap[e.user.id]].insertBefore(progress,target[idMap[e.user.id]].children[2])
 		let notesEL = create("span","notes") // notes
-		if(e.notes){
+		if(e.notes && !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/)){
 			notesEL.innerHTML = svgAssets.notes;
 			notesEL.title = e.notes;
 		}

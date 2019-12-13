@@ -653,6 +653,9 @@ let useScriptsDefinitions = [
 },{id: "youtubeFullscreen",
 	description: "Allow Youtube videos to play in fullscreen mode",
 	categories: ["Script"]
+},{id: "rightToLeft",
+	description: "Support for right-to-left flow [under development]",
+	categories: ["Script","Newly Added"]
 },{id: "termsFeed",
 	description: "Add a low bandwidth feed to the https://anilist.co/terms page",
 	categories: ["Feeds","Login"]

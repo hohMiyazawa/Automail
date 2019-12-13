@@ -160,7 +160,7 @@ function betterListPreview(){
 					if(air.media.coverImage.color){
 						card.style.backgroundColor = air.media.coverImage.color
 					};
-					if(index % 5 > 1){
+					if((index % 5 > 1) ^ useScripts.rightToLeft){
 						card.classList.add("info-left")
 					};
 					let cover = create("a","cover",false,card,"background-position: 50%;background-repeat: no-repeat;background-size: cover;text-align: center;border-radius: 3px;");

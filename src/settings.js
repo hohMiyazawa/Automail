@@ -98,6 +98,7 @@ let useScripts = {//most modules are turned on by default
 	termsFeed: false,
 	termsFeedNoImages: false,
 	customCSS: false,
+	rightToLeft: false,
 	subTitleInfo: false,
 	customCSSValue: "",
 	expandDescriptions: true,
