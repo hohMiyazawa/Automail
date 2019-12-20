@@ -827,6 +827,9 @@ if(useScripts.CSSverticalNav && (!useScripts.mobileFriendly)){
 	height: 20px;
 	width: 20px;
 }
+.text div.markdown{
+	max-height: 660px;
+}
 .stats-wrap .stat-cards .stat-card .inner-wrap .detail .value{
 	font-size: 1.4rem;
 	font-weight: 700;

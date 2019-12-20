@@ -38,7 +38,7 @@ query($id: Int!, $type: MediaType, $page: Int = 1, $language: StaffLanguage){
 			if(document.getElementById("dubNotice")){
 				return
 			}
-			let dubNotice = create("p","#dubNotice",useScripts.dubMarkerLanguage + " dub available");
+			let dubNotice = create("p","#dubNotice",useScripts.dubMarkerLanguage + " dub exists");
 			dubNoticeLocation.insertBefore(dubNotice,dubNoticeLocation.firstChild)
 		}
 	};
