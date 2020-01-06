@@ -265,22 +265,34 @@ query($id: Int,$userName: String){
 			}
 			customTags = [...customTags].map(pair => pair[1]);
 			customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
-			removeChildren(tagIndex)
-			customTags.forEach(tag => {
-				let tagElement = create("p",false,tag.name,tagIndex);
-				create("span","count",tag.count,tagElement);
-				tagElement.onclick = function(){
-					let filterBox = document.querySelector(".entry-filter input");
-					filterBox.value = tag.name;
-					filterBox.dispatchEvent(new Event("input"));
-					if(filterBox.scrollIntoView){
-						filterBox.scrollIntoView({"behavior": "smooth","block": "start"})
+			let drawTags = function(){
+				removeChildren(tagIndex);
+				let sortName = create("span",false,"▲",tagIndex,"cursor:pointer");
+				let sortNumber = create("span",false,"▼",tagIndex,"cursor:pointer;float:right");
+				customTags.forEach(tag => {
+					let tagElement = create("p",false,tag.name,tagIndex);
+					create("span","count",tag.count,tagElement);
+					tagElement.onclick = function(){
+						let filterBox = document.querySelector(".entry-filter input");
+						filterBox.value = tag.name;
+						filterBox.dispatchEvent(new Event("input"));
+						if(filterBox.scrollIntoView){
+							filterBox.scrollIntoView({"behavior": "smooth","block": "start"})
+						}
+						else{
+							document.body.scrollTop = document.documentElement.scrollTop = 0
+						}
 					}
-					else{
-						document.body.scrollTop = document.documentElement.scrollTop = 0
-					}
+				});
+				sortName.onclick = function(){
+					customTags.sort((b,a) => b.name.localeCompare(a.name));
+					drawTags()
 				}
-			})
+				sortNumber.onclick = function(){
+					customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
+					drawTags()
+				}
+			};drawTags()
 		};
 		let variables = {
 			name: decodeURIComponent(URLstuff[1]),
