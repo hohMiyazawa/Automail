@@ -4,8 +4,7 @@ try{
 }
 catch(e){
 	alert("Error: LocalStorage not available.");
-	console.log("LocalStorage, required for saving settings, is not available. Terminating Automail.");
-	return;
+	console.log("LocalStorage, required for saving settings, is not available. Terminating Automail.")
 }
 
 const notificationColourDefaults = {

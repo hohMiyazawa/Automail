@@ -8,4 +8,5 @@
 // @grant        GM_xmlhttpRequest
 // @license      GPLv3
 // ==/UserScript==
+(function(){
 "use strict";
