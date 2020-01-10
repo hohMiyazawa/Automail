@@ -18,4 +18,5 @@ build:
 	mkdir build
 
 build/firefox_addon.zip: build/automail.js ../icons ../manifest.json
-	zip build/firefox_addon.zip build/automail.js ../icons ../manifest.json
+	cd build
+	zip firefox_addon.zip automail.js ../../icons ../../manifest.json

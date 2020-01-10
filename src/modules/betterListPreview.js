@@ -319,7 +319,7 @@ function betterListPreview(){
 					}
 					let fallback = create("span","hohFallback",air.media.title.userPreferred,card,"background-color: rgb(var(--color-foreground),0.6);padding: 3px;border-radius: 3px;");
 					if(useScripts.titleLanguage === "ROMAJI"){
-						fallback.innerHTML = air.media.title.userPreferred.replace(/\S{3}(a|\(|☆|\-|e|i|ou|(o|u)(?!u|\s)|n(?!a|e|i|o|u))(?![a-z]($|[^a-z]))/gi,m => m + "<wbr>");
+						fallback.innerText = air.media.title.userPreferred
 					}
 					
 				});

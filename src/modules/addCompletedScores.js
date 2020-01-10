@@ -26,8 +26,7 @@ function addCompletedScores(){
 					data = data.data.MediaList;
 					let scoreSuffix = scoreFormatter(
 						data.score,
-						data.user.mediaListOptions.scoreFormat,
-						data.user.name
+						data.user.mediaListOptions.scoreFormat
 					);
 					let noteContent = parseListJSON(data.notes);
 					let noteSuffix = "";
@@ -52,14 +51,16 @@ function addCompletedScores(){
 						}
 					};
 					if(data.score){
+						//innerHTML because: contains an inline svg in the case of the "star" rating system
+						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
 						if(status.innerText.match(/^completed/i)){
-							scoreInfo.innerHTML = scoreSuffix;
+							scoreInfo.appendChild(scoreSuffix);
 							create("span",false,noteSuffix,scoreInfo);
-							create("span",false,rewatchSuffix,scoreInfo);
+							create("span",false,rewatchSuffix,scoreInfo)
 						}
 						else{
-							scoreInfo.innerHTML = scoreSuffix;
-							create("span",false,noteSuffix,scoreInfo);
+							scoreInfo.appendChild(scoreSuffix);
+							create("span",false,noteSuffix,scoreInfo)
 						};
 						scoreInfo.style.display = "inline"
 					}

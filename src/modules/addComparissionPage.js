@@ -334,21 +334,24 @@ function addComparissionPage(){
 				let showUserScore = create("td",false,false,row);
 				if(show.score[i]){
 					if(systemFilter.checked){
-						showUserScore.innerHTML = scoreFormatter(show.scorePersonal[i],users[i].system,users[i].name);
+						showUserScore.appendChild(scoreFormatter(
+							show.scorePersonal[i],
+							users[i].system
+						))
 					}
 					else{
-						showUserScore.innerText = show.score[i];
+						showUserScore.innerText = show.score[i]
 					};
 					columnAmounts[i].sum += show.score[i];
 					columnAmounts[i].amount++;
 				}
 				else{
 					if(show.status[i] === "NOT"){
-						showUserScore.innerText = " ";
+						showUserScore.innerText = " "
 					}
 					else{
-						showUserScore.innerText = "–";//n-dash
-					};
+						showUserScore.innerText = "–"//n-dash
+					}
 				};
 				if(show.status[i] !== "NOT"){
 					if(colourFilter.checked){
@@ -358,15 +361,15 @@ function addComparissionPage(){
 						let statusDot = create("div","hohStatusDot",false,showUserScore);
 						statusDot.style.background = distributionColours[show.status[i]];
 						statusDot.title = show.status[i].toLowerCase();
-					};
+					}
 				};
 				if(show.progress[i]){
 					create("span","hohStatusProgress",show.progress[i],showUserScore);
 				};
 				if(show.favourite[i]){
 					let favStar = create("span",false,false,showUserScore,"color:gold;font-size:1rem;vertical-align:middle;padding-bottom:2px;");
-					favStar.innerHTML = svgAssets.star;
-				};
+					favStar.appendChild(svgAssets2.star.cloneNode(true));
+				}
 			};
 			table.appendChild(row);
 		});

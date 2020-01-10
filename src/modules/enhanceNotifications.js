@@ -100,7 +100,7 @@ You can also turn off this notice there.`,setting);
 					quickComName.classList.add("hohThisIsMe")
 				};
 				let quickComContent = create("span","hohQuickComContent",false,quickCom);
-				quickComContent.innerHTML = reply.text.replace(/src='http:/g,"src='https:");//The Anilist API's parsed markdown. Any XSS vulnerability would also apply to Anilist native
+				quickComContent.innerHTML = reply.text //reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				let quickComLikes = create("span","hohQuickComLikes","♥",quickCom);
 				if(reply.likes.length > 0){
 					quickComLikes.innerText = reply.likes.length + "♥";
@@ -477,7 +477,7 @@ You can also turn off this notice there.`,setting);
 				text.appendChild(textSpan);
 			}
 			else if(activities[i].type === "airing"){
-				textSpan.innerHTML = activities[i].text;//The Anilist API's parsed markdown. Any XSS vulnerability would also apply to Anilist native
+				textSpan.innerHTML = activities[i].text;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				text.appendChild(textSpan);
 			}
 			else if(activities[i].type === "follow"){
@@ -505,7 +505,7 @@ You can also turn off this notice there.`,setting);
 			}
 			else{//display as-is
 				textSpan.classList.add("hohUnhandledSpecial");
-				textSpan.innerHTML = activities[i].text;//The Anilist API's parsed markdown. Any XSS vulnerability would also apply to Anilist native
+				textSpan.innerHTML = activities[i].text;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				text.appendChild(textSpan);
 			};
 			let time = create("div","hohTime");

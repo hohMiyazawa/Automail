@@ -14,8 +14,8 @@ function addSocialThemeSwitch(){
 	let themeSwitch = create("div",["theme-switch","hohThemeSwitch"],false,target,"width:70px;");
 	let listView = create("span",false,false,themeSwitch);
 	let cardView = create("span","active",false,themeSwitch);
-	listView.innerHTML = svgAssets.listView;
-	cardView.innerHTML = svgAssets.cardView;
+	listView.appendChild(svgAssets2.listView.cloneNode(true));
+	cardView.appendChild(svgAssets2.cardView.cloneNode(true));
 	listView.onclick = function(){
 		document.querySelector(".hohThemeSwitch .active").classList.remove("active");
 		listView.classList.add("active");

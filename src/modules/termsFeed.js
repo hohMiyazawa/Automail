@@ -92,7 +92,7 @@ function termsFeed(){
 			let replyWrap = create("span",["action","hohReplies"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
 			let replyCount = create("span","count",(activity.replies.length || activity.replyCount ? activity.replies.length || activity.replyCount : " "),replyWrap);
 			let replyIcon = create("span",false,false,replyWrap);
-			replyIcon.innerHTML = svgAssets.reply;
+			replyIcon.appendChild(svgAssets2.reply.cloneNode(true));
 			replyWrap.style.cursor = "pointer";
 			replyIcon.children[0].style.width = "13px";
 			replyIcon.stylemarginLeft = "-2px";
@@ -238,14 +238,14 @@ function termsFeed(){
 							user.href = "/user/" + reply.user.name + "/";
 							let text = create("div","status",false,rep,"padding-bottom:10px;margin-left:5px;max-width:100%;");
 							if(useScripts.termsFeedNoImages && !activity.renderingPermission){
-								let cleanText = reply.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
+								let imgText = reply.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 									let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
 									return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
 								})
-								text.innerHTML = cleanText;
+								text.innerHTML = imgText//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							}
 							else{
-								text.innerHTML = reply.text
+								text.innerHTML = reply.text//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							}
 							Array.from(text.querySelectorAll(".youtube")).forEach(ytLink => {
 								create("a",["link","newTab"],"Youtube " + ytLink.id,ytLink)
@@ -334,25 +334,25 @@ function termsFeed(){
 			if(activity.type === "TEXT" || activity.type === "MESSAGE"){
 				status = create("div",false,false,content,"padding-bottom:10px;width:95%;overflow-wrap:anywhere;");
 				if(useScripts.termsFeedNoImages){
-					let cleanText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
+					let imgText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 						let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
 						return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
 					}).replace(/<video.*?video>/g,video => {
 						let link = video.match(/src=("|')(.*?)("|')/)[2];
 						return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
 					})
-					status.innerHTML = cleanText;
+					status.innerHTML = imgText;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 					if(cleanText !== activity.text){
 						let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:50px;width:10px;cursor:pointer;");
 						render.onclick = () => {
 							activity.renderingPermission = true;
-							status.innerHTML = activity.text;
+							status.innerHTML = activity.text;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							render.style.display = "none";
 						}
 					}
 				}
 				else{
-					status.innerHTML = activity.text;
+					status.innerHTML = activity.text;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 				}
 				Array.from(status.querySelectorAll(".youtube")).forEach(ytLink => {
 					create("a",["link","newTab"],ytLink.id,ytLink)
@@ -456,12 +456,12 @@ function termsFeed(){
 				}
 			};
 			let link = create("a",["link","newTab"],false,act,"position:absolute;top:2px;right:4px;width:10px;");
-			link.innerHTML = svgAssets.link;
+			link.appendChild(svgAssets2.link.cloneNode(true));
 			if(type === "thread"){
-				link.href = "https://anilist.co/forum/thread/" + activity.id + "/";
+				link.href = "https://anilist.co/forum/thread/" + activity.id + "/"
 			}
 			else{
-				link.href = "https://anilist.co/" + type + "/" + activity.id + "/";
+				link.href = "https://anilist.co/" + type + "/" + activity.id + "/"
 			}
 			if(activity.user.name === whoAmI){
 				let deleteActivity = create("span","hohDeleteActivity",svgAssets.cross,act);

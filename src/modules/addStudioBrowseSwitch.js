@@ -17,10 +17,10 @@ function addStudioBrowseSwitch(){
 	let listView = create("span",false,false,themeSwitch);
 	let compactView = create("span",false,false,themeSwitch);
 	let cardView = create("span","active",false,themeSwitch);
-	compactListView.innerHTML = svgAssets.listView;
-	listView.innerHTML = svgAssets.bigListView;
-	compactView.innerHTML = svgAssets.compactView;
-	cardView.innerHTML = svgAssets.cardView;
+	compactListView.appendChild(svgAssets2.listView.cloneNode(true));
+	listView.appendChild(svgAssets2.bigListView.cloneNode(true));
+	compactView.appendChild(svgAssets2.compactView.cloneNode(true));
+	cardView.appendChild(svgAssets2.cardView.cloneNode(true));
 	compactView.onclick = function(){
 		document.querySelector(".hohThemeSwitch .active").classList.remove("active");
 		compactView.classList.add("active");

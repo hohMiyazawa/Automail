@@ -34,7 +34,7 @@ function addEntryScore(id,tries){
 						stepSize = 0.1
 					}
 					if(MediaList.score){
-						scoreSpan.innerHTML = scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat,whoAmI);
+						scoreSpan.appendChild(scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat));
 						if(useScripts.accessToken && ["POINT_100","POINT_10","POINT_10_DECIMAL"].includes(userObject.mediaListOptions.scoreFormat)){
 							let updateScore = function(isUp){
 								let score = MediaList.score;
@@ -45,7 +45,7 @@ function addEntryScore(id,tries){
 									MediaList.score -= stepSize
 								}
 								if(MediaList.score >= minScore && MediaList.score <= maxScore){
-									scoreSpan.innerHTML = scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat,whoAmI);
+									scoreSpan.appendChild(scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat));
 									authAPIcall(
 										`mutation($id:Int,$score:Float){
 											SaveMediaListEntry(mediaId:$id,score:$score){

@@ -82,14 +82,18 @@ function addForumMediaNoAWC(){
 			}
 			let info = create("div","info",false,footer);
 			let viewCount = create("span",false,false,info);
-			viewCount.innerHTML = svgAssets.eye + " " + thread.viewCount;
+			viewCount.appendChild(svgAssets2.eye.cloneNode(true));
+			viewCount.appendChild(document.createTextNode(" "));
+			viewCount.appendChild(create("span",false,thread.viewCount,false,"padding-left: 0px;"))
 			if(!thread.replyUser){
 				thread.replyCount--;
 			}
 			if(thread.replyCount){
 				info.appendChild(document.createTextNode(" "));
 				let replyCount = create("span",false,false,info);
-				replyCount.innerHTML = svgAssets.reply + " " + thread.replyCount;
+				replyCount.appendChild(svgAssets2.reply.cloneNode(true));
+				replyCount.appendChild(document.createTextNode(" "));
+				replyCount.appendChild(create("span",false,thread.replyCount,false,"padding-left: 0px;"))
 			}
 		})
 	};

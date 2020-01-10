@@ -46,7 +46,16 @@ query($id: Int){
 				return
 			}
 			tweet.classList.add("hohEmbedded");
-			tweet.innerHTML += `<blockquote class="twitter-tweet"${(document.body.classList.contains("site-theme-dark") ? " data-theme=\"dark\"" : "")}><p lang="en" dir="ltr"><a class="hohEmbedded" href="${tweet.href}">Loading tweet by ${tweetMatch[1]}...</p></blockquote>`;
+			let tweetBlockQuote = create("blockquote",false,false,tweet);
+			tweetBlockQuote.classList.add("twitter-tweet");
+			if(document.body.classList.contains("site-theme-dark")){
+				tweetBlockQuote.setAttribute("data-theme","dark")
+			}
+			let tweetBlockQuoteInner = create("p",false,false,tweetBlockQuote);
+			tweetBlockQuoteInner.setAttribute("lang","en");
+			tweetBlockQuoteInner.setAttribute("dir","ltr");
+			let tweetBlockQuoteInnerInner = create("a","hohEmbedded","Loading tweet by " + tweetMatch[1] + "...",tweetBlockQuoteInner)
+				.href = tweet.href;
 			if(document.getElementById("automailTwitterEmbed")){
 				document.getElementById("automailTwitterEmbed").remove()
 			}

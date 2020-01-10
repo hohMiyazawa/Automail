@@ -77,7 +77,7 @@ function addMALscore(type,id){
 							let recTitle = create("a","title",false,rec,"position:absolute;top:35px;left:80px;color:rgb(var(--color-blue));");
 							recTitle.innerText = "MAL ID " + idMal;
 							let recDescription = create("p",false,false,rec,"font-size: 1.4rem;line-height: 1.5;");
-							recDescription.innerHTML = description;
+							recDescription.innerText = entityUnescape(description);
 							generalAPIcall("query($idMal:Int,$type:MediaType){Media(idMal:$idMal,type:$type){id title{romaji native english} coverImage{large color} siteUrl}}",{idMal:idMal,type:item[1].toUpperCase()},function(data){
 								if(!data){
 									return;

@@ -57,7 +57,7 @@ const handler = (data,target,idMap) => {
 		target[idMap[e.user.id]].insertBefore(progress,target[idMap[e.user.id]].children[2])
 		let notesEL = create("span","notes") // notes
 		if(e.notes && !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/)){
-			notesEL.innerHTML = svgAssets.notes;
+			notesEL.appendChild(svgAssets2.notes.cloneNode(true));
 			notesEL.title = e.notes;
 		}
 		let dateString = [
@@ -97,7 +97,7 @@ const handler = (data,target,idMap) => {
 		)
 		let rewatchEL = create("span","repeat");
 		if(e.repeat){
-			rewatchEL.innerHTML = svgAssets.repeat;
+			rewatchEL.appendChild(svgAssets2.repeat.cloneNode(true));
 			rewatchEL.title = e.repeat;
 		}
 		target[idMap[e.user.id]].insertBefore(

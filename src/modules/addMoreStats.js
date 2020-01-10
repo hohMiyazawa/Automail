@@ -393,7 +393,7 @@ query($page: Int){
 								user2.href = "/user/" + message.recipient.name;
 								let link = create("a",["link","newTab"]," Link",newElem);
 								link.href = "/activity/" + message.id;
-								newElem.innerHTML += message.message;
+								newElem.innerHTML += message.message;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 								create("hr",false,false,results);
 							})
 						}
@@ -1784,7 +1784,7 @@ query($type: MediaType,$page: Int){
 											create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
 												.href = activity.siteUrl;
 											create("span",false,"Link-only post. Spam?",row);
-											create("p",false,false,row).innerHTML = activity.text;
+											create("p",false,false,row).innerText = entityUnescape(activity.text);
 										}
 									})
 								}
@@ -1807,7 +1807,7 @@ query($type: MediaType,$page: Int){
 													create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
 														.href = activity.siteUrl;
 													create("span",false,"Possible piracy link",row);
-													create("p",false,false,row).innerHTML = activity.text;
+													create("p",false,false,row).innerText = entityUnescape(activity.text);
 												}
 											};
 										});
@@ -2021,7 +2021,7 @@ query($type: MediaType,$page: Int){
 								let newDate = create("p",false,false,results,"font-family:monospace;margin-right:10px;");
 								let newPage = create("a","newTab",act.siteUrl,newDate,"color:rgb(var(--color-blue));");
 								newPage.href = act.siteUrl;
-								newDate.innerHTML += act.text;
+								newDate.innerHTML += act.text;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 								create("hr",false,false,results)
 							}
 						})
@@ -2282,7 +2282,8 @@ query($type: MediaType,$page: Int){
 					columnTitle.innerText = "Genre"
 				}
 				if(formatter.focus === indexAccumulator){
-					columnTitle.innerHTML += " " + svgAssets.angleDown
+					columnTitle.innerText += " ";
+					columnTitle.appendChild(svgAssets2.angleDown.cloneNode(true))
 				};
 				columnTitle.index = +indexAccumulator;
 				columnTitle.addEventListener("click",function(){
@@ -2538,10 +2539,11 @@ query($type: MediaType,$page: Int){
 								statusDot.style.backgroundColor = "transparent";//default case
 							}
 							if(data[index].repeat === 1){
-								cel.innerHTML = svgAssets.repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
 							}
 							else if(data[index].repeat > 1){
-								cel.innerHTML = svgAssets.repeat + data[index].repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
+								create("span",false,data[index].repeat,cel)
 							}
 						}
 					},
@@ -2638,7 +2640,7 @@ query($type: MediaType,$page: Int){
 				create("span","hohStatValue",value,newStat);
 				if(comment){
 					create("span",false,false,newStat)
-						.innerHTML = comment
+						.innerText = comment
 				}
 			};
 //first activity
@@ -2783,7 +2785,7 @@ query($type: MediaType,$page: Int){
 				};
 //longest activity
 				let singleText = (100*longestDuration.time/sumDuration).roundPlaces(2) + "% is ";
-				singleText += "<a href='https://anilist.co/anime/" + longestDuration.id + "'>" + longestDuration.name + "</a>";
+				singleText += longestDuration.name;
 				if(longestDuration.rewatch === 0){
 					if(longestDuration.status === "CURRENT"){
 						singleText += ". Currently watching."
@@ -2914,10 +2916,11 @@ query($type: MediaType,$page: Int){
 								statusDot.style.backgroundColor = "transparent"//default case
 							}
 							if(data[index].repeat === 1){
-								cel.innerHTML += svgAssets.repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
 							}
 							else if(data[index].repeat > 1){
-								cel.innerHTML += svgAssets.repeat + data[index].repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
+								create("span",false,data[index].repeat,cel)
 							}
 						}
 					},
@@ -3332,10 +3335,11 @@ query($type: MediaType,$page: Int){
 							statusDot.style.backgroundColor = "transparent";//default case
 						}
 						if(top.repeat === 1){
-							countCel.innerHTML += svgAssets.repeat
+							countCel.appendChild(svgAssets2.repeat.cloneNode(true));
 						}
 						else if(top.repeat > 1){
-							countCel.innerHTML += svgAssets.repeat + top.repeat
+							countCel.appendChild(svgAssets2.repeat.cloneNode(true));
+							create("span",false,top.repeat,countCel)
 						}
 						create("div",false,(top.score ? top.score : "-"),secondRow);
 						let timeString = formatTime(top.watchedDuration*60);
@@ -3507,7 +3511,7 @@ query($type: MediaType,$page: Int){
 				create("span","hohStatValue",value,newStat);
 				if(comment){
 					let newStatComment = create("span",false,false,newStat);
-					newStatComment.innerHTML = comment;
+					newStatComment.innerText = comment;
 				};
 			};
 			let chapters = 0;
@@ -3756,10 +3760,11 @@ query($type: MediaType,$page: Int){
 								statusDot.style.backgroundColor = "transparent"//default case
 							}
 							if(data[index].repeat === 1){
-								cel.innerHTML = svgAssets.repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
 							}
 							else if(data[index].repeat > 1){
-								cel.innerHTML = svgAssets.repeat + data[index].repeat
+								cel.appendChild(svgAssets2.repeat.cloneNode(true));
+								create("span",false,data[index].repeat,cel)
 							}
 						}
 					},

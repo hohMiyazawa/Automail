@@ -56,7 +56,7 @@ function enhanceSocialTabFeed(){
 									avatar.style.backgroundImage = `url("${act.user.avatar.medium}")`;
 							let timeWrapper = create("div","time",false,wrap);timeWrapper.setAttribute(randomData,"");
 								let action = create("a","action",false,timeWrapper);action.setAttribute(randomData,"");
-								action.innerHTML = svgAssets.link;
+								action.appendChild(svgAssets2.link.cloneNode(true));
 								action.href = "/activity/" + act.id;
 								let time = nativeTimeElement(act.createdAt);timeWrapper.appendChild(time);time.setAttribute(randomData,"");
 							let actions = create("div","actions",false,wrap);actions.setAttribute(randomData,"");
@@ -65,7 +65,7 @@ function enhanceSocialTabFeed(){
 										let replyCount = create("span","count",act.replies.length,actionReplies);replyCount.setAttribute(randomData,"");
 										actionReplies.appendChild(document.createTextNode(" "));
 									};
-									actionReplies.innerHTML += svgAssets.reply;
+									actionReplies.appendChild(svgAssets2.reply.cloneNode(true));
 								actions.appendChild(document.createTextNode(" "));
 								let actionLikes = create("div",["action","likes"],false,actions);actionLikes.setAttribute(randomData,"");
 								const randomData2 = "data-v-977827fa";
@@ -73,7 +73,7 @@ function enhanceSocialTabFeed(){
 										let likeButton = create("div","button",false,actionLikes);likeButton.setAttribute(randomData2,"");
 											let likeCount = create("span","count",act.likes.length || "",likeButton);likeCount.setAttribute(randomData2,"");
 											likeButton.appendChild(document.createTextNode(" "));
-											likeButton.innerHTML += svgAssets.likeNative;
+											likeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
 										likeButton.title = act.likes.map(a => a.name).join("\n");
 										if(act.likes.some(like => like.name === whoAmI)){
 											likeButton.classList.add("liked")
@@ -137,7 +137,7 @@ function enhanceSocialTabFeed(){
 												let repLikeButton = create("div","button",false,repActionLikes);likeButton.setAttribute(randomDataHate,"");
 													let repLikeCount = create("span","count",rep.likes.length || "",repLikeButton);repLikeCount.setAttribute(randomDataHate,"");
 													repLikeButton.appendChild(document.createTextNode(" "));
-													repLikeButton.innerHTML += svgAssets.likeNative;
+													repLikeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
 												repLikeButton.title = rep.likes.map(a => a.name).join("\n");
 												if(rep.likes.some(like => like.name === whoAmI)){
 													repLikeButton.classList.add("liked")
@@ -179,7 +179,7 @@ function enhanceSocialTabFeed(){
 											let repTime = nativeTimeElement(rep.createdAt);repActionTime.appendChild(repTime);repTime.setAttribute(randomData,"");
 								let replyMarkdown = create("div","reply-markdown",false,reply);replyMarkdown.setAttribute(rnd,"");
 									let markdown = create("div","markdown",false,replyMarkdown);markdown.setAttribute(rnd,"");
-									markdown.innerHTML = rep.text;
+									markdown.innerHTML = rep.text;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 						});
 				})
 			}
