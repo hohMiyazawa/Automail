@@ -1,7 +1,7 @@
 all: build build/automail.js build/firefox_addon.zip
 
-build/automail.js: build/header.js settings.js alias.js build/styles.css utilities.js graphql.js controller.js build/userModules.js
-	cat build/header.js settings.js alias.js build/styles.css utilities.js graphql.js controller.js build/userModules.js > build/automail.js
+build/automail.js: build/header.js settings.js alias.js build/styles.css utilities.js purify.js graphql.js controller.js build/userModules.js
+	cat build/header.js settings.js alias.js build/styles.css utilities.js purify.js graphql.js controller.js build/userModules.js > build/automail.js
 	date +"%s" | sed 's_^_//Automail built at _' >> build/automail.js
 	rm build/header.js build/styles.css build/userModules.js
 
@@ -18,5 +18,4 @@ build:
 	mkdir build
 
 build/firefox_addon.zip: build/automail.js ../icons ../manifest.json
-	cd build
-	zip firefox_addon.zip automail.js ../../icons ../../manifest.json
+	cd build && zip firefox_addon.zip automail.js ../../icons ../../manifest.json

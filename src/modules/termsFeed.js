@@ -242,10 +242,10 @@ function termsFeed(){
 									let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
 									return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
 								})
-								text.innerHTML = imgText//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+								text.innerHTML = DOMPurify.sanitize(imgText)//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							}
 							else{
-								text.innerHTML = reply.text//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+								text.innerHTML = DOMPurify.sanitize(reply.text)//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							}
 							Array.from(text.querySelectorAll(".youtube")).forEach(ytLink => {
 								create("a",["link","newTab"],"Youtube " + ytLink.id,ytLink)
@@ -341,18 +341,18 @@ function termsFeed(){
 						let link = video.match(/src=("|')(.*?)("|')/)[2];
 						return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
 					})
-					status.innerHTML = imgText;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
-					if(cleanText !== activity.text){
+					status.innerHTML = DOMPurify.sanitize(imgText);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+					if(imgText !== activity.text){
 						let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:50px;width:10px;cursor:pointer;");
 						render.onclick = () => {
 							activity.renderingPermission = true;
-							status.innerHTML = activity.text;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+							status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 							render.style.display = "none";
 						}
 					}
 				}
 				else{
-					status.innerHTML = activity.text;//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+					status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 				}
 				Array.from(status.querySelectorAll(".youtube")).forEach(ytLink => {
 					create("a",["link","newTab"],ytLink.id,ytLink)

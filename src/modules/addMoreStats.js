@@ -393,7 +393,7 @@ query($page: Int){
 								user2.href = "/user/" + message.recipient.name;
 								let link = create("a",["link","newTab"]," Link",newElem);
 								link.href = "/activity/" + message.id;
-								newElem.innerHTML += message.message;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
+								newElem.innerHTML += DOMPurify.sanitize(message.message);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 								create("hr",false,false,results);
 							})
 						}
@@ -2021,7 +2021,7 @@ query($type: MediaType,$page: Int){
 								let newDate = create("p",false,false,results,"font-family:monospace;margin-right:10px;");
 								let newPage = create("a","newTab",act.siteUrl,newDate,"color:rgb(var(--color-blue));");
 								newPage.href = act.siteUrl;
-								newDate.innerHTML += act.text;//reason for innerHTML: preparsed sanitized HTML from the Anilist API
+								newDate.innerHTML += DOMPurify.sanitize(act.text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 								create("hr",false,false,results)
 							}
 						})
@@ -2090,7 +2090,6 @@ query($type: MediaType,$page: Int){
 			miscResults.innerText = "Loading...";
 			availableQueries.find(que => que.name === miscInputSelect.value).code()
 		}
-//gather some stats
 
 		let customTagsCollection = function(list,title,fields){
 			let customTags = new Map();
