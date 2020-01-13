@@ -56,14 +56,22 @@ query($id: Int){
 			tweetBlockQuoteInner.setAttribute("dir","ltr");
 			let tweetBlockQuoteInnerInner = create("a","hohEmbedded","Loading tweet by " + tweetMatch[1] + "...",tweetBlockQuoteInner)
 				.href = tweet.href;
-			if(document.getElementById("automailTwitterEmbed")){
-				document.getElementById("automailTwitterEmbed").remove()
+			if(window.GM_xmlhttpRequest){
+				/*Only fetch external script if running in userscript mode*/
+				if(document.getElementById("automailTwitterEmbed")){
+					document.getElementById("automailTwitterEmbed").remove()
+				}
+				let script = document.createElement("script");
+				script.setAttribute("src","https://platform.twitter.com/widgets.js");
+				script.setAttribute("async","");
+				script.id = "automailTwitterEmbed";
+				document.head.appendChild(script);
 			}
-			let script = document.createElement("script");
-			script.setAttribute("src","https://platform.twitter.com/widgets.js");
-			script.setAttribute("async","");
-			script.id = "automailTwitterEmbed";
-			document.head.appendChild(script);
+			else{
+				let tweetBlockQuoteInnerInner = create("a","hohEmbedded","Loading tweet by " + tweetMatch[1] + "...",tweetBlockQuoteInner)
+					.href = tweet.href;
+				create("span",false,"Could not load Tweet. Twitter embedding is currently not available for Firefox addon builds of Automail",tweetBlockQuoteInner)
+			}
 		})
 	}
 },400);
