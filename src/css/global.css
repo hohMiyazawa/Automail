@@ -2030,3 +2030,6 @@ input[list="socialUsers"]{
 body.TMPreviewScore > .el-tooltip__popper{
 	display: none;
 }
+body.__ns__pop2top{/*no-script placeholder, messes with the search if there are blocked media elements in the feed*/
+	z-index: unset!important;
+}
