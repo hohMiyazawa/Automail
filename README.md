@@ -17,7 +17,7 @@ As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/aniscripts/
 # Build instructions
 
 "src/" contains a makefile, run "make" there.
-Requires cmake and shell utilities
+Requires cmake, m4 and basic shell utilities
 
 Will build the userscript and the firefox addon in src/build/
 
