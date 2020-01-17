@@ -45,6 +45,7 @@ function addEntryScore(id,tries){
 									MediaList.score -= stepSize
 								}
 								if(MediaList.score >= minScore && MediaList.score <= maxScore){
+									scoreSpan.lastChild.remove();
 									scoreSpan.appendChild(scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat));
 									authAPIcall(
 										`mutation($id:Int,$score:Float){
