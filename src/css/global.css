@@ -2020,6 +2020,9 @@ input[list="socialUsers"]{
 .hohNoAWC .info span{
 	padding-left: 10px;
 }
+.hohYearHeading{
+	grid-column: 1 / -1;
+}
 #hohMALserialization{
 	padding-bottom: 14px;
 }

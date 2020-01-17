@@ -21,6 +21,7 @@ Requires cmake and shell utilities
 
 Will build the userscript and the firefox addon in src/build/
 
-# Scope of this repository
+If you have an archived version of this repo, updated code can be found at
+https://github.com/hohMiyazawa/Automail
 
-The current structure, release cycle, modularity and contribution guidelines are currently not decided.
+

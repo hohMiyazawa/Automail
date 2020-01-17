@@ -378,6 +378,7 @@ The start year can also be a range like "2000-2005"`
 				|| mediaMatcher["title-english"](query,media)
 				|| mediaMatcher["title-native"](query,media)
 		}
+		let voiceYear = 0;
 		voiceRolesList.forEach(function(anime){
 			let foundRole = filterSelect.value === "";
 			if(!foundRole){
@@ -394,6 +395,16 @@ The start year can also be a range like "2000-2005"`
 				}
 			}
 			if(foundRole){
+				if(sortSelect.value === "chronological"){
+					if((anime.startDate.year || anime.endDate.year) > voiceYear){
+						voiceYear = anime.startDate.year || anime.endDate.year;
+						create("h3","hohYearHeading",voiceYear,hohCharacterRoles)
+					}
+					else if(!(anime.startDate.year || anime.endDate.year) && voiceYear > 0){
+						animeYear = 0;
+						create("h3","hohYearHeading","No date",hohCharacterRoles)
+					}
+				}
 				let roleCard = createRoleCard(anime,"anime");
 				roleCard.classList.add("view-media-character");
 				roleCard.classList.remove("view-media");
@@ -420,6 +431,7 @@ The start year can also be a range like "2000-2005"`
 			}
 		});
 		removeChildren(hohMediaRolesAnime)
+		let animeYear = 0;
 		animeRolesList.forEach(anime => {
 			let foundRole = filterSelect.value === "";
 			if(!foundRole){
@@ -434,6 +446,16 @@ The start year can also be a range like "2000-2005"`
 				}
 			}
 			if(foundRole){
+				if(sortSelect.value === "chronological"){
+					if((anime.startDate.year || anime.endDate.year) > animeYear){
+						animeYear = anime.startDate.year || anime.endDate.year;
+						create("h3","hohYearHeading",animeYear,hohMediaRolesAnime)
+					}
+					else if(!(anime.startDate.year || anime.endDate.year) && animeYear > 0){
+						animeYear = 0;
+						create("h3","hohYearHeading","No date",hohMediaRolesAnime)
+					}
+				}
 				let roleCard = createRoleCard(anime,"anime");
 				hohMediaRolesAnime.appendChild(roleCard);
 				if(anime.myStatus){
@@ -449,7 +471,8 @@ The start year can also be a range like "2000-2005"`
 				}
 			}
 		});
-		removeChildren(hohMediaRolesManga)
+		removeChildren(hohMediaRolesManga);
+		let mangaYear = 0;
 		mangaRolesList.forEach(manga => {
 			let foundRole = filterSelect.value === "";
 			if(!foundRole){
@@ -464,6 +487,16 @@ The start year can also be a range like "2000-2005"`
 				}
 			}
 			if(foundRole){
+				if(sortSelect.value === "chronological"){
+					if((manga.startDate.year || manga.endDate.year) > mangaYear){
+						mangaYear = manga.startDate.year || manga.endDate.year;
+						create("h3","hohYearHeading",mangaYear,hohMediaRolesManga)
+					}
+					else if(!(manga.startDate.year || manga.endDate.year) && mangaYear > 0){
+						mangaYear = 0;
+						create("h3","hohYearHeading","No date",hohMediaRolesManga)
+					}
+				}
 				let roleCard = createRoleCard(manga,"manga");
 				hohMediaRolesManga.appendChild(roleCard);
 				if(manga.myStatus){
