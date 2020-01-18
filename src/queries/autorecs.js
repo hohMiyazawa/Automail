@@ -1,16 +1,24 @@
-{name: "Autorecs (anime)",code: function(){
+{name: "Autorecs",
+	setup: function(){
+		let select = create("select","#typeSelect",false,miscOptions);
+	let animeOption = create("option",false,"Anime",select);
+	let mangaOption = create("option",false,"Manga",select);
+	animeOption.value = "ANIME";
+	mangaOption.value = "MANGA";
+	},
+	code: function(){
 	miscResults.innerText = "Collecting list data...";
 	generalAPIcall(
 		`query($name: String!){
 			User(name: $name){
 				statistics{
-					anime{
+					${document.getElementById("typeSelect").value.toLowerCase()}{
 						meanScore
 						standardDeviation
 					}
 				}
 			}
-			MediaListCollection(userName: $name,type: ANIME,status_not: PLANNING){
+			MediaListCollection(userName: $name,type: ${document.getElementById("typeSelect").value},status_not: PLANNING){
 				lists{
 					entries{
 						mediaId
@@ -39,7 +47,7 @@
 			const existingSet = new Set(
 				list.map(media => media.mediaId)
 			);
-			const statistics = data.data.User.statistics.anime;
+			const statistics = data.data.User.statistics[document.getElementById("typeSelect").value.toLowerCase()];
 			const recsMap = new Map();
 			list.filter(
 				media => media.score
@@ -73,7 +81,7 @@
 				let card = create("p",false,false,miscResults);
 				let score = create("span","hohMonospace",rec.score.toPrecision(3) + " ",card,"margin-right:10px;");
 				create("a",false,rec.title,card)
-					.href = "/anime/" + rec.id + "/"
+					.href = "/" + document.getElementById("typeSelect").value.toLowerCase() + "/" + rec.id + "/"
 			})
 		}
 	)

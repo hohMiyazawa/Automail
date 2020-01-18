@@ -82,8 +82,20 @@
 							}
 						})
 					}
+					if(checkMessages){
+						data.data.messages.activities.forEach(activity => {
+							if(activity.text.match(/^<p><a\shref=".*?<\/a><\/p>$/)){
+								let row = create("p",false,false,miscResults);
+								create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
+									.href = activity.siteUrl;
+								create("span",false,"Link-only message. Spam?",row);
+								create("p",false,false,row).innerText = entityUnescape(activity.text);
+							}
+						})
+					}
 				}
 				if(document.getElementById("piracy").checked){
+					const badDomains = m4_include(data/badDomains.json)
 					if(checkActivities){
 						data.data.activities1.activities.concat(data.data.activities2.activities).forEach(activity => {
 							(activity.text.match(/<a href=\".*?\"/g) || []).forEach(link => {
@@ -95,7 +107,7 @@
 								if(linker && linker.split(".").length >= 2){
 									linker = linker.split(".")[linker.split(".").length - 2];
 									if(
-										m4_include(data/badDomains.json).includes(hashCode(linker))
+										badDomains.includes(hashCode(linker))
 									){
 										let row = create("p",false,false,miscResults);
 										create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
