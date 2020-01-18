@@ -1,6 +1,6 @@
 if(useScripts.CSSfavs){
 /*adds a logo to most favourite studio entries. Add more if needed */
-	const favStudios = m4_include(css/studios.json)
+	const favStudios = m4_include(data/studios.json)
 	let favStudioString = "";
 	if(useScripts.CSSfavs){
 		favStudioString += `

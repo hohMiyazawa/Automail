@@ -1,0 +1,637 @@
+[
+	{
+		"name": "likeNative",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "heart",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "svg-inline--fa fa-heart fa-w-16 fa-sm"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+					}
+				}
+			]
+			
+		}
+	},
+	{
+		"name": "reply",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "comments",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 576 512",
+				"class": "svg-inline--fa fa-comments fa-w-18 fa-sm"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "angleDown",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "angle-down",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 310 512",
+				"class": "svg-inline--fa fa-angle-down fa-w-10"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "smile",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "smile",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 496 512",
+				"class": "svg-inline--fa fa-smile fa-w-16 fa-lg"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm84-143.4c-20.8 25-51.5 39.4-84 39.4s-63.2-14.3-84-39.4c-8.5-10.2-23.6-11.5-33.8-3.1-10.2 8.5-11.5 23.6-3.1 33.8 30 36 74.1 56.6 120.9 56.6s90.9-20.6 120.9-56.6c8.5-10.2 7.1-25.3-3.1-33.8-10.2-8.4-25.3-7.1-33.8 3.1zM168 240c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32zm160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "meh",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "meh",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 496 512",
+				"class": "svg-inline--fa fa-meh fa-w-16 fa-lg"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm-80-216c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32zm160-64c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm8 144H160c-13.2 0-24 10.8-24 24s10.8 24 24 24h176c13.2 0 24-10.8 24-24s-10.8-24-24-24z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "frown",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "frown",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 496 512",
+				"class": "svg-inline--fa fa-frown fa-w-16 fa-lg"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm-80-216c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32zm160-64c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm-80 128c-40.2 0-78 17.7-103.8 48.6-8.5 10.2-7.1 25.3 3.1 33.8 10.2 8.5 25.3 7.1 33.8-3.1 16.6-19.9 41-31.4 66.9-31.4s50.3 11.4 66.9 31.4c4.8 5.7 11.6 8.6 18.5 8.6 5.4 0 10.9-1.8 15.4-5.6 10.2-8.5 11.5-23.6 3.1-33.8C326 321.7 288.2 304 248 304z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "star",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "star",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 576 512",
+				"class": "icon svg-inline--fa fa-star fa-w-18"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "notes",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "notes",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "svg-inline--fa fa-redo-alt fa-w-16"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "repeat",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "redo-alt",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "svg-inline--fa fa-redo-alt fa-w-16 repeat"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M256.455 8c66.269.119 126.437 26.233 170.859 68.685l35.715-35.715C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.75c-30.864-28.899-70.801-44.907-113.23-45.273-92.398-.798-170.283 73.977-169.484 169.442C88.764 348.009 162.184 424 256 424c41.127 0 79.997-14.678 110.629-41.556 4.743-4.161 11.906-3.908 16.368.553l39.662 39.662c4.872 4.872 4.631 12.815-.482 17.433C378.202 479.813 319.926 504 256 504 119.034 504 8.001 392.967 8 256.002 7.999 119.193 119.646 7.755 256.455 8z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "listView",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "th-large",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "icon svg-inline--fa fa-th-large fa-w-16"
+			},
+			"children": [
+				{
+					"element": "g",
+					"attributes": {
+						"fill": "currentColor"
+					},
+					"children": [
+						{
+							"element": "circle",
+							"attributes": {
+								"cx": 48,
+								"cy": 96,
+								"r": 48
+							}
+						},
+						{
+							"element": "circle",
+							"attributes": {
+								"cx": 48,
+								"cy": 256,
+								"r": 48
+							}
+						},
+						{
+							"element": "circle",
+							"attributes": {
+								"cx": 48,
+								"cy": 416,
+								"r": 48
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 128,
+								"y": 60,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 128,
+								"y": 220,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 128,
+								"y": 380,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"name": "simpleListView",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "th-large",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "icon svg-inline--fa fa-th-large fa-w-16"
+			},
+			"children": [
+				{
+					"element": "g",
+					"attributes": {
+						"fill": "currentColor"
+					},
+					"children": [
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 60,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 220,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 380,
+								"width": 384,
+								"height": 72,
+								"rx": 16
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"name": "bigListView",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "th-large",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "icon svg-inline--fa fa-th-large fa-w-16"
+			},
+			"children": [
+				{
+					"element": "g",
+					"attributes": {
+						"fill": "currentColor"
+					},
+					"children": [
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 32,
+								"width": 149,
+								"height": 128,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 192,
+								"width": 149,
+								"height": 128,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 352,
+								"width": 149,
+								"height": 128,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 181,
+								"y": 32,
+								"width": 331,
+								"height": 128,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 181,
+								"y": 192,
+								"width": 331,
+								"height": 128,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 181,
+								"y": 352,
+								"width": 331,
+								"height": 128,
+								"rx": 24
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"name": "compactView",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "th-large",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "icon svg-inline--fa fa-th-large fa-w-16"
+			},
+			"children": [
+				{
+					"element": "g",
+					"attributes": {
+						"fill": "currentColor"
+					},
+					"children": [
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 32,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 272,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 178,
+								"y": 32,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 178,
+								"y": 272,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 356,
+								"y": 32,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 356,
+								"y": 272,
+								"width": 155,
+								"height": 208,
+								"rx": 24
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"name": "cardView",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "th-large",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "icon svg-inline--fa fa-th-large fa-w-16"
+			},
+			"children": [
+				{
+					"element": "g",
+					"attributes": {
+						"fill": "currentColor"
+					},
+					"children": [
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 32,
+								"width": 240,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 0,
+								"y": 272,
+								"width": 240,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 272,
+								"y": 32,
+								"width": 240,
+								"height": 208,
+								"rx": 24
+							}
+						},
+						{
+							"element": "rect",
+							"attributes": {
+								"x": 272,
+								"y": 272,
+								"width": 240,
+								"height": 208,
+								"rx": 24
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		"name": "link",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"data-prefix": "fas",
+				"data-icon": "link",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 512 512",
+				"class": "svg-inline--fa fa-link fa-w-16 fa-sm"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"
+					}
+				}
+			]
+		}
+	},
+	{
+		"name": "eye",
+		"shape": {
+			"element": "svg",
+			"attributes": {
+				"aria-hidden": "true",
+				"focusable": "false",
+				"data-prefix": "fas",
+				"data-icon": "eye",
+				"role": "img",
+				"xmls": "http://www.w3.org/2000/svg",
+				"viewBox": "0 0 576 512",
+				"class": "svg-inline--fa fa-eye fa-w-18 fa-sm"
+			},
+			"children": [
+				{
+					"element": "path",
+					"attributes": {
+						"fill": "currentColor",
+						"d": "M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+					}
+				}
+			]
+		}
+	}
+]

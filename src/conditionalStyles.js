@@ -113,40 +113,7 @@ m4_include(css/greenManga.css)
 }
 if(useScripts.CSSexpandFeedFilters && (!useScripts.mobileFriendly)){
 	moreStyle.textContent += `
-.home .activity-feed-wrap .section-header .el-dropdown-menu,
-.user .activity-feed-wrap .section-header .el-dropdown-menu{
-	background: none;
-	position: static;
-	display: inline !important;
-	margin-right: 15px;
-	box-shadow: none !important;
-}
-.home .activity-feed-wrap .section-header .el-dropdown-menu__item,
-.user .activity-feed-wrap .section-header .el-dropdown-menu__item{
-	font-weight: normal;
-	color: rgb(var(--color-text-lighter));
-	margin-left: -2px !important;
-	display: inline;
-	font-size: 1.2rem;
-	padding: 4px 15px 5px 15px;
-	border-radius: 3px;
-	transition: .2s;
-	background: none;
-}
-.home .activity-feed-wrap .section-header .el-dropdown-menu__item.active,
-.user .activity-feed-wrap .section-header .el-dropdown-menu__item.active{
-	background: none!important;
-	color: rgb(var(--color-blue));
-}
-.home .activity-feed-wrap .section-header .el-dropdown-menu__item:hover,
-.user .activity-feed-wrap .section-header .el-dropdown-menu__item:hover{
-	background: none!important;
-	color: rgb(var(--color-blue));
-}
-.home .feed-select .feed-filter,
-.user .section-header > .el-dropdown > .el-dropdown-selfdefine{
-	display: none;
-}
+m4_include(css/expandFeedFilters.css)
 	`;
 }
 if(useScripts.showRecVotes){
@@ -189,7 +156,7 @@ if(useScripts.CSSdecimalPoint){
 .medialist.POINT_10_DECIMAL .score[score="3"]::after,
 .medialist.POINT_10_DECIMAL .score[score="2"]::after,
 .medialist.POINT_10_DECIMAL .score[score="1"]::after{
-	margin-left:-4px;
+	margin-left: -4px;
 	content: ".0";
 }
 	`;
