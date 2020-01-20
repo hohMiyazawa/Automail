@@ -1,7 +1,11 @@
-m4_changequote(<m4<,>m4>)// ==UserScript==
+m4_divert(-1)m4_dnl
+m4_changequote(<m4<,>m4>)
+m4_define(AUTOMAIL_VERSION,8.81)
+m4_divert(0)m4_dnl
+// ==UserScript==
 // @name         Automail
 // @namespace    http://tampermonkey.net/
-// @version      8.80
+// @version      AUTOMAIL_VERSION
 // @description  Extra parts for Anilist.co
 // @author       hoh
 // @match        https://anilist.co/*
@@ -11,7 +15,7 @@ m4_changequote(<m4<,>m4>)// ==UserScript==
 (function(){
 "use strict";
 const scriptInfo = {
-	"version" : "8.80",
+	"version" : "AUTOMAIL_VERSION",
 	"name" : "Automail",
 	"link" : "https://greasyfork.org/en/scripts/370473-automail",
 	"repo" : "https://github.com/hohMiyazawa/Automail",
