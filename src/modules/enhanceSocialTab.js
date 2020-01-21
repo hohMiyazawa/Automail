@@ -58,7 +58,7 @@ const handler = (data,target,idMap) => {
 		let notesEL = create("span","notes") // notes
 		if(e.notes && !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/)){
 			notesEL.appendChild(svgAssets2.notes.cloneNode(true));
-			notesEL.title = e.notes;
+			notesEL.title = entityUnescape(e.notes);
 		}
 		let dateString = [
 			e.startedAt.year,

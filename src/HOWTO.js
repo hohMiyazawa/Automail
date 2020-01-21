@@ -17,4 +17,3 @@ exportModule({
 	}
 })
 //your module can also have extra code and utility functions
-})()

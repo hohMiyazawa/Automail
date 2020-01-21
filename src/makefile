@@ -7,13 +7,13 @@ all: pre-build build build/automail.js build/firefox_addon.zip post-build
 pre-build:
 	rm -f build/userModules.js
 
-build/automail.js: settings.js alias.js css/global.css conditionalStyles.js utilities.js purify.js graphql.js controller.js build/userModules.js
+build/automail.js: settings.js alias.js css/global.css conditionalStyles.js utilities.js purify.js graphql.js controller.js build/userModules.js HOWTO.js
 	m4 --prefix-builtins automail.m4 > build/automail.js
 	date +"%s" | sed 's_^_//Automail built at _' >> build/automail.js
 	rm build/userModules.js
 
 build/userModules.js: modules
-	cat modules/* HOWTO.js > build/userModules.js
+	cat modules/* > build/userModules.js
 
 build:
 	mkdir build

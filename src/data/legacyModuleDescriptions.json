@@ -1,0 +1,280 @@
+[
+{"id": "notifications",
+	"description": "Improve notifications",
+	"categories": ["Notifications","Login"]
+},{"id": "hideLikes",
+	"description": "Hide like notifications. Will not affect the notification count",
+	"categories": ["Notifications"]
+},{"id": "settingsTip",
+	"description": "Show a notice on the notification page for where the script settings can be found",
+	"categories": ["Notifications"]
+},{"id": "dismissDot",
+	"description": "Show a spec to dismiss notifications when signed in",
+	"categories": ["Notifications","Login"]
+},{"id": "socialTab",
+	"description": "Media social tab average score, progress and notes",
+	"categories": ["Media"]
+},{"id": "forumComments",
+	"description": "Add a button to collapse comment threads in the forum",
+	"categories": ["Forum"]
+},{"id": "forumMedia",
+	"description": "Add the tagged media to the forum preview on the home page",
+	"categories": ["Forum"]
+},{"id": "mangaBrowse",
+	"description": "Make browse default to manga",
+	"categories": ["Browse"]
+},{"id": "ALbuttonReload",
+	"description": "Make the 'AL' button reload the feeds on the homepage",
+	"categories": ["Navigation"]
+},{"id": "draw3x3",
+	"description": "Add a button to lists to create 3x3's from list entries. Click the button, and then select nine entries",
+	"categories": ["Lists"]
+},{"id": "aniscriptsAPI",
+	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
+	"categories": ["Script","Login"]
+},{"id": "mobileFriendly",
+	"description": "Mobile Friendly mode. Disables some modules not working properly on mobile, and adjusts others",
+	"categories": ["Navigation","Script"]
+},{"id": "tagDescriptions",
+	"description": "Show the definitions of tags when adding new ones to an entry",
+	"categories": ["Media"]
+},{"id": "MALscore",
+	"description": "Add MAL scores to media",
+	"categories": ["Media"]
+},{"id": "MALserial",
+	"description": "Add MAL serialization info to manga",
+	"categories": ["Media"]
+},{"id": "MALrecs",
+	"description": "Add MAL recs to media",
+	"categories": ["Media"]
+},{"id": "subTitleInfo",
+	"description": "Add basic data below the title on media pages",
+	"categories": ["Media"]
+},{"id": "infoTable",
+	"description": "Use a two-column table layout for info on media pages",
+	"categories": ["Media","Newly Added"]
+},{"id": "entryScore",
+	"description": "Add your score and progress to anime pages",
+	"categories": ["Media","Login"]
+},{"id": "reviewConfidence",
+	"description": "Add confidence scores to reviews"
+},{"id": "betterReviewRatings",
+	"description": "Add the total number of ratings to review ratings on the home page"
+},{"id": "activityTimeline",
+	"description": "Link your activities in the social tab of media, and between individual activities",
+	"categories": ["Media","Navigation"]
+},{"id": "browseFilters",
+	"description": "Add more sorting options to browse",
+	"categories": ["Browse"]
+},{"id": "enumerateSubmissionStaff",
+	"description": "Enumerate the multiple credits for staff in the submission form to help avoid duplicates",
+	"categories": ["Submissions","Profiles"]
+},{"id": "replaceStaffRoles",
+	"description": "Add sorting to staff pages",
+	"categories": ["Media","Login"]
+},{"id": "completedScore",
+	"description": "Show the score on the activity when people complete something",
+	"categories": ["Feeds"]
+},{"id": "droppedScore",
+	"description": "Show the score on the activity when people drop something",
+	"categories": ["Feeds"]
+},{"id": "tagIndex",
+	"description": "Show an index of custom tags on anime and manga lists",
+	"categories": ["Lists"]
+},{"id": "yearStepper",
+	"description": "Add buttons to step the year slider up and down",
+	"categories": ["Lists"]
+},{"id": "CSSfollowCounter",
+	"description": "Follow count on social page",
+	"categories": ["Profiles"],
+},{
+	"id": "dubMarker",
+	"subSettings": ["dubMarkerLanguage"],
+	"description": "Add a notice on top of the other data on an anime page if a dub is available (works by checking for voice actors)",
+	"categories": ["Media"]
+},{
+	"id": "dubMarkerLanguage",
+	"requires": ["dubMarker"],
+	"description": "",
+	"type": "select",
+	"categories": ["Media"],
+	"values": ["English","German","Italian","Spanish","French","Korean","Portuguese","Hebrew","Hungarian"]
+},{"id": "mangaGuess",
+	"description": "Make a guess for the number of chapters for releasing manga",
+	"categories": ["Media"]
+},{"id": "CSSmobileTags",
+	"description": "Don't hide tags from media pages on mobile",
+	"categories": ["Media"]
+},{"id": "moreStats",
+	"description": "Show an additional tab on the stats page",
+	"categories": ["Stats"]
+},{"id": "replaceNativeTags",
+	"description": "Full lists for tags, staff and studios in stats",
+	"categories": ["Stats"]
+},{"id": "allStudios",
+	"description": "Include companies that aren't animation studios in the extended studio table",
+	"categories": ["Stats"]
+},{"id": "noRewatches",
+	"description": "Don't include progress from rewatches/rereads in stats",
+	"categories": ["Stats"]
+},{"id": "hideCustomTags",
+	"description": "Hide the custom tags tables by default",
+	"categories": ["Stats"]
+},{"id": "negativeCustomList",
+	"description": "Add an entry in the custom tag tables with all media not on a custom list",
+	"categories": ["Stats"]
+},{"id": "globalCustomList",
+	"description": "Add an entry in the custom tag tables with all media",
+	"categories": ["Stats"]
+},{"id": "timeToCompleteColumn",
+	"description": "Add 'time to complete' info to the tag tables",
+	"categories": ["Stats"]
+},{"id": "comparissionPage",
+	"description": "Replace the native comparison feature",
+	"categories": ["Lists","Profiles"]
+},{"id": "CSSsmileyScore",
+	"description": "Give smiley ratings distinct colours [from userstyle]",
+	"categories": ["Lists","Media"]
+},{"id": "CSSexpandFeedFilters",
+	"description": "Expand the feed filters",
+	"categories": ["Feeds"]
+},{"id": "hideGlobalFeed",
+	"description": "Hide the global feed",
+	"categories": ["Feeds"]
+},{"id": "feedCommentFilter",
+	"description": "Add filter options to the feeds to hide posts with few comments or likes",
+	"categories": ["Feeds"]
+},{"id": "statusBorder",
+	"description": "Colour code the right border of activities by status",
+	"categories": ["Feeds"]
+},{"id": "blockWord",
+	"description": "Hide status posts containing this word:",
+	"categories": ["Feeds"]
+},{
+	"id": "blockWordValue",
+	"requires": ["blockWord"],
+	"description": "",
+	"type": "text",
+	"categories": ["Feeds"]
+},{"id": "profileBackground",
+	"description": "Enable profile backgrounds",
+	"categories": ["Profiles","Login"]
+},{
+	"id": "profileBackgroundValue",
+	"requires": ["profileBackground"],
+	"description": "",
+	"visible": false,
+	"type": "text",
+	"categories": ["Profiles"]
+},{"id": "colourPicker",
+	"description": "Add a colour picker in the footer for adjusting the site themes",
+	"categories": ["Script"]
+},{"id": "progressBar",
+	"description": "Add progress bars to the list previews",
+	"categories": ["Feeds"]
+},{"id": "tweets",
+	"description": "Embed linked tweets",
+	"categories": ["Feeds"]
+},{"id": "embedHentai",
+	"description": "Make cards for links to age restricted content",
+	"categories": ["Feeds"]
+},{"id": "betterListPreview",
+	"description": "Alternative list preview",
+	"categories": ["Feeds","Lists","Login"]
+},{"id": "homeScroll",
+	"description": "Make the 'home' button scroll to the top on the home feed",
+	"categories": ["Feeds"]
+},{"id": "CSSfavs",
+	"description": "Use 5-width favourite layout [from userstyle]",
+	"categories": ["Profiles"]
+},{"id": "CSScompactBrowse",
+	"description": "Use a compact view in the browse section. Also makes various list views available",
+	"categories": ["Browse"]
+},{"id": "customCSS",
+	"description": "Enable custom profile CSS",
+	"categories": ["Profiles","Login"]
+},{"id": "CSSgreenManga",
+	"description": "Green titles for manga",
+	"categories": ["Media","Feeds"]
+},{"id": "cleanSocial",
+	"description": "Give a better space to the following list on the social tab [under development]",
+	"categories": ["Media"]
+},{"id": "limitProgress10",
+	"description": "Limit the 'in progress' sections to 10 entries",
+	"categories": ["Feeds"]
+},{"id": "limitProgress8",
+	"description": "Limit the 'in progress' sections to 8 entries",
+	"categories": ["Feeds"]
+},{"id": "showRecVotes",
+	"description": "Always show the recommendation voting data",
+	"categories": ["Media"]
+},{"id": "myThreads",
+	"description": "Add a 'my threads' link in the forum",
+	"categories": ["Forum","Profiles"]
+},{"id": "hideAWC",
+	"description": "Hide AWC threads from the forum preview on the home page. Number of AWC-free threads to display:",
+	"categories": ["Forum","Newly Added"]
+},{
+	"id": "forumPreviewNumber",
+	"requires": ["hideAWC"],
+	"description": "",
+	"type": "number",
+	"min": 0,
+	"max": 50,
+	"categories": ["Forum","Newly Added"]
+},{"id": "expandRight",
+	"description": "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
+	"categories": ["Feeds"]
+},{"id": "noImagePolyfill",
+	"description": "Add fallback text for missing images in the sidebar and favourite sections",
+	"categories": ["Feeds","Profiles"]
+},{"id": "dropdownOnHover",
+	"description": "Expand the user menu in the nav on hover instead of click",
+	"categories": ["Navigation"]
+},{"id": "shortRomaji",
+	"description": "Short romaji titles for everyday use. Life is too short for light novel titles",
+	"categories": ["Feeds","Profiles","Lists"]
+},{"id": "CSSprofileClutter",
+	"description": "Remove clutter from profiles (milestones, history chart, genres)",
+	"categories": ["Profiles"]
+},{"id": "CSSdecimalPoint",
+	"description": "Give whole numbers a \".0\" suffix when using the 10 point decimal scoring system",
+	"categories": ["Lists"]
+},{"id": "viewAdvancedScores",
+	"description": "View advanced scores",
+	"categories": ["Lists"]
+},{"id": "dblclickZoom",
+	"description": "Double click activities to zoom",
+	"categories": ["Feeds"]
+},{"id": "rightToLeft",
+	"description": "Support for right-to-left flow [under development]",
+	"categories": ["Script","Newly Added"]
+},{"id": "termsFeed",
+	"description": "Add a low bandwidth feed to the https://anilist.co/terms page",
+	"categories": ["Feeds","Login"]
+},{"id": "termsFeedNoImages",
+	"description": "Do not load images on the low bandwidth feed",
+	"categories": ["Feeds","Login"]
+},{"id": "CSSbannerShadow",
+	"description": "Remove banner shadows",
+	"categories": ["Profiles","Media"]
+},{"id": "milestones",
+	"description": "Add total episodes and volumes to profile milestones",
+	"categories": ["Profiles"]
+},{"id": "CSSdarkDropdown",
+	"description": "Use a dark menu dropdown in dark mode",
+	"categories": ["Navigation"]
+},{"id": "moreImports",
+	"description": "Add more list import and list export options",
+	"categories": ["Script","Login"]
+},{"id": "plussMinus",
+	"description": "Add + and - buttons to quickly change scores on your list",
+	"categories": ["Lists","Login"]
+},{"id": "SFWmode",
+	"description": "A less flashy version of the site for school or the workplace [under development]",
+	"categories": ["Script"]
+},{"id": "CSSverticalNav",
+	"description": "Alternative browse mode [with vertical navbar by Kuwabara]",
+	"categories": ["Navigation"]
+}
+]

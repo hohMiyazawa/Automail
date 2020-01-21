@@ -243,6 +243,7 @@ function entityUnescape(string){
 		.replace(/&gt;/g,">")
 		.replace(/&quot;/g,"\"")
 		.replace(/&#039;/g,"'")
+		.replace(/<br\s?\/?>\n?/g,"\n")
 		.replace(/&nbsp;/g," ")//not a nbsp, but close enough in most cases. Better than the raw entity at least
 }
 
