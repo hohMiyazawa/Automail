@@ -1831,6 +1831,7 @@ a.external::after{
 }
 #hohListPreview .size-toggle{
 	float: right;
+	margin-top: -15px;
 }
 .site-theme-contrast .media-page-unscoped .header .description{
 	color: rgb(var(--color-text));
