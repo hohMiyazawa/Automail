@@ -70,7 +70,7 @@ function enhanceSocialTabFeed(){
 								let actionLikes = create("div",["action","likes"],false,actions);actionLikes.setAttribute(randomData,"");
 								const randomData2 = "data-v-977827fa";
 									let likeWrap = create("div","like-wrap",false,actionLikes);likeWrap.setAttribute(randomData,"");likeWrap.setAttribute(randomData2,"");
-										let likeButton = create("div","button",false,actionLikes);likeButton.setAttribute(randomData2,"");
+										let likeButton = create("div","button",false,likeWrap);likeButton.setAttribute(randomData2,"");
 											let likeCount = create("span","count",act.likes.length || "",likeButton);likeCount.setAttribute(randomData2,"");
 											likeButton.appendChild(document.createTextNode(" "));
 											likeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
@@ -131,10 +131,10 @@ function enhanceSocialTabFeed(){
 									let repName = create("a","name",rep.user.name,header);repName.setAttribute(rnd,"");
 									repName.href = "/user/" + rep.user.name;
 									let cornerWrapper = create("div","actions",false,header);cornerWrapper.setAttribute(rnd,"");
-										let repActionLikes = create("div",["action","likes"],false,cornerWrapper);repActionLikes.setAttribute(rnd,"");
+										let repActionLikes = create("div",["action","likes"],false,cornerWrapper,"display: inline-block");repActionLikes.setAttribute(rnd,"");
 											const randomDataHate = "data-v-977827fa";
 											let repLikeWrap = create("div","like-wrap",false,repActionLikes);repLikeWrap.setAttribute(rnd,"");likeWrap.setAttribute(randomDataHate,"");
-												let repLikeButton = create("div","button",false,repActionLikes);likeButton.setAttribute(randomDataHate,"");
+												let repLikeButton = create("div","button",false,repLikeWrap);likeButton.setAttribute(randomDataHate,"");
 													let repLikeCount = create("span","count",rep.likes.length || "",repLikeButton);repLikeCount.setAttribute(randomDataHate,"");
 													repLikeButton.appendChild(document.createTextNode(" "));
 													repLikeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
@@ -175,7 +175,7 @@ function enhanceSocialTabFeed(){
 													};
 													repLikeButton.title = rep.likes.map(a => a.name).join("\n")
 												};
-										let repActionTime = create("div",["action","time"],false,cornerWrapper);repActionTime.setAttribute(rnd,"");
+										let repActionTime = create("div",["action","time"],false,cornerWrapper,"display: inline-block");repActionTime.setAttribute(rnd,"");
 											let repTime = nativeTimeElement(rep.createdAt);repActionTime.appendChild(repTime);repTime.setAttribute(randomData,"");
 								let replyMarkdown = create("div","reply-markdown",false,reply);replyMarkdown.setAttribute(rnd,"");
 									let markdown = create("div","markdown",false,replyMarkdown);markdown.setAttribute(rnd,"");
