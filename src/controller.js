@@ -6,16 +6,13 @@ function handleScripts(url,oldUrl){
 			module.code()
 		}
 	})
-	if(url === "https://anilist.co/settings/apps"){
-		settingsPage()
-	}
-	else if(url === "https://anilist.co/notifications" && useScripts.notifications){
+	if(url === "https://anilist.co/notifications" && useScripts.notifications){
 		enhanceNotifications();
-		return;
+		return
 	}
 	else if(url === "https://anilist.co/reviews" && useScripts.reviewConfidence){
 		addReviewConfidence();
-		return;
+		return
 	}
 	else if(url === "https://anilist.co/user/" + whoAmI + "/social#my-threads"){
 		selectMyThreads()
@@ -25,9 +22,6 @@ function handleScripts(url,oldUrl){
 	}
 	else if(url === "https://anilist.co/terms" && useScripts.termsFeed){
 		termsFeed()
-	}
-	else if(url === "https://anilist.co/site-stats"){
-		randomButtons()
 	}
 	else if(url === "https://anilist.co/404"){
 		possibleBlocked(oldUrl)
@@ -228,8 +222,8 @@ function handleScripts(url,oldUrl){
 	else if(url.match(/^https:\/\/anilist\.co\/search\/manga/)){
 		document.title = "Find Manga · AniList";
 		if(useScripts.browseFilters){
-			addBrowseFilters("manga");
-		};
+			addBrowseFilters("manga")
+		}
 	};
 	let mangaAnimeMatch = url.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 	if(mangaAnimeMatch){
@@ -285,7 +279,7 @@ function handleScripts(url,oldUrl){
 			const urlID = mangaAnimeMatch[2];
 			titleAliases.forEach(alias => {//can't just use a find, the latest alias takes priority (find in reverse?)
 				if(alias[0] === "css/"){
-					return;
+					return
 				};
 				if(alias[0].substring(7,alias[0].length-1) === urlID){
 					let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias[1]) + "/";
@@ -296,7 +290,7 @@ function handleScripts(url,oldUrl){
 					current = document.URL;
 					let titleReplacer = () => {
 						if(urlChangedDependence === false){//I have to kill these global flags with fire some day
-							return;
+							return
 						};
 						let mainTitle = document.querySelector("h1");//fragile, just like your heterosexuality
 						if(mainTitle){
@@ -304,17 +298,17 @@ function handleScripts(url,oldUrl){
 							mainTitle.parentNode.insertBefore(newHeading,mainTitle);
 							mainTitle.style.display = "none";
 							//mainTitle.innerText = alias[1];
-							return;
+							return
 						}
 						else{
 							urlChangedDependence = true;
-							setTimeout(titleReplacer,100);
+							setTimeout(titleReplacer,100)
 						}
 					};
 					urlChangedDependence = true;
-					titleReplacer();
-				};
-			});
+					titleReplacer()
+				}
+			})
 		};
 		if(useScripts.socialTab){
 			scoreOverviewFixer()

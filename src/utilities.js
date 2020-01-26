@@ -430,60 +430,7 @@ function createCheckbox(target,id,checked){//target[,id]
 	return checkbox;
 }
 
-function createDisplayBox(cssProperties){
-	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app"),cssProperties);
-	let mousePosition;
-	let offset = [0,0];
-	let isDown = false;
-	let isDownResize = false;
-	let displayBoxClose = create("span","hohDisplayBoxClose",svgAssets.cross,displayBox);
-	displayBoxClose.onclick = function(){
-		displayBox.remove();
-	};
-	let resizePearl = create("span","hohResizePearl",false,displayBox);
-	displayBox.addEventListener("mousedown",function(e){
-		isDown = true;
-		offset = [
-			displayBox.offsetLeft - e.clientX,
-			displayBox.offsetTop - e.clientY
-		];
-	},true);
-	resizePearl.addEventListener("mousedown",function(e){
-		event.stopPropagation();
-		event.preventDefault();
-		isDownResize = true;
-		offset = [
-			displayBox.offsetLeft,
-			displayBox.offsetTop
-		];
-	},true);
-	document.addEventListener("mouseup",function(){
-		isDown = false;
-		isDownResize = false;
-	},true);
-	document.addEventListener("mousemove",function(event){
-		event.preventDefault();
-		if(isDownResize){
-			mousePosition = {
-				x : event.clientX,
-				y : event.clientY
-			};
-			displayBox.style.width = (mousePosition.x - offset[0]) + "px";
-			displayBox.style.height = (mousePosition.y - offset[1]) + "px";
-			return;
-		}
-		if(isDown){
-			mousePosition = {
-				x : event.clientX,
-				y : event.clientY
-			};
-			displayBox.style.left = (mousePosition.x + offset[0]) + "px";
-			displayBox.style.top  = (mousePosition.y + offset[1]) + "px";
-		}
-	},true);
-	let innerSpace = create("div","scrollableContent",false,displayBox);
-	return innerSpace;
-}
+m4_include(utilities/displayBox.js)
 
 function removeChildren(node){
 	if(node){
@@ -566,126 +513,7 @@ if(useScripts.mangaBrowse){
 	};
 };
 
-if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
-	let colourStyle = create("style");
-	colourStyle.id = "colour-picker-styles";
-	colourStyle.type = "text/css";
-	documentHead.appendChild(colourStyle);
-	const basicStyles = `
-.footer .links{
-	margin-left: calc(0px + 1%);
-	transform: translate(0px,10px);
-}
-.hohColourPicker .hohCheckbox{
-	margin-left: 10px;
-}
-`;
-	if(Array.isArray(useScripts.colourSettings)){//legacy styles
-		let newObjectStyle = {};
-		useScripts.colourSettings.forEach(
-			colour => newObjectStyle[colour.colour] = {
-				initial: colour.initial,
-				dark: colour.dark,
-				contrast: colour.contrast
-			}
-		);
-		useScripts.colourSettings = newObjectStyle;
-		useScripts.save()
-	}
-	let applyColourStyles = function(){
-		colourStyle.textContent = basicStyles;//eh, fix later.
-		Object.keys(useScripts.colourSettings).forEach(key => {
-			let colour = useScripts.colourSettings[key];
-			let hexToRgb = function(hex){
-				let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-				return result ? [
-					parseInt(result[1],16),
-					parseInt(result[2],16),
-					parseInt(result[3],16)
-				] : null;
-			}
-			if(colour.initial){
-				colourStyle.textContent += `:root{${key}:${hexToRgb(colour.initial).join(",")};}`
-			};
-			if(colour.dark){
-				colourStyle.textContent += `.site-theme-dark{${key}:${hexToRgb(colour.dark).join(",")};}`
-			};
-			if(colour.contrast){
-				colourStyle.textContent += `.site-theme-contrast{${key}:${hexToRgb(colour.contrast).join(",")};}`
-			}
-		})
-	};applyColourStyles();
-	let colourPickerLocation = document.querySelector("#app > .wrap > .footer > .container");
-	if(colourPickerLocation){
-		const supportedColours = [
-			"--color-background",
-			"--color-foreground",
-			"--color-foreground-grey",
-			"--color-foreground-grey-dark",
-			"--color-foreground-blue",
-			"--color-foreground-blue-dark",
-			"--color-background-blue-dark",
-			"--color-overlay",
-			"--color-shadow",
-			"--color-shadow-dark",
-			"--color-text",
-			"--color-text-light",
-			"--color-text-lighter",
-			"--color-text-bright",
-			"--color-blue",
-			"--color-blue-dim",
-			"--color-white",
-			"--color-black",
-			"--color-red",
-			"--color-peach",
-			"--color-orange",
-			"--color-yellow",
-			"--color-green"
-		];
-		let colourChanger = function(){
-			useScripts.colourSettings[cpSelector.value] = {
-				"initial" :  (cpInitialBox.checked  ? cpInput.value : false),
-				"dark" :     (cpDarkBox.checked     ? cpInput.value : false),
-				"contrast" : (cpContrastBox.checked ? cpInput.value : false)
-			}
-			applyColourStyles();
-			useScripts.save()
-		};
-		let cpContainer = create("div","hohColourPicker",false,colourPickerLocation);
-		let cpTitle = create("h2",false,"Adjust Colours",cpContainer);
-		let cpInput = create("input",false,false,cpContainer);
-		cpInput.type = "color";
-		let cpSelector = create("select",false,false,cpContainer);
-		supportedColours.forEach(colour => {
-			let option = create("option",false,colour,cpSelector);
-			option.value = colour;
-		});
-		let cpDomain = create("p",false,false,cpContainer);
-		let cpInitialBox = createCheckbox(cpDomain);
-		create("span",false,"default",cpDomain);
-		let cpDarkBox = createCheckbox(cpDomain);
-		create("span",false,"dark",cpDomain);
-		let cpContrastBox = createCheckbox(cpDomain);
-		create("span",false,"contrast",cpDomain);
-		let cpSelectorChanger = function(){
-			if(useScripts.colourSettings[cpSelector.value]){
-				cpInitialBox.checked  = !!useScripts.colourSettings[cpSelector.value].initial;
-				cpDarkBox.checked     = !!useScripts.colourSettings[cpSelector.value].dark;
-				cpContrastBox.checked = !!useScripts.colourSettings[cpSelector.value].contrast;
-				cpInput.value = useScripts.colourSettings[cpSelector.value].initial
-			}
-			cpInitialBox.checked = false;
-			cpDarkBox.checked = false;
-			cpContrastBox.checked = false;
-		};
-		cpSelector.onchange = cpSelectorChanger;
-		cpInput.onchange = colourChanger;
-		cpInitialBox.onchange = colourChanger;
-		cpDarkBox.onchange = colourChanger;
-		cpContrastBox.onchange = colourChanger;
-		cpSelectorChanger()
-	}
-}
+m4_include(utilities/colourPicker.js)
 
 function scoreFormatter(score,format){
 	let scoreElement = create("span");
@@ -749,64 +577,9 @@ function convertScore(score,format){
 	}
 }
 
-function saveAs(data,fileName,pureText){
-	let link = create("a");
-	document.body.appendChild(link);
-	let json = pureText ? data : JSON.stringify(data);
-	let blob = new Blob([json],{type: "octet/stream"});
-	let url = window.URL.createObjectURL(blob);
-	link.href = url;
-	link.download = fileName || "File from Anilist.co";
-	link.click();
-	window.URL.revokeObjectURL(url);
-	document.body.removeChild(link);
-}
+m4_include(utilities/saveAs.js)
 
-function levDist(s,t){//https://stackoverflow.com/a/11958496/5697837
-	// Step 1
-	let n = s.length;
-	let m = t.length;
-	if(!n){
-		return m
-	}
-	if(!m){
-		return n
-	}
-	let d = []; //2d matrix
-	for(var i = n; i >= 0; i--) d[i] = [];
-	// Step 2
-	for(var i = n; i >= 0; i--) d[i][0] = i;
-	for(var j = m; j >= 0; j--) d[0][j] = j;
-	// Step 3
-	for(var i = 1; i <= n; i++){
-		let s_i = s.charAt(i - 1);
-		// Step 4
-		for(var j = 1; j <= m; j++){
-			//Check the jagged ld total so far
-			if(i === j && d[i][j] > 4){
-				return n
-			}
-			let t_j = t.charAt(j - 1);
-			let cost = (s_i === t_j) ? 0 : 1; // Step 5
-			//Calculate the minimum
-			let mi = d[i - 1][j] + 1;
-			let b = d[i][j - 1] + 1;
-			let c = d[i - 1][j - 1] + cost;
-			if(b < mi){
-				mi = b
-			}
-			if(c < mi){
-				mi = c;
-			}
-			d[i][j] = mi; // Step 6
-			//Damerau transposition
-			/*if (i > 1 && j > 1 && s_i === t.charAt(j - 2) && s.charAt(i - 2) === t_j) {
-				d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
-			}*/
-		}
-	}
-	return d[n][m]
-}
+m4_include(utilities/levDist.js)
 
 function returnList(list,skipProcessing){
 	if(!list){
@@ -862,69 +635,7 @@ function returnList(list,skipProcessing){
 	)
 };
 
-function parseListJSON(listNote){
-	if(!listNote){
-		return null
-	};
-	let commandMatches = listNote.match(/\$({.*})\$/);
-	if(commandMatches){
-		try{
-			let noteContent = JSON.parse(commandMatches[1]);
-			noteContent.adjustValue = noteContent.adjust ? noteContent.adjust : 0;
-			let rangeParser = function(thing){
-				if(typeof thing === "number"){
-					return 1
-				}
-				else if(typeof thing === "string"){
-					thing = thing.split(",")
-				};
-				return thing.reduce(function(acc,item){
-					if(typeof item === "number"){
-						return acc + 1
-					};
-					let multiplierPresent = item.split("x");
-					let value = 1;
-					let rangePresent = multiplierPresent[0].split("-");
-					if(rangePresent.length === 2){//range
-						let minRange = parseFloat(rangePresent[0]);
-						let maxRange = parseFloat(rangePresent[1]);
-						if(minRange && maxRange){
-							value = maxRange - minRange + 1
-						}
-					}
-					if(multiplierPresent.length === 1){//no multiplier
-						return acc + value
-					}
-					if(multiplierPresent.length === 2){//possible multiplier
-						let multiplier = parseFloat(multiplierPresent[1]);
-						if(multiplier || multiplier === 0){
-							return acc + value*multiplier
-						}
-						else{
-							return acc + 1
-						}
-					}
-					else{//unparsable
-						return acc + 1
-					}
-				},0);
-			};
-			if(noteContent.more){
-				noteContent.adjustValue += rangeParser(noteContent.more)
-			};
-			if(noteContent.skip){
-				noteContent.adjustValue -= rangeParser(noteContent.skip)
-			};
-			return noteContent;
-		}
-		catch(e){
-			console.warn("Unable to parse JSON in list note",commandMatches)
-		}
-	}
-	else{
-		return null
-	}
-};
+m4_include(utilities/parseListJSON.js)
 
 function formatCompat(compatData,targetLocation){
 	let differenceSpan = create("span",false,compatData.difference.roundPlaces(3));

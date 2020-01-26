@@ -17,161 +17,7 @@ body{
 	padding: 3px;
 	border-radius: 3px;
 }
-.hohTime{
-	position: absolute;
-	right: 12px;
-	top: 6px;
-	font-size: 1.1rem;
-}
-.hohUnread{
-	border-right: 8px;
-	border-color: rgba(var(--color-blue));
-	border-right-style: solid;
-}
-.hohNotification{
-	margin-bottom: 10px;
-	background: rgb(var(--color-foreground));
-	border-radius: 4px;
-	justify-content: space-between;
-	line-height: 0;
-	min-height: 72px;
-	position: relative;
-}
-.hohNotification *{
-	line-height: 1.15;
-}
-.hohUserImageSmall{
-	display: inline-block;
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: absolute;
-	z-index: 10;
-}
-.hohUserImage{
-	height: 72px;
-	width: 72px;
-	display: inline-block;
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: absolute;
-}
-.hohMediaImage{
-	height: 70px;
-	margin-right: 5px;
-}
-.hohMessageText{
-	position: absolute;
-	margin-top: 30px;
-	margin-left: 80px;
-}
-.hohMediaImageContainer{
-	vertical-align: bottom;
-	margin-left: 400px;
-	display: inline;
-	position: relative;
-	display: inline-block;
-	min-height: 70px;
-	width: calc(100% - 500px);
-	text-align: right;
-	padding-bottom: 1px;
-}
-.hohMediaImageContainer > a{
-	height: 70px;
-	line-height: 0!important;
-	display: inline-block;
-	z-index: 11;
-}
-span.hohMediaImageContainer{
-	line-height: 0!important;
-}
-.hohCommentsContainer{
-	margin-top: 5px;
-}
-.hohCommentsArea{
-	margin: 10px;
-	display: none;
-	padding-bottom: 2px;
-	margin-top: 5px;
-	width: 95%;
-}
-.hohCommentsContainer > a.link{
-	font-size: 1.3rem;
-}
-.hohComments{
-	float: right;
-	display: none;
-	margin-top: -21px;
-	margin-right: 10px;
-	cursor: pointer;
-	margin-left: 600px;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.hohCombined .hohComments{
-	display: none!important;
-}
-.hohQuickCom{
-	padding: 5px;
-	background-color: rgb(var(--color-background));
-	margin-bottom: 5px;
-	position: relative;
-}
-.hohQuickComName{
-	margin-right: 15px;
-	color: rgb(var(--color-blue));
-}
-.hohThisIsMe{
-	color: rgb(var(--color-green));
-}
-.hohILikeThis{
-	color: rgb(var(--color-red));
-}
-.hohQuickComName::after{
-	content: ":";
-}
-.hohQuickComContent{
-	margin-right: 40px;
-	display: block;
-}
-.hohQuickComContent > p{
-	margin: 1px;
-}
-.hohQuickComLikes{
-	position: absolute;
-	right: 5px;
-	bottom: 5px;
-	display: inline-block;
-}
-.hohQuickComContent img {
-	max-width: 100%;
-}
-.hohSpoiler::before{
-	color: rgb(var(--color-blue));
-	cursor: pointer;
-	background: rgb(var(--color-background));
-	border-radius: 3px;
-	content: "Spoiler, click to view";
-	font-size: 1.3rem;
-	padding: 0 5px;
-}
-.hohSpoiler.hohClicked::before{
-	display: none;
-}
-.hohSpoiler > span{
-	display: none;
-}
-.hohMessageText > span > div.time{
-	display: none;
-}
-.hohUnhandledSpecial > div{
-	margin-top: -15px;
-}
+m4_include(css/notifications.css)
 .hohMonospace{
 	font-family: monospace;
 }
@@ -222,10 +68,6 @@ span.hohMediaImageContainer{
 	top: 10px;
 	font-weight: 400;
 }
-.hohShamelessLink{
-	display: block;
-	margin-bottom: 5px;
-}
 .hohSlidePlayer{
 	display: block;
 	position: relative;
@@ -244,12 +86,12 @@ span.hohMediaImageContainer{
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	opacity:0.5;
+	opacity: 0.5;
 }
 .hohSlide:hover{
 	background-color: rgb(0,0,0,0.4);
 	cursor: pointer;
-	opacity:1;
+	opacity: 1;
 }
 .hohRightSlide{
 	right: 0px;
@@ -474,39 +316,6 @@ span.hohMediaImageContainer{
 }
 .home .feed-type-toggle{
 	min-width: 148px;
-}
-.hohDisplayBox{
-	position: fixed;
-	top: 80px;
-	left: 200px;
-	z-index: 999;
-	padding: 20px;
-	background-color: rgb(var(--color-foreground));
-	border: solid 1px;
-	border-radius: 4px;
-	box-shadow: black 2px 2px 20px;
-	overflow: hidden;
-}
-.hohDisplayBox .scrollableContent{
-	overflow: auto;
-	height: 100%;
-	scrollbar-width: thin;
-}
-.hohDisplayBoxClose{
-	position: absolute;
-	right: 15px;
-	top: 15px;
-	cursor: pointer;
-	background-color: red;
-	border: solid;
-	border-width: 1px;
-	border-radius: 2px;
-	color: white;
-	border-color: rgb(var(--color-text));
-	filter: drop-shadow(0 0 0.2rem crimson);
-}
-.hohDisplayBoxClose:hover{
-	filter: drop-shadow(0 0 0.75rem crimson);
 }
 .hohFeedFilter{
 	position: absolute;
@@ -822,6 +631,7 @@ tr.hohAnimeTable:nth-child(2n+1){
 .media-card .list-status[status="Repeating"]{
 	background: violet;
 }
+/* One Piece links */
 .external-link[href="https://mangaplus.shueisha.co.jp/titles/100030"]::after{
 	content: "(rerun)";
 }
@@ -1130,132 +940,6 @@ meter::-moz-meter-bar{
 	width: 0;
 	height: 0;
 }
-@media(max-width: 1540px){
-	.substitution .character-roles{
-		max-width: 1200px;
-	}
-}
-@media(max-width: 1040px){
-	.input-wrap.manga input[placeholder="Status"],
-	.input-wrap.anime input[placeholder="Status"],
-	.input-wrap.anime .form.score input{
-		width: 100%;
-	}
-	.substitution .grid-wrap{
-		grid-template-columns: 1fr;
-	}
-	.home .list-preview .media-preview-card:nth-child(5n+3) .content{
-		text-align: left;
-		right: unset;
-	}
-}
-@media(max-width: 760px){
-	#hohMALscore{
-		padding-right: 25px;
-	}
-	#hohMALscore .type{
-		font-weight: 400;
-	}
-	#hohMALscore .value{
-		color: rgb(var(--color-text));
-		font-size: 1.4rem;
-	}
-	.hohMediaImageContainer{
-		position: absolute;
-		right: -22px;
-		max-height: 30px;
-		width: 25px;
-		overflow: scroll;
-		scrollbar-width: thin;
-	}
-	.hohUserImageSmall{
-		display: none;
-	}
-	.hohMessageText{
-		margin-top: 30px!important;
-	}
-	.hohBackgroundUserCover{
-		margin-top: 1px;
-	}
-	.hohMediaImageContainer > a{
-		height: 20px;
-	}
-	.hohMediaImage{
-		height: 20px;
-		width: 20px;
-		margin-right: 0px
-	}
-	.hohNotification{
-		margin-right: 23px;
-		font-size: 1.5rem;
-	}
-	.hohCommentsContainer{
-		position: relative;
-		top: 70px;
-	}
-	.hohComments{
-		position: absolute;
-		right: -5px;
-		top: 5px;
-	}
-	.notifications-feed .filters p{
-		display: inline;
-		margin-left: 10px;
-	}
-	.activity-feed .actions,
-	.activity-feed .actions .action .count{
-		font-size: 1.6rem;
-	}
-	.hohDownload{
-		top: 50px;
-	}
-	.media .hohDownload{
-		top: 5px;
-	}
-	#dubNotice{
-		margin: 0px;
-	}
-	.hohFeedFilter .hohDescription{
-		display: none;
-	}
-	.forum-feed .create-btn + .filter-group > a{
-		display: inline-block;
-		width: 19%;
-		padding-top: 40px;
-		padding-bottom: 40px;
-		text-align: center;
-		border-style: solid;
-		border-width: 1px;
-		border-color: rgb(var(--color-foreground));
-	}
-	.hohExtraFilters{
-		max-height: 250px;
-		overflow: auto;
-	}
-	.recommendations-wrap .actions .thumbs-down{
-		margin-right: 10px;
-	}
-	.relations.hohRelationStatusDots .hohStatusDot,
-	.recommendation-card .hohStatusDot{
-		position: relative;
-		transform: none;
-	}
-}
-@media(max-width: 500px){
-	.footer [href="https://anilist.co"],
-	.footer [href="/sitemap/index.xml"]{
-		display: none;
-	}
-	.footer .links{
-		margin-left: -20px;
-	}
-	.markdown-editor{
-		padding: 12px 2px!important;
-	}
-	.hohColourPicker{
-		display: none;
-	}
-}
 .tagIndex p{
 	cursor: pointer;
 }
@@ -1454,13 +1138,6 @@ meter::-moz-meter-bar{
 }
 .hohNewChapter{
 	position: relative;
-}
-.hohNewChapter .hohDisplayBoxClose{
-	display: none;
-	top: 0px;
-}
-.hohNewChapter:hover .hohDisplayBoxClose{
-	display: inline;
 }
 .hohFeed .activity:hover::before{
 	content: ">";
@@ -1959,68 +1636,7 @@ input[list="socialUsers"]{
 	height: 80px;
 	overflow: hidden;
 }
-.hohNoAWC .thread-card.small{
-	margin-bottom: 15px;
-	background: rgb(var(--color-foreground));
-	border-radius: 3px;
-	padding: 18px;
-	position: relative;
-}
-.hohNoAWC .title{
-	font-size: 1.4rem;
-	display: block;
-	margin-bottom: 12px;
-	margin-right: 110px;
-}
-.hohNoAWC .footer{
-	align-items: center;
-	display: flex;
-	flex-direction: row;
-}
-.hohNoAWC .avatar{
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	border-radius: 3px;
-	display: inline-block;
-	height: 25px;
-	vertical-align: text-top;
-	width: 25px;
-}
-.hohNoAWC .name{
-	display: inline-block;
-	font-size: 1.3rem;
-	padding-left: 10px;
-}
-.hohNoAWC .name span{
-	color: rgb(var(--color-blue));
-}
-.hohNoAWC .categories{
-	margin-left: auto;
-	white-space: nowrap;
-}
-.hohNoAWC .category{
-	border-radius: 100px;
-	color: #fff;
-	display: inline-block;
-	font-size: 1.1rem;
-	margin-left: 10px;
-	padding: 4px 8px;
-	text-transform: lowercase;
-}
-.hohNoAWC .category:hover{
-	color: rgba(26,27,28,.6);
-}
-.hohNoAWC .info{
-	color: rgb(var(--color-text-lighter));
-	font-size: 1.2rem;
-	position: absolute;
-	right: 12px;
-	top: 12px;
-}
-.hohNoAWC .info span{
-	padding-left: 10px;
-}
+m4_include(css/noAWC.css)
 .hohYearHeading{
 	grid-column: 1 / -1;
 }
@@ -2037,3 +1653,5 @@ body.TMPreviewScore > .el-tooltip__popper{
 :root .__ns__pop2top{/*no-script placeholder, messes with the search if there are blocked media elements in the feed*/
 	z-index: initial!important;
 }
+m4_include(css/displayBox.css)
+m4_include(css/smallScreens.css)

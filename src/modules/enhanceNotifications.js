@@ -500,6 +500,25 @@ You can also turn off this notice there.`,setting);
 				text.appendChild(textName);
 				text.appendChild(textSpan);
 				let textSpan2 = create("span",false,activities[i].text,text,"color:rgb(var(--color-blue));");
+				if(activities[i].text === ""){
+					if(activities[i].type === "forumSubscribedComment"){
+						textSpan.innerText = " commented in your subscribed forum thread ";
+					}
+					else if(activities[i].type === "forumCommentLike"){
+						textSpan.innerText = " liked your comment, in a ";
+					}
+					else if(activities[i].type === "forumCommentReply"){
+						textSpan.innerText = " replied to your comment, in a ";
+					}
+					else if(activities[i].type === "forumLike"){
+						textSpan.innerText = " liked your ";
+					}
+					else if(activities[i].type === "forumMention"){
+						textSpan.innerText = " mentioned you, in a ";
+					}
+					textSpan2.innerText = "[deleted thread]";
+					text.href = "#";
+				}
 				text.style.maxWidth = "none";
 				text.style.marginTop = "17px";
 			}
