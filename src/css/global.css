@@ -1733,6 +1733,37 @@ body.TMPreviewScore > .el-tooltip__popper{
 .hohStudioSubstitute .cover .overlay .title{
 	line-height: 17px;
 }
+.hohStudioSubstitute .airing-countdown{
+	background: rgb(var(--color-foreground-blue-dark));
+	color: rgb(var(--color-blue));
+	font-weight: 500;
+	text-align: center;
+	padding: 10px;
+	font-size: 1.2rem;
+}
+.hohStudioSubstitute .extra{
+	background: rgb(var(--color-foreground-blue));
+	color: rgb(var(--color-text-light));
+	display: flex;
+	font-size: 1.1rem;
+	justify-content: space-around;
+}
+.hohStudioSubstitute .extra > span{
+	display: inline-block;
+	padding: 8px;
+	text-align: center;
+}
+.hohStudioSubstitute .list-status{
+	border-radius: 50px;
+	box-shadow: 0 1px 10px
+	rgba(49,54,68,.8);
+	cursor: help;
+	height: 10px;
+	left: 12px;
+	position: absolute;
+	top: 12px;
+	width: 10px;
+}
 
 m4_include(css/displayBox.css)
 m4_include(css/smallScreens.css)
