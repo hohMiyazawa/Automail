@@ -60,15 +60,29 @@ const handler = (data,target,idMap) => {
 			notesEL.appendChild(svgAssets2.notes.cloneNode(true));
 			notesEL.title = entityUnescape(e.notes);
 		}
-		let dateString = [
-			e.startedAt.year,
-			e.startedAt.month,
-			e.startedAt.day
-		].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-") + " - " + [
-			e.completedAt.year,
-			e.completedAt.month,
-			e.completedAt.day
-		].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-");
+		let dateString;
+		if(
+			e.startedAt.year && e.completedAt.year && e.startedAt.year == e.completedAt.year
+			&& e.startedAt.month && e.completedAt.month && e.startedAt.month == e.completedAt.month
+			&& e.startedAt.day && e.completedAt.day && e.startedAt.day == e.completedAt.day
+		){
+			dateString = [
+				e.startedAt.year,
+				e.startedAt.month,
+				e.startedAt.day
+			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-")
+		}
+		else{
+			dateString = [
+				e.startedAt.year,
+				e.startedAt.month,
+				e.startedAt.day
+			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-") + " - " + [
+				e.completedAt.year,
+				e.completedAt.month,
+				e.completedAt.day
+			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-");
+		}
 		if(
 			(e.media.chapters || e.media.episodes) === 1
 			&& !e.startedAt.year
