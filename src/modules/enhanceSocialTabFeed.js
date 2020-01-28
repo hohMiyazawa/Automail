@@ -27,6 +27,13 @@ function enhanceSocialTabFeed(){
 				mediaId: parseInt(URLstuff[2])
 			},
 			function(data){
+				if(!data){//restore regular feed
+					feedLocation.classList.remove("hohReplaceFeed");
+					feedContent.style.display = "none";
+					feedHeader.style.display = "none";
+					loadMore.style.display = "none";
+					return
+				}
 				if(data.data.Page.pageInfo.lastPage > page){
 					loadMore.style.display = "block";
 					loadMore.onclick = function(){

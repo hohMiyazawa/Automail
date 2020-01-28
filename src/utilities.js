@@ -149,7 +149,7 @@ function nativeTimeElement(timestamp){
 					else if(diff < 7){
 						elem.innerText = diff + " days ago";
 					}
-					else if(diff === 7){
+					else if(diff < 14){
 						elem.innerText = "1 week ago";
 					}
 					else if(diff < 30){
