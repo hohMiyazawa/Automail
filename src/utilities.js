@@ -765,4 +765,12 @@ function compatCheck(list,name,type,callback){
 
 m4_include(data/commonUnfinishedManga.js)
 
+function uniqueBy(a,key){
+	let seen = new Set();
+	return a.filter(item => {
+		let k = key(item);
+		return seen.has(k) ? false : seen.add(k)
+	})
+}
+
 let urlChangedDependence = false;//???

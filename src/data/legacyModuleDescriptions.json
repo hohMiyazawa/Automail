@@ -248,7 +248,7 @@
 	"categories": ["Feeds"]
 },{"id": "rightToLeft",
 	"description": "Support for right-to-left flow [under development]",
-	"categories": ["Script","Newly Added"]
+	"categories": ["Script"]
 },{"id": "termsFeed",
 	"description": "Add a low bandwidth feed to the https://anilist.co/terms page",
 	"categories": ["Feeds","Login"]

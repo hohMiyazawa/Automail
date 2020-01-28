@@ -1653,5 +1653,86 @@ body.TMPreviewScore > .el-tooltip__popper{
 :root .__ns__pop2top{/*no-script placeholder, messes with the search if there are blocked media elements in the feed*/
 	z-index: initial!important;
 }
+.hohStudioSorter .selected{
+	color: rgb(var(--color-blue));
+}
+.hohStudioSorter span{
+	font-weight: normal;
+	color: rgb(var(--color-text-lighter));
+	display: inline;
+	font-size: 1.2rem;
+	padding: 4px 15px 5px 15px;
+	border-radius: 3px;
+	transition: .2s;
+	background: none;
+	cursor: pointer;
+}
+.hohStudioSorter span:hover{
+	color: rgb(var(--color-blue));
+}
+.hohStudioSubstitute{
+	margin-top: 25px;
+	display: grid;
+	grid-column-gap: 30px;
+	grid-row-gap: 30px;
+	grid-template-columns: repeat(3,1fr);
+}
+.hohStudioSubstitute .media-card{
+	background: rgb(var(--color-foreground));
+	border-radius: 3px;
+	box-shadow: 0 2px 20px
+	rgba(49,54,68,.09);
+	display: inline-grid;
+	grid-template-columns: 185px auto;
+	height: 265px;
+	min-width: 370px;
+	position: relative;
+	text-align: left;
+}
+.hohStudioSubstitute .cover{
+	background-color: var(--media-color);
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	position: relative;
+}
+.hohStudioSubstitute .data{
+	position: relative;
+}
+.hohStudioSubstitute .description{
+	font-size: 1.1rem;
+	height: 160px;
+	line-height: 15px;
+	overflow: hidden;
+	padding: 12px;
+	color: rgb(var(--color-text-light));
+}
+.hohStudioSubstitute .genres{
+	background: rgb(var(--color-foreground-blue));
+	bottom: 0;
+	color: rgb(var(--color-text-lighter));
+	font-size: 1.1rem;
+	left: 0;
+	line-height: 13px;
+	padding: 8px 10px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+.hohStudioSubstitute .cover .overlay{
+	background: rgba(var(--color-overlay),.8);
+	color: rgb(var(--color-text-bright));
+	font-size: 1.4rem;
+	padding: 12px;
+	width: 100%;
+}
+.hohStudioSubstitute .cover .overlay .title{
+	line-height: 17px;
+}
+
 m4_include(css/displayBox.css)
 m4_include(css/smallScreens.css)

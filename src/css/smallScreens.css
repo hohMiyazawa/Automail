@@ -2,6 +2,9 @@
 	.substitution .character-roles{
 		max-width: 1200px;
 	}
+	.hohStudioSubstitute{
+		grid-template-columns: repeat(2,1fr);
+	}
 }
 @media(max-width: 1040px){
 	.input-wrap.manga input[placeholder="Status"],

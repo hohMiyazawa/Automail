@@ -31,20 +31,6 @@ function enhanceStudio(){//adds a favourite count to every studio page
 		else{
 			setTimeout(function(){favCallback(data)},200);
 		}
-		let scoreSum = 0;
-		let amount = 0;
-		data.data.Studio.media.nodes.forEach(media => {
-			if(media.meanScore){
-				scoreSum += media.meanScore;
-				amount++
-			}
-		});
-		if(amount){
-			let scoreAverage = create("span","#hohFavCount",
-				(scoreSum/amount).roundPlaces(1) + "%",
-				filterGroup,"top:45px;color:rgb(var(--color-blue));z-index:45;font-size:1.2rem;"
-			)
-		}
 	};
 	const variables = {id: location.pathname.match(/\/studio\/(\d+)\/?/)[1]};
 	generalAPIcall(
@@ -52,11 +38,6 @@ function enhanceStudio(){//adds a favourite count to every studio page
 query($id: Int!){
 	Studio(id: $id){
 		favourites
-		media(isMain:true,sort:POPULARITY_DESC){
-			nodes{
-				meanScore
-			}
-		}
 	}
 }`,
 		variables,favCallback,"hohStudioFavs" + variables.id,60*60*1000

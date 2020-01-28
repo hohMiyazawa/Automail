@@ -277,6 +277,11 @@
 	top: 60px;
 	left: 50%;
 }
+.studio .media-card.isMain{
+	border-bottom: rgb(var(--color-blue));
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
 @media(max-width: 1040px){
 	.search-page-unscoped{
 		margin-top: 40px !important;
