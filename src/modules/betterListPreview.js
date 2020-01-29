@@ -151,7 +151,7 @@ function betterListPreview(){
 				else{
 					create("h2",false,name,airingSectionHeader,"font-size: 1.4rem;font-weight: 500;")
 				};
-				if(moveExpander){
+				if(moveExpander && document.querySelector(".size-toggle")){
 					airingSectionHeader.appendChild(document.querySelector(".size-toggle"))
 				};
 				let airingListPreview = create("div","list-preview",false,airingSection,"display:grid;grid-template-columns: repeat(5,85px);grid-template-rows: repeat(auto-fill,115px);grid-gap: 20px;padding: 20px;background: rgb(var(--color-foreground));");

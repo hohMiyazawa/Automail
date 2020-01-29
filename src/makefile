@@ -18,10 +18,10 @@ build/userModules.js: modules
 build:
 	mkdir build
 
-build/firefox_addon.zip: build/automail.js ../icons ../manifest.json
+build/firefox_addon.zip: build/automail.js ../icons manifest.json
 	$(info )
 	$(info Creating Firefox addon)
-	cd build && cp -r ../../icons/ icons/ && zip -r firefox_addon.zip automail.js icons/ ../../manifest.json && rm -fr icons
+	cd build && cp -r ../../icons/ icons/ && zip -r firefox_addon.zip automail.js icons/ ../manifest.json && rm -fr icons
 
 post-build:
 	$(info )

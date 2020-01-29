@@ -1764,6 +1764,107 @@ body.TMPreviewScore > .el-tooltip__popper{
 	top: 12px;
 	width: 10px;
 }
+.hohRecsSwitch{
+	min-width: 500px
+}
+.hohRecsSwitch .options{
+	min-width: 500px;
+	justify-content: space-around;
+}
+.hohRecsSwitch .options .option{
+	border-radius: 30px;
+	color: rgb(var(--color-text-light));
+	cursor: pointer;
+	font-size: 1.5rem;
+	margin-right: 3px;
+	padding: 3px 12px;
+	text-transform: capitalize;
+	transition: .25s ease;
+}
+.hohRecsSwitch .options .option.active{
+	background: rgb(var(--color-blue));
+	color: rgba(var(--color-white),.9);
+}
+.recommendations-wrap.substitute{
+	display: grid;
+	grid-gap: 60px 50px;
+	grid-template-columns: repeat(auto-fill,330px);
+	justify-content: center;
+	margin-bottom: 60px;
+}
+.recommendations-wrap.substitute .recommendation-pair-card{
+	background: rgb(var(--color-foreground));
+	border-radius: 8px;
+	box-shadow: 0 4px 4px rgba(var(--color-shadow-blue),.05);
+	display: grid;
+	font-family: Overpass,-apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+	grid-gap: 20px;
+	grid-template-columns: 130px 130px;
+	justify-content: space-evenly;
+	max-width: 100%;
+	padding: 20px;
+	padding-bottom: 35px;
+	position: relative;
+	transition: box-shadow .2s ease-in-out;
+	vertical-align: top;
+}
+.recommendations-wrap.substitute .recommendation-pair-card:hover{
+	box-shadow: 0 14px 20px rgba(var(--color-shadow-blue),.1),0 4px 4px rgba(var(--color-shadow-blue),.05);
+}
+.recommendations-wrap.substitute .cover{
+	background-size: cover;
+	border-radius: 4px;
+	box-shadow: 0 4px 4px rgba(var(--color-shadow-blue),.05);
+	display: grid;
+	grid-template-rows: 1fr auto;
+	height: 180px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	position: relative;
+	width: 130px;
+}
+.recommendations-wrap.substitute .title{
+	font-size: 1.3rem;
+	font-weight: 600;
+	line-height: 140%;
+	white-space: normal;
+}
+.recommendations-wrap.substitute .rating-wrap{
+	align-items: center;
+	background: rgba(var(--color-overlay),.9);
+	border-radius: 5px;
+	bottom: -18px;
+	box-shadow: 0 4px 4px rgba(var(--color-shadow-blue),.05);
+	color: rgba(var(--color-white),.8);
+	cursor: auto;
+	display: flex;
+	left: calc(50% - 65px);
+	padding: 10px 13px;
+	position: absolute;
+	width: 130px;
+}
+.recommendations-wrap.substitute .rating{
+	font-size: 1.5rem;
+	font-weight: 900;
+	margin-left: auto;
+}
+.recommendations-wrap.substitute .thumbs-down:hover{
+	color: rgba(var(--color-red));
+}
+.recommendations-wrap.substitute .thumbs-up:hover{
+	color: rgba(var(--color-green));
+}
+.recommendations-wrap.substitute .icon{
+	display: inline-block;
+	cursor: pointer;
+	transition: color .25s ease-in-out;
+}
+.recommendations-wrap.substitute .recommendation-pair-card .media:first-child::after{
+	content: "➡";
+	top: 35%;
+	position: absolute;
+	right: 48%;
+}
 
 m4_include(css/displayBox.css)
 m4_include(css/smallScreens.css)

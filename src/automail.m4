@@ -1,6 +1,6 @@
 m4_divert(-1)m4_dnl
 m4_changequote(<m4<,>m4>)
-m4_define(AUTOMAIL_VERSION,8.91)
+m4_define(AUTOMAIL_VERSION,8.92)
 m4_divert(0)m4_dnl
 // ==UserScript==
 // @name         Automail

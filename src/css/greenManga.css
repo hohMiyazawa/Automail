@@ -67,3 +67,6 @@
 .home .recent-reviews + div .cover[href^="/manga/"] + .content .info-header{
 	color: rgba(var(--color-green));
 }
+.recommendations-wrap .recommendation-pair-card a[href^="/manga/"]:hover .title{
+	color: rgba(var(--color-green));
+}

@@ -1,6 +1,6 @@
 exportModule({
 	id: "studioSorting",
-	description: "Add sorting options to studio pages [under development]",
+	description: "Add sorting options to studio pages",
 	isDefault: true,
 	categories: ["Browse","Newly Added"],
 	visible: true,
