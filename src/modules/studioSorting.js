@@ -5,7 +5,7 @@ exportModule({
 	categories: ["Browse","Newly Added"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
-		return url.match(/https:\/\/anilist\.co\/studio\//)
+		return url.match(/https:\/\/anilist\.co\/studio\/?/)
 	},
 	code: function(){
 		if(document.querySelector(".hohStudioSubstitute")){
@@ -15,7 +15,7 @@ exportModule({
 			document.querySelector(".hohStudioSorter").remove()
 		}
 		let buttonInserter = function(){
-			if(!document.URL.match(/https:\/\/anilist\.co\/studio\//)){
+			if(!document.URL.match(/https:\/\/anilist\.co\/studio\/?/)){
 				return
 			}
 			let switchL = document.querySelector(".page-content .header");
@@ -26,53 +26,14 @@ exportModule({
 				let normalSort = create("span","selected","Normal",switcher);
 				let popularitySort = create("span",false,"Popularity",switcher);
 				let scoreSort = create("span",false,"Score",switcher);
+				let favouritesSort = create("span",false,"Favourites",switcher);
 
 				let rankingData = null;
-				const rankingQuery = `
-query($id: Int){
-	Studio(id: $id){
-		popularity:media(sort:POPULARITY_DESC){
-			edges{
-				isMainStudio
-				node{
-					... mediaEntry
-				}
-			}
-		}
-		score:media(sort:SCORE_DESC){
-			edges{
-				isMainStudio
-				node{
-					... mediaEntry
-				}
-			}
-		}
-	}
-}
-
-fragment mediaEntry on Media{
-	id
-	format
-	coverImage{large color}
-	title{romaji native english}
-	averageScore
-	popularity
-	status
-	season
-	nextAiringEpisode{
-		episode
-		timeUntilAiring
-	}
-	genres
-	siteUrl
-	description(asHtml: true)
-	startDate{year month day}
-	mediaListEntry{
-		status
-	}
-}`;
+				let sortingFunction = (b,a) => a.popularity - b.popularity || a.averageScore - b.averageScore || a.favourites - b.favourites;
 				let renderSubstitute = function(){
-					rankingData.slice(0,25).forEach(show => {
+					rankingData.sort(sortingFunction);
+					removeChildren(fakeContent);
+					rankingData.forEach(show => {
 						let card = create("div","media-card",false,fakeContent);
 						if(show.isMain){
 							card.classList.add("isMain")
@@ -133,7 +94,7 @@ fragment mediaEntry on Media{
 									let format = create("span","format",distributionFormats[show.format],extra)
 								}
 								if(show.averageScore){
-									let avgScore = create("span",false,show.averageScore + "%",extra).title = "Average score (weighted)";
+									let avgScore = create("span",false,show.averageScore + "%",extra).title = "Average score (weighted)\nUnweighted: " + show.meanScore + "%";
 								}
 								if(show.popularity){
 									let popularity = create("span","popularity",show.popularity,extra).title = "Popularity";
@@ -142,6 +103,141 @@ fragment mediaEntry on Media{
 								description.innerHTML = DOMPurify.sanitize(show.description);
 							let genres = create("div","genres",show.genres.join(", "),data);
 					})
+				};
+				let getData = function(){
+					authAPIcall(
+						`
+query($id: Int){
+	Studio(id: $id){
+		popularity:media(sort:POPULARITY_DESC){
+			pageInfo{total}
+			edges{
+				isMainStudio
+				node{
+					... mediaEntry
+				}
+			}
+		}
+		score:media(sort:SCORE_DESC){
+			edges{
+				isMainStudio
+				node{
+					... mediaEntry
+				}
+			}
+		}
+	}
+}
+
+fragment mediaEntry on Media{
+	id
+	format
+	coverImage{large color}
+	title{romaji native english}
+	averageScore
+	meanScore
+	popularity
+	status
+	season
+	favourites
+	nextAiringEpisode{
+		episode
+		timeUntilAiring
+	}
+	genres
+	siteUrl
+	description(asHtml: true)
+	startDate{year month day}
+	mediaListEntry{
+		status
+	}
+}`,
+						{id: parseInt(document.URL.match(/studio\/(\d+)\/?/)[1])},function(data){	
+							rankingData = uniqueBy(
+								data.data.Studio.popularity.edges.concat(
+									data.data.Studio.score.edges
+								).map(edge => {
+									edge.node.isMain = edge.isMainStudio;
+									return edge.node
+								}),
+								a => a.id
+							);
+							renderSubstitute();
+							if(rankingData.length < data.data.Studio.popularity.pageInfo.total){
+								authAPIcall(
+									`
+query($id: Int){
+	Studio(id: $id){
+		popularity2:media(sort:POPULARITY_DESC,page:2){
+			edges{
+				isMainStudio
+				node{
+					... mediaEntry
+				}
+			}
+		}
+		popularity3:media(sort:POPULARITY_DESC,page:3){
+			edges{
+				isMainStudio
+				node{
+					... mediaEntry
+				}
+			}
+		}
+		popularity4:media(sort:POPULARITY_DESC,page:4){
+			edges{
+				isMainStudio
+				node{
+					... mediaEntry
+				}
+			}
+		}
+	}
+}
+
+fragment mediaEntry on Media{
+	id
+	format
+	coverImage{large color}
+	title{romaji native english}
+	averageScore
+	meanScore
+	popularity
+	status
+	season
+	favourites
+	nextAiringEpisode{
+		episode
+		timeUntilAiring
+	}
+	genres
+	siteUrl
+	description(asHtml: true)
+	startDate{year month day}
+	mediaListEntry{
+		status
+	}
+}`,
+									{id: parseInt(document.URL.match(/studio\/(\d+)\/?/)[1])},function(data){	
+										rankingData = uniqueBy(
+											rankingData.concat(
+												data.data.Studio.popularity2.edges.concat(
+													data.data.Studio.popularity3.edges
+												).concat(
+													data.data.Studio.popularity4.edges
+												).map(edge => {
+													edge.node.isMain = edge.isMainStudio;
+													return edge.node
+												})
+											),
+											a => a.id
+										);
+										renderSubstitute();
+									}
+								)
+							}
+						}
+					)
 				}
 				normalSort.onclick = function(){
 					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
@@ -151,7 +247,7 @@ fragment mediaEntry on Media{
 					normalSort.classList.add("selected");
 					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "grid";
 					fakeContent.style.display = "none";
-					removeChildren(fakeContent)
+					removeChildren(fakeContent);
 				}
 				popularitySort.onclick = function(){
 					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
@@ -161,28 +257,12 @@ fragment mediaEntry on Media{
 					popularitySort.classList.add("selected");
 					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
 					fakeContent.style.display = "grid";
-					removeChildren(fakeContent);
+					sortingFunction = (b,a) => a.popularity - b.popularity || a.averageScore - b.averageScore || a.favourites - b.favourites
 					if(rankingData){
-						rankingData.sort((b,a) => a.popularity - b.popularity || a.score - b.score);
 						renderSubstitute()
 					}
 					else{
-						authAPIcall(
-							rankingQuery,
-							{id: parseInt(document.URL.match(/studio\/(\d+)\//)[1])},function(data){	
-								rankingData = uniqueBy(
-									data.data.Studio.popularity.edges.concat(
-										data.data.Studio.score.edges
-									).map(edge => {
-										edge.node.isMain = edge.isMainStudio;
-										return edge.node
-									}),
-									a => a.id
-								);
-								rankingData.sort((b,a) => a.popularity - b.popularity || a.score - b.score);
-								renderSubstitute()
-							}
-						)
+						getData()
 					}
 				}
 				scoreSort.onclick = function(){
@@ -193,28 +273,28 @@ fragment mediaEntry on Media{
 					scoreSort.classList.add("selected");
 					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
 					fakeContent.style.display = "grid";
-					removeChildren(fakeContent);
+					sortingFunction = (b,a) => a.averageScore - b.averageScore || a.meanScore - b.meanScore || a.favourites - b.favourites || a.popularity - b.popularity;
 					if(rankingData){
-						rankingData.sort((b,a) => a.averageScore - b.averageScore || a.popularity - b.popularity);
 						renderSubstitute()
 					}
 					else{
-						authAPIcall(
-							rankingQuery,
-							{id: parseInt(document.URL.match(/studio\/(\d+)\//)[1])},function(data){	
-								rankingData = uniqueBy(
-									data.data.Studio.popularity.edges.concat(
-										data.data.Studio.score.edges
-									).map(edge => {
-										edge.node.isMain = edge.isMainStudio;
-										return edge.node
-									}),
-									a => a.id
-								);
-								rankingData.sort((b,a) => a.averageScore - b.averageScore || a.popularity - b.popularity);
-								renderSubstitute()
-							}
-						)
+						getData()
+					}
+				}
+				favouritesSort.onclick = function(){
+					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
+						return
+					}
+					switcher.querySelector(".selected").classList.remove("selected");
+					favouritesSort.classList.add("selected");
+					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
+					fakeContent.style.display = "grid";
+					sortingFunction = (b,a) => a.favourites - b.favourites || a.averageScore - b.averageScore || a.meanScore - b.meanScore || a.popularity - b.popularity;
+					if(rankingData){
+						renderSubstitute()
+					}
+					else{
+						getData()
 					}
 				}
 			}
