@@ -1865,6 +1865,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	position: absolute;
 	right: 48%;
 }
+.review .actions .icon{
+	opacity: 0.5;
+}
+.review .actions .icon:hover,.review .actions .icon.active{
+	opacity: 1;
+}
 
 m4_include(css/displayBox.css)
 m4_include(css/smallScreens.css)

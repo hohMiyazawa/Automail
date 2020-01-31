@@ -1,11 +1,11 @@
 exportModule({
 	id: "interestingRecs",
-	description: "Add a 'Recommended' filter to the recommendations page [under development]",
-	isDefault: true,
-	categories: ["Newly Added","Login"],
+	description: "Add a 'Recommended' filter to the recommendations page [obsolete]",
+	isDefault: false,
+	categories: ["Login"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
-		return url.match(/https:\/\/anilist\.co\/recommendations/) && useScripts.accessToken
+		return false && url.match(/https:\/\/anilist\.co\/recommendations/) && useScripts.accessToken
 	},
 	code: function(){
 		let buttonInserter = function(){

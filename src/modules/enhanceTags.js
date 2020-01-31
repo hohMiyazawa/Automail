@@ -24,7 +24,7 @@ function enhanceTags(){//show tag definition in drop down menu when adding tags
 			if(tagDescriptions[child.children[0].innerText]){
 				document.getElementById("hohDescription").innerText = tagDescriptions[child.children[0].innerText];
 			}
-			else{
+			else if(child.children[0].innerText !== ""){
 				document.getElementById("hohDescription").innerText = "Message hoh to get this description added";//should never happen anymore
 			}
 		};
