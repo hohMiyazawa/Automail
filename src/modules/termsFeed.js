@@ -60,7 +60,7 @@ function termsFeed(){
 	let topPrevious = create("button",["hohButton","button"],"Refresh",topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
 	let topNext = create("button",["hohButton","button"],"Next →",topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
 	let feedContent = create("div",false,false,feed);
-	let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;");
+	let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;");
 	notiLink.href = "/notifications";
 	let lastUpdated = 0;
 	let buildPage = function(activities,type,requestTime){

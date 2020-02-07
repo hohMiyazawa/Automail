@@ -320,8 +320,10 @@ The start year can also be a range like "2000-2005"`
 		let sumDuration = 0;
 		let sumChapters = 0;
 		let sumVolumes = 0;
-		let sumScores = 0;
-		let amount = 0;
+		let sumScoresAnime = 0;
+		let sumScoresManga = 0;
+		let amountAnime = 0;
+		let amountManga = 0;
 		let animeCurrentFlag = false;
 		let mangaCurrentFlag = false;
 		let distribution = {};
@@ -424,8 +426,8 @@ The start year can also be a range like "2000-2005"`
 					}
 					sumDuration += animeValueFunction(anime);
 					if(anime.myStatus.scoreRaw){
-						sumScores += anime.myStatus.scoreRaw;
-						amount++;
+						sumScoresAnime += anime.myStatus.scoreRaw;
+						amountAnime++;
 					}
 				}
 			}
@@ -465,8 +467,8 @@ The start year can also be a range like "2000-2005"`
 					}
 					sumDuration += animeValueFunction(anime);
 					if(anime.myStatus.scoreRaw){
-						sumScores += anime.myStatus.scoreRaw;
-						amount++;
+						sumScoresAnime += anime.myStatus.scoreRaw;
+						amountAnime++;
 					}
 				}
 			}
@@ -508,13 +510,13 @@ The start year can also be a range like "2000-2005"`
 					sumChapters += mangaValue.chapters;
 					sumVolumes += mangaValue.volumes;
 					if(manga.myStatus.scoreRaw){
-						sumScores += manga.myStatus.scoreRaw;
-						amount++
+						sumScoresManga += manga.myStatus.scoreRaw;
+						amountManga++
 					}
 				}
 			}
 		});
-		if(sumDuration || sumChapters || sumVolumes || sumScores){
+		if(sumDuration || sumChapters || sumVolumes || (sumScoresAnime + sumScoresManga)){
 			removeChildren(digestStats)
 			if(sumDuration){
 				create("span",false,"Hours Watched: ",digestStats);
@@ -528,11 +530,14 @@ The start year can also be a range like "2000-2005"`
 				create("span",false," Volumes Read: ",digestStats);
 				create("span",false,sumVolumes,digestStats,"color:rgb(var(--color-blue))")
 			};
-			if(amount){
+			if(amountAnime + amountManga){
 				create("span",false," Mean Score: ",digestStats);
-				let averageNode = create("span",false,(sumScores/amount).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))");
-				if((sumScores/amount) === 10 && userObject.mediaListOptions.scoreFormat === "POINT_10"){//https://anilist.co/activity/49407649
+				let averageNode = create("span",false,((sumScoresAnime + sumScoresManga)/(amountAnime + amountManga)).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))");
+				if(((sumScoresAnime + sumScoresManga)/(amountAnime + amountManga)) === 10 && userObject.mediaListOptions.scoreFormat === "POINT_10"){//https://anilist.co/activity/49407649
 					averageNode.innerText += "/100"
+				}
+				if(sumScoresAnime && sumScoresManga){
+					averageNode.title = "Anime: " + (sumScoresAnime/amountAnime).roundPlaces(1) + "\nManga: " + (sumScoresManga/amountManga).roundPlaces(1);
 				}
 			};
 			let statusList = create("span","#statusList",false,digestStats,"position: absolute;top: -2px;margin-left: 20px;width: 300px;");
