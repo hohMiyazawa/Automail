@@ -313,13 +313,15 @@ function termsFeed(){
 										createdAt
 									}
 								}`,
-								{text: inputArea.value,activityId: activity.id},
+								{text: emojiSanitize(inputArea.value),activityId: activity.id},
 								data => {
 									loading.innerText = "";
-									activity.replies.push(data.data.SaveActivityReply);
-									replyCount.innerText = activity.replies.length;
-									act.lastChild.remove();
-									createReplies();
+									if(data){
+										activity.replies.push(data.data.SaveActivityReply);
+										replyCount.innerText = activity.replies.length;
+										act.lastChild.remove();
+										createReplies()
+									}
 								}
 							);
 							inputArea.value = "";
@@ -913,7 +915,7 @@ query($page: Int,$types: [ActivityType]){
 					authAPIcall(
 						"mutation($text: String,$recipientId: Int){SaveMessageActivity(message: $text,recipientId: $recipientId){id}}",
 						{
-							text: inputArea.value,
+							text: emojiSanitize(inputArea.value),
 							recipientId: data.data.User.id
 						},
 						function(data){
@@ -930,7 +932,7 @@ query($page: Int,$types: [ActivityType]){
 			loading.innerText = "Publishing...";
 			authAPIcall(
 				"mutation($text: String){SaveTextActivity(text: $text){id}}",
-				{text: inputArea.value},
+				{text: emojiSanitize(inputArea.value)},
 				function(data){
 					requestPage(1);
 				}

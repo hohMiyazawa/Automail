@@ -773,4 +773,14 @@ function uniqueBy(a,key){
 	})
 }
 
+function emojiSanitize(string){
+	return Array.from(string).map(char => {
+		let codePoint = char.codePointAt(0);
+		if(codePoint > 0xFFFF){
+			return "&#" + codePoint + ";"
+		}
+		return char
+	}).join("")
+}
+
 let urlChangedDependence = false;//???
