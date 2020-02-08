@@ -909,6 +909,7 @@ meter::-moz-meter-bar{
 	grid-area: content;
 	overflow: hidden;
 	padding: 10px;
+	position: relative;
 }
 .substitution .grid-wrap .content .name{
 	display: block;
@@ -1873,6 +1874,11 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 .review .actions .icon:hover,.review .actions .icon.active{
 	opacity: 1;
+}
+.hohStaffPageData{
+	position: absolute;
+	right: 10px;
+	top: 40%;
 }
 
 m4_include(css/footerLinks.css)

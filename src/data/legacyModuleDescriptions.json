@@ -69,9 +69,6 @@
 },{"id": "enumerateSubmissionStaff",
 	"description": "Enumerate the multiple credits for staff in the submission form to help avoid duplicates",
 	"categories": ["Submissions","Profiles"]
-},{"id": "replaceStaffRoles",
-	"description": "Add sorting to staff pages",
-	"categories": ["Media","Login"]
 },{"id": "completedScore",
 	"description": "Show the score on the activity when people complete something",
 	"categories": ["Feeds"]

@@ -67,7 +67,6 @@ let useScripts = {//most modules are turned on by default
 	expandRight: false,
 	timeToCompleteColumn: false,
 	mangaGuess: true,
-	replaceStaffRoles: true,
 	settingsTip: true,
 	enumerateSubmissionStaff: true,
 	MALscore: false,

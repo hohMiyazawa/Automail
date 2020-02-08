@@ -131,9 +131,6 @@ function handleScripts(url,oldUrl){
 		if(useScripts.staffPages){
 			enhanceStaff()
 		}
-		if(useScripts.replaceStaffRoles){
-			replaceStaffRoles()
-		}
 	}
 	else if(
 		url.match(/^https:\/\/anilist\.co\/character\/.*/)
