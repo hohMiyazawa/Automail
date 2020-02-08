@@ -178,6 +178,9 @@ m4_include(css/notifications.css)
 .markdown-editor > [title="WebM Video"]{
 	color: rgba(var(--color-red));
 }
+.markdown-editor > [title="Link"]{
+	color: rgba(var(--color-blue));
+}
 .hohBackgroundUserCover{
 	height: 50px;
 	width: 50px;
@@ -1872,5 +1875,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 	opacity: 1;
 }
 
+m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
 m4_include(css/smallScreens.css)
