@@ -545,7 +545,7 @@ function addMoreStats(){
 					}
 				],
 				sorting : [
-					(a,b) => ALPHABETICAL(a => a.name),
+					ALPHABETICAL(a => a.name),
 					(b,a) => a.list.length - b.list.length,
 					(b,a) => a.average - b.average,
 					(b,a) => a.duration - b.duration,
@@ -943,7 +943,7 @@ function addMoreStats(){
 					}
 				],
 				sorting: [
-					(a,b) => ALPHABETICAL(a => a.name),
+					ALPHABETICAL(a => a.name),
 					(b,a) => a.list.length - b.list.length,
 					(b,a) => a.average - b.average,
 					(b,a) => a.duration - b.duration,
@@ -1770,7 +1770,7 @@ function addMoreStats(){
 					}
 				],
 				sorting: [
-					(a,b) => ALPHABETICAL(a => a.name),
+					ALPHABETICAL(a => a.name),
 					(b,a) => a.list.length - b.list.length,
 					(b,a) => a.average - b.average,
 					(b,a) => a.chaptersRead - b.chaptersRead,
