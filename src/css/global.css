@@ -1880,6 +1880,10 @@ body.TMPreviewScore > .el-tooltip__popper{
 	right: 10px;
 	top: 40%;
 }
+.recent-recommendations > .header-wrap{
+	grid-template-columns: 330px 0 auto;
+	justify-content: space-between;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

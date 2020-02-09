@@ -1,23 +1,23 @@
 exportModule({
 	id: "interestingRecs",
-	description: "Add a 'Recommended' filter to the recommendations page [obsolete]",
-	isDefault: false,
-	categories: ["Login"],
+	description: "Add a 'For Your' filter to the recommendations page [obsolete]",
+	isDefault: true,
+	categories: ["Login","Newly Added"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
-		return false && url.match(/https:\/\/anilist\.co\/recommendations/) && useScripts.accessToken
+		return url.match(/https:\/\/anilist\.co\/recommendations/) && useScripts.accessToken
 	},
 	code: function(){
 		let buttonInserter = function(){
 			if(!document.URL.match(/https:\/\/anilist\.co\/recommendations/)){
 				return
 			}
-			let switchL = document.querySelector(".page-content .switch .options");
+			let switchL = document.querySelector(".page-content .switch:not(.list-switch) .options");
 			if(switchL && document.querySelector(".recommendations-wrap")){
 				switchL.parentNode.classList.add("hohRecsSwitch");
 				let optionWrapper = create("div","option",false,switchL);
-				let option = create("span",false,"Recommended",optionWrapper);
-				option.title = "Each pair is one you like + one you haven't started";
+				let option = create("span",false,"For You",optionWrapper);
+				option.title = "Each pair is one you like + one you haven't started\nStuff you like on top";
 				let fakeContent = create("div",["recommendations-wrap","substitute"],false,false,"display:none;");
 				let realNode = document.querySelector(".recommendations-wrap");
 				realNode.parentNode.insertBefore(fakeContent,realNode);
