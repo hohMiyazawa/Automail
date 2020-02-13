@@ -1,5 +1,5 @@
 function safeURL(URL){
-	let compo = encodeURIComponent((URL || "").replace(/\s|\/|:|★/g,"-").replace(/(\.|\)|\\|#|!|,|%|’)/g,"").replace(/ä/g,"a"));
+	let compo = encodeURIComponent((URL || "").replace(/\s|\/|:|★/g,"-").replace(/(\.|\)|\\|#|!|,|%|’)/g,"").replace(/ä/g,"a").replace(/×/g,"x"));
 	if(useScripts.SFWmode){
 		if(badWords.some(
 			word => compo.match(word)
