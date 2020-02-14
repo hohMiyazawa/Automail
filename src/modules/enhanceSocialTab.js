@@ -53,6 +53,15 @@ const handler = (data,target,idMap) => {
 		const progress = create("div","progress",e.progress);
 		if(e.media.chapters || e.media.episodes){
 			progress.innerText = `${e.progress}/${e.media.chapters || e.media.episodes}`;
+			if(e.progress > (e.media.chapters || e.media.episodes)){
+				progress.title = "Most likely the database total that's been updated"
+			}
+			else if(
+				e.progress === (e.media.chapters || e.media.episodes)
+				&& e.status === "COMPLETED"
+			){
+				progress.style.color = "rgb(var(--color-green))"
+			}
 		}
 		target[idMap[e.user.id]].insertBefore(progress,target[idMap[e.user.id]].children[2])
 		let notesEL = create("span","notes") // notes
@@ -150,7 +159,7 @@ function enhanceSocialTab(){
 		return
 	};
 	MakeStats();
-	let idmap = {};
+	let idmap = {};//TODO, rewrite as actual map?
 	listOfFollowers.forEach(function(e,i){
 		if(!e.dataset.changed){
 			const avatarURL = e.querySelector(".avatar").dataset.src;

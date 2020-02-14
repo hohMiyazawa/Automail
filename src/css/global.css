@@ -1,6 +1,9 @@
 body{
 	margin: 0px;
 }
+img{
+	image-orientation: from-image;/*useful fix, but only for Firefox*/
+}
 #hohSettings{
 	margin-top: 20px;
 	display: none;
