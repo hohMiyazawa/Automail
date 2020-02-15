@@ -6,7 +6,7 @@ function handleScripts(url,oldUrl){
 			module.code()
 		}
 	})
-	if(url === "https://anilist.co/notifications" && useScripts.notifications){
+	if((url === "https://anilist.co/notifications" || url === "https://anilist.co/notifications#") && useScripts.notifications){
 		enhanceNotifications();
 		return
 	}

@@ -1,6 +1,6 @@
 m4_divert(-1)m4_dnl
 m4_changequote(<m4<,>m4>)
-m4_define(AUTOMAIL_VERSION,8.96)
+m4_define(AUTOMAIL_VERSION,9.11)
 m4_divert(0)m4_dnl
 // ==UserScript==
 // @name         Automail
@@ -79,6 +79,8 @@ m4_include(conditionalStyles.js)
 m4_include(utilities.js)
 m4_include(purify.js)
 m4_include(graphql.js)
+m4_include(localforage.js)
+m4_include(cache.js)
 m4_include(controller.js)
 m4_include(build/userModules.js)
 m4_include(HOWTO.js)

@@ -266,8 +266,13 @@ let aniCast = {postMessage: function(){}};//dummy object for Safari
 if(window.BroadcastChannel){
 	aniCast = new BroadcastChannel("automail");
 	aniCast.onmessage = function(message){
-		if(message.data.type && message.data.type === "cache"){
-			sessionStorage.setItem(message.data.key,message.data.value)
+		if(message.data.type){
+			if(message.data.type === "cache"){
+				sessionStorage.setItem(message.data.key,message.data.value)
+			}
+			else if(message.data.type === "cachev2"){
+				cache.updateIfDifferent(message.data.mediaData,true)
+			}
 		}
 	}
 }

@@ -301,7 +301,18 @@ query($id: Int,$userName: String){
 		if(URLstuff[2] === "mangalist"){
 			variables.listType = "MANGA"
 		};
-		generalAPIcall(queryMediaListNotes,variables,collectNotes,"hohCustomTagIndex" + variables.listType + variables.name,60*1000);
+		if(variables.name === whoAmI){
+			cache.getList(variables.listType,function(data){
+				collectNotes({
+					data: {
+						MediaListCollection: data
+					}
+				})
+			})
+		}
+		else{
+			generalAPIcall(queryMediaListNotes,variables,collectNotes,"hohCustomTagIndex" + variables.listType + variables.name,60*1000);
+		}
 	}
 	filters.appendChild(extraFilters);
 	let filterBox = document.querySelector(".entry-filter input");

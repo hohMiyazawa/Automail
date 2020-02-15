@@ -205,7 +205,7 @@ let wilson = function(positiveScore,total){
 	return {
 		left: (a - b) / c,
 		right: Math.min(1,(a + b) / c)
-	};
+	}
 };
 
 if(!String.prototype.includes){//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes

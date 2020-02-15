@@ -1024,6 +1024,9 @@ function addMoreStats(){
 			semaPhoreAnime = list;
 			nativeTagsReplacer();
 			generalAPIcall(queryMediaListStaff,{name: user,listType: "ANIME"},function(data){
+				if(!data){
+					return
+				}
 				let rawStaff = returnList(data);
 				rawStaff.forEach((raw,index) => {
 					raw.status = list[index].status;
@@ -1428,14 +1431,13 @@ function addMoreStats(){
 			};waiter();
 		};
 		if(user === whoAmI){
-			generalAPIcall(
-				queryMediaListAnime,
-				{
-					name: user,
-					listType: "ANIME"
-				},
-				personalStatsCallback,"hohListCacheAnime",10*60*1000
-			);
+			cache.getList("ANIME",function(data){
+				personalStatsCallback({
+					data: {
+						MediaListCollection: data
+					}
+				})
+			})
 		}
 		else{
 			generalAPIcall(
@@ -1445,7 +1447,7 @@ function addMoreStats(){
 					listType: "ANIME"
 				},
 				personalStatsCallback
-			);
+			)
 		}
 //manga stats
 		let personalStatsMangaCallback = function(data){
@@ -2031,14 +2033,13 @@ function addMoreStats(){
 			},"hohListCacheMangaStaff" + user,10*60*1000);
 		};
 		if(user === whoAmI){
-			generalAPIcall(
-				queryMediaListManga,
-				{
-					name: user,
-					listType: "MANGA"
-				},
-				personalStatsMangaCallback,"hohListCacheManga",10*60*1000
-			)
+			cache.getList("MANGA",function(data){
+				personalStatsMangaCallback({
+					data: {
+						MediaListCollection: data
+					}
+				})
+			})
 		}
 		else{
 			generalAPIcall(

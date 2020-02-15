@@ -5,7 +5,7 @@ function enhanceNotifications(){
 	//method: the real notifications are parsed, then hidden and a new list of notifications are created using a mix of parsed data and API calls.
 	//alternative method: auth
 	setTimeout(function(){
-		if(location.pathname === "/notifications" && !(useScripts.accessToken && false)){
+		if((location.pathname === "/notifications" || location.pathname === "/notifications#") && !(useScripts.accessToken && false)){
 			enhanceNotifications()
 		}
 		else{
