@@ -37,13 +37,16 @@ function enhanceSocialTabFeed(){
 				if(data.data.Page.pageInfo.lastPage > page){
 					loadMore.style.display = "block";
 					loadMore.onclick = function(){
-						buildFeed(page + 1);
+						buildFeed(page + 1)
 					}
 				}
 				else{
-					loadMore.style.display = "none";
+					loadMore.style.display = "none"
 				}
 				const randomData = "data-v-b1fca210";
+				if(data.data.Page.activities.length === 0){
+					create("div","activity-entry","No matching activities",feedContent)
+				}
 				data.data.Page.activities.forEach(act => {
 					let activityEntry = create("div",["activity-entry","activity-" + URLstuff[1] + "_list"],false,feedContent);activityEntry.setAttribute(randomData,"");
 						let wrap = create("div","wrap",false,activityEntry);wrap.setAttribute(randomData,"");
@@ -333,13 +336,13 @@ query($mediaId: Int,$page: Int){
 	}
 }`;
 			};
-			buildFeed(1);
+			buildFeed(1)
 		}
 		else{
 			feedLocation.classList.remove("hohReplaceFeed");
 			feedContent.style.display = "none";
-			feedHeader.style.display = "none";
-			loadMore.style.display = "none";
+			feedHeader .style.display = "none";
+			loadMore   .style.display = "none";
 		}
 	}
 }

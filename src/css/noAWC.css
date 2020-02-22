@@ -37,6 +37,7 @@
 .hohNoAWC .categories{
 	margin-left: auto;
 	white-space: nowrap;
+	max-width: 310px;
 }
 .hohNoAWC .category{
 	border-radius: 100px;
@@ -45,6 +46,8 @@
 	font-size: 1.1rem;
 	margin-left: 10px;
 	padding: 4px 8px;
+}
+.hohNoAWC .category.default{
 	text-transform: lowercase;
 }
 .hohNoAWC .category:hover{

@@ -52,7 +52,7 @@ function addForumMediaNoAWC(){
 			if(thread.mediaCategories.length === 0){
 				if(thread.categories.length){
 					let catWrap = create("span",false,false,categories);
-					let category = create("a","category",thread.categories[0].name,catWrap);
+					let category = create("a",["category","default"],thread.categories[0].name,catWrap);
 					category.href = "/forum/recent?category=" + thread.categories[0].id;
 					category.style.background = (categoryColours.get(thread.categories[0].id) || "rgb(78, 163, 230)") + " none repeat scroll 0% 0%";
 				}
@@ -60,6 +60,7 @@ function addForumMediaNoAWC(){
 			else{
 				let mediaTitle = titlePicker(thread.mediaCategories[0]);
 				if(mediaTitle.length > 25){
+					mediaTitle = mediaTitle.replace(/(2nd|Second)\ Season/,"2").replace(/\((\d+)\)/g,(string,year) => year);
 					let lastIndex = mediaTitle.slice(0,25).lastIndexOf(" ");
 					if(lastIndex > 20){
 						mediaTitle.slice(0,lastIndex);
@@ -71,7 +72,7 @@ function addForumMediaNoAWC(){
 				let catWrap;
 				if(thread.categories.length && thread.categories[0].id !== 1 && thread.categories[0].id !== 2){
 					catWrap = create("span",false,false,categories);
-					let category = create("a","category",thread.categories[0].name,catWrap);
+					let category = create("a",["category","default"],thread.categories[0].name,catWrap);
 					category.href = "/forum/recent?category=" + thread.categories[0].id;
 					category.style.background = (categoryColours.get(thread.categories[0].id) || "rgb(78, 163, 230)") + " none repeat scroll 0% 0%";
 				}

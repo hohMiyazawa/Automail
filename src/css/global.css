@@ -1887,6 +1887,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 	grid-template-columns: 330px 0 auto;
 	justify-content: space-between;
 }
+.media-page .header .cover-wrap{
+	min-height: 340px;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
