@@ -630,6 +630,9 @@ div#nav.transparent{
 .media .activity-feed .donator-badge{
 	transform: translate(-70px,-25px);
 }
+.media-page-unscoped .description{
+	color: rgb(var(--color-text));
+}
 .user .list.small .avatar{
 	display: none!important;
 }

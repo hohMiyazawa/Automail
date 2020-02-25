@@ -293,9 +293,11 @@ function betterListPreview(){
 						else{
 							air.progress++;
 							plusProgress.innerText = air.progress + " +";
+							progress.innerText = "Progress: " + air.progress;
 							isBlocked = true;
 							setTimeout(function(){
 								plusProgress.innerText = air.progress + " +";
+								progress.innerText = "Progress: " + air.progress;
 								isBlocked = false;
 							},300);
 							authAPIcall(

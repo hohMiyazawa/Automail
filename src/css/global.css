@@ -1188,6 +1188,9 @@ meter::-moz-meter-bar{
 	position: relative;
 	min-height: 55px !important;
 }
+.hohSocialFeed .reply-wrap time{
+	font-size: 1.1rem;
+}
 .hohSocialFeed .cover{
 	background-position: 50%;
 	background-repeat: no-repeat;

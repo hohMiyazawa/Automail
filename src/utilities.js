@@ -1,10 +1,10 @@
 function safeURL(URL){
 	let compo = encodeURIComponent((URL || "")
-		.replace(/\s|\/|:|★/g,"-")
-		.replace(/(\.|\)|\\|#|!|,|%|’)/g,"")
+		.replace(/\s|\/|:|★|☆/g,"-")
+		.replace(/\((\d+)\)/g,(string,year) => year)
+		.replace(/(\.|\)|\\|\?|#|!|,|%|’)/g,"")
 		.replace(/ä/g,"a")
 		.replace(/×/g,"x")
-		.replace(/\((\d+)\)/g,(string,year) => year)
 	);
 	if(useScripts.SFWmode){
 		if(badWords.some(
