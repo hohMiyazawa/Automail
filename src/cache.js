@@ -1,5 +1,13 @@
 localforage.config({name: 'automail'});//can't be just localforage, as Anilist uses it too
 
+let reliablePersistentStorage = true;
+navigator.storage.persisted().then(function(persisted){
+	reliablePersistentStorage = persisted;
+	if(!persisted){
+		console.log("Automail was denied persistent storage, and may run slower/use more data since it can't keep a cache. Consider enabling persistent storage in 'site info' > 'permissions'")
+	}
+})
+
 const cache = {
 	list: {ANIME: null,MANGA: null},
 	scheduled: false,
@@ -101,6 +109,8 @@ query($name: String!){
 				cache.lockedCallbacks.MANGA.forEach(a => a.callback(cache.list[a.type].data));
 				cache.lockedCallbacks.ANIME = [];
 				cache.lockedCallbacks.MANGA = [];
+				cache.lock.ANIME = false;
+				cache.lock.MANGA = false;
 			}
 		)
 		
@@ -120,6 +130,7 @@ query($name: String!){
 		if(!cache.list[type]){
 			cache.lockedCallbacks[type].push({callback: callback,type: type})
 			if(!cache.lock[type]){
+				cache.lock[type] = true;
 				localforage.getItem("automailListCache" + type,function(err,value){
 					if(err){
 						console.log(err);
@@ -133,6 +144,7 @@ query($name: String!){
 							cache.list[type] = value;
 							cache.lockedCallbacks[type].forEach(a => a.callback(cache.list[a.type].data));
 							cache.lockedCallbacks[type] = [];
+							cache.lock[type] = false;
 						}
 					}
 					else{
@@ -140,7 +152,6 @@ query($name: String!){
 							cache.forceUpdate()
 						}
 					}
-					cache.lock[type] = true;
 				})
 			}
 		}

@@ -301,7 +301,7 @@ query($id: Int,$userName: String){
 		if(URLstuff[2] === "mangalist"){
 			variables.listType = "MANGA"
 		};
-		if(variables.name === whoAmI){
+		if(variables.name === whoAmI && reliablePersistentStorage){
 			cache.getList(variables.listType,function(data){
 				collectNotes({
 					data: {
