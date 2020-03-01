@@ -1,12 +1,14 @@
 localforage.config({name: 'automail'});//can't be just localforage, as Anilist uses it too
 
 let reliablePersistentStorage = true;
-navigator.storage.persisted().then(function(persisted){
-	reliablePersistentStorage = persisted;
-	if(!persisted){
-		console.log("Automail was denied persistent storage, and may run slower/use more data since it can't keep a cache. Consider enabling persistent storage in 'site info' > 'permissions'")
-	}
-})
+if (navigator.storage && navigator.storage.persist){
+	navigator.storage.persist().then(function(persistent){
+		if(!persistent){
+			reliablePersistentStorage = false;
+			console.log("Automail was denied persistent storage, and may run slower/use more data since it can't keep a cache. Consider enabling persistent storage in 'site info' > 'permissions'")
+		}
+	})
+}
 
 const cache = {
 	list: {ANIME: null,MANGA: null},
