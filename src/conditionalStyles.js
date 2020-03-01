@@ -127,7 +127,7 @@ if(useScripts.CSSverticalNav && (!useScripts.mobileFriendly)){
 	moreStyle.textContent += `
 m4_include(css/verticalNav.css)
 `;
-	if(useScripts.rightToLeft){
+	if(useScripts.rightToLeft || useScripts.rightSideNavbar){
 		moreStyle.textContent += `
 #app{
 	padding-left: 0px!important;
@@ -140,6 +140,12 @@ m4_include(css/verticalNav.css)
 #app div#nav.nav .links{
 	border-left: none;
 	border-right: 1px solid hsla(0,0%,93.3%,.16);
+}
+.subMenuContainer{
+	margin-left: -300px;
+}
+.subMenuContainer > .link{
+	margin-left: 150px;
 }
 		`;
 	}

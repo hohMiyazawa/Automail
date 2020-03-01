@@ -61,15 +61,6 @@
 #app > .progress{
 	transform: scale(-1);
 }
-.subMenuContainer{
-	margin-left: -300px;
-}
-.subMenuContainer > .link{
-	margin-left: 150px;
-}
-.hohSubMenuLink{
-	text-align: right;
-}
 .hohColourPicker{
 	margin-right: 20px;
 }
@@ -83,6 +74,9 @@
 .home .activity-feed-wrap .section-header .feed-select .el-dropdown{
 	direction: ltr;
 	margin-left: 20px;
+}
+.hohSubMenuLink{
+	text-align: right;
 }
 .quick-search .input{
 	direction: rtl;
