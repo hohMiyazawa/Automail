@@ -138,7 +138,10 @@ const animeValueFunction = function(anime){
 }
 const mangaValueFunction = function(manga){
 	if(!manga.myStatus){
-		return -1
+		return {
+			chapters: 0,
+			volumes: 0
+		}
 	}
 	let chaptersRead = 0;
 	let volumesRead = 0;
@@ -190,6 +193,9 @@ const mangaValueFunction = function(manga){
 	};
 	if(manga.listJSON && manga.listJSON.adjustValue){
 		chaptersRead = Math.max(0,chaptersRead + manga.listJSON.adjustValue)
+	}
+	if(chaptersRead === undefined){
+		console.log(999	);
 	}
 	return {
 		chapters: chaptersRead,
@@ -287,7 +293,7 @@ let listRenderer = function(){
 		const mangaSorter = (b,a) => {
 			const aval = mangaValueFunction(a);
 			const bval = mangaValueFunction(b);
-			return aval.chapters - bval.chapters || aval.volumes - bval.volumes|| b.title.localeCompare(a.title)
+			return aval.chapters - bval.chapters || aval.volumes - bval.volumes || b.title.localeCompare(a.title)
 		}
 		animeRolesList.sort(animeSorter);
 		voiceRolesList.sort(animeSorter);

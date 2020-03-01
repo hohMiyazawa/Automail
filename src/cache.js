@@ -82,7 +82,6 @@ query($name: String!){
 }`,
 			{name: whoAmI},
 			function(data){
-				console.log("full reload of cache");
 				if(!data){
 					return
 				}
