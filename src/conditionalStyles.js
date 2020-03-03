@@ -130,7 +130,7 @@ m4_include(css/verticalNav.css)
 	if(useScripts.rightToLeft || useScripts.rightSideNavbar){
 		moreStyle.textContent += `
 #app{
-	padding-left: 0px!important;
+	padding-left: 5px!important;
 	padding-right: 65px;
 }
 #app div#nav.nav{
@@ -142,10 +142,18 @@ m4_include(css/verticalNav.css)
 	border-right: 1px solid hsla(0,0%,93.3%,.16);
 }
 .subMenuContainer{
-	margin-left: -300px;
+	margin-left: -172px;
 }
 .subMenuContainer > .link{
-	margin-left: 150px;
+	margin-left: 86px;
+}
+.hohSubMenu{
+	left: 0px;
+	width: 86px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 		`;
 	}
