@@ -75,6 +75,7 @@ function drawListStuff(){
 		buttonFindChapters.onclick = function(){
 			let scrollableContent = createDisplayBox("min-width:400px;height:500px;");
 			let loader = create("p",false,"Scanning...",scrollableContent);
+			let bannedEntries = new Set();
 			generalAPIcall(`
 			query($name: String!){
 				MediaListCollection(userName: $name, type: MANGA){
@@ -136,20 +137,18 @@ function drawListStuff(){
 							removeChildren(scrollableContent)
 							goodItems.sort((b,a) => a.data.data.MediaList.score - b.data.data.MediaList.score);
 							goodItems.forEach(function(item){
-								let listing = create("p","hohNewChapter",false,scrollableContent);
-								let title = item.data.data.MediaList.media.title.romaji;
-								if(useScripts.titleLanguage === "NATIVE" && item.data.data.MediaList.media.title.native){
-									title = item.data.data.MediaList.media.title.native;
+								let media = item.data.data.MediaList.media;
+								if(bannedEntries.has(media.id)){
+									return
 								}
-								else if(useScripts.titleLanguage === "ENGLISH" && item.data.data.MediaList.media.title.english){
-									title = item.data.data.MediaList.media.title.english;
-								};
+								let listing = create("p","hohNewChapter",false,scrollableContent);
+								let title = titlePicker(media);
 								let countPlace = create("span",false,false,listing,"width:110px;display:inline-block;");
 								let progress = create("span",false,item.data.data.MediaList.progress + " ",countPlace);
 								let guess = create("span",false,"+" + (item.bestGuess - item.data.data.MediaList.progress),countPlace,"color:rgb(var(--color-green));");
 								if(useScripts.accessToken){
 									progress.style.cursor = "pointer";
-									progress.title = "Increase progress by 1";
+									progress.title = "Increment progress by 1";
 									progress.onclick = function(){
 										item.data.data.MediaList.progress++;
 										authAPIcall(
@@ -157,29 +156,36 @@ function drawListStuff(){
 												SaveMediaListEntry(mediaId: $id,progress: $progress){id}
 											}`,
 											{
-												id: item.data.data.MediaList.media.id,
+												id: media.id,
 												progress: item.data.data.MediaList.progress
 											},
-											function(fib){}
+											function(fib){
+												if(!fib){
+													item.data.data.MediaList.progress--;
+													progress.innerText = item.data.data.MediaList.progress + " ";
+													guess.innerText = "+" + (item.bestGuess - item.data.data.MediaList.progress)
+												}
+											}
 										);
 										progress.innerText = item.data.data.MediaList.progress + " ";
 										if(item.bestGuess - item.data.data.MediaList.progress > 0){
-											guess.innerText = "+" + (item.bestGuess - item.data.data.MediaList.progress);
+											guess.innerText = "+" + (item.bestGuess - item.data.data.MediaList.progress)
 										}
 										else{
-											guess.innerText = "";
+											guess.innerText = ""
 										}
 									}
 								};
 								create("a",["link","newTab"],title,listing)
-									.href = "/manga/" + item.data.data.MediaList.media.id + "/" + safeURL(title) + "/";
+									.href = "/manga/" + media.id + "/" + safeURL(title) + "/";
 								let chapterClose = create("span","hohDisplayBoxClose",svgAssets.cross,listing);
 								chapterClose.onclick = function(){
 									listing.remove();
-								};
-							});
+									bannedEntries.add(media.id)
+								}
+							})
 						}
-					};
+					}
 				};
 				let bigQuery = [];
 				list.forEach(function(entry,index){
