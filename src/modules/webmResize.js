@@ -3,7 +3,7 @@ if(useScripts.webmResize){
 		document.querySelectorAll("source").forEach(video => {
 			let hashMatch = (video.src || "").match(/#\d+(\.\d+)?%?$/);
 			if(hashMatch && !video.parentNode.width){
-				video.parentNode.width = hashMatch[0].substring(1)
+				video.parentNode.setAttribute("width",hashMatch[0].substring(1))
 			}
 		})
 	},500)
