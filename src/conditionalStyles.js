@@ -9,13 +9,13 @@ let aliasFlag = false;
 
 if(useScripts.shortRomaji){
 	shortRomaji.forEach(createAlias);
-	aliasFlag = true;
+	aliasFlag = true
 }
 
 const titleAliases = JSON.parse(localStorage.getItem("titleAliases"));
 if(titleAliases){
 	aliasFlag = true;
-	titleAliases.forEach(createAlias);
+	titleAliases.forEach(createAlias)
 }
 
 if(aliasFlag){
@@ -51,13 +51,13 @@ a.title::before
 }
 .role-card a.content > .name{
 	line-height: 1.3!important;
-}`;
+}`
 }
 m4_include(css/CSSfavs.js)
 if(useScripts.CSScompactBrowse){
 	moreStyle.textContent += `
 m4_include(css/compactBrowse.css)
-	`;
+	`
 }
 if(useScripts.CSSprofileClutter){
 	moreStyle.textContent += `
@@ -73,14 +73,14 @@ if(useScripts.CSSprofileClutter){
 .overview > .section > .desktop.favourites{
 	display: inherit;
 }
-	`;
+	`
 }
 if(useScripts.CSSbannerShadow){
 	moreStyle.textContent += `
 .banner .shadow{
 	display: none;
 }
-	`;
+	`
 }
 if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.availWidth <= 1040)){
 	moreStyle.textContent += `
@@ -104,24 +104,23 @@ if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.a
 #hohListPreview + .list-previews .list-preview-wrap:last-child{
 	display: block;
 }
-	`;
+	`
 }
 if(useScripts.CSSgreenManga){
 	moreStyle.textContent += `
 m4_include(css/greenManga.css)
-	`;
+	`
 }
 if(useScripts.CSSexpandFeedFilters && (!useScripts.mobileFriendly)){
 	moreStyle.textContent += `
 m4_include(css/expandFeedFilters.css)
-	`;
+	`
 }
 if(useScripts.showRecVotes){
 	moreStyle.textContent += `
 .recommendation-card .rating-wrap{
 	opacity: 1;
-}
-`
+}`
 }
 if(useScripts.CSSverticalNav && (!useScripts.mobileFriendly)){
 	moreStyle.textContent += `
@@ -130,8 +129,11 @@ m4_include(css/verticalNav.css)
 	if(useScripts.rightToLeft || useScripts.rightSideNavbar){
 		moreStyle.textContent += `
 #app{
-	padding-left: 5px!important;
 	padding-right: 65px;
+	padding-left: 0px!important;
+}
+.page-content{
+	padding-left: 5px;
 }
 #app div#nav.nav{
 	left: inherit !important;
@@ -155,7 +157,9 @@ m4_include(css/verticalNav.css)
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
-		`;
+.hohColourPicker{
+	right: 70px;
+}`
 	}
 }
 if(useScripts.CSSdecimalPoint){
@@ -173,7 +177,7 @@ if(useScripts.CSSdecimalPoint){
 	margin-left: -4px;
 	content: ".0";
 }
-	`;
+	`
 }
 if(useScripts.CSSdarkDropdown){
 	moreStyle.textContent += `
@@ -197,7 +201,7 @@ if(useScripts.CSSdarkDropdown){
 	border-top-color: rgba(17, 22, 29);
 	opacity: 1;
 }
-	`;
+	`
 }
 if(useScripts.CSSsmileyScore){
 	moreStyle.textContent += `
@@ -208,28 +212,28 @@ if(useScripts.CSSsmileyScore){
 .fa-smile{
 	color: green;
 }
-	`;
+	`
 }
 if(useScripts.limitProgress8){
 	moreStyle.textContent += `
 .home:not(.full-width) .media-preview-card:nth-child(n+9){
 	display:none!important;
 }
-	`;
+	`
 }
 else if(useScripts.limitProgress10){
 	moreStyle.textContent += `
 .home:not(.full-width) .media-preview-card:nth-child(n+11){
 	display:none!important;
 }
-	`;
+	`
 }
 if(parseInt(useScripts.forumPreviewNumber) === 0){
 	moreStyle.textContent += `
 .home .recent-threads{
 	display: none!important;
 }
-	`;
+	`
 }
 if(useScripts.CSSmobileTags){
 	moreStyle.textContent += `
@@ -251,7 +255,7 @@ if(useScripts.CSSmobileTags){
 		opacity: 1;
 	}
 }
-	`;
+	`
 }
 if(useScripts.SFWmode){
 	moreStyle.textContent += `
@@ -288,7 +292,7 @@ m4_include(css/SFWmode.css)
 }
 #nav .link[href*="/mangalist"]::before{
 	visibility: visible;
-}`;
+}`
 	}
 }
 if(useScripts.cleanSocial){

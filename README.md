@@ -17,9 +17,11 @@ As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/aniscripts/
 # Build instructions
 
 "src/" contains a makefile, run "make" there.
-Requires cmake, m4 and basic shell utilities
+Requires make, m4 and basic shell utilities
 
 Will build the userscript and the firefox addon in src/build/
+
+(working build instructions for Windows appreciated)
 
 If you have an archived version of this repo, updated code can be found at
 https://github.com/hohMiyazawa/Automail
