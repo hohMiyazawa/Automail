@@ -20,7 +20,7 @@ function handleScripts(url,oldUrl){
 	else if(url === "https://anilist.co/settings/import" && useScripts.moreImports){
 		moreImports()
 	}
-	else if(url === "https://anilist.co/terms" && useScripts.termsFeed){
+	else if(url.match(/^https:\/\/anilist\.co\/terms/) && useScripts.termsFeed){
 		termsFeed()
 	}
 	else if(url === "https://anilist.co/404"){
@@ -175,13 +175,14 @@ function handleScripts(url,oldUrl){
 	}
 	if(
 		url.match(/^https:\/\/anilist\.co\/user\/(.*)\/(anime|manga)list\/compare/)
-		&& useScripts.comparissionPage
+		&& useScripts.comparissionPage//incorrect spelling to leave backwards compatibility with configs. Doesn't matter as it isn't visible
 	){
-		addComparissionPage()
+		addComparisionPage()//this one on the other hand *should* be spelled correctly
 	}
 	else{
 		let possibleHohCompareRemaining = document.querySelector(".hohCompare");
 		if(possibleHohCompareRemaining){
+			(document.querySelectorAll(".hohCompareUIfragment") || []).forEach(fragment => fragment.remove());
 			possibleHohCompareRemaining.remove()
 		}
 	};

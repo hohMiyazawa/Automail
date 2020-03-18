@@ -1,7 +1,8 @@
-function addComparissionPage(){
+//TODO: many of the separate arrays here should really be a single array of objects instead
+function addComparisionPage(){
 	let URLstuff = document.URL.match(/^https:\/\/anilist\.co\/user\/(.*)\/(anime|manga)list\/compare/);
 	if(!URLstuff){
-		return;
+		return
 	};
 	let userA = decodeURIComponent(URLstuff[1]);
 	let type = URLstuff[2];
@@ -11,39 +12,39 @@ function addComparissionPage(){
 		nativeCompareExists = false;
 		compareLocation = document.querySelector(".medialist");
 		if(!compareLocation){
-			setTimeout(addComparissionPage,200);
-			return;
-		};
+			setTimeout(addComparisionPage,200);
+			return
+		}
 	};
 	if(document.querySelector(".hohCompare")){
-		return;
+		return
 	};
 	compareLocation.style.display = "none";
 	let compareArea = create("div","hohCompare",false,compareLocation.parentNode);
 	if(nativeCompareExists){
-		let switchButton = create("span",false,"Show default compare",compareLocation.parentNode,"position:absolute;top:0px;right:0px;cursor:pointer;z-index:100;");
+		let switchButton = create("span","hohCompareUIfragment","Show default compare",compareLocation.parentNode,"position:absolute;top:0px;right:0px;cursor:pointer;z-index:100;");
 		switchButton.onclick = function(){
 			if(switchButton.innerText === "Show default compare"){
 				switchButton.innerText ="Show hoh compare";
 				compareLocation.style.display = "";
 				compareArea.style.display = "none";
-				switchButton.style.top = "-30px";
+				switchButton.style.top = "-30px"
 			}
 			else{
 				switchButton.innerText ="Show default compare";
 				compareLocation.style.display = "none";
 				compareArea.style.display = "";
-				switchButton.style.top = "0px";
+				switchButton.style.top = "0px"
 			}
 		};
-		compareLocation.parentNode.style.position = "relative";
+		compareLocation.parentNode.style.position = "relative"
 	};
 	let formatFilterLabel = create("span",false,"Filter:",compareArea);
 	formatFilterLabel.style.padding = "5px";
 	let formatFilter = create("select",false,false,compareArea);
 	let addOption = function(value,text){
 		let newOption = create("option",false,text,formatFilter);
-		newOption.value = value;
+		newOption.value = value
 	};
 	addOption("all","All");
 	if(type === "anime"){
@@ -79,45 +80,45 @@ function addComparissionPage(){
 	let users = [];
 	let listCache = {};//storing raw anime data
 	let ratingMode = "average";let guser = 0;let inverse = false;
-	let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",compareLocation.parentNode,"margin-top:10px;");
-	let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",compareLocation.parentNode,"margin-top:10px;");
+	let csvButton = create("button",["csvExport","button","hohButton","hohCompareUIfragment"],"CSV data",compareLocation.parentNode,"margin-top:10px;");
+	let jsonButton = create("button",["jsonExport","button","hohButton","hohCompareUIfragment"],"JSON data",compareLocation.parentNode,"margin-top:10px;");
 	csvButton.onclick = function(){
 		let csvContent = "Title," + digestSelect.selectedOptions[0].text + "," + users.map(user => user.name).join(",") + "\n";
 		shows.forEach(function(show){
 			let display = users.every(function(user,index){
 				if(user.demand === 1 && show.score[index] === 0){
-					return false;
+					return false
 				}
 				else if(user.demand === -1 && show.score[index] !== 0){
-					return false;
+					return false
 				};
 				return (!user.status || show.status[index] === user.status);
 			});
 			if(formatFilter.value !== "all"){
 				if(formatFilter.value !== show.format){
-					display = false;
-				};
+					display = false
+				}
 			};
 			if(show.numberWatched < ratingFilter.value){
 				display = false;
 			};
 			if(!display){
-				return;
+				return
 			};
-			csvContent += csvEscape(show.title) + "," + show.digest + "," + show.score.join(",") + "\n";
+			csvContent += csvEscape(show.title) + "," + show.digest + "," + show.score.join(",") + "\n"
 		});
 		let filename = capitalize(type) + " table";
 		if(users.length === 1){
-			filename += " for " + users[0].name;
+			filename += " for " + users[0].name
 		}
 		else if(users.length === 2){
-			filename += " for " + users[0].name + " and " + users[1].name;
+			filename += " for " + users[0].name + " and " + users[1].name
 		}
 		else if(users.length > 2){
-			filename += " for " + users[0].name + ", " + users[1].name + " and others";
+			filename += " for " + users[0].name + ", " + users[1].name + " and others"
 		}
 		filename += ".csv";
-		saveAs(csvContent,filename,true);
+		saveAs(csvContent,filename,true)
 	};
 	jsonButton.onclick = function(){
 		let jsonData = {
@@ -133,38 +134,38 @@ function addComparissionPage(){
 		}
 		let filename = capitalize(type) + " table";
 		if(users.length === 1){
-			filename += " for " + users[0].name;
+			filename += " for " + users[0].name
 		}
 		else if(users.length === 2){
-			filename += " for " + users[0].name + " and " + users[1].name;
+			filename += " for " + users[0].name + " and " + users[1].name
 		}
 		else if(users.length > 2){
-			filename += " for " + users[0].name + ", " + users[1].name + " and others";
+			filename += " for " + users[0].name + ", " + users[1].name + " and others"
 		}
 		filename += ".json";
-		saveAs(jsonData,filename);
+		saveAs(jsonData,filename)
 	}
 	let sortShows = function(){
-		let averageCalc = function(scoreArray,weight){
+		let averageCalc = function(scoreArray,weight){//can maybe be delegated to the stats object? look into later
 			let sum = 0;
 			let dividents = 0;
 			scoreArray.forEach(function(score){
 				if(score){
 					sum += score;
-					dividents++;
-				};
+					dividents++
+				}
 			});
 			return {
 				average: ((dividents + (weight || 0)) ? (sum/(dividents + (weight || 0))) : 0),
 				dividents: dividents
-			};
+			}
 		};
 		let sortingModes = {
 			"average": function(show){
-				show.digest = averageCalc(show.score).average;
+				show.digest = averageCalc(show.score).average
 			},
 			"average0": function(show){
-				show.digest = averageCalc(show.score,1).average;
+				show.digest = averageCalc(show.score,1).average
 			},
 			"standardDeviation": function(show){
 				let average = averageCalc(show.score);
@@ -173,12 +174,12 @@ function addComparissionPage(){
 				if(average.dividents){
 					show.score.forEach(function(score){
 						if(score){
-							variance += Math.pow(score - average.average,2);
-						};
+							variance += Math.pow(score - average.average,2)
+						}
 					});
 					variance = variance/average.dividents;
-					show.digest = Math.sqrt(variance);
-				};
+					show.digest = Math.sqrt(variance)
+				}
 			},
 			"absoluteDeviation": function(show){
 				let average = averageCalc(show.score);
@@ -187,57 +188,57 @@ function addComparissionPage(){
 				if(average.dividents){
 					show.score.forEach(function(score){
 						if(score){
-							variance += Math.abs(score - average.average);
-						};
+							variance += Math.abs(score - average.average)
+						}
 					});
 					variance = variance/average.dividents;
-					show.digest = Math.sqrt(variance);
-				};
+					show.digest = Math.sqrt(variance)
+				}
 			},
 			"max": function(show){
-				show.digest = Math.max(...show.score);
+				show.digest = Math.max(...show.score)
 			},
 			"min": function(show){
-				show.digest = Math.min(...show.score.filter(TRUTHY)) || 0;
+				show.digest = Math.min(...show.score.filter(TRUTHY)) || 0
 			},
 			"difference": function(show){
 				let mini = Math.min(...show.score.filter(TRUTHY)) || 0;
 				let maks = Math.max(...show.score);
-				show.digest = maks - mini;
+				show.digest = maks - mini
 			},
 			"ratings": function(show){
-				show.digest = show.score.filter(TRUTHY).length;
+				show.digest = show.score.filter(TRUTHY).length
 			},
 			"planned": function(show){
-				show.digest = show.status.filter(value => value === "PLANNING").length;
+				show.digest = show.status.filter(value => value === "PLANNING").length
 			},
 			"current": function(show){
-				show.digest = show.status.filter(value => (value === "CURRENT" || value === "REPEATING")).length;
+				show.digest = show.status.filter(value => (value === "CURRENT" || value === "REPEATING")).length
 			},
 			"favourites": function(show){
-				show.digest = show.favourite.filter(TRUTHY).length;
+				show.digest = show.favourite.filter(TRUTHY).length
 			},
 			"median": function(show){
 				let newScores = show.score.filter(TRUTHY);
 				if(newScores.length === 0){
-					show.digest = 0;
+					show.digest = 0
 				}
 				else{
-					show.digest = Stats.median(newScores);
-				};
+					show.digest = Stats.median(newScores)
+				}
 			},
 			"popularity": function(show){
-				show.digest = show.popularity;
+				show.digest = show.popularity
 			},
 			"averageScore": function(show){
-				show.digest = show.averageScore;
+				show.digest = show.averageScore
 			},
 			"averageScoreDiff": function(show){
 				if(!show.averageScore){
 					show.digest = 0;
-					return;
+					return
 				};
-				show.digest = averageCalc(show.score).average - show.averageScore;
+				show.digest = averageCalc(show.score).average - show.averageScore
 			}
 		};
 		if(ratingMode === "user"){
@@ -272,36 +273,36 @@ function addComparissionPage(){
 		};
 		let columnAmounts = [];
 		users.forEach(function(element){
-			columnAmounts.push({sum:0,amount:0});
+			columnAmounts.push({sum:0,amount:0})
 		})
 		shows.forEach(function(show){
 			let display = users.every(function(user,index){
 				if(user.demand === 1 && show.score[index] === 0){
-					return false;
+					return false
 				}
 				else if(user.demand === -1 && show.score[index] !== 0){
-					return false;
+					return false
 				};
 				return (!user.status || show.status[index] === user.status);
 			});
 			if(formatFilter.value !== "all"){
 				if(formatFilter.value !== show.format){
-					display = false;
-				};
+					display = false
+				}
 			};
 			if(show.numberWatched < ratingFilter.value){
-				display = false;
+				display = false
 			};
 			if(!display){
-				return;
+				return
 			};
 			let row = create("tr","hohAnimeTable");
 			row.onclick = function(){
 				if(this.style.background === "rgb(var(--color-blue),0.5)"){
-					this.style.background = "unset";
+					this.style.background = "unset"
 				}
 				else{
-					this.style.background = "rgb(var(--color-blue),0.5)";
+					this.style.background = "rgb(var(--color-blue),0.5)"
 				}
 			}
 			let showID = create("td",false,false,false,"max-width:250px;");
@@ -323,10 +324,10 @@ function addComparissionPage(){
 				].find(symbol => {
 					if(Math.abs(fractional - symbol.v) < 0.0001){
 						showAverage.innerText = Math.floor(show.digest) + " " + symbol.s;
-						return true;
+						return true
 					}
-					return false;
-				});
+					return false
+				})
 			};
 			row.appendChild(showID);
 			row.appendChild(showAverage);
@@ -343,7 +344,7 @@ function addComparissionPage(){
 						showUserScore.innerText = show.score[i]
 					};
 					columnAmounts[i].sum += show.score[i];
-					columnAmounts[i].amount++;
+					columnAmounts[i].amount++
 				}
 				else{
 					if(show.status[i] === "NOT"){
@@ -364,11 +365,11 @@ function addComparissionPage(){
 					}
 				};
 				if(show.progress[i]){
-					create("span","hohStatusProgress",show.progress[i],showUserScore);
+					create("span","hohStatusProgress",show.progress[i],showUserScore)
 				};
 				if(show.favourite[i]){
 					let favStar = create("span",false,false,showUserScore,"color:gold;font-size:1rem;vertical-align:middle;padding-bottom:2px;");
-					favStar.appendChild(svgAssets2.star.cloneNode(true));
+					favStar.appendChild(svgAssets2.star.cloneNode(true))
 				}
 			};
 			table.appendChild(row);
@@ -380,7 +381,7 @@ function addComparissionPage(){
 			columnAmounts.forEach(amount => {
 				let averageCel = create("td",false,"–",lastRow);
 				if(amount.amount){
-					averageCel.innerText = (amount.sum/amount.amount).roundPlaces(2);
+					averageCel.innerText = (amount.sum/amount.amount).roundPlaces(2)
 				}
 			})
 		}
@@ -389,28 +390,28 @@ function addComparissionPage(){
 		const baseState = location.protocol + "//" + location.host + location.pathname;
 		let params = "";
 		if(users.length){
-			params += "&users=" + users.map(user => user.name + (user.demand ? (user.demand === -1 ? "-" : "*") : "")).join(",");
+			params += "&users=" + users.map(user => user.name + (user.demand ? (user.demand === -1 ? "-" : "*") : "")).join(",")
 		}
 		if(formatFilter.value !== "all"){
-			params += "&filter=" + encodeURIComponent(formatFilter.value);
+			params += "&filter=" + encodeURIComponent(formatFilter.value)
 		};
 		if(ratingFilter.value !== 1){
-			params += "&minRatings=" + encodeURIComponent(ratingFilter.value);
+			params += "&minRatings=" + encodeURIComponent(ratingFilter.value)
 		};
 		if(systemFilter.checked){
-			params += "&ratingSystems=true";
+			params += "&ratingSystems=true"
 		};
 		if(colourFilter.checked){;
-			params += "&fullColour=true";
+			params += "&fullColour=true"
 		};
 		if(ratingMode !== "average"){;
-			params += "&sort=" + ratingMode;
+			params += "&sort=" + ratingMode
 		};
 		if(params.length){
-			params = "?" + params.substring(1);
+			params = "?" + params.substring(1)
 		}
 		current = baseState + params;
-		history.replaceState({},"",baseState + params);
+		history.replaceState({},"",baseState + params)
 	};
 	let drawUsers = function(){
 		removeChildren(table)

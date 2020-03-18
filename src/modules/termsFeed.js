@@ -1,22 +1,29 @@
 function termsFeed(){
 	let page = 1;
-	let location = document.querySelector(".container");
-	location.parentNode.style.background = "rgb(39,44,56)";
-	location.parentNode.style.color = "rgb(159,173,189)";
-	let terms = create("div",["container","termsFeed"],false,location.parentNode,"max-width: 1100px;margin-left:170px;margin-right:170px;");
-	location.style.display = "none";
+	let searchParams = new URLSearchParams(location.search);
+	let paramPage = searchParams.get("page");
+	if(paramPage){
+		page = parseInt(paramPage)
+	};
+	let pageLocation = document.querySelector(".container");
+	pageLocation.parentNode.style.background = "rgb(39,44,56)";
+	pageLocation.parentNode.style.color = "rgb(159,173,189)";
+	let terms = create("div",["container","termsFeed"],false,pageLocation.parentNode,"max-width: 1100px;margin-left:170px;margin-right:170px;");
+	pageLocation.style.display = "none";
 	let policy = create("button",["hohButton","button"],"View Privacy Policy instead",terms,"font-size:1rem;color:initial;");
 	policy.onclick = function(){
-		location.style.display = "initial";
+		pageLocation.style.display = "initial";
 		terms.style.display = "none";
+		document.title = "Anilist Terms"
 	};
 	if(!useScripts.accessToken){
 		create("p",false,"This module does not work without signing in to the script",terms);
 		let loginURL = create("a",false,"Sign in with the script",terms);
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(61,180,242)";
-		return;
+		return
 	};
+	document.title = "Anilist Feed";
 	let browseSettings = create("div",false,false,terms,"margin-top:10px;");
 	let onlyGlobal = createCheckbox(browseSettings);
 	create("span",false,"Global",browseSettings,"margin-right:5px;");
@@ -63,6 +70,32 @@ function termsFeed(){
 	let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;");
 	notiLink.href = "/notifications";
 	let lastUpdated = 0;
+	let changeURL = function(){
+		const baseState = location.protocol + "//" + location.host + location.pathname;
+		let params = "";
+		if(page !== 1){
+			params += "&page=" + page
+		}
+		if(params.length){
+			params = "?" + params.substring(1)
+		}
+		current = baseState + params;
+		history.replaceState({},"",baseState + params)
+	};
+	let handleNotifications = function(data){
+		if(data.data.Viewer){
+			notiLink.innerText = data.data.Viewer.unreadNotificationCount;
+			if(data.data.Viewer.unreadNotificationCount === 1){
+				notiLink.title = "1 unread notification"
+			}
+			else if(data.data.Viewer.unreadNotificationCount){
+				notiLink.title = data.data.Viewer.unreadNotificationCount + " unread notifications"
+			}
+			else{
+				notiLink.title = "no unread notifications"
+			}
+		}
+	}
 	let buildPage = function(activities,type,requestTime){
 		if(requestTime < lastUpdated){
 			return
@@ -335,6 +368,7 @@ function termsFeed(){
 			let status;
 			if(activity.type === "TEXT" || activity.type === "MESSAGE"){
 				status = create("div",false,false,content,"padding-bottom:10px;width:95%;overflow-wrap:anywhere;");
+				activity.text = "<p>" + activity.text.replace(/\n\n/g,"</p><p>") + "</p>";//workaround for API bug
 				if(useScripts.termsFeedNoImages){
 					let imgText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 						let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
@@ -346,6 +380,7 @@ function termsFeed(){
 					status.innerHTML = DOMPurify.sanitize(imgText);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 					if(imgText !== activity.text){
 						let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:50px;width:10px;cursor:pointer;");
+						render.title = "load images";
 						render.onclick = () => {
 							activity.renderingPermission = true;
 							status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
@@ -507,6 +542,7 @@ function termsFeed(){
 	};
 	let requestPage = function(npage,userID){
 		page = npage;
+		changeURL();
 		let types = [];
 		if(!onlyUser.checked){
 			types.push("MESSAGE")
@@ -552,15 +588,7 @@ query($page: Int){
 						thread.text = "<h2>" + thread.title + "</h2>" + thread.text;
 						return thread
 					}).filter(thread => thread.replyCount || !onlyReplies.checked),"thread",requestTime);
-					if(data.data.Viewer){
-						notiLink.innerText = data.data.Viewer.unreadNotificationCount;
-						if(data.data.Viewer.unreadNotificationCount){
-							notiLink.title = data.data.Viewer.unreadNotificationCount + " unread notifications"
-						}
-						else{
-							notiLink.title = "no unread notifications"
-						}
-					};
+					handleNotifications(data);
 				}
 			);
 		}
@@ -601,15 +629,7 @@ query($page: Int){
 						review.text = review.summary
 						return review
 					}),"review",requestTime);
-					if(data.data.Viewer){
-						notiLink.innerText = data.data.Viewer.unreadNotificationCount;
-						if(data.data.Viewer.unreadNotificationCount){
-							notiLink.title = data.data.Viewer.unreadNotificationCount + " unread notifications";
-						}
-						else{
-							notiLink.title = "no unread notifications";
-						}
-					};
+					handleNotifications(data)
 				}
 			);
 		}
@@ -677,15 +697,7 @@ query($page: Int,$types: [ActivityType]){
 				{page: npage,types:types},
 				function(data){
 					buildPage(data.data.Page.activities,"activity",requestTime);
-					if(data.data.Viewer){
-						notiLink.innerText = data.data.Viewer.unreadNotificationCount;
-						if(data.data.Viewer.unreadNotificationCount){
-							notiLink.title = data.data.Viewer.unreadNotificationCount + " unread notifications";
-						}
-						else{
-							notiLink.title = "no unread notifications";
-						}
-					};
+					handleNotifications(data)
 				}
 			);
 		}

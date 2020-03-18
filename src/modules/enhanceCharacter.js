@@ -29,7 +29,7 @@ function enhanceCharacter(){//adds a favourite count on every character page
 				}
 			}
 			else{
-				setTimeout(adder,200);
+				setTimeout(adder,200)
 			}
 		};
 		if(data.data.Character.favourites){
@@ -76,12 +76,12 @@ function enhanceCharacter(){//adds a favourite count on every character page
 							favCallback,
 							"hohCharacterFavs" + variables.id + "page" + i,
 							60*60*1000
-						);
+						)
 					}
 				}
 				else if(data.data.Character.media.pageInfo.currentPage){
 					data.data.Character.media.edges = data.data.Character.media.edges.concat(oldData.data.Character.media.edges);
-					oldData = data;
+					oldData = data
 				}
 			}
 			if(languages.size < 2){
@@ -91,26 +91,26 @@ function enhanceCharacter(){//adds a favourite count on every character page
 					return//no need to replace the page.
 				}
 			}
-			let location = document.querySelector(".container.grid-wrap");
-			if(!location || !location.childElementCount){
+			let pageLocation = document.querySelector(".container.grid-wrap");
+			if(!pageLocation || !pageLocation.childElementCount){
 				setTimeout(rolesBuilder,200);
 				return;
 			};
-			location.classList.add("hohCharacter");
+			pageLocation.classList.add("hohCharacter");
 			if(document.querySelector(".scroller")){
 				document.querySelector(".scroller").remove()
 			}
-			removeChildren(location)
-			let badLocation = location.cloneNode(true);
-			location.parentNode.replaceChild(
+			removeChildren(pageLocation)
+			let badLocation = pageLocation.cloneNode(true);
+			pageLocation.parentNode.replaceChild(
 				badLocation,
-				location
+				pageLocation
 			);
-			location = badLocation;
+			pageLocation = badLocation;
 			if(document.querySelector(".hohInputContainer")){
 				document.querySelector(".hohInputContainer").remove()
 			};
-			let inputContainer = create("div","hohInputContainer",false,location.previousElementSibling,"position:relative;");
+			let inputContainer = create("div","hohInputContainer",false,pageLocation.previousElementSibling,"position:relative;");
 			let selector = create("select",false,false,inputContainer,"position:absolute;right:0px;bottom:5px;");
 			if(languages.size < 2){
 				selector.style.display = "none";
@@ -136,7 +136,7 @@ function enhanceCharacter(){//adds a favourite count on every character page
 					.value = language
 			});
 			let listBuilder = function(){
-				removeChildren(location)
+				removeChildren(pageLocation)
 				if(data.data.Character.media.edges.length === 1 && languages.size < 2){//spread multiple voice actors when we have the space
 					data.data.Character.media.edges = data.data.Character.media.edges[0].voiceActors.filter(
 						actor => actor.language === selector.value
@@ -161,7 +161,7 @@ function enhanceCharacter(){//adds a favourite count on every character page
 						return roleValue[a.characterRole] - roleValue[b.characterRole] || a.node.popularity - b.node.popularity
 					}
 				).forEach(edge => {
-					let card = create("div",["role-card","view-media-staff"],false,location,"position:relative");
+					let card = create("div",["role-card","view-media-staff"],false,pageLocation,"position:relative");
 					let staff = edge.voiceActors.filter(actor => actor.language === selector.value);
 					if(staff.length){
 						let staffSide = create("div","staff",false,card);
