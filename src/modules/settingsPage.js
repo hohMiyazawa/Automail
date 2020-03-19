@@ -230,6 +230,9 @@ exportModule({
 		blockInstructions.innerText = `
 	Block stuff in the home feed.
 
+	Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
+	Example2: To block a specific piece of media, fill out that field and leave the other two blank.
+
 	Changes take effect on reload.`;
 		let blockInput = create("div","#blockInput",false,blockSettings);
 		create("span",false,"User: ",blockInput);
@@ -247,7 +250,26 @@ exportModule({
 		let blockMediaInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockMediaInput.type = "number";
 		blockMediaInput.value = "";
-		blockMediaInput.min = 0;
+		blockMediaInput.min = 1;
+		blockMediaInput.addEventListener("paste",function(e){
+			let clipboardData = e.clipboardData || window.clipboardData;
+			if(!clipboardData){//don't mess with paste
+				return
+			}
+			let pastedData = clipboardData.getData("Text");
+			if(!pastedData){
+				return
+			}
+			e.stopPropagation();
+			e.preventDefault();
+			let possibleFullURL = pastedData.match(/(anime|manga)\/(\d+)\/?/);
+			if(possibleFullURL){
+				blockMediaInput.value = parseInt(possibleFullURL[2])
+			}
+			else{
+				blockMediaInput.value = pastedData
+			}
+		});
 		let blockAddInput = create("button",["button","hohButton"],"Add",blockInput);
 		let blockVisual = create("div",false,false,blockSettings);
 		let drawBlockList = function(){
