@@ -29,6 +29,7 @@ exportModule({
 				let favouritesSort = create("span",false,"Favourites",switcher);
 
 				let rankingData = null;
+				let currentSorting = "";
 				let sortingFunction = (b,a) => a.popularity - b.popularity || a.averageScore - b.averageScore || a.favourites - b.favourites;
 				let renderSubstitute = function(){
 					rankingData.sort(sortingFunction);
@@ -91,13 +92,22 @@ exportModule({
 							}
 							let extra = create("div",["extra","full-width"],false,data);
 								if(show.format){
-									let format = create("span","format",distributionFormats[show.format],extra)
+									create("span","format",distributionFormats[show.format],extra)
 								}
 								if(show.averageScore){
 									let avgScore = create("span",false,show.averageScore + "%",extra).title = "Average score (weighted)\nUnweighted: " + show.meanScore + "%";
 								}
-								if(show.popularity){
-									let popularity = create("span","popularity",show.popularity,extra).title = "Popularity";
+								if(currentSorting === "favourites"){
+									if(show.favourites){
+										let favourites = create("span","favourites",show.favourites,extra);
+										favourites.title = "Favourites";
+										let heart = svgAssets2.likeNative.cloneNode(true);
+										heart.style.marginLeft = "1px";
+										favourites.appendChild(heart)
+									}
+								}
+								else if(show.popularity){
+									create("span","popularity",show.popularity,extra).title = "Popularity";
 								}
 							let description = create("div","description",false,data);
 								description.innerHTML = DOMPurify.sanitize(show.description);
@@ -250,6 +260,7 @@ fragment mediaEntry on Media{
 					removeChildren(fakeContent);
 				}
 				popularitySort.onclick = function(){
+					currentSorting = "popularity";
 					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
 						return
 					}
@@ -266,6 +277,7 @@ fragment mediaEntry on Media{
 					}
 				}
 				scoreSort.onclick = function(){
+					currentSorting = "score";
 					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
 						return
 					}
@@ -282,6 +294,7 @@ fragment mediaEntry on Media{
 					}
 				}
 				favouritesSort.onclick = function(){
+					currentSorting = "favourites";
 					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
 						return
 					}
