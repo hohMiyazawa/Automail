@@ -224,6 +224,9 @@ function termsFeed(){
 			};
 			likeify(activity.likes,likeQuickView);
 			likeWrap.onclick = function(){
+				if(type === "review"){
+					return
+				}
 				authAPIcall(
 					"mutation($id:Int){ToggleLike(id:$id,type:" + type.toUpperCase() + "){id}}",
 					{id: activity.id},
@@ -267,9 +270,9 @@ function termsFeed(){
 							let ndiff = NOW() - (new Date(reply.createdAt * 1000)).valueOf();
 							let time = create("span",["time","hohMonospace"],formatTime(Math.round(ndiff/1000),"short"),rep,"width:50px;position:absolute;left:1px;top:2px;");
 							time.title = (new Date(activity.createdAt * 1000)).toLocaleString();
-							let user = create("a",["link","newTab"],reply.user.name,rep,"margin-left: 60px;");
+							let user = create("a",["link","newTab"],reply.user.name,rep,"margin-left:60px;position:absolute;");
 							user.href = "/user/" + reply.user.name + "/";
-							let text = create("div","status",false,rep,"padding-bottom:10px;margin-left:5px;max-width:100%;");
+							let text = create("div","status",false,rep,"padding-bottom:10px;margin-left:5px;max-width:100%;padding-top:10px;");
 							if(useScripts.termsFeedNoImages && !activity.renderingPermission){
 								let imgText = reply.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 									let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];

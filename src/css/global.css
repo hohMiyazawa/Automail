@@ -350,6 +350,7 @@ m4_include(css/notifications.css)
 	border-width: 0px;
 	border-radius: 2px;
 	margin-left: 20px;
+	color: rgb(var(--color-text));
 }
 .hohFeedFilter button{
 	color: rgb(var(--color-text));
@@ -1146,6 +1147,9 @@ meter::-moz-meter-bar{
 .hohNewChapter{
 	position: relative;
 }
+.hohNewChapter:hover > span{
+	background: rgb(var(--color-background));
+}
 .hohFeed .activity:hover::before{
 	content: ">";
 	position: absolute;
@@ -1892,6 +1896,25 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 .media-page .header .cover-wrap{
 	min-height: 340px;
+}
+#hohStaffTabFilter{
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: -25px;
+}
+.media-staff + #hohStaffTabFilter{
+	display: inline;
+}
+#hohStaffTabFilter > input{
+	height: 20px;
+	margin-left: 3px;
+}
+#hohFilterRemover{
+	display: none;
+}
+#hohFilterRemover:hover{
+	cursor: pointer;
 }
 
 m4_include(css/footerLinks.css)

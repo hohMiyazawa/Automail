@@ -62,7 +62,7 @@ let hohMediaSort = create("div",["container","hohFilterBar"]);
 let sortText = create("span",false,"Sort",hohMediaSort);
 let sortSelect = create("select",false,false,hohMediaSort);
 sortSelect.style.marginLeft = "5px";
-let filterSelect = create("input",false,false,hohMediaSort,"color:rgb(var(--color-text));");
+let filterSelect = create("input",false,false,hohMediaSort);
 filterSelect.setAttribute("list","staffRoles");
 filterSelect.placeholder = "Filter by title, role, etc.";
 let filterExplanation = create("abbr",false,"?",hohMediaSort,"margin-left:5px;cursor:pointer;");
@@ -78,8 +78,7 @@ If you want to limit it to just one filter type, you can do it like "genre:mecha
 
 The start year can also be a range like "2000-2005"`
 };
-let dataList = create("datalist",false,false,hohMediaSort);
-dataList.id = "staffRoles";
+let dataList = create("datalist","#staffRoles",false,hohMediaSort);
 let digestStats = create("span",false,false,hohMediaSort,"margin-left:100px;position:relative;");
 let sortOptionAlpha = create("option",false,"Alphabetical",sortSelect);
 sortOptionAlpha.value = "alphabetical";
@@ -432,8 +431,7 @@ let listRenderer = function(){
 				foundRole = Object.keys(mediaMatcher).some(
 					key => mediaMatcher[key](filterSelect.value,anime)
 				)
-				|| anime.character.name.toLowerCase().match(filterSelect.value.toLowerCase())
-				|| anime.character.name.toLowerCase().includes(filterSelect.value.toLowerCase())
+				|| looseMatcher(anime.character.name,filterSelect.value)
 			}
 		}
 		if(foundRole){

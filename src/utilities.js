@@ -769,7 +769,11 @@ function compatCheck(list,name,type,callback){
 	})
 }
 
-m4_include(data/commonUnfinishedManga.js)
+//used by the stats module, and to safeguard the manga chapter guesses
+const commonUnfinishedManga = m4_include(data/commonUnfinishedManga.json)
+if(NOW() - new Date(2020,0,1) > 365*24*60*60*1000){
+	console.log("remind hoh to update the commonUnfinishedManga list")
+}
 
 function uniqueBy(a,key){
 	let seen = new Set();
@@ -787,6 +791,10 @@ function emojiSanitize(string){
 		}
 		return char
 	}).join("")
+}
+
+function looseMatcher(string,searcher){
+	return string.toLowerCase().match(searcher.toLowerCase()) || string.toLowerCase().includes(searcher.toLowerCase())
 }
 
 let urlChangedDependence = false;//???
