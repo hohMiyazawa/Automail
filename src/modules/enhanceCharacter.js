@@ -166,31 +166,40 @@ function enhanceCharacter(){//adds a favourite count on every character page
 					if(staff.length){
 						let staffSide = create("div","staff",false,card);
 						let staffCover = create("a","cover",false,staffSide);
-						staffCover.href = staff[0].siteUrl.replace("https://anilist.co","");;
+						staffCover.href = staff[0].siteUrl.replace("https://anilist.co","");
 						staffCover.style.backgroundImage = "url(\"" + staff[0].image.large + "\")";
 						let staffContent = create("a","content",false,staffSide);
-						staffContent.href = staff[0].siteUrl.replace("https://anilist.co","");;
+						staffContent.href = staff[0].siteUrl.replace("https://anilist.co","");
 						let staffName = staff[0].name.full
 						if(useScripts.titleLanguage === "NATIVE" && staff[0].name.native){
 							staffName = staff[0].name.native
 						}
-						create("div","name",staffName,staffContent);
+						let displayName = create("div","name",staffName,staffContent);
+						staffCover.title = staffName;
 						create("div","role",capitalize(staff[0].language.toLowerCase()),staffContent);
 						if(staff.length === 2){
 							staffSide.style.marginRight = "65px";
 							let secondCover = create("a","cover",false,card,"position:absolute;right:0px;width:60px;height:100%;");
-							secondCover.href = staff[1].siteUrl.replace("https://anilist.co","");;
+							secondCover.href = staff[1].siteUrl.replace("https://anilist.co","");
 							let secondName = staff[1].name.full
 							if(useScripts.titleLanguage === "NATIVE" && staff[1].name.native){
 								secondName = staff[1].name.native
 							}
 							secondCover.title = secondName;
 							secondCover.style.backgroundImage = "url(\"" + staff[1].image.large + "\")";
+							secondCover.onmouseover = function(){
+								displayName.innerText = secondName;
+								staffContent.href = staff[1].siteUrl.replace("https://anilist.co","")
+							}
+							staffCover.onmouseover = function(){
+								displayName.innerText = staffName;
+								staffContent.href = staff[0].siteUrl.replace("https://anilist.co","")
+							}
 						}
 						else if(staff.length > 2){
 							staffSide.style.marginRight = "130px";
 							let secondCover = create("a","cover",false,card,"position:absolute;right:65px;width:60px;height:100%;");
-							secondCover.href = staff[1].siteUrl.replace("https://anilist.co","");;
+							secondCover.href = staff[1].siteUrl.replace("https://anilist.co","");
 							let secondName = staff[1].name.full
 							if(useScripts.titleLanguage === "NATIVE" && staff[1].name.native){
 								secondName = staff[1].name.native
@@ -198,13 +207,25 @@ function enhanceCharacter(){//adds a favourite count on every character page
 							secondCover.title = secondName;
 							secondCover.style.backgroundImage = "url(\"" + staff[1].image.large + "\")";
 							let thirdCover = create("a","cover",false,card,"position:absolute;right:0px;width:60px;height:100%;");
-							thirdCover.href = staff[2].siteUrl.replace("https://anilist.co","");;
+							thirdCover.href = staff[2].siteUrl.replace("https://anilist.co","");
 							let thirdName = staff[2].name.full
 							if(useScripts.titleLanguage === "NATIVE" && staff[2].name.native){
 								thirdName = staff[2].name.native
 							}
 							thirdCover.title = thirdName;
 							thirdCover.style.backgroundImage = "url(\"" + staff[2].image.large + "\")";
+							secondCover.onmouseover = function(){
+								displayName.innerText = secondName;
+								staffContent.href = staff[1].siteUrl.replace("https://anilist.co","")
+							}
+							thirdCover.onmouseover = function(){
+								displayName.innerText = thirdName;
+								staffContent.href = staff[2].siteUrl.replace("https://anilist.co","")
+							}
+							staffCover.onmouseover = function(){
+								displayName.innerText = staffName;
+								staffContent.href = staff[0].siteUrl.replace("https://anilist.co","")
+							}
 						}
 					};
 					let mediaSide = create("div","media",false,card);

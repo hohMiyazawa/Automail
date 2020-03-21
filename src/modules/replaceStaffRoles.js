@@ -320,7 +320,15 @@ let listRenderer = function(){
 		let content = create("a","content",false,mediaA);
 		content.href = "/" + type + "/" + media.id + "/" + safeURL(media.title);
 		let name = create("div","name",media.title,content);
-		let role = create("div","role",media.role.join(", "),content);
+		let role = create("div","role",media.role.sort((a,b) => {
+			if(a === "Director"){
+				return -1
+			}
+			else if(b === "Director"){
+				return 1
+			}
+			return 0
+		}).join(", "),content);
 		if(sortSelect.value === "popularity"){
 			create("span","hohStaffPageData",media.popularity,content).title = "Popularity"
 		}
