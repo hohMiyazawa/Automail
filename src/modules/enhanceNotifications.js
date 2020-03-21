@@ -143,7 +143,7 @@ You can also turn off this notice there.`,setting);
 							quickComLikes.innerText = reply.likes.length + "♥";
 						};
 						quickComLikes.title = reply.likes.map(a => a.name).join("\n");
-					};
+					}
 				}
 			});
 			let loading = create("div",false,false,comment.children[1]);
@@ -222,13 +222,13 @@ You can also turn off this notice there.`,setting);
 					const actualCount = parseInt(notiCount[0].textContent);
 					if(actualCount < 2){
 						if(possibleButton){
-							possibleButton.click();
-						};
+							possibleButton.click()
+						}
 					}
 					else{
-						notiCount[0].innerText = (actualCount - 1);
-					};
-				};
+						notiCount[0].innerText = (actualCount - 1)
+					}
+				}
 			};
 			if(activities[i].unread){
 				newNotification.classList.add("hohUnread")
@@ -279,19 +279,19 @@ You can also turn off this notice there.`,setting);
 							miniImage.style.width = miniImageWidth/2 + "px";
 							miniImage.style.left = (72 + 7*miniImageWidth + Math.ceil((counter - 9)/2)/2 * miniImageWidth) + "px";
 							if(counter % 2 === 1){
-								miniImage.style.top = miniImageWidth/2 + "px";
+								miniImage.style.top = miniImageWidth/2 + "px"
 							}
 						};
 						counter++;
 					}
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName;
+						activities[i].textName += " & " + activities[i+1].textName
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter - 1);
-					};
+						activities[i].textName += " +" + (counter - 1)
+					}
 				}
 				else{
 					newNotification.classList.add("hohCombined")
@@ -323,11 +323,11 @@ You can also turn off this notice there.`,setting);
 						miniImage.style.width = miniImageWidth/2 + "px";
 						miniImage.style.left = (72 + 7*miniImageWidth + Math.ceil((counter - 9)/2)/2 * miniImageWidth) + "px";
 						if(counter % 2 === 1){
-							miniImage.style.top = miniImageWidth/2 + "px";
+							miniImage.style.top = miniImageWidth/2 + "px"
 						}
 					}
 					if(activities[i].textName !== activities[i + counter].textName){
-						samePerson = false;
+						samePerson = false
 					};
 					counter++;
 				}
@@ -335,17 +335,17 @@ You can also turn off this notice there.`,setting);
 					if(counter > 1){
 						text.style.marginTop = "45px";
 						activities[i].textName += " x" + counter;
-					};
+					}
 				}
 				else{
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName;
+						activities[i].textName += " & " + activities[i+1].textName
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter-1);
-					};
+						activities[i].textName += " +" + (counter-1)
+					}
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
@@ -376,7 +376,7 @@ You can also turn off this notice there.`,setting);
 						miniImage.style.width = miniImageWidth/2 + "px";
 						miniImage.style.left = (72 + 7*miniImageWidth + Math.ceil((counter - 9)/2)/2 * miniImageWidth) + "px";
 						if(counter % 2 === 1){
-							miniImage.style.top = miniImageWidth/2 + "px";
+							miniImage.style.top = miniImageWidth/2 + "px"
 						}
 					}
 					if(activities[i].textName !== activities[i + counter].textName){
@@ -388,7 +388,7 @@ You can also turn off this notice there.`,setting);
 					if(counter > 1){
 						text.style.marginTop = "45px";
 						activities[i].textName += " x" + counter;
-					};
+					}
 				}
 				else{
 					if(counter === 2){
@@ -398,7 +398,7 @@ You can also turn off this notice there.`,setting);
 					else if(counter > 2){
 						text.style.marginTop = "45px";
 						activities[i].textName += " +" + (counter-1);
-					};
+					}
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
@@ -432,29 +432,29 @@ You can also turn off this notice there.`,setting);
 						miniImage.style.width = miniImageWidth/2 + "px";
 						miniImage.style.left = (72 + 7*miniImageWidth + Math.ceil((counter - 9)/2)/2 * miniImageWidth) + "px";
 						if(counter % 2 === 1){
-							miniImage.style.top = miniImageWidth/2 + "px";
+							miniImage.style.top = miniImageWidth/2 + "px"
 						}
 					}
 					if(activities[i].textName !== activities[i + counter].textName){
-						samePerson = false;
+						samePerson = false
 					}
-					counter++;
+					counter++
 				}
 				if(samePerson){
 					if(counter > 1){
 						text.style.marginTop = "45px";
-						activities[i].textName += " x" + counter;
-					};
+						activities[i].textName += " x" + counter
+					}
 				}
 				else{
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName;
+						activities[i].textName += " & " + activities[i+1].textName
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter-1);
-					};
+						activities[i].textName += " +" + (counter-1)
+					}
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
@@ -502,30 +502,30 @@ You can also turn off this notice there.`,setting);
 				let textSpan2 = create("span",false,activities[i].text,text,"color:rgb(var(--color-blue));");
 				if(activities[i].text === ""){
 					if(activities[i].type === "forumSubscribedComment"){
-						textSpan.innerText = " commented in your subscribed forum thread ";
+						textSpan.innerText = " commented in your subscribed forum thread "
 					}
 					else if(activities[i].type === "forumCommentLike"){
-						textSpan.innerText = " liked your comment, in a ";
+						textSpan.innerText = " liked your comment, in a "
 					}
 					else if(activities[i].type === "forumCommentReply"){
-						textSpan.innerText = " replied to your comment, in a ";
+						textSpan.innerText = " replied to your comment, in a "
 					}
 					else if(activities[i].type === "forumLike"){
-						textSpan.innerText = " liked your ";
+						textSpan.innerText = " liked your "
 					}
 					else if(activities[i].type === "forumMention"){
-						textSpan.innerText = " mentioned you, in a ";
+						textSpan.innerText = " mentioned you, in a "
 					}
 					textSpan2.innerText = "[deleted thread]";
-					text.href = "#";
+					text.href = "#"
 				}
 				text.style.maxWidth = "none";
-				text.style.marginTop = "17px";
+				text.style.marginTop = "17px"
 			}
 			else{//display as-is
 				textSpan.classList.add("hohUnhandledSpecial");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
-				text.appendChild(textSpan);
+				text.appendChild(textSpan)
 			};
 			let time = create("div","hohTime");
 			time.innerHTML = activities[i - counter + 1].time;//does not depend on user input
@@ -544,23 +544,23 @@ You can also turn off this notice there.`,setting);
 						let variables = {
 							id: +this.parentNode.classList[1].substring(1)
 						};
-						generalAPIcall(queryActivity,variables,commentCallback,"hohListActivityCall" + variables.id,24*60*60*1000,true,true);
+						generalAPIcall(queryActivity,variables,commentCallback,"hohListActivityCall" + variables.id,24*60*60*1000,true,true)
 					}
 					else{
 						this.children[0].innerText = "+";
-						this.parentNode.children[1].style.display = "none";
+						this.parentNode.children[1].style.display = "none"
 					};
 				};
 				let commentsArea = create("div","hohCommentsArea",false,commentsContainer);
-				newNotification.appendChild(commentsContainer);
+				newNotification.appendChild(commentsContainer)
 			}
-			newContainer.appendChild(newNotification);
-		};
+			newContainer.appendChild(newNotification)
+		}
 	};
 	let activities = [];
 	let notifications = document.getElementsByClassName("notification");//collect the "real" notifications
 	if(notifications.length === prevLength && forceRebuildFlag === false){
-		return;
+		return
 	}
 	else{
 		prevLength = notifications.length;
@@ -591,7 +591,7 @@ You can also turn off this notice there.`,setting);
 		};
 		if(
 			notification.classList.length > 1
-			&& notification.classList[1] != "hasMedia"
+			&& notification.classList[1] !== "hasMedia"
 		){//"notification unread" classlist
 			active.unread = true
 		}
@@ -608,7 +608,7 @@ You can also turn off this notice there.`,setting);
 			active.textSpan =   (info.childNodes[1] || {textContent: ""}).textContent;
 			let linkMatch =     info.href.match(/activity\/(\d+)/);
 			if(linkMatch){
-				active.link = linkMatch[1];
+				active.link = linkMatch[1]
 			};
 			var testType = info.children[0].textContent;
 			active.type = activityTypes[testType];
@@ -646,8 +646,8 @@ You can also turn off this notice there.`,setting);
 					active.type = "airing";
 					active.directLink = info.children[0].href;
 					active.text = info.innerHTML;//does not depend on user input
-				};
-			};
+				}
+			}
 		};
 		if(
 			notification.children.length > 1
@@ -684,7 +684,7 @@ You can also turn off this notice there.`,setting);
 			else if(type === "TEXT"){
 				Array.from(document.getElementsByClassName(data.data.Activity.id)).forEach(stuff => {
 					stuff.style.backgroundImage = "url(" + data.data.Activity.user.avatar.large + ")";
-					stuff.classList.add("hohBackgroundUserCover");
+					stuff.classList.add("hohBackgroundUserCover")
 				})
 			};
 			if(data.data.Activity.replies.length){
@@ -694,13 +694,13 @@ You can also turn off this notice there.`,setting);
 		let vars = {
 			find: i
 		};
-		if(activities[i].link[0] != "a"){//activities with post link
+		if(activities[i].link[0] !== "a"){//activities with post link
 			let variables = {
 				id: +activities[i].link
 			};
 			if(!pending[activities[i].link]){
 				pending[activities[i].link] = true;
-				generalAPIcall(queryActivity,variables,imageCallBack,"hohListActivityCall" + variables.id,24*60*60*1000,true);
+				generalAPIcall(queryActivity,variables,imageCallBack,"hohListActivityCall" + variables.id,24*60*60*1000,true)
 			}
 		}
 	}

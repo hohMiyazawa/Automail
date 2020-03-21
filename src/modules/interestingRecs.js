@@ -98,7 +98,7 @@ fragment stuff on MediaList{
 							possRecs.filter(
 								rec => ((!rec.second.mediaListEntry) || rec.second.mediaListEntry.status === "PLANNING")
 									&& rec.rating > 0
-									&& rec.userRating != "RATE_DOWN"
+									&& rec.userRating !== "RATE_DOWN"
 							).sort(
 								(b,a) => (a.first.score + a.second.averageScore || 41) * (1 - 1/(a.rating + 1))
 									- (b.first.score + b.second.averageScore || 41) * (1 - 1/(b.rating + 1))
@@ -134,84 +134,84 @@ fragment stuff on MediaList{
 										if(rec.rating > 0){
 											rating.innerText = "+" + rec.rating
 										}
-									thumbsDownWrap.onclick = function(){
-										if(rec.userRating === "NO_RATING" || rec.userRating === "RATE_UP"){
-											authAPIcall(
-												`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:RATE_DOWN){id}}`,
-												{},
-												data => {
-													if(data.data){
-														thumbsDownWrap.style.color = "rgb(var(--color-red))";
-														if(rec.userRating = rec.userRating === "RATE_UP"){
-															thumbsUpWrap.style.color = "inherit";
-															rec.rating--;
-														}
-														rec.userRating = "RATE_DOWN";
-														rec.rating--;
-														if(rec.rating > 0){
-															rating.innerText = "+" + rec.rating
-														}
-														else{
-															rating.innerText = 0;
-														}
-													}
-												}
-											)
-										}
-										else{
-											authAPIcall(
-												`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:NO_RATING){id}}`,
-												{},
-												data => {
-													if(data.data){
-														thumbsDownWrap.style.color = "inherit";
-														rec.userRating = "NO_RATING";
-														rec.rating++;
-														rating.innerText = "+" + rec.rating
-													}
-												}
-											)
-										}
-									}
-									thumbsUpWrap.onclick = function(){
-										if(rec.userRating === "NO_RATING" || rec.userRating === "RATE_DOWN"){
-											authAPIcall(
-												`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:RATE_UP){id}}`,
-												{},
-												data => {
-													if(data.data){
-														thumbsUpWrap.style.color = "rgb(var(--color-green))";
-														if(rec.userRating = rec.userRating === "RATE_UP"){
-															thumbsDownWrap.style.color = "inherit";
-															rec.rating++;
-														}
-														rec.userRating = "RATE_UP";
-														rec.rating++;
-														rating.innerText = "+" + rec.rating
-													}
-												}
-											)
-										}
-										else{
-											authAPIcall(
-												`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:NO_RATING){id}}`,
-												{},
-												data => {
-													if(data.data){
+								thumbsDownWrap.onclick = function(){
+									if(rec.userRating === "NO_RATING" || rec.userRating === "RATE_UP"){
+										authAPIcall(
+											`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:RATE_DOWN){id}}`,
+											{},
+											data => {
+												if(data.data){
+													thumbsDownWrap.style.color = "rgb(var(--color-red))";
+													if(rec.userRating = rec.userRating === "RATE_UP"){
 														thumbsUpWrap.style.color = "inherit";
-														rec.userRating = "NO_RATING";
 														rec.rating--;
-														if(rec.rating > 0){
-															rating.innerText = "+" + rec.rating
-														}
-														else{
-															rating.innerText = 0;
-														}
+													}
+													rec.userRating = "RATE_DOWN";
+													rec.rating--;
+													if(rec.rating > 0){
+														rating.innerText = "+" + rec.rating
+													}
+													else{
+														rating.innerText = 0
 													}
 												}
-											)
-										}
+											}
+										)
 									}
+									else{
+										authAPIcall(
+											`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:NO_RATING){id}}`,
+											{},
+											data => {
+												if(data.data){
+													thumbsDownWrap.style.color = "inherit";
+													rec.userRating = "NO_RATING";
+													rec.rating++;
+													rating.innerText = "+" + rec.rating
+												}
+											}
+										)
+									}
+								}
+								thumbsUpWrap.onclick = function(){
+									if(rec.userRating === "NO_RATING" || rec.userRating === "RATE_DOWN"){
+										authAPIcall(
+											`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:RATE_UP){id}}`,
+											{},
+											data => {
+												if(data.data){
+													thumbsUpWrap.style.color = "rgb(var(--color-green))";
+													if(rec.userRating = rec.userRating === "RATE_UP"){
+														thumbsDownWrap.style.color = "inherit";
+														rec.rating++;
+													}
+													rec.userRating = "RATE_UP";
+													rec.rating++;
+													rating.innerText = "+" + rec.rating
+												}
+											}
+										)
+									}
+									else{
+										authAPIcall(
+											`mutation{SaveRecommendation(mediaId:${rec.first.id},mediaRecommendationId:${rec.second.id},rating:NO_RATING){id}}`,
+											{},
+											data => {
+												if(data.data){
+													thumbsUpWrap.style.color = "inherit";
+													rec.userRating = "NO_RATING";
+													rec.rating--;
+													if(rec.rating > 0){
+														rating.innerText = "+" + rec.rating
+													}
+													else{
+														rating.innerText = 0
+													}
+												}
+											}
+										)
+									}
+								}
 							})
 						}
 					)

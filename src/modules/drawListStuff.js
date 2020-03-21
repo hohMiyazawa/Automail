@@ -14,60 +14,69 @@ function drawListStuff(){
 	let extraFilters = create("div","hohExtraFilters");
 	extraFilters.style.marginTop = "15px";
 	if(useScripts.draw3x3){
-		let buttonDraw3x3 = create("span","#hohDraw3x3","3x3",extraFilters);
-		buttonDraw3x3.title = "Create a 3x3 from 9 selected entries";
+		let buttonDraw3x3 = create("span","#hohDraw3x3","Make 3x3",extraFilters);
+		buttonDraw3x3.title = "Click this button, then 9 entries on your list";
 		buttonDraw3x3.onclick = function(){
 			this.style.color = "rgb(var(--color-blue))";
 			let counter = 0;
 			let linkList = [];
-			let cardList = document.querySelectorAll(".entry-card.row,.entry.row");
-			cardList.forEach(function(card){
-				card.onclick = function(){
-					if(this.draw3x3selected){
-						counter--;
-						linkList[this.draw3x3selected - 1] = "";
-						this.draw3x3selected = false;
-						this.style.borderStyle = "none";
-					}
-					else{
-						counter++;
-						linkList.push(this.querySelector(".cover .image").style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',""));
-						this.draw3x3selected = +linkList.length;
-						this.style.borderStyle = "solid";
-						if(counter === 9){
-							linkList = linkList.filter(e => e !== "");
-							let displayBox = createDisplayBox();
-							create("p",false,"Save the image below:",displayBox);
-							displayBox.querySelector(".hohDisplayBoxClose").onclick = function(){
-								displayBox.remove();
-								cardList.forEach(function(card){
-									card.draw3x3selected = false;
-									card.style.borderStyle = "none";
-								});
-								counter = 0;
-								linkList = [];
-							};
-							create("div",false,false,displayBox);
-							let finalCanvas = create("canvas",false,false,displayBox);
-							finalCanvas.width = 230*3;
-							finalCanvas.height = 345*3;
-							let ctx = finalCanvas.getContext("2d");
-							let drawStuff = function(image,x,y,width,height){
-								let img = new Image();
-								img.onload = function(){
-									ctx.drawImage(img,x,y,width,height);
-								}
-								img.src = image;
-							};
-							for(var i=0;i<3;i++){
-								for(var j=0;j<3;j++){
-									drawStuff(linkList[i*3+j],j*230,i*345,230,345);
+			let keepUpdating = true;
+			let updateCards = function(){
+				let cardList = document.querySelectorAll(".entry-card.row,.entry.row");
+				cardList.forEach(card => {
+					card.onclick = function(){
+						if(this.draw3x3selected){
+							counter--;
+							linkList[this.draw3x3selected - 1] = "";
+							this.draw3x3selected = false;
+							this.style.borderStyle = "none"
+						}
+						else{
+							counter++;
+							linkList.push(this.querySelector(".cover .image").style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',""));
+							this.draw3x3selected = +linkList.length;
+							this.style.borderStyle = "solid";
+							if(counter === 9){
+								linkList = linkList.filter(e => e !== "");
+								let displayBox = createDisplayBox();
+								create("p",false,"Save the image below:",displayBox);
+								displayBox.parentNode.querySelector(".hohDisplayBoxClose").onclick = function(){
+									displayBox.parentNode.remove();
+									keepUpdating = false;
+									cardList.forEach(function(card){
+										card.draw3x3selected = false;
+										card.style.borderStyle = "none"
+									});
+									counter = 0;
+									linkList = []
 								};
-							};
+								let finalCanvas = create("canvas",false,false,displayBox);
+								finalCanvas.width = 230*3;
+								finalCanvas.height = 345*3;
+								let ctx = finalCanvas.getContext("2d");
+								let drawStuff = function(image,x,y,width,height){
+									let img = new Image();
+									img.onload = function(){
+										ctx.drawImage(img,x,y,width,height)
+									}
+									img.src = image
+								};
+								for(var i=0;i<3;i++){
+									for(var j=0;j<3;j++){
+										drawStuff(linkList[i*3+j],j*230,i*345,230,345)
+									}
+								}
+							}
 						}
 					}
-				};
-			});
+				})
+			};
+			let waiter = function(){
+				updateCards();
+				if(keepUpdating){
+					setTimeout(waiter,500)
+				}
+			};waiter();
 		}
 	}
 	if(useScripts.newChapters && URLstuff[2] === "mangalist"){
@@ -100,8 +109,8 @@ function drawListStuff(){
 					if(returnedItems === list.length){
 						loader.innerText = "";
 						if(!goodItems.length){
-							loader.innerText = "No new items found :(";
-						};
+							loader.innerText = "No new items found :("
+						}
 					};
 					let guesses = [];
 					let userIdCache = new Set();
@@ -110,9 +119,9 @@ function drawListStuff(){
 							let chapterMatch = parseInt(activity.progress.match(/\d+$/)[0]);
 							if(!userIdCache.has(activity.userId)){
 								guesses.push(chapterMatch);
-								userIdCache.add(activity.userId);
-							};
-						};
+								userIdCache.add(activity.userId)
+							}
+						}
 					});
 					guesses.sort(VALUE_DESC);
 					if(guesses.length){
@@ -122,14 +131,14 @@ function drawListStuff(){
 							let inverseDiff = 1 + Math.ceil(20/(diff+1));
 							if(guesses.length >= inverseDiff){
 								if(guesses[1] === guesses[inverseDiff]){
-									bestGuess = guesses[1];
+									bestGuess = guesses[1]
 								}
-							};
+							}
 						};
 						if(commonUnfinishedManga.hasOwnProperty(data.data.MediaList.media.id)){
 							if(bestGuess < commonUnfinishedManga[data.data.MediaList.media.id].chapters){
-								bestGuess = commonUnfinishedManga[data.data.MediaList.media.id].chapters;
-							};
+								bestGuess = commonUnfinishedManga[data.data.MediaList.media.id].chapters
+							}
 						};
 						let bestDiff = bestGuess - data.data.MediaList.progress;
 						if(bestDiff > 0 && bestDiff < 30){
@@ -223,12 +232,12 @@ query($id: Int,$userName: String){
 					});
 					if((index % 20) === 0){
 						queryPacker(bigQuery);
-						bigQuery = [];
-					};
+						bigQuery = []
+					}
 				});
-				queryPacker(bigQuery);
-			});
-		};
+				queryPacker(bigQuery)
+			})
+		}
 	};
 	if(useScripts.tagIndex && (!useScripts.mobileFriendly)){
 		let tagIndex = create("div","tagIndex",false,extraFilters);
@@ -258,7 +267,7 @@ query($id: Int,$userName: String){
 									if(titles[i].innerText === list.name){
 										let descriptionNode = create("p",false,list.info);
 										titles[i].parentNode.insertBefore(descriptionNode,titles[i].nextSibling);
-										break;
+										break
 									}
 								}
 							}
@@ -317,7 +326,13 @@ query($id: Int,$userName: String){
 			})
 		}
 		else{
-			generalAPIcall(queryMediaListNotes,variables,collectNotes,"hohCustomTagIndex" + variables.listType + variables.name,60*1000);
+			generalAPIcall(
+				queryMediaListNotes,
+				variables,
+				collectNotes,
+				"hohCustomTagIndex" + variables.listType + variables.name,
+				60*1000
+			)
 		}
 	}
 	filters.appendChild(extraFilters);
@@ -327,7 +342,7 @@ query($id: Int,$userName: String){
 	if(paramSearch){
 		filterBox.value = decodeURIComponent(paramSearch);
 		let event = new Event("input");
-		filterBox.dispatchEvent(event);
+		filterBox.dispatchEvent(event)
 	}
 	let filterChange = function(){
 		let newURL = location.protocol + "//" + location.host + location.pathname 
@@ -336,7 +351,7 @@ query($id: Int,$userName: String){
 		}
 		else{
 			searchParams.set("search",encodeURIComponent(filterBox.value));
-			newURL += "?" + searchParams.toString();
+			newURL += "?" + searchParams.toString()
 		}
 		current = newURL;
 		history.replaceState({},"",newURL);
@@ -365,10 +380,10 @@ query($id: Int,$userName: String){
 		let maxScore = 100;
 		let stepSize = 1;
 		if(document.querySelector(".medialist").classList.contains("POINT_10") || document.querySelector(".medialist").classList.contains("POINT_10_DECIMAL")){
-			maxScore = 10;
+			maxScore = 10
 		}
 		if(document.querySelector(".medialist").classList.contains("POINT_10_DECIMAL")){
-			stepSize = 0.1;
+			stepSize = 0.1
 		}
 		let scoreChanger = function(){
 			observer.disconnect();
@@ -377,16 +392,16 @@ query($id: Int,$userName: String){
 					let updateScore = function(isUp){
 						let score = parseFloat(entry.attributes.score.value);
 						if(isUp){
-							score += stepSize;
+							score += stepSize
 						}
 						else{
-							score -= stepSize;
+							score -= stepSize
 						}
 						if(score >= minScore && score <= maxScore){
 							let id = parseInt(entry.previousElementSibling.children[0].href.match(/(anime|manga)\/(\d+)/)[2]);
 							lists.querySelectorAll("[href=\"" + entry.previousElementSibling.children[0].attributes.href.value + "\"]").forEach(function(rItem){
 								rItem.parentNode.nextElementSibling.attributes.score.value = score.roundPlaces(1);
-								rItem.parentNode.nextElementSibling.childNodes[1].textContent = " " + score.roundPlaces(1) + " ";
+								rItem.parentNode.nextElementSibling.childNodes[1].textContent = " " + score.roundPlaces(1) + " "
 							});
 							authAPIcall(
 								`mutation($id:Int,$score:Float){
@@ -394,7 +409,20 @@ query($id: Int,$userName: String){
 										score
 									}
 								}`,
-								{id:id,score:score},function(data){/*later*/}
+								{id:id,score:score},function(data){
+									if(!data){
+										if(isUp){
+											score -= stepSize
+										}
+										else{
+											score += stepSize
+										}
+										lists.querySelectorAll("[href=\"" + entry.previousElementSibling.children[0].attributes.href.value + "\"]").forEach(function(rItem){
+											rItem.parentNode.nextElementSibling.attributes.score.value = score.roundPlaces(1);
+											rItem.parentNode.nextElementSibling.childNodes[1].textContent = " " + score.roundPlaces(1) + " "
+										})
+									}
+								}
 							);
 						};
 					};
@@ -402,14 +430,14 @@ query($id: Int,$userName: String){
 					entry.insertBefore(changeMinus,entry.firstChild);
 					let changePluss = create("span","hohChangeScore","+",entry);
 					changeMinus.onclick = function(){updateScore(false)};
-					changePluss.onclick = function(){updateScore(true)};
+					changePluss.onclick = function(){updateScore(true)}
 				}
 			});
-			observer.observe(lists,mutationConfig);
+			observer.observe(lists,mutationConfig)
 		}
 		let lists = document.querySelector(".lists");
 		let observer = new MutationObserver(scoreChanger);
 		observer.observe(lists,mutationConfig);
-		scoreChanger();
+		scoreChanger()
 	}
 };

@@ -84,12 +84,12 @@ exportModule({
 						input.setAttribute("max",def.max)
 					}
 				}
-				if(def.type != "heading"){
+				if(def.type !== "heading"){
 					input.targetSetting = def.id;
 					input.value = useScripts[def.id];
 					input.onchange = function(){
 						useScripts[this.targetSetting] = this.value;
-						useScripts.save();
+						useScripts.save()
 					}
 				}
 			}
@@ -100,12 +100,12 @@ exportModule({
 				input.onchange = function(){
 					useScripts[this.targetSetting] = this.checked;
 					useScripts.save();
-					initCSS();
+					initCSS()
 				}
 			};
 			if(def.categories){
 				def.categories.forEach(
-					category => setting.classList.add(category.replace(" ",""))
+					category => setting.classList.add(category.replace(/\s/g,""))
 				)
 			};
 			create("span",false,def.description,setting);
@@ -141,11 +141,11 @@ exportModule({
 					if(cssMatches){
 						newAliases.push([cssMatches[1],cssMatches[2]])
 					};
-					return;
+					return
 				};
 				newAliases.push([matches[1],matches[3]]);
 			});
-			localStorage.setItem("titleAliases",JSON.stringify(newAliases));
+			localStorage.setItem("titleAliases",JSON.stringify(newAliases))
 		};
 		titleAliasSettings.appendChild(create("hr"));
 		titleAliasSettings.appendChild(titleAliasInstructions);
@@ -211,7 +211,7 @@ exportModule({
 			};
 			supressOption.oninput = function(){
 				useScripts.notificationColours[nColourType.value].supress = supressOption.checked;
-				useScripts.save();
+				useScripts.save()
 			};
 			nColourValue.value = useScripts.notificationColours[nColourType.value].colour;
 			supressOption.checked = useScripts.notificationColours[nColourType.value].supress;

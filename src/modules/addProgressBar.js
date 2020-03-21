@@ -1,5 +1,5 @@
 function addProgressBar(){
-	if(location.pathname != "/home"){
+	if(location.pathname !== "/home"){
 		return
 	};
 	let mediaCards = document.querySelectorAll(".media-preview-card .content .info:not(.hasMeter) > div");
