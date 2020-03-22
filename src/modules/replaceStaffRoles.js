@@ -605,6 +605,10 @@ let listRenderer = function(){
 				if(distribution[status] > 999){
 					statusSumDot.style.fontSize = "6px"
 				}
+				statusSumDot.onclick = function(){
+					filterSelect.value = "status:" + status.toLowerCase();
+					filterSelect.dispatchEvent(new Event("input",{bubbles: true}))
+				}
 			}
 		})
 	};
