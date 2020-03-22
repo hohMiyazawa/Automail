@@ -783,6 +783,14 @@ function uniqueBy(a,key){
 	})
 }
 
+function dateToJST(string){
+	let splited = string.split("-");
+	let year  = parseInt(splited[0]);
+	let month = parseInt(splited[1]);
+	let day   = parseInt(splited[2]);
+	return Date.UTC(year,month-1,day,-9)
+}
+
 function emojiSanitize(string){
 	return Array.from(string).map(char => {
 		let codePoint = char.codePointAt(0);

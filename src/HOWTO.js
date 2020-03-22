@@ -9,7 +9,7 @@ exportModule({
 	categories: ["Script"],//what categories your module belongs in
 	//Notifications, Feeds, Forum, Lists, Profiles, Stats, Media, Navigation, Browse, Script, Login, Newly Added
 	visible: false,//if the module should be visible in the settings
-	urlMatch: function(url,oldUrl){//a function that returns true when on the parts of the site you want it to run. url is the current url, oldUrl is the previos page
+	urlMatch: function(url,oldUrl){//a function that returns true when on the parts of the site you want it to run. url is the current url, oldUrl is the previous page
 		//example: return url === "https://anilist.co/reviews"
 		return false;
 	},

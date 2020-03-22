@@ -1,10 +1,10 @@
 function termsFeed(){
 	let page = 1;
 	let searchParams = new URLSearchParams(location.search);
-	let paramPage = searchParams.get("page");
-	if(paramPage){
-		page = parseInt(paramPage)
+	if(searchParams.get("page")){
+		page = parseInt(searchParams.get("page"))
 	};
+	let date = searchParams.get("date");
 	let pageLocation = document.querySelector(".container");
 	pageLocation.parentNode.style.background = "rgb(39,44,56)";
 	pageLocation.parentNode.style.color = "rgb(159,173,189)";
@@ -50,6 +50,10 @@ function termsFeed(){
 	let dataUsersList = create("datalist","#userDatalist",false,browseSettings);
 	let dataMediaList = create("datalist","#userMedialist",false,browseSettings);
 	onlyUserInput.setAttribute("list","userDatalist");
+	if(searchParams.get("user")){
+		onlyUserInput.value = decodeURIComponent(searchParams.get("user"));
+		onlyUser.checked = true
+	}
 	onlyMediaInput.setAttribute("list","userMedialist");
 	let feed = create("div","hohFeed",false,terms);
 	let topNav = create("div",false,false,feed,"position:relative;min-height:60px;margin-bottom:15px;");
@@ -72,12 +76,18 @@ function termsFeed(){
 	let lastUpdated = 0;
 	let changeURL = function(){
 		const baseState = location.protocol + "//" + location.host + location.pathname;
-		let params = "";
+		let params = [];
 		if(page !== 1){
-			params += "&page=" + page
+			params.push("page=" + page)
+		}
+		if(onlyUser.checked && onlyUserInput.value.length){
+			params.push("user=" + encodeURIComponent(onlyUserInput.value))
+		}
+		if(date){
+			params.push("date=" + date)
 		}
 		if(params.length){
-			params = "?" + params.substring(1)
+			params = "?" + params.join("&")
 		}
 		current = baseState + params;
 		history.replaceState({},"",baseState + params)
@@ -547,7 +557,7 @@ function termsFeed(){
 		page = npage;
 		changeURL();
 		let types = [];
-		if(!onlyUser.checked){
+		if(!onlyUser.checked || date){
 			types.push("MESSAGE")
 		}
 		if(onlyStatus.checked){
@@ -641,7 +651,7 @@ query($page: Int){
 				`
 query($page: Int,$types: [ActivityType]){
 	Page(page: $page){
-		activities(${(onlyUser.checked || onlyGlobal.checked ? "" : "isFollowing: true,")}sort: ID_DESC,type_not_in: $types${(onlyReplies.checked ? ",hasReplies: true" : "")}${(onlyUser.checked ? ",userId: " + userID : "")}${(onlyGlobal.checked ? ",hasRepliesOrTypeText: true" : "")}${onlyMedia.checked && onlyMediaResult.id ? ",mediaId: " + onlyMediaResult.id : ""}){
+		activities(${(onlyUser.checked || onlyGlobal.checked ? "" : "isFollowing: true,")}sort: ID_DESC,type_not_in: $types${(onlyReplies.checked ? ",hasReplies: true" : "")}${(onlyUser.checked ? ",userId: " + userID : "")}${(onlyGlobal.checked ? ",hasRepliesOrTypeText: true" : "")}${onlyMedia.checked && onlyMediaResult.id ? ",mediaId: " + onlyMediaResult.id : ""}${date ? ",createdAt_greater: " + (dateToJST(date)/1000) + ",createdAt_lesser: " + (dateToJST(date)/1000 + 24*60*60) : ""}){
 			... on MessageActivity{
 				id
 				type
