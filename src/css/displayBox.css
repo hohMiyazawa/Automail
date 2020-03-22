@@ -9,6 +9,7 @@
 	border-radius: 4px;
 	box-shadow: black 2px 2px 20px;
 	overflow: hidden;
+	filter: brightness(110%);
 }
 .hohDisplayBox .scrollableContent{
 	overflow: auto;

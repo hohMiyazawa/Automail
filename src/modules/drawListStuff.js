@@ -81,10 +81,17 @@ function drawListStuff(){
 	}
 	if(useScripts.newChapters && URLstuff[2] === "mangalist"){
 		let buttonFindChapters = create("button",["hohButton","button"],"New Chapters",extraFilters,"display:block;");
+		buttonFindChapters.title = "Check if there are new chapters available for things you are reading";
 		buttonFindChapters.onclick = function(){
 			let scrollableContent = createDisplayBox("min-width:400px;height:500px;");
-			let loader = create("p",false,"Scanning...",scrollableContent);
+			let loader = create("p",false,"Scanning...",scrollableContent,"cursor:wait;");
 			let bannedEntries = new Set();
+			if(useScripts.bannedUpdates){
+				useScripts.bannedUpdates.forEach(item => {
+					bannedEntries.add(item.id)
+				})
+			}
+			let banMode = false;
 			generalAPIcall(`
 			query($name: String!){
 				MediaListCollection(userName: $name, type: MANGA){
@@ -104,6 +111,41 @@ function drawListStuff(){
 				let list = returnList(data,true).filter(a => a.status === "CURRENT" && a.media.status === "RELEASING");
 				let returnedItems = 0;
 				let goodItems = [];
+				let banContainer = create("div",false,false,scrollableContent.parentNode,"position:absolute;bottom:10px;left:10px");
+				let banButton = create("button","hohButton","Ban items",banContainer);
+				let banManager = create("button","hohButton","Manage bans",banContainer);
+				banButton.onclick = function(){
+					banMode = !banMode;
+					if(banMode){
+						banButton.innerText = "Click items to ban them";
+						scrollableContent.classList.add("banMode")
+					}
+					else{
+						banButton.innerText = "Ban items";
+						scrollableContent.classList.remove("banMode")
+					}
+				}
+				banManager.onclick = function(){
+					scrollableContent.parentNode.remove();
+					let manager = createDisplayBox("min-width:400px;height:500px;");
+					create("h3",false,"Banned entries:",manager);
+					if(!useScripts.bannedUpdates || useScripts.bannedUpdates.length == "0"){
+						create("p",false,"no banned items",manager);
+						return
+					}
+					useScripts.bannedUpdates.forEach(function(item){
+						let listing = create("p","hohNewChapter",false,manager);
+						create("a",["link","newTab"],item.title,listing)
+							.href = "/manga/" + item.id + "/" + safeURL(item.title) + "/";
+						let chapterClose = create("span","hohDisplayBoxClose",svgAssets.cross,listing);
+						chapterClose.onclick = function(){
+							listing.remove();
+							bannedEntries.delete(item.id);
+							useScripts.bannedUpdates.splice(useScripts.bannedUpdates.findIndex(a => a.id === item.id));
+							useScripts.save()
+						}
+					})
+				}
 				let checkListing = function(data){
 					returnedItems++;
 					if(returnedItems === list.length){
@@ -112,6 +154,9 @@ function drawListStuff(){
 							loader.innerText = "No new items found :("
 						}
 					};
+					if(!data){
+						return
+					}
 					let guesses = [];
 					let userIdCache = new Set();
 					data.data.Page.activities.forEach(function(activity){
@@ -152,13 +197,16 @@ function drawListStuff(){
 								}
 								let listing = create("p","hohNewChapter",false,scrollableContent);
 								let title = titlePicker(media);
-								let countPlace = create("span",false,false,listing,"width:110px;display:inline-block;");
+								let countPlace = create("span","count",false,listing,"width:110px;display:inline-block;");
 								let progress = create("span",false,item.data.data.MediaList.progress + " ",countPlace);
 								let guess = create("span",false,"+" + (item.bestGuess - item.data.data.MediaList.progress),countPlace,"color:rgb(var(--color-green));");
 								if(useScripts.accessToken){
 									progress.style.cursor = "pointer";
 									progress.title = "Increment progress by 1";
 									progress.onclick = function(){
+										if(banMode){
+											return
+										}
 										item.data.data.MediaList.progress++;
 										authAPIcall(
 											`mutation($id: Int,$progress: Int){
@@ -189,17 +237,43 @@ function drawListStuff(){
 									.href = "/manga/" + media.id + "/" + safeURL(title) + "/";
 								let chapterClose = create("span","hohDisplayBoxClose",svgAssets.cross,listing);
 								chapterClose.onclick = function(){
+									if(banMode){
+										return
+									}
 									listing.remove();
 									bannedEntries.add(media.id)
+								};
+								listing.onclick = function(){
+									if(banMode){
+										if(bannedEntries.has(media.id)){
+											bannedEntries.delete(media.id);
+											listing.style.background = "inherit";
+											useScripts.bannedUpdates.splice(useScripts.bannedUpdates.findIndex(item => item.id === media.id),1)
+										}
+										else {
+											bannedEntries.add(media.id);
+											listing.style.background = "rgb(var(--color-peach))";
+											if(!useScripts.bannedUpdates){
+												useScripts.bannedUpdates = []
+											}
+											useScripts.bannedUpdates.push({
+												id: media.id,
+												title: title
+											})
+										};
+										useScripts.save()
+									}
 								}
 							})
+							create("p","hohNewChapter",false,scrollableContent)//spacer
 						}
 					}
 				};
 				let bigQuery = [];
 				list.forEach(function(entry,index){
-					bigQuery.push({
-						query: `
+					if(!bannedEntries.has(entry.mediaId)){
+						bigQuery.push({
+							query: `
 query($id: Int,$userName: String){
 	Page(page: 1){
 		activities(
@@ -224,12 +298,13 @@ query($id: Int,$userName: String){
 		}
 	}
 }`,
-						variables: {
-							id: entry.mediaId,
-							userName: decodeURIComponent(URLstuff[1])
-						},
-						callback: checkListing
-					});
+							variables: {
+								id: entry.mediaId,
+								userName: decodeURIComponent(URLstuff[1])
+							},
+							callback: checkListing
+						})
+					}
 					if((index % 20) === 0){
 						queryPacker(bigQuery);
 						bigQuery = []

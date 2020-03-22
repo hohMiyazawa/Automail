@@ -159,6 +159,9 @@ m4_include(css/verticalNav.css)
 }
 .hohColourPicker{
 	right: 70px;
+}
+.user .header-wrap{
+	margin-left: -5px;
 }`
 	}
 }

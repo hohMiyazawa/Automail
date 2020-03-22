@@ -1146,9 +1146,25 @@ meter::-moz-meter-bar{
 }
 .hohNewChapter{
 	position: relative;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
-.hohNewChapter:hover > span{
-	background: rgb(var(--color-background));
+.hohNewChapter:hover a::before{
+	content: ">";
+	position: absolute;
+	margin-left: -10px;
+	font-size: small;
+}
+.banMode .hohNewChapter{
+	cursor: crosshair!important;
+}
+.banMode .hohNewChapter a{
+	pointer-events: none;
+}
+.banMode .hohNewChapter:hover .hohDisplayBoxClose{
+	display: none;
 }
 .hohFeed .activity:hover::before{
 	content: ">";
@@ -1452,7 +1468,7 @@ meter::-moz-meter-bar{
 	border: solid;
 	border-radius: 10px;
 	background: rgb(var(--color-foreground));
-	cursor: nw-resize;
+	cursor: se-resize;
 }
 .activity-entry > .wrap > .time:hover{
 	background: rgb(var(--color-foreground));

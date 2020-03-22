@@ -36,8 +36,8 @@ function createDisplayBox(cssProperties){
 				x : event.clientX,
 				y : event.clientY
 			};
-			displayBox.style.width = (mousePosition.x - offset[0]) + "px";
-			displayBox.style.height = (mousePosition.y - offset[1]) + "px";
+			displayBox.style.width = (mousePosition.x - offset[0] + 5) + "px";
+			displayBox.style.height = (mousePosition.y - offset[1] + 5) + "px";
 			return;
 		}
 		if(isDown){
