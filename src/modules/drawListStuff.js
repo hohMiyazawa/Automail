@@ -126,8 +126,7 @@ function drawListStuff(){
 					}
 				}
 				banManager.onclick = function(){
-					scrollableContent.parentNode.remove();
-					let manager = createDisplayBox("min-width:400px;height:500px;");
+					let manager = createDisplayBox("min-width:400px;height:500px;top:100px;left:220px");
 					create("h3",false,"Banned entries:",manager);
 					if(!useScripts.bannedUpdates || useScripts.bannedUpdates.length == "0"){
 						create("p",false,"no banned items",manager);
