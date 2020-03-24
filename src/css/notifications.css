@@ -153,3 +153,9 @@ span.hohMediaImageContainer{
 .hohUnhandledSpecial > div{
 	margin-top: -15px;
 }
+.hohNewMedia a{
+	color: rgb(var(--color-blue));
+}
+.hohNewMedia a[href^="/manga/"]{
+	color: rgb(var(--color-green));
+}

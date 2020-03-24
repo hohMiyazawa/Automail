@@ -16,6 +16,9 @@ function enhanceNotifications(){
 	if(displayMode === "native"){
 		return
 	};
+	if(document.getElementById("hohNotifications")){
+		return
+	}
 	let possibleButton = document.querySelector(".reset-btn");
 	if(possibleButton){
 		if(!possibleButton.flag){
@@ -83,7 +86,15 @@ You can also turn off this notice there.`,setting);
 			};
 			possibleButton.parentNode.appendChild(regularNotifications);
 			possibleButton.parentNode.appendChild(setting);
-		};
+			try{
+				document.querySelector(".group-header + .link").onclick = function(){
+					enhanceNotifications()
+				}
+			}
+			catch(e){
+				console.warn("Unexpected Anilist UI. Is Automail up to date?")
+			}
+		}
 	};
 	let commentCallback = function(data){
 		let listOfComments = Array.from(document.getElementsByClassName("b" + data.data.Activity.id));
@@ -140,9 +151,9 @@ You can also turn off this notice there.`,setting);
 						else{
 							reply.likes.push({name: whoAmI});
 							quickComLikes.classList.add("hohILikeThis");
-							quickComLikes.innerText = reply.likes.length + "♥";
+							quickComLikes.innerText = reply.likes.length + "♥"
 						};
-						quickComLikes.title = reply.likes.map(a => a.name).join("\n");
+						quickComLikes.title = reply.likes.map(a => a.name).join("\n")
 					}
 				}
 			});
@@ -210,7 +221,7 @@ You can also turn off this notice there.`,setting);
 			return
 		}
 		notificationsContainer.insertBefore(newContainer,notificationsContainer.firstChild);
-		for(var i=0;i<activities.length;i++){
+		for(let i=0;i<activities.length;i++){
 			if(useScripts.hideLikes && (activities[i].type === "likeReply" || activities[i].type === "like")){
 				continue
 			};
@@ -522,6 +533,12 @@ You can also turn off this notice there.`,setting);
 				text.style.maxWidth = "none";
 				text.style.marginTop = "17px"
 			}
+			else if(activities[i].type === "newMedia"){
+				textSpan.classList.add("hohNewMedia");
+				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);
+				text.appendChild(textSpan);
+				notImage.style.width = "51px"
+			}
 			else{//display as-is
 				textSpan.classList.add("hohUnhandledSpecial");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
@@ -610,7 +627,7 @@ You can also turn off this notice there.`,setting);
 			if(linkMatch){
 				active.link = linkMatch[1]
 			};
-			var testType = info.children[0].textContent;
+			let testType = info.children[0].textContent;
 			active.type = activityTypes[testType];
 			if(!active.type){
 				active.type = "special"; //by default every activity is some weird thing we are displaying as-is
@@ -624,7 +641,13 @@ You can also turn off this notice there.`,setting);
 			){
 				active.text = (info.children[1] || {textContent: ""}).textContent
 			}
-		};
+		}
+		else{
+			if(notification.innerText.includes("was recently added to the site")){
+				active.type = "newMedia";
+				active.text = notification.children[1].innerHTML
+			}
+		}
 		if(active.type === "special"){
 			active.text = notification.children[1].innerHTML;//does not depend on user input
 			if(notification.children[1].children.length){
@@ -658,10 +681,10 @@ You can also turn off this notice there.`,setting);
 		else{
 			active.time = create("span")
 		};
-		activities.push(active);
+		activities.push(active)
 	});
 	notificationDrawer(activities);
-	for(var i=0;APIcallsUsed < (APIlimit - 5);i++){//heavy
+	for(let i=0;APIcallsUsed < (APIlimit - 5);i++){//heavy
 		if(!activities.length || i >= activities.length){//loading is difficult to predict. There may be nothing there when this runs
 			break
 		};
