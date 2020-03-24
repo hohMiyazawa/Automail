@@ -111,6 +111,14 @@
 		position: relative;
 		transform: none;
 	}
+	.hohCategories::after{
+		display: block;
+		color: rgb(var(--color-peach));
+		content: "On mobile? The 'mobile friendly' setting will probably make the script a lot less broken";
+	}
+	.media .data-set a[href^="/studio/"]{
+		margin-left: 5px;
+	}
 }
 @media(max-width: 500px){
 	.footer [href="https://anilist.co"],

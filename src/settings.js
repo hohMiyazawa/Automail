@@ -93,6 +93,7 @@ let useScripts = {//most modules are turned on by default
 	milestones: false,
 	allStudios: false,
 	CSSmobileTags: true,
+	CSSmobileExternalLinks: false,
 	termsFeed: true,
 	termsFeedNoImages: false,
 	customCSS: false,

@@ -52,7 +52,7 @@
 	"categories": ["Media"]
 },{"id": "infoTable",
 	"description": "Use a two-column table layout for info on media pages",
-	"categories": ["Media","Newly Added"]
+	"categories": ["Media"]
 },{"id": "entryScore",
 	"description": "Add your score and progress to anime pages",
 	"categories": ["Media","Login"]
@@ -101,6 +101,9 @@
 	"categories": ["Media"]
 },{"id": "CSSmobileTags",
 	"description": "Don't hide tags from media pages on mobile",
+	"categories": ["Media"]
+},{"id": "CSSmobileExternalLinks",
+	"description": "Don't remove external links from media pages on mobile",
 	"categories": ["Media"]
 },{"id": "moreStats",
 	"description": "Show an additional tab on the stats page",

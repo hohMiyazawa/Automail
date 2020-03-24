@@ -5,7 +5,7 @@ exportModule({
 	categories: ["Script"],
 	visible: false,
 	urlMatch: function(url,oldUrl){
-		return url === "https://anilist.co/settings/apps";
+		return url === "https://anilist.co/settings/apps"
 	},
 	code: function(){
 		if(location.pathname !== "/settings/apps"){
@@ -329,7 +329,7 @@ exportModule({
 		Tip: Use a colour with transparancy set, to respect light and dark themes. Example: rgb(100,0,100,0.4)
 
 		Tip2: Do you want a faded image, staying fixed in place, and filling the screen? This is how:
-		linear-gradient(rgb(var(--color-background),0.8),rgb(var(--color-background),0.8)),url(https://www.example.com/myBackground.jpg) center/100% fixed
+		linear-gradient(rgb(var(--color-background),0.8),rgb(var(--color-background),0.8)), url(https://www.example.com/myBackground.jpg) center/100% fixed
 	`,
 			backgroundSettings);
 			let inputField = create("input",false,false,backgroundSettings);

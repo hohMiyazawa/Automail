@@ -46,6 +46,9 @@ function addSubTitleInfo(){
 		return
 	}
 	let title = document.querySelector(".content > h1:not(#hohAliasHeading)");
+	if(title.children.length === 0){
+		title.innerText = title.innerText.trim()
+	}
 	let extraBox = create("div","hohExtraBox");
 	title.parentNode.insertBefore(extraBox,title.nextElementSibling);
 	let subTitle = create("p","value","",extraBox,"margin:2px;font-style:italic;");

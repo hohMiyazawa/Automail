@@ -1932,6 +1932,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 #hohFilterRemover:hover{
 	cursor: pointer;
 }
+#hohEntryScore{
+	user-select: none;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
