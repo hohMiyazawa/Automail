@@ -22,6 +22,7 @@ const notificationColourDefaults = {
 	"AIRING":{"colour":"rgb(247,191,99)","supress":false}
 };
 
+//this is the legacy way of specifying default modules, use exportModule's isDefault instead.
 let useScripts = {//most modules are turned on by default
 	notifications: true,
 	socialTab: true,
@@ -63,7 +64,6 @@ let useScripts = {//most modules are turned on by default
 	limitProgress8: false,
 	limitProgress10: false,
 	tagIndex: true,
-	ALbuttonReload: true,
 	expandRight: false,
 	timeToCompleteColumn: false,
 	mangaGuess: true,

@@ -1,5 +1,5 @@
 function addCompletedScores(){
-	if(!location.pathname.match(/^\/(home|user|activity)\/?([\w\-]+)?\/?$/)){
+	if(! /^\/(home|user|activity)\/?([\w\-]+)?\/?$/.test(location.pathname)){
 		return
 	}
 	setTimeout(addCompletedScores,1000);
@@ -7,9 +7,9 @@ function addCompletedScores(){
 	let statusCollection = document.querySelectorAll(".status");
 	statusCollection.forEach(function(status){
 		if(
-			(useScripts.completedScore && status.innerText.match(/^completed/i))
-			|| (useScripts.droppedScore && status.innerText.match(/^dropped/i))
-			|| location.pathname.match(/^\/activity/)
+			(useScripts.completedScore && /^completed/i.test(status.innerText))
+			|| (useScripts.droppedScore && /^dropped/i.test(status.innerText))
+			|| /^\/activity/.test(location.pathname)
 		){
 			if(!status.hasOwnProperty("hohScoreMatched")){
 				status.hohScoreMatched = true;
@@ -53,7 +53,7 @@ function addCompletedScores(){
 					if(data.score){
 						//innerHTML because: contains an inline svg in the case of the "star" rating system
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
-						if(status.innerText.match(/^completed/i)){
+						if(/^completed/i.test(status.innerText)){
 							scoreInfo.appendChild(scoreSuffix);
 							create("span",false,noteSuffix,scoreInfo);
 							create("span",false,rewatchSuffix,scoreInfo)

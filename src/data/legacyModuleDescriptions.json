@@ -23,9 +23,6 @@
 },{"id": "mangaBrowse",
 	"description": "Make browse default to manga",
 	"categories": ["Browse"]
-},{"id": "ALbuttonReload",
-	"description": "Make the 'AL' button reload the feeds on the homepage",
-	"categories": ["Navigation"]
 },{"id": "draw3x3",
 	"description": "Add a button to lists to create 3x3's from list entries. Click the button, and then select nine entries",
 	"categories": ["Lists"]

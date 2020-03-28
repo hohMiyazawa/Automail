@@ -1,10 +1,10 @@
 function addActivityTimeline(){
-	let URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w\-]*\/social/);
+	const URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w\-]*\/social/);
 	if(!URLstuff){
-		return;
+		return
 	};
 	if(document.getElementById("activityTimeline")){
-		return;
+		return
 	};
 	if(!whoAmIid){
 		generalAPIcall(
@@ -12,16 +12,16 @@ function addActivityTimeline(){
 			{name: whoAmI},
 			function(data){
 				whoAmIid = data.data.User.id;
-				addActivityTimeline();
+				addActivityTimeline()
 			},
 			"hohIDlookup" + whoAmI.toLowerCase()
 		);
-		return;
+		return
 	};
 	let followingLocation = document.querySelector(".following");
 	if(!followingLocation){
 		setTimeout(addActivityTimeline,200);
-		return;
+		return
 	};
 	const status = document.querySelector(".actions .list .add").innerText;
 	let activityTimeline = create("div","#activityTimeline",false,followingLocation.parentNode);
@@ -48,46 +48,46 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		}
 	}
 }`;
-	let lineCaller = function(query,variables){
+	const lineCaller = function(query,variables){
 		generalAPIcall(query,variables,function(data){
 			if(data.data.Page.pageInfo.currentPage === 1){
 				removeChildren(activityTimeline)
 				if(data.data.Page.activities.length){
-					create("h2",false,"Activity Timeline",activityTimeline);
+					create("h2",false,"Activity Timeline",activityTimeline)
 				}
 			};
 			data.data.Page.activities.forEach(function(activity){
 				let activityEntry = create("div","hohTimelineEntry",false,activityTimeline);
 				if(activity.replyCount){
-					activityEntry.style.color = "rgb(var(--color-blue))";
+					activityEntry.style.color = "rgb(var(--color-blue))"
 				};
 				let activityContext = create("a","newTab",capitalize(activity.status),activityEntry);
 				activityContext.href = activity.siteUrl;
 				if(["watched episode","read chapter","rewatched episode","reread chapter"].includes(activity.status)){
-					activityContext.innerText += " " + activity.progress;
+					activityContext.innerText += " " + activity.progress
 				};
 				create("span",false,
 					" " + (new Date(activity.createdAt*1000)).toDateString(),
 					activityEntry,
 					"position:absolute;right:7px;"
-				);
+				)
 			});
 			if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage){
 				variables.page++;
-				lineCaller(query,variables);
+				lineCaller(query,variables)
 			}
 		},"hohMediaTimeline" + variables.mediaId + "u" + variables.userId + "p" + variables.page,120*1000);
 	};
 	if(status !== "Add To List"){
-		lineCaller(query,variables);
+		lineCaller(query,variables)
 	};
 	let lookingElse = create("div",false,false,followingLocation.parentNode,"margin-top:30px;");
 	create("div",false,"Looking for the activities of someone else? ",lookingElse);
 	let lookingElseInput = create("input",false,false,lookingElse);
 	lookingElseInput.placeholder = "User";
 	lookingElseInput.setAttribute("list","socialUsers");
-	let lookingElseButton= create("button",["button","hohButton"],"Search",lookingElse);
-	let lookingElseError= create("span",false,"",lookingElse);
+	let lookingElseButton = create("button",["button","hohButton"],"Search",lookingElse);
+	let lookingElseError = create("span",false,"",lookingElse);
 	lookingElseButton.onclick = function(){
 		if(lookingElseInput.value){
 			lookingElseError.innerText = "...";
@@ -97,15 +97,15 @@ query($userId: Int,$mediaId: Int,$page: Int){
 				function(data){
 					if(!data){
 						lookingElseError.innerText = "User not found";
-						return;
+						return
 					};
 					lookingElseError.innerText = "";
 					variables.userId = data.data.User.id;
 					variables.page = 1;
-					lineCaller(query,variables);
+					lineCaller(query,variables)
 				},
 				"hohIDlookup" + lookingElseInput.value.toLowerCase()
-			);
-		};
+			)
+		}
 	}
 }

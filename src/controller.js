@@ -20,13 +20,13 @@ function handleScripts(url,oldUrl){
 	else if(url === "https://anilist.co/settings/import" && useScripts.moreImports){
 		moreImports()
 	}
-	else if(url.match(/^https:\/\/anilist\.co\/terms/) && useScripts.termsFeed){
+	else if(/^https:\/\/anilist\.co\/terms/.test(url) && useScripts.termsFeed){
 		termsFeed()
 	}
 	else if(url === "https://anilist.co/404"){
 		possibleBlocked(oldUrl)
 	}
-	if(url.match(/^https:\/\/anilist\.co\/(anime|manga)\/\d*\/[\w\-]*\/social/)){
+	if(/^https:\/\/anilist\.co\/(anime|manga)\/\d*\/[\w\-]*\/social/.test(url)){
 		if(useScripts.socialTab){
 			enhanceSocialTab();
 			if(useScripts.accessToken){
@@ -44,22 +44,18 @@ function handleScripts(url,oldUrl){
 		stats.scoreCount = 0;
 	}
 	if(
-		url.match(/\/stats\/?/)
+		/\/stats\/?/.test(url)
 		&& useScripts.moreStats
 	){
 		addMoreStats()
 	};
-	if(
-		url.match(/^https:\/\/anilist\.co\/home#access_token/)
-	){
+	if(/^https:\/\/anilist\.co\/home#access_token/.test(url)){
 		let tokenList = location.hash.split("&").map(a => a.split("="));
 		useScripts.accessToken = tokenList[0][1];
 		useScripts.save();
 		location.replace(location.protocol + "//" + location.hostname + location.pathname);
 	};
-	if(
-		url.match(/^https:\/\/anilist\.co\/home#aniscripts-login/)
-	){
+	if(/^https:\/\/anilist\.co\/home#aniscripts-login/.test(url)){
 		if(useScripts.accessToken){
 			alert("Already authorized. You can rewoke this under 'apps' in your Anilist settings")
 		}
@@ -67,7 +63,7 @@ function handleScripts(url,oldUrl){
 			location.href = authUrl
 		}
 	};
-	if(url.match(/^https:\/\/anilist\.co\/user/)){
+	if(/^https:\/\/anilist\.co\/user/.test(url)){
 		if(useScripts.completedScore || useScripts.droppedScore){//we also want this script to run on user pages
 			addCompletedScores()
 		};
@@ -115,9 +111,7 @@ function handleScripts(url,oldUrl){
 			embedHentai()
 		}
 	}
-	else if(
-		url.match(/^https:\/\/anilist\.co\/forum\/?(overview|search\?.*|recent|new|subscribed)?$/)
-	){
+	else if(/^https:\/\/anilist\.co\/forum\/?(overview|search\?.*|recent|new|subscribed)?$/.test(url)){
 		if(useScripts.myThreads){
 			addMyThreadsLink()
 		}
@@ -127,7 +121,7 @@ function handleScripts(url,oldUrl){
 	){
 		addForumMedia()
 	}
-	else if(url.match(/^https:\/\/anilist\.co\/staff\/.*/)){
+	else if(/^https:\/\/anilist\.co\/staff\/.*/.test(url)){
 		if(useScripts.staffPages){
 			enhanceStaff()
 		}

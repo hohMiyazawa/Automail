@@ -1,24 +1,22 @@
 function addBrowseFilters(type){
-	if(!location.pathname.match(/^\/search/)){
-		return;
+	if(! /^\/search/.test(location.pathname)){
+		return
 	};
 	let sorts = document.querySelector(".hohAlready");
 	if(!sorts){
 		sorts = document.querySelector(".filter-group .el-select-dropdown .el-select-dropdown__list");
 		if(!sorts){
 			setTimeout(function(){addBrowseFilters(type)},200);
-			return;
+			return
 		};
 		sorts.classList.add("hohAlready");
 	};
 	let alreadyAdded = document.querySelectorAll(".hohSorts");
-	alreadyAdded.forEach(function(already){
-		already.remove();
-	});
+	alreadyAdded.forEach(aready => aready.remove());
 	let URLredirect = function(property,value){
 		let url = new URLSearchParams(location.search);
 		url.set(property,value);
-		window.location.href = location.protocol + "//" + location.host + location.pathname + "?" + url.toString();
+		window.location.href = location.protocol + "//" + location.host + location.pathname + "?" + url.toString()
 	};
 	if(type === "anime"){
 		let episodeSort = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
@@ -29,17 +27,17 @@ function addBrowseFilters(type){
 			sorts.children[i].onmouseover = function(){
 				let currentHover = sorts.querySelector(".hover");
 				if(currentHover){
-					currentHover.classList.remove("hover");
+					currentHover.classList.remove("hover")
 				};
-				this.classList.add("hover");
-			};
+				this.classList.add("hover")
+			}
 		};
 		episodeSort.onclick = function(){
-			URLredirect("sort","EPISODES_DESC");
+			URLredirect("sort","EPISODES_DESC")
 		};
 		episodeSortb.onclick = function(){
-			URLredirect("sort","EPISODES");
-		};
+			URLredirect("sort","EPISODES")
+		}
 	}
 	else if(type === "manga"){
 		let chapterSort = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
@@ -54,22 +52,22 @@ function addBrowseFilters(type){
 			sorts.children[i].onmouseover = function(){
 				let currentHover = sorts.querySelector(".hover");
 				if(currentHover){
-					currentHover.classList.remove("hover");
+					currentHover.classList.remove("hover")
 				};
-				this.classList.add("hover");
-			};
+				this.classList.add("hover")
+			}
 		};
 		chapterSort.onclick = function(){
-			URLredirect("sort","CHAPTERS_DESC");
+			URLredirect("sort","CHAPTERS_DESC")
 		};
 		chapterSortb.onclick = function(){
-			URLredirect("sort","CHAPTERS");
+			URLredirect("sort","CHAPTERS")
 		};
 		volumeSort.onclick = function(){
-			URLredirect("sort","VOLUMES_DESC");
+			URLredirect("sort","VOLUMES_DESC")
 		};
 		volumeSortb.onclick = function(){
-			URLredirect("sort","VOLUMES");
-		};
-	};
+			URLredirect("sort","VOLUMES")
+		}
+	}
 }

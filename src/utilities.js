@@ -8,7 +8,7 @@ function safeURL(URL){
 	);
 	if(useScripts.SFWmode){
 		if(badWords.some(
-			word => compo.match(word)
+			word => compo.includes(word)
 		)){
 			return ""
 		}
@@ -802,7 +802,8 @@ function emojiSanitize(string){
 }
 
 function looseMatcher(string,searcher){
-	return string.toLowerCase().match(searcher.toLowerCase()) || string.toLowerCase().includes(searcher.toLowerCase())
+	return string.toLowerCase().includes(searcher.toLowerCase())
+	|| RegExp(searcher,"i").test(string.toLowerCase())
 }
 
 let urlChangedDependence = false;//???
