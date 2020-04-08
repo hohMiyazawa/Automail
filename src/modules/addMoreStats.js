@@ -36,14 +36,14 @@ function addMoreStats(){
 		let miscResults = create("div","#queryResults",false,miscQueries);
 		let user = decodeURIComponent(document.URL.match(/user\/(.+)\/stats\/?/)[1]);
 		const loginMessage = "Requires being signed in to the script. You can do that at the bottom of the settings page https://anilist.co/settings/apps";
+		let statusSearchCache = [];
 		let availableQueries = [
 			m4_include(queries/queries.js)
 		];
 		let miscInputSelect = create("select",false,false,miscInput);
 		let miscInputButton = create("button",["button","hohButton"],"Run",miscInput);
-		availableQueries.forEach(function(que){
-			let option = create("option",false,que.name,miscInputSelect);
-			option.value = que.name
+		availableQueries.forEach(que => {
+			create("option",false,que.name,miscInputSelect).value = que.name
 		});
 		miscInputSelect.oninput = function(){
 			miscOptions.innerText = "";

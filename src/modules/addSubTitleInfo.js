@@ -78,7 +78,7 @@ function addSubTitleInfo(){
 	}
 	if(infoNeeded.year){
 		create("a","value",infoNeeded.year,extraBox,"margin-right:10px;")
-			.href = "/search/" + URLstuff[1] + "\?year=" + infoNeeded.year + "%25"
+			.href = "/search/" + URLstuff[1] + "?year=" + infoNeeded.year + "%25"
 	}
 	if(infoNeeded.format && infoNeeded.format !== "Manga"){
 		create("span","value",infoNeeded.format,extraBox,"margin-right:10px;")

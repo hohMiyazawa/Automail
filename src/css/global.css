@@ -638,13 +638,6 @@ tr.hohAnimeTable:nth-child(2n+1){
 .media-card .list-status[status="Repeating"]{
 	background: violet;
 }
-/* One Piece links */
-.external-link[href="https://mangaplus.shueisha.co.jp/titles/100030"]::after{
-	content: "(rerun)";
-}
-.external-link[href="https://mangaplus.shueisha.co.jp/titles/100020"]::after{
-	content: "(latest)";
-}
 .sense-wrap{
 	display: none;
 }

@@ -23,7 +23,7 @@ exportModule({
 					if(target.classList.contains("lv-0")){
 						return
 					}
-					let offset = 0;
+					let offset = 1;
 					while(target.nextSibling){
 						offset++;
 						target = target.nextSibling

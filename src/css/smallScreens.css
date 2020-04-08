@@ -119,6 +119,9 @@
 	.media .data-set a[href^="/studio/"]{
 		margin-left: 5px;
 	}
+	.media p.description:empty{
+		display: none;
+	}
 }
 @media(max-width: 500px){
 	.footer [href="https://anilist.co"],

@@ -603,3 +603,4 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
 	APIcallsUsed++
 }
+const ANILIST_QUERY_LIMIT = 90;

@@ -70,7 +70,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 					" " + (new Date(activity.createdAt*1000)).toDateString(),
 					activityEntry,
 					"position:absolute;right:7px;"
-				)
+				).title = (new Date(activity.createdAt*1000)).toLocaleString()
 			});
 			if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage){
 				variables.page++;

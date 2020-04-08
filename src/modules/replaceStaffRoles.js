@@ -407,7 +407,7 @@ let listRenderer = function(){
 		"status": (query,media) => media.myStatus && (
 			media.myStatus.status.toLowerCase() === query.toLowerCase()
 			|| media.myStatus.status === "CURRENT"  && ["reading","watching"].includes(query.toLowerCase())
-			|| media.myStatus.status === "PLANNING" && ["plan to watch","plan to read"].includes(query.toLowerCase())
+			|| media.myStatus.status === "PLANNING" && ["plan to watch","plan to read","planning"].includes(query.toLowerCase())
 		),
 		"year": (query,media) => {
 			const rangeMatch = query.trim().match(/^(\d\d\d\d)\s?\-\s?(\d\d\d\d)$/);
