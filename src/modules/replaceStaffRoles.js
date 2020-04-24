@@ -606,12 +606,17 @@ let listRenderer = function(){
 					statusSumDot.style.fontSize = "6px"
 				}
 				statusSumDot.onclick = function(){
-					filterSelect.value = "status:" + status.toLowerCase();
+					if(filterSelect.value === "status:" + status.toLowerCase()){
+						filterSelect.value = ""
+					}
+					else{
+						filterSelect.value = "status:" + status.toLowerCase()
+					}
 					filterSelect.dispatchEvent(new Event("input",{bubbles: true}))
 				}
 			}
 		})
-	};
+	}
 };
 sortSelect.oninput = listRenderer;
 filterSelect.oninput = listRenderer;
