@@ -122,7 +122,9 @@ let useScripts = {//most modules are turned on by default
 	titleLanguage: "ROMAJI",
 	dubMarkerLanguage: "English",
 	accessToken: "",
-	automailAPI: false
+	automailAPI: false,
+	comparisionColourFilter: true,
+	comparisionSystemFilter: false
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));

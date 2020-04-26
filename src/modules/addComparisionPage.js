@@ -69,10 +69,10 @@ function addComparisionPage(){
 	ratingFilter.min = 0;
 	let systemFilterLabel = create("span",false,"Individual rating systems:",compareArea,"padding:5px;");
 	let systemFilter = createCheckbox(compareArea);
-	systemFilter.checked = false;
+	systemFilter.checked = useScripts.comparisionSystemFilter;
 	let colourLabel = create("span",false,"Colour entire cell:",compareArea,"padding:5px;");
 	let colourFilter = createCheckbox(compareArea);
-	colourFilter.checked = false;			
+	colourFilter.checked = useScripts.comparisionColourFilter;		
 	let tableContainer = create("table",false,false,compareArea);
 	let table = create("tbody",false,false,tableContainer);
 	let digestSelect = {value:"average"};//placeholder
@@ -778,8 +778,16 @@ fragment mediaListEntry on MediaList{
 	};
 	formatFilter.oninput = function(){drawTable();changeUserURL()};
 	ratingFilter.oninput = function(){drawTable();changeUserURL()};
-	systemFilter.onclick = function(){drawTable();changeUserURL()};
-	colourFilter.onclick = function(){drawTable();changeUserURL()};
+	systemFilter.onclick = function(){
+		useScripts.comparisionSystemFilter = systemFilter.checked;
+		useScripts.save();
+		drawTable();changeUserURL()
+	};
+	colourFilter.onclick = function(){
+		useScripts.comparisionColourFilter = colourFilter.checked;
+		useScripts.save();
+		drawTable();changeUserURL()
+	};
 	let searchParams = new URLSearchParams(location.search);
 	let paramFormat = searchParams.get("filter");
 	if(paramFormat){
