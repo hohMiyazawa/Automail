@@ -1,0 +1,44 @@
+--- badDomains.json
+
+This file contains an array of hashes for illegal manga/anime aggregators, for link filtering (it's currently only used by a few modules)
+
+Use the simple java-hash on the domain name, without the top level domain (so "wikipedia.org" would be just "wikipedia")
+
+
+function hashCode(string){
+	var hash = 0, i, chr;
+	if(string.length === 0){
+		return hash
+	}
+	for(i = 0; i < string.length; i++) {
+		chr   = string.charCodeAt(i);
+		hash  = ((hash << 5) - hash) + chr;
+		hash |= 0;
+	}
+	return hash
+}
+
+
+It's not supposed to be cryptocraphically secure, the purpouse is just to not dump a huge catalogue of such sites to anyone taking a glance.
+
+If you submit a new domain, your pull request must mention the plaintext domain it blocks.
+
+If desirable, a list of blocked sites can probably be provided.
+
+
+--- inlineSVG.json
+
+Use this if your module needs a new icon, as Automail must be delivered in a single file
+
+
+--- studios.json
+
+Format:
+
+[
+	studio ID,
+	studio name (as stringified in the URL),
+	direct link to logo,
+	[optional width],
+	[optional height]
+]
