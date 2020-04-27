@@ -82,7 +82,7 @@ const shortRomaji = (useScripts.shortRomaji ? [
 ["/anime/20799/","JoJo: Stardust Crusaders - Egypt-hen"],
 ["/anime/21450/","JoJo: Diamond wa Kudakenai"],
 ["/anime/102883/","JoJo: Ougon no Kaze"],
-["/anime/101921/","Kaguya-sama wa Kokuraseta"],
+["/anime/101921/","Kaguya-sama wa Kokurasetai 2"],
 ["/anime/101166/","Danmachi: Orion no Ya"],
 ["/anime/20791/","Heaven’s Feel I. presage flower"],
 ["/anime/21718/","Heaven’s Feel II. lost butterfly"],
