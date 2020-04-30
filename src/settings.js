@@ -124,7 +124,8 @@ let useScripts = {//most modules are turned on by default
 	accessToken: "",
 	automailAPI: false,
 	comparisionColourFilter: true,
-	comparisionSystemFilter: false
+	comparisionSystemFilter: false,
+	annoyingAnimations: true
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));

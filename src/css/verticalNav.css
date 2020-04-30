@@ -250,11 +250,19 @@ div#nav.transparent{
 	transition: 0.3s;
 	padding-left: 0px!important;
 }
+#app #nav.nav .browse-wrap{
+	text-align: center;
+	margin-bottom: 10px;
+}
+#app #nav.nav .browse-wrap .dropdown{
+	z-index: 2000;
+}
 div#nav.nav .link.router-link-exact-active.router-link-active,
 #nav > div > div.links > a:hover{
 	border-bottom-width: 0px!important;
 }
-.nav .wrap .links .link:hover{
+.nav .wrap .links .link:hover,
+.nav .browse-wrap:hover{
 	background: rgba(var(--color-blue),0.1);
 }
 .nav .wrap .links .link::before{
@@ -323,7 +331,14 @@ div#nav.transparent{
 	grid-gap: 40px;
 	width: 65px;
 	grid-template-rows: 50px 20px;
+}
+.nav .user-wrap .dropdown{
+	left: -2px;
+	z-index: 2000;
 }	
+.nav .user-wrap .dropdown::before{
+	left: 16px;
+}
 .search .dropdown.el-dropdown{
 	font-size: 10px;
 }
@@ -387,9 +402,6 @@ div#nav.transparent{
 }
 ::-webkit-scrollbar-thumb{
 	background: #4e4e4e!important;
-}
-#app{
-	overflow:unset;
 }
 .user .header-wrap{
 	position: sticky;
@@ -609,7 +621,7 @@ div#nav.transparent{
 	left: 64px;
 	top: 0px;
 	display: none;
-	background: #1f2631;
+	background: #152232;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px;
 	padding: 2px 0px;

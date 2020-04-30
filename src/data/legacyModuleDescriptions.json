@@ -270,6 +270,9 @@
 },{"id": "SFWmode",
 	"description": "A less flashy version of the site for school or the workplace [under development]",
 	"categories": ["Script"]
+},{"id": "annoyingAnimations",
+	"description": "Remove annoying UI animations",
+	"categories": ["Navigation","Newly Added"]
 },{"id": "CSSverticalNav",
 	"description": "Alternative browse mode [with vertical navbar by Kuwabara]",
 	"categories": ["Navigation"]

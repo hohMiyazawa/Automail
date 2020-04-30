@@ -59,6 +59,19 @@ if(useScripts.CSScompactBrowse){
 m4_include(css/compactBrowse.css)
 	`
 }
+if(useScripts.annoyingAnimations){
+	moreStyle.textContent += `
+.media-card .open-editor.circle{
+	transition: unset;
+}
+.media-card:hover .hover-data{
+	animation: none!important;
+}
+.cover.loading::before{
+	display: none!important;
+}
+	`
+}
 if(useScripts.CSSprofileClutter){
 	moreStyle.textContent += `
 .overview .list-stats > .footer{
@@ -159,6 +172,17 @@ m4_include(css/verticalNav.css)
 }
 .hohColourPicker{
 	right: 70px;
+}
+#app .nav .user-wrap .dropdown{
+	left: unset;
+	right: 0px;
+}
+#app .nav .user-wrap .dropdown::before{
+	left: unset;
+	right: 16px;
+}
+.nav .browse-wrap .dropdown{
+	left: -200px;
 }
 .user .header-wrap{
 	margin-left: -5px;
