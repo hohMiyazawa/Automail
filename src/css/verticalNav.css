@@ -208,7 +208,8 @@
 	border-top-color: rgba(var(--color-foreground));
 }
 .wrap .link.router-link-exact-active.router-link-active,
-.nav .link.router-link-exact-active.router-link-active{
+.nav .link.router-link-exact-active.router-link-active,
+.nav .browse-wrap.router-link-exact-active.router-link-active{
 	background: rgba(var(--color-foreground-grey));
 	color: rgba(var(--color-blue));
 }

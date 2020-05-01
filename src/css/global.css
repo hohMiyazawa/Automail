@@ -1933,6 +1933,49 @@ body.TMPreviewScore > .el-tooltip__popper{
 	padding: 8px 0;
 	transition: color .2s ease;
 }
+.selects-wrap .icon-wrap.active{
+	color: rgb(var(--color-blue));
+}
+.selects-wrap .icon-wrap:hover{
+	color: rgb(var(--color-blue));
+}
+.range-wrap .handle{
+	height: 18px;
+}
+.range-wrap .handle-0{
+	background: rgba(var(--color-blue-600),.7);
+	border-radius: 2px 2px 0px 20px;
+	transform: translate(-13.5px,-4px);
+}
+.range-wrap .handle-1{
+	border-radius: 0px 20px 2px 2px;
+	transform: translate(1px,1px);
+}
+.range-wrap .handle-0:hover{
+	transform: translate(-14px,-4px) scale(1.1);
+}
+.range-wrap .handle-1:hover{
+	transform: translate(1.5px,1.5px) scale(1.1);
+}
+.range-wrap .handle:hover{
+	background: rgba(var(--color-blue-600));
+}
+.range-wrap .active-region{
+	border-radius: 0px;
+}
+.results.table{
+	counter-reset: entryCounter;
+}
+.results.table .media-card::before{
+	counter-increment: entryCounter;
+	content: counter(entryCounter);
+	opacity: 0.5;
+	font-size: 70%;
+	margin-left: -16px;
+	top: 2px;
+	margin-right: 3px;
+	position: absolute;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

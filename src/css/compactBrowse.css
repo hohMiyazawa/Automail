@@ -1,325 +1,34 @@
-.search-page-unscoped.container{
-	padding-left: 12px;
-	padding-right: 0px;
-	position: relative;
-}
-.search-page-unscoped > .results.media{
-	margin-top: 40px;
-}
-.search-page-unscoped.cardView .media-card,
-.search-page-unscoped:not(.listView) .media-card,
-.studio-page-unscoped.cardView .media-card,
-.studio-page-unscoped:not(.listView) .media-card{
-	overflow: visible;
-}
-.search-page-unscoped.cardView .list-status,
-.studio-page-unscoped.cardView .list-status{
-	transform: translate(-18px,-18px);
-}
-.search-page-unscoped:not(.listView) .list-status,
-.studio-page-unscoped:not(.listView) .list-status{
-	transform: translate(-20px,-20px);
-}
-.search-page-unscoped:not(.cardView) .description,
-.studio-page-unscoped:not(.cardView) .description{
-	display: none;
-}
-.search-page-unscoped .preview-section,
-.search-page-unscoped,
-.studio-page-unscoped,
 .results > .studio{
 	counter-reset: ranking;
-}
-.search-page-unscoped:not(.cardView) .character,
-.search-page-unscoped:not(.cardView) .staff,
-.studio-page-unscoped:not(.cardView) .character,
-.studio-page-unscoped:not(.cardView) .staff{
-	position: relative;
-}
-.search-page-unscoped .data::before,
-.studio-page-unscoped .data::before,
-.search-page-unscoped .results > .character .cover::before,
-.search-page-unscoped .results > .staff .cover::before{
-	left: 2px;
-	opacity: 0.4;
-	font-size: 70%;
-	position: absolute;
-	counter-increment: ranking;
-	content: counter(ranking);
-}
-.search-page-unscoped:not(.cardView) .media-card,
-.studio-page-unscoped:not(.cardView) .media-card{
-	min-width: 150px!important;
-	grid-template-columns: 150px auto!important;
-	height: 297px!important;
-	width: 150px !important;
-}
-.search-page-unscoped:not(.cardView) .cover .overlay,
-.studio-page-unscoped:not(.cardView) .cover .overlay{
-	padding-left: 8px!important;
-	padding-right: 8px!important;
-	padding-top: 4px!important;
-	padding-bottom: 14px!important;
-}
-.search-page-unscoped:not(.cardView) .grid-wrap > .media-card,
-.studio-page-unscoped:not(.cardView) .grid-wrap > .media-card{
-	margin-left: 30px;
-}
-.search-page-unscoped:not(.cardView) .media-card .cover,
-.studio-page-unscoped:not(.cardView) .media-card .cover{
-	width: 150px;
-	height: 215px;
-	margin-top: 53px;
-	z-index: 100;
-}
-.search-page-unscoped:not(.cardView) .data,
-.studio-page-unscoped:not(.cardView) .data{
-	margin-left: -150px;
-}
-.search-page-unscoped:not(.cardView) .genres,
-.studio-page-unscoped:not(.cardView) .genres{
-	min-height:29px;
-	z-index: 101;
-	padding: 8px 5px!important;
-	padding-bottom: 2px !important;
-	font-size: 1rem!important;
-	line-height: 1.15;
-}
-.search-page-unscoped:not(.cardView) .list-edit,
-.studio-page-unscoped:not(.cardView) .list-edit{
-	z-index: 101;
-}
-.search-page-unscoped:not(.cardView) .airing-countdown,
-.studio-page-unscoped:not(.cardView) .airing-countdown{
-	padding: 5px!important;
-}
-.search-page-unscoped:not(.cardView) .grid-wrap,
-.studio-page-unscoped:not(.cardView) .grid-wrap{
-	grid-template-columns: repeat(auto-fill, 150px) !important;
-}
-.search-page-unscoped:not(.cardView) .media,
-.studio-page-unscoped:not(.cardView) .media{
-	grid-template-columns: repeat(auto-fill, 150px) !important;
-	width:100%;
-}
-.search-page-unscoped:not(.cardView) .overlay .studio{
-	margin-top: 2px!important;
-	margin-bottom: -8px!important;
-}
-.search-page-unscoped:not(.cardView) .list-status,
-.studio-page-unscoped:not(.cardView) .list-status{
-	width: 20px!important;
-	height: 20px!important;
-}
-.search-page-unscoped:not(.cardView) .media-card:nth-child(5){
-	display: inline-grid!important;
-}
-.search-page-unscoped.listView .results.media,
-.search-page-unscoped.compactListView .results.media,
-.studio-page-unscoped.listView .container.grid-wrap,
-.studio-page-unscoped.compactListView .container.grid-wrap{
-	display: block!important;
-}
-.search-page-unscoped.listView .media-card,
-.studio-page-unscoped.listView .media-card{
-	margin-bottom: 10px;
-	height: 195px;
-	width: 95%;
-}
-.search-page-unscoped.listView .media-card .cover,
-.studio-page-unscoped.listView .media-card .cover{
-	height: 165px;
-	width: 115px;
-}
-.search-page-unscoped.listView .media-card .cover .overlay,
-.studio-page-unscoped.listView .media-card .cover .overlay{
-	position: absolute;
-	top: 0px;
-	left: 115px;
-	z-index: 5;
-	background: none;
-	width: 550px;
-	padding: 10px;
-	color: rgb(var(--color-text));
-}
-.search-page-unscoped.listView .media-card .cover .overlay .studio{
-	margin-top: 15px;
-}
-.search-page-unscoped.listView .media-card .data,
-.studio-page-unscoped.listView .media-card .data{
-	margin-left: -70px;
-	height: 195px;
-}
-.search-page-unscoped.listView .media-card .data .list-edit,
-.studio-page-unscoped.listView .media-card .data .list-edit{
-	display: inline;
-	width: 115px;
-	height: 30px;
-	position: absolute;
-	left: -115px;
-	top: 165px;
-}
-.search-page-unscoped.listView .media-card .data .genres,
-.studio-page-unscoped.listView .media-card .data .genres{
-	display: inline;
-}
-.search-page-unscoped.listView .media-card .data .extra,
-.studio-page-unscoped.listView .media-card .data .extra{
-	padding-left: 50%;
-}
-.search-page-unscoped.listView .media-card .data .description,
-.studio-page-unscoped.listView .media-card .data .description{
-	height: 102px;
-}
-.search-page-unscoped.listView .media-card .data .airing-countdown,
-.search-page-unscoped.compactListView .media-card .data .airing-countdown,
-.studio-page-unscoped.listView .media-card .data .airing-countdown,
-.studio-page-unscoped.compactListView .media-card .data .airing-countdown{
-	text-align: right;
-}
-.search-page-unscoped.listView .media-card .data .list-edit .action,
-.studio-page-unscoped.listView .media-card .data .list-edit .action{
-	padding: 5px;
-}
-.search-page-unscoped.compactListView .media .media-card,
-.studio-page-unscoped.compactListView .media-card{
-	margin-bottom: 5px;
-	height: 30px;
-	width: 95%;
-}
-.search-page-unscoped.compactListView .media-card .data .description,
-.studio-page-unscoped.compactListView .media-card .data .description{
-	display: none;
-}
-.search-page-unscoped.compactListView .media-card .cover,
-.studio-page-unscoped.compactListView .media-card .cover{
-	background: none!important;
-	height: 30px;
-}
-.search-page-unscoped.compactListView .media-card .cover .list-status,
-.studio-page-unscoped.compactListView .media-card .cover .list-status{
-	transform: translate(-3px,-3px);
-	z-index: 51;
-	box-shadow: none;
-}
-.search-page-unscoped.compactListView .media-card .cover .overlay,
-.studio-page-unscoped.compactListView .media-card .cover .overlay{
-	z-index: 49;
-	background: none;
-	position: absolute;
-	top: 0px;
-	left: 20px;
-	padding: 6px;
-	width: 600px;
-	color: rgb(var(--color-text));
-}
-.search-page-unscoped.compactListView .media-card .cover .overlay .studio{
-	display: none;
-}
-.search-page-unscoped.compactListView .media-card .data,
-.studio-page-unscoped.compactListView .media-card .data{
-	margin-left: -185px;
-	position: relative;
-}
-.search-page-unscoped.compactListView .media-card .data .list-edit,
-.studio-page-unscoped.compactListView .media-card .data .list-edit{
-	position: absolute;
-	top: 0px;
-	width: 115px;
-	left: calc(100% - 115px);
-	background: none;
-}
-.search-page-unscoped.compactListView .media-card:hover .data .airing-countdown,
-.studio-page-unscoped.compactListView .media-card:hover .data .airing-countdown{
-	display: none;
-}
-.search-page-unscoped.compactListView .media-card .data .extra,
-.studio-page-unscoped.compactListView .media-card .data .extra{
-	position: absolute;
-	left: calc(100% - 550px);
-	top: 0px;
-	background: none;
-	width: 150px;
-}
-.search-page-unscoped.compactListView .media-card .data .genres,
-.studio-page-unscoped.compactListView .media-card .data .genres{
-	position: absolute;
-	width: 200px;
-	top: 6px;
-	background: none;
-	left: calc(100% - 350px);
-	display: inline;
-	padding: 0px;
-	height: 30px;
-	line-height: 10px;
-}
-.search-page-unscoped.compactListView .media-card .data .genres span,
-.studio-page-unscoped.compactListView .media-card .data .genres span{
-	vertical-align: middle;
-}
-.search-page-unscoped.compactListView .data::before,
-.studio-page-unscoped.compactListView .data::before{
-	font-size: 50%;
-}
-.search-page-unscoped.listView .data::before,
-.studio-page-unscoped.listView .data::before{
-	font-size: 60%;
-}
-.search-page-unscoped .hohThemeSwitch{
-	width: 130px;
-	position: absolute;
-	right: 40px;
-	top: -2px;
-}
-.studio-page-unscoped .hohThemeSwitch{
-	width: 130px;
-	position: absolute;
-	top: 60px;
-	left: 50%;
 }
 .studio .media-card.isMain{
 	border-bottom: rgb(var(--color-blue));
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 }
-@media(max-width: 1040px){
-	.search-page-unscoped{
-		margin-top: 40px !important;
-	}
-	.search-page-unscoped .hohThemeSwitch{
-		right: 55px;
-		top: 45px;
-	}
-	.search-page-unscoped .filter-toggle{
-		padding-top: 10px;
-		margin-top: 2px;
-		margin-left: 0px;
-	}
-	.search-page-unscoped > .results.media{
-		margin-top: 44px;
-	}
+.search .results.cover .media-card,
+.search-landing .results:not(.table) .media-card{
+	width: 150px;
 }
-@media(max-width: 850px){
-	.search-page-unscoped:not(.cardView) .results.media{
-		display: inline-grid;
-		grid-column-gap: 15px;
-		grid-row-gap: 15px;
-	}
+.search .results.cover,
+.search-landing .results:not(.table){
+	grid-template-columns: repeat(auto-fill,150px);
+	grid-gap: 25px 20px;
 }
-@media(max-width: 760px){
-	.search-page-unscoped.compactListView .media-card .data .genres{
-		display: none;
-	}
-	.search-page-unscoped.compactListView .media-card .data .extra{
-		left: calc(100% - 280px);
-		width: 120px;
-	}
-	.search-page-unscoped.listView .media-card .data{
-		margin-left: -45px;
-	}
+.search .results.table{
+	grid-gap: 12px;
 }
-@media(max-width: 550px){
-	.search-page-unscoped.compactListView .media-card .data .extra{
-		display: none;
-	}
+.search .results.table .cover{
+	height: 81px;
+	width: 54px;
+}
+.search .results.table .media-card{
+	padding: 0px;
+}
+.search .results.cover .media-card .cover,
+.search-landing .results:not(.table) .media-card .cover{
+	height: 225px;
+}
+.landing-section:not(.top) .link{
+	max-width: 1000px;
 }

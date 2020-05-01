@@ -180,6 +180,21 @@ function handleScripts(url,oldUrl){
 			possibleHohCompareRemaining.remove()
 		}
 	};
+	if(url.match(/^https:\/\/anilist\.co\/search/) && useScripts.CSSverticalNav){
+		let lamaDrama = document.querySelector(".nav .browse-wrap .router-link-exact-active.router-link-active");
+		if(lamaDrama){
+			lamaDrama.classList.remove("router-link-exact-active");
+			lamaDrama.classList.remove("router-link-active");
+			lamaDrama.parentNode.classList.add("router-link-exact-active");
+			lamaDrama.parentNode.classList.add("router-link-active");
+			Array.from(document.querySelectorAll(".nav .link")).forEach(link => {
+				link.onclick = function(){
+					lamaDrama.parentNode.classList.remove("router-link-exact-active");
+					lamaDrama.parentNode.classList.remove("router-link-active");
+				}
+			})
+		}
+	}
 	if(url.match(/^https:\/\/anilist\.co\/search\/characters/)){
 		if(useScripts.characterFavouriteCount){
 			enhanceCharacterBrowse()
