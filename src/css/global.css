@@ -1925,6 +1925,14 @@ body.TMPreviewScore > .el-tooltip__popper{
 #hohEntryScore{
 	user-select: none;
 }
+.hohSorts{
+	color: rgb(var(--color-gray-700));
+	cursor: pointer;
+	font-size: 1.3rem;
+	font-weight: 600;
+	padding: 8px 0;
+	transition: color .2s ease;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

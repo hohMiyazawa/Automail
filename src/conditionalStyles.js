@@ -59,6 +59,13 @@ if(useScripts.CSScompactBrowse){
 m4_include(css/compactBrowse.css)
 	`
 }
+if(!useScripts.CSSverticalNav && useScripts.slimNav){
+	moreStyle.textContent += `
+#nav.nav{
+	height: 40px;
+}
+	`
+}
 if(useScripts.annoyingAnimations){
 	moreStyle.textContent += `
 .media-card .open-editor.circle{
@@ -235,9 +242,11 @@ if(useScripts.CSSsmileyScore){
 .fa-frown{
 	color: red;
 }
-
 .fa-smile{
 	color: green;
+}
+.fa-meh{
+	color: rgb(var(--color-orange));
 }
 	`
 }

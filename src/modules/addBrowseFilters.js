@@ -4,70 +4,58 @@ function addBrowseFilters(type){
 	};
 	let sorts = document.querySelector(".hohAlready");
 	if(!sorts){
-		sorts = document.querySelector(".filter-group .el-select-dropdown .el-select-dropdown__list");
+		sorts = document.querySelector(".sort-wrap.sort-select");
 		if(!sorts){
 			setTimeout(function(){addBrowseFilters(type)},200);
 			return
 		};
-		sorts.classList.add("hohAlready");
+		sorts.classList.add("hohAlready")
 	};
-	let alreadyAdded = document.querySelectorAll(".hohSorts");
-	alreadyAdded.forEach(aready => aready.remove());
-	let URLredirect = function(property,value){
-		let url = new URLSearchParams(location.search);
-		url.set(property,value);
-		window.location.href = location.protocol + "//" + location.host + location.pathname + "?" + url.toString()
-	};
-	if(type === "anime"){
-		let episodeSort = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Episodes ↓",episodeSort);
-		let episodeSortb = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Episodes ↑",episodeSortb);
-		for(var i=0;i<sorts.children.length;i++){
-			sorts.children[i].onmouseover = function(){
-				let currentHover = sorts.querySelector(".hover");
-				if(currentHover){
-					currentHover.classList.remove("hover")
-				};
-				this.classList.add("hover")
+
+	let applySorts = function(){
+		if(! /^\/search/.test(location.pathname)){
+			return
+		};
+		let dropdown = sorts.querySelector(".dropdown");
+		if(!dropdown){
+			setTimeout(applySorts,200);
+			return
+		}
+		let alreadyAdded = document.querySelectorAll(".hohSorts");
+		alreadyAdded.forEach(aready => aready.remove());
+		let URLredirect = function(property,value){
+			let url = new URLSearchParams(location.search);
+			url.set(property,value);
+			window.location.href = location.protocol + "//" + location.host + location.pathname + "?" + url.toString()
+		};
+		if(type === "anime"){
+			let episodeSort = create("div",["option","hohSorts"],"Episodes ↓",dropdown);
+			let episodeSortb = create("div",["option","hohSorts"],"Episodes ↑",dropdown);
+			episodeSort.onclick = function(){
+				URLredirect("sort","EPISODES_DESC")
+			};
+			episodeSortb.onclick = function(){
+				URLredirect("sort","EPISODES")
 			}
-		};
-		episodeSort.onclick = function(){
-			URLredirect("sort","EPISODES_DESC")
-		};
-		episodeSortb.onclick = function(){
-			URLredirect("sort","EPISODES")
+		}
+		else if(type === "manga"){
+			let chapterSort = create("div",["option","hohSorts"],"Chapters ↓",dropdown);
+			let chapterSortb = create("div",["option","hohSorts"],"Chapters ↑",dropdown);
+			let volumeSort = create("div",["option","hohSorts"],"Volumes ↓",dropdown);
+			let volumeSortb = create("div",["option","hohSorts"],"Volumes ↑",dropdown);
+			chapterSort.onclick = function(){
+				URLredirect("sort","CHAPTERS_DESC")
+			};
+			chapterSortb.onclick = function(){
+				URLredirect("sort","CHAPTERS")
+			};
+			volumeSort.onclick = function(){
+				URLredirect("sort","VOLUMES_DESC")
+			};
+			volumeSortb.onclick = function(){
+				URLredirect("sort","VOLUMES")
+			}
 		}
 	}
-	else if(type === "manga"){
-		let chapterSort = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Chapters ↓",chapterSort);
-		let chapterSortb = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Chapters ↑",chapterSortb);
-		let volumeSort = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Volumes ↓",volumeSort);
-		let volumeSortb = create("li",["el-select-dropdown__item","hohSorts"],false,sorts);
-		create("span",false,"Volumes ↑",volumeSortb);
-		for(var i=0;i<sorts.children.length;i++){
-			sorts.children[i].onmouseover = function(){
-				let currentHover = sorts.querySelector(".hover");
-				if(currentHover){
-					currentHover.classList.remove("hover")
-				};
-				this.classList.add("hover")
-			}
-		};
-		chapterSort.onclick = function(){
-			URLredirect("sort","CHAPTERS_DESC")
-		};
-		chapterSortb.onclick = function(){
-			URLredirect("sort","CHAPTERS")
-		};
-		volumeSort.onclick = function(){
-			URLredirect("sort","VOLUMES_DESC")
-		};
-		volumeSortb.onclick = function(){
-			URLredirect("sort","VOLUMES")
-		}
-	}
+	sorts.onclick = applySorts();
 }

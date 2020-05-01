@@ -185,7 +185,7 @@
 	"description": "Use 5-width favourite layout [from userstyle]",
 	"categories": ["Profiles"]
 },{"id": "CSScompactBrowse",
-	"description": "Use a compact view in the browse section. Also makes various list views available",
+	"description": "Make the browse section more compact",
 	"categories": ["Browse"]
 },{"id": "customCSS",
 	"description": "Enable custom profile CSS",

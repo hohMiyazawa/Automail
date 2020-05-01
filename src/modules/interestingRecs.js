@@ -2,7 +2,7 @@ exportModule({
 	id: "interestingRecs",
 	description: "Add a 'For You' filter to the recommendations page",
 	isDefault: true,
-	categories: ["Login","Newly Added"],
+	categories: ["Login"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return url.match(/https:\/\/anilist\.co\/recommendations/) && useScripts.accessToken

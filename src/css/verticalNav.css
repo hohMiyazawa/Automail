@@ -261,7 +261,8 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 #nav > div > div.links > a:hover{
 	border-bottom-width: 0px!important;
 }
-.nav .wrap .links .link:hover,
+.nav .wrap .links > .link:hover,
+.nav .wrap .links div .link:hover,
 .nav .browse-wrap:hover{
 	background: rgba(var(--color-blue),0.1);
 }

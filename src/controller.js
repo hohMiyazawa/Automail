@@ -180,11 +180,6 @@ function handleScripts(url,oldUrl){
 			possibleHohCompareRemaining.remove()
 		}
 	};
-	if(url.match(/^https:\/\/anilist\.co\/search/)){
-		if(useScripts.CSScompactBrowse){
-			addCompactBrowseSwitch()
-		}
-	}
 	if(url.match(/^https:\/\/anilist\.co\/search\/characters/)){
 		if(useScripts.characterFavouriteCount){
 			enhanceCharacterBrowse()

@@ -250,23 +250,23 @@ fragment mediaEntry on Media{
 					)
 				}
 				normalSort.onclick = function(){
-					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
+					if(!fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container")){
 						return
 					}
 					switcher.querySelector(".selected").classList.remove("selected");
 					normalSort.classList.add("selected");
-					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "grid";
+					fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container").style.display = "grid";
 					fakeContent.style.display = "none";
 					removeChildren(fakeContent);
 				}
 				popularitySort.onclick = function(){
 					currentSorting = "popularity";
-					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
+					if(!fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container")){
 						return
 					}
 					switcher.querySelector(".selected").classList.remove("selected");
 					popularitySort.classList.add("selected");
-					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
+					fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container").style.display = "none";
 					fakeContent.style.display = "grid";
 					sortingFunction = (b,a) => a.popularity - b.popularity || a.averageScore - b.averageScore || a.favourites - b.favourites
 					if(rankingData){
@@ -278,12 +278,12 @@ fragment mediaEntry on Media{
 				}
 				scoreSort.onclick = function(){
 					currentSorting = "score";
-					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
+					if(!fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container")){
 						return
 					}
 					switcher.querySelector(".selected").classList.remove("selected");
 					scoreSort.classList.add("selected");
-					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
+					fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container").style.display = "none";
 					fakeContent.style.display = "grid";
 					sortingFunction = (b,a) => a.averageScore - b.averageScore || a.meanScore - b.meanScore || a.favourites - b.favourites || a.popularity - b.popularity;
 					if(rankingData){
@@ -295,12 +295,12 @@ fragment mediaEntry on Media{
 				}
 				favouritesSort.onclick = function(){
 					currentSorting = "favourites";
-					if(!fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)")){
+					if(!fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container")){
 						return
 					}
 					switcher.querySelector(".selected").classList.remove("selected");
 					favouritesSort.classList.add("selected");
-					fakeContent.parentNode.querySelector(".grid-wrap:not(.hohStudioSubstitute)").style.display = "none";
+					fakeContent.parentNode.querySelector(".hohStudioSubstitute + .container").style.display = "none";
 					fakeContent.style.display = "grid";
 					sortingFunction = (b,a) => a.favourites - b.favourites || a.averageScore - b.averageScore || a.meanScore - b.meanScore || a.popularity - b.popularity;
 					if(rankingData){
