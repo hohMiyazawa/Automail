@@ -1,0 +1,32 @@
+Automail has configurable settings.
+If those settings are to be kept, they have to be stored somewhere.
+
+Since Automail makes to use of a central server, they have to be saved locally on your computer.
+Browsers provide several APIs for this, generally known as cookies.
+
+
+
+Automail still mostly works without persistant storage, but in case you want to re-enable it anyway, it should be sufficient to only enable it for the anilist.co domain.
+
+
+
+
+Case 1. All storage disabled
+
+	Automail will always have the default settings, and you will not be able to sign in to it, making certain modules unavailable
+
+
+Case 2. Storage is not kept between sessions.
+
+	You can change the settings and sign in, but your settings will be gone and you will be signed out if you close and re-open your browser
+
+
+
+Patching default settings:
+
+
+src/settings.js contains an object called "useScripts" with the default settings.
+
+Edit this to your taste, and build the script. (you can also save your access token here, which should be in the URL when you click the sign in button on the settings page)
+
+(if you are editing a build correctly, the relevant code can be located by searching for "let useScripts =")
