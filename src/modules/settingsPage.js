@@ -27,7 +27,7 @@ exportModule({
 		let sHome2 = create("p",false,"Repository: ",scriptStats);
 		let sHomeLink2 = create("a",false,scriptInfo.repo,sHome2);
 		if(!useScripts.accessToken){
-			create("p",false,"Faded options only have limited functionallity without signing in to the script",scriptStats)
+			create("p",false,"Faded options only have limited functionallity without signing in to the script which also requires persistent cookies, see https://github.com/hohMiyazawa/Automail/issues/26#issuecomment-623677462",scriptStats)
 		}
 		sHomeLink.href = scriptInfo.link;
 		sHomeLink2.href = scriptInfo.repo;
