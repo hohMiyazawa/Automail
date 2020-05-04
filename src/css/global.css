@@ -1966,7 +1966,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 .results.table{
 	counter-reset: entryCounter;
 }
-.results.table .media-card::before{
+.results.table .media-card:not(.has-rank)::before{
 	counter-increment: entryCounter;
 	content: counter(entryCounter);
 	opacity: 0.5;
