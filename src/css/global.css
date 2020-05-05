@@ -817,6 +817,12 @@ select{
 .hohThemeSwitch > span{
 	cursor: pointer;
 }
+.studio .hohThemeSwitch{
+	position: absolute;
+	left: calc(50% - 65px);
+	width: 130px;
+	top: 120px;
+}
 .user-social.listView .user-follow .wrap{
 	display: block!important;
 }
@@ -1976,6 +1982,18 @@ body.TMPreviewScore > .el-tooltip__popper{
 	margin-right: 3px;
 	position: absolute;
 }
+.results.cover .title{
+	position: relative;
+	padding-left: 15px;
+	margin-left: -12px;
+}
+.results.cover .title .list-status.circle{
+	visibility: visible;
+	position: absolute;
+	left: 0px;
+	top: 3px;
+}
+
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
