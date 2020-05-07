@@ -15,6 +15,10 @@ function addCustomCSS(){
 		}
 		generalAPIcall(query,variables,data => {
 			customStyle.textContent = "";
+			let external = document.getElementById("customExternalCSS");
+			if(external){
+				external.remove()
+			}
 			if(!data){
 				return;
 			};
@@ -25,7 +29,17 @@ function addCustomCSS(){
 			try{
 				let jsonData = JSON.parse(jsonMatch[1]);
 				if(jsonData.customCSS){
-					customStyle.textContent = jsonData.customCSS;
+					if(jsonData.customCSS.match(/^https.*\.css$/)){
+						let styleRef = document.createElement("link");
+						styleRef.id = "customExternalCSS";
+						styleRef.rel = "stylesheet";
+						styleRef.type = "text/css";
+						styleRef.href = jsonData.customCSS;
+						document.getElementsByTagName("head")[0].appendChild(styleRef)
+					}
+					else{
+						customStyle.textContent = jsonData.customCSS
+					}
 					currentUserCSS = decodeURIComponent(URLstuff[1]);
 				}
 			}
@@ -33,6 +47,6 @@ function addCustomCSS(){
 				console.warn("Invalid profile JSON for " + variables.userName + ". Aborting.");
 				console.log(jsonMatch[1]);
 			}
-		},"hohProfileBackground" + variables.userName,30*1000);
+		},"hohProfileBackground" + variables.userName,25*1000);
 	}
 }

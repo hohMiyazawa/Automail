@@ -1,5 +1,5 @@
 let moreStyle = create("style");
-moreStyle.id = "conditional-aniscripts-styles";
+moreStyle.id = "conditional-automail-styles";
 moreStyle.type = "text/css";
 
 function initCSS(){
@@ -421,7 +421,7 @@ if(useScripts.infoTable){
 documentHead.appendChild(moreStyle);
 let customStyle = create("style");
 let currentUserCSS = "";
-customStyle.id = "customCSS-aniscripts-styles";
+customStyle.id = "customCSS-automail-styles";
 customStyle.type = "text/css";
 documentHead.appendChild(customStyle);
 
