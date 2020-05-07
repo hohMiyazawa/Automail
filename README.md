@@ -12,7 +12,7 @@ Automail primarily deals with:
 # Available releases
 
 As a userscript: https://greasyfork.org/en/scripts/370473-automail
-As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/aniscripts/
+As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/automail/
 
 # Build instructions
 
