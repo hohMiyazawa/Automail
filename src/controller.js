@@ -190,7 +190,7 @@ function handleScripts(url,oldUrl){
 			Array.from(document.querySelectorAll(".nav .link")).forEach(link => {
 				link.onclick = function(){
 					lamaDrama.parentNode.classList.remove("router-link-exact-active");
-					lamaDrama.parentNode.classList.remove("router-link-active");
+					lamaDrama.parentNode.classList.remove("router-link-active")
 				}
 			})
 		}
@@ -198,31 +198,22 @@ function handleScripts(url,oldUrl){
 	if(url.match(/^https:\/\/anilist\.co\/search\/characters/)){
 		if(useScripts.characterFavouriteCount){
 			enhanceCharacterBrowse()
-		};
-		document.title = "Find Characters · AniList";
+		}
 	}
 	else if(url.match(/^https:\/\/anilist\.co\/search\/staff/)){
 		if(useScripts.staffPages){
 			enhanceStaffBrowse()
-		};
-		document.title = "Find Staff · AniList";
+		}
 	}
 	else if(url.match(/^https:\/\/anilist\.co\/search\/studios/)){
 		document.title = "Find Studios · AniList";
 	}
 	else if(url.match(/^https:\/\/anilist\.co\/search\/anime/)){
-		document.title = "Find Anime · AniList";
-		setTimeout(() => {
-			if(document.URL.match(/^https:\/\/anilist\.co\/search\/anime/)){
-				document.title = "Find Anime · AniList"
-			}
-		},100);
 		if(useScripts.browseFilters){
 			addBrowseFilters("anime")
 		}
 	}
 	else if(url.match(/^https:\/\/anilist\.co\/search\/manga/)){
-		document.title = "Find Manga · AniList";
 		if(useScripts.browseFilters){
 			addBrowseFilters("manga")
 		}
@@ -368,7 +359,7 @@ function handleScripts(url,oldUrl){
 				}
 			}
 		};
-		linkFixer();
+		linkFixer()
 	}
 	let activityMatch = url.match(/^https:\/\/anilist\.co\/activity\/(\d+)/);
 	if(activityMatch){

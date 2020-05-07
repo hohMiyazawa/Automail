@@ -7,6 +7,7 @@
 	border-bottom-style: solid;
 }
 .search .results.cover .media-card,
+.search .results .staff-card,
 .search-landing .results:not(.table) .media-card{
 	width: 150px;
 }
@@ -26,10 +27,11 @@
 	padding: 0px;
 }
 .search .results.cover .media-card .cover,
-.search-landing .results:not(.table) .media-card .cover{
+.search-landing .results:not(.table) .media-card .cover,
+.search .results .staff-card .cover{
 	height: 225px;
 }
-.landing-section:not(.top) .link{
+.search:not(.other-type) .landing-section:not(.top) .link{
 	max-width: 1000px;
 }
 
