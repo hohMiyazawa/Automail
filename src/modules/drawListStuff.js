@@ -38,7 +38,7 @@ function drawListStuff(){
 							this.style.borderStyle = "solid";
 							if(counter === 9){
 								linkList = linkList.filter(e => e !== "");
-								let displayBox = createDisplayBox();
+								let displayBox = createDisplayBox(false,"3x3 maker");
 								create("p",false,"Save the image below:",displayBox);
 								displayBox.parentNode.querySelector(".hohDisplayBoxClose").onclick = function(){
 									displayBox.parentNode.remove();

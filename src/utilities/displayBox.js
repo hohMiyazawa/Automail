@@ -1,5 +1,8 @@
-function createDisplayBox(cssProperties){
+function createDisplayBox(cssProperties,windowTitle){
 	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app"),cssProperties);
+	if(windowTitle){
+		create("span","hohDisplayBoxTitle",windowTitle,displayBox)
+	}
 	let mousePosition;
 	let offset = [0,0];
 	let isDown = false;

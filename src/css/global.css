@@ -24,6 +24,10 @@ m4_include(css/notifications.css)
 .hohMonospace{
 	font-family: monospace;
 }
+.hohCode{
+	font-family: monospace;
+	background: rgb(var(--color-background));
+}
 .hohForumHider{
 	margin-right: 3px;
 	cursor: pointer;
@@ -320,9 +324,6 @@ m4_include(css/notifications.css)
 #hohDraw3x3{
 	margin-top: 5px;
 	cursor: pointer;
-}
-.home .feed-type-toggle{
-	min-width: 148px;
 }
 .hohFeedFilter{
 	position: absolute;
@@ -2001,6 +2002,20 @@ body.TMPreviewScore > .el-tooltip__popper{
 	top: -8px;
 	width: 80%;
 	border-radius: 3px;
+}
+#hohMarkdownHelper{
+	position: fixed;
+	bottom: 20px;
+	left: 20px;
+	z-index: 999;
+	cursor: pointer;
+}
+#hohMarkdownHelper:hover{
+	font-weight: bold;
+}
+.hohGuideHeading,
+.hohGuideHeading:visited{
+	color: rgb(var(--color-blue));
 }
 
 

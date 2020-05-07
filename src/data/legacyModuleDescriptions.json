@@ -130,7 +130,7 @@
 	"description": "Replace the native comparison feature",
 	"categories": ["Lists","Profiles"]
 },{"id": "CSSsmileyScore",
-	"description": "Give smiley ratings distinct colours [from userstyle]",
+	"description": "Give smiley ratings distinct colours",
 	"categories": ["Lists","Media"]
 },{"id": "CSSexpandFeedFilters",
 	"description": "Expand the feed filters",
@@ -182,7 +182,7 @@
 	"description": "Make the 'home' button scroll to the top on the home feed",
 	"categories": ["Feeds"]
 },{"id": "CSSfavs",
-	"description": "Use 5-width favourite layout [from userstyle]",
+	"description": "Use 5-width favourite layout",
 	"categories": ["Profiles"]
 },{"id": "CSScompactBrowse",
 	"description": "Make the browse section more compact",

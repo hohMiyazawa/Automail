@@ -66,6 +66,7 @@ let filterSelect = create("input",false,false,hohMediaSort);
 filterSelect.setAttribute("list","staffRoles");
 filterSelect.placeholder = "Filter by title, role, etc.";
 let filterExplanation = create("abbr",false,"?",hohMediaSort,"margin-left:5px;cursor:pointer;");
+filterExplanation.title = "Filter help";
 filterExplanation.onclick = function(){
 	let scrollableContent = createDisplayBox("min-width:400px;width:700px;");
 	scrollableContent.innerText = `
