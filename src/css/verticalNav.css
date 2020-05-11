@@ -178,9 +178,6 @@
 .notification{
 	margin-bottom: 10px!important;
 }
-.media-embed + br{
-	display: none;
-}
 /*Dropdown menus are site theme based*/
 .quick-search .el-select .el-input .el-input__inner,
 .quick-search .el-select .el-input.is-focus .el-input__inner,

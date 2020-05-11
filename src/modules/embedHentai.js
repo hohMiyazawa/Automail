@@ -19,6 +19,9 @@ function embedHentai(){
 				let eContainer = create("div",false,false,embed);
 				let eEmbed = create("div","embed",false,eContainer);
 				let eCover = create("div","cover",false,eEmbed);
+				if(data.data.Media.coverImage.color){
+					eCover.style.backgroundColor = data.data.Media.coverImage.color
+				}
 				eCover.style.backgroundImage = "url(" + data.data.Media.coverImage.large + ")";
 				let eWrap = create("div","wrap",false,eEmbed);
 				let mediaTitle = titlePicker(data.data.Media);
@@ -54,7 +57,7 @@ function embedHentai(){
 				}
 			}
 			bigQuery.push({
-				query: "query($mediaId:Int,$type:MediaType){Media(id:$mediaId,type:$type){id title{romaji native english} coverImage{large} genres format status season meanScore averageScore startDate{year}}}",
+				query: "query($mediaId:Int,$type:MediaType){Media(id:$mediaId,type:$type){id title{romaji native english} coverImage{large color} genres format status season meanScore averageScore startDate{year}}}",
 				variables: {
 					mediaId: +embed.dataset.mediaId,
 					type: embed.dataset.mediaType.toUpperCase()

@@ -162,11 +162,6 @@ if(useScripts.CSSgreenManga){
 m4_include(css/greenManga.css)
 	`
 }
-if(useScripts.CSSexpandFeedFilters && (!useScripts.mobileFriendly)){
-	moreStyle.textContent += `
-m4_include(css/expandFeedFilters.css)
-	`
-}
 if(useScripts.showRecVotes){
 	moreStyle.textContent += `
 .recommendation-card .rating-wrap{

@@ -132,9 +132,6 @@
 },{"id": "CSSsmileyScore",
 	"description": "Give smiley ratings distinct colours",
 	"categories": ["Lists","Media"]
-},{"id": "CSSexpandFeedFilters",
-	"description": "Expand the feed filters",
-	"categories": ["Feeds"]
 },{"id": "hideGlobalFeed",
 	"description": "Hide the global feed",
 	"categories": ["Feeds"]
