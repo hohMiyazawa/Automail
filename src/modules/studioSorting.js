@@ -90,6 +90,28 @@ exportModule({
 							else if(show.status === "CANCELLED"){
 								airingCountdown.innerText = "Cancelled"
 							}
+							let startAiring = "";
+							let endAiring = "";
+							if(show.startDate.year){
+								startAiring = [
+									show.startDate.day,
+									months[show.startDate.month - 1].substring(0,3),
+									show.startDate.year
+								].filter(TRUTHY).join(" ")
+							}
+							if(show.endDate.year){
+								endAiring = [
+									show.endDate.day,
+									months[show.endDate.month - 1].substring(0,3),
+									show.endDate.year
+								].filter(TRUTHY).join(" ")
+							}
+							if(startAiring === endAiring){
+								airingCountdown.title = startAiring
+							}
+							else{
+								airingCountdown.title = startAiring + " - " + endAiring
+							}
 							let extra = create("div",["extra","full-width"],false,data);
 								if(show.format){
 									create("span","format",distributionFormats[show.format],extra)
@@ -158,6 +180,7 @@ fragment mediaEntry on Media{
 	siteUrl
 	description(asHtml: true)
 	startDate{year month day}
+	endDate{year month day}
 	mediaListEntry{
 		status
 	}
@@ -224,6 +247,7 @@ fragment mediaEntry on Media{
 	siteUrl
 	description(asHtml: true)
 	startDate{year month day}
+	endDate{year month day}
 	mediaListEntry{
 		status
 	}
