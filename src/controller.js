@@ -138,9 +138,9 @@ function handleScripts(url,oldUrl){
 		if(useScripts.studioFavouriteCount){
 			enhanceStudio()
 		}
-		if(useScripts.CSScompactBrowse){
+		if(useScripts.studioSorting){
 			addStudioBrowseSwitch()
-		};
+		}
 	}
 	else if(
 		url.match(/^https:\/\/anilist\.co\/edit/)
