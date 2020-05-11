@@ -938,11 +938,14 @@ meter::-moz-meter-bar{
 .recent-recommendations .switch .option{
 	white-space: nowrap;
 }
-.media-staff .role-card .role:hover{
+.media-staff .role-card .role:hover,
+.media-roles.substitution .role-card .role:hover{
 	overflow-x: auto;
 	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
-.media-staff .role-card .role:hover::-webkit-scrollbar{
+.media-staff .role-card .role:hover::-webkit-scrollbar,
+.media-roles.substitution .role-card .role:hover::-webkit-scrollbar{
 	width: 0;
 	height: 0;
 }

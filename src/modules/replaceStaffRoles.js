@@ -321,15 +321,28 @@ let listRenderer = function(){
 		let content = create("a","content",false,mediaA);
 		content.href = "/" + type + "/" + media.id + "/" + safeURL(media.title);
 		let name = create("div","name",media.title,content);
-		let role = create("div","role",media.role.sort((a,b) => {
-			if(a === "Director"){
-				return -1
-			}
-			else if(b === "Director"){
-				return 1
-			}
-			return 0
-		}).join(", "),content);
+		let roleValues = {//default role value is 0, so positive values are important, negative less important
+			"Director": 2,
+			"Original Creator": 1.9,//important that this is early
+			"Script": 1.8,
+			"Storyboard": 1.75,
+			"Art Director": 1.7,//personal bias :)
+			"Character Design": 1.65,
+			"Animation Director": 1.6,
+			"Assistant Director": 1,
+			"Episode Director": 1,
+			"Key Animation": 0,
+			"Animation": -0.1,
+			"2nd Key Animation": -0.5,
+			"In-Between Animation": -1
+		}
+		media.role.sort((b,a) => {
+			let amatch = roleValues[a.match(/^(.*?)(\s*\(.*\))?$/)[1]] || 0;
+			let bmatch = roleValues[b.match(/^(.*?)(\s*\(.*\))?$/)[1]] || 0;
+			return amatch - bmatch
+		})
+		let role = create("div","role",media.role.join(", "),content);
+		role.title = media.role.join("\n");
 		if(sortSelect.value === "popularity"){
 			create("span","hohStaffPageData",media.popularity,content).title = "Popularity"
 		}
