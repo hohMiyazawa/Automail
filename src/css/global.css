@@ -2239,6 +2239,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	top: 0px;
 	cursor: pointer;
 }
+.anisongs p{
+	background: rgb(var(--color-foreground));
+	margin: 2px;
+	padding: 8px;
+	border-radius: 3px;
+}
 
 
 m4_include(css/footerLinks.css)
