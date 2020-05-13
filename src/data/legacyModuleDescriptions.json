@@ -1,8 +1,5 @@
 [
-{"id": "notifications",
-	"description": "Improve notifications",
-	"categories": ["Notifications","Login"]
-},{"id": "hideLikes",
+{"id": "hideLikes",
 	"description": "Hide like notifications. Will not affect the notification count",
 	"categories": ["Notifications"]
 },{"id": "settingsTip",
@@ -102,9 +99,6 @@
 },{"id": "CSSmobileExternalLinks",
 	"description": "Don't remove external links from media pages on mobile",
 	"categories": ["Media"]
-},{"id": "moreStats",
-	"description": "Show an additional tab on the stats page",
-	"categories": ["Stats"]
 },{"id": "replaceNativeTags",
 	"description": "Full lists for tags, staff and studios in stats",
 	"categories": ["Stats"]

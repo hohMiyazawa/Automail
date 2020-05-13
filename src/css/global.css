@@ -1038,6 +1038,7 @@ meter::-moz-meter-bar{
 }
 #hohSettings .hohSetting{
 	display: none;
+	position: relative;
 }
 #hohSettings.all .hohSetting,
 #hohSettings.Notifications .hohSetting.Notifications,
@@ -2231,6 +2232,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	border-bottom: rgb(var(--color-blue));
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
+}
+.hohInfoButton{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	cursor: pointer;
 }
 
 

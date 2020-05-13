@@ -1,3 +1,21 @@
+exportModule({
+	id: "notifications",
+	description: "Improve notifications",
+	extendedDescription: `
+Does several changes to notifications:
+
+- Similar consecutive notifications are grouped.
+- Notifications get tagged with the cover image of the media they apply to. (or profile picture, if it's a status post)
+- Notifications may have a preview of the comments on the activity.
+
+If you for any reason need the default look, you can click the "Show default notifications" to the left on the page.
+	`,
+	isDefault: true,
+	importance: 10,
+	categories: ["Notifications","Login"],
+	visible: true
+})
+
 let prevLength = 0;
 let displayMode = "hoh";
 
@@ -10,7 +28,7 @@ function enhanceNotifications(){
 		}
 		else{
 			prevLength = 0;
-			displayMode = "hoh";
+			displayMode = "hoh"
 		}
 	},300);
 	if(displayMode === "native"){

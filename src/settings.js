@@ -24,7 +24,6 @@ const notificationColourDefaults = {
 
 //this is the legacy way of specifying default modules, use exportModule's isDefault instead.
 let useScripts = {//most modules are turned on by default
-	notifications: true,
 	socialTab: true,
 	forumComments: true,
 	forumMedia: true,
@@ -32,7 +31,6 @@ let useScripts = {//most modules are turned on by default
 	tagDescriptions: true,
 	completedScore: true,
 	droppedScore: false,
-	moreStats: true,
 	characterFavouriteCount: true,
 	studioFavouriteCount: true,
 	CSSfavs: true,

@@ -5,7 +5,13 @@
 exportModule({
 	id: "howto",//an unique identified for your module
 	description: "what your module does",
+	extendedDescription: `
+A long description of what your module does.
+
+This appears when people click the "more info" icon (🛈) on the settings page.
+	`,
 	isDefault: false,
+	importance: 0,//a number, which determines the order of the settings page. Higher numbers are more important. Leave it as 0 if unsure.
 	categories: ["Script"],//what categories your module belongs in
 	//Notifications, Feeds, Forum, Lists, Profiles, Stats, Media, Navigation, Browse, Script, Login, Newly Added
 	visible: false,//if the module should be visible in the settings

@@ -1,3 +1,21 @@
+exportModule({
+	id: "moreStats",
+	description: "Show an additional tab on the stats page",
+	extendedDescription: `
+On every users' stats page, there will be an additonal tab alled "more stats".
+The "more stats" page also has a section for running various statistical queries about the site or specific users.
+
+There will also be a tab called "Genres & Tags", which contains aggregate stats for anime and manga.
+
+In addition, the individual sections for anime/manga staff and tags will have full tables not limited to the default 30.
+In these tables, you can click the rows to see the individual works contributing to the stats.
+	`,
+	isDefault: true,
+	importance: 9,
+	categories: ["Stats"],
+	visible: true
+})
+
 function addMoreStats(){
 	if(!document.URL.match(/\/stats\/?/)){
 		return

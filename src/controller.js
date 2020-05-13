@@ -459,7 +459,9 @@ function exportModule(module){
 		id: module.id,
 		description: module.description,
 		categories: module.categories,
-		visible: module.visible
+		visible: module.visible,
+		importance: module.importance,
+		extendedDescription: module.extendedDescription
 	});
 	if(!useScripts.hasOwnProperty(module.id)){
 		useScripts[module.id] = module.isDefault;

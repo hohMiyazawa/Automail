@@ -57,6 +57,7 @@ exportModule({
 		if(!useScripts.accessToken){
 			scriptSettings.classList.add("noLogin")
 		}
+		useScriptsDefinitions.sort((b,a) => (a.importance || 0) - (b.importance || 0));
 		useScriptsDefinitions.forEach(function(def){
 			let setting = create("p","hohSetting");
 			if(def.visible === false){
@@ -109,6 +110,13 @@ exportModule({
 				)
 			};
 			create("span",false,def.description,setting);
+			if(def.extendedDescription){
+				let infoButton = create("span","hohInfoButton","🛈",setting);
+				infoButton.title = "More info";
+				infoButton.onclick = function(){
+					createDisplayBox(false,"Module info").innerText = def.extendedDescription
+				}
+			}
 			scriptSettings.appendChild(setting);
 		});
 		let titleAliasSettings = create("div");
