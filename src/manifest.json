@@ -1,9 +1,9 @@
 {
 	"manifest_version": 2,
-	"name": "Automail",
-	"version": "9.24",
+	"name": "Autopod",
+	"version": "1.00",
 
-	"description": "Extra parts for Anilist.co",
+	"description": "Various utilities for gitpod's website made while kreyren is waiting for code review/brainstorm due to his impatience and laziness to write a code from scratch.. So he took the code from Hoh",
 
 	"icons": {
 		"48": "icons/aniscripts-48.png"
@@ -11,13 +11,12 @@
 
 	"content_scripts": [
 		{
-			"matches": ["https://anilist.co/*"],
-			"js": ["automail.js"]
+			"matches": ["https://gitpod.io/*"],
+			"js": ["autopod.js"]
 		}
 	],
 	"permissions": [
-		"*://graphql.anilist.co/*",
-		"*://myanimelist.net/*",
+		"https://gitpod.io/*",
 		"webRequest"
 	]
 }

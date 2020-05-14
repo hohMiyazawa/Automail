@@ -1,7 +1,0 @@
-1. Add a boolean in useScripts, in settings.js
-
-2. Link your boolean in useScriptsDefinitions, in controller.js
-
-3. Inline you insertion in conditionalStyles.js
-
-4. (optional) split it into its own file in the css directory, linking it by m4 from conditionalStyles.js
