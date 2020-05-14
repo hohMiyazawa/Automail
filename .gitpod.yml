@@ -1,2 +1,5 @@
 image:
   file: gitpod/debian.Dockerfile
+vscode:
+  extensions:
+    - streetsidesoftware.code-spell-checker@1.8.0:pOcw5Mko+D583rMKG2b1PQ==

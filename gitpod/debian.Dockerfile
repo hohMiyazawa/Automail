@@ -1,6 +1,8 @@
 FROM debian:latest
 
 # FIXME: Requires novnc configuration
+# FIXME: Get Firefox and chromium to test this
+
 USER root
 
 # Get core packages

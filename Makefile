@@ -17,21 +17,29 @@ all:
 	$(info The 'make' is configured to not work without arguments in $(NAME) project)
 	@ exit 2
 
+build: build-userstyle build-firefox-extension
+
 # FIXME-QA: Sanitize
-build: build-firefox-extension
-	$(info Building autopod targets.. )
+build-userstyle:
+	$(info Building autopod targets )
 	@ mkdir build || true 
-	@ m4 --prefix-builtins src/autopod.m4 > build/automail.js
-	@ date +"%s" | sed 's_^_//Automail built at _' >> build/automail.js
-	@ rm build/userModules.js
-	$(info Autopod has been sucessfully built)
+	$(info Generating javascript file )
+	@ m4 --prefix-builtins src/autopod.m4 > build/autopod.js
+	$(info Appending time built )
+	@ date +"%s" | sed 's_^_//Autopod built at _' >> build/autopod.js
+	$(info Autopod's userstyle has been sucessfully built)
 
 build-firefox-extension:
-	$(info Creating Firefox addon)
+	$(info Creating Firefox extension)
 	@ cp -r icons/ build/icons
-	@ zip -r $(NAME)_firefox_extension_$(VERSION).$(PATCHLEVEL).$(SUBLEVEL).zip autopod.js icons/ src/manifest.json
-	@ mv $(NAME)_firefox_extension_$(VERSION).$(PATCHLEVEL).$(SUBLEVEL).zip $(NAME)_firefox_extension_$(VERSION).$(PATCHLEVEL).$(SUBLEVEL).xpi
+	$(info Packaging Firefox extension)
+	@ rm Autopod_firefox_extension* || true
+	@ cp src/manifest.json build/
+	@ cd build && zip -r ../$(NAME)_firefox_extension_$(VERSION).$(PATCHLEVEL).$(SUBLEVEL).zip .
+	$(info Firefox extension has been successfully packaged in the root of the repository)
 
+# FIXME-QA: Sanitize the Autopod_firefox_Extension removal
 clean:
 	@ rm -r build || true
+	@ rm Autopod_firefox_extension* || true
 	$(info Build target has been cleared successfully)
