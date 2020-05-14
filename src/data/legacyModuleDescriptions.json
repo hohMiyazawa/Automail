@@ -216,9 +216,6 @@
 },{"id": "noImagePolyfill",
 	"description": "Add fallback text for missing images in the sidebar and favourite sections",
 	"categories": ["Feeds","Profiles"]
-},{"id": "dropdownOnHover",
-	"description": "Expand the user menu in the nav on hover instead of click",
-	"categories": ["Navigation"]
 },{"id": "shortRomaji",
 	"description": "Short romaji titles for everyday use. Life is too short for light novel titles",
 	"categories": ["Feeds","Profiles","Lists"]

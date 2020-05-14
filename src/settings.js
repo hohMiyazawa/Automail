@@ -80,7 +80,6 @@ let useScripts = {//most modules are turned on by default
 	noImagePolyfill: false,
 	reviewConfidence: true,
 	blockWord: false,
-	dropdownOnHover: false,
 	showMarkdown: true,
 	myThreads: false,
 	dismissDot: true,

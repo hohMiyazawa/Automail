@@ -2,6 +2,8 @@
 	let input = create("input","#searchInput",false,miscOptions);
 	input.placeholder = "text or regex to match";
 },code: function(){
+	let results = create("p",false,false,miscResults);
+	let searchQuery = document.getElementById("searchInput").value;
 	if(statusSearchCache.length){
 		statusSearchCache.forEach(function(act){
 			if(act.match(new RegExp(searchQuery,"i"))){
@@ -34,8 +36,6 @@
 			miscResults.innerText = "";
 			let posts = 0;
 			let progress = create("p",false,false,miscResults);
-			let results = create("p",false,false,miscResults);
-			let searchQuery = document.getElementById("searchInput").value;
 			let userId = data.data.User.id;
 			let addNewUserData = function(data){
 				if(!data){
