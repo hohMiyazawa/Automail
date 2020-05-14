@@ -457,6 +457,7 @@ m4_include(css/notifications.css)
 	margin-top: 10px;
 	counter-reset: animeCounterComp;
 	position: relative;
+	overflow-x: scroll;
 }
 .hohCompare .hohUserRow,
 .hohCompare .hohHeaderRow{
