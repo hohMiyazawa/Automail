@@ -614,7 +614,7 @@ function addMoreStats(){
 						scoreList,
 						whoAmI,
 						"ANIME",
-						data => formatCompat(data,compatLocation)
+						data => formatCompat(data,compatLocation,user)
 					)
 				};
 			};
@@ -1486,7 +1486,7 @@ function addMoreStats(){
 						whoAmI,
 						"MANGA",
 						function(data){
-							formatCompat(data,compatLocation)
+							formatCompat(data,compatLocation,user)
 						}
 					)
 				};

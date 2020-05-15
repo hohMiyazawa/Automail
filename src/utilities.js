@@ -643,7 +643,7 @@ function returnList(list,skipProcessing){
 
 m4_include(utilities/parseListJSON.js)
 
-function formatCompat(compatData,targetLocation){
+function formatCompat(compatData,targetLocation,name){
 	let differenceSpan = create("span",false,compatData.difference.roundPlaces(3));
 	if(compatData.difference < 0.9){
 		differenceSpan.style.color = "green"
@@ -655,6 +655,7 @@ function formatCompat(compatData,targetLocation){
 	targetLocation.appendChild(differenceSpan);
 	let countSpan = create("span",false," based on " + compatData.shared + " shared entries. Lower is better. 0.8 - 1.1 is common",targetLocation);
 	let canvas = create("canvas",false,false,targetLocation,"display:block;");
+	canvas.title = "Blue = " + name + "\nRed = you";
 	canvas.width = 200;
 	canvas.height = 100;
 	let r1 = Math.sqrt(compatData.list1/(compatData.list1 + compatData.list2));
