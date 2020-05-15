@@ -968,6 +968,9 @@ meter::-moz-meter-bar{
 	padding: 5px;
 	cursor: pointer;
 }
+.hohTable .row:nth-child(odd){
+	background: rgba(var(--color-background-300), 0.5);
+}
 .hohTable .row.good{
 	grid-template-columns: 40% repeat(auto-fill, 150px);
 }

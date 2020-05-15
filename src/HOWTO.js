@@ -21,6 +21,8 @@ This appears when people click the "more info" icon (🛈) on the settings page.
 	},
 	code: function(){
 		//your code goes here
-	}
+	},
+	css: ""//css rules you need
 })
+
 //your module can also have extra code and utility functions

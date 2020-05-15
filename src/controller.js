@@ -450,7 +450,10 @@ if(useScripts.automailAPI){
 		authAPIcall: authAPIcall,
 		queryPacker: queryPacker,
 		settings: useScripts,
-		logOut: function(){useScripts.accessToken = "";useScripts.save()}
+		logOut: function(){//makes Automail forget the access token (but it's still valid)
+			useScripts.accessToken = "";
+			useScripts.save()
+		}
 	}
 }
 
@@ -461,11 +464,15 @@ function exportModule(module){
 		categories: module.categories,
 		visible: module.visible,
 		importance: module.importance,
-		extendedDescription: module.extendedDescription
+		extendedDescription: module.extendedDescription,
+		css: module.css
 	});
 	if(!useScripts.hasOwnProperty(module.id)){
 		useScripts[module.id] = module.isDefault;
 		useScripts.save()
+	}
+	if(module.css && useScripts[module.id]){
+		moreStyle.textContent += module.css
 	}
 	modules.push(module)
 }

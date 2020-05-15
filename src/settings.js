@@ -3,8 +3,7 @@ try{
 	localStorage.removeItem("test");
 }
 catch(e){
-	alert("Error: LocalStorage not available.");
-	console.log("LocalStorage, required for saving settings, is not available. Terminating Automail.")
+	console.log("LocalStorage, required for saving settings, is not available. Automail may not work correctly.")
 }
 
 const notificationColourDefaults = {
@@ -70,7 +69,6 @@ let useScripts = {//most modules are turned on by default
 	MALserial: false,
 	tweets: false,
 	MALrecs: false,
-	mobileFriendly: false,
 	entryScore: true,
 	showRecVotes: true,
 	activityTimeline: true,
@@ -88,7 +86,6 @@ let useScripts = {//most modules are turned on by default
 	plussMinus: true,
 	milestones: false,
 	allStudios: false,
-	CSSmobileTags: true,
 	CSSmobileExternalLinks: false,
 	termsFeed: true,
 	termsFeedNoImages: false,
@@ -105,7 +102,6 @@ let useScripts = {//most modules are turned on by default
 	hideGlobalFeed: false,
 	cleanSocial: false,
 	SFWmode: false,
-	infoTable: false,
 	hideAWC: false,
 	forumPreviewNumber: 3,
 	profileBackground: true,

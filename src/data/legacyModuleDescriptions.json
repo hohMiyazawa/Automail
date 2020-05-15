@@ -26,9 +26,6 @@
 },{"id": "automailAPI",
 	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
 	"categories": ["Script","Login"]
-},{"id": "mobileFriendly",
-	"description": "Mobile Friendly mode. Disables some modules not working properly on mobile, and adjusts others",
-	"categories": ["Navigation","Script"]
 },{"id": "tagDescriptions",
 	"description": "Show the definitions of tags when adding new ones to an entry",
 	"categories": ["Media"]
@@ -43,9 +40,6 @@
 	"categories": ["Media"]
 },{"id": "subTitleInfo",
 	"description": "Add basic data below the title on media pages",
-	"categories": ["Media"]
-},{"id": "infoTable",
-	"description": "Use a two-column table layout for info on media pages",
 	"categories": ["Media"]
 },{"id": "entryScore",
 	"description": "Add your score and progress to anime pages",
@@ -92,9 +86,6 @@
 	"values": ["English","German","Italian","Spanish","French","Korean","Portuguese","Hebrew","Hungarian"]
 },{"id": "mangaGuess",
 	"description": "Make a guess for the number of chapters for releasing manga",
-	"categories": ["Media"]
-},{"id": "CSSmobileTags",
-	"description": "Don't hide tags from media pages on mobile",
 	"categories": ["Media"]
 },{"id": "CSSmobileExternalLinks",
 	"description": "Don't remove external links from media pages on mobile",
@@ -201,7 +192,7 @@
 	"categories": ["Forum","Profiles"]
 },{"id": "hideAWC",
 	"description": "Hide AWC threads from the forum preview on the home page. Number of AWC-free threads to display:",
-	"categories": ["Forum","Newly Added"]
+	"categories": ["Forum"]
 },{
 	"id": "forumPreviewNumber",
 	"requires": ["hideAWC"],
@@ -209,7 +200,7 @@
 	"type": "number",
 	"min": 0,
 	"max": 50,
-	"categories": ["Forum","Newly Added"]
+	"categories": ["Forum"]
 },{"id": "expandRight",
 	"description": "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
 	"categories": ["Feeds"]
