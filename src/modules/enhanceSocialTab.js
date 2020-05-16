@@ -266,8 +266,9 @@ function enhanceSocialTab(){
 					.value = follower.children[1].innerText
 			)
 		}
-		removeChildren(statusList)
-		Object.keys(distributionColours).sort().forEach(function(status){
+		removeChildren(statusList);
+		let sortStatus = "";
+		Object.keys(distributionColours).sort().forEach(status => {
 			if(distribution[status]){
 				let statusSumDot = create("div","hohSumableStatus",distribution[status],statusList,"cursor:pointer;");
 				statusSumDot.style.background = distributionColours[status];
@@ -279,14 +280,23 @@ function enhanceSocialTab(){
 					statusSumDot.style.fontSize = "6px"
 				};
 				statusSumDot.onclick = function(){
-					Array.from(root.querySelectorAll(".follow .status")).forEach(function(item){
-						if(item.innerText.toUpperCase() === status || (["WATCHING","READING"].includes(item.innerText.toUpperCase()) && status === "CURRENT")){
+					if(sortStatus === status){
+						Array.from(root.querySelectorAll(".follow .status")).forEach(item => {
 							item.parentNode.style.display = "grid"
-						}
-						else{
-							item.parentNode.style.display = "none"
-						}
-					})
+						})
+						sortStatus = ""
+					}
+					else{
+						Array.from(root.querySelectorAll(".follow .status")).forEach(item => {
+							if(item.innerText.toUpperCase() === status || (["WATCHING","READING"].includes(item.innerText.toUpperCase()) && status === "CURRENT")){
+								item.parentNode.style.display = "grid"
+							}
+							else{
+								item.parentNode.style.display = "none"
+							}
+						})
+						sortStatus = status
+					}
 				}
 			}
 		});
