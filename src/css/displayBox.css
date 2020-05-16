@@ -34,7 +34,7 @@
 }
 .hohNewChapter .hohDisplayBoxClose{
 	display: none;
-	top: 0px;
+	top: 7px;
 }
 .hohNewChapter:hover .hohDisplayBoxClose{
 	display: inline;

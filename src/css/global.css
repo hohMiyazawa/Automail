@@ -1156,12 +1156,16 @@ meter::-moz-meter-bar{
 	padding-bottom: 8px;
 	margin-top: 0px;
 	margin-bottom: 0px;
+	padding-left: 10px;
 }
 .hohNewChapter:hover a::before{
 	content: ">";
 	position: absolute;
 	margin-left: -10px;
 	font-size: small;
+}
+.hohNewChapter:nth-child(odd){
+	background: rgb(var(--color-foreground-grey),0.3);
 }
 .banMode .hohNewChapter{
 	cursor: crosshair!important;
