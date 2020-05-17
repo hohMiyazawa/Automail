@@ -1359,6 +1359,10 @@ meter::-moz-meter-bar{
 .hohMediaEmbed:hover .info > span{
 	opacity: 0;
 }
+.hohMediaEmbed:hover .info > .genres:empty ~ span,
+.embed:hover .info > .genres:empty ~ span{
+	opacity: 1!important;
+}
 .hohMediaEmbed:hover .info > .genres{
 	opacity: 1;
 }
@@ -2252,6 +2256,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 	margin: 2px;
 	padding: 8px;
 	border-radius: 3px;
+}
+.search .filter > .icon{
+	display: inline-block;
 }
 
 

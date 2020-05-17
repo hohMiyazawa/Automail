@@ -20,9 +20,6 @@ function handleScripts(url,oldUrl){
 	else if(url === "https://anilist.co/settings/import" && useScripts.moreImports){
 		moreImports()
 	}
-	else if(/^https:\/\/anilist\.co\/terms/.test(url) && useScripts.termsFeed){
-		termsFeed()
-	}
 	else if(url === "https://anilist.co/404"){
 		possibleBlocked(oldUrl)
 	}

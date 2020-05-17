@@ -87,7 +87,6 @@ let useScripts = {//most modules are turned on by default
 	milestones: false,
 	allStudios: false,
 	CSSmobileExternalLinks: false,
-	termsFeed: true,
 	termsFeedNoImages: false,
 	customCSS: false,
 	rightToLeft: false,

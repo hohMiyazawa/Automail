@@ -225,9 +225,6 @@
 },{"id": "rightToLeft",
 	"description": "Support for right-to-left flow [under development]",
 	"categories": ["Script"]
-},{"id": "termsFeed",
-	"description": "Add a low bandwidth feed to the https://anilist.co/terms page",
-	"categories": ["Feeds","Login"]
 },{"id": "termsFeedNoImages",
 	"description": "Do not load images on the low bandwidth feed",
 	"categories": ["Feeds","Login"]
