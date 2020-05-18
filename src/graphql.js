@@ -95,6 +95,21 @@ fragment mediaListEntry on MediaList{
 }
 `;
 
+const queryMediaListStaff_simple = `
+query($name: String!, $listType: MediaType){
+	MediaListCollection(userName: $name, type: $listType){
+		lists{
+			entries{
+				mediaId
+				media{
+					staff{nodes{id name{first last}}}
+				}
+			}
+		}
+	}
+}
+`;
+
 const queryMediaListCompat = `
 query($name: String!, $listType: MediaType){
 	MediaListCollection(userName: $name, type: $listType){

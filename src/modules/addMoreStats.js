@@ -1856,7 +1856,7 @@ function addMoreStats(){
 			drawTable(listOfTags,mangaFormatter,regularMangaTable,true,false);
 			semaPhoreManga = list;
 			nativeTagsReplacer();
-			generalAPIcall(queryMediaListStaff,{name: user,listType: "MANGA"},function(data){
+			generalAPIcall(queryMediaListStaff_simple,{name: user,listType: "MANGA"},function(data){
 				let rawStaff = returnList(data);
 				rawStaff.forEach(function(raw,index){
 					raw.status = list[index].status;
@@ -1866,7 +1866,7 @@ function addMoreStats(){
 				});
 				let staffMap = {};
 				rawStaff.filter(obj => obj.status !== "PLANNING").forEach(function(media){
-					media.media.staff.forEach(function(staff){
+					media.media.staff.nodes.forEach(function(staff){
 						if(!staffMap[staff.id]){
 							staffMap[staff.id] = {
 								chaptersRead: 0,
