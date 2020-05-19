@@ -2,7 +2,8 @@ if(useScripts.youtubeFullscreen){
 	setInterval(function(){
 		document.querySelectorAll(".youtube iframe").forEach(video => {
 			if(!video.hasAttribute("allowfullscreen")){
-				video.setAttribute("allowfullscreen","true")
+				video.setAttribute("allowfullscreen","allowfullscreen");
+				video.setAttribute("frameborder","0")
 			}
 		})
 	},1000)
@@ -10,7 +11,7 @@ if(useScripts.youtubeFullscreen){
 
 exportModule({
 	id: "youtubeFullscreen",
-	description: "Allow Youtube videos to play in fullscreen mode",
+	description: "Enable fullscreen button on youtube videos",
 	isDefault: false,
 	categories: ["Script"],
 	visible: true
