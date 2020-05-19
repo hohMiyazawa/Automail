@@ -2,7 +2,7 @@ exportModule({
 	id: "filterStaffTabs",
 	description: "Add filtering to media staff tabs",
 	isDefault: true,
-	categories: ["Media","Newly Added"],
+	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return url.match(/^https:\/\/anilist\.co\/(anime|manga)\/\d+\/.*\/staff/)

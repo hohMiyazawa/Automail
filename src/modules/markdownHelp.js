@@ -2,7 +2,7 @@ exportModule({
 	id: "markdownHelp",
 	description: "Add a markdown helper to the bottom left corner",
 	isDefault: false,
-	categories: ["Navigation","Newly Added"],
+	categories: ["Navigation"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return true

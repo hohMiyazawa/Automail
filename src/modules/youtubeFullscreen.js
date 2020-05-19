@@ -1,3 +1,11 @@
+exportModule({
+	id: "youtubeFullscreen",
+	description: "Enable fullscreen button on youtube videos",
+	isDefault: false,
+	categories: ["Script"],
+	visible: true
+})
+
 if(useScripts.youtubeFullscreen){
 	setInterval(function(){
 		document.querySelectorAll(".youtube iframe").forEach(video => {
@@ -8,11 +16,3 @@ if(useScripts.youtubeFullscreen){
 		})
 	},1000)
 }
-
-exportModule({
-	id: "youtubeFullscreen",
-	description: "Enable fullscreen button on youtube videos",
-	isDefault: false,
-	categories: ["Script"],
-	visible: true
-})

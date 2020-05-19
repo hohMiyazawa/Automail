@@ -1,3 +1,11 @@
+exportModule({
+	id: "webmResize",
+	description: "Resize videos with a width in the URL hash (like #220 or #40%)",
+	isDefault: true,
+	categories: ["Feeds"],
+	visible: true
+})
+
 if(useScripts.webmResize){
 	setInterval(function(){
 		document.querySelectorAll("source").forEach(video => {
@@ -8,11 +16,3 @@ if(useScripts.webmResize){
 		})
 	},500)
 }
-
-exportModule({
-	id: "webmResize",
-	description: "Resize videos with a width in the URL hash (like #220 or #40%)",
-	isDefault: true,
-	categories: ["Feeds","Newly Added"],
-	visible: true
-})
