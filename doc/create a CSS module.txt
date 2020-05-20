@@ -1,3 +1,9 @@
+--- new way:
+
+Follow the template in HOWTO.js, insert your css in the css field
+
+--- old way:
+
 1. Add a boolean in useScripts, in settings.js
 
 2. Link your boolean in useScriptsDefinitions, in controller.js

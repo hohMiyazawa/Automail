@@ -1,0 +1,29 @@
+Browsers Automail should theoretically work for:
+	- Firefox 44+
+	- Chrome 45+
+	- Chromium
+	- Edge 14+
+	- Opera 32+
+	- Safari 10.1+
+
+Browsers Automail should theoretically NOT work for:
+	- All versions of Internet Explorer [no support planned]
+	- Dillo [no support planned]
+
+Browsers confirmed to work with Automail:
+	- Firefox 76.0.1
+	- Chromium 81.0.4044.138
+
+Browsers confirmed to NOT work with Automail:
+	- Dillo [no support planned]
+
+Platforms with dedicated testers:
+	- Firefox on Linux: hoh
+
+
+
+Both positive and negative confirmations can be posted as issues:
+	"Automail does not work in <browser> <version>"
+		in body, include details about what doesn't work
+	"Automail works in <browser> <version>"
+		in body, include steps to install Automail
