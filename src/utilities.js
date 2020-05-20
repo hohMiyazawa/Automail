@@ -123,50 +123,50 @@ function nativeTimeElement(timestamp){
 		let now = new Date();
 		let diff = Math.round(now.valueOf()/1000) - Math.round(dateObj.valueOf()/1000);
 		if(diff === 0){
-			elem.innerText = "Just now";
+			elem.innerText = "Just now"
 		}
 		if(diff === 1){
-			elem.innerText = "1 second ago";
+			elem.innerText = "1 second ago"
 		}
 		else if(diff < 60){
-			elem.innerText = diff + " seconds ago";
+			elem.innerText = diff + " seconds ago"
 		}
 		else{
 			diff = Math.floor(diff/60);
 			if(diff === 1){
-				elem.innerText = "1 minute ago";
+				elem.innerText = "1 minute ago"
 			}
 			else if(diff < 60){
-				elem.innerText = diff + " minutes ago";
+				elem.innerText = diff + " minutes ago"
 			}
 			else{
 				diff = Math.floor(diff/60);
 				if(diff === 1){
-					elem.innerText = "1 hour ago";
+					elem.innerText = "1 hour ago"
 				}
 				else if(diff < 24){
-					elem.innerText = diff + " hours ago";
+					elem.innerText = diff + " hours ago"
 				}
 				else{
 					diff = Math.floor(diff/24);
 					if(diff === 1){
-						elem.innerText = "1 day ago";
+						elem.innerText = "1 day ago"
 					}
 					else if(diff < 7){
-						elem.innerText = diff + " days ago";
+						elem.innerText = diff + " days ago"
 					}
 					else if(diff < 14){
-						elem.innerText = "1 week ago";
+						elem.innerText = "1 week ago"
 					}
 					else if(diff < 30){
-						elem.innerText = Math.floor(diff/7) + " weeks ago";
+						elem.innerText = Math.floor(diff/7) + " weeks ago"
 					}
 					else if(diff < 365){
 						if(Math.floor(diff/30) === 1){
 							elem.innerText = "1 month ago";
 						}
 						else{
-							elem.innerText = Math.floor(diff/30) + " months ago";
+							elem.innerText = Math.floor(diff/30) + " months ago"
 						}
 					}
 					else{
@@ -175,7 +175,7 @@ function nativeTimeElement(timestamp){
 							elem.innerText = "1 year ago";
 						}
 						else{
-							elem.innerText = diff + " years ago";
+							elem.innerText = diff + " years ago"
 						}
 					}
 				}
@@ -188,7 +188,7 @@ function nativeTimeElement(timestamp){
 			calculateTime()
 		},60*1000)
 	};calculateTime();
-	return elem;
+	return elem
 }
 
 let wilson = function(positiveScore,total){
@@ -203,7 +203,7 @@ let wilson = function(positiveScore,total){
 	let phat = positiveScore / total;
 	// z is 1-alpha/2 percentile of a standard
 	// normal distribution for error alpha=5%
-	const z = 1.96;
+	const z = 1.959963984540;
 	// implement the algorithm https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval
 	let a = phat + z * z / (2 * total);
 	let b = z * Math.sqrt((phat * (1 - phat) + z * z / (4 * total)) / total);
@@ -365,7 +365,7 @@ const removeGroupedDuplicates = function(
 	modificationFunction
 ){//both functions optional
 	if(!uniquenessFunction){
-		uniquenessFunction = e => e;
+		uniquenessFunction = e => e
 	};
 	list = list.sort(
 		(a,b) => uniquenessFunction(a) - uniquenessFunction(b)
@@ -378,11 +378,11 @@ const removeGroupedDuplicates = function(
 		}
 		if(uniquenessFunction(element) === uniquenessFunction(list[index + 1])){
 			if(modificationFunction){
-				modificationFunction(element,list[index + 1]);
+				modificationFunction(element,list[index + 1])
 			}
 		}
 		else{
-			returnList.push(element);
+			returnList.push(element)
 		}
 	});
 	return returnList
@@ -421,7 +421,7 @@ function create(type,classes,text,appendLocation,cssText){
 	if(cssText){
 		element.style.cssText = cssText
 	};
-	return element;
+	return element
 };
 
 function createCheckbox(target,id,checked){//target[,id]
@@ -433,7 +433,7 @@ function createCheckbox(target,id,checked){//target[,id]
 	checkbox.type = "checkbox";
 	checkbox.checked = !!checked;
 	create("span","el-checkbox__inner",false,hohCheckbox);
-	return checkbox;
+	return checkbox
 }
 
 m4_include(utilities/displayBox.js)
@@ -516,7 +516,7 @@ if(useScripts.mangaBrowse){
 		*/
 		let mangaBrowseLink = navLinks.cloneNode(true);//copying and pasting the node should remove all event references to it
 		navLinks.parentNode.replaceChild(mangaBrowseLink,navLinks);
-	};
+	}
 };
 
 m4_include(utilities/colourPicker.js)
@@ -550,7 +550,7 @@ function scoreFormatter(score,format){
 	else{//future types. Just gambling that they look okay in plain text
 		scoreElement.innerText = score
 	}
-	return scoreElement;
+	return scoreElement
 }
 
 function convertScore(score,format){

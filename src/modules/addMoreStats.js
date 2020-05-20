@@ -575,9 +575,6 @@ function addMoreStats(){
 			};
 			let collectedMedia = semaPhoreAnime.concat(semaPhoreManga);
 			let listOfTags = regularTagsCollection(collectedMedia,mixedFields,media => media.media.tags);
-			if(listOfTags.length > 50){//restrict to 3 or more only if the user has many tags
-				listOfTags = listOfTags.filter(a => a.list.length >= 3)
-			}
 			if(!document.URL.match(/\/stats/)){
 				return
 			};
@@ -598,16 +595,6 @@ function addMoreStats(){
 					input_m.checked = true;
 					create("span",false,"Manga",mangaSetting);
 
-					input_m.onclick = function(){
-						if(!input_m.checked){
-							input_a.checked = true
-						}
-					}
-					input_a.onclick = function(){
-						if(!input_a.checked){
-							input_m.checked = true
-						}
-					}
 					let minSetting = create("p","hohSetting",false,filters);
 					let min_s_input = create("input","hohNativeInput",false,minSetting,"width: 80px;margin-right: 10px;");
 					min_s_input.type = "number";
@@ -617,6 +604,14 @@ function addMoreStats(){
 					min_s_input.value = 0;
 					create("span",false,"Minimum rating",minSetting);
 
+					let minEpisodeSetting = create("p","hohSetting",false,filters);
+					let min_e_input = create("input","hohNativeInput",false,minEpisodeSetting,"width: 80px;margin-right: 10px;");
+					min_e_input.type = "number";
+					min_e_input.min = 0;
+					min_e_input.step = 1;
+					min_e_input.value = 0;
+					create("span",false,"Minimum episode progress",minEpisodeSetting);
+
 					let minChapterSetting = create("p","hohSetting",false,filters);
 					let min_c_input = create("input","hohNativeInput",false,minChapterSetting,"width: 80px;margin-right: 10px;");
 					min_c_input.type = "number";
@@ -625,23 +620,92 @@ function addMoreStats(){
 					min_c_input.value = 0;
 					create("span",false,"Minimum chapter progress",minChapterSetting);
 
+					let statusFilter = {};
+					create("p",false,"Status",filters);
+					let statusLine = create("p","hohSetting",false,filters);
+					Object.keys(distributionColours).sort().forEach(key => {
+						statusFilter[key] = true;
+						let input_status = createCheckbox(statusLine);
+						input_status.checked = true;
+						create("span",false,capitalize(key.toLowerCase()),statusLine,"margin-right: 20px");
+						input_status.onchange = function(){
+							statusFilter[key] = input_status.checked
+						}
+					})
+
+					let formatFilter = {};
+					create("p",false,"Format",filters);
+					let formatLine_a = create("p","hohSetting",false,filters);
+					let formatLine_m = create("p","hohSetting",false,filters);
+					Object.keys(distributionFormats).forEach(key => {
+						formatFilter[key] = true;
+						let input_format;
+						if(["MANGA","NOVEL","ONE_SHOT"].includes(key)){
+							input_format = createCheckbox(formatLine_m);
+							create("span",false,distributionFormats[key],formatLine_m,"margin-right: 20px")
+						}
+						else{
+							input_format = createCheckbox(formatLine_a);
+							create("span",false,distributionFormats[key],formatLine_a,"margin-right: 20px")
+						}
+						input_format.checked = true;
+						input_format.onchange = function(){
+							formatFilter[key] = input_format.checked
+						}
+					})
+
+					input_m.onchange = function(){
+						if(input_m.checked){
+							minChapterSetting.style.opacity = 1;
+							formatLine_m.style.opacity = 1;
+						}
+						else{
+							input_a.checked = true;
+							minEpisodeSetting.style.opacity = 1;
+							minChapterSetting.style.opacity = 0.5;
+							formatLine_m.style.opacity = 0.5;
+							formatLine_a.style.opacity = 1;
+						}
+					}
+					input_a.onchange = function(){
+						if(input_a.checked){
+							minEpisodeSetting.style.opacity = 1;
+							formatLine_a.style.opacity = 1;
+						}
+						else{
+							input_m.checked = true;
+							minEpisodeSetting.style.opacity = 0.5;
+							minChapterSetting.style.opacity = 1;
+							formatLine_m.style.opacity = 1;
+							formatLine_a.style.opacity = 0.5;
+						}
+					}
+
 					let applyButton = create("button",["hohButton","button"],"Submit",filters);
 					applyButton.onclick = function(){
 						let base_media = collectedMedia;
-						if(!input_a.checked || min_c_input.value > 0){
+						if(!input_a.checked){
 							base_media = semaPhoreManga
 						}
 						else if(!input_m.checked){
 							base_media = semaPhoreAnime
 						}
 						base_media = base_media.filter(mediaEntry => {
+							if(mediaEntry.hasOwnProperty("progressVolumes")){
+								if(mediaEntry.progress < parseInt(min_c_input.value)){
+									return false
+								}
+							}
+							else{
+								if(mediaEntry.progress < parseInt(min_e_input.value)){
+									return false
+								}
+							}
 							return mediaEntry.scoreRaw >= parseInt(min_s_input.value)
-								&& mediaEntry.progress >= parseInt(min_c_input.value)
+								&& statusFilter[mediaEntry.status]
+								&& formatFilter[mediaEntry.media.format]
 						})
 						listOfTags = regularTagsCollection(base_media,mixedFields,media => media.media.tags);
-						if(listOfTags.length > 50){//restrict to 3 or more only if the user has many tags
-							listOfTags = listOfTags.filter(a => a.list.length >= 3)
-						}
 						drawTable(listOfTags,mixedFormatter,regularTagsTable,true);
 						drawTable(
 							regularTagsCollection(
