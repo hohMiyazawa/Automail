@@ -2,9 +2,10 @@
 	let input = create("input","#searchInput",false,miscOptions);
 	input.placeholder = "text or regex to match";
 },code: function(){
-	let results = create("p",false,false,miscResults);
 	let searchQuery = document.getElementById("searchInput").value;
 	if(statusSearchCache.length){
+		miscResults.innerText = "";
+		let results = create("p",false,false,miscResults);
 		statusSearchCache.forEach(function(act){
 			if(act.match(new RegExp(searchQuery,"i"))){
 				let newDate = create("p",false,false,results,"font-family:monospace;margin-right:10px;");
@@ -34,10 +35,12 @@
 				}
 			}`;
 			miscResults.innerText = "";
+			let results = create("p",false,false,miscResults);
 			let posts = 0;
 			let progress = create("p",false,false,miscResults);
 			let userId = data.data.User.id;
 			let addNewUserData = function(data){
+				console.log(data);
 				if(!data){
 					return
 				}

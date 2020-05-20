@@ -14,14 +14,12 @@ Automail primarily deals with:
 As a userscript: https://greasyfork.org/en/scripts/370473-automail
 As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/automail/
 
-# Build instructions
+# Build from source
 
 "src/" contains a makefile, run "make" there.
 Requires make, m4 and basic shell utilities
 
 Will build the userscript and the firefox addon in src/build/
-
-(working build instructions for Windows appreciated)
 
 If you have an archived version of this repo, updated code can be found at
 https://github.com/hohMiyazawa/Automail
