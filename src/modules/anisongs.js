@@ -103,8 +103,10 @@ function createTargetDiv(text, target, pos){
 	el.appendChild(document.createElement('h2'));
 	el.children[0].innerText = text;
 	el.classList = anisongs_options.class;
-	target.insertBefore(el, target.children[pos]);
-	return el;
+	if(target){
+		target.insertBefore(el, target.children[pos])
+	}
+	return el
 }
 
 function placeData(data){
@@ -129,7 +131,7 @@ function launch(currentid) {
 	// get from cache and check TTL
 	Cache.get(currentid,async function(cache){
 		if(
-			(cache.time + anisongs_options.cacheLife) < +new Date()
+			(cache.time + anisongs_options.cacheLife) < NOW()
 		){
 			const mal_id = await API.getMalId(currentid);
 			if(mal_id){
@@ -141,7 +143,7 @@ function launch(currentid) {
 						{
 							opening_themes,
 							ending_themes,
-							time: +new Date()
+							time: NOW()
 						}
 					)
 				}

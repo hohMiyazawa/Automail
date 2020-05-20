@@ -59,7 +59,7 @@ exportModule({
 		}
 		useScriptsDefinitions.sort((b,a) => (a.importance || 0) - (b.importance || 0));
 		useScriptsDefinitions.forEach(function(def){
-			let setting = create("p","hohSetting");
+			let setting = create("p","hohSetting",false,scriptSettings);
 			if(def.visible === false){
 				setting.style.display = "none"
 			};
@@ -117,7 +117,6 @@ exportModule({
 					createDisplayBox(false,"Module info").innerText = def.extendedDescription
 				}
 			}
-			scriptSettings.appendChild(setting);
 		});
 		let titleAliasSettings = create("div");
 		let titleAliasInstructions = create("p");

@@ -2,7 +2,7 @@ exportModule({
 	id: "youtubeFullscreen",
 	description: "Enable fullscreen button on youtube videos",
 	isDefault: false,
-	categories: ["Script"],
+	categories: ["Feeds"],
 	visible: true
 })
 

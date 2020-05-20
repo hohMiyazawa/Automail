@@ -32,6 +32,7 @@ function addMoreStats(){
 	};
 	let hohStats;
 	let hohGenres;
+	let regularFilterHeading;
 	let regularGenresTable;
 	let regularTagsTable;
 	let regularAnimeTable;
@@ -279,13 +280,14 @@ function addMoreStats(){
 			});
 			for(var i=0;i<data.length;i++){
 				let row = create("div","row");
-				formatter.celData.forEach(function(celData,index){
+				formatter.celData.forEach((celData,index) => {
 					if(index === 2 && !hasScores){
 						return
 					};
-					let cel = create("div");
-					celData(cel,data,i,true,isTag);
-					row.appendChild(cel)
+					celData(
+						create("div",false,false,row),
+						data,i,true,isTag
+					)
 				});
 				row.onclick = function(){
 					if(this.nextSibling.style.display === "none"){
@@ -297,6 +299,7 @@ function addMoreStats(){
 				};
 				tableContent.appendChild(row);
 				let showList = create("div");
+
 				if(formatter.focus === 1){//sorting by count is meaningless, sort alphabetically instead
 					data[i].list.sort(formatter.sorting[0])
 				}
@@ -454,12 +457,12 @@ function addMoreStats(){
 				}
 			];
 			let mixedFormatter = {
-				title : "",
-				display : true,
-				isMixed : true,
-				headings : ["Tag","Count","Mean Score","Time Watched","Chapters Read"],
-				focus : -1,
-				celData : [
+				title: "",
+				display: true,
+				isMixed: true,
+				headings: ["Tag","Count","Mean Score","Time Watched","Chapters Read"],
+				focus: -1,
+				celData: [
 					function(cel,data,index,isPrimary,isTag){
 						if(isPrimary){
 							let nameCellCount = create("div","count",(index+1),cel);
@@ -487,14 +490,14 @@ function addMoreStats(){
 									}
 									statusSumDot.onclick = function(e){
 										e.stopPropagation();
-										Array.from(cel.parentNode.nextSibling.children).forEach(function(child){
+										Array.from(cel.parentNode.nextSibling.children).forEach(child => {
 											if(child.children[1].children[0].title === status.toLowerCase()){
 												child.style.display = "grid"
 											}
 											else{
 												child.style.display = "none"
 											}
-										});
+										})
 									}
 								}
 							})
@@ -503,11 +506,11 @@ function addMoreStats(){
 							let nameCellTag = create("a",["title","hohNameCel"],data[index].name,cel);
 							if(data[index].type === "ANIME"){
 								nameCellTag.href = "/anime/" + data[index].mediaId + "/";
-								nameCellTag.style.color = "rgb(var(--color-blue))";
+								nameCellTag.style.color = "rgb(var(--color-blue))"
 							}
 							else{
 								nameCellTag.href = "/manga/" + data[index].mediaId + "/";
-								nameCellTag.style.color = "rgb(var(--color-green))";
+								nameCellTag.style.color = "rgb(var(--color-green))"
 							}
 						}
 					},
@@ -579,6 +582,90 @@ function addMoreStats(){
 				return
 			};
 			let drawer = function(){
+				if(regularFilterHeading.children.length === 0){
+					let filterWrap = create("div",false,false,regularFilterHeading);
+					let filterLabel = create("span",false,"Filters",filterWrap);
+					let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
+					let filters = create("div",false,false,filterWrap,"display: none");
+
+					let animeSetting = create("p","hohSetting",false,filters);
+					let input_a = createCheckbox(animeSetting);
+					input_a.checked = true;
+					create("span",false,"Anime",animeSetting);
+
+					let mangaSetting = create("p","hohSetting",false,filters);
+					let input_m = createCheckbox(mangaSetting);
+					input_m.checked = true;
+					create("span",false,"Manga",mangaSetting);
+
+					input_m.onclick = function(){
+						if(!input_m.checked){
+							input_a.checked = true
+						}
+					}
+					input_a.onclick = function(){
+						if(!input_a.checked){
+							input_m.checked = true
+						}
+					}
+					let minSetting = create("p","hohSetting",false,filters);
+					let min_s_input = create("input","hohNativeInput",false,minSetting,"width: 80px;margin-right: 10px;");
+					min_s_input.type = "number";
+					min_s_input.min = 0;
+					min_s_input.max = 100;
+					min_s_input.step = 1;
+					min_s_input.value = 0;
+					create("span",false,"Minimum rating",minSetting);
+
+					let minChapterSetting = create("p","hohSetting",false,filters);
+					let min_c_input = create("input","hohNativeInput",false,minChapterSetting,"width: 80px;margin-right: 10px;");
+					min_c_input.type = "number";
+					min_c_input.min = 0;
+					min_c_input.step = 1;
+					min_c_input.value = 0;
+					create("span",false,"Minimum chapter progress",minChapterSetting);
+
+					let applyButton = create("button",["hohButton","button"],"Submit",filters);
+					applyButton.onclick = function(){
+						let base_media = collectedMedia;
+						if(!input_a.checked || min_c_input.value > 0){
+							base_media = semaPhoreManga
+						}
+						else if(!input_m.checked){
+							base_media = semaPhoreAnime
+						}
+						base_media = base_media.filter(mediaEntry => {
+							return mediaEntry.scoreRaw >= parseInt(min_s_input.value)
+								&& mediaEntry.progress >= parseInt(min_c_input.value)
+						})
+						listOfTags = regularTagsCollection(base_media,mixedFields,media => media.media.tags);
+						if(listOfTags.length > 50){//restrict to 3 or more only if the user has many tags
+							listOfTags = listOfTags.filter(a => a.list.length >= 3)
+						}
+						drawTable(listOfTags,mixedFormatter,regularTagsTable,true);
+						drawTable(
+							regularTagsCollection(
+								base_media,
+								mixedFields,
+								media => media.media.genres.map(a => ({name: a}))
+							),
+							mixedFormatter,
+							regularGenresTable
+						)
+					}
+
+					tableHider.onclick = function(){
+						if(this.innerText === "[-]"){
+							tableHider.innerText = "[+]";
+							filters.style.display = "none"
+						}
+						else{
+							tableHider.innerText = "[-]";
+							filters.style.display = "block"
+						}
+					}
+
+				}
 				drawTable(listOfTags,mixedFormatter,regularTagsTable,true);
 				//recycle most of the formatter for genres
 				drawTable(
@@ -1947,7 +2034,7 @@ function addMoreStats(){
 					let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",mangaStaff,"margin-top:10px;");
 					csvButton.onclick = function(){
 						let csvContent = 'Staff,Count,"Mean Score","Chapters Read","Volumes Read"\n';
-						staffList.forEach(function(staff){
+						staffList.forEach(staff => {
 							csvContent += csvEscape(
 								[staff.name.first,staff.name.last].filter(TRUTHY).join(" ")
 							) + ",";
@@ -2051,7 +2138,7 @@ function addMoreStats(){
 			},"hohListCacheMangaStaff" + user,10*60*1000);
 		};
 		if(user === whoAmI){
-			cache.getList("MANGA",function(data){
+			cache.getList("MANGA",data => {
 				personalStatsMangaCallback({
 					data: {
 						MediaListCollection: data
@@ -2072,7 +2159,7 @@ function addMoreStats(){
 	};
 	let tabWaiter = function(){
 		let tabMenu = filterGroup.querySelectorAll(".filter-group > a");
-		tabMenu.forEach(function(tab){
+		tabMenu.forEach(tab => {
 			tab.onclick = function(){
 				Array.from(document.querySelector(".stats-wrap").children).forEach(child => {
 					child.style.display = "initial";
@@ -2082,8 +2169,8 @@ function addMoreStats(){
 				});
 				document.getElementById("hohStats").style.display = "none";
 				document.getElementById("hohGenres").style.display = "none";
-				document.querySelector(".page-content .user").classList.remove("hohSpecialPage");
-			};
+				document.querySelector(".page-content .user").classList.remove("hohSpecialPage")
+			}
 		});
 		if(!tabMenu.length){
 			setTimeout(tabWaiter,200)
@@ -2093,6 +2180,7 @@ function addMoreStats(){
 	if(statsWrap){
 		hohStats = create("div","#hohStats",false,statsWrap,"display:none;");
 		hohGenres = create("div","#hohGenres",false,statsWrap,"display:none;");
+		regularFilterHeading = create("div","#regularFilterHeading",false,hohGenres);
 		regularGenresTable = create("div","#regularGenresTable","loading...",hohGenres);
 		regularTagsTable = create("div","#regularTagsTable","loading...",hohGenres);
 		regularAnimeTable = create("div","#regularAnimeTable","loading...",statsWrap);
@@ -2101,7 +2189,7 @@ function addMoreStats(){
 		mangaStaff = create("div","#mangaStaff","loading...",statsWrap);
 		animeStudios = create("div","#animeStudios","loading...",statsWrap);
 		hohStats.calculated = false;
-		generateStatPage();
+		generateStatPage()
 	};
 	hohStatsTrigger.onclick = function(){
 		hohStatsTrigger.classList.add("hohActive");
@@ -2131,6 +2219,6 @@ function addMoreStats(){
 			module => module.style.display = "none"
 		);
 		hohStats.style.display = "none";
-		hohGenres.style.display = "initial";
-	};
+		hohGenres.style.display = "initial"
+	}
 };

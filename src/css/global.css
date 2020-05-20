@@ -13,7 +13,8 @@ img{
 }
 #hohSettings textarea,
 #hohSettings input,
-#hohSettings select{
+#hohSettings select,
+.hohNativeInput{
 	color: inherit;
 	background-color: rgb(var(--color-foreground-grey));
 	border-width: 1px;

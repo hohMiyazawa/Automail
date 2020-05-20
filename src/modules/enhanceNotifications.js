@@ -2,7 +2,7 @@ exportModule({
 	id: "notifications",
 	description: "Improve notifications",
 	extendedDescription: `
-Does several changes to notifications:
+Performs several changes to notifications:
 
 - Similar consecutive notifications are grouped.
 - Notifications get tagged with the cover image of the media they apply to. (or profile picture, if it's a status post)

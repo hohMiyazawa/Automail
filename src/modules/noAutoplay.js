@@ -2,14 +2,14 @@ exportModule({
 	id: "noAutoplay",
 	description: "Do not autoplay videos",
 	extendedDescription: `
-Your browser may also provide ways to controll this:
+Your browser may also provide ways to control this:
 
 Firefox: about:config > media.autoplay has a wide range of options
 
 Chrome: chrome://flags/#autoplay-policy
 `,
 	isDefault: false,
-	categories: ["Script","Newly Added"],
+	categories: ["Feeds","Newly Added"],
 	visible: true
 })
 
