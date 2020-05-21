@@ -16,7 +16,7 @@ function profileBackground(){
 		if(!data){
 			return;
 		};
-		let jsonMatch = (data.data.User.about || "").match(/^<!--(\{.*})-->/);
+		let jsonMatch = (data.data.User.about || "").match(/^<json([A-Za-z0-9+/=]+)>/);
 		if(!jsonMatch){
 			let target = document.querySelector(".user-page-unscoped");
 			if(target){
@@ -25,7 +25,7 @@ function profileBackground(){
 			return;
 		};
 		try{
-			let jsonData = JSON.parse(jsonMatch[1]);
+			let jsonData = JSON.parse(atob(jsonMatch[1]));
 			let adder = function(){
 				if(!location.pathname.match(/^\/user\/(.*?)\/?$/)){
 					return
@@ -41,7 +41,7 @@ function profileBackground(){
 		}
 		catch(e){
 			console.warn("Invalid profile JSON for " + variables.userName + ". Aborting.");
-			console.log(jsonMatch[1]);
+			console.log(atob(jsonMatch[1]));
 		};
 	},"hohProfileBackground" + variables.userName,30*1000);
 }
