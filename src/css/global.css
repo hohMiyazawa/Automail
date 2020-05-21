@@ -2261,6 +2261,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 .search .filter > .icon{
 	display: inline-block;
 }
+.rules-notice{
+	display: none;
+}
 
 
 m4_include(css/footerLinks.css)
