@@ -22,7 +22,7 @@ function addCustomCSS(){
 			if(!data){
 				return;
 			};
-			let jsonMatch = (data.data.User.about || "").match(/^<json([A-Za-z0-9+/=]+)>/);
+			let jsonMatch = (data.data.User.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 			if(!jsonMatch){
 				return
 			};

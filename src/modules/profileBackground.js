@@ -16,7 +16,7 @@ function profileBackground(){
 		if(!data){
 			return;
 		};
-		let jsonMatch = (data.data.User.about || "").match(/^<json([A-Za-z0-9+/=]+)>/);
+		let jsonMatch = (data.data.User.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 		if(!jsonMatch){
 			let target = document.querySelector(".user-page-unscoped");
 			if(target){

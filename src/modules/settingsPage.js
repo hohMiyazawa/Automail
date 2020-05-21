@@ -346,7 +346,7 @@ exportModule({
 			backgroundChange.onclick = function(){
 				useScripts.profileBackgroundValue = inputField.value;
 				useScripts.save();
-				let jsonMatch = userObject.about.match(/^<json([A-Za-z0-9+/=]+)>/);
+				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
 					try{
@@ -357,7 +357,7 @@ exportModule({
 					}
 				}
 				profileJson.background = useScripts.profileBackgroundValue;
-				let newDescription = "<json" + btoa(JSON.stringify(profileJson)) + ">" + (userObject.about.replace(/^<json([A-Za-z0-9+/=]+)>/,""));
+				let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				authAPIcall(
 					`mutation($about: String){
 						UpdateUser(about: $about){
@@ -379,7 +379,7 @@ exportModule({
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;
 				useScripts.save();
-				let jsonMatch = userObject.about.match(/^<json([A-Za-z0-9+/=]+)>/);
+				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
 					try{
@@ -390,7 +390,7 @@ exportModule({
 					}
 				}
 				profileJson.customCSS = useScripts.customCSSValue;
-				let newDescription = "<json" + btoa(JSON.stringify(profileJson)) + ">" + (userObject.about.replace(/^<json([A-Za-z0-9+/=]+)>/,""));
+				let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				authAPIcall(
 					`mutation($about: String){
 						UpdateUser(about: $about){
