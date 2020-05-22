@@ -587,6 +587,8 @@ m4_include(utilities/saveAs.js)
 
 m4_include(utilities/levDist.js)
 
+m4_include(utilities/lz-string.js)
+
 function returnList(list,skipProcessing){
 	if(!list){
 		return null

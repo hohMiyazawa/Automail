@@ -25,7 +25,13 @@ function profileBackground(){
 			return;
 		};
 		try{
-			let jsonData = JSON.parse(atob(jsonMatch[1]));
+			let jsonData;
+			try{
+				jsonData = JSON.parse(atob(jsonMatch[1]))
+			}
+			catch(e){
+				jsonData = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
+			}
 			let adder = function(){
 				if(!location.pathname.match(/^\/user\/(.*?)\/?$/)){
 					return

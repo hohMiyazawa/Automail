@@ -27,7 +27,13 @@ function addCustomCSS(){
 				return
 			};
 			try{
-				let jsonData = JSON.parse(atob(jsonMatch[1]));
+				let jsonData;
+				try{
+					jsonData = JSON.parse(atob(jsonMatch[1]))
+				}
+				catch(e){
+					jsonData = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
+				}
 				if(jsonData.customCSS){
 					if(jsonData.customCSS.match(/^https.*\.css$/)){
 						let styleRef = document.createElement("link");
