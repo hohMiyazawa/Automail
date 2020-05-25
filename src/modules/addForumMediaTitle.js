@@ -4,7 +4,7 @@ function addForumMediaTitle(){
 	}
 	let forumThreads = Array.from(document.querySelectorAll(".home .forum-wrap .thread-card .category"));
 	if(!forumThreads.length){
-		setTimeout(addForumMedia,200);
+		setTimeout(addForumMediaTitle,200);
 		return;
 	};
 	if(forumThreads.some(
