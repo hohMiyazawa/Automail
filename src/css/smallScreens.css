@@ -19,6 +19,12 @@
 		text-align: left;
 		right: unset;
 	}
+	.status{
+		font-size: small;
+	}
+	.status > .name{
+		padding: 5px;
+	}
 }
 @media(max-width: 760px){
 	#hohMALscore{
