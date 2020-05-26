@@ -802,6 +802,7 @@ function addMoreStats(){
 			let sumDuration = 0;
 			let publicDeviation = 0;
 			let publicDifference = 0;
+			let histogram = new Array(100).fill(0);
 			let longestDuration = {
 				time: 0,
 				name: "",
@@ -862,6 +863,7 @@ function addMoreStats(){
 				};
 				sumWeight += (item.media.duration || 1) * (item.media.episodes || 0);
 				sumEntriesWeight += item.scoreRaw*(item.media.duration || 1) * (item.media.episodes || 0);
+				histogram[item.scoreRaw - 1]++
 			});
 			if(amount){
 				average = sumEntries/amount
@@ -910,6 +912,16 @@ function addMoreStats(){
 						"Global deviation: ",
 						publicDeviation.roundPlaces(2),
 						" (standard deviation from the global average of each entry)"
+					);
+					addStat(
+						"Rating entropy: ",
+						-histogram.reduce((acc,val) => {
+							if(val){
+								return acc + Math.log2(val/amount) * val/amount
+							}
+							return acc
+						},0).toPrecision(3),
+						" bits/rating"
 					);
 					if(maxRunLength > 1){
 						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
@@ -1761,6 +1773,7 @@ function addMoreStats(){
 			let average = 0;
 			let publicDeviation = 0;
 			let publicDifference = 0;
+			let histogram = new Array(100).fill(0);
 			let amount = scoreList.length;
 			let median = (scoreList.length ? Stats.median(scoreList.map(e => e.scoreRaw)) : 0);
 			let sumWeight = 0;
@@ -1781,7 +1794,8 @@ function addMoreStats(){
 					previouScore = item.scoreRaw
 				};
 				sumWeight += item.chaptersRead;
-				sumEntriesWeight += item.scoreRaw * item.chaptersRead
+				sumEntriesWeight += item.scoreRaw * item.chaptersRead;
+				histogram[item.scoreRaw - 1]++
 			});
 			addStat("Manga on list: ",list.length);
 			addStat("Manga rated: ",amount);
@@ -1834,6 +1848,16 @@ function addMoreStats(){
 						"Global deviation: ",
 						publicDeviation.roundPlaces(2),
 						" (standard deviation from the global average of each entry)"
+					);
+					addStat(
+						"Rating entropy: ",
+						-histogram.reduce((acc,val) => {
+							if(val){
+								return acc + Math.log2(val/amount) * val/amount
+							}
+							return acc
+						},0).toPrecision(3),
+						" bits/rating"
 					);
 					if(maxRunLength > 1){
 						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
