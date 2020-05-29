@@ -13,6 +13,9 @@ if(useScripts.webmResize){
 			if(hashMatch && !video.parentNode.width){
 				video.parentNode.setAttribute("width",hashMatch[0].substring(1))
 			}
+			if(video.querySelector("source").src.match(/#image$/)){
+				video.removeAttribute("controls")
+			}
 		})
 	},500)
 }

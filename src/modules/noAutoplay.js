@@ -17,8 +17,13 @@ if(useScripts.noAutoplay){
 	setInterval(function(){
 		document.querySelectorAll("video").forEach(video => {
 			if(video.hasAttribute("autoplay")){
-				video.removeAttribute("autoplay");
-				video.load()
+				if(!video.querySelector("source").src.match(/#image$/)){
+					video.removeAttribute("autoplay");
+					video.load()
+				}
+				else{
+					video.removeAttribute("controls")
+				}
 			}
 		})
 	},500)
