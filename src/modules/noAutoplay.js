@@ -17,7 +17,7 @@ if(useScripts.noAutoplay){
 	setInterval(function(){
 		document.querySelectorAll("video").forEach(video => {
 			if(video.hasAttribute("autoplay")){
-				if(!video.querySelector("source").src.match(/#image$/)){
+				if(!(video.querySelector("source") && video.querySelector("source").src.match(/#image$/))){
 					video.removeAttribute("autoplay");
 					video.load()
 				}
