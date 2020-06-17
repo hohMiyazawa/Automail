@@ -2,7 +2,7 @@ body{
 	margin: 0px;
 }
 img{
-	image-orientation: from-image;/*useful fix, but only for Firefox*/
+	image-orientation: from-image;/*useful fix, but not universally supported*/
 }
 #hohSettings{
 	margin-top: 20px;
@@ -1573,13 +1573,6 @@ a.external::after{
 .hohFeed .activity:hover .hohDeleteActivity{
 	display: inline;
 }
-.sense-wrap,
-.adswrapper{
-	display: none!important;
-	height: 0px!important;
-	width: 0px!important;
-	opacity: 0!important;
-}
 input[list="socialUsers"]{
 	color: rgb(var(--color-text));
 }
@@ -1996,7 +1989,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 	content: counter(entryCounter);
 	opacity: 0.5;
 	font-size: 70%;
-	margin-left: -16px;
+	margin-left: -21px;
 	top: 2px;
 	margin-right: 3px;
 	position: absolute;
