@@ -388,6 +388,7 @@ let listRenderer = function(){
 	let animeCurrentFlag = false;
 	let mangaCurrentFlag = false;
 	let distribution = {};
+	let alreadyCounted = new Set();
 	Object.keys(distributionColours).forEach(
 		status => distribution[status] = 0
 	);
@@ -442,7 +443,7 @@ let listRenderer = function(){
 			|| mediaMatcher["title-native"](query,media)
 	}
 	let voiceYear = 0;
-	voiceRolesList.forEach(function(anime){
+	voiceRolesList.forEach(anime => {
 		let foundRole = filterSelect.value === "";
 		if(!foundRole){
 			let specificMatch = filterSelect.value.toLowerCase().match(/^\s*(.*?)\s*:\s*(.*)/);
@@ -479,7 +480,7 @@ let listRenderer = function(){
 			let name = create("a","name",anime.character.name,content);
 			roleCard.insertBefore(character,roleCard.children[0]);
 			hohCharacterRoles.appendChild(roleCard);
-			if(anime.myStatus){
+			if(anime.myStatus && !alreadyCounted.has(anime.id)){
 				distribution[anime.myStatus.status]++;
 				if(anime.myStatus.status === "CURRENT"){
 					animeCurrentFlag = true
@@ -489,6 +490,7 @@ let listRenderer = function(){
 					sumScoresAnime += anime.myStatus.scoreRaw;
 					amountAnime++;
 				}
+				alreadyCounted.add(anime.id)
 			}
 		}
 	});
@@ -520,7 +522,7 @@ let listRenderer = function(){
 			}
 			let roleCard = createRoleCard(anime,"anime");
 			hohMediaRolesAnime.appendChild(roleCard);
-			if(anime.myStatus){
+			if(anime.myStatus && !alreadyCounted.has(anime.id)){
 				distribution[anime.myStatus.status]++;
 				if(anime.myStatus.status === "CURRENT"){
 					animeCurrentFlag = true
@@ -530,6 +532,7 @@ let listRenderer = function(){
 					sumScoresAnime += anime.myStatus.scoreRaw;
 					amountAnime++;
 				}
+				alreadyCounted.add(anime.id)
 			}
 		}
 	});

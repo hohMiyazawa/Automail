@@ -60,10 +60,9 @@ const API = {
 		}
 	},
 	async getSongs(mal_id) {
-		const splitSongs = list => list.flatMap(e => e.split(/\#\d{1,2}\s/)).filter(e => e !== "");
 		let {opening_themes, ending_themes} = await request(`https://api.jikan.moe/v3/anime/${mal_id}/`);
-		opening_themes = splitSongs(opening_themes);
-		ending_themes = splitSongs(ending_themes);
+		opening_themes = opening_themes.filter(e => e !== "");
+		ending_themes = ending_themes.filter(e => e !== "");
 		return {opening_themes, ending_themes}
 	}
 }
