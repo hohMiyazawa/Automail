@@ -18,6 +18,8 @@ const notificationColourDefaults = {
 	"ACTIVITY_MENTION":{"colour":"rgb(123,213,85)","supress":false},
 	"THREAD_COMMENT_MENTION":{"colour":"rgb(123,213,85)","supress":false},
 	"THREAD_SUBSCRIBED":{"colour":"rgb(247,191,99)","supress":false},
+	"ACTIVITY_REPLY_SUBSCRIBED":{"colour":"rgb(247,191,99)","supress":false},
+	"RELATED_MEDIA_ADDITION":{"colour":"rgb(247,191,99)","supress":false},
 	"AIRING":{"colour":"rgb(247,191,99)","supress":false}
 };
 

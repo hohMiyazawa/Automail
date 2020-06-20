@@ -236,6 +236,8 @@ query($page: Int,$name: String){
 			... on ThreadCommentSubscribedNotification{type user{name}}
 			... on ThreadCommentLikeNotification{type user{name}}
 			... on ThreadLikeNotification{type user{name}}
+			... on ActivityReplySubscribedNotification{type user{name}}
+			... on RelatedMediaAdditionNotification{type media{title{userPreferred}}}
 		}
 	}
 }
