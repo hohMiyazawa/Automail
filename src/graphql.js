@@ -273,7 +273,13 @@ let handleResponse = function(response){
 	})
 };
 const url = "https://graphql.anilist.co";//Current Anilist API location
-const authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//1933 = automail
+const authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = automail, 1933 = aniscripts(legacy)
+
+if(useScripts.autoLogin && !useScripts.accessToken && !useScripts.loginAttempted){
+	useScripts.loginAttempted = true;
+	useScripts.save();
+	window.location = authUrl
+}
 
 if(!window.MutationObserver){//either the older webkit implementation, or just a dummy object that doesn't throw any errors when used.
 	window.MutationObserver = window.WebKitMutationObserver || function(){return {observe:function(){},disconnect:function(){}}}
