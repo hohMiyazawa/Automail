@@ -55,7 +55,8 @@
 				let adjustedScore = (media.score - statistics.meanScore)/statistics.standardDeviation;
 				media.media.recommendations.nodes.forEach(rec => {
 					if(
-						!existingSet.has(rec.mediaRecommendation.id)
+						rec.mediaRecommendation
+						&& !existingSet.has(rec.mediaRecommendation.id)
 						&& rec.rating > 0
 					){
 						if(!recsMap.has(rec.mediaRecommendation.id)){

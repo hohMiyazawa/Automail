@@ -11,14 +11,14 @@ function notificationCake(){
 				let names = [];
 				for(var i=0;i<Page.notifications.length && i<User.unreadNotificationCount;i++){
 					if(!Page.notifications[i].type){
-						Page.notifications[i].type = "THREAD_SUBSCRIBED";
+						Page.notifications[i].type = "THREAD_SUBSCRIBED"
 					};
 					if(Page.notifications[i].user){
-						names.push(Page.notifications[i].user.name);
+						names.push(Page.notifications[i].user.name)
 					};
-					if(!useScripts.notificationColours[Page.notifications[i].type].supress){
-						types.push(Page.notifications[i].type);
-					};
+					if(!useScripts.notificationColours[Page.notifications[i].type] || !useScripts.notificationColours[Page.notifications[i].type].supress){
+						types.push(Page.notifications[i].type)
+					}
 				};
 				if(types.length){
 					let notificationCake = create("canvas","hohNotificationCake");
@@ -40,7 +40,7 @@ function notificationCake(){
 					cakeCtx.fontWeight = "500";
 					cakeCtx.font = 50 + "px sans-serif";
 					types.forEach(function(type,i){
-						cakeCtx.fillStyle = useScripts.notificationColours[type].colour;
+						cakeCtx.fillStyle = (useScripts.notificationColours[type] || {"colour":"rgb(247,191,99)","supress":false}).colour;
 						cakeCtx.beginPath();
 						cakeCtx.arc(
 							60,60,
@@ -50,7 +50,7 @@ function notificationCake(){
 						);
 						cakeCtx.lineTo(60,60);
 						cakeCtx.closePath();
-						cakeCtx.fill();
+						cakeCtx.fill()
 					});
 					cakeCtx.fillStyle = "#fff2f2";
 					cakeCtx.fillText(User.unreadNotificationCount,60,76);
@@ -71,19 +71,19 @@ function notificationCake(){
 						dismisser.onclick = function(){
 							authAPIcall("query{Notification(resetNotificationCount:true){... on ActivityLikeNotification{id}}}",{},function(data){
 								dismisser.previousSibling.style.display = "none";
-								dismisser.style.display = "none";
-							});
-						};
+								dismisser.style.display = "none"
+							})
+						}
 					}
 				}
 				else{
-					notificationDot.style.display = "none";
-				};
+					notificationDot.style.display = "none"
+				}
 			}
-		);
+		)
 	}
 }
 
 if(useScripts.accessToken && !useScripts.mobileFriendly){
-	setInterval(notificationCake,4*1000);
+	setInterval(notificationCake,4*1000)
 };
