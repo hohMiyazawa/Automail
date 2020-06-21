@@ -19,9 +19,9 @@ If you for any reason need the default look, you can click the "Show default not
 let prevLength = 0;
 let displayMode = "hoh";
 
-function enhanceNotifications(){
+function enhanceNotifications(forceFlag){
 	//method: the real notifications are parsed, then hidden and a new list of notifications are created using a mix of parsed data and API calls.
-	//alternative method: auth
+	//alternative method: auth (not implemented)
 	setTimeout(function(){
 		if((location.pathname === "/notifications" || location.pathname === "/notifications#") && !(useScripts.accessToken && false)){
 			enhanceNotifications()
@@ -34,7 +34,7 @@ function enhanceNotifications(){
 	if(displayMode === "native"){
 		return
 	};
-	if(document.getElementById("hohNotifications")){
+	if(document.getElementById("hohNotifications") && !forceFlag){
 		return
 	}
 	let possibleButton = document.querySelector(".reset-btn");
@@ -568,27 +568,25 @@ You can also turn off this notice there.`,setting);
 			newNotification.appendChild(text);
 			newNotification.appendChild(notNotImageContainer);
 			newNotification.appendChild(time);
-			if(i < 25){
-				let commentsContainer = create("div",["hohCommentsContainer","b" + activities[i].link]);
-				let comments = create("a",["hohComments","link"],"comments",commentsContainer);
-				create("span","hohMonospace","+",comments);
-				comments.onclick = function(){
-					if(this.children[0].innerText === "+"){
-						this.children[0].innerText = "-";
-						this.parentNode.children[1].style.display = "inline-block";
-						let variables = {
-							id: +this.parentNode.classList[1].substring(1)
-						};
-						generalAPIcall(queryActivity,variables,commentCallback,"hohListActivityCall" + variables.id,24*60*60*1000,true,true)
-					}
-					else{
-						this.children[0].innerText = "+";
-						this.parentNode.children[1].style.display = "none"
+			let commentsContainer = create("div",["hohCommentsContainer","b" + activities[i].link]);
+			let comments = create("a",["hohComments","link"],"comments",commentsContainer);
+			create("span","hohMonospace","+",comments);
+			comments.onclick = function(){
+				if(this.children[0].innerText === "+"){
+					this.children[0].innerText = "-";
+					this.parentNode.children[1].style.display = "inline-block";
+					let variables = {
+						id: +this.parentNode.classList[1].substring(1)
 					};
+					generalAPIcall(queryActivity,variables,commentCallback,"hohListActivityCall" + variables.id,24*60*60*1000,true,true)
+				}
+				else{
+					this.children[0].innerText = "+";
+					this.parentNode.children[1].style.display = "none"
 				};
-				let commentsArea = create("div","hohCommentsArea",false,commentsContainer);
-				newNotification.appendChild(commentsContainer)
-			}
+			};
+			let commentsArea = create("div","hohCommentsArea",false,commentsContainer);
+			newNotification.appendChild(commentsContainer)
 			newContainer.appendChild(newNotification)
 		}
 	};
@@ -614,6 +612,15 @@ You can also turn off this notice there.`,setting);
 		" liked your forum thread, " :                      "forumLike",
 		" mentioned you, in the forum thread " :            "forumMention"
 	};
+	let mutationConfig = {
+		attributes: false,
+		childList: true,
+		subtree: false
+	};
+	let observer = new MutationObserver(function(){
+		enhanceNotifications(true)
+	});
+	observer.observe(document.querySelector(".page-content .notifications"),mutationConfig);
 	Array.from(notifications).forEach(function(notification){//parse real notifications
 		notification.already = true;
 		notification.style.display = "none";
@@ -702,6 +709,7 @@ You can also turn off this notice there.`,setting);
 		activities.push(active)
 	});
 	notificationDrawer(activities);
+	let alreadyRenderedComments = new Set();
 	for(let i=0;APIcallsUsed < (APIlimit - 5);i++){//heavy
 		if(!activities.length || i >= activities.length){//loading is difficult to predict. There may be nothing there when this runs
 			break
@@ -729,7 +737,10 @@ You can also turn off this notice there.`,setting);
 				})
 			};
 			if(data.data.Activity.replies.length){
-				commentCallback(data)
+				if(!alreadyRenderedComments.has(data.data.Activity.id)){
+					alreadyRenderedComments.add(data.data.Activity.id);
+					commentCallback(data)
+				}
 			}
 		};
 		let vars = {
