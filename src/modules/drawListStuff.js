@@ -448,6 +448,7 @@ query($id: Int,$userName: String){
 			document.querySelector(".medialist").classList.contains("POINT_100")
 			|| document.querySelector(".medialist").classList.contains("POINT_10")
 			|| document.querySelector(".medialist").classList.contains("POINT_10_DECIMAL")
+			|| document.querySelector(".medialist").classList.contains("POINT_5")
 		)
 	){
 		let minScore = 1;
@@ -458,6 +459,9 @@ query($id: Int,$userName: String){
 		}
 		if(document.querySelector(".medialist").classList.contains("POINT_10_DECIMAL")){
 			stepSize = 0.1
+		}
+		if(document.querySelector(".medialist").classList.contains("POINT_5")){
+			maxScore = 5;
 		}
 		let scoreChanger = function(){
 			observer.disconnect();

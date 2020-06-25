@@ -33,9 +33,12 @@ function addEntryScore(id,tries){
 					if(userObject.mediaListOptions.scoreFormat === "POINT_10_DECIMAL"){
 						stepSize = 0.1
 					}
+					if(userObject.mediaListOptions.scoreFormat === "POINT_5"){
+						maxScore = 5
+					}
 					if(MediaList.score){
 						scoreSpan.appendChild(scoreFormatter(MediaList.score,userObject.mediaListOptions.scoreFormat));
-						if(useScripts.accessToken && ["POINT_100","POINT_10","POINT_10_DECIMAL"].includes(userObject.mediaListOptions.scoreFormat)){
+						if(useScripts.accessToken && ["POINT_100","POINT_10","POINT_10_DECIMAL","POINT_5"].includes(userObject.mediaListOptions.scoreFormat)){
 							let updateScore = function(isUp){
 								let score = MediaList.score;
 								if(isUp){
