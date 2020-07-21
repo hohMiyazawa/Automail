@@ -16,10 +16,10 @@
 		let check = createCheckbox(option,id);
 		let descriptionText = create("span",false,description + " ",option);
 		if(defaultValue){
-			check.checked = defaultValue;
+			check.checked = defaultValue
 		}
 		if(titleText){
-			descriptionText.title = titleText;
+			descriptionText.title = titleText
 		}
 	};
 	[
@@ -57,7 +57,7 @@
 					activities(type:MESSAGE,sort:ID_DESC){
 						... on MessageActivity{
 							siteUrl
-							message
+							message(asHtml: true)
 							messenger{name}
 						}
 					}
@@ -70,26 +70,26 @@
 			{},
 			function(data){
 				miscResults.innerText = "";
+				let createResultRow = function(siteUrl,label,text){
+					let row = create("p",false,false,miscResults);
+					create("a",["link","newTab"],siteUrl,row,"width:440px;display:inline-block;")
+						.href = siteUrl;
+					create("span",false,label,row);
+					create("p",false,false,row).innerText = entityUnescape(text)
+				}
+				let allActivities = data.data.activities1.activities.concat(data.data.activities2.activities);
 				if(document.getElementById("linkOnly").checked){
 					if(checkActivities){
-						data.data.activities1.activities.concat(data.data.activities2.activities).forEach(activity => {
+						allActivities.forEach(activity => {
 							if(activity.text.match(/^<p><a\shref=".*?<\/a><\/p>$/)){
-								let row = create("p",false,false,miscResults);
-								create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
-									.href = activity.siteUrl;
-								create("span",false,"Link-only post. Spam?",row);
-								create("p",false,false,row).innerText = entityUnescape(activity.text);
+								createResultRow(activity.siteUrl,"Link-only post. Spam?",activity.text)
 							}
 						})
 					}
 					if(checkMessages){
 						data.data.messages.activities.forEach(activity => {
-							if(activity.text.match(/^<p><a\shref=".*?<\/a><\/p>$/)){
-								let row = create("p",false,false,miscResults);
-								create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
-									.href = activity.siteUrl;
-								create("span",false,"Link-only message. Spam?",row);
-								create("p",false,false,row).innerText = entityUnescape(activity.text);
+							if(activity.message.match(/^<p><a\shref=".*?<\/a><\/p>$/)){
+								createResultRow(activity.siteUrl,"Link-only message. Spam?",activity.message)
 							}
 						})
 					}
@@ -97,7 +97,7 @@
 				if(document.getElementById("piracy").checked){
 					const badDomains = m4_include(data/badDomains.json)
 					if(checkActivities){
-						data.data.activities1.activities.concat(data.data.activities2.activities).forEach(activity => {
+						allActivities.forEach(activity => {
 							(activity.text.match(/<a href=\".*?\"/g) || []).forEach(link => {
 								let linker = (
 									new URL(
@@ -109,19 +109,63 @@
 									if(
 										badDomains.includes(hashCode(linker))
 									){
-										let row = create("p",false,false,miscResults);
-										create("a",["link","newTab"],activity.siteUrl,row,"width:440px;display:inline-block;")
-											.href = activity.siteUrl;
-										create("span",false,"Possible piracy link",row);
-										create("p",false,false,row).innerText = entityUnescape(activity.text);
+										createResultRow(activity.siteUrl,"Possible piracy link",activity.text)
 									}
-								};
-							});
+								}
+							})
+						})
+					}
+					if(checkMessages){
+						data.data.messages.activities.forEach(activity => {
+							(activity.message.match(/<a href=\".*?\"/g) || []).forEach(link => {
+								let linker = (
+									new URL(
+										(link.match(/\"(.*?)\"/) || ["",""])[1]
+									)
+								).host;
+								if(linker && linker.split(".").length >= 2){
+									linker = linker.split(".")[linker.split(".").length - 2];
+									if(
+										badDomains.includes(hashCode(linker))
+									){
+										createResultRow(activity.siteUrl,"Possible piracy link",activity.message)
+									}
+								}
+							})
+						})
+					}
+				}
+				if(document.getElementById("badWords").checked){
+					if(checkActivities){
+						allActivities.forEach(activity => {
+							let badList = badWords.filter(word => activity.text.toUpperCase().includes(word.toUpperCase()))
+							if(badList.length){
+								createResultRow(activity.siteUrl,"Word match [" + badList.join("],[") + "]",activity.text)
+							}
+						})
+						data.data.messages.activities.forEach(activity => {
+							let badList = badWords.filter(word => activity.message.toUpperCase().includes(word.toUpperCase()))
+							if(badList.length){
+								createResultRow(activity.siteUrl,"Word match [" + badList.join("],[") + "]",activity.message)
+							}
+						})
+					}
+				}
+				if(document.getElementById("highActivity").checked){
+					if(checkActivities){
+						let countMap = new Map();
+						allActivities.map(act => act.user.name).forEach(person => {
+							countMap.set(person,(countMap.get(person) || 0) + 1)
+						})
+						countMap.forEach((value,key) => {
+							if(value >= allActivities.length/10){
+								createResultRow("https://anilist.co/user/" + key,value + " posts in the " + allActivities.length + " most recent posts","")
+							}
 						})
 					}
 				}
 				if(miscResults.innerText === ""){
-					miscResults.innerText = "Inspection completed. Nothing unusual found.";
+					miscResults.innerText = "Inspection completed. Nothing unusual found."
 				}
 			}
 		)
