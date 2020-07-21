@@ -26,7 +26,8 @@
 		["Link-only","linkOnly",true],
 		["Bad words","badWords",true,"I'm not claiming all or any of the words in the internal list are inheritely bad, they are just a useful heuristic"],
 		["Piracy links","piracy",true],
-		["High activity","highActivity",true]
+		["High activity","highActivity",true],
+		["Weird markup","weirdMarkup",true]
 	
 	].forEach(ig => conf(...ig));
 },code: function(){
@@ -160,6 +161,15 @@
 						countMap.forEach((value,key) => {
 							if(value >= allActivities.length/10){
 								createResultRow("https://anilist.co/user/" + key,value + " posts in the " + allActivities.length + " most recent posts","")
+							}
+						})
+					}
+				}
+				if(document.getElementById("weirdMarkup").checked){
+					if(checkActivities){
+						allActivities.forEach(activity => {
+							if(activity.text.length > 50 && LZString.compress(activity.text).length/activity.text.length < 0.1){
+								createResultRow(activity.siteUrl,"Low entropy",activity.text)
 							}
 						})
 					}
