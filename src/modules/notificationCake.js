@@ -68,6 +68,7 @@ function notificationCake(){
 					};poller();
 					if(!document.querySelector(".hohDismiss") && useScripts.dismissDot){
 						let dismisser = create("span","hohDismiss",".",notificationDot.parentNode);
+						dismisser.title = "Dismiss notifications";
 						dismisser.onclick = function(){
 							authAPIcall("query{Notification(resetNotificationCount:true){... on ActivityLikeNotification{id}}}",{},function(data){
 								dismisser.previousSibling.style.display = "none";
