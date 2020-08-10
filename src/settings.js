@@ -136,7 +136,7 @@ catch(err){
 	}
 }
 
-if(userObject && userObject.donatorTier > 0 && userObject.name !== "hoh"){
+if(userObject && (userObject.donatorTier > 0 && (new Date()).valueOf() > (new Date('2020-09-01T03:24:00')).valueOf()) && userObject.name !== "hoh"){
 	alert("Sorry, Automail does not work for donators")
 	return
 }
