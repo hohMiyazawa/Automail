@@ -131,6 +131,9 @@ if(useScripts.CSSbannerShadow){
 .banner .shadow{
 	display: none;
 }
+.banner-content h1.name{
+	filter: drop-shadow(0px 0px 6px black);
+}
 	`
 }
 if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.availWidth <= 1040)){
