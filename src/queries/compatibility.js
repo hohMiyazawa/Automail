@@ -29,7 +29,10 @@
 					removeChildren(comDisplay)
 					comCache.forEach(function(friend){
 						let userRow = create("p",false,false,comDisplay);
-						let differenceSpan = create("span",false,friend.difference.toPrecision(3),userRow,"min-width:60px;display:inline-block;");
+						let differenceSpan = create("span",false,
+							(friend.difference.toPrecision(3).includes("e") ? "0.000" : friend.difference.toPrecision(3)),
+							userRow,"min-width:60px;display:inline-block;"
+						);
 						if(friend.difference < 0.9){
 							differenceSpan.style.color = "green"
 						}
@@ -38,7 +41,7 @@
 						};
 						let friendLink = create("a","newTab",friend.user,userRow,"color:rgb(var(--color-blue))");
 						friendLink.href = "/user/" + friend.user;
-						create("span",false,", " + friend.shared + " shared.",userRow);
+						create("span",false,", " + friend.shared + " shared.",userRow)
 					})
 				};
 				let friendsCaller = function(page){
