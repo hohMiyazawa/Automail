@@ -269,6 +269,7 @@ function drawListStuff(){
 					}
 				};
 				let bigQuery = [];
+				let queryList = [];
 				list.forEach(function(entry,index){
 					if(!bannedEntries.has(entry.mediaId)){
 						bigQuery.push({
@@ -305,11 +306,14 @@ query($id: Int,$userName: String){
 						})
 					}
 					if((index % 20) === 0){
-						queryPacker(bigQuery);
+						queryList.push(bigQuery);
 						bigQuery = []
 					}
 				});
-				queryPacker(bigQuery)
+				queryPacker(bigQuery);
+				queryList.forEach((littleBig,index) => {
+					setTimeout(function(){queryPacker(littleBig)},index * 50)
+				})
 			})
 		}
 	};

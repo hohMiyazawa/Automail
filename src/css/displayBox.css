@@ -28,6 +28,8 @@
 	color: white;
 	border-color: rgb(var(--color-text));
 	filter: drop-shadow(0 0 0.2rem crimson);
+	z-index: 20;
+}
 }
 .hohDisplayBoxClose:hover{
 	filter: drop-shadow(0 0 0.75rem crimson);
