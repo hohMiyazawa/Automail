@@ -571,7 +571,7 @@ tr.hohAnimeTable:nth-child(2n+1){
 	border-width: 1px;
 	border-style: solid;
 	padding: 2px;
-	borderRadius: 4px;
+	border-radius: 4px;
 }
 .hohArrowSort:hover,
 .hohFilterSort:hover{
@@ -1593,7 +1593,7 @@ input[list="socialUsers"]{
 	border-width: 1px;
 	border-radius: 2px;
 	cursor: pointer;
-	bacground-color: inherit;
+	background-color: inherit;
 	margin: 1px;
 }
 .hohSearchResult.anime{
