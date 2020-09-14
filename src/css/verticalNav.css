@@ -631,7 +631,6 @@ div#nav.transparent{
 	padding: 4px;
 	font-size: 130%;
 	text-align: left;
-	color: rgb(var(--color-text-bright));
 }
 @media(max-width: 1540px){
 	.container{

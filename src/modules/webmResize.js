@@ -9,11 +9,11 @@ exportModule({
 if(useScripts.webmResize){
 	setInterval(function(){
 		document.querySelectorAll("source").forEach(video => {
-			let hashMatch = (video.src || "").match(/#\d+(\.\d+)?%?$/);
+			let hashMatch = (video.src || "").match(/#(image)?(\d+(\.\d+)?%?)$/);
 			if(hashMatch && !video.parentNode.width){
-				video.parentNode.setAttribute("width",hashMatch[0].substring(1))
+				video.parentNode.setAttribute("width",hashMatch[2])
 			}
-			if(video.src.match(/#image$/)){
+			if(video.src.match(/#image\d*(\.\d+)?%?$/)){
 				video.parentNode.removeAttribute("controls")
 			}
 		})
