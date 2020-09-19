@@ -36,7 +36,7 @@ let useScripts = {//most modules are turned on by default
 	studioFavouriteCount: true,
 	CSSfavs: true,
 	CSScompactBrowse: true,
-	CSSgreenManga: false,
+	CSSgreenManga: true,
 	CSSfollowCounter: true,
 	CSSprofileClutter: false,
 	CSSdecimalPoint: false,

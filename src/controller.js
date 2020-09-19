@@ -113,11 +113,6 @@ function handleScripts(url,oldUrl){
 			addMyThreadsLink()
 		}
 	}
-	else if(
-		url.includes("https://anilist.co/forum/recent?media=")
-	){
-		addForumMedia()
-	}
 	else if(/^https:\/\/anilist\.co\/staff\/.*/.test(url)){
 		if(useScripts.staffPages){
 			enhanceStaff()
