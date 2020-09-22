@@ -65,7 +65,7 @@
 								{title: titlePicker(rec.mediaRecommendation),score: 0}
 							)
 						}
-						recsMap.get(rec.mediaRecommendation.id).score += (1 + Math.log(rec.rating)) * adjustedScore
+						recsMap.get(rec.mediaRecommendation.id).score += adjustedScore * (2 - 1/rec.rating)
 					}
 				})
 			});
