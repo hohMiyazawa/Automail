@@ -53,7 +53,14 @@ function addMoreStats(){
 		let miscInput = create("div",false,false,miscQueries,"padding-top:10px;padding-bottom:10px;");
 		let miscOptions = create("div","#queryOptions",false,miscQueries);
 		let miscResults = create("div","#queryResults",false,miscQueries);
-		let user = decodeURIComponent(document.URL.match(/user\/(.+)\/stats\/?/)[1]);
+		let nameContainer = document.querySelector(".banner-content h1.name");
+		let user;
+		if(nameContainer){
+			user = nameContainer.innerText
+		}
+		else{
+			user = decodeURIComponent(document.URL.match(/user\/(.+)\/stats\/?/)[1])
+		}
 		const loginMessage = "Requires being signed in to the script. You can do that at the bottom of the settings page https://anilist.co/settings/apps";
 		let statusSearchCache = [];
 		let availableQueries = [
