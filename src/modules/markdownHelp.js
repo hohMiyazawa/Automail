@@ -20,7 +20,7 @@ exportModule({
 				existing.remove()
 			}
 			else{
-				let disp = createDisplayBox(false,"Markdown help");
+				let disp = createDisplayBox("height: 600px;","Markdown help");
 				create("h3","hohGuideHeading","Images",disp);
 				create("pre","hohCode","img(your link here)",disp);
 				create("pre","hohCode","img(https://i.stack.imgur.com/Wlvkk.jpg)",disp);
@@ -34,15 +34,19 @@ exportModule({
 				create("pre","hohCode","[cool show](https://en.wikipedia.org/wiki/Urusei_Yatsura)",disp);
 				create("p",false,"To get a media preview card, just put the Anilist URL of the show:",disp);
 				create("pre","hohCode","https://anilist.co/anime/1293/Urusei-Yatsura/",disp);
-				create("p",false,"To make an image a link, but the image markdown insdie the link markdown, with a space on both sides",disp);
+				create("p",false,"To make an image a link, put the image markdown inside the link markdown, with a space on both sides",disp);
 				create("pre","hohCode","[ img(image URL) ](link URL)",disp);
 				create("h3","hohGuideHeading","Formatting",disp);
+				create("h1",false,"headline",disp);
+				create("pre","hohCode","# headline",disp);
 				create("i",false,"italics",disp);
 				create("pre","hohCode","*italics* or _italics_",disp);
 				create("b",false,"bold",disp);
 				create("pre","hohCode","**bold** or __bold__",disp);
 				create("del",false,"strikethrough",disp);
 				create("pre","hohCode","~~strikethrough~~",disp);
+				create("span",false,"Undo special meaning of formatting symols like * ~ # _ \\",disp);
+				create("pre","hohCode","Undo special meaning of formatting symols like \\* \\~ \\# \\_ \\\\",disp);
 				create("a",["link","hohGuideHeading"],"Full guide",disp).href = "https://anilist.co/forum/thread/6125";
 				create("span",false," ◆ ",disp);
 				create("a",["link","hohGuideHeading"],"Make emojis work",disp).href = "https://files.kiniro.uk/unicodifier.html";
