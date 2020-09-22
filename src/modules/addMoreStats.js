@@ -49,7 +49,7 @@ function addMoreStats(){
 		let personalStatsManga = create("div","#personalStatsManga","loading manga list...",hohStats);
 		let miscQueries = create("div","#miscQueries",false,hohStats);
 		create("hr","hohSeparator",false,miscQueries);
-		create("h1","hohStatHeading","Various queries",miscQueries);
+		create("h1","hohStatHeading","Various statistics",miscQueries);
 		let miscInput = create("div",false,false,miscQueries,"padding-top:10px;padding-bottom:10px;");
 		let miscOptions = create("div","#queryOptions",false,miscQueries);
 		let miscResults = create("div","#queryResults",false,miscQueries);
