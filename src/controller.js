@@ -425,9 +425,6 @@ Object.keys(localStorage).forEach(key => {
 			}
 		}
 	}
-	else if(key === "aniscriptsUsed"){
-		localStorage.removeItem(key)
-	}
 });
 
 if(useScripts.automailAPI){
