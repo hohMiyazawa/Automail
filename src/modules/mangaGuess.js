@@ -1,19 +1,17 @@
 function mangaGuess(cleanAnime,id){
 	let possibleMangaGuess = document.querySelector(".data-set .value[data-media-id]");
-	if(possibleMangaGuess){
-		if(cleanAnime){
-			removeChildren(possibleMangaGuess)
-		}
-		else if(id !== parseInt(possibleMangaGuess.dataset.mediaId)){
-			removeChildren(possibleMangaGuess)
-		}
+	if(possibleMangaGuess && (
+		cleanAnime
+		|| id !== parseInt(possibleMangaGuess.dataset.mediaId)
+	)){
+		removeChildren(possibleMangaGuess)
 	};
 	if(cleanAnime){
 		return
 	};
 	let URLstuff = location.pathname.match(/^\/manga\/(\d+)\/?(.*)?/);
 	if(!URLstuff){
-		return;
+		return
 	};
 	let possibleReleaseStatus = Array.from(
 		document.querySelectorAll(".data-set .value")
@@ -22,12 +20,13 @@ function mangaGuess(cleanAnime,id){
 	);
 	if(!possibleReleaseStatus){
 		setTimeout(mangaGuess,200);
-		return;
+		return
 	}
-	if(possibleReleaseStatus.dataset.mediaId === URLstuff[1]){
-		if(possibleReleaseStatus.children.length !== 0){
-			return
-		}
+	if(
+		possibleReleaseStatus.dataset.mediaId === URLstuff[1]
+		&& possibleReleaseStatus.children.length !== 0
+	){
+		return
 	}
 	else{
 		removeChildren(possibleReleaseStatus)
@@ -74,11 +73,11 @@ query($id: Int){
 	};
 	let highestChapterFinder = function(data){
 		if(possibleReleaseStatus.children.length !== 0){
-			return;
+			return
 		}
 		let guesses = [];
 		let userIdCache = new Set();
-		data.data.Page.activities.forEach(function(activity){
+		data.data.Page.activities.forEach(activity => {
 			if(activity.progress){
 				let chapterMatch = parseInt(activity.progress.match(/\d+$/)[0]);
 				if(!userIdCache.has(activity.userId)){
@@ -104,30 +103,28 @@ query($id: Int){
 					bestGuess = commonUnfinishedManga[variables.id].chapters
 				}
 			};
-			if(simpleQuery){
-				if(bestGuess){
-					create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus);
-				}
+			if(simpleQuery && bestGuess){
+				create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus)
 			}
 			else{
 				bestGuess = Math.max(bestGuess,data.data.MediaList.progress);
 				if(bestGuess){
 					if(bestGuess === data.data.MediaList.progress){
-						create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus,"color:rgb(var(--color-green));");
+						create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus,"color:rgb(var(--color-green));")
 					}
 					else{
 						create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus);
-						create("span","hohGuess"," [+" + (bestGuess - data.data.MediaList.progress) + "]",possibleReleaseStatus,"color:rgb(var(--color-red));");
+						create("span","hohGuess"," [+" + (bestGuess - data.data.MediaList.progress) + "]",possibleReleaseStatus,"color:rgb(var(--color-red));")
 					}
 				}
 			};
 		};
 	};
 	try{
-		generalAPIcall(query,variables,highestChapterFinder,"hohMangaGuess" + variables.id,30*60*1000);
+		generalAPIcall(query,variables,highestChapterFinder,"hohMangaGuess" + variables.id,30*60*1000)
 	}
 	catch(e){
-		sessionStorage.removeItem("hohMangaGuess" + variables.id);
+		sessionStorage.removeItem("hohMangaGuess" + variables.id)
 	}
 }
 
