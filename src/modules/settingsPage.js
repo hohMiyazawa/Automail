@@ -384,7 +384,6 @@ exportModule({
 			let backgroundChange = create("button",["hohButton","button"],"Submit",backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;
-				useScripts.save();
 				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
@@ -403,14 +402,25 @@ exportModule({
 				profileJson.customCSS = useScripts.customCSSValue;
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
-				authAPIcall(
-					`mutation($about: String){
-						UpdateUser(about: $about){
-							about
+				if(newDescription.length > 1e6){
+					alert("Custom CSS is over 1MB")
+				}
+				else{
+					useScripts.save();
+					authAPIcall(
+						`mutation($about: String){
+							UpdateUser(about: $about){
+								about
+							}
+						}`,
+						{about: newDescription},
+						function(data){
+							if(!data){
+								alert("failed to save cusom CSS")
+							}
 						}
-					}`,
-					{about: newDescription},function(data){/*later*/}
-				)
+					)
+				}
 			};
 			hohSettings.appendChild(create("hr"));
 		};
