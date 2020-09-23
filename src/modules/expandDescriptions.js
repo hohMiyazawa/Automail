@@ -1,6 +1,6 @@
 exportModule({
 	id: "expandDescriptions",
-	description: "Automatically expand descriptions",
+	description: "Automatically expand media descriptions",
 	isDefault: true,
 	categories: ["Media"],
 	visible: true

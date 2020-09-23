@@ -4,6 +4,7 @@
 	"categories": ["Notifications"]
 },{"id": "settingsTip",
 	"description": "Show a notice on the notification page for where the script settings can be found",
+	"extendedDescription": "Options with the 🛈 button has more information available if you click it",
 	"categories": ["Notifications"]
 },{"id": "dismissDot",
 	"description": "Show a spec to dismiss notifications when signed in",
@@ -16,6 +17,7 @@
 	"categories": ["Forum"]
 },{"id": "forumMedia",
 	"description": "Add the tagged media to the forum preview on the home page",
+	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
 	"categories": ["Forum"]
 },{"id": "mangaBrowse",
 	"description": "Make browse default to manga",
