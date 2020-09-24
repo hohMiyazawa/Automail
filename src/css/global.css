@@ -277,6 +277,7 @@ m4_include(css/notifications.css)
 }
 .relations.hohRelationStatusDots > div.grid-wrap{
 	padding-top: 5px;
+	padding-left: 5px;
 }
 .relations.hohRelationStatusDots > h2{
 	margin-bottom: 5px;
@@ -2257,7 +2258,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 .rules-notice{
 	display: none;
 }
-
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
