@@ -416,7 +416,7 @@ exportModule({
 						{about: newDescription},
 						function(data){
 							if(!data){
-								alert("failed to save custom CSS")s
+								alert("failed to save custom CSS")
 							}
 						}
 					)
