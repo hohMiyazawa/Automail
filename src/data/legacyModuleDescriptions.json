@@ -73,7 +73,7 @@
 	"categories": ["Lists"]
 },{"id": "CSSfollowCounter",
 	"description": "Follow count on social page",
-	"categories": ["Profiles"],
+	"categories": ["Profiles"]
 },{
 	"id": "dubMarker",
 	"subSettings": ["dubMarkerLanguage"],
@@ -245,6 +245,9 @@
 },{"id": "plussMinus",
 	"description": "Add + and - buttons to quickly change scores on your list",
 	"categories": ["Lists","Login"]
+},{"id": "navbarDroptext",
+	"description": "Allow drag-and-drop of text into navbar for search",
+	"categories": ["Navigation","Newly Added"]
 },{"id": "SFWmode",
 	"description": "A less flashy version of the site for school or the workplace [under development]",
 	"categories": ["Script"]

@@ -118,7 +118,8 @@ let useScripts = {//most modules are turned on by default
 	automailAPI: false,
 	comparisionColourFilter: true,
 	comparisionSystemFilter: false,
-	annoyingAnimations: true
+	annoyingAnimations: true,
+	navbarDroptext: true
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));
