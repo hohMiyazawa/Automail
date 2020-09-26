@@ -6,7 +6,9 @@
 	"description": "Extra parts for Anilist.co",
 
 	"icons": {
-		"48": "icons/aniscripts-48.png"
+		"48": "icons/automail-48.png",
+		"96": "icons/automail-96.png",
+		"128": "icons/automail-128.png"
 	},
 
 	"content_scripts": [
