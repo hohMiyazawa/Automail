@@ -385,7 +385,10 @@ query($id: Int,$userName: String){
 					customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
 					drawTags()
 				}
-			};drawTags()
+			};
+			if(customTags.length){
+				drawTags()
+			}
 		};
 		let variables = {
 			name: decodeURIComponent(URLstuff[1]),
