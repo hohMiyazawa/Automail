@@ -116,9 +116,10 @@ fragment stuff on User{
 				};
 				userList.sort((b,a) => sharePerc(a) - sharePerc(b));
 				userList.slice(0,10).forEach(entry => {
-					let row = create("p",false,false,miscResults);
+					let row = create("p",false,false,miscResults,"position: relative");
 					create("a","newTab",entry.name,row)
-						.href = "/user/" + entry.name
+						.href = "/user/" + entry.name;
+					create("span",false,(sharePerc(entry)*200).toPrecision(3) + "%",row,"left: 300px;position: absolute")
 				});
 			}
 		)
