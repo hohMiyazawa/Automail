@@ -2040,11 +2040,21 @@ function addMoreStats(){
 			nativeTagsReplacer();
 			generalAPIcall(queryMediaListStaff_simple,{name: user,listType: "MANGA"},function(data){
 				let rawStaff = returnList(data);
+				let cacheOffset = 0;
 				rawStaff.forEach(function(raw,index){
-					raw.status = list[index].status;
-					raw.chaptersRead = list[index].chaptersRead;
-					raw.volumesRead = list[index].volumesRead;
-					raw.scoreRaw = list[index].scoreRaw
+					if(raw.mediaId === list[index - cacheOffset].mediaId){
+						raw.status = list[index - cacheOffset].status;
+						raw.chaptersRead = list[index - cacheOffset].chaptersRead;
+						raw.volumesRead = list[index - cacheOffset].volumesRead;
+						raw.scoreRaw = list[index - cacheOffset].scoreRaw
+					}
+					else{
+						cacheOffset++;
+						raw.status = "CURRENT";
+						raw.chaptersRead = 0;
+						raw.volumesRead = 0;
+						raw.scoreRaw = 0
+					}
 				});
 				let staffMap = {};
 				rawStaff.filter(obj => obj.status !== "PLANNING").forEach(function(media){
