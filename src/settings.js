@@ -142,6 +142,12 @@ if(userObject && (userObject.donatorTier > 0 && (new Date()).valueOf() > (new Da
 	return
 }
 
+if(document.hohTypeScriptRunning){
+	console.log("Duplicate script detected. Please make sure you don't have more than one instance of Automail or similar installed");
+	return
+}
+document.hohTypeScriptRunning = "Automail"
+
 let forceRebuildFlag = false;
 
 useScripts.save = function(){
