@@ -2258,6 +2258,10 @@ body.TMPreviewScore > .el-tooltip__popper{
 .rules-notice{
 	display: none;
 }
+.sidebar .ranking{
+	padding-left: 8px;
+	padding-right: 8px;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
