@@ -27,6 +27,7 @@
 		function(data){
 			data_amount.innerText = data.data.Page.pageInfo.total;
 			let list = [];
+			let hasErrors = 0;
 			for(var i=1;i<=data.data.Page.pageInfo.lastPage;i++){
 				generalAPIcall(
 					`query ($page: Int){
@@ -56,11 +57,20 @@
 					}`,
 					{page: i},
 					function(reviewData){
+						if(!reviewData){
+							hasErrors++;
+							if(i !== data.data.Page.pageInfo.lastPage){
+								return
+							}
+						}
 						list = list.concat(reviewData.data.Page.reviews);
-						if(list.length !== reviewData.data.Page.pageInfo.total){
+						if(list.length !== reviewData.data.Page.pageInfo.total && (!hasErrors || i !== data.data.Page.pageInfo.lastPage)){
 							return
 						};
 						list.sort((b,a) => wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left);
+						if(hasErrors){
+							create("p",false,"loading failed for " + (reviewData.data.Page.pageInfo.total - list.length) + " reviews!",miscResults)
+						}
 						create("h3",false,"100 best reviews on Anilist",miscResults);
 						let datalist1 = create("div",false,false,miscResults);
 						list.slice(0,100).forEach((review,index) => {
@@ -107,14 +117,14 @@
 											rating: 0,
 											ratingAmount: 0,
 											amount: 0
-										});
+										})
 									}
 									let person = reviewers.get(rev.user.id);
 									person.rating += rev.rating;
 									person.ratingAmount += rev.ratingAmount;
 									person.amount++;
-								};
-							};
+								}
+							}
 						});
 						data_ratingAmount.innerText = ratings;
 						data_ratingPositive.innerText = Math.round(100 * positiveRatings/ratings);
@@ -125,7 +135,7 @@
 						);
 						create("h3",false,"10 best reviewers on Anilist",miscResults);
 						let datalist3 = create("div",false,false,miscResults);
-						reviewers.slice(0,10).forEach((rev,index) => {
+						reviewers.filter(person => person.amount > 1).slice(0,10).forEach((rev,index) => {
 							let dataCel = create("p",false,false,datalist3);
 							create("span",false,(index + 1) + ". ",dataCel,"width:35px;display:inline-block;");
 							create("span","hohMonospace",wilson(rev.rating,rev.ratingAmount).left.toPrecision(3) + " ",dataCel);
@@ -163,7 +173,7 @@
 							let userName = rev.name || "[private or deleted]";
 							let link = create("a",["link","newTab"],userName,dataCel,"color:rgb(var(--color-blue));");
 							link.href = "/user/" + rev.name || "removed";
-							create("span",false," average rating: " + (100*rev.rating/rev.ratingAmount).toPrecision(2) + "%",dataCel);
+							create("span",false," average rating: " + (100*rev.rating/rev.ratingAmount).toPrecision(2) + "%",dataCel)
 						});
 						create("p",false,"That's " + Math.round(100*profilicSum/list.length) + "% of all reviews on Anilist",miscResults);
 						let average = (data.data.Page.pageInfo.total/reviewers.length).toPrecision(2);
@@ -186,7 +196,7 @@
 							if(review.score <= 50){
 								lowRatingRating += review.rating;
 								lowRatingAmount+= review.ratingAmount;
-								lowRatingCount++;
+								lowRatingCount++
 							}
 							else{
 								highRatingRating += review.rating;
@@ -195,7 +205,7 @@
 								if(review.score == 100){
 									topRatingRating += review.rating;
 									topRatingAmount+= review.ratingAmount;
-									topRatingCount++;
+									topRatingCount++
 								}
 							}
 						});
@@ -292,7 +302,7 @@
 						})
 					}
 				)
-			};
+			}
 		}
-	);
+	)
 }},
