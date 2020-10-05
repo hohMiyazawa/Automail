@@ -185,7 +185,7 @@ function drawListStuff(){
 							}
 						};
 						let bestDiff = bestGuess - data.data.MediaList.progress;
-						if(bestDiff > 0 && bestDiff < 30){
+						if(bestDiff > 0 && (bestDiff < 30 || list.length <= 30)){
 							goodItems.push({data:data,bestGuess:bestGuess});
 							removeChildren(scrollableContent)
 							goodItems.sort((b,a) => a.data.data.MediaList.score - b.data.data.MediaList.score);
@@ -305,14 +305,14 @@ query($id: Int,$userName: String){
 							callback: checkListing
 						})
 					}
-					if((index % 20) === 0){
+					if((index % 2) === 0){
 						queryList.push(bigQuery);
 						bigQuery = []
 					}
 				});
 				queryPacker(bigQuery);
 				queryList.forEach((littleBig,index) => {
-					setTimeout(function(){queryPacker(littleBig)},index * 50)
+					setTimeout(function(){queryPacker(littleBig)},index * 100)
 				})
 			})
 		}
