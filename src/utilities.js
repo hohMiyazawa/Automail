@@ -603,13 +603,13 @@ const converter = new showdown.Converter();
 let makeHtml = function(markdown){
 	markdown = markdown.replace("----","---");
 	let centerSplit = markdown.split("~~~");
-	let imgRegex = /img(\d+%?)?\(.+?\)/g;
+	let imgRegex = /img(\d+%?)?\(.+?\)/gi;
 	centerSplit = centerSplit.map(component => {
 		let images = component.match(imgRegex);
 		if(images){
 
 			images.forEach(image => {
-				let imageParts = image.match(/^img(\d+%?)?\((.+?)\)$/);
+				let imageParts = image.match(/^img(\d+%?)?\((.+?)\)$/i);
 				component = component.replace(image,`<img width="${imageParts[1] || ""}" src="${imageParts[2]}">`)
 			})
 			return component
