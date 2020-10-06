@@ -414,12 +414,12 @@ function addMoreStats(){
 					key : "name",
 					method : function(media){
 						if(useScripts.titleLanguage === "NATIVE" && media.media.title.native){
-							return media.media.title.native;
+							return media.media.title.native
 						}
 						else if(useScripts.titleLanguage === "ENGLISH" && media.media.title.english){
-							return media.media.title.english;
+							return media.media.title.english
 						}
-						return media.media.title.romaji;
+						return media.media.title.romaji
 					}
 				},{
 					key : "repeat",
@@ -430,7 +430,7 @@ function addMoreStats(){
 						if(!acc){
 							acc = {};
 							Object.keys(distributionColours).forEach(function(key){
-								acc[key] = 0;
+								acc[key] = 0
 							})
 						}
 						acc[val]++;
@@ -441,11 +441,9 @@ function addMoreStats(){
 					key : "type",
 					method : function(media){
 						if(!media.progressVolumes && !(media.progressVolumes === 0)){
-							return "ANIME";
+							return "ANIME"
 						}
-						else{
-							return "MANGA";
-						}
+						return "MANGA"
 					}
 				},{
 					key : "mediaId",
@@ -530,10 +528,10 @@ function addMoreStats(){
 							statusDot.style.backgroundColor = distributionColours[data[index].status];
 							statusDot.title = data[index].status.toLowerCase();
 							if(data[index].status === "COMPLETED"){
-								statusDot.style.backgroundColor = "transparent";//default case
+								statusDot.style.backgroundColor = "transparent"//default case
 							}
 							if(data[index].repeat === 1){
-								cel.appendChild(svgAssets2.repeat.cloneNode(true));
+								cel.appendChild(svgAssets2.repeat.cloneNode(true))
 							}
 							else if(data[index].repeat > 1){
 								cel.appendChild(svgAssets2.repeat.cloneNode(true));
@@ -756,11 +754,60 @@ function addMoreStats(){
 			}
 		};
 //get anime list
-		let personalStatsCallback = function(data){
+		let personalStatsCallback = function(data,filterSettings,onlyStats){
 			personalStats.innerText = "";
-			create("hr","hohSeparator",false,personalStats)
+			create("hr","hohSeparator",false,personalStats);
+
+			let regularFilterHeading = create("div",false,false,personalStats,"margin-bottom: 10px;");
+			let filterWrap = create("div",false,false,regularFilterHeading);
+			let filterLabel = create("span",false,"Filters",filterWrap);
+			let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
+			let filters = create("div",false,false,filterWrap,"display: none");
+
+			let listFilterHeading = create("p",false,"Lists",filters);
+			filterSettings = filterSettings || {
+				lists: {
+				}
+			};
+			data.data.MediaListCollection.lists.forEach(mediaList => {
+				let listSetting = create("p","hohSetting",false,filters);
+				let listSetting_input = createCheckbox(listSetting);
+				if(!filterSettings.lists.hasOwnProperty(mediaList.name) || filterSettings.lists[mediaList.name]){
+					listSetting_input.checked = true;
+					filterSettings.lists[mediaList.name] = true
+				}
+				listSetting_input.oninput = function(){
+					filterSettings.lists[mediaList.name] = listSetting_input.checked
+				}
+				create("span",false,mediaList.name,listSetting);
+			});
+
+			let applyButton = create("button",["hohButton","button"],"Submit",filters);
+			applyButton.onclick = function(){
+				personalStatsCallback(data,filterSettings,true);
+			}
+
+			tableHider.onclick = function(){
+				if(this.innerText === "[-]"){
+					tableHider.innerText = "[+]";
+					filters.style.display = "none"
+				}
+				else{
+					tableHider.innerText = "[-]";
+					filters.style.display = "block"
+				}
+			}
+
 			create("h1","hohStatHeading","Anime stats for " + user,personalStats);
-			let list = returnList(data);
+			let list = returnList({
+				data: {
+					MediaListCollection: {
+						lists: data.data.MediaListCollection.lists.filter(
+							mediaList => filterSettings.lists[mediaList.name]
+						)
+					}
+				}
+			});
 			let scoreList = list.filter(element => element.scoreRaw);
 			if(whoAmI && whoAmI !== user){
 				let compatabilityButton = create("button",["button","hohButton"],"Compatibility",personalStats);
@@ -866,7 +913,7 @@ function addMoreStats(){
 				}
 				else{
 					runLength = 1;
-					previouScore = item.scoreRaw;
+					previouScore = item.scoreRaw
 				};
 				sumWeight += (item.media.duration || 1) * (item.media.episodes || 0);
 				sumEntriesWeight += item.scoreRaw*(item.media.duration || 1) * (item.media.episodes || 0);
@@ -879,16 +926,16 @@ function addMoreStats(){
 				publicDeviation = Math.sqrt(
 					scoreList.reduce(function(accum,element){
 						if(!element.media.meanScore){
-							return accum;
+							return accum
 						}
-						return accum + Math.pow(element.media.meanScore - element.scoreRaw,2);
+						return accum + Math.pow(element.media.meanScore - element.scoreRaw,2)
 					},0)/amount
 				);
 				publicDifference = scoreList.reduce(function(accum,element){
 					if(!element.media.meanScore){
 						return accum
 					}
-					return accum + (element.scoreRaw - element.media.meanScore);
+					return accum + (element.scoreRaw - element.media.meanScore)
 				},0)/amount
 			}
 			list.sort((a,b) => a.mediaId - b.mediaId);
@@ -1081,51 +1128,51 @@ function addMoreStats(){
 					function(cel,data,index,isPrimary){
 						if(isPrimary){
 							if(data[index].average === 0){
-								cel.innerText = "-";
+								cel.innerText = "-"
 							}
 							else{
-								cel.innerText = (data[index].average).roundPlaces(1);
+								cel.innerText = (data[index].average).roundPlaces(1)
 							}
 						}
 						else{
 							if(data[index].score === 0){
-								cel.innerText = "-";
+								cel.innerText = "-"
 							}
 							else{
-								cel.innerText = (data[index].score).roundPlaces(1);
+								cel.innerText = (data[index].score).roundPlaces(1)
 							}
 						}
 					},
 					function(cel,data,index){
 						cel.innerText = formatTime(data[index].duration*60,"short");
-						cel.title = (data[index].duration/60).roundPlaces(1) + " hours";
+						cel.title = (data[index].duration/60).roundPlaces(1) + " hours"
 					},
 					function(cel,data,index,isPrimary){
 						if(isPrimary){
 							if(!data[index].list.length){
-								cel.innerText = "-";
+								cel.innerText = "-"
 							}
 							else{
-								cel.innerText = data[index].episodes;
+								cel.innerText = data[index].episodes
 							}
 						}
 						else{
-							cel.innerText = data[index].episodes;
+							cel.innerText = data[index].episodes
 						}
 					},
 					function(cel,data,index,isPrimary){
 						if(data[index].episodes === 0 && data[index].remaining === 0 || isPrimary && !data[index].list.length){
-							cel.innerText = "-";
+							cel.innerText = "-"
 						}
 						else if(data[index].remaining === 0){
-							cel.innerText = "completed";
+							cel.innerText = "completed"
 						}
 						else{
 							if(useScripts.timeToCompleteColumn){
-								cel.innerText = data[index].remaining + " (" + formatTime(data[index].remainingTime*60,"short") + ")";
+								cel.innerText = data[index].remaining + " (" + formatTime(data[index].remainingTime*60,"short") + ")"
 							}
 							else{
-								cel.innerText = data[index].remaining;
+								cel.innerText = data[index].remaining
 							}
 						}
 					}
@@ -1144,15 +1191,15 @@ function addMoreStats(){
 					key : "name",
 					method : function(media){
 						if(aliases.has(media.mediaId)){
-							return aliases.get(media.mediaId);
+							return aliases.get(media.mediaId)
 						}
 						if(useScripts.titleLanguage === "NATIVE" && media.media.title.native){
-							return media.media.title.native;
+							return media.media.title.native
 						}
 						else if(useScripts.titleLanguage === "ENGLISH" && media.media.title.english){
-							return media.media.title.english;
+							return media.media.title.english
 						};
-						return media.media.title.romaji;
+						return media.media.title.romaji
 					}
 				},{
 					key : "mediaId",
@@ -1169,11 +1216,11 @@ function addMoreStats(){
 						if(!acc){
 							acc = {};
 							Object.keys(distributionColours).forEach(function(key){
-								acc[key] = 0;
+								acc[key] = 0
 							})
 						}
 						acc[val]++;
-						return acc;
+						return acc
 					},
 					method : media => media.status
 				},{
@@ -1188,13 +1235,13 @@ function addMoreStats(){
 					key : "remaining",
 					sumable : ACCUMULATE,
 					method : function(media){
-						return Math.max((media.media.episodes || 0) - media.progress,0);
+						return Math.max((media.media.episodes || 0) - media.progress,0)
 					}
 				},{
 					key : "remainingTime",
 					sumable : ACCUMULATE,
 					method : function(media){
-						return Math.max(((media.media.episodes || 0) - media.progress) * (media.media.duration || 1),0);
+						return Math.max(((media.media.episodes || 0) - media.progress) * (media.media.duration || 1),0)
 					}
 				}
 			];
@@ -1203,6 +1250,10 @@ function addMoreStats(){
 				let customTagsAnimeTable = create("div","#customTagsAnimeTable",false,personalStats);
 				drawTable(customTags,animeFormatter,customTagsAnimeTable,true,true)
 			};
+
+			if(onlyStats){
+				return
+			}
 
 			let listOfTags = regularTagsCollection(list,animeFields,media => media.media.tags);
 			if(listOfTags.length > 50){
