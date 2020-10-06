@@ -1685,7 +1685,7 @@ function addMoreStats(){
 					name: user,
 					listType: "ANIME"
 				},
-				personalStatsCallback
+				function(data){personalStatsCallback(data)}
 			)
 		}
 //manga stats
