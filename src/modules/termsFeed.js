@@ -143,7 +143,10 @@ let buildPage = function(activities,type,requestTime){
 		topPrevious.innerText = "← Previous"
 	};
 	removeChildren(feedContent)
-	activities.forEach(function(activity){
+	activities.forEach(activity => {
+		if(type === "thread" && useScripts.hideAWC && (activity.user === "AnimeWatchingClub" || activity.user === "AWC")){
+			return
+		}
 		let act = create("div","activity",false,feedContent);
 		let diff = NOW() - (new Date(activity.createdAt * 1000)).valueOf();
 		let time = create("span",["time","hohMonospace"],formatTime(Math.round(diff/1000),"short"),act,"width:50px;position:absolute;left:1px;top:2px;");
@@ -175,13 +178,13 @@ let buildPage = function(activities,type,requestTime){
 		};
 		likeWrap.style.cursor = "pointer";
 		if(activity.likes.some(like => like.name === whoAmI)){
-			likeWrap.classList.add("hohILikeThis");
+			likeWrap.classList.add("hohILikeThis")
 		};
 		let likeify = function(likes,likeQuickView){
 			removeChildren(likeQuickView)
 			if(likes.length === 0){}
 			else if(likes.length === 1){
-				create("span",false,likes[0].name,likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
+				create("span",false,likes[0].name,likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`)
 			}
 			else if(likes.length === 2){
 				let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 6 ? likes[0].name.length : 4)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
@@ -215,7 +218,7 @@ let buildPage = function(activities,type,requestTime){
 					let name = create("span",false,like.name.slice(0,(like.name.length <= 3 ? like.name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
 					create("span",false,", ",likeQuickView);
 					name.onmouseover = function(){
-						name.innerText = like.name;
+						name.innerText = like.name
 					}
 				});
 				likeQuickView.lastChild.remove();
@@ -279,7 +282,7 @@ let buildPage = function(activities,type,requestTime){
 			}
 			else{
 				activity.likes.push({name: whoAmI});
-				likeCount.innerText = activity.likes.length;
+				likeCount.innerText = activity.likes.length
 			};
 			likeWrap.classList.toggle("hohILikeThis");
 			likeWrap.title = activity.likes.map(a => a.name).join("\n");
@@ -287,7 +290,7 @@ let buildPage = function(activities,type,requestTime){
 		};
 		replyWrap.onclick = function(){
 			if(act.querySelector(".replies")){
-				act.lastChild.remove();
+				act.lastChild.remove()
 			}
 			else if(type === "thread"){
 				window.location = "https://anilist.co/forum/thread/" + activity.id + "/";//remove when implemented
@@ -313,7 +316,7 @@ let buildPage = function(activities,type,requestTime){
 						if(useScripts.termsFeedNoImages && !activity.renderingPermission){
 							let imgText = reply.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 								let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
-								return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
+								return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
 							})
 							text.innerHTML = DOMPurify.sanitize(imgText)//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 						}
