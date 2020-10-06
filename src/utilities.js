@@ -589,6 +589,57 @@ m4_include(utilities/levDist.js)
 
 m4_include(utilities/lz-string.js)
 
+m4_include(utilities/showdown.js)
+
+showdown.setOption("strikethrough", true);
+showdown.setOption("ghMentions", true);
+showdown.setOption("emoji", true);
+showdown.setOption("tables", false);
+showdown.setOption("simpleLineBreaks", true);
+showdown.setOption("simplifiedAutoLink", true);
+showdown.setOption("ghMentionsLink", "https://anilist.co/user/{u}/");
+const converter = new showdown.Converter();
+
+let makeHtml = function(markdown){
+	markdown = markdown.replace("----","---");
+	let centerSplit = markdown.split("~~~");
+	let imgRegex = /img(\d+%?)?\(.+?\)/g;
+	centerSplit = centerSplit.map(component => {
+		let images = component.match(imgRegex);
+		if(images){
+
+			images.forEach(image => {
+				let imageParts = image.match(/^img(\d+%?)?\((.+?)\)$/);
+				component = component.replace(image,`<img width="${imageParts[1] || ""}" src="${imageParts[2]}">`)
+			})
+			return component
+		}
+		else{
+			return component
+		}
+	})
+	let preProcessed = [centerSplit[0]];
+	let openCenter = false;
+	for(let i=1;i<centerSplit.length;i++){
+		if(openCenter){
+			preProcessed.push("</center>");
+		}
+		else{
+			preProcessed.push("<center>");
+		}
+		preProcessed.push(centerSplit[i]);
+		openCenter = !openCenter
+	}
+	preProcessed = preProcessed.map(element => {
+		if(/~!/.test(element) || /!~/.test(element)){
+			return element.replace(/~!/g,"<span class=\"markdown_spoiler\">").replace(/!~/g,"</span>");
+		}
+		return element
+		
+	})
+	return converter.makeHtml(preProcessed.join(""))
+}
+
 function returnList(list,skipProcessing){
 	if(!list){
 		return null

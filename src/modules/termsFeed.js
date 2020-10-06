@@ -89,6 +89,7 @@ let inputArea = create("textarea",false,false,statusInput,"width: 99%;border-wid
 create("br",false,false,statusInput);
 let cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
 let publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
+let previewArea = create("div",false,false,statusInput,"display:none;");
 inputArea.placeholder = "Write a status...";
 let topPrevious = create("button",["hohButton","button"],"Refresh",topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
 let topNext = create("button",["hohButton","button"],"Next →",topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
@@ -152,6 +153,9 @@ let buildPage = function(activities,type,requestTime){
 			return
 		}
 		let user = create("a",["link","newTab"],activity.user.name,content);
+		if(activity.type === "TEXT" && activity.media){
+			create("a",false,"'s review of " + titlePicker(activity.media),content)
+		}
 		user.href = "/user/" + activity.user.name + "/";
 		let actions = create("div","actions",false,content,"position:absolute;text-align:right;");
 		let replyWrap = create("span",["action","hohReplies"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
@@ -298,6 +302,7 @@ let buildPage = function(activities,type,requestTime){
 				let createReplies = function(){
 					let replies = create("div","replies",false,act);
 					activity.replies.forEach(reply => {
+						reply.text = makeHtml(reply.text);
 						let rep = create("div","reply",false,replies);
 						let ndiff = NOW() - (new Date(reply.createdAt * 1000)).valueOf();
 						let time = create("span",["time","hohMonospace"],formatTime(Math.round(ndiff/1000),"short"),rep,"width:50px;position:absolute;left:1px;top:2px;");
@@ -403,7 +408,8 @@ let buildPage = function(activities,type,requestTime){
 		let status;
 		if(activity.type === "TEXT" || activity.type === "MESSAGE"){
 			status = create("div",false,false,content,"padding-bottom:10px;width:95%;overflow-wrap:anywhere;");
-			activity.text = "<p>" + activity.text.replace(/\n\n/g,"</p><p>") + "</p>";//workaround for API bug
+			activity.text = makeHtml(activity.text);
+			//activity.text = "<p>" + activity.text.replace(/\n\n/g,"</p><p>") + "</p>";//workaround for API bug
 			if(useScripts.termsFeedNoImages){
 				let imgText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 					let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
@@ -607,7 +613,7 @@ Page(page: $page){
 		id
 		createdAt
 		user{name}
-		text:body(asHtml: true)
+		text:body
 		likes{name}
 		title
 		replyCount
@@ -642,7 +648,7 @@ Page(page: $page,perPage: 20){
 			title{romaji native english}
 		}
 		summary
-		body(asHtml: true)
+		body
 		rating
 		ratingAmount
 	}
@@ -661,7 +667,7 @@ Viewer{unreadNotificationCount}
 						text: review.body,
 						createdAt: review.createdAt
 					}];
-					review.text = review.summary
+					review.text = review.summary;
 					return review
 				}),"review",requestTime);
 				handleNotifications(data)
@@ -679,13 +685,13 @@ Page(page: $page){
 			type
 			createdAt
 			user:messenger{name}
-			text:message(asHtml: true)
+			text:message
 			likes{name}
 			replies{
 				id
 				user{name}
 				likes{name}
-				text(asHtml: true)
+				text
 				createdAt
 			}
 		}
@@ -694,13 +700,13 @@ Page(page: $page){
 			type
 			createdAt
 			user{name}
-			text(asHtml: true)
+			text
 			likes{name}
 			replies{
 				id
 				user{name}
 				likes{name}
-				text(asHtml: true)
+				text
 				createdAt
 			}
 		}
@@ -721,7 +727,7 @@ Page(page: $page){
 				id
 				user{name}
 				likes{name}
-				text(asHtml: true)
+				text
 				createdAt
 			}
 		}
@@ -924,11 +930,17 @@ onlyMediaInput.addEventListener("keyup",function(event){
 inputArea.onfocus = function(){
 	cancelButton.style.display = "inline";
 	publishButton.style.display = "inline";
+	previewArea.style.display = "inline";
 };
+inputArea.oninput = function(){
+	previewArea.innerHTML = DOMPurify.sanitize(makeHtml(inputArea.value))
+}
 cancelButton.onclick = function(){
 	inputArea.value = "";
+	previewArea.innerText = "";
 	cancelButton.style.display = "none";
 	publishButton.style.display = "none";
+	previewArea.style.display = "none";
 	loading.innerText = "";
 	onlySpecificActivity = false;
 	document.activeElement.blur();
@@ -986,6 +998,7 @@ publishButton.onclick = function(){
 		);
 	}
 	inputArea.value = "";
+	previewArea.innerText = "";
 	cancelButton.style.display = "none";
 	publishButton.style.display = "none";
 	document.activeElement.blur();
