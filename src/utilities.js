@@ -618,6 +618,17 @@ let makeHtml = function(markdown){
 			return component
 		}
 	})
+	let youtubeRegex = /youtube\(.+?\)/gi;
+	centerSplit = centerSplit.map(component => {
+		let videos = component.match(youtubeRegex);
+		if(videos){
+			videos.forEach(video => {
+				let videoParts = video.match(/^youtube\((.+?)\)$/i);
+				component = component.replace(video,`<a href="${videoParts[1]}">${videoParts[1]}</a>`)
+			})
+		}
+		return component
+	});
 	let preProcessed = [centerSplit[0]];
 	let openCenter = false;
 	for(let i=1;i<centerSplit.length;i++){
