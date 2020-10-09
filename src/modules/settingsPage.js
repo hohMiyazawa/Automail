@@ -432,9 +432,14 @@ exportModule({
 			window.location.reload(false);
 		}
 		create("hr","hohSeparator",false,hohSettings);
-		let loginURL = create("a",false,"Sign in with the script",hohSettings);
+		let loginURL = create("a",false,"Sign in with the script",hohSettings,"font-size: x-large;");
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
 		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
+		if(useScripts.accessToken){
+			create("hr","hohSeparator",false,hohSettings);
+			create("p",false,"Current access token:",hohSettings);
+			create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;")
+		}
 	}
 })
