@@ -586,6 +586,7 @@ function addMoreStats(){
 			let drawer = function(){
 				if(regularFilterHeading.children.length === 0){
 					let filterWrap = create("div",false,false,regularFilterHeading);
+					create("p",false,"tip: click a row to show all the media entries it is made up by",regularFilterHeading);
 					let filterLabel = create("span",false,"Filters",filterWrap);
 					let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
 					let filters = create("div",false,false,filterWrap,"display: none");
