@@ -27,9 +27,9 @@ function addForumMediaNoAWC(){
 				let contextText = create("a",false,"By",name);
 				name.appendChild(document.createTextNode(" "));
 				let nameWrap = create("a",false,false,name);
-				nameWrap.href = thread.replyUser.name;
+				nameWrap.href = (thread.replyUser || thread.user).name;
 				contextText.href = "/forum/thread/" + thread.id + "/comment/" + thread.replyCommentId;
-				let nameInner = create("span",false,thread.replyUser.name,nameWrap);
+				let nameInner = create("span",false,(thread.replyUser || thread.user).name,nameWrap);
 			}
 			else if(!thread.replyUser){
 				let contextText = create("a",false,"By",name);
@@ -86,9 +86,6 @@ function addForumMediaNoAWC(){
 			viewCount.appendChild(svgAssets2.eye.cloneNode(true));
 			viewCount.appendChild(document.createTextNode(" "));
 			viewCount.appendChild(create("span",false,thread.viewCount,false,"padding-left: 0px;"))
-			if(!thread.replyUser){
-				thread.replyCount--;
-			}
 			if(thread.replyCount){
 				info.appendChild(document.createTextNode(" "));
 				let replyCount = create("span",false,false,info);
