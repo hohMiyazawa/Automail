@@ -692,7 +692,7 @@ function moreImports(){
 					},
 					data2 => {
 						if(!data2){
-							resultsErrorsAL.innerText = "Could not find the list of " + whoAmI;
+							resultsErrorsAL.innerText = "Could not access the list of " + whoAmI + " do you have persmission to modify this list? (try signing in at settings > apps, scroll down to the bottom)";
 							return;
 						}
 						if(data2.data.Viewer.name !== whoAmI){
