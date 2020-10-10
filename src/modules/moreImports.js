@@ -670,6 +670,9 @@ function moreImports(){
 			if((new Date()) - (new Date(data.timeStamp)) > 1000*86400*30){
 				resultsWarningsAL.innerText += "\nThis list is " + Math.round(((new Date()) - (new Date(data.timeStamp)))/(1000*86400)) + " days old. Did you upload the right one?"
 			}
+			if(!useScripts.accessToken){
+				resultsWarningsAL.innerText += "\nNot singned in to the script! Can't do any changes to your list then. Go to the bottom of the settings > apps page to sign in"
+			}
 			resultsStatusAL.innerText = "Calculating list differences...";
 			if((type === "anime" && alAnimeOverwrite.checked) || (type === "manga" && alMangaOverwrite.checked)){
 			}
@@ -693,7 +696,7 @@ function moreImports(){
 							return;
 						}
 						if(data2.data.Viewer.name !== whoAmI){
-							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Aniscript's permissions, and sign in with the scirpt again to fix this.");
+							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Aniscript's permissions, and sign in with the script again to fix this.");
 							return
 						};
 						let existing = new Set(data2.data.MediaListCollection.lists.map(list => list.entries).flat().map(entry => entry.mediaId));
