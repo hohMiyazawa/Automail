@@ -2262,6 +2262,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 	padding-left: 8px;
 	padding-right: 8px;
 }
+.recommendations > .wrap{
+	margin-left: 5px;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
