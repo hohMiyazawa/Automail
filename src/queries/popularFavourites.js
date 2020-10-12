@@ -93,11 +93,11 @@ fragment stuff on User{
 				});
 				miscResults.innerText = "";
 				create("h1",false,"Anime:",miscResults,"color:rgb(var(--color-blue))");
-				Object.keys(animeFavs).map(key => animeFavs[key]).sort((b,a) => a.count - b.count).slice(0,20).forEach(function(entry){
+				Object.keys(animeFavs).map(key => animeFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
 					create("p",false,entry.count + ": " + entry.title,miscResults)
 				});
 				create("h1",false,"Manga:",miscResults,"color:rgb(var(--color-blue))");
-				Object.keys(mangaFavs).map(key => mangaFavs[key]).sort((b,a) => a.count - b.count).slice(0,20).forEach(function(entry){
+				Object.keys(mangaFavs).map(key => mangaFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
 					create("p",false,entry.count + ": " + entry.title,miscResults)
 				});
 				create("h1",false,"Similar favs:",miscResults,"color:rgb(var(--color-blue))");
@@ -120,8 +120,8 @@ fragment stuff on User{
 					create("a","newTab",entry.name,row)
 						.href = "/user/" + entry.name;
 					create("span",false,(sharePerc(entry)*200).toPrecision(3) + "%",row,"left: 300px;position: absolute")
-				});
+				})
 			}
 		)
-	},"hohIDlookup" + user.toLowerCase());
+	},"hohIDlookup" + user.toLowerCase())
 }},
