@@ -1145,8 +1145,13 @@ function addMoreStats(){
 						}
 					},
 					function(cel,data,index){
-						cel.innerText = formatTime(data[index].duration*60,"short");
-						cel.title = (data[index].duration/60).roundPlaces(1) + " hours"
+						if(!data[index].duration){
+							cel.innerText = "-"
+						}
+						else{
+							cel.innerText = formatTime(data[index].duration*60,"short");
+							cel.title = (data[index].duration/60).roundPlaces(1) + " hours"
+						}
 					},
 					function(cel,data,index,isPrimary){
 						if(isPrimary){
