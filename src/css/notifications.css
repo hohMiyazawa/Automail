@@ -40,7 +40,6 @@
 }
 .hohMediaImage{
 	height: 70px;
-	margin-right: 5px;
 }
 .hohMessageText{
 	position: absolute;
@@ -63,9 +62,22 @@
 	line-height: 0!important;
 	display: inline-block;
 	z-index: 11;
+	width: 50px;
+	margin-right: 5px;
+	background: rgb(var(--color-background),0.8);
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 span.hohMediaImageContainer{
 	line-height: 0!important;
+}
+.hohBackgroundCover{
+	height: 70px;
+	width: 50px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: cover;
+	line-height: 0;
 }
 .hohCommentsContainer{
 	margin-top: 5px;

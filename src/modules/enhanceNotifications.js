@@ -67,7 +67,7 @@ function enhanceNotifications(forceFlag){
 `You can turn parts of the script on and off:
 settings > apps.
 
-You can also turn off this notice there.`,setting);
+You can also turn off this notice there.`,setting)
 			};
 			let regularNotifications = create("span",false,svgAssets.envelope + " Show default notifications");
 			regularNotifications.style.cursor = "pointer";
@@ -77,7 +77,7 @@ You can also turn off this notice there.`,setting);
 					displayMode = "native";
 					let hohNotsToToggle = document.getElementById("hohNotifications");
 					if(hohNotsToToggle){
-						hohNotsToToggle.style.display = "none";
+						hohNotsToToggle.style.display = "none"
 					};
 					Array.from(
 						document.getElementsByClassName("notification")
@@ -85,7 +85,7 @@ You can also turn off this notice there.`,setting);
 						elem.style.display = "grid"
 					})
 					regularNotifications.innerText = svgAssets.envelope + " Show hoh notifications";
-					setting.style.display = "none";
+					setting.style.display = "none"
 				}
 				else{
 					displayMode = "hoh";
@@ -100,7 +100,7 @@ You can also turn off this notice there.`,setting);
 					})
 					regularNotifications.innerText = svgAssets.envelope + " Show default notifications";
 					setting.style.display = ""
-				};
+				}
 			};
 			possibleButton.parentNode.appendChild(regularNotifications);
 			possibleButton.parentNode.appendChild(setting);
@@ -328,7 +328,7 @@ You can also turn off this notice there.`,setting);
 				textName.innerText = activities[i].textName;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
-				i += counter -1;
+				i += counter -1
 			}
 			else if(activities[i].type === "reply" ){
 				let notNotImage = create("a",false,false,notNotImageContainer);
@@ -358,7 +358,7 @@ You can also turn off this notice there.`,setting);
 					if(activities[i].textName !== activities[i + counter].textName){
 						samePerson = false
 					};
-					counter++;
+					counter++
 				}
 				if(samePerson){
 					if(counter > 1){
@@ -381,7 +381,7 @@ You can also turn off this notice there.`,setting);
 				textSpan.innerText = activities[i].textSpan;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
-				i += counter -1;
+				i += counter -1
 			}
 			else if(activities[i].type === "replyReply" ){
 				let notNotImage = create("a",false,false,notNotImageContainer);
@@ -409,24 +409,24 @@ You can also turn off this notice there.`,setting);
 						}
 					}
 					if(activities[i].textName !== activities[i + counter].textName){
-						samePerson = false;
+						samePerson = false
 					}
-					counter++;
+					counter++
 				}
 				if(samePerson){
 					if(counter > 1){
 						text.style.marginTop = "45px";
-						activities[i].textName += " x" + counter;
+						activities[i].textName += " x" + counter
 					}
 				}
 				else{
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName;
+						activities[i].textName += " & " + activities[i+1].textName
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter-1);
+						activities[i].textName += " +" + (counter-1)
 					}
 				};
 				text.href = activities[i].directLink;
@@ -434,7 +434,7 @@ You can also turn off this notice there.`,setting);
 				textSpan.innerText = " replied to activity you're subscribed to.";
 				text.appendChild(textName);
 				text.appendChild(textSpan);
-				i += counter -1;
+				i += counter -1
 			}
 			else if(
 				activities[i].type === "likeReply"
@@ -490,7 +490,7 @@ You can also turn off this notice there.`,setting);
 				textSpan.innerText = " liked your activity reply.";
 				text.appendChild(textName);
 				text.appendChild(textSpan);
-				i += counter -1;
+				i += counter -1
 			}
 			else if(
 				activities[i].type === "message"
@@ -503,7 +503,7 @@ You can also turn off this notice there.`,setting);
 				textName.innerText = activities[i].textName;
 				textSpan.innerText = activities[i].textSpan;
 				text.appendChild(textName);
-				text.appendChild(textSpan);
+				text.appendChild(textSpan)
 			}
 			else if(activities[i].type === "airing"){
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
@@ -514,7 +514,7 @@ You can also turn off this notice there.`,setting);
 				textName.innerText = activities[i].textName;
 				textSpan.innerText = activities[i].textSpan;
 				text.appendChild(textName);
-				text.appendChild(textSpan);
+				text.appendChild(textSpan)
 			}
 			else if(
 				activities[i].type === "forumCommentLike"
@@ -583,7 +583,7 @@ You can also turn off this notice there.`,setting);
 				else{
 					this.children[0].innerText = "+";
 					this.parentNode.children[1].style.display = "none"
-				};
+				}
 			};
 			let commentsArea = create("div","hohCommentsArea",false,commentsContainer);
 			newNotification.appendChild(commentsContainer)
@@ -597,7 +597,7 @@ You can also turn off this notice there.`,setting);
 	}
 	else{
 		prevLength = notifications.length;
-		forceRebuildFlag = false;
+		forceRebuildFlag = false
 	};
 	const activityTypes = {
 		" liked your activity." :                           "like",
@@ -685,7 +685,7 @@ You can also turn off this notice there.`,setting);
 					active.directLink = info.children[0].href;
 					active.text =       info.children[0].innerHTML;//does not depend on user input
 					active.textName =   (info.children[0] || {textContent: ""}).textContent.trim();
-					active.textSpan =   (info.children[1] || {textContent: ""}).textContent;
+					active.textSpan =   (info.children[1] || {textContent: ""}).textContent
 				}
 				else if(
 					info.children.length >= 4
@@ -733,7 +733,8 @@ You can also turn off this notice there.`,setting);
 			else if(type === "TEXT"){
 				Array.from(document.getElementsByClassName(data.data.Activity.id)).forEach(stuff => {
 					stuff.style.backgroundImage = "url(" + data.data.Activity.user.avatar.large + ")";
-					stuff.classList.add("hohBackgroundUserCover")
+					stuff.classList.add("hohBackgroundUserCover");
+					stuff.parentNode.style.background = "none"
 				})
 			};
 			if(data.data.Activity.replies.length){
@@ -756,5 +757,5 @@ You can also turn off this notice there.`,setting);
 			}
 		}
 	}
-};//end enhanceNotifications
+}
 

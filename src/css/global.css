@@ -37,16 +37,6 @@ m4_include(css/notifications.css)
 .hohForumHider:hover{
 	color: rgb(var(--color-blue));
 }
-.hohBackgroundCover{
-	height: 70px;
-	width: 50px;
-	display: inline-block;
-	background-repeat: no-repeat;
-	background-size: cover;
-	margin-top: 1px;
-	line-height: 0;
-	margin-bottom: 1px;
-}
 #hohDescription{
 	width: 280px;
 	height: 150px;
