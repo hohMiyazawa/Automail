@@ -34,6 +34,7 @@ function moreImports(){
 	let resultsErrors = create("div",false,false,resultsArea,"color:red;padding:5px;");
 	let resultsWarnings = create("div",false,false,resultsArea,"color:orange;padding:5px;");
 	let resultsStatus = create("div",false,false,resultsArea,"padding:5px;");
+	let missingList = create("div",false,false,resultsArea,"padding:5px;");
 	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display:none;");
 	let resultsTable = create("div",false,false,resultsArea);
 	let apImport = function(type,file){
@@ -60,7 +61,17 @@ function moreImports(){
 			resultsStatus.innerText = "Trying to find matching media...";
 			let shows = [];
 			let drawShows = function(){
-				removeChildren(resultsTable)
+				removeChildren(resultsTable);
+				removeChildren(missingList);
+				shows = shows.filter(a => {
+					if(a.titles.length){
+						return true
+					}
+					else{
+						create("p",false,"No matches found for " + a.apData.name,missingList);
+						return false
+					}
+				});
 				shows.sort(
 					(b,a) => a.titles[0].levDistance - b.titles[0].levDistance
 				);
