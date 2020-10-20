@@ -15,10 +15,12 @@ function addReviewConfidence(){
 				let extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
 				extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
 				extraScore.style.marginRight = "3px";
-				let parent = locationForIt.children[index].querySelector(".votes");
-				parent.insertBefore(extraScore,parent.firstChild);
-				if(wilsonLowerBound < 0.05){
-					locationForIt.children[index].style.opacity = "0.5"
+				let parent = locationForIt.querySelector('[href="/review/' + review.id + '"] .votes');
+				if(parent){
+					parent.insertBefore(extraScore,parent.firstChild);
+					if(wilsonLowerBound < 0.05){
+						locationForIt.children[index].style.opacity = "0.5"
+					}
 				}
 			})
 		};adder();
