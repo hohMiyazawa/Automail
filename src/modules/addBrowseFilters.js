@@ -26,7 +26,17 @@ function addBrowseFilters(type){
 		let URLredirect = function(property,value){
 			let url = new URLSearchParams(location.search);
 			url.set(property,value);
-			window.location.href = location.protocol + "//" + location.host + location.pathname + "?" + url.toString()
+			if(location.pathname.match(/\/top-manhwa$/)){
+				url.set("country of origin","KR")
+			}
+			window.location.href = location.protocol
+			+ "//"
+			+ location.host
+			+ location.pathname.replace(
+				/\/(popular|top-100|next-season|this-season|trending|top-manhwa)$/,
+				""
+			)
+			+ "?" + url.toString()
 		};
 		if(type === "anime"){
 			let episodeSort = create("div",["option","hohSorts"],"Episodes ↓",dropdown);
