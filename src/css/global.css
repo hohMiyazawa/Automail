@@ -1,8 +1,10 @@
 body{
 	margin: 0px;
 }
-img{
+.markdown img{
 	image-orientation: from-image;/*useful fix, but not universally supported*/
+	width: auto;
+	height: auto;
 }
 #hohSettings{
 	margin-top: 20px;
