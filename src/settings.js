@@ -119,7 +119,8 @@ let useScripts = {//most modules are turned on by default
 	comparisionColourFilter: true,
 	comparisionSystemFilter: false,
 	annoyingAnimations: true,
-	navbarDroptext: true
+	navbarDroptext: true,
+	browseSubmenu: false
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));

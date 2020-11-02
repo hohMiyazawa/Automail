@@ -251,6 +251,11 @@ div#nav.transparent{
 #app #nav.nav .browse-wrap{
 	text-align: center;
 	margin-bottom: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.browse-wrap.subMenuContainer .dropdown{
+	display: none;
 }
 #app #nav.nav .browse-wrap .dropdown{
 	z-index: 2000;
@@ -631,6 +636,10 @@ div#nav.transparent{
 	padding: 4px;
 	font-size: 130%;
 	text-align: left;
+	color: rgb(160, 177, 197);
+}
+.hohSubMenuLink:visited{
+	color: rgb(160, 177, 197);
 }
 @media(max-width: 1540px){
 	.container{

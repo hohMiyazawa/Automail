@@ -7,8 +7,6 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 			navThingy.parentNode.insertBefore(hackContainer,navThingy);
 			hackContainer.appendChild(navThingy);
 			let subMenu = create("div","hohSubMenu",false,hackContainer);
-			create("a","hohSubMenuLink","Favourites",subMenu)
-				.href = "/user/" + whoAmI + "/favorites";
 			let linkStats = create("a","hohSubMenuLink","Stats",subMenu);
 			if(useScripts.mangaBrowse){
 				linkStats.href = "/user/" + whoAmI + "/stats/manga/overview"
@@ -20,6 +18,8 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 				.href = "/user/" + whoAmI + "/social";
 			create("a","hohSubMenuLink","Reviews",subMenu)
 				.href = "/user/" + whoAmI + "/reviews";
+			create("a","hohSubMenuLink","Favourites",subMenu)
+				.href = "/user/" + whoAmI + "/favorites";
 			create("a","hohSubMenuLink","Submissions",subMenu)
 				.href = "/user/" + whoAmI + "/submissions";
 			hackContainer.onmouseenter = function(){

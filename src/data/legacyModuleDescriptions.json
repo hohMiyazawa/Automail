@@ -247,15 +247,18 @@
 	"categories": ["Lists","Login"]
 },{"id": "navbarDroptext",
 	"description": "Allow drag-and-drop of text into navbar for search",
-	"categories": ["Navigation","Newly Added"]
+	"categories": ["Navigation"]
 },{"id": "SFWmode",
 	"description": "A less flashy version of the site for school or the workplace [under development]",
 	"categories": ["Script"]
 },{"id": "annoyingAnimations",
 	"description": "Remove annoying UI animations",
-	"categories": ["Navigation","Newly Added"]
+	"categories": ["Navigation"]
 },{"id": "CSSverticalNav",
 	"description": "Alternative browse mode [with vertical navbar by Kuwabara]",
 	"categories": ["Navigation"]
+},{"id": "browseSubmenu",
+	"description": "Replace the native 'browse' submenu when using the vertical nav",
+	"categories": ["Navigation","Newly Added"]
 }
 ]
