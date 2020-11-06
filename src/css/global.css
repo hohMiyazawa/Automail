@@ -942,6 +942,9 @@ meter::-moz-meter-bar{
 	width: 0;
 	height: 0;
 }
+.substitution .container{
+	max-width: 1420px;
+}
 .tagIndex p{
 	cursor: pointer;
 }
