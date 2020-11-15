@@ -108,6 +108,10 @@ function drawListStuff(){
 			}`,
 			{name: decodeURIComponent(URLstuff[1])},
 			function(data){
+				if(!data){
+					loader.innerText = "Connection error";
+					return
+				}
 				let list = returnList(data,true).filter(a => a.status === "CURRENT" && a.media.status === "RELEASING");
 				let returnedItems = 0;
 				let goodItems = [];
