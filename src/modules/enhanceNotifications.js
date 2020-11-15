@@ -48,7 +48,8 @@ function enhanceNotifications(forceFlag){
 					child.classList.remove("hohUnread")
 				})
 			};
-			let setting = create("p");
+			let regularNotifications = create("span",false,svgAssets.envelope + " Show default notifications",possibleButton.parentNode,"cursor: pointer;font-size: small");
+			let setting = create("p",false,false,possibleButton.parentNode,"cursor: pointer;font-size: small");
 			let checkbox = createCheckbox(setting);
 			checkbox.checked = useScripts["hideLikes"];
 			checkbox.targetSetting = "hideLikes";
@@ -56,12 +57,48 @@ function enhanceNotifications(forceFlag){
 				useScripts[this.targetSetting] = this.checked;
 				useScripts.save();
 				forceRebuildFlag = true;
-				if(useScripts.accessToken && false){//fixme, that doesn't look right
-					enhanceNotifications()
-				}
+				enhanceNotifications(true)
 			};
 			let description = create("span",false,"Hide like notifications",setting);
 			setting.style.fontSize = "small";
+			let softBlockSpan = create("span",false,"Soft block users",possibleButton.parentNode,"cursor: pointer;font-size: small");
+			softBlockSpan.onclick = function(){
+				let manager = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Soft block");
+				create("p",false,"Hide notifications from specific people. A much less drastic solution than blocking them entirely (if that's what you actually want, this is the wrong place).",manager);
+				create("p",false,"The notifications aren't gone, just hidden. 'Show default notifications' should make them visible. Un-soft-blocking will also bring them back. You may also be interested in the 'Notification Dot Colours' and 'Block stuff in the home feed' sections on the settings page.",manager);
+				create("p",false,"As an arbitrary decision, I made these people will still show up when grouping similar notifications, since that's not extra spam.",manager);
+				let form = create("div",false,false,manager);
+				create("span",false,"Username: ",form);
+				let userInput = create("input","hohNativeInput",false,form);
+				let userAdd = create("button","hohButton","Add",form,"margin-left: 10px");
+				let userList = create("div",false,false,manager);
+				let renderSoftBlock = function(){
+					removeChildren(userList);
+					useScripts.softBlock.forEach((user,index) => {
+						let item = create("p",false,false,userList,"position: relative");
+						create("span",false,user,item);
+						let removeButton = create("span","hohDisplayBoxClose",svgAssets.cross,item,"top: 0px");
+						removeButton.onclick = function(){
+							useScripts.softBlock.splice(index,1);
+							useScripts.save();
+							renderSoftBlock();
+							forceRebuildFlag = true;
+							enhanceNotifications(true)
+						}
+					})
+				}
+				renderSoftBlock();
+				userAdd.onclick = function(){
+					if(userInput.value){
+						useScripts.softBlock.push(userInput.value);
+						renderSoftBlock();
+						useScripts.save();
+						userInput.value = "";
+						forceRebuildFlag = true;
+						enhanceNotifications(true)
+					}
+				}
+			}
 			if(useScripts.settingsTip){
 				create("p",false,
 `You can turn parts of the script on and off:
@@ -69,9 +106,6 @@ settings > apps.
 
 You can also turn off this notice there.`,setting)
 			};
-			let regularNotifications = create("span",false,svgAssets.envelope + " Show default notifications");
-			regularNotifications.style.cursor = "pointer";
-			regularNotifications.style.fontSize = "small";
 			regularNotifications.onclick = function(){
 				if(displayMode === "hoh"){
 					displayMode = "native";
@@ -102,8 +136,6 @@ You can also turn off this notice there.`,setting)
 					setting.style.display = ""
 				}
 			};
-			possibleButton.parentNode.appendChild(regularNotifications);
-			possibleButton.parentNode.appendChild(setting);
 			try{
 				document.querySelector(".group-header + .link").onclick = function(){
 					enhanceNotifications()
@@ -243,6 +275,9 @@ You can also turn off this notice there.`,setting)
 			if(useScripts.hideLikes && (activities[i].type === "likeReply" || activities[i].type === "like")){
 				continue
 			};
+			if(activities[i].textName && useScripts.softBlock.indexOf(activities[i].textName) !== -1){
+				continue
+			}
 			let newNotification = create("div");
 			newNotification.onclick = function(){
 				this.classList.remove("hohUnread");

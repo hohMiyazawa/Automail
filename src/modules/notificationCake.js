@@ -10,14 +10,18 @@ function notificationCake(){
 				let types = [];
 				let names = [];
 				for(var i=0;i<Page.notifications.length && i<User.unreadNotificationCount;i++){
-					if(!Page.notifications[i].type){
+					if(!Page.notifications[i].type){//probably obsolete, remove later
 						Page.notifications[i].type = "THREAD_SUBSCRIBED"
 					};
-					if(Page.notifications[i].user){
-						names.push(Page.notifications[i].user.name)
+					if(Page.notifications[i].user && !useScripts.notificationColours[Page.notifications[i].type].supress){
+						if(useScripts.softBlock.indexOf(Page.notifications[i].user.name) === -1){
+							names.push(Page.notifications[i].user.name)
+						}
 					};
 					if(!useScripts.notificationColours[Page.notifications[i].type] || !useScripts.notificationColours[Page.notifications[i].type].supress){
-						types.push(Page.notifications[i].type)
+						if(useScripts.softBlock.indexOf(Page.notifications[i].user.name) === -1){
+							types.push(Page.notifications[i].type)
+						}
 					}
 				};
 				if(types.length){

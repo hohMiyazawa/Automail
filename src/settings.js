@@ -120,7 +120,8 @@ let useScripts = {//most modules are turned on by default
 	comparisionSystemFilter: false,
 	annoyingAnimations: true,
 	navbarDroptext: true,
-	browseSubmenu: false
+	browseSubmenu: false,
+	softBlock: []
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));
