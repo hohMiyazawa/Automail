@@ -84,7 +84,9 @@ let dataList = create("datalist","#staffRoles",false,hohMediaSort);
 let digestStats = create("span",false,false,hohMediaSort,"margin-left:100px;position:relative;");
 let sortOptionAlpha = create("option",false,"Alphabetical",sortSelect);
 sortOptionAlpha.value = "alphabetical";
-let sortOptionChrono = create("option",false,"Chronological",sortSelect);
+let sortOptionChrono2 = create("option",false,"Newest",sortSelect);
+sortOptionChrono2.value = "chronological2";
+let sortOptionChrono = create("option",false,"Oldest",sortSelect);
 sortOptionChrono.value = "chronological";
 let sortOptionPopularity = create("option",false,"Popularity",sortSelect);
 sortOptionPopularity.value = "popularity";
@@ -247,6 +249,42 @@ let listRenderer = function(){
 				|| a.endDate.year - b.endDate.year
 				|| a.endDate.month - b.endDate.month
 				|| a.endDate.day - b.endDate.day
+				|| 0
+		};
+		animeRolesList.sort(yearSorter);
+		mangaRolesList.sort(yearSorter);
+		voiceRolesList.sort(yearSorter)
+	}
+	else if(sortSelect.value === "chronological2"){
+		const yearSorter = (a,b) => {
+			let aTime = a.startDate;
+			let bTime = b.startDate;
+			if(!aTime.year){
+				aTime = a.endDate
+			}
+			if(!bTime.year){
+				bTime = b.endDate
+			}
+			if(!aTime.year){
+				if(!bTime.year){
+					if(b.status === "NOT_YET_RELEASED" && a.status === "NOT_YET_RELEASED"){
+						return 0
+					}
+					else if(a.status === "NOT_YET_RELEASED"){
+						return -1
+					}
+				}
+				return 1;
+			}
+			else if(!bTime.year){
+				return -1
+			}
+			return bTime.year - aTime.year
+				|| bTime.month - aTime.month
+				|| bTime.day - aTime.day
+				|| b.endDate.year - a.endDate.year
+				|| b.endDate.month - a.endDate.month
+				|| b.endDate.day - a.endDate.day
 				|| 0
 		};
 		animeRolesList.sort(yearSorter);
@@ -447,6 +485,9 @@ let listRenderer = function(){
 			|| mediaMatcher["title-native"](query,media)
 	}
 	let voiceYear = 0;
+	if(sortSelect.value === "chronological2"){
+		voiceYear = 3000//Y3k, here we goooo
+	}
 	voiceRolesList.forEach(anime => {
 		let foundRole = filterSelect.value === "";
 		if(!foundRole){
@@ -464,6 +505,16 @@ let listRenderer = function(){
 		if(foundRole){
 			if(sortSelect.value === "chronological"){
 				if((anime.startDate.year || anime.endDate.year) > voiceYear){
+					voiceYear = anime.startDate.year || anime.endDate.year;
+					create("h3","hohYearHeading",voiceYear,hohCharacterRoles)
+				}
+				else if(!(anime.startDate.year || anime.endDate.year) && voiceYear > 0){
+					animeYear = 0;
+					create("h3","hohYearHeading","No date",hohCharacterRoles)
+				}
+			}
+			else if(sortSelect.value === "chronological2"){
+				if((anime.startDate.year || anime.endDate.year) < voiceYear){
 					voiceYear = anime.startDate.year || anime.endDate.year;
 					create("h3","hohYearHeading",voiceYear,hohCharacterRoles)
 				}
@@ -500,6 +551,9 @@ let listRenderer = function(){
 	});
 	removeChildren(hohMediaRolesAnime)
 	let animeYear = 0;
+	if(sortSelect.value === "chronological2"){
+		animeYear = 3000
+	}
 	animeRolesList.forEach(anime => {
 		let foundRole = filterSelect.value === "";
 		if(!foundRole){
@@ -516,6 +570,16 @@ let listRenderer = function(){
 		if(foundRole){
 			if(sortSelect.value === "chronological"){
 				if((anime.startDate.year || anime.endDate.year) > animeYear){
+					animeYear = anime.startDate.year || anime.endDate.year;
+					create("h3","hohYearHeading",animeYear,hohMediaRolesAnime)
+				}
+				else if(!(anime.startDate.year || anime.endDate.year) && animeYear > 0){
+					animeYear = 0;
+					create("h3","hohYearHeading","No date",hohMediaRolesAnime)
+				}
+			}
+			else if(sortSelect.value === "chronological2"){
+				if((anime.startDate.year || anime.endDate.year) < animeYear){
 					animeYear = anime.startDate.year || anime.endDate.year;
 					create("h3","hohYearHeading",animeYear,hohMediaRolesAnime)
 				}
@@ -542,6 +606,9 @@ let listRenderer = function(){
 	});
 	removeChildren(hohMediaRolesManga);
 	let mangaYear = 0;
+	if(sortSelect.value === "chronological2"){
+		mangaYear = 3000
+	}
 	mangaRolesList.forEach(manga => {
 		let foundRole = filterSelect.value === "";
 		if(!foundRole){
@@ -558,6 +625,16 @@ let listRenderer = function(){
 		if(foundRole){
 			if(sortSelect.value === "chronological"){
 				if((manga.startDate.year || manga.endDate.year) > mangaYear){
+					mangaYear = manga.startDate.year || manga.endDate.year;
+					create("h3","hohYearHeading",mangaYear,hohMediaRolesManga)
+				}
+				else if(!(manga.startDate.year || manga.endDate.year) && mangaYear > 0){
+					mangaYear = 0;
+					create("h3","hohYearHeading","No date",hohMediaRolesManga)
+				}
+			}
+			else if(sortSelect.value === "chronological2"){
+				if((manga.startDate.year || manga.endDate.year) < mangaYear){
 					mangaYear = manga.startDate.year || manga.endDate.year;
 					create("h3","hohYearHeading",mangaYear,hohMediaRolesManga)
 				}
