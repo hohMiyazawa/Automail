@@ -483,7 +483,8 @@ const distributionStatus = {
 	"FINISHED" : "Finished",
 	"RELEASING" : "Releasing",
 	"NOT_YET_RELEASED" : "Not Yet Released",
-	"CANCELLED" : "Cancelled"
+	"CANCELLED" : "Cancelled",
+	"HIATUS"    : "Hiatus"
 };
 
 const categoryColours = new Map([
