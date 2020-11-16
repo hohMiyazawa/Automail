@@ -41,7 +41,7 @@ function addComparisionPage(){
 	};
 	let formatFilterLabel = create("span",false,"Filter:",compareArea);
 	formatFilterLabel.style.padding = "5px";
-	let formatFilter = create("select",false,false,compareArea);
+	let formatFilter = create("select","hohNativeInput",false,compareArea);
 	let addOption = function(value,text){
 		let newOption = create("option",false,text,formatFilter);
 		newOption.value = value
@@ -63,7 +63,7 @@ function addComparisionPage(){
 	};
 	let ratingFilterLabel = create("span",false,"Min. ratings:",compareArea);
 	ratingFilterLabel.style.padding = "5px";
-	let ratingFilter = create("input",false,false,compareArea,"width:45px;color:rgb(var(--color-text))");
+	let ratingFilter = create("input","hohNativeInput",false,compareArea,"width:45px;color:rgb(var(--color-text))");
 	ratingFilter.type = "number";
 	ratingFilter.value = 1;
 	ratingFilter.min = 0;
@@ -376,7 +376,7 @@ function addComparisionPage(){
 		});
 		if(columnAmounts.some(amount => amount.amount > 0)){
 			let lastRow = create("tr",false,false,table);
-			create("td",false,false,lastRow);
+			create("td",false,"Average",lastRow,"border-left-width: 1px;padding-left: 15px;font-weight: bold;");
 			create("td",false,false,lastRow);
 			columnAmounts.forEach(amount => {
 				let averageCel = create("td",false,"–",lastRow);
@@ -422,29 +422,32 @@ function addComparisionPage(){
 			users = [];
 			shows = [];
 			drawUsers();
-			changeUserURL();
+			changeUserURL()
 		};
 		let digestCel = create("td");
 		digestSelect = create("select");
-		let addOption = (value,text) => {
-			create("option",false,text,digestSelect)
-				.value = value;
+		let addOption = (value,text,title) => {
+			let option = create("option",false,text,digestSelect);
+			option.value = value;
+			if(title){
+				option.title = title
+			}
 		};
 		addOption("average","Average");
 		addOption("median","Median");
-		addOption("average0","Average~0");
+		addOption("average0","Average~0","Zero-weighted average. Good for sorting by 'best'");
 		addOption("min","Minimum");
 		addOption("max","Maximum");
-		addOption("difference","Difference");
+		addOption("difference","Difference","Highest rating minus lowest rating");
 		addOption("standardDeviation","Std. Deviation");
 		addOption("absoluteDeviation","Abs. Deviation");
-		addOption("ratings","#Ratings");
-		addOption("planned","#Planning");
-		addOption("current","#Current");
-		addOption("favourites","#Favourites");
-		addOption("popularity","$Popularity");
-		addOption("averageScore","$Score");
-		addOption("averageScoreDiff","$Score diff.");
+		addOption("ratings","#Ratings","Sort by number of users in table who have given a rating");
+		addOption("planned","#Planning","Sort by number of users in table who have this as planning");
+		addOption("current","#Current","Sort by number of users in table who have this as current");
+		addOption("favourites","#Favourites","Sort by number of users in table who have this as a favourite");
+		addOption("popularity","$Popularity","Sort by site-wide popularity");
+		addOption("averageScore","$Score","Sort by site-wide score");
+		addOption("averageScoreDiff","$Score diff.","Sort by difference between site-wide score and average score of the users in the table");
 		if(["title","titleInverse","user","userInverse"].includes(ratingMode)){
 			digestSelect.value = ratingMode;
 		};
@@ -452,7 +455,7 @@ function addComparisionPage(){
 			ratingMode = digestSelect.value;
 			sortShows();
 			drawTable();
-			changeUserURL();
+			changeUserURL()
 		};
 		digestCel.appendChild(digestSelect);
 		userRow.appendChild(digestCel);
@@ -468,7 +471,7 @@ function addComparisionPage(){
 			}
 		});
 		let addCel = create("td");
-		let addInput = create("input",false,false,addCel);
+		let addInput = create("input","hohNativeInput",false,addCel);
 		let addButton = create("button",["button","hohButton"],"Add",addCel,"margin-top:0px;");
 		addButton.style.cursor = "pointer";
 		addButton.onclick = function(){
@@ -486,14 +489,14 @@ function addComparisionPage(){
 		downArrowa.onclick = function(){
 			ratingMode = "title";
 			sortShows();
-			drawTable();
+			drawTable()
 		};
 		let typeCelLabel = create("span",false,capitalize(type),typeCel);
 		let upArrowa = create("span","hohArrowSort","▲",typeCel);
 		upArrowa.onclick = function(){
 			ratingMode = "titleInverse";
 			sortShows();
-			drawTable();
+			drawTable()
 		};
 		headerRow.appendChild(typeCel);
 		let digestSortCel = create("td");
@@ -503,14 +506,14 @@ function addComparisionPage(){
 			ratingMode = digestSelect.value;
 			inverse = false;
 			sortShows(digestSelect.value);
-			drawTable();
+			drawTable()
 		};
 		let upArrow = create("span","hohArrowSort","▲",digestSortCel);
 		upArrow.onclick = function(){
 			ratingMode = digestSelect.value;
 			inverse = true;
 			sortShows();
-			drawTable();
+			drawTable()
 		};
 		headerRow.appendChild(digestSortCel);
 		users.forEach(function(user,index){
@@ -523,31 +526,31 @@ function addComparisionPage(){
 			}
 			else if(user.demand === 1){
 				filter.innerText = "✓";
-				filter.style.color = "green";
+				filter.style.color = "green"
 			}
 			else{
 				filter.innerText = "✕";
-				filter.style.color = "red";
+				filter.style.color = "red"
 			};
 			filter.classList.add("hohFilterSort");
 			filter.onclick = function(){
 				if(filter.innerText === "☵"){
 					filter.innerText = "✓";
 					filter.style.color = "green";
-					user.demand = 1;
+					user.demand = 1
 				}
 				else if(filter.innerText === "✓"){
 					filter.innerText = "✕";
 					filter.style.color = "red";
-					user.demand = -1;
+					user.demand = -1
 				}
 				else{
 					filter.innerText = "☵";
 					filter.style.color = "";
-					user.demand = 0;
+					user.demand = 0
 				};
 				drawTable();
-				changeUserURL();
+				changeUserURL()
 			};
 			let downArrow = create("span","hohArrowSort","▼");
 			downArrow.onclick = function(){
@@ -564,12 +567,15 @@ function addComparisionPage(){
 				drawTable();
 			};
 			let statusFilterDot = create("div","hohStatusDot");
+			if(user.status === false){
+				statusFilterDot.title = "any list status\nclick to toggle"
+			}
 			const stati = ["COMPLETED","CURRENT","PLANNING","PAUSED","DROPPED","REPEATING","NOT"];
 			statusFilterDot.onclick = function(){
 				if(user.status === "NOT"){
 					user.status = false;
 					statusFilterDot.style.background = "rgb(var(--color-background))";
-					statusFilterDot.title = "all";
+					statusFilterDot.title = "any list status\nclick to toggle"
 				}
 				else if(user.status === "REPEATING"){
 					user.status = "NOT";
@@ -579,7 +585,7 @@ function addComparisionPage(){
 				else if(user.status === false){
 					user.status = "COMPLETED";
 					statusFilterDot.style.background = distributionColours["COMPLETED"];
-					statusFilterDot.title = "completed";
+					statusFilterDot.title = "completed"
 				}
 				else{
 					user.status = stati[stati.indexOf(user.status) + 1];
@@ -597,7 +603,7 @@ function addComparisionPage(){
 		userRow.classList.add("hohUserRow");
 		headerRow.classList.add("hohHeaderRow");
 		table.appendChild(userRow);
-		table.appendChild(headerRow);
+		table.appendChild(headerRow)
 	};
 	let addUser = function(userName,paramDemand){
 		let handleData = function(data,cached){
@@ -612,7 +618,7 @@ function addComparisionPage(){
 				list.forEach(function(alia){
 					alia.media.id = alia.mediaId;
 					alia.media.title = titlePicker(alia.media);
-					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat);
+					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat)
 				})
 			};
 			shows.sort(function(a,b){return a.id - b.id;});
@@ -651,18 +657,18 @@ function addComparisionPage(){
 					entry.progress.push(false)
 				}
 				entry.favourite.push(favs.includes(entry.id));
-				return entry;
+				return entry
 			};
 			shows.forEach(function(show){
 				show.score.push(0);
 				show.scorePersonal.push(0);
 				show.status.push("NOT");
 				show.progress.push(false);
-				show.favourite.push(false);
+				show.favourite.push(false)
 			});
 			for(var i=0;i<shows.length && listPointer < list.length;i++){
 				if(shows[i].id < list[listPointer].mediaId){
-					continue;
+					continue
 				}
 				else if(shows[i].id === list[listPointer].mediaId){
 					shows[i].score[userIndeks] = list[listPointer].scoreRaw;
@@ -678,11 +684,11 @@ function addComparisionPage(){
 						shows[i].progress[userIndeks] = false
 					};
 					shows[i].favourite[userIndeks] = favs.includes(shows[i].id);
-					listPointer++;
+					listPointer++
 				}
 				else{
 					shows.splice(i,0,createEntry(list[listPointer]));
-					listPointer++;
+					listPointer++
 				};
 			};
 			for(;listPointer < list.length;listPointer++){
@@ -691,7 +697,7 @@ function addComparisionPage(){
 			sortShows();
 			drawUsers();
 			drawTable();
-			changeUserURL();
+			changeUserURL()
 		};
 		if(listCache.hasOwnProperty(userName)){
 			handleData(listCache[userName],true)
@@ -760,7 +766,7 @@ fragment mediaListEntry on MediaList{
 			show.scorePersonal.splice(index,1);
 			show.status.splice(index,1);
 			show.progress.splice(index,1);
-			show.favourite.splice(index,1);
+			show.favourite.splice(index,1)
 		});
 		shows = shows.filter(function(show){
 			return !show.status.every(status => status === "NOT")
@@ -774,7 +780,7 @@ fragment mediaListEntry on MediaList{
 		sortShows();
 		drawUsers();
 		drawTable();
-		changeUserURL();
+		changeUserURL()
 	};
 	formatFilter.oninput = function(){drawTable();changeUserURL()};
 	ratingFilter.oninput = function(){drawTable();changeUserURL()};
