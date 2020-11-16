@@ -34,7 +34,7 @@ function enhanceSocialTabFeed(){
 					loadMore.style.display = "none";
 					return
 				}
-				if(data.data.Page.pageInfo.lastPage > page){
+				if(data.data.Page.pageInfo.lastPage > page && data.data.Page.activities.length === 25){
 					loadMore.style.display = "block";
 					loadMore.onclick = function(){
 						buildFeed(page + 1)
@@ -204,7 +204,7 @@ function enhanceSocialTabFeed(){
 			if(hasReplies.checked && isFollowing.checked){
 				query = `
 query($mediaId: Int,$page: Int){
-	Page(page: $page){
+	Page(page: $page,perPage: 25){
 		pageInfo{lastPage}
 		activities(mediaId: $mediaId,hasReplies:true,isFollowing:true,sort:ID_DESC){
 			... on ListActivity{
@@ -249,7 +249,7 @@ query($mediaId: Int,$page: Int){
 			else if(hasReplies.checked){
 				query = `
 query($mediaId: Int,$page: Int){
-	Page(page: $page){
+	Page(page: $page,perPage: 25){
 		pageInfo{lastPage}
 		activities(mediaId: $mediaId,hasReplies:true,sort:ID_DESC){
 			... on ListActivity{
@@ -294,7 +294,7 @@ query($mediaId: Int,$page: Int){
 			else{
 				query = `
 query($mediaId: Int,$page: Int){
-	Page(page: $page){
+	Page(page: $page,perPage: 25){
 		pageInfo{lastPage}
 		activities(mediaId: $mediaId,isFollowing:true,sort:ID_DESC){
 			... on ListActivity{
