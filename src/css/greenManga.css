@@ -25,9 +25,13 @@
 	border-bottom-color: rgba(var(--color-green));
 	border-bottom-width: 2px;
 }
-.character-page-unscoped .media .content:hover[href^="/manga/"] .name,
+.character-wrap .role-card:hover .title[href^="/anime/"]{
+	color: rgb(var(--color-blue)) !important;
+}
+.character-wrap .role-card .title[href^="/manga/"],
+.character-wrap .role-card:hover .title[href^="/manga/"],
 .media-roles .media .content:hover[href^="/manga/"] .name{
-	color: rgb(var(--color-green));
+	color: rgb(var(--color-green)) !important;
 }
 .media .relations.small .cover[href^="/manga/"]::after{
 	position:absolute;
