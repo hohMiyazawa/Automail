@@ -44,7 +44,7 @@
 					create("p",false,"DRY RUN",changeLog)
 				};
 				if(!list.length){
-					changeLog.innerText = "No such entries found";
+					changeLog.innerText = "Found no entries to change";
 					return
 				};
 				create("p",false,"Found " + list.length + " entries.",changeLog);
@@ -119,5 +119,5 @@
 		runner()
 	};
 },code: function(){
-	miscResults.innerText = "Read the description first!"
+	alert("Read the description first!")
 }},

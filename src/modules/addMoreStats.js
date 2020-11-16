@@ -74,8 +74,8 @@ function addMoreStats(){
 		miscInputSelect.oninput = function(){
 			miscOptions.innerText = "";
 			let relevant = availableQueries.find(que => que.name === miscInputSelect.value);
+			miscResults.innerText = "";
 			if(relevant.setup){
-				miscResults.innerText = "";
 				relevant.setup()
 			}
 		};
