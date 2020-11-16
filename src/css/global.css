@@ -2258,6 +2258,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 .recommendations > .wrap{
 	margin-left: 5px;
 }
+.character-roles.hohSubstitute > div:not(.hoh-character-roles){
+	display: none;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

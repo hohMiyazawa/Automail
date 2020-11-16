@@ -1,7 +1,7 @@
 exportModule({
 	id: "replaceStaffRoles",
-	description: "Add sorting to staff pages",
-	isDefault: true,
+	description: "Hoh's version of sortable staff pages",
+	isDefault: !!useScripts.accessToken,
 	categories: ["Media","Login"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
@@ -31,6 +31,7 @@ if(!insertParent && !insertParentCharacters){
 	setTimeout(this,200);
 	return;
 };
+insertParentCharacters.classList.add("hohSubstitute");
 let substitution = false;
 if(!insertParent){
 	insertParent = create("div",["media-roles","container","substitution"],false,insertParentCharacters.parentNode);
@@ -108,6 +109,9 @@ let UIinit = function(){
 	insertParent.parentNode.insertBefore(hohMediaSort,insertParentCharacters);
 	insertParent.insertBefore(hohMediaRoles,insertParent.children[0]);
 	insertParentCharacters.insertBefore(hohCharacterRolesBox,insertParentCharacters.children[0]);
+	if(document.querySelector(".filters.container")){
+		document.querySelector(".filters.container").remove()
+	}
 };
 let animeRolesList = [];
 let mangaRolesList = [];
