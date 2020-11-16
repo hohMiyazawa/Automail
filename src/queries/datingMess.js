@@ -56,7 +56,7 @@
 				})
 			}
 		});
-		let proc = function(data){
+		let proc = function(data,type){
 			let list = returnList(data,true);
 			list.forEach(function(item){
 				let matches = [];
@@ -118,6 +118,7 @@
 					delay += 1000;
 				}
 			})
+			create("p",false,type.toLowerCase() + " list completely scanned",miscResults)
 		};
 		const query = `query($name: String!, $listType: MediaType){
 				MediaListCollection(userName: $name, type: $listType){
@@ -146,7 +147,7 @@
 				name: user,
 				listType: "MANGA"
 			},
-			proc
+			function(data){proc(data,"MANGA")}
 		);
 		generalAPIcall(
 			query,
@@ -154,7 +155,7 @@
 				name: user,
 				listType: "ANIME"
 			},
-			proc
-		);
+			function(data){proc(data,"ANIME")}
+		)
 	},"hohIDlookup" + user.toLowerCase());
 }},
