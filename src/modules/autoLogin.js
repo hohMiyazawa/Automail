@@ -21,6 +21,6 @@ Option b) Manually add your access token in the file "src/settings.js". It's a f
 Option c) If you just have the compiled JS file "automail.js", search for "I EAT PANCAKES" in the code, and change "isDefault" line below to true
 `,
 	isDefault: false,
-	categories: ["Script","Newly Added"],
+	categories: ["Script"],
 	visible: true
 })
