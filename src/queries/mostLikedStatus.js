@@ -29,7 +29,7 @@
 				};
 			};
 			list.sort(function(b,a){return a.likes.length - b.likes.length});
-			progress.innerText = "Searching status post " + list.length + "/" + data.data.Page.pageInfo.total + " [total is incorrect until an Anilist bug is fixed. Query limited to 2500];
+			progress.innerText = "Searching status post " + list.length + "/" + data.data.Page.pageInfo.total + " [total is incorrect until an Anilist bug is fixed. Query limited to 2500]";
 			removeChildren(results)
 			for(var i=0;i<20;i++){
 				let newDate = create("p",false,list[i].likes.length + " likes ",results,"font-family:monospace;margin-right:10px;");
