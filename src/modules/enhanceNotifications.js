@@ -61,7 +61,7 @@ function enhanceNotifications(forceFlag){
 			};
 			let description = create("span",false,"Hide like notifications",setting);
 			setting.style.fontSize = "small";
-			let softBlockSpan = create("span",false,"Soft block users",possibleButton.parentNode,"cursor: pointer;font-size: small");
+			let softBlockSpan = create("span",false,"Soft block users",possibleButton.parentNode,"cursor: pointer;font-size: small;display: block;margin: 10px 0px;");
 			softBlockSpan.onclick = function(){
 				let manager = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Soft block");
 				create("p",false,"Hide notifications from specific people. A much less drastic solution than blocking them entirely (if that's what you actually want, this is the wrong place).",manager);
