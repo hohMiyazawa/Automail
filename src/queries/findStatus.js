@@ -6,12 +6,12 @@
 	if(statusSearchCache.length){
 		miscResults.innerText = "";
 		let results = create("p",false,false,miscResults);
-		statusSearchCache.forEach(function(act){
-			if(act.match(new RegExp(searchQuery,"i"))){
+		statusSearchCache.forEach(act => {
+			if(act.text.match(new RegExp(searchQuery,"i")) || act.text.includes(searchQuery)){
 				let newDate = create("p",false,false,results,"font-family:monospace;margin-right:10px;");
 				let newPage = create("a","newTab",act.siteUrl,newDate,"color:rgb(var(--color-blue));");
 				newPage.href = act.siteUrl;
-				newDate.innerHTML += DOMPurify.sanitize(act);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
+				newDate.innerHTML += DOMPurify.sanitize(act.text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				create("hr",false,false,results)
 			}
 		})
@@ -51,15 +51,15 @@
 				};
 				posts += data.data.Page.activities.length;
 				progress.innerText = "Searching status post " + posts + "/" + data.data.Page.pageInfo.total;
-				data.data.Page.activities.forEach(function(act){
-					if(act.text.match(new RegExp(searchQuery,"i"))){
+				data.data.Page.activities.forEach(act => {
+					if(act.text.match(new RegExp(searchQuery,"i")) || act.text.includes(searchQuery)){
 						let newDate = create("p",false,false,results,"font-family:monospace;margin-right:10px;");
 						let newPage = create("a","newTab",act.siteUrl,newDate,"color:rgb(var(--color-blue));");
 						newPage.href = act.siteUrl;
 						newDate.innerHTML += DOMPurify.sanitize(act.text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 						create("hr",false,false,results)
 					}
-					statusSearchCache.push(act.text)
+					statusSearchCache.push(act)
 				})
 			};
 			generalAPIcall(query,{userId: userId,page: 1},addNewUserData);
