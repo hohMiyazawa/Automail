@@ -60,6 +60,7 @@ function addRelationStatusDot(id){
 					}
 				}
 			};adder();
+			let init_completed = false;
 			let recsAdder = function(){
 				let mangaAnimeMatch = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 				if(!mangaAnimeMatch){
@@ -77,10 +78,7 @@ function addRelationStatusDot(id){
 					let findCard = document.querySelector(".recommendation-card");
 					if(findCard){
 						findCard = findCard.parentNode;
-						let adder = function(){
-							findCard.querySelectorAll(".hohStatusDot").forEach(
-								dot => dot.remove()
-							);
+						let adder = function(recs){
 							recs.forEach(media => {
 								let target = findCard.querySelector("[href^=\"/" + media.type.toLowerCase() + "/" + media.id + "/\"]");
 								if(target){
@@ -89,12 +87,49 @@ function addRelationStatusDot(id){
 									statusDot.title = media.mediaListEntry.status.toLowerCase();
 								}
 							});
-						};adder();
-						let toggle = findCard.parentNode.querySelector(".view-all .toggle");
+						};adder(recs);
+						let toggle = document.querySelector(".recommendations .view-all .toggle");
 						if(toggle){
 							toggle.addEventListener("click",function(){
-								setTimeout(adder,1000)
+								setTimeout(function(){adder(recs)},1000)
 							})
+						};
+						if(!init_completed){
+							init_completed = true;
+							if(toggle && parseInt(toggle.innerText.match(/\d+/)) > 25){
+								let recs2 = [];
+								toggle.addEventListener("mouseover",function(){
+									authAPIcall(
+`query($id: Int){
+	Media(id:$id){
+		recommendations(sort:RATING_DESC,page:2){
+			nodes{
+				mediaRecommendation{
+					id
+					type
+					mediaListEntry{status}
+				}
+			}
+		}
+	}
+}`,
+									{id: id},
+									function(data){
+										recs2 = data.data.Media.recommendations.nodes.map(
+											item => item.mediaRecommendation
+										).filter(
+											item => item.mediaListEntry
+										);
+									}
+									)
+								})
+								toggle.addEventListener("click",function(){
+									setTimeout(function(){adder(recs2)},1000);//eh, good enough
+									setTimeout(function(){adder(recs2)},5000);
+									setTimeout(function(){adder(recs2)},10000);
+									setTimeout(function(){adder(recs2)},15000)
+								})
+							}
 						}
 					}
 					else{
