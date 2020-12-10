@@ -9,21 +9,21 @@ function notificationCake(){
 				let User = data.data.User;
 				let types = [];
 				let names = [];
-				for(var i=0;i<Page.notifications.length && i<User.unreadNotificationCount;i++){
-					if(!Page.notifications[i].type){//probably obsolete, remove later
-						Page.notifications[i].type = "THREAD_SUBSCRIBED"
+				Page.notifications.slice(0,User.unreadNotificationCount).forEach(notification => {
+					if(!notification.type){//probably obsolete, remove later
+						notification.type = "THREAD_SUBSCRIBED"
 					};
-					if(Page.notifications[i].user && !useScripts.notificationColours[Page.notifications[i].type].supress){
-						if(useScripts.softBlock.indexOf(Page.notifications[i].user.name) === -1){
-							names.push(Page.notifications[i].user.name)
+					if(notification.user && !useScripts.notificationColours[notification.type].supress){
+						if(useScripts.softBlock.indexOf(notification.user.name) === -1){
+							names.push(notification.user.name)
 						}
 					};
-					if(!useScripts.notificationColours[Page.notifications[i].type] || !useScripts.notificationColours[Page.notifications[i].type].supress){
-						if(useScripts.softBlock.indexOf(Page.notifications[i].user.name) === -1){
-							types.push(Page.notifications[i].type)
+					if(!useScripts.notificationColours[notification.type] || !useScripts.notificationColours[notification.type].supress){
+						if(useScripts.softBlock.indexOf(notification.user.name) === -1){
+							types.push(notification.type)
 						}
 					}
-				};
+				})
 				if(types.length){
 					let notificationCake = create("canvas","hohNotificationCake");
 					notificationCake.width = 120;
@@ -82,7 +82,10 @@ function notificationCake(){
 					}
 				}
 				else{
-					notificationDot.style.display = "none"
+					notificationDot.style.display = "none";
+					if(User.unreadNotificationCount){
+						authAPIcall("query{Notification(resetNotificationCount:true){... on ActivityLikeNotification{id}}}",{},function(data){})
+					}
 				}
 			}
 		)
