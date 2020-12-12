@@ -36,6 +36,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		pageInfo{
 			currentPage
 			lastPage
+			total
 		}
 		activities(userId: $userId, mediaId: $mediaId, sort: ID){
 			... on ListActivity{
@@ -72,7 +73,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 					"position:absolute;right:7px;"
 				).title = (new Date(activity.createdAt*1000)).toLocaleString()
 			});
-			if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage){
+			if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage && data.data.Page.pageInfo.currentPage < 10){//yet another workaround fro broken API
 				variables.page++;
 				lineCaller(query,variables)
 			}
