@@ -36,7 +36,6 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		pageInfo{
 			currentPage
 			lastPage
-			total
 		}
 		activities(userId: $userId, mediaId: $mediaId, sort: ID){
 			... on ListActivity{
