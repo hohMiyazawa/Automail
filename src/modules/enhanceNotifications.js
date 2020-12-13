@@ -590,7 +590,8 @@ You can also turn off this notice there.`,setting)
 				textSpan.classList.add("hohNewMedia");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);
 				text.appendChild(textSpan);
-				notImage.style.width = "51px"
+				notImage.style.width = "51px";
+				text.href = activities[i].href
 			}
 			else{//display as-is
 				textSpan.classList.add("hohUnhandledSpecial");
