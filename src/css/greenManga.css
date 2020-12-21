@@ -66,8 +66,8 @@
 .media-manga .container .content .nav .link{
 	color: rgba(var(--color-green));
 }
-.home .recent-reviews + div > div + div + div h2.section-header.link:hover{
-	color: rgba(var(--color-green));
+.hover-manga:hover{
+	color: rgba(var(--color-green))!important;
 }
 .home .recent-reviews + div .cover[href^="/manga/"] + .content .info-header{
 	color: rgba(var(--color-green));
