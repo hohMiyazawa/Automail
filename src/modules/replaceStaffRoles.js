@@ -8,6 +8,7 @@ exportModule({
 		return url.match(/^https:\/\/anilist\.co\/staff\/.*/)
 	},
 	code: function(){
+let selfcaller = function(){
 let URLstuff = location.pathname.match(/^\/staff\/(\d+)\/?.*/);
 if(!URLstuff){
 	return
@@ -28,7 +29,7 @@ if(possibleGarbage){
 let insertParent = document.querySelector(".media-roles");
 let insertParentCharacters = document.querySelector(".character-roles");
 if(!insertParent && !insertParentCharacters){
-	setTimeout(this,200);
+	setTimeout(selfcaller	,200);
 	return;
 };
 insertParentCharacters.classList.add("hohSubstitute");
@@ -199,9 +200,6 @@ const mangaValueFunction = function(manga){
 	};
 	if(manga.listJSON && manga.listJSON.adjustValue){
 		chaptersRead = Math.max(0,chaptersRead + manga.listJSON.adjustValue)
-	}
-	if(chaptersRead === undefined){
-		console.log(999	);
 	}
 	return {
 		chapters: chaptersRead,
@@ -988,5 +986,7 @@ authAPIcall(staffQuery,variables,animeHandler);
 variables.type = "MANGA";
 authAPIcall(staffQuery,variables,mangaHandler);
 authAPIcall(staffVoice,variables,voiceHandler)
+};
+selfcaller();
 	}
 })
