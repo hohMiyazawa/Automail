@@ -100,10 +100,12 @@ function addFeedFilters(){
 						else{
 							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-green))";
 						}
+						activityFeed.children[i].style.marginRight = "-5px";
 					}
 					else{
 						activityFeed.children[i].style.borderRightStyle = "solid";
 						activityFeed.children[i].style.borderRightWidth = "5px";
+						activityFeed.children[i].style.marginRight = "-5px";
 						activityFeed.children[i].style.borderRightColor = distributionColours[status];
 					}
 				}		

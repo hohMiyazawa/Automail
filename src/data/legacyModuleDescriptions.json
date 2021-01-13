@@ -126,7 +126,7 @@
 	"description": "Add filter options to the feeds to hide posts with few comments or likes",
 	"categories": ["Feeds"]
 },{"id": "statusBorder",
-	"description": "Colour code the right border of activities by status",
+	"description": "Colour code the right border of activities by media status",
 	"categories": ["Feeds"]
 },{"id": "blockWord",
 	"description": "Hide status posts containing this word:",
