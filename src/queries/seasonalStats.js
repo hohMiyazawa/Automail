@@ -46,7 +46,7 @@
 		let getData = function(){
 			generalAPIcall(activityQuery,{userId: userId,page: currentPage},function(data){
 				statsBuffer = statsBuffer.concat(data.data.Page.activities.filter(act => act.createdAt*1000 >= limitTime));
-				miscResults.innerText = "This month:";
+				miscResults.innerText = `This month (since ${new Date().getFullYear()}-${("0" + (new Date().getMonth() + 1)).slice(-2)}-01):`;
 				let messageCount = statsBuffer.filter(activity => activity.type === "MESSAGE").length;
 				let statusCount = statsBuffer.filter(activity => activity.type === "TEXT").length;
 				let animeCount = statsBuffer.filter(activity => activity.type === "ANIME_LIST").length;
