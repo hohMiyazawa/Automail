@@ -58,7 +58,7 @@ function notificationCake(){
 					});
 					cakeCtx.fillStyle = "#fff2f2";
 					cakeCtx.fillText(User.unreadNotificationCount,60,76);
-					notificationCake.innerText = User.unreadNotificationCount;
+					notificationCake.innerText = types.length;
 					notificationCake.title = names.join("\n");
 					let poller = function(){
 						if(!document.querySelector(".hohNotificationCake")){
