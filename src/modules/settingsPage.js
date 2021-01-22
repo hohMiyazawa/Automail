@@ -438,8 +438,20 @@ exportModule({
 		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
 		if(useScripts.accessToken){
 			create("hr","hohSeparator",false,hohSettings);
-			create("p",false,"Current access token:",hohSettings);
+			create("p",false,"Current access token (do not share with others):",hohSettings);
 			create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;")
 		}
+
+		hohSettings.appendChild(create("hr"));
+
+		let debugInfo = create("button",["hohButton","button"],"Export debug info",hohSettings);
+		debugInfo.onclick = function(){
+			let export_settings = JSON.parse(JSON.stringify(useScripts));//deepclone
+			if(export_settings.accessToken){
+				export_settings.accessToken = "[REDACTED]";
+			}
+			saveAs(export_settings,"automail_debug_info.json");
+		}
+		create("p",false,"A file containing your settings. It's nice if you include this when reporting an issue. Not anonymous, but does not contain login info.",hohSettings);
 	}
 })
