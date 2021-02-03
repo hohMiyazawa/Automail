@@ -4,16 +4,25 @@ let likeLoop = setInterval(function(){
 	).forEach(thingy => {
 		thingy.classList.add("hohHandledLike");
 		thingy.onmouseover = function(){
-			if(thingy.classList.contains("hohLoadedLikes")){
-				return
-			}
-			thingy.classList.add("hohLoadedLikes");
 			if(!thingy.querySelector(".count")){
 				return
 			}
-			if(parseInt(thingy.querySelector(".count").innerText) <= 5){
+			let likeCount = parseInt(thingy.querySelector(".count").innerText);
+			if(likeCount <= 5){
 				return
 			}
+			if(thingy.classList.contains("hohLoadedLikes")){
+				let dataSetCache = parseInt(thingy.dataset.cacheLikeCount);
+				if(isNaN(dataSetCache)){//API query already in progress
+					return
+				}
+				if(dataSetCache === likeCount){//nothing changed
+					return
+					//in theory, someone *could* have retracted a like, and someone else been added, but it doesn't really happen all that often.
+					//at least, this is better than what was previously done, namely never refetching the data at all, even if the count changed
+				}
+			}
+			thingy.classList.add("hohLoadedLikes");
 			const id = parseInt(thingy.parentNode.parentNode.querySelector(`[href^="/activity/"`).href.match(/\d+/));
 			generalAPIcall(`
 query($id: Int){
@@ -30,7 +39,10 @@ query($id: Int){
 	}
 }`,
 				{id: id},
-				data => thingy.title = data.data.Activity.likes.map(like => like.name).join("\n")
+				data => {
+					thingy.title = data.data.Activity.likes.map(like => like.name).join("\n");
+					thingy.dataset.cacheLikeCount = data.data.Activity.likes.length
+				}
 			)
 		}
 	});
