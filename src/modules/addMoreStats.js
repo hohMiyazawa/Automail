@@ -1675,7 +1675,7 @@ function addMoreStats(){
 				}
 			};waiter();
 		};
-		if(user === whoAmI){
+		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("ANIME",function(data){
 				personalStatsCallback({
 					data: {
@@ -2299,7 +2299,7 @@ function addMoreStats(){
 				};waiter();
 			},"hohListCacheMangaStaff" + user,10*60*1000);
 		};
-		if(user === whoAmI){
+		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("MANGA",data => {
 				personalStatsMangaCallback({
 					data: {
