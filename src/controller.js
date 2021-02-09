@@ -26,10 +26,10 @@ function handleScripts(url,oldUrl){
 	if(/^https:\/\/anilist\.co\/(anime|manga)\/\d*\/[\w\-]*\/social/.test(url)){
 		if(useScripts.socialTab){
 			enhanceSocialTab();
-			if(useScripts.accessToken){
-				enhanceSocialTabFeed()
-			}
-		};
+		}
+		if(useScripts.socialTabFeed){
+			enhanceSocialTabFeed()
+		}
 		if(useScripts.activityTimeline){
 			addActivityTimeline()
 		}

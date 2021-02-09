@@ -14,13 +14,18 @@ function enhanceSocialTabFeed(){
 	let hasReplies = createCheckbox(optionsContainer);
 	create("span",false,"Has Replies",optionsContainer,"margin-right:7px;");
 	let isFollowing = createCheckbox(optionsContainer);
-	create("span",false,"Following",optionsContainer);
+	if(useScripts.accessToken){
+		create("span",false,"Following",optionsContainer)
+	}
+	else{
+		isFollowing.parentNode.style.display = "none"
+	}
 	let feedHeader = create("h2",false,"Recent Activity",hohFeed,"display:none;");
 	let feedContent = create("div",false,false,hohFeed,"display:none;");
 	let loadMore = create("div","load-more","Load More",hohFeed,"display:none;background: rgb(var(--color-foreground));border-radius: 4px;cursor: pointer;font-size: 1.4rem;margin-top: 20px;padding: 14px;text-align: center;transition: .2s;");
 	let query = "";
 	let buildFeed = function(page){
-		authAPIcall(
+		authAPIcall(//save also when accessToken is not available, since it will fall back to a regular API call
 			query,
 			{
 				page: page,

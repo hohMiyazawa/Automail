@@ -26,6 +26,7 @@ const notificationColourDefaults = {
 //this is the legacy way of specifying default modules, use exportModule's isDefault instead.
 let useScripts = {//most modules are turned on by default
 	socialTab: true,
+	socialTabFeed: true,
 	forumComments: true,
 	forumMedia: true,
 	staffPages: true,
