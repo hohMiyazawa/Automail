@@ -63,7 +63,7 @@ exportModule({
 			};
 			let activityContainer = create("div",false,false,place.parentNode);
 			create("h3","heading","Current Activity",activityContainer);
-			create("p",false,Math.round((3600*199/(data.data.act1.activities[0].createdAt - data.data.act2.activities[9].createdAt))) + " activities/hour",activityContainer);
+			create("p",false,Math.round((3600*199/(data.data.act1.activities[0].createdAt - data.data.act2.activities[data.data.act2.activities.length - 1].createdAt))) + " activities/hour",activityContainer);
 			let activities = data.data.text.activities;
 			create("p",false,(3600*(activities.length - 1)/(activities[0].createdAt - activities[activities.length - 1].createdAt)).roundPlaces(1) + " status posts/hour",activityContainer);
 			activities = data.data.message.activities;
