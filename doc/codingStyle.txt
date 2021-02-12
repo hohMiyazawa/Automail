@@ -1,3 +1,7 @@
+0. Just do your thing. I can deal with code submissions pretty quickly.
+
+---
+
 As with any project, follow its established coding style.
 
 Your contributions may still be accepted if you don't but there will be less cleanup job for me.
