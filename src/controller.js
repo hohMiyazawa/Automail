@@ -428,6 +428,19 @@ Object.keys(localStorage).forEach(key => {
 	}
 });
 
+if(useScripts.tweets){
+/*
+https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties
+According to Twitter, you can opt out from widgets using context data for "personalization".
+
+Not that this tag has any force behind it, but we can at least kindly ask them.
+*/
+	let dnt_tag = document.createElement("meta");
+	dnt_tag.setAttribute("name","twitter:dnt");
+	dnt_tag.setAttribute("content","on");
+	document.head.appendChild(dnt_tag);
+}
+
 if(useScripts.automailAPI){
 	if(document.automailAPI){
 		console.warn("Multiple copies of Automail running? Shutting down this instance.");

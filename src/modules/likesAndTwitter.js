@@ -75,15 +75,15 @@ query($id: Int){
 					Hence this check
 				*/
 				if(document.getElementById("automailTwitterEmbed")){
-					document.getElementById("automailTwitterEmbed").remove()
-					//rerun the embed script if we encounter multiple tweets. Likely not efficient
-					//https://github.com/hohMiyazawa/Automail/issues/52
+					twttr.widgets.load(tweet)
 				}
-				let script = document.createElement("script");
-				script.setAttribute("src","https://platform.twitter.com/widgets.js");
-				script.setAttribute("async","");
-				script.id = "automailTwitterEmbed";
-				document.head.appendChild(script)
+				else{
+					let script = document.createElement("script");
+					script.setAttribute("src","https://platform.twitter.com/widgets.js");
+					script.setAttribute("async","");
+					script.id = "automailTwitterEmbed";
+					document.head.appendChild(script)
+				}
 			}
 		})
 	}
