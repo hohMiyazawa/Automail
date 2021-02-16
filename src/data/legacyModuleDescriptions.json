@@ -48,7 +48,7 @@
 	"description": "Add basic data below the title on media pages",
 	"categories": ["Media"]
 },{"id": "entryScore",
-	"description": "Add your score and progress to anime pages",
+	"description": "Add your score and progress to media pages",
 	"categories": ["Media","Login"]
 },{"id": "reviewConfidence",
 	"description": "Add confidence scores to reviews"
