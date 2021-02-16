@@ -572,7 +572,7 @@ function convertScore(score,format){
 			return 60
 		}
 		else if(score === 1){
-			return 45
+			return 35
 		}
 		return 0
 	}

@@ -20,7 +20,7 @@ const scoreColors = e => {
 		};
 		return {
 			scoreCount: 0.5,//weight those scores lower because of the precision
-			scoreSum: ({"smile": 85,"meh": 60,"frown": 45}[el.dataset.icon])*0.5
+			scoreSum: ({"smile": 85,"meh": 60,"frown": 35}[el.dataset.icon])*0.5
 		}
 	}
 	else if(el.nodeName === "SPAN"){
