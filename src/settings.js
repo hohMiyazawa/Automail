@@ -46,7 +46,6 @@ let useScripts = {//most modules are turned on by default
 	hideLikes: false,
 	dubMarker: false,
 	CSSsmileyScore: true,
-	CSSdarkDropdown: true,
 	feedCommentFilter: false,
 	feedCommentComments: 0,
 	feedCommentLikes: 0,
