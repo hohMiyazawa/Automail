@@ -3,6 +3,6 @@ exportModule({
 	description: "Slim navbar",
 	isDefault: false,
 	importance: -2,
-	categories: ["Navigation","Newly Added"],
+	categories: ["Navigation"],
 	visible: true
 })
