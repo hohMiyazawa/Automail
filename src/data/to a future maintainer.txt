@@ -1,0 +1,6 @@
+videoMimeTypeFixer:
+	check if Anilist still serves all video as "video/webm".
+	if not, this module can be removed.
+purify.js:
+	check for new versions of this every six months or so, to keep up with the xss meta
+
