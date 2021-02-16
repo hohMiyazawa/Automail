@@ -241,9 +241,6 @@
 },{"id": "milestones",
 	"description": "Add total episodes and volumes to profile milestones",
 	"categories": ["Profiles"]
-},{"id": "CSSdarkDropdown",
-	"description": "Use a dark menu dropdown in dark mode",
-	"categories": ["Navigation"]
 },{"id": "moreImports",
 	"description": "Add more list import and list export options",
 	"categories": ["Script","Login"]
