@@ -280,7 +280,7 @@ setInterval(function(){
 		}
 	})
 	document.querySelectorAll(".sense-wrap").forEach(link => {
-		link.remove()
+		link.style.display = "none";
 	})
 },2000);
 
