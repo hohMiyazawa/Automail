@@ -43,6 +43,7 @@ let useScripts = {//most modules are turned on by default
 	CSSdecimalPoint: false,
 	CSSverticalNav: false,
 	CSSbannerShadow: true,
+	CSSdarkDropdown: true,
 	hideLikes: false,
 	dubMarker: false,
 	CSSsmileyScore: true,
