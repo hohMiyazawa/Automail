@@ -668,6 +668,10 @@ function moreImports(){
 			catch(e){
 				resultsErrorsAL.innerText = "error parsing JSON";
 			}
+			if(data.hasOwnProperty("user")){
+				resultsErrorsAL.innerText = "This is the Anilist JSON importer, but you uploaded a GDPR JSON file. You either uploaded the wrong file, or ment to use the importer further down the page.";
+				return;
+			}
 			if(parseFloat(data.version) > 1){//was not part of 1.00
 				if(data.type !== type.toUpperCase()){
 					resultsErrorsAL.innerText = "error wrong list type";
@@ -682,10 +686,11 @@ function moreImports(){
 				resultsWarningsAL.innerText += "\nThis list is " + Math.round(((new Date()) - (new Date(data.timeStamp)))/(1000*86400)) + " days old. Did you upload the right one?"
 			}
 			if(!useScripts.accessToken){
-				resultsWarningsAL.innerText += "\nNot singned in to the script! Can't do any changes to your list then. Go to the bottom of the settings > apps page to sign in"
+				resultsWarningsAL.innerText += "\nNot signed in to the script! Can't do any changes to your list then. Go to the bottom of the settings > apps page to sign in"
 			}
 			resultsStatusAL.innerText = "Calculating list differences...";
 			if((type === "anime" && alAnimeOverwrite.checked) || (type === "manga" && alMangaOverwrite.checked)){
+				alert("Haven't gotten around to support overwriting yet, sorry!")
 			}
 			else{
 				authAPIcall(
@@ -704,7 +709,7 @@ function moreImports(){
 					data2 => {
 						if(!data2){
 							resultsErrorsAL.innerText = "Could not access the list of " + whoAmI + " do you have persmission to modify this list? (try signing in at settings > apps, scroll down to the bottom)";
-							return;
+							return
 						}
 						if(data2.data.Viewer.name !== whoAmI){
 							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Aniscript's permissions, and sign in with the script again to fix this.");
@@ -734,28 +739,33 @@ function moreImports(){
 										mutater(notAlready[index + 1],index + 1);
 									},1000);
 								}
-								authAPIcall(
-									`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
-										SaveMediaListEntry(
-											mediaId: ${show.mediaId},
-											status: ${show.status},
-											score: ${show.score},
-											progress: ${show.progress},
-											progressVolumes: ${show.progressVolumes || 0},
-											repeat: ${show.repeat},
-											priority: ${show.priority},
-											notes: $notes,
-											startedAt: $startedAt,
-											completedAt: $completedAt
-										){id}
-									}`,
-									{
-										startedAt: show.startedAt,
-										completedAt: show.completedAt,
-										notes: show.notes
-									},
-									data => {}
-								)
+								try{
+									authAPIcall(
+										`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
+											SaveMediaListEntry(
+												mediaId: ${show.mediaId},
+												status: ${show.status},
+												score: ${show.score},
+												progress: ${show.progress},
+												progressVolumes: ${show.progressVolumes || 0},
+												repeat: ${show.repeat},
+												priority: ${show.priority},
+												notes: $notes,
+												startedAt: $startedAt,
+												completedAt: $completedAt
+											){id}
+										}`,
+										{
+											startedAt: show.startedAt,
+											completedAt: show.completedAt,
+											notes: show.notes
+										},
+										data => {}
+									)
+								}
+								catch(e){
+									resultsWarningsAL.innerText += "\nAn error occured for mediaID " + show.mediaID;
+								}
 								resultsStatusAL.innerText = (index + 1) + " of " + notAlready.length + " entries imported. Closing this tab will stop the import.";
 							};
 							mutater(notAlready[0],0);
@@ -781,5 +791,42 @@ function moreImports(){
 		pushResultsAL.style.display = "none";
 		removeChildren(resultsTableAL);
 		alImport("manga",alMangaInput.files[0])
+	}
+
+	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
+	let gdpr_import = create("div",["section","hohImport"],false,target);
+	create("h2",false,"GDPR data: Import lists [WORK IN PROGESS]",gdpr_import);
+	let gdpr_importCheckboxContainer = create("label","el-checkbox",false,gdpr_import);
+	let gdpr_importOverwrite = createCheckbox(gdpr_importCheckboxContainer);
+	create("span","el-checkbox__label","Overwrite entries already on my list",gdpr_importCheckboxContainer);
+	let gdpr_importDropzone = create("div","dropbox",false,gdpr_import);
+	let gdpr_importInput = create("input","input-file",false,gdpr_importDropzone);
+	let gdpr_importDropText = create("p",false,"Drop GDPR JSON file here or click to upload",gdpr_importDropzone);
+	gdpr_importInput.type = "file";
+	gdpr_importInput.name = "json";
+	gdpr_importInput.accept = "application/json";
+	gdpr_importInput.onchange = function(){
+		let file = gdpr_importInput.files[0];
+		let reader = new FileReader();
+		reader.readAsText(file,"UTF-8");
+		reader.onload = function(evt){
+			let data;
+			try{
+				data = JSON.parse(evt.target.result)
+			}
+			catch(e){
+				resultsErrorsAL.innerText = "error parsing JSON";
+			}
+			if(data.hasOwnProperty("User")){
+				resultsErrorsAL.innerText = "This is the GDPR JSON importer, but you uploaded a Anilist JSON file. You either uploaded the wrong file, or ment to use the importer further up the page.";
+				return
+			}
+			if(data.user.display_name.toLowerCase() !== whoAmI.toLowerCase()){
+				resultsWarningsAL.innerText = "List for \"" + data.user.display_name + "\" loaded, but currently signed in as \"" + whoAmI + "\". Are you sure this is right?"
+			}
+			if(!useScripts.accessToken){
+				resultsWarningsAL.innerText += "\nNot signed in to the script! Can't do any changes to your lists then. Go to the bottom of the settings > apps page to sign in"
+			}
+		}
 	}
 }
