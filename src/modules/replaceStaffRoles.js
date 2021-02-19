@@ -762,6 +762,7 @@ let animeHandler = function(data){
 			anime.myStatus.repeat = 1
 		}
 		autocomplete.add(anime.title);
+		autocomplete.add(distributionFormats[anime.format]);
 		autocomplete.add(edge.staffRole);
 		animeRolesList.push(anime)
 	});
@@ -815,6 +816,7 @@ let mangaHandler = function(data){
 			manga.myStatus.repeat = 1
 		}
 		autocomplete.add(manga.title);
+		autocomplete.add(distributionFormats[manga.format]);
 		autocomplete.add(edge.staffRole);
 		mangaRolesList.push(manga)
 	});
