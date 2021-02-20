@@ -15,6 +15,7 @@
 	overflow: auto;
 	height: 100%;
 	scrollbar-width: thin;
+	margin-top: 5px;
 }
 .hohDisplayBoxClose{
 	position: absolute;
