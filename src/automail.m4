@@ -10,8 +10,11 @@ m4_divert(0)m4_dnl
 // @author       hoh
 // @match        https://anilist.co/*
 // @grant        GM_xmlhttpRequest
-// @license      GPLv3
+// @license      GPL-3.0-or-later
 // ==/UserScript==
+// SPDX-FileCopyrightText: 2019-2021 hoh and the Automail contributors
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
 (function(){
 "use strict";
 const scriptInfo = {
@@ -23,7 +26,7 @@ const scriptInfo = {
 	"chrome" : "NO KNOWN BUILDS",
 	"author" : "hoh",
 	"authorLink" : "https://anilist.co/user/hoh/",
-	"license" : "GPLv3"
+	"license" : "GPL-3.0-or-later"
 };
 /*
 	A collection of enhancements for Anilist.co
