@@ -467,16 +467,28 @@ function addMoreStats(){
 				isMixed: true,
 				headings: ["Tag","Count","Mean Score","Time Watched","Chapters Read"],
 				focus: -1,
+				anime: true,
+				manga: true,
 				celData: [
 					function(cel,data,index,isPrimary,isTag){
 						if(isPrimary){
 							let nameCellCount = create("div","count",(index+1),cel);
 							let nameCellTag = create("a",false,data[index].name,cel,"cursor:pointer;");
 							if(isTag){
-								nameCellTag.href = "/search/anime?includedTags=" + data[index].name + "&onList=true"
+								if(mixedFormatter.anime){
+									nameCellTag.href = "/search/anime?includedTags=" + data[index].name + "&onList=true"
+								}
+								else{
+									nameCellTag.href = "/search/manga?includedTags=" + data[index].name + "&onList=true"
+								}
 							}
 							else{
-								nameCellTag.href = "/search/anime?includedGenres=" + data[index].name + "&onList=true"
+								if(mixedFormatter.anime){
+									nameCellTag.href = "/search/anime?includedGenres=" + data[index].name + "&onList=true"
+								}
+								else{
+									nameCellTag.href = "/search/manga?includedGenres=" + data[index].name + "&onList=true"
+								}
 							}
 							if(tagDescriptions[data[index].name]){
 								nameCellTag.title = tagDescriptions[data[index].name]
@@ -586,7 +598,7 @@ function addMoreStats(){
 			let drawer = function(){
 				if(regularFilterHeading.children.length === 0){
 					let filterWrap = create("div",false,false,regularFilterHeading);
-					create("p",false,"tip: click a row to show all the media entries it is made up by",regularFilterHeading);
+					create("p",false,"tip: click a row to show individual media entries",regularFilterHeading);
 					let filterLabel = create("span",false,"Filters",filterWrap);
 					let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
 					let filters = create("div",false,false,filterWrap,"display: none");
@@ -696,6 +708,8 @@ function addMoreStats(){
 						else if(!input_m.checked){
 							base_media = semaPhoreAnime
 						}
+						mixedFormatter.anime = input_a.checked;
+						mixedFormatter.manga = input_m.checked;
 						base_media = base_media.filter(mediaEntry => {
 							if(mediaEntry.hasOwnProperty("progressVolumes")){
 								if(mediaEntry.progress < parseInt(min_c_input.value)){
