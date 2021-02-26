@@ -20,8 +20,11 @@ function addCustomCSS(){
 				external.remove()
 			}
 			if(!data){
-				return;
+				return
 			};
+			if(!(/anilist\.co\/user\//.test(document.URL))){
+				return
+			}
 			let jsonMatch = (data.data.User.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 			if(!jsonMatch){
 				return
@@ -46,7 +49,7 @@ function addCustomCSS(){
 					else{
 						customStyle.textContent = jsonData.customCSS
 					}
-					currentUserCSS = decodeURIComponent(URLstuff[1]);
+					currentUserCSS = decodeURIComponent(URLstuff[1])
 				}
 			}
 			catch(e){
