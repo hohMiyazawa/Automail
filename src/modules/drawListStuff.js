@@ -203,39 +203,14 @@ function drawListStuff(){
 								let countPlace = create("span","count",false,listing,"width:110px;display:inline-block;");
 								let progress = create("span",false,item.data.data.MediaList.progress + " ",countPlace);
 								let guess = create("span",false,"+" + (item.bestGuess - item.data.data.MediaList.progress),countPlace,"color:rgb(var(--color-green));");
-								if(useScripts.accessToken){
-									progress.style.cursor = "pointer";
-									progress.title = "Increment progress by 1";
-									progress.onclick = function(){
-										if(banMode){
-											return
-										}
-										item.data.data.MediaList.progress++;
-										authAPIcall(
-											`mutation($id: Int,$progress: Int){
-												SaveMediaListEntry(mediaId: $id,progress: $progress){id}
-											}`,
-											{
-												id: media.id,
-												progress: item.data.data.MediaList.progress
-											},
-											function(fib){
-												if(!fib){
-													item.data.data.MediaList.progress--;
-													progress.innerText = item.data.data.MediaList.progress + " ";
-													guess.innerText = "+" + (item.bestGuess - item.data.data.MediaList.progress)
-												}
-											}
-										);
-										progress.innerText = item.data.data.MediaList.progress + " ";
-										if(item.bestGuess - item.data.data.MediaList.progress > 0){
-											guess.innerText = "+" + (item.bestGuess - item.data.data.MediaList.progress)
-										}
-										else{
-											guess.innerText = ""
-										}
+								progress.style.cursor = "pointer";
+								progress.title = "Open list editor";
+								progress.onclick = function(){
+									if(banMode){
+										return
 									}
-								};
+									document.getElementById("app").__vue__.$store.dispatch("medialistEditor/open",media.id)
+								}
 								create("a",["link","newTab"],title,listing)
 									.href = "/manga/" + media.id + "/" + safeURL(title) + "/";
 								let chapterClose = create("span","hohDisplayBoxClose",svgAssets.cross,listing);
