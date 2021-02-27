@@ -13,7 +13,7 @@ const anisongs_temp = {
 
 exportModule({
 	id: "anisongs",
-	description: "Add OP/ED data to media pages [by morimasa]",
+	description: "Add OP/ED data to media pages [by Morimasa]",
 	isDefault: false,
 	categories: ["Media","Newly Added"],
 	visible: true,
