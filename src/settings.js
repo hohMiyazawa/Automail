@@ -122,6 +122,7 @@ let useScripts = {//most modules are turned on by default
 	annoyingAnimations: true,
 	navbarDroptext: true,
 	browseSubmenu: false,
+	reinaDarkEnable: false,
 	softBlock: []
 };
 
