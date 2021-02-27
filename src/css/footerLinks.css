@@ -14,7 +14,7 @@
 	left: -10px;
 }
 
-.footer [href="https://www.facebook.com/Anichart"]::before{
+.footer [href="https://www.facebook.com/AniListco"]::before{
 	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 36 36" version="1.1"><rect fill="%233B5998" width="36" height="36"/><path fill="%23FFFFFF" d="M30.895,16.535l-0.553,5.23h-4.181v15.176h-6.28V21.766H16.75v-5.23h3.131v-3.149c0-4.254,1.768-6.796,6.796-6.796h4.181v5.23h-2.615c-1.952,0-2.081,0.736-2.081,2.1v2.615H30.895z"/></svg>');
 	position: absolute;
 	left: -10px;
