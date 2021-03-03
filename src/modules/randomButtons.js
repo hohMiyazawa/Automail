@@ -26,6 +26,7 @@ exportModule({
 				let currentText = place[index].innerText;
 				place[index].innerText = "";
 				let link = create("a","link",currentText,place[index],"cursor:pointer;");
+				link.title = "Click to pick one at random";
 				let selected = Math.floor(Math.random()*data.data.Page.pageInfo.total);
 				link.onclick = function(){
 					generalAPIcall(
