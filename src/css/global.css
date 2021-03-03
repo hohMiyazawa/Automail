@@ -1709,93 +1709,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 	grid-row-gap: 30px;
 	grid-template-columns: repeat(3,1fr);
 }
-.hohStudioSubstitute .media-card{
-	background: rgb(var(--color-foreground));
-	border-radius: 3px;
-	box-shadow: 0 2px 20px
-	rgba(49,54,68,.09);
-	display: inline-grid;
-	grid-template-columns: 185px auto;
-	height: 265px;
-	min-width: 370px;
-	position: relative;
-	text-align: left;
-}
-.hohStudioSubstitute .cover{
-	background-color: var(--media-color);
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	position: relative;
-}
-.hohStudioSubstitute .data{
-	position: relative;
-}
-.hohStudioSubstitute .description{
-	font-size: 1.1rem;
-	height: 160px;
-	line-height: 15px;
-	overflow: hidden;
-	padding: 12px;
-	color: rgb(var(--color-text-light));
-}
-.hohStudioSubstitute .genres{
-	background: rgb(var(--color-foreground-blue));
-	bottom: 0;
-	color: rgb(var(--color-text-lighter));
-	font-size: 1.1rem;
-	left: 0;
-	line-height: 13px;
-	padding: 8px 10px;
-	position: absolute;
-	text-align: center;
-	width: 100%;
-}
-.hohStudioSubstitute .cover .overlay{
-	background: rgba(var(--color-overlay),.8);
-	color: rgb(var(--color-text-bright));
-	font-size: 1.4rem;
-	padding: 12px;
-	width: 100%;
-}
-.hohStudioSubstitute .cover .overlay .title{
-	line-height: 17px;
-}
-.hohStudioSubstitute .airing-countdown{
-	background: rgb(var(--color-foreground-blue-dark));
-	color: rgb(var(--color-blue));
-	font-weight: 500;
-	text-align: center;
-	padding: 10px;
-	font-size: 1.2rem;
-}
-.hohStudioSubstitute .extra{
-	background: rgb(var(--color-foreground-blue));
-	color: rgb(var(--color-text-light));
-	display: flex;
-	font-size: 1.1rem;
-	justify-content: space-around;
-}
-.hohStudioSubstitute .extra > span{
-	display: inline-block;
-	padding: 8px;
-	text-align: center;
-}
-.hohStudioSubstitute .list-status{
-	border-radius: 50px;
-	box-shadow: 0 1px 10px
-	rgba(49,54,68,.8);
-	cursor: help;
-	height: 10px;
-	left: 12px;
-	position: absolute;
-	top: 12px;
-	width: 10px;
-}
 .hohRecsSwitch{
 	min-width: 500px
 }
@@ -2021,214 +1934,73 @@ body.TMPreviewScore > .el-tooltip__popper{
 .hohGuideHeading:visited{
 	color: rgb(var(--color-blue));
 }
-.studio-page-unscoped.cardView .media-card,
-.studio-page-unscoped:not(.listView) .media-card{
-	overflow: visible;
+.studio-page-unscoped:not(.cardView) .grid-wrap{
+	grid-template-columns: none;
+	grid-template-columns: 1fr;
+	grid-gap: 12px 30px;
 }
-.studio-page-unscoped.cardView .hohStudioSubstitute .list-status{
-	transform: translate(-18px,-18px);
-}
-.studio-page-unscoped:not(.listView) .hohStudioSubstitute .list-status{
-	transform: translate(-20px,-20px);
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .description{
-	display: none;
-}
-.studio-page-unscoped .hohStudioSubstitute .description:hover{
-	overflow-y: auto;
-	scrollbar-width: thin;
-}
-.studio-page-unscoped,
-.results > .studio{
-	counter-reset: ranking;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .character,
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .staff{
+.studio-page-unscoped:not(.cardView) .media-card{
+	backface-visibility: hidden;
+	background: rgb(var(--color-background-100));
+	border-radius: 2px;
+	box-shadow: 0 14px 30px rgba(var(--color-shadow-blue),.15),0 4px 4px rgba(var(--color-shadow-blue),.05);
+	display: inline-grid;
+	grid-template-columns: 48px auto;
 	position: relative;
+	text-align: left;
+	min-height: 80px;
+	width: 100%;
 }
-.studio-page-unscoped .hohStudioSubstitute .data::before{
-	left: 2px;
-	opacity: 0.4;
-	font-size: 70%;
-	position: absolute;
-	counter-increment: ranking;
-	content: counter(ranking);
+.studio-page-unscoped:not(.cardView) .cover{
+	height: 81px;
+	width: 54px;
+	border-radius: 2px;
 }
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .media-card{
-	min-width: 150px!important;
-	grid-template-columns: 150px auto!important;
-	height: 297px!important;
-	width: 150px !important;
+.studio-page-unscoped:not(.cardView) .title{
+	margin-left: 20px;
+	color: rgb(var(--color-gray-900));
+	display: block;
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 8px;
+	margin-top: 16px;
 }
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .cover .overlay{
-	padding-left: 8px!important;
-	padding-right: 8px!important;
-	padding-top: 4px!important;
-	padding-bottom: 14px!important;
-}
-.studio-page-unscoped:not(.cardView)  .hohStudioSubstitute .grid-wrap > .media-card{
-	margin-left: 30px;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .media-card .cover{
-	width: 150px;
-	height: 215px;
-	margin-top: 53px;
-	z-index: 100;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .data{
-	margin-left: -150px;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .genres{
-	min-height:29px;
-	z-index: 101;
-	padding: 8px 5px!important;
-	padding-bottom: 2px !important;
-	font-size: 1rem!important;
-	line-height: 1.15;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .list-edit{
-	z-index: 101;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .airing-countdown{
-	padding: 5px!important;
-}
-.studio-page-unscoped:not(.cardView)  .hohStudioSubstitute.grid-wrap{
-	grid-template-columns: repeat(auto-fill, 150px) !important;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .media{
-	grid-template-columns: repeat(auto-fill, 150px) !important;
-	width:100%;
-}
-.studio-page-unscoped:not(.cardView) .hohStudioSubstitute .list-status{
-	width: 20px!important;
-	height: 20px!important;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute.container.grid-wrap,
-.studio-page-unscoped.compactListView .hohStudioSubstitute.container.grid-wrap{
-	display: block!important;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card{
-	margin-bottom: 10px;
-	height: 195px;
-	width: 95%;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .cover{
-	height: 165px;
-	width: 115px;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .cover .overlay{
-	position: absolute;
-	top: 0px;
-	left: 115px;
-	z-index: 5;
+.studio-page-unscoped:not(.cardView) .media-card .hover-data{
+	opacity: 1;
+	left: 0px;
 	background: none;
-	width: 550px;
-	padding: 10px;
-	color: rgb(var(--color-text));
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data{
-	margin-left: -70px;
-	height: 195px;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data .list-edit{
-	display: inline;
-	width: 115px;
-	height: 30px;
-	position: absolute;
-	left: -115px;
-	top: 165px;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data .genres{
-	display: inline;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data .extra{
-	padding-left: 50%;
-}
-.studio-page-unscoped.listView .media-card .data .description{
-	height: 102px;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data .airing-countdown,
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .airing-countdown{
-	text-align: right;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .media-card .data .list-edit .action{
-	padding: 5px;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card{
-	margin-bottom: 5px;
-	height: 30px;
-	width: 95%;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .description{
-	display: none;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .cover{
-	background: none!important;
-	height: 30px;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .cover .list-status{
-	transform: translate(-3px,-3px);
-	z-index: 51;
 	box-shadow: none;
+	padding: 10px;
 }
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .cover .overlay{
-	z-index: 49;
-	background: none;
+.studio-page-unscoped:not(.cardView) .media-card .hover-data .genres{
 	position: absolute;
-	top: 0px;
-	left: 20px;
-	padding: 6px;
-	width: 600px;
-	color: rgb(var(--color-text));
+	left: 50px;
+	top: 20px;
 }
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data{
-	margin-left: -185px;
-	position: relative;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .list-edit{
+.studio-page-unscoped:not(.cardView) .media-card .hover-data .info{
 	position: absolute;
-	top: 0px;
-	width: 115px;
-	left: calc(100% - 115px);
-	background: none;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card:hover .data .airing-countdown{
-	display: none;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .extra{
-	position: absolute;
-	left: calc(100% - 550px);
-	top: 0px;
-	background: none;
+	right: 200px;
+	top: 25px;
 	width: 150px;
 }
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .genres{
+.studio-page-unscoped:not(.cardView) .media-card .hover-data .score{
 	position: absolute;
-	width: 200px;
-	top: 6px;
-	background: none;
-	left: calc(100% - 350px);
-	display: inline;
-	padding: 0px;
-	height: 30px;
-	line-height: 10px;
+	right: 400px;
+	top: 25px;
 }
-.studio-page-unscoped.compactListView .hohStudioSubstitute .media-card .data .genres span{
-	vertical-align: middle;
-}
-.studio-page-unscoped.compactListView .hohStudioSubstitute .data::before{
-	font-size: 50%;
-}
-.studio-page-unscoped.listView .hohStudioSubstitute .data::before{
-	font-size: 60%;
+.studio-page-unscoped:not(.cardView) .media-card .hover-data .date{
+	position: absolute;
+	right: 50px;
+	top: 30px;
+	width: 120px;
 }
 .studio-page-unscoped .hohThemeSwitch{
-	width: 130px;
+	width: 80px;
 	position: absolute;
 	top: 60px;
 	left: 50%;
 }
-.studio .hohStudioSubstitute .media-card.isMain{
+.studio .media-card.isMain{
 	border-bottom: rgb(var(--color-blue));
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
