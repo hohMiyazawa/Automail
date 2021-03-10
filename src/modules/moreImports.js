@@ -492,7 +492,12 @@ function moreImports(){
 	apMangaInput.onchange = function(){
 		apImport("manga",apMangaInput.files[0])
 	}
-	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
+	create("hr","hohSeparator",false,target,"margin-bottom: 40px;");
+	let userNameContainer = create("div",false,false,target,"margin-bottom: 20px;");
+	let userNameLabel = create("span",false,"User: ",userNameContainer);
+	let userName = create("input","hohNativeInput",false,userNameContainer);
+	userName.value = whoAmI;
+	
 	let alAnimeExp = create("div",["section","hohImport"],false,target);
 	create("h2",false,"AniList: Export Anime List",alAnimeExp);
 	let alAnimeButton = create("button",["button","hohButton"],"Export Anime",alAnimeExp);
@@ -548,8 +553,12 @@ function moreImports(){
 		score
 	}
 	`,
-			{name: whoAmI},
+			{name: userName.value},
 			function(data){
+				if(!data){
+					alert("Export failed");
+					return
+				}
 				data.data.version = "1.01";
 				data.data.scriptInfo = scriptInfo;
 				data.data.type = "ANIME";
@@ -614,8 +623,12 @@ function moreImports(){
 		score
 	}
 	`,
-			{name: whoAmI},
+			{name: userName.value},
 			function(data){
+				if(!data){
+					alert("Export failed");
+					return
+				}
 				data.data.version = "1.01";
 				data.data.scriptInfo = scriptInfo;
 				data.data.type = "MANGA";
