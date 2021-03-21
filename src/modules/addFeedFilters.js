@@ -9,12 +9,12 @@ function addFeedFilters(){
 	let activityFeedWrap = document.querySelector(".activity-feed-wrap");
 	if(!activityFeedWrap){
 		setTimeout(addFeedFilters,100);
-		return;
+		return
 	};
 	let activityFeed = activityFeedWrap.querySelector(".activity-feed");
 	if(!activityFeed){
 		setTimeout(addFeedFilters,100);
-		return;
+		return
 	};
 	let commentFilterBoxInput;
 	let commentFilterBoxLabel;
@@ -38,14 +38,14 @@ function addFeedFilters(){
 			};
 			let actionLikes = activityFeed.children[i].querySelector(".action.likes .button .count");
 			if(actionLikes){
-				actionLikes = parseInt(actionLikes.innerText);
+				actionLikes = parseInt(actionLikes.innerText)
 			}
 			else{
 				actionLikes = 0
 			};
 			let actionReplies = activityFeed.children[i].querySelector(".action.replies .count");
 			if(actionReplies){
-				actionReplies = parseInt(actionReplies.innerText);
+				actionReplies = parseInt(actionReplies.innerText)
 			}
 			else{
 				actionReplies = 0
@@ -67,25 +67,17 @@ function addFeedFilters(){
 				if(activityFeed.children[i].classList.contains("activity-anime_list") || activityFeed.children[i].classList.contains("activity-manga_list")){
 					let blockerMap = {
 						"plans": "PLANNING",
-						"Plans": "PLANNING",
 						"watched": "CURRENT",
-						"Watched": "CURRENT",
 						"read": "CURRENT",
-						"Read": "CURRENT",
 						"completed": "COMPLETED",
-						"Completed": "COMPLETED",
 						"paused": "PAUSED",
-						"Paused": "PAUSED",
 						"dropped": "DROPPED",
-						"Dropped": "DROPPED",
 						"rewatched": "REPEATING",
-						"Rewatched": "REPEATING",
-						"reread": "REPEATING",
-						"Reread": "REPEATING"
+						"reread": "REPEATING"
 					};
 					let status = blockerMap[
 						Object.keys(blockerMap).find(
-							key => activityFeed.children[i].querySelector(".status").innerText.includes(key)
+							key => activityFeed.children[i].querySelector(".status").innerText.toLowerCase().includes(key)
 						)
 					]
 					if(status === "CURRENT"){
@@ -95,12 +87,12 @@ function addFeedFilters(){
 						activityFeed.children[i].style.borderRightStyle = "solid";
 						activityFeed.children[i].style.borderRightWidth = "5px";
 						if(useScripts.CSSgreenManga && activityFeed.children[i].classList.contains("activity-anime_list")){
-							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-blue))";
+							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-blue))"
 						}
 						else{
-							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-green))";
+							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-green))"
 						}
-						activityFeed.children[i].style.marginRight = "-5px";
+						activityFeed.children[i].style.marginRight = "-5px"
 					}
 					else{
 						activityFeed.children[i].style.borderRightStyle = "solid";

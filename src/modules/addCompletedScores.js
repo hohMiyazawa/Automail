@@ -1,4 +1,5 @@
 function addCompletedScores(){
+	//also for dropped, if in the settings
 	if(! /^\/(home|user|activity)\/?([\w\-]+)?\/?$/.test(location.pathname)){
 		return
 	}
@@ -13,7 +14,7 @@ function addCompletedScores(){
 		){
 			if(!status.hasOwnProperty("hohScoreMatched")){
 				status.hohScoreMatched = true;
-				let scoreInfo = create("span",false,false,status);
+				let scoreInfo = create("span","hohFeedScore",false,status);
 				const mediaId = /\/(\d+)\//.exec(status.children[0].href);
 				if(!mediaId || !mediaId.length){
 					return
@@ -55,12 +56,12 @@ function addCompletedScores(){
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
 						if(/^completed/i.test(status.innerText)){
 							scoreInfo.appendChild(scoreSuffix);
-							create("span",false,noteSuffix,scoreInfo);
-							create("span",false,rewatchSuffix,scoreInfo)
+							create("span","hohNoteSuffix",noteSuffix,scoreInfo);
+							create("span","hohRewatchSuffix",rewatchSuffix,scoreInfo)
 						}
 						else{
 							scoreInfo.appendChild(scoreSuffix);
-							create("span",false,noteSuffix,scoreInfo)
+							create("span","hohNoteSuffix",noteSuffix,scoreInfo)
 						};
 						scoreInfo.style.display = "inline"
 					}

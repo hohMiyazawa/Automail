@@ -1934,12 +1934,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 .hohGuideHeading:visited{
 	color: rgb(var(--color-blue));
 }
-.studio-page-unscoped:not(.cardView) .grid-wrap{
+.studio-page-unscoped.listView .grid-wrap{
 	grid-template-columns: none;
 	grid-template-columns: 1fr;
 	grid-gap: 12px 30px;
 }
-.studio-page-unscoped:not(.cardView) .media-card{
+.studio-page-unscoped.listView .media-card{
 	backface-visibility: hidden;
 	background: rgb(var(--color-background-100));
 	border-radius: 2px;
@@ -1951,12 +1951,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	min-height: 80px;
 	width: 100%;
 }
-.studio-page-unscoped:not(.cardView) .cover{
+.studio-page-unscoped.listView .cover{
 	height: 81px;
 	width: 54px;
 	border-radius: 2px;
 }
-.studio-page-unscoped:not(.cardView) .title{
+.studio-page-unscoped.listView .title{
 	margin-left: 20px;
 	color: rgb(var(--color-gray-900));
 	display: block;
@@ -1965,37 +1965,37 @@ body.TMPreviewScore > .el-tooltip__popper{
 	margin-bottom: 8px;
 	margin-top: 16px;
 }
-.studio-page-unscoped:not(.cardView) .media-card .hover-data{
+.studio-page-unscoped.listView .media-card .hover-data{
 	opacity: 1;
 	left: 0px;
 	background: none;
 	box-shadow: none;
 	padding: 10px;
 }
-.studio-page-unscoped:not(.cardView) .media-card .hover-data .genres{
+.studio-page-unscoped.listView .media-card .hover-data .genres{
 	position: absolute;
 	left: 50px;
 	top: 20px;
 }
-.studio-page-unscoped:not(.cardView) .media-card .hover-data .info{
+.studio-page-unscoped.listView .media-card .hover-data .info{
 	position: absolute;
 	right: 200px;
 	top: 25px;
 	width: 150px;
 }
-.studio-page-unscoped:not(.cardView) .media-card .hover-data .score{
+.studio-page-unscoped.listView .media-card .hover-data .score{
 	position: absolute;
 	right: 400px;
 	top: 25px;
 }
-.studio-page-unscoped:not(.cardView) .media-card .hover-data .date{
+.studio-page-unscoped.listView .media-card .hover-data .date{
 	position: absolute;
 	right: 50px;
 	top: 30px;
 	width: 120px;
 }
 .studio-page-unscoped .hohThemeSwitch{
-	width: 80px;
+	width: 75px;
 	position: absolute;
 	top: 60px;
 	left: 50%;
