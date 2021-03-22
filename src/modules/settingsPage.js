@@ -444,14 +444,59 @@ exportModule({
 
 		hohSettings.appendChild(create("hr"));
 
-		let debugInfo = create("button",["hohButton","button"],"Export debug info",hohSettings);
+		let debugInfo = create("button",["hohButton","button"],"Export settings",hohSettings);
+		create("p",false,"Might come in handy to keep a backup if you do stuff like wiping your browser cache/storage, which will wipe your Automail settings too",hohSettings);
+		create("p",false,"Import settings:",hohSettings);
+		let debugImport = create("input","input-file",false,hohSettings);
+		debugImport.setAttribute("type","file");
+		debugImport.setAttribute("name","json");
+		debugImport.setAttribute("accept","application/json");
 		debugInfo.onclick = function(){
 			let export_settings = JSON.parse(JSON.stringify(useScripts));//deepclone
-			if(export_settings.accessToken){
-				export_settings.accessToken = "[REDACTED]";
+			if(export_settings.accessToken){//idiot proofing: we don't want users leaking their access tokens
+				export_settings.accessToken = "[REDACTED]"
 			}
-			saveAs(export_settings,"automail_debug_info.json");
+			if(whoAmI){
+				saveAs(export_settings,"automail_settings_" + whoAmI + ".json")
+			}
+			else{
+				saveAs(export_settings,"automail_settings.json")
+			}
 		}
-		create("p",false,"A file containing your settings. It's nice if you include this when reporting an issue. Not anonymous, but does not contain login info.",hohSettings);
+		debugImport.oninput = function(){
+			let reader = new FileReader();
+			reader.readAsText(debugImport.files[0],"UTF-8");
+			reader.onload = function(evt){
+				let data;
+				try{
+					data = JSON.parse(evt.target.result)
+				}
+				catch(e){
+					alert("error parsing JSON")
+					return
+				}
+				if(!data.hasOwnProperty("automailAPI")){//sanity check
+					alert("not a settings file")
+					return
+				}
+				Object.keys(data).forEach(//this is to keep the default settings if the version imported is outdated
+					key => {
+						if(key === "accessToken"){
+							if(!useScripts.accessToken && data[key] === "[REDACTED]"){
+								alert("Access tokens are not stored in settings files for security reasons. You have to click the 'Sign in with the script' button again")
+							}
+						}
+						else{
+							useScripts[key] = data[key]
+						}
+					}
+				)
+				useScripts.save();
+			}
+			reader.onerror = function(evt){
+				alert("error reading file")
+			}
+		}
+		create("p",false,"(Hey, it would be nice if you include this file when you report bugs. Makes my life easier)",hohSettings);
 	}
 })
