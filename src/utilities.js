@@ -523,7 +523,7 @@ if(useScripts.mangaBrowse){
 m4_include(utilities/colourPicker.js)
 
 function scoreFormatter(score,format){
-	let scoreElement = create("span");
+	let scoreElement = create("span","hohScore");
 	if(format === "POINT_100"){
 		scoreElement.innerText = score + "/100"
 	}
@@ -534,6 +534,7 @@ function scoreFormatter(score,format){
 		scoreElement.innerText = score + "/10"
 	}
 	else if(format === "POINT_3"){
+		scoreElement.classList.add("hohSmiley");
 		if(score === 3){
 			scoreElement.appendChild(svgAssets2.smile.cloneNode(true));
 		}

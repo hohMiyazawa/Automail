@@ -179,6 +179,12 @@ m4_include(css/notifications.css)
 .markdown-editor > [title="Link"]{
 	color: rgba(var(--color-blue));
 }
+[slug="Sakasama-no-Patema"] .cover-wrap-inner .cover:hover{
+	transform: rotate(180deg);
+}
+[slug="Sakasama-no-Patema"] .cover-wrap-inner .cover{
+	transition: .2s;
+}
 .hohBackgroundUserCover{
 	height: 50px;
 	width: 50px;
@@ -2034,7 +2040,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 	display: none;
 }
 /*no !importants here, since Erwin is styling this on his own:*/
-.hohFeedScore{
+.hohNoteSuffix:not(:empty),
+.hohRewatchSuffix:not(:empty),
+.hohScore:not(.hohSmiley){
 	background-color: rgba(var(--color-black),0.5);
 	padding: 0px 5px 1px 5px;
 	border-radius: 3px;
