@@ -2033,6 +2033,13 @@ body.TMPreviewScore > .el-tooltip__popper{
 .character-roles.hohSubstitute > div:not(.hoh-character-roles){
 	display: none;
 }
+/*no !importants here, since Erwin is styling this on his own:*/
+.hohFeedScore{
+	background-color: rgba(var(--color-black),0.5);
+	padding: 0px 5px 1px 5px;
+	border-radius: 3px;
+	color: white;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
