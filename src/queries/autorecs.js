@@ -69,7 +69,7 @@
 					}
 				})
 			});
-			miscResults.innerText = "";
+			miscResults.innerText = "Top picks, based on your ratings, the ratings of others, and the recommendation database. Best matches on top";
 			[...recsMap].map(
 				pair => ({
 					id: pair[0],

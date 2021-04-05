@@ -718,7 +718,7 @@ function formatCompat(compatData,targetLocation,name){
 	};
 	targetLocation.innerText = "";
 	targetLocation.appendChild(differenceSpan);
-	let countSpan = create("span",false," based on " + compatData.shared + " shared entries. Lower is better. 0.8 - 1.1 is common",targetLocation);
+	let countSpan = create("span",false," based on " + compatData.shared + " shared entries. Lower is better. 0.8 - 1.1 is common\nFormally, this is 'standard deviation between normalized ratings'",targetLocation);
 	let canvas = create("canvas",false,false,targetLocation,"display:block;");
 	canvas.title = "Blue = " + name + "\nRed = you";
 	canvas.width = 200;

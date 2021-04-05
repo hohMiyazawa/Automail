@@ -98,7 +98,7 @@ fragment stuff on MediaList{
 							possRecs.filter(
 								rec => ((!rec.second.mediaListEntry) || rec.second.mediaListEntry.status === "PLANNING")
 									&& rec.rating > 0
-									&& rec.userRating !== "RATE_DOWN"
+									&& rec.userRating !== "RATE_DOWN"//don't count this recommendation if the user has actively stated it is bad
 							).sort(
 								(b,a) => (a.first.score + a.second.averageScore || 41) * (1 - 1/(a.rating + 1))
 									- (b.first.score + b.second.averageScore || 41) * (1 - 1/(b.rating + 1))

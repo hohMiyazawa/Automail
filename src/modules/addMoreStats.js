@@ -990,7 +990,7 @@ function addMoreStats(){
 							}
 							return acc
 						},0).toPrecision(3),
-						" bits/rating"
+						" bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)"
 					);
 					if(maxRunLength > 1){
 						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
@@ -1077,7 +1077,7 @@ function addMoreStats(){
 			addStat("TV episodes watched: ",TVepisodes);
 			addStat("TV episodes remaining for current shows: ",TVepisodesLeft);
 			if(oldest){
-				create("p",false,"First logged anime: " + oldest.year + "-" + oldest.month + "-" + oldest.day + ". (users can change start dates)",personalStats)
+				create("p",false,"First logged anime: " + oldest.year + "-" + oldest.month + "-" + oldest.day + ". (users can freely change start dates)",personalStats)
 			};
 			let animeFormatter = {
 				title: "Custom Anime Tags",
@@ -1935,7 +1935,7 @@ function addMoreStats(){
 							}
 							return acc
 						},0).toPrecision(3),
-						" bits/rating"
+						" bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)"
 					);
 					if(maxRunLength > 1){
 						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
