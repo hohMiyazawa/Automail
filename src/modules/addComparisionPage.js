@@ -70,6 +70,9 @@ function addComparisionPage(){
 	let systemFilterLabel = create("span",false,"Individual rating systems:",compareArea,"padding:5px;");
 	let systemFilter = createCheckbox(compareArea);
 	systemFilter.checked = useScripts.comparisionSystemFilter;
+	let normalFilterLabel = create("span",false,"Normalize ratings:",compareArea,"padding:5px;");
+	let normalFilter = createCheckbox(compareArea);
+	normalFilter.checked = false;
 	let colourLabel = create("span",false,"Colour entire cell:",compareArea,"padding:5px;");
 	let colourFilter = createCheckbox(compareArea);
 	colourFilter.checked = useScripts.comparisionColourFilter;		
@@ -160,20 +163,21 @@ function addComparisionPage(){
 				dividents: dividents
 			}
 		};
+		let scoreField = (normalFilter.checked ? "scoreNormal" : "score");
 		let sortingModes = {
 			"average": function(show){
-				show.digest = averageCalc(show.score).average
+				show.digest = averageCalc(show[scoreField]).average
 			},
 			"average0": function(show){
-				show.digest = averageCalc(show.score,1).average
+				show.digest = averageCalc(show[scoreField],1).average
 			},
 			"standardDeviation": function(show){
-				let average = averageCalc(show.score);
+				let average = averageCalc(show[scoreField]);
 				let variance = 0;
 				show.digest = 0;
 				if(average.dividents){
-					show.score.forEach(function(score){
-						if(score){
+					show[scoreField].forEach(score => {
+						if(score !== null){
 							variance += Math.pow(score - average.average,2)
 						}
 					});
@@ -182,12 +186,12 @@ function addComparisionPage(){
 				}
 			},
 			"absoluteDeviation": function(show){
-				let average = averageCalc(show.score);
+				let average = averageCalc(show[scoreField]);
 				let variance = 0;
 				show.digest = 0;
 				if(average.dividents){
-					show.score.forEach(function(score){
-						if(score){
+					show[scoreField].forEach(score => {
+						if(score !== null){
 							variance += Math.abs(score - average.average)
 						}
 					});
@@ -196,18 +200,18 @@ function addComparisionPage(){
 				}
 			},
 			"max": function(show){
-				show.digest = Math.max(...show.score)
+				show.digest = Math.max(...show[scoreField])
 			},
 			"min": function(show){
-				show.digest = Math.min(...show.score.filter(TRUTHY)) || 0
+				show.digest = Math.min(...show[scoreField].filter(score => score !== null)) || 0
 			},
 			"difference": function(show){
-				let mini = Math.min(...show.score.filter(TRUTHY)) || 0;
-				let maks = Math.max(...show.score);
+				let mini = Math.min(...show[scoreField].filter(score => score !== null)) || 0;
+				let maks = Math.max(...show[scoreField]);
 				show.digest = maks - mini
 			},
 			"ratings": function(show){
-				show.digest = show.score.filter(TRUTHY).length
+				show.digest = show[scoreField].filter(score => score !== null).length
 			},
 			"planned": function(show){
 				show.digest = show.status.filter(value => value === "PLANNING").length
@@ -219,7 +223,7 @@ function addComparisionPage(){
 				show.digest = show.favourite.filter(TRUTHY).length
 			},
 			"median": function(show){
-				let newScores = show.score.filter(TRUTHY);
+				let newScores = show[scoreField].filter(score => score !== null);
 				if(newScores.length === 0){
 					show.digest = 0
 				}
@@ -238,7 +242,7 @@ function addComparisionPage(){
 					show.digest = 0;
 					return
 				};
-				show.digest = averageCalc(show.score).average - show.averageScore
+				show.digest = averageCalc(show[scoreField]).average - show.averageScore
 			}
 		};
 		if(ratingMode === "user"){
@@ -340,6 +344,9 @@ function addComparisionPage(){
 							users[i].system
 						))
 					}
+					else if(normalFilter.checked){
+						showUserScore.innerText = show.scoreNormal[i].roundPlaces(3)
+					}
 					else{
 						showUserScore.innerText = show.score[i]
 					};
@@ -400,6 +407,9 @@ function addComparisionPage(){
 		};
 		if(systemFilter.checked){
 			params += "&ratingSystems=true"
+		};
+		if(normalFilter.checked){
+			params += "&normalizeRatings=true"
 		};
 		if(colourFilter.checked){;
 			params += "&fullColour=true"
@@ -479,7 +489,7 @@ function addComparisionPage(){
 				addUser(addInput.value);
 				addButton.innerText = "...";
 				addButton.disabled = true;
-				addInput.readOnly = true;
+				addInput.readOnly = true
 			}
 		};
 		userRow.appendChild(addCel);
@@ -615,13 +625,32 @@ function addComparisionPage(){
 			});
 			let list = returnList(data,true);
 			if(!cached){
-				list.forEach(function(alia){
+				let averageSum = 0;
+				let averageCount = 0;
+				list.forEach(alia => {
 					alia.media.id = alia.mediaId;
 					alia.media.title = titlePicker(alia.media);
-					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat)
+					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat);
+					if(alia.scoreRaw){
+						averageSum += alia.scoreRaw;
+						averageCount++
+					}
+				});
+				averageSum = averageSum/averageCount;
+				let varianceSum = 0;
+				list.forEach(alia => {
+					if(alia.scoreRaw){
+						varianceSum += Math.pow(alia.scoreRaw - averageSum,2)
+					}
+				})
+				let std = Math.sqrt(varianceSum/averageCount);
+				list.forEach(alia => {
+					if(alia.scoreRaw){
+						alia.scoreNormal = (alia.scoreRaw - averageSum)/std
+					}
 				})
 			};
-			shows.sort(function(a,b){return a.id - b.id;});
+			shows.sort(function(a,b){return a.id - b.id});
 			let listPointer = 0;
 			let userIndeks = 0;
 			if(shows.length){
@@ -638,8 +667,9 @@ function addComparisionPage(){
 					average: mediaEntry.scoreRaw,
 					title: mediaEntry.media.title,
 					format: mediaEntry.media.format,
-					score: Array(userIndeks).fill(0),
-					scorePersonal: Array(userIndeks).fill(0),
+					score: Array(userIndeks).fill(null),
+					scorePersonal: Array(userIndeks).fill(null),
+					scoreNormal: Array(userIndeks).fill(null),
 					status: Array(userIndeks).fill("NOT"),
 					progress: Array(userIndeks).fill(false),
 					numberWatched: mediaEntry.scoreRaw ? 1 : 0,
@@ -649,6 +679,7 @@ function addComparisionPage(){
 				};
 				entry.score.push(mediaEntry.scoreRaw);
 				entry.scorePersonal.push(mediaEntry.score);
+				entry.scoreNormal.push(mediaEntry.scoreNormal);
 				entry.status.push(mediaEntry.status);
 				if(mediaEntry.status !== "PLANNING" && mediaEntry.status !== "COMPLETED"){
 					entry.progress.push(mediaEntry.progress + "/" + (mediaEntry.media.chapters || mediaEntry.media.episodes || ""))
@@ -659,9 +690,10 @@ function addComparisionPage(){
 				entry.favourite.push(favs.includes(entry.id));
 				return entry
 			};
-			shows.forEach(function(show){
-				show.score.push(0);
-				show.scorePersonal.push(0);
+			shows.forEach(show => {
+				show.score.push(null);
+				show.scorePersonal.push(null);
+				show.scoreNormal.push(null);
 				show.status.push("NOT");
 				show.progress.push(false);
 				show.favourite.push(false)
@@ -673,12 +705,20 @@ function addComparisionPage(){
 				else if(shows[i].id === list[listPointer].mediaId){
 					shows[i].score[userIndeks] = list[listPointer].scoreRaw;
 					shows[i].scorePersonal[userIndeks] = list[listPointer].score;
+					shows[i].scoreNormal[userIndeks] = list[listPointer].scoreNormal;
 					shows[i].status[userIndeks] = list[listPointer].status;
 					if(list[listPointer].scoreRaw){
 						shows[i].numberWatched++
 					};
 					if(list[listPointer].status !== "PLANNING" && list[listPointer].status !== "COMPLETED"){
-						shows[i].progress[userIndeks] = list[listPointer].progress + "/" + (list[listPointer].media.chapters || list[listPointer].media.episodes || "");
+						shows[i].progress[userIndeks] =
+							list[listPointer].progress
+							+ "/"
+							+ (
+								list[listPointer].media.chapters
+								|| list[listPointer].media.episodes
+								|| ""
+							)
 					}
 					else{
 						shows[i].progress[userIndeks] = false
@@ -689,10 +729,10 @@ function addComparisionPage(){
 				else{
 					shows.splice(i,0,createEntry(list[listPointer]));
 					listPointer++
-				};
+				}
 			};
 			for(;listPointer < list.length;listPointer++){
-				shows.push(createEntry(list[listPointer]));
+				shows.push(createEntry(list[listPointer]))
 			};
 			sortShows();
 			drawUsers();
@@ -754,7 +794,7 @@ fragment mediaListEntry on MediaList{
 				{name:userName,listType:type.toUpperCase()},
 				function(data){
 					listCache[userName] = data;
-					handleData(data,false);
+					handleData(data,false)
 				}
 			);
 		};
@@ -787,8 +827,20 @@ fragment mediaListEntry on MediaList{
 	systemFilter.onclick = function(){
 		useScripts.comparisionSystemFilter = systemFilter.checked;
 		useScripts.save();
+		if(systemFilter.checked){
+			normalFilter.checked = false;
+			sortShows()
+		}
 		drawTable();changeUserURL()
 	};
+	normalFilter.onclick = function(){
+		if(normalFilter.checked){
+			systemFilter.checked = false;
+			useScripts.comparisionSystemFilter = false;
+			useScripts.save();
+		}
+		sortShows();drawTable();changeUserURL()
+	}
 	colourFilter.onclick = function(){
 		useScripts.comparisionColourFilter = colourFilter.checked;
 		useScripts.save();
@@ -806,6 +858,10 @@ fragment mediaListEntry on MediaList{
 	let paramSystem = searchParams.get("ratingSystems");
 	if(paramSystem){
 		systemFilter.checked = (paramSystem === "true")
+	};
+	let normalSystem = searchParams.get("normalizeRatings");
+	if(normalSystem){
+		normalFilter.checked = (normalSystem === "true")
 	};
 	let paramColour = searchParams.get("fullColour");
 	if(paramColour){
@@ -833,6 +889,6 @@ fragment mediaListEntry on MediaList{
 	}
 	else{
 		addUser(whoAmI);
-		addUser(userA);
+		addUser(userA)
 	}
 }
