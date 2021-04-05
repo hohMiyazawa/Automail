@@ -15,7 +15,7 @@ exportModule({
 	id: "anisongs",
 	description: "Add OP/ED data to media pages [by Morimasa]",
 	isDefault: false,
-	categories: ["Media","Newly Added"],
+	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return ["anime","manga"].includes(window.location.pathname.split("/")[1])

@@ -13,6 +13,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 exportModule({
 	id: "reinaDark",
 	description: "Add a High Contrast Dark a site theme [by Reina] [work in progress]",
+	extendedDescription: `
+More info and standalone versions: https://anilist.co/activity/136403139
+`,
 	isDefault: true,
 	importance: 1,
 	categories: ["Script","Newly Added"],

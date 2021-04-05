@@ -9,7 +9,7 @@ Firefox: about:config > media.autoplay has a wide range of options
 Chrome: chrome://flags/#autoplay-policy
 `,
 	isDefault: false,
-	categories: ["Feeds","Newly Added"],
+	categories: ["Feeds"],
 	visible: true
 })
 
