@@ -81,7 +81,8 @@ function addFeedFilters(){
 						)
 					]
 					if(status === "CURRENT"){
-						activityFeed.children[i].style.borderRightWidth = "0px"
+						activityFeed.children[i].style.borderRightWidth = "0px";
+						activityFeed.children[i].style.marginRight = "0px"
 					}
 					else if(status === "COMPLETED"){
 						activityFeed.children[i].style.borderRightStyle = "solid";
