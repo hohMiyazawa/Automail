@@ -1026,20 +1026,63 @@ meter::-moz-meter-bar{
 .hohCategory{
 	display: inline-block;
 	padding: 5px;
-	margin: 3px;
-	border-style: solid;
-	border-radius: 5px;
 	color: rgb(var(--color-text));
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	font-size: 1.2rem;
 }
 .hohCategory.active{
 	background: rgb(var(--color-blue));
 	color: rgb(var(--color-text-bright));
+}
+.hohCategories{
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	background-color: rgb(var(--color-background));
+	border-radius: 3px;
+}
+.hohCategory{
+	border: none;
+	line-height: inherit;
+	font-size: 1.2rem;
+	font-weight: 500;
+	white-space: nowrap;
+	flex-grow: 1;
+	margin: 0;
+	padding: 6px 10px;
+	color: rgb(var(--color-text));
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border-radius: 3px;
+}
+.hohCategory:hover{
+	background-color: inherit;
+	color: rgb(var(--color-blue));
+}
+.hohCategory.active,
+.hohCategory:active,
+.hohCategory:focus{
+	font-weight: 500;
+	background-color: rgb(var(--color-foreground-blue));
+	color: rgb(var(--color-white));
+	border-radius: 0;
+}
+.hohCategory:focus:hover {
+	background-color: rgb(var(--color-foreground-blue));
+}
+.hohCategory:active:first-of-type,
+.hohCategory:first-of-type.active,
+.hohCategory:focus:first-of-type{
+	border-radius: 3px 0 0 3px;
+}
+.hohCategory:active:last-of-type,
+.hohCategory:last-of-type.active,
+.hohCategory:focus:last-of-type{
+	border-radius: 0 3px 3px 0;
 }
 #hohSettings .hohSetting{
 	display: none;
