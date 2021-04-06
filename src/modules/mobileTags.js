@@ -23,5 +23,12 @@ exportModule({
 	.media .sidebar .tags .add-icon{
 		opacity: 1;
 	}
+	.media-page-unscoped .review.button{
+		display: inline-block;
+		width: 48%;
+	}
+	.media-page-unscoped .sidebar + .overview{
+		margin-top: 20px;
+	}
 }`
 })
