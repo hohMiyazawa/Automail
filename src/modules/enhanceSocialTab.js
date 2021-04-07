@@ -65,8 +65,17 @@ const handler = (data,target,idMap) => {
 		}
 		target[idMap[e.user.id]].insertBefore(progress,target[idMap[e.user.id]].children[2])
 		let notesEL = create("span","notes") // notes
-		if(e.notes && !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/)){
-			notesEL.appendChild(svgAssets2.notes.cloneNode(true));
+		if(
+			e.notes //only if notes
+			&& !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/) //no need to show malSync-only notes, nobody is interested in that
+			&& !e.notes.match(/^\s+$/) //whitespace-only notes will not show up properly anyway
+		){
+			if(e.notes.match(/^(#\S+\s+)*(#\S+)$/)){//use a separate symbol for tags-only notes. Also helps popularizing tags
+				notesEL.appendChild(svgAssets2.notesTags.cloneNode(true))
+			}
+			else{
+				notesEL.appendChild(svgAssets2.notes.cloneNode(true))
+			}
 			notesEL.title = entityUnescape(e.notes);
 		}
 		let dateString;

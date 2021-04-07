@@ -2082,6 +2082,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 .character-roles.hohSubstitute > div:not(.hoh-character-roles){
 	display: none;
 }
+[data-icon="notesTags"] text{
+	fill: rgb(var(--color-foreground));
+}
 /*no !importants here, since Erwin is styling this on his own:*/
 .activity-feed .hohNoteSuffix:not(:empty),
 .activity-feed .hohRewatchSuffix:not(:empty),

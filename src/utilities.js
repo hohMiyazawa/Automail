@@ -285,19 +285,22 @@ setInterval(function(){
 },2000);
 
 const svgns = "http://www.w3.org/2000/svg";
-const svgShape = function(shape,target,attributes,children){
+const svgShape = function(shape,target,attributes,children,content){
 	shape = shape || "g";
 	let obj = document.createElementNS(svgns,shape);
 	Object.keys(attributes || {}).forEach(key => {
 		obj.setAttributeNS(null,key,attributes[key])
 	});
+	if(content){
+		obj.appendChild(document.createTextNode(content))
+	}
 	if(target){
 		target.appendChild(obj)
 	}
 	(children || []).forEach(
 		child => {
 			if(child.element){
-				svgShape(child.element,obj,child.attributes,child.children)
+				svgShape(child.element,obj,child.attributes,child.children,child.content)
 			}
 			else{
 				obj.appendChild(child)
@@ -454,7 +457,7 @@ const svgAssets = {
 
 const svgAssets2 = {};
 m4_include(data/inlineSVG.json).forEach(inlineSVG => {
-	svgAssets2[inlineSVG.name] = svgShape(inlineSVG.shape.element,false,inlineSVG.shape.attributes,inlineSVG.shape.children)
+	svgAssets2[inlineSVG.name] = svgShape(inlineSVG.shape.element,false,inlineSVG.shape.attributes,inlineSVG.shape.children,inlineSVG.shape.content)
 })
 
 const distributionColours = {
