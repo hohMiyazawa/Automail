@@ -2085,6 +2085,14 @@ body.TMPreviewScore > .el-tooltip__popper{
 [data-icon="notesTags"] text{
 	fill: rgb(var(--color-foreground));
 }
+.list-editor .custom-lists{
+	max-height: 400px;
+	overflow-y: hidden;
+}
+.list-editor .custom-lists:hover{
+	overflow-y: scroll;
+	margin-right: -10px;
+}
 /*no !importants here, since Erwin is styling this on his own:*/
 .activity-feed .hohNoteSuffix:not(:empty),
 .activity-feed .hohRewatchSuffix:not(:empty),
