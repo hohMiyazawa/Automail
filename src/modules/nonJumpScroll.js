@@ -17,8 +17,6 @@ exportModule({
 	importance: 1,
 	categories: ["Feeds","Newly Added"],
 	visible: true,
-	urlMatch: function(url,oldUrl){return false},//dummy, not reserved for any page in particular
-	code: function(){},//dummy, this has to run on startup anyway
 	css: `
     /* Scrollbar */
     * {

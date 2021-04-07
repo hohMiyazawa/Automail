@@ -20,8 +20,6 @@ More info and standalone versions: https://anilist.co/activity/136403139
 	importance: 1,
 	categories: ["Script","Newly Added"],
 	visible: true,
-	urlMatch: function(url,oldUrl){return false},//dummy, not reserved for any page in particular
-	code: function(){},//dummy, this has to run on startup anyway
 	css: `
 .theme-preview.dark-contrast{
 	border-radius: 3px;

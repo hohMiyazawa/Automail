@@ -2,7 +2,7 @@ let modules = [];
 
 function handleScripts(url,oldUrl){
 	modules.forEach(module => {
-		if(useScripts[module.id] && module.urlMatch && module.urlMatch(url,oldUrl)){
+		if(useScripts[module.id] && module.urlMatch && module.code && module.urlMatch(url,oldUrl)){
 			module.code()
 		}
 	})
