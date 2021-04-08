@@ -148,6 +148,12 @@ if(useScripts.reinaDark){
   .announcement {
     background-color: rgb(var(--color-blue-800))!important;
   }
+/* Reduce transparancy of card view notes to make them less easier to miss (accessibility)*/
+.medialist.cards .entry-card .notes,
+.medialist.cards .entry-card .repeat{
+	color: rgba(var(--color-white),1);
+	filter: drop-shadow(0 0 3px rgba(0,0,0,.9));
+}
 `
 	if(useScripts.reinaDarkEnable){
 		darkContrastStyle.textContent = style
