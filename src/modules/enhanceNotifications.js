@@ -271,13 +271,16 @@ You can also turn off this notice there.`,setting)
 			return
 		}
 		notificationsContainer.insertBefore(newContainer,notificationsContainer.firstChild);
+		activities = activities.filter(
+			activity => !(
+				activity.textName
+				&& useScripts.softBlock.includes(activity.textName)
+			)
+		);
 		for(let i=0;i<activities.length;i++){
 			if(useScripts.hideLikes && (activities[i].type === "likeReply" || activities[i].type === "like")){
 				continue
 			};
-			if(activities[i].textName && useScripts.softBlock.indexOf(activities[i].textName) !== -1){
-				continue
-			}
 			let newNotification = create("div");
 			newNotification.onclick = function(){
 				this.classList.remove("hohUnread");
@@ -679,6 +682,7 @@ You can also turn off this notice there.`,setting)
 			&& notification.children[1].children[0].children.length
 			&& notification.children[1].children[0].children[0].children.length
 		){
+			//TODO replace this with document.querySelector?
 			const info = notification.children[1].children[0].children[0];
 			active.directLink = info.href
 			active.text =       info.innerHTML;//does not depend on user input
@@ -691,7 +695,9 @@ You can also turn off this notice there.`,setting)
 			let testType = info.children[0].textContent;
 			active.type = activityTypes[testType];
 			if(!active.type){
-				active.type = "special"; //by default every activity is some weird thing we are displaying as-is
+				active.type = "special"
+				//by default every activity is some weird thing we are displaying as-is
+				//makes the transition more smooth every time Anilist introduces a new type of notification
 			}
 			else if(
 				active.type === "forumCommentLike"
