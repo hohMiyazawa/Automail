@@ -86,6 +86,7 @@ if(useScripts.reinaDark){
 	--color-foreground-blue: 26, 33, 45;
 	--color-foreground-grey: 15, 22, 28;
 	--color-foreground-grey-dark: 6, 12, 13;
+	--color-nav-hoh: rgb(20, 25, 31);
 }
 .site-theme-dark {
 	/* Notification Dropdown */

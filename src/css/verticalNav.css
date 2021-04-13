@@ -227,9 +227,6 @@
 	left: 0!important;
 	transition: none!important;
 }
-div#nav.transparent{
-	background: rgba(var(--color-nav))!important;
-}
 .nav .wrap .links{
 	font-size: 1rem;
 	height: 355px!important;
@@ -321,12 +318,18 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 #nav > div.wrap.guest > div.links a.link.signup{
 	padding: 5px 0px!important;
 }
-div#nav.transparent{
-	background: #1f2631!important;
-}
 #app{
 	margin-top: 0;
 	padding-left: 65px;
+}
+:root {
+	--color-nav-hoh: #2b2d42;
+}
+.site-theme-dark{
+	--color-nav-hoh: #152232;
+}
+#nav.transparent{
+	background: var(--color-nav-hoh);
 }
 .nav .user{
 	position: fixed;
