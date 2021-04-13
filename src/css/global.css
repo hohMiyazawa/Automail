@@ -2088,11 +2088,10 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 .list-editor .custom-lists{
 	max-height: 400px;
-	overflow-y: hidden;
+	overflow-y: auto;
 }
 .list-editor .custom-lists:hover{
-	overflow-y: scroll;
-	margin-right: -10px;
+	margin-right: 0;
 }
 .forum-thread .comment .actions .like-wrap.hohHandledLike .users{
 	width: max-content!important;
