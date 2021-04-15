@@ -122,6 +122,7 @@ let useScripts = {//most modules are turned on by default
 	navbarDroptext: true,
 	browseSubmenu: false,
 	reinaDarkEnable: false,
+	customDefaultListOrder: "",
 	softBlock: []
 };
 
