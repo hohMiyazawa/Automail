@@ -261,6 +261,6 @@
 	"categories": ["Navigation"]
 },{"id": "browseSubmenu",
 	"description": "Replace the native 'browse' submenu when using the vertical nav",
-	"categories": ["Navigation","Newly Added"]
+	"categories": ["Navigation"]
 }
 ]
