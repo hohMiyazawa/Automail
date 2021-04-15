@@ -296,6 +296,11 @@ if(window.BroadcastChannel){
 			else if(message.data.type === "cachev2"){
 				cache.updateIfDifferent(message.data.mediaData,true)
 			}
+			else if(message.data.type === "sessionToken"){
+				window.al_token = message.data.value
+				//to prevent "session expired" messages
+				//see "modules/keepAlive.js"
+			}
 		}
 	}
 }
