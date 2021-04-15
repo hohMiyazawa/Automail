@@ -155,9 +155,6 @@ function handleScripts(url,oldUrl){
 		if(useScripts.viewAdvancedScores){
 			viewAdvancedScores(url)
 		}
-		if(useScripts.yearStepper){
-			yearStepper()
-		}
 	}
 	if(
 		url.match(/^https:\/\/anilist\.co\/user\/(.*)\/(anime|manga)list\/compare/)

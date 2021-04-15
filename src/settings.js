@@ -107,7 +107,6 @@ let useScripts = {//most modules are turned on by default
 	hideAWC: false,
 	forumPreviewNumber: 3,
 	profileBackground: true,
-	yearStepper: true,
 	profileBackgroundValue: "inherit",
 	viewAdvancedScores: true,
 	betterReviewRatings: true,

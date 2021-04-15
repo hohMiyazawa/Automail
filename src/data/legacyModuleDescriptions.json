@@ -72,9 +72,6 @@
 },{"id": "tagIndex",
 	"description": "Show an index of custom tags on anime and manga lists",
 	"categories": ["Lists"]
-},{"id": "yearStepper",
-	"description": "Add buttons to step the year slider up and down",
-	"categories": ["Lists"]
 },{"id": "CSSfollowCounter",
 	"description": "Follow count on social page",
 	"categories": ["Profiles"]
