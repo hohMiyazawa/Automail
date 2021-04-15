@@ -1499,14 +1499,6 @@ meter::-moz-meter-bar{
 	opacity: 0.5;
 	cursor: default;
 }
-.hohStepper{
-	cursor: pointer;
-	position: absolute;
-	opacity: 0.5;
-}
-.el-slider:hover .hohStepper{
-	opacity: 1;
-}
 .hohNameCel{
 	margin-left: 50px;
 	display: block;

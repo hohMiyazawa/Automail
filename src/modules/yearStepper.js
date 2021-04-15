@@ -59,5 +59,14 @@ exportModule({
 				adjuster(1)
 			}
 		};yearStepper()
-	}
+	},
+	css: `
+.hohStepper{
+	cursor: pointer;
+	position: absolute;
+	opacity: 0.5;
+}
+.el-slider:hover .hohStepper{
+	opacity: 1;
+}`
 })
