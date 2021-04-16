@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 EXECUTABLES = sed rm mkdir date zip m4 cp cat
 K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(error "Could not find the dependency '$(exec)'. If you are unable to install it, there are complete builds of Automail at https://github.com/hohMiyazawa/Automail/releases")))
@@ -13,7 +14,11 @@ build/automail.js: settings.js alias.js css/global.css conditionalStyles.js util
 	rm build/userModules.js
 
 build/userModules.js: modules
-	cat modules/* > build/userModules.js
+	for module in modules/*; do\
+	    echo "//begin $$module";\
+	    cat "$$module";\
+	    echo "//end $$module";\
+	done > build/userModules.js
 
 build:
 	mkdir build
