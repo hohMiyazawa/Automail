@@ -1,3 +1,4 @@
+//begin "settings.js"
 try{
 	localStorage.setItem("test","test");
 	localStorage.removeItem("test");
@@ -169,3 +170,4 @@ if(userObject){
 	whoAmIid = userObject.id
 }
 useScripts.save();
+//end "settings.js"

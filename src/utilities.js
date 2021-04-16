@@ -1,3 +1,4 @@
+//begin "utilities.js"
 function safeURL(URL){
 	let compo = encodeURIComponent((URL || "")
 		.replace(/\s|\/|:|★|☆/g,"-")
@@ -893,3 +894,4 @@ const months = [
 ];
 
 let urlChangedDependence = false;//???
+//end "utilities.js"

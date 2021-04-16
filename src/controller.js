@@ -1,4 +1,5 @@
-let modules = [];
+//begin "controller.js"
+const modules = [];
 
 function handleScripts(url,oldUrl){
 	modules.forEach(module => {
@@ -435,7 +436,7 @@ Not that this tag has any force behind it, but we can at least kindly ask them.
 	let dnt_tag = document.createElement("meta");
 	dnt_tag.setAttribute("name","twitter:dnt");
 	dnt_tag.setAttribute("content","on");
-	document.head.appendChild(dnt_tag);
+	document.head.appendChild(dnt_tag)
 }
 
 if(useScripts.automailAPI){
@@ -476,3 +477,4 @@ function exportModule(module){
 	}
 	modules.push(module)
 }
+//end "controller.js"

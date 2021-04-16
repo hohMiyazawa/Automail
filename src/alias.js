@@ -1,3 +1,4 @@
+//begin "alias.js"
 let createAlias = function(alias){
 	if(alias[0] === "css/"){
 		moreStyle.textContent += alias[1]
@@ -108,3 +109,4 @@ const shortRomaji = (useScripts.shortRomaji ? [
 ["/anime/112641/","Kaguya-sama wa Kokurasetai 2"],
 ["/manga/86635/","Kaguya-sama wa Kokurasetai"]
 ] : []);
+//end "alias.js"

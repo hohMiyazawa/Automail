@@ -1,3 +1,4 @@
+//begin "conditionalStyles.js"
 let moreStyle = create("style");
 moreStyle.id = "conditional-automail-styles";
 moreStyle.type = "text/css";
@@ -391,4 +392,4 @@ let aliases = new Map();
 		aliases.set(parseInt(matches[2]),alias[1])
 	}
 });
-
+//end "conditionalStyles.js"

@@ -1,4 +1,5 @@
-localforage.config({name: 'automail'});//can't be just localforage, as Anilist uses it too
+//begin "cache.js"
+localforage.config({name: 'automail'});//can't be named just 'localforage', as Anilist uses it too
 
 let reliablePersistentStorage = true;
 if (navigator.storage && navigator.storage.persist){
@@ -20,7 +21,7 @@ const cache = {
 			cache.scheduled = true;
 			setTimeout(function(){
 				localStorage.setItem("automailListCache",cache.list);
-				cache.scheduled = false;
+				cache.scheduled = false
 			},10*1000)
 		}
 	},
@@ -161,4 +162,5 @@ query($name: String!){
 			callback(cache.list[type].data)
 		}
 	}
-};
+}
+//end "cache.js"

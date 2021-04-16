@@ -1,3 +1,4 @@
+//begin "graphql.js"
 const queryMediaListManga = `
 query($name: String!, $listType: MediaType){
 	MediaListCollection(userName: $name, type: $listType){
@@ -632,3 +633,4 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 	APIcallsUsed++
 }
 const ANILIST_QUERY_LIMIT = 90;
+//end "graphql.js"
