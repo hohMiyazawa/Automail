@@ -1,5 +1,67 @@
 //begin "utilities.js"
+
+/*
+create()
+
+This is the main framework code of Automail.
+It shortens the otherwise verbose procedure of creating a new HTML element and inserting it into the DOM.
+Instead of:
+
+	let element = document.createElement("p");
+	element.innerText = "lorem ipsum";
+	element.classList.add("hohParagraph");
+	pageParentElement.append(element);
+
+You would do:
+
+	create("p","hohParagraph","lorem ipsum");
+
+All arguments except for the HTML tag are optional.
+*/
+function create(
+	HTMLtag,//<string>: The kind of DOM element to create
+	classes,//(optional) <string>: The css class to give the element  OR   [<strings>]: A list of multiple class names
+	//(the first string of the list could optionally start with a "#", in which case it will be an id instead)
+	text,//(optional) <string>: The innerText to give the element
+	appendLocation,//(optional) DOMnode: a node to immediately append the created element to
+	cssText//(optional) <string>: Inline CSS to appy to the element
+){
+	let element = document.createElement(HTMLtag);
+	if(Array.isArray(classes)){
+		element.classList.add(...classes);
+		if(classes.includes("newTab")){
+			element.setAttribute("target","_blank")
+		}
+	}
+	else if(classes){
+		if(classes[0] === "#"){
+			element.id = classes.substring(1)
+		}
+		else{
+			element.classList.add(classes);
+			if(classes === "newTab"){
+				element.setAttribute("target","_blank")
+			}
+		}
+	};
+	if(text || text === 0){
+		element.innerText = text
+	};
+	if(appendLocation && appendLocation.appendChild){
+		appendLocation.appendChild(element)
+	};
+	if(cssText){
+		element.style.cssText = cssText
+	};
+	return element
+}
+
 function safeURL(URL){
+/*
+	NOTE: DO NOT USE THIS FOR ANYTHING 'UNSAFE'!
+	This is a cosmetic utility, not a security feature
+	consider using "purify.js" if you have to deal with naughty user input, or better, please stop what you are doing
+ */
 	let compo = encodeURIComponent((URL || "")
 		.replace(/\s|\/|:|★|☆/g,"-")
 		.replace(/\((\d+)\)/g,(string,year) => year)
@@ -17,7 +79,7 @@ function safeURL(URL){
 	return compo
 }
 
-function fuzzyDateCompare(first,second){//returns and INDEX, not to be used for sorting
+function fuzzyDateCompare(first,second){//returns an INDEX, not to be used for sorting. That is, "-1" means they are equal.
 	if(!first.year || !second.year){
 		return -1
 	}
@@ -71,7 +133,7 @@ function formatTime(diff,type){
 		{name: "day",short: "d",value: 60*60*24},
 		{name: "hour",short: "h",value: 60*60},
 		{name: "minute",short: "m",value: 60},
-		{name: "second",short: "s",value: 1},
+		{name: "second",short: "s",value: 1}
 	];
 	let timeIndex = 0;
 	let significantValue = 0;
@@ -215,6 +277,7 @@ let wilson = function(positiveScore,total){
 	}
 };
 
+//polyfill
 if(!String.prototype.includes){//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 	String.prototype.includes = function(search,start){
 		'use strict';
@@ -228,6 +291,7 @@ if(!String.prototype.includes){//https://developer.mozilla.org/en-US/docs/Web/Ja
 	}
 }
 
+//consider getting rid of this one
 Number.prototype.roundPlaces = function(places){
 	return +(
 		Math.round(
@@ -254,6 +318,7 @@ function entityUnescape(string){
 		.replace(/&nbsp;/g," ")//not a nbsp, but close enough in most cases. Better than the raw entity at least
 }
 
+//https://stackoverflow.com/a/7616484/5697837
 function hashCode(string){//non-cryptographic hash
 	var hash = 0, i, chr;
 	if(string.length === 0){
@@ -267,6 +332,7 @@ function hashCode(string){//non-cryptographic hash
 	return hash
 }
 
+//piracy links begone
 setInterval(function(){
 	document.querySelectorAll(`a[rel="noopener noreferrer"]`).forEach(link => {
 		let linker = (new URL(link.href)).host;
@@ -276,12 +342,12 @@ setInterval(function(){
 				m4_include(data/badDomains.json).includes(hashCode(linker))
 			){
 				link.href = "https://anilist.co/forum/thread/14";
-				link.innerText = "THIS BE BAD LINK, IT'S NOW VEWY DISPOSED OF OwO (click the report button to call the mods on this naughty user)";
+				link.innerText = "THIS BE BAD LINK, IT'S NOW VEWY DISPOSED OF OwO (click the report button to call the mods on this naughty user)"
 			}
 		}
 	})
 	document.querySelectorAll(".sense-wrap").forEach(link => {
-		link.style.display = "none";
+		link.style.display = "none"
 	})
 },2000);
 
@@ -396,37 +462,6 @@ const removeGroupedDuplicates = function(
 let badWords = ["hentai","loli","nsfw","ecchi","sex","gore","porn","violence","lewd","fuck","waifu","nigger",];//woooo so bad.
 const badTags = ["gore","nudity","ahegao","irrumatio","sex toys","ashikoki","defloration","paizuri","tekoki","nakadashi","large breasts","facial","futanari","public sex","flat chest","voyeur","fellatio","incest","threesome","anal sex","bondage","cunnilingus","harem","masturbation","slavery","gyaru","rape"];
 badWords = badWords.concat(badTags);
-
-function create(type,classes,text,appendLocation,cssText){
-	let element = document.createElement(type);
-	if(Array.isArray(classes)){
-		element.classList.add(...classes);
-		if(classes.includes("newTab")){
-			element.setAttribute("target","_blank")
-		}
-	}
-	else if(classes){
-		if(classes[0] === "#"){
-			element.id = classes.substring(1)
-		}
-		else{
-			element.classList.add(classes);
-			if(classes === "newTab"){
-				element.setAttribute("target","_blank")
-			}
-		}
-	};
-	if(text || text === 0){
-		element.innerText = text;
-	};
-	if(appendLocation && appendLocation.appendChild){
-		appendLocation.appendChild(element)
-	};
-	if(cssText){
-		element.style.cssText = cssText
-	};
-	return element
-};
 
 function createCheckbox(target,id,checked){//target[,id]
 	let hohCheckbox = create("label",["hohCheckbox","el-checkbox__input"],false,target);		
