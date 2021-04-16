@@ -765,7 +765,7 @@ You can also turn off this notice there.`,setting)
 			if(type === "ANIME_LIST" || type === "MANGA_LIST"){
 				Array.from(document.getElementsByClassName(data.data.Activity.id)).forEach(stuff => {
 					stuff.style.backgroundColor = data.data.Activity.media.coverImage.color || "rgb(var(--color-foreground))";
-					stuff.style.backgroundImage = "url(" + data.data.Activity.media.coverImage.large + ")";
+					stuff.src = data.data.Activity.media.coverImage.large;
 					stuff.classList.add("hohBackgroundCover");
 					if(data.data.Activity.media.title){
 						stuff.parentNode.title = data.data.Activity.media.title.romaji
@@ -774,7 +774,7 @@ You can also turn off this notice there.`,setting)
 			}
 			else if(type === "TEXT"){
 				Array.from(document.getElementsByClassName(data.data.Activity.id)).forEach(stuff => {
-					stuff.style.backgroundImage = "url(" + data.data.Activity.user.avatar.large + ")";
+					stuff.src = data.data.Activity.user.avatar.large;
 					stuff.classList.add("hohBackgroundUserCover");
 					stuff.parentNode.style.background = "none"
 				})
