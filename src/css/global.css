@@ -189,9 +189,8 @@ m4_include(css/notifications.css)
 	height: 50px;
 	width: 50px;
 	display: inline-block;
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
+	object-position: center;
+	object-fit: cover;
 	margin-top: 11px;
 	margin-bottom: 1px;
 }

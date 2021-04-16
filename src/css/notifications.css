@@ -76,7 +76,8 @@ span.hohMediaImageContainer{
 	width: 50px;
 	display: inline-block;
 	background-repeat: no-repeat;
-	background-size: cover;
+	object-fit: cover;
+	object-position: center;
 	line-height: 0;
 }
 .hohCommentsContainer{
