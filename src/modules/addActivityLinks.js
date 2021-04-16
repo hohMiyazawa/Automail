@@ -1,5 +1,8 @@
 function addActivityLinks(activityID){
 	let arrowCallback = function(data){
+		if(!data){
+			return
+		}
 		let adder = function(link){
 			if(!location.pathname.includes("/activity/" + activityID)){
 				return;
@@ -170,7 +173,8 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 		arrowCallback(JSON.parse(possibleCache));
 	}
 	else{
-		generalAPIcall(`
+		//has to be auth now that private messages are a thing
+		authAPIcall(`
 query($id: Int){
 	Activity(id: $id){
 		... on ListActivity{

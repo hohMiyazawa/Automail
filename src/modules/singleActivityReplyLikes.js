@@ -10,13 +10,16 @@ exportModule({
 	code: function singleActivityReplyLikes(){
 		let id = parseInt(document.URL.match(/^https:\/\/anilist\.co\/activity\/(\d+)/)[1])
 		let adder = function(data){
+			if(!data){
+				return//private actitivites, mostly. Doesn't matter as there aren't many people there.
+			}
 			if(!document.URL.includes("activity/" + id || !data)){
 				return
 			};
 			let post = document.querySelector(".activity-entry > .wrap > .actions .action.likes");
 			if(!post){
 				setTimeout(function(){adder(data)},200);
-				return;
+				return
 			};
 			post.classList.add("hohLoadedLikes");
 			post.classList.add("hohHandledLike");
@@ -30,7 +33,7 @@ exportModule({
 				let actionLikes = document.querySelectorAll(".activity-replies .action.likes");
 				if(!actionLikes.length){
 					setTimeout(smallAdder,200);
-					return;
+					return
 				}
 				actionLikes.forEach((node,index) => {
 					if(node.querySelector(".count") && !(parseInt(node.querySelector(".count").innerText) <= 5)){
@@ -61,6 +64,6 @@ exportModule({
 	}`,
 			{id: id},
 			adder
-		);
+		)
 	}
 })
