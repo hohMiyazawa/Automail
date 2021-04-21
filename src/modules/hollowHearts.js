@@ -66,5 +66,19 @@ exportModule({
 .like-wrap.thread_comment .button.liked .fa-heart:hover{
 	color: rgb(var(--color-blue-dim));
 }
+/* forum thread, favourite like heart */
+.like-wrap.thread .button .fa-heart,
+.actions .favourite .fa-heart{
+	color: #0000;
+	stroke: rgb(var(--color-white));
+	stroke-width: 70;
+}
+.like-wrap.thread .button.liked .fa-heart,
+.actions .favourite.liked .fa-heart,
+.like-wrap.thread .button.isFavourite .fa-heart,
+.actions .favourite.isFavourite .fa-heart{
+	color: rgb(var(--color-white)) !important;
+	stroke: rgba(0, 0, 0, 0) !important;
+}
 `
 })
