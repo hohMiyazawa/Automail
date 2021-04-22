@@ -335,6 +335,9 @@ function hashCode(string){//non-cryptographic hash
 //piracy links begone
 setInterval(function(){
 	document.querySelectorAll(`a[rel="noopener noreferrer"]`).forEach(link => {
+		if(!link){
+			return
+		}
 		let linker = (new URL(link.href)).host;
 		if(linker && linker.split(".").length >= 2){
 			linker = linker.split(".")[linker.split(".").length - 2];
