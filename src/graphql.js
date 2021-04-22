@@ -245,14 +245,14 @@ query($page: Int,$name: String){
 `;
 
 const titlePicker = function(media){
+	if(aliases.has(media.id)){
+		return aliases.get(media.id)
+	}
 	if(useScripts.titleLanguage === "NATIVE" && media.title.native){
 		return media.title.native
 	}
 	else if(useScripts.titleLanguage === "ENGLISH" && media.title.english){
 		return media.title.english
-	}
-	if(aliases.has(media.id)){
-		return aliases.get(media.id)
 	}
 	return media.title.romaji
 }
