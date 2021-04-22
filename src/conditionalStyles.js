@@ -1,7 +1,4 @@
 //begin "conditionalStyles.js"
-let moreStyle = create("style");
-moreStyle.id = "conditional-automail-styles";
-moreStyle.type = "text/css";
 
 function initCSS(){
 moreStyle.textContent = "";

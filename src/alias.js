@@ -1,4 +1,8 @@
 //begin "alias.js"
+const moreStyle = create("style");
+moreStyle.id = "conditional-automail-styles";
+moreStyle.type = "text/css";
+
 let createAlias = function(alias){
 	if(alias[0] === "css/"){
 		moreStyle.textContent += alias[1]
