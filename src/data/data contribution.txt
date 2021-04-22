@@ -23,9 +23,6 @@ It's not supposed to be cryptocraphically secure, the purpouse is just to not du
 
 If you submit a new domain, your pull request must mention the plaintext domain it blocks.
 
-If desirable, a list of blocked sites can probably be provided.
-
-
 --- inlineSVG.json
 
 Use this if your module needs a new icon, as Automail must be delivered in a single file
