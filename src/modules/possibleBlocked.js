@@ -56,12 +56,12 @@ function possibleBlocked(oldURL){
 					if(id === 320){
 						notFound.innerText = `Kite isn't *really* hentai, but it kinda is too, and it's a bit complicated.
 
-(You you enable 18+ content in settings > Anime & Manga)`
+(You can enable 18+ content in settings > Anime & Manga)`
 					}
 					else{
 						notFound.innerText = `That's one of them hentais.
 
-(You you enable 18+ content in settings > Anime & Manga)`
+(You can enable 18+ content in settings > Anime & Manga)`
 					}
 					notFound.style.paddingTop = "200px";
 					notFound.style.fontSize = "2rem"
