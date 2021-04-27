@@ -26,7 +26,31 @@ function possibleBlocked(oldURL){
 						notFound.innerText = "Nope."
 					}
 					else{
-						notFound.innerText = name + " does not exist or has a private profile"
+						notFound.innerText = name + " does not exist or has a private profile";
+						for(let i=0;i<5;i++){
+							generalAPIcall(
+`
+query($id: Int!,$page: Int){
+	Page(page: $page){
+		following(userId: $id,sort:USERNAME){
+			name
+		}
+	}
+}
+`,
+								{id: userObject.id,page: i},
+								function(data){
+									if(!data){
+										return
+									}
+									data.data.Page.following.forEach(user => {
+										if(user.name.toUpperCase() === name.toUpperCase()){
+											notFound.innerText = name + " has a private profile"
+										}
+									})
+								}
+							)
+						}
 					}
 					notFound.style.paddingTop = "200px";
 					notFound.style.fontSize = "2rem"
