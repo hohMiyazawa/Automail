@@ -27,30 +27,26 @@ function possibleBlocked(oldURL){
 					}
 					else{
 						notFound.innerText = name + " does not exist or has a private profile";
-						for(let i=0;i<5;i++){
-							generalAPIcall(
+						generalAPIcall(
 `
-query($id: Int!,$page: Int){
-	Page(page: $page){
-		following(userId: $id,sort:USERNAME){
-			name
-		}
+query($name: String){
+	MediaList(userName: $name,mediaId: 1){
+		id
 	}
 }
 `,
-								{id: userObject.id,page: i},
-								function(data){
-									if(!data){
-										return
+							{name: name},
+							function(data,variables,errors){
+								if(errors){
+									if(errors.errors[0].message === "Private User"){
+										notFound.innerText = name + " has a private profile"
 									}
-									data.data.Page.following.forEach(user => {
-										if(user.name.toUpperCase() === name.toUpperCase()){
-											notFound.innerText = name + " has a private profile"
-										}
-									})
+									else{
+										notFound.innerText = name + " does not exist"
+									}
 								}
-							)
-						}
+							}
+						)
 					}
 					notFound.style.paddingTop = "200px";
 					notFound.style.fontSize = "2rem"

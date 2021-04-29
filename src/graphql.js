@@ -351,8 +351,8 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 			}
 		}
 	}
-	let handleData = function(data){
-		callback(data,variables);
+	let handleData = function(data,errors){
+		callback(data,variables,errors);
 		if(cacheKey && ((useLocalStorage && window.localStorage) || (!useLocalStorage && window.sessionStorage))){
 			let saltedHam = JSON.stringify({
 				data: data,
@@ -422,11 +422,11 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 	};
 	let handleError = function(error){
 		if(error.errors && error.errors.some(err => err.status === 404)){//not really an error
-			handleData(null);
+			handleData(null,error);
 			return
 		};
 		console.error(error,variables);
-		handleData(null)
+		handleData(null,error)
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
 	APIcallsUsed++;
@@ -581,8 +581,8 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 			}
 		}
 	}
-	let handleData = function(data){
-		callback(data,variables);
+	let handleData = function(data,errors){
+		callback(data,variables,errors);
 		if(cacheKey){
 			let saltedHam = JSON.stringify({
 				data: data,
@@ -623,10 +623,10 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 			}
 		}
 		if(query.includes("mutation")){
-			callback(error)
+			callback(error.errors)
 		}
 		else{
-			handleData(null)
+			handleData(null,errors)
 		}
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
