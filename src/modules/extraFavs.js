@@ -44,6 +44,8 @@ query($user: String!){
 				nodes{
 					id
 					coverImage{large}
+					startDate{year}
+					format
 					title{romaji native english}
 				}
 			}
@@ -51,6 +53,8 @@ query($user: String!){
 				nodes{
 					id
 					coverImage{large}
+					startDate{year}
+					format
 					title{romaji native english}
 				}
 			}
@@ -58,6 +62,8 @@ query($user: String!){
 				nodes{
 					id
 					coverImage{large}
+					startDate{year}
+					format
 					title{romaji native english}
 				}
 			}
@@ -73,6 +79,32 @@ query($user: String!){
 					if(!data){
 						return//could be a private profile
 					}
+					let findTooltip = function(){
+						let possibleTooltip = document.querySelector(".tooltip.visible.animate-position");
+						if(
+							!possibleTooltip
+							|| !possibleTooltip.querySelector(".content")
+						){
+							let candidates = Array.from(document.querySelectorAll(".tooltip.animate-position")).filter(
+								tooltip => tooltip.querySelector(".content") && !tooltip.innerText.match(/Manga$/)
+							)
+							if(candidates.length){
+								possibleTooltip = candidates[0]
+							}
+						}
+						return possibleTooltip
+					}
+					let elderText = null;
+					let elderRestorer = function(){
+						let possibleTooltip = findTooltip();
+						if(possibleTooltip){
+							possibleTooltip.children[0].childNodes[0].textContent = elderText.title;
+							possibleTooltip.children[1].childNodes[0].textContent = elderText.extra;
+							possibleTooltip.style.transform = elderText.position;
+							elderText = null;
+							possibleTooltip.style.pointerEvents = "none"
+						}
+					}
 					data.data.User.favourites.anime1.nodes.concat(
 						data.data.User.favourites.anime2.nodes
 					).concat(
@@ -80,10 +112,34 @@ query($user: String!){
 					).forEach(fav => {
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
 						element.href = "/anime/" + fav.id + "/" + safeURL(titlePicker(fav));
-						element.title = titlePicker(fav)
+						element.onmouseover = function(){
+							let possibleTooltip = findTooltip();
+							if(possibleTooltip){
+								possibleTooltip.classList.add("visible");
+								if(!elderText){
+									elderText = {
+										title: possibleTooltip.children[0].childNodes[0].textContent,
+										extra: possibleTooltip.children[1].childNodes[0].textContent,
+										position: possibleTooltip.style.transform
+									}
+									possibleTooltip.addEventListener("mouseenter",elderRestorer,{once: true});
+									possibleTooltip.style.pointerEvents = "unset"
+								}
+								possibleTooltip.children[0].childNodes[0].textContent = titlePicker(fav);
+								possibleTooltip.children[1].childNodes[0].textContent = [fav.startDate ? (fav.startDate.year || "") : "", distributionFormats[fav.format] || ""].join(" ")
+								let pos = element.getBoundingClientRect();
+								let pos2 = possibleTooltip.getBoundingClientRect();
+								let x_offset = Math.round(pos.left + window.scrollX - pos2.width/2 + pos.width/2);
+								let y_offset = Math.round(pos.top + window.scrollY - pos2.height - 10);
+								possibleTooltip.style.transform = "translate(" + x_offset + "px, " + y_offset + "px)"
+							}
+							else{
+								element.title = titlePicker(fav)
+							}
+						}
 					})
 				},
-				"hohExtraFavs" + URLstuff[1],
+				"hohExtraFavs2" + URLstuff[1],//TODO change back before release
 				60*60*1000//cache for an hour
 			)
 		};finder()
