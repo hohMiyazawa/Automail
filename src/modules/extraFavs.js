@@ -139,7 +139,7 @@ query($user: String!){
 						}
 					})
 				},
-				"hohExtraFavs2" + URLstuff[1],//TODO change back before release
+				"hohExtraFavs" + URLstuff[1],
 				60*60*1000//cache for an hour
 			)
 		};finder()
