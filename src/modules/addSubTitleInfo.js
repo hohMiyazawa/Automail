@@ -45,7 +45,7 @@ function addSubTitleInfo(){
 		setTimeout(addSubTitleInfo,200);
 		return
 	}
-	let title = document.querySelector(".content > h1:not(#hohAliasHeading)");
+	let title = document.querySelector(".content > h1");
 	let extraBox = create("div","hohExtraBox");
 	title.parentNode.insertBefore(extraBox,title.nextElementSibling);
 	let subTitle = create("p","value","",extraBox,"margin:2px;font-style:italic;");

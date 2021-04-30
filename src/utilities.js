@@ -930,6 +930,4 @@ const months = [
 "November",
 "December"
 ];
-
-let urlChangedDependence = false;//???
 //end "utilities.js"

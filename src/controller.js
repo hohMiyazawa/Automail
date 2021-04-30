@@ -251,49 +251,49 @@ function handleScripts(url,oldUrl){
 		if(useScripts.SFWmode){
 			cencorMediaPage(mangaAnimeMatch[2])
 		};
-		let titleAliases = JSON.parse(localStorage.getItem("titleAliases"));
-		if(useScripts.shortRomaji){
-			titleAliases = shortRomaji.concat(titleAliases);
-		};
-		if(document.getElementById("hohAliasHeading")){
-			document.getElementById("hohAliasHeading").nextSibling.style.display = "block";
-			document.getElementById("hohAliasHeading").remove();
-		};
-		if(titleAliases){
-			const urlID = mangaAnimeMatch[2];
-			titleAliases.forEach(alias => {//can't just use a find, the latest alias takes priority (find in reverse?)
-				if(alias[0] === "css/"){
+
+		const urlID = parseInt(mangaAnimeMatch[2]);
+		if(aliases.has(urlID)){
+			let alias = aliases.get(urlID);
+			let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias[1]) + "/";
+			if(mangaAnimeMatch[4]){
+				newState += mangaAnimeMatch[4]
+			};
+			history.replaceState({},"",newState);
+			current = document.URL;
+			let titleReplacer = () => {
+				let mangaAnimeMatch2 = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
+				if(!mangaAnimeMatch2 || mangaAnimeMatch[2] !== mangaAnimeMatch2[2]){
 					return
 				};
-				if(alias[0].substring(7,alias[0].length-1) === urlID){
-					let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias[1]) + "/";
-					if(mangaAnimeMatch[4]){
-						newState += mangaAnimeMatch[4]
-					};
-					history.replaceState({},"",newState);
-					current = document.URL;
-					let titleReplacer = () => {
-						if(urlChangedDependence === false){//I have to kill these global flags with fire some day
-							return
-						};
-						let mainTitle = document.querySelector("h1");//fragile, just like your heterosexuality
-						if(mainTitle){
-							let newHeading = create("h1","#hohAliasHeading",alias[1]);
-							mainTitle.parentNode.insertBefore(newHeading,mainTitle);
-							mainTitle.style.display = "none";
-							//mainTitle.innerText = alias[1];
-							return
-						}
-						else{
-							urlChangedDependence = true;
-							setTimeout(titleReplacer,100)
-						}
-					};
-					urlChangedDependence = true;
-					titleReplacer()
+				let mainTitle = document.querySelector("h1");//fragile, just like your heterosexuality
+				if(mainTitle){
+					mainTitle.id = "hohAliasHeading";
+					mainTitle.childNodes[0].textContent = alias
 				}
-			})
-		};
+				else{
+					setTimeout(titleReplacer,100)
+				}
+			};
+			titleReplacer()
+		}
+		else{
+			let titleReplacer = () => {
+				let mangaAnimeMatch2 = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
+				if(!mangaAnimeMatch2 || mangaAnimeMatch[2] !== mangaAnimeMatch2[2]){
+					return
+				};
+				let mainTitle = document.querySelector("h1");
+				if(mainTitle){
+					mainTitle.childNodes[0].textContent = mainTitle.childNodes[0].textContent.trim()
+				}
+				else{
+					setTimeout(titleReplacer,1000)
+				}
+			};
+			titleReplacer()
+		}
+
 		if(useScripts.socialTab){
 			scoreOverviewFixer()
 		}
@@ -381,7 +381,6 @@ let useScriptsDefinitions = m4_include(data/legacyModuleDescriptions.json)
 let current = "";
 let mainLoop = setInterval(() => {
 	if(document.URL !== current){
-		urlChangedDependence = false;
 		let oldURL = current + "";
 		current = document.URL;
 		handleScripts(current,oldURL)
