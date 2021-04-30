@@ -168,7 +168,7 @@
 	"description": "Make the 'home' button scroll to the top on the home feed",
 	"categories": ["Feeds"]
 },{"id": "CSSfavs",
-	"description": "Use 5-width favourite layout",
+	"description": "Use 5-width favourite layout at all screen sizes",
 	"categories": ["Profiles"]
 },{"id": "CSScompactBrowse",
 	"description": "Make the browse section more compact",
