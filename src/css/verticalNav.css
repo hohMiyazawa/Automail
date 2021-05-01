@@ -671,3 +671,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .user .el-slider[aria-valuemin="1950"] .el-slider__runway::after{
 	background-size: contain;
 }
+.medialist.table .row{
+	border-bottom: solid;
+	border-bottom-width: 1px;
+}
