@@ -323,9 +323,9 @@ You can also turn off this notice there.`,setting)
 					notNotImage.href = activities[i + counter].directLink;
 				};
 				text.href = activities[i].directLink;
-				textSpan.innerText = activities[i].textSpan;
+				textSpan.innerText = translate("$notification_likeActivity_1person_1activity");
 				if(counter > 1){
-					textSpan.innerText = " liked your activities."
+					textSpan.innerText = translate("$notification_likeActivity_1person_Mactivity")
 				};
 				if(counter === 1){
 					while(
@@ -353,11 +353,13 @@ You can also turn off this notice there.`,setting)
 					}
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName
+						activities[i].textName += " & " + activities[i+1].textName;
+						textSpan.innerText = translate("$notification_likeActivity_2person_1activity")
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter - 1)
+						activities[i].textName += " +" + (counter - 1);
+						textSpan.innerText = translate("$notification_likeActivity_Mperson_1activity")
 					}
 				}
 				else{
@@ -539,7 +541,7 @@ You can also turn off this notice there.`,setting)
 				notNotImage.href = activities[i].directLink;
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
-				textSpan.innerText = activities[i].textSpan;
+				textSpan.innerText = translate("$notification_message");
 				text.appendChild(textName);
 				text.appendChild(textSpan)
 			}

@@ -329,15 +329,15 @@ function betterListPreview(){
 			};
 			if(airingImportant > 3){
 				drawSection(
-					airing.slice(0,airingImportant),"Airing",true
+					airing.slice(0,airingImportant),translate("$preview_airingSection_title"),true
 				);
 				drawSection(
-					notAiring.slice(0,5*Math.ceil((20 - airingImportant)/5)),"Anime in Progress"
+					notAiring.slice(0,5*Math.ceil((20 - airingImportant)/5)),translate("$preview_animeSection_title")
 				)
 			}
 			else{
 				let remainderAiring = airing.slice(0,airingImportant).filter(air => air.index >= 20);
-				drawSection(mediaLists.slice(0,20 - remainderAiring.length).concat(remainderAiring),"Anime in Progress",true);
+				drawSection(mediaLists.slice(0,20 - remainderAiring.length).concat(remainderAiring),translate("$preview_animeSection_title"),true);
 			}
 		}
 	}catch(e){errorHandler(e)}}

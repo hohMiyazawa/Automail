@@ -9,8 +9,14 @@
 		"notes": ""
 	},
 	"keys": {
-		"$settings_partialLocalisationLanguage_description": "Automailspråk [UNDER UTRPRØVING]",
-		"$stats_moreStats_title": "Meir Statistikk",
-		"$stats_siteStats_title": "Sidestatistikk"
+"$settings_partialLocalisationLanguage_description": "Automailspråk [UNDER UTRPRØVING]",
+"$stats_moreStats_title": "Meir Statistikk",
+"$stats_siteStats_title": "Sidestatistikk",
+"$notification_likeActivity_1person_1activity": " likte posten din.",
+"$notification_likeActivity_1person_Mactivity": " likte postane dine.",
+"$notification_likeActivity_2person_1activity": " likte posten din.",
+"$notification_likeActivity_2person_Mactivity": " likte postane dine.",
+"$notification_likeActivity_Mperson_1activity": " likte posten din.",
+"$notification_likeActivity_Mperson_Mactivity": " likte postane dine."
 	}
 }

@@ -9,8 +9,18 @@
 		"notes": ""
 	},
 	"keys": {
-		"$settings_partialLocalisationLanguage_description": "Automail language [EXPERIMENTAL]",
-		"$stats_moreStats_title": "More Stats",
-		"$stats_siteStats_title": "Site Stats"
+"$settings_partialLocalisationLanguage_description": "Automail language [EXPERIMENTAL]",
+"$stats_moreStats_title": "More Stats",
+"$stats_siteStats_title": "Site Stats",
+"$notification_likeActivity_1person_1activity": " liked your activity.",
+"$notification_likeActivity_1person_Mactivity": " liked your activities.",
+"$notification_likeActivity_2person_1activity": " liked your activity.",
+"$notification_likeActivity_2person_Mactivity": " liked your activities.",
+"$notification_likeActivity_Mperson_1activity": " liked your activity.",
+"$notification_likeActivity_Mperson_Mactivity": " liked your activities.",
+"$notification_message": " sent you a message.",
+"$preview_animeSection_title": "Anime in Progress",
+"$preview_mangaSection_title": "Manga in Progress",
+"$preview_airingSection_title": "Airing"
 	}
 }
