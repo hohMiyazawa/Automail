@@ -3,7 +3,7 @@ exportModule({
 	description: "Don't display the cover and banner image in the list editor",
 	isDefault: false,
 	importance: -2,
-	categories: ["Media","List","Newly Added"],
+	categories: ["Media","List"],
 	visible: true,
 	css: `
 .list-editor-wrap .cover{
