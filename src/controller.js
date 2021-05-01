@@ -255,7 +255,7 @@ function handleScripts(url,oldUrl){
 		const urlID = parseInt(mangaAnimeMatch[2]);
 		if(aliases.has(urlID)){
 			let alias = aliases.get(urlID);
-			let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias[1]) + "/";
+			let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias) + "/";
 			if(mangaAnimeMatch[4]){
 				newState += mangaAnimeMatch[4]
 			};
