@@ -1,0 +1,16 @@
+{
+	"info": {
+		"language": "Åarjelsaemie",
+		"language_english": "Southern Sami",
+		"fallback": ["Norsk","English"],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "",
+		"notes": ""
+	},
+	"keys": {
+		"$settings_partialLocalisationLanguage_description": "Automailen gïele [PRYÖVENASSE]",
+		"$stats_moreStats_title": "Vielie Deahpadimmieh",
+		"$stats_siteStats_title": "Sijjien Deahpadimmieh"
+	}
+}

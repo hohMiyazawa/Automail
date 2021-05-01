@@ -2,7 +2,7 @@ exportModule({
 	id: "moreStats",
 	description: "Show an additional tab on the stats page",
 	extendedDescription: `
-On every users' stats page, there will be an additonal tab alled "more stats".
+On every users' stats page, there will be an additonal tab called "more stats".
 The "more stats" page also has a section for running various statistical queries about the site or specific users.
 
 There will also be a tab called "Genres & Tags", which contains aggregate stats for anime and manga.
@@ -40,9 +40,9 @@ function addMoreStats(){
 	let animeStaff;
 	let mangaStaff;
 	let animeStudios;
-	let hohStatsTrigger = create("span","hohStatsTrigger","More stats",filterGroup);
+	let hohStatsTrigger = create("span","hohStatsTrigger",translate("$stats_moreStats_title"),filterGroup);
 	let hohGenresTrigger = create("span","hohStatsTrigger","Genres & Tags",filterGroup);
-	let hohSiteStats = create("a","hohStatsTrigger","Site Stats",filterGroup);
+	let hohSiteStats = create("a","hohStatsTrigger",translate("$stats_siteStats_title"),filterGroup);
 	hohSiteStats.href = "/site-stats";
 	let generateStatPage = function(){
 		let personalStats = create("div","#personalStats","loading anime list...",hohStats);

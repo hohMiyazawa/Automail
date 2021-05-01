@@ -1,0 +1,16 @@
+{
+	"info": {
+		"language": "Norsk",
+		"language_english": "Norwegian",
+		"fallback": ["English"],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "",
+		"notes": ""
+	},
+	"keys": {
+		"$settings_partialLocalisationLanguage_description": "Automailspråk [UNDER UTRPRØVING]",
+		"$stats_moreStats_title": "Meir Statistikk",
+		"$stats_siteStats_title": "Sidestatistikk"
+	}
+}

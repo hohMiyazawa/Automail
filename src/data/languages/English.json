@@ -1,0 +1,16 @@
+{
+	"info": {
+		"language": "English",
+		"language_english": "English",
+		"fallback": [],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "",
+		"notes": ""
+	},
+	"keys": {
+		"$settings_partialLocalisationLanguage_description": "Automail language [EXPERIMENTAL]",
+		"$stats_moreStats_title": "More Stats",
+		"$stats_siteStats_title": "Site Stats"
+	}
+}

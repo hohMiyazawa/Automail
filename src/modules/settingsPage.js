@@ -109,12 +109,12 @@ exportModule({
 					category => setting.classList.add(category.replace(/\s/g,""))
 				)
 			};
-			create("span",false,def.description,setting);
+			create("span",false,translate(def.description),setting);
 			if(def.extendedDescription){
 				let infoButton = create("span","hohInfoButton","🛈",setting);
 				infoButton.title = "More info";
 				infoButton.onclick = function(){
-					createDisplayBox(false,"Module info").innerText = def.extendedDescription
+					createDisplayBox(false,"Module info").innerText = translate(def.extendedDescription)
 				}
 			}
 		});

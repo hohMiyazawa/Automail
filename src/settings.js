@@ -124,7 +124,8 @@ let useScripts = {//most modules are turned on by default
 	browseSubmenu: false,
 	reinaDarkEnable: false,
 	customDefaultListOrder: "",
-	softBlock: []
+	softBlock: [],
+	partialLocalisationLanguage: "English"
 };
 
 let userObject = JSON.parse(localStorage.getItem("auth"));
