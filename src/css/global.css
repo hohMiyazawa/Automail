@@ -1018,9 +1018,9 @@ meter::-moz-meter-bar{
 .user .hohMilestones .milestones .milestone:nth-child(2)::after{
 	display: none;
 }
-.hohCategories{
+#hohSettings .hohCategories{
 	margin-bottom: 20px;
-	padding-right: 15px;
+	padding-right: 0px;
 	padding-left: 0px;
 }
 .hohCategory{

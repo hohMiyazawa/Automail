@@ -9,6 +9,13 @@
 		"notes": ""
 	},
 	"keys": {
+"$button_submit": "Send inn",
+"$settings_title": "Innstillingar for Automail",
+"$settings_version": "Versjon: ",
+"$settings_homepage": "Heimeside: ",
+"$settings_repository": "Kjeldekode: ",
+"$settings_moreInfo_tooltip": "Meir info",
+"$settings_category_Newly Added": "Nytt",
 "$settings_partialLocalisationLanguage_description": "Automailspråk [UNDER UTRPRØVING]",
 "$stats_moreStats_title": "Meir Statistikk",
 "$stats_siteStats_title": "Sidestatistikk",

@@ -17,15 +17,15 @@ exportModule({
 		let targetLocation = document.querySelector(".settings.container .content");
 		let hohSettings = create("div","#hohSettings",false,targetLocation);
 		hohSettings.classList.add("all");
-		let scriptStatsHead = create("h1",false,"Automail Settings",hohSettings);
+		let scriptStatsHead = create("h1",false,translate("$settings_title"),hohSettings);
 		let scriptStats = create("div",false,false,hohSettings);
 		let sVersion = create("p",false,false,scriptStats);
-		create("span",false,"Version: ",sVersion);
+		create("span",false,translate("$settings_version"),sVersion);
 		create("span","hohStatValue",scriptInfo.version,sVersion);
-		let sHome = create("p",false,"Homepage: ",scriptStats);
-		let sHomeLink = create("a",false,scriptInfo.link,sHome);
-		let sHome2 = create("p",false,"Repository: ",scriptStats);
-		let sHomeLink2 = create("a",false,scriptInfo.repo,sHome2);
+		let sHome = create("p",false,translate("$settings_homepage"),scriptStats);
+		let sHomeLink = create("a","external",scriptInfo.link,sHome);
+		let sHome2 = create("p",false,translate("$settings_repository"),scriptStats);
+		let sHomeLink2 = create("a","external",scriptInfo.repo,sHome2);
 		if(!useScripts.accessToken){
 			create("p",false,"Faded options only have limited functionallity without signing in to the script (scroll down to the bottom of the page for that) which also requires persistent cookies, see https://github.com/hohMiyazawa/Automail/issues/26#issuecomment-623677462",scriptStats)
 		}
@@ -35,7 +35,7 @@ exportModule({
 		let catList = ["Notifications","Feeds","Forum","Lists","Profiles","Stats","Media","Navigation","Browse","Script","Login","Newly Added"];
 		let activeCategory = "";
 		catList.forEach(function(category){
-			let catBox = create("div","hohCategory",category,categories);
+			let catBox = create("div","hohCategory",translate("$settings_category_" + category),categories);
 			catBox.onclick = function(){
 				hohSettings.className = "";
 				if(activeCategory === category){
@@ -112,7 +112,7 @@ exportModule({
 			create("span",false,translate(def.description),setting);
 			if(def.extendedDescription){
 				let infoButton = create("span","hohInfoButton","🛈",setting);
-				infoButton.title = "More info";
+				infoButton.title = translate("$settings_moreInfo_tooltip");
 				infoButton.onclick = function(){
 					createDisplayBox(false,"Module info").innerText = translate(def.extendedDescription)
 				}
@@ -135,7 +135,7 @@ exportModule({
 		);
 		titleAliasInput.rows = "6";
 		titleAliasInput.cols = "50";
-		let titleAliasChange = create("button",["hohButton","button"],"Submit");
+		let titleAliasChange = create("button",["hohButton","button"],translate("$button_submit"));
 		titleAliasChange.onclick = function(){
 			let newAliases = [];
 			let aliasContent = titleAliasInput.value.split("\n");
@@ -342,7 +342,7 @@ exportModule({
 			let inputField = create("input",false,false,backgroundSettings);
 			inputField.value = useScripts.profileBackgroundValue;
 			create("br",false,false,backgroundSettings);
-			let backgroundChange = create("button",["hohButton","button"],"Submit",backgroundSettings);
+			let backgroundChange = create("button",["hohButton","button"],translate("$button_submit"),backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.profileBackgroundValue = inputField.value;
 				useScripts.save();
@@ -381,7 +381,7 @@ exportModule({
 			let inputField = create("textarea",false,false,backgroundSettings);
 			inputField.value = useScripts.customCSSValue;
 			create("br",false,false,backgroundSettings);
-			let backgroundChange = create("button",["hohButton","button"],"Submit",backgroundSettings);
+			let backgroundChange = create("button",["hohButton","button"],translate("$button_submit"),backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;
 				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
