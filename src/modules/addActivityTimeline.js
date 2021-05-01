@@ -48,15 +48,21 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		}
 	}
 }`;
+	let previousTime = null;
 	const lineCaller = function(query,variables){
 		generalAPIcall(query,variables,function(data){
 			if(data.data.Page.pageInfo.currentPage === 1){
+				previousTime = null;
 				removeChildren(activityTimeline)
 				if(data.data.Page.activities.length){
 					create("h2",false,"Activity Timeline",activityTimeline)
 				}
 			};
 			data.data.Page.activities.forEach(function(activity){
+				let diffTime = activity.createdAt - previousTime;
+				if(previousTime && diffTime > 60*60*24*30*3){//three months
+					create("div","hohTimelineGap","--- " + formatTime(diffTime) + " ---",activityTimeline)
+				}
 				let activityEntry = create("div","hohTimelineEntry",false,activityTimeline);
 				if(activity.replyCount){
 					activityEntry.style.color = "rgb(var(--color-blue))"
@@ -70,7 +76,8 @@ query($userId: Int,$mediaId: Int,$page: Int){
 					" " + (new Date(activity.createdAt*1000)).toDateString(),
 					activityEntry,
 					"position:absolute;right:7px;"
-				).title = (new Date(activity.createdAt*1000)).toLocaleString()
+				).title = (new Date(activity.createdAt*1000)).toLocaleString();
+				previousTime = activity.createdAt;
 			});
 			if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage && data.data.Page.pageInfo.currentPage < 10){//yet another workaround fro broken API
 				variables.page++;

@@ -110,6 +110,7 @@ function fuzzyDateCompare(first,second){//returns an INDEX, not to be used for s
 	return -1
 }
 
+//time in seconds, not milliseconds
 function formatTime(diff,type){
 	let magRound = function(num){
 		if(num < 1){
