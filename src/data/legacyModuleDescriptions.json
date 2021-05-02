@@ -231,6 +231,7 @@
 	"categories": ["Script"]
 },{"id": "termsFeedNoImages",
 	"description": "Do not load images on the low bandwidth feed",
+	"extendedDescription": "Refers to the feed located at https://anilist.co/terms if the setting 'low bandwidth feed' is turned on.\nFor very slow connections, images are going to be the most difficult part of the page to load.\nSee if your addblocker also supports setting a size limit for media, which may help if you are struggling.",
 	"categories": ["Feeds","Login"]
 },{"id": "CSSbannerShadow",
 	"description": "Remove banner shadows",
