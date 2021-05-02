@@ -457,6 +457,7 @@ You can also turn off this notice there.`,setting)
 					}
 					counter++
 				}
+				textSpan.innerText = translate("$notification_replyReply_1person_1reply");
 				if(samePerson){
 					if(counter > 1){
 						text.style.marginTop = "45px";
@@ -475,7 +476,6 @@ You can also turn off this notice there.`,setting)
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
-				textSpan.innerText = " replied to activity you're subscribed to.";
 				text.appendChild(textName);
 				text.appendChild(textSpan);
 				i += counter -1
@@ -599,6 +599,12 @@ You can also turn off this notice there.`,setting)
 					}
 					textSpan2.innerText = "[deleted thread]";
 					text.href = "#"
+				}
+				if(activities[i].type === "forumCommentLike"){
+					textSpan.innerText = translate("$notification_forumCommentLike")
+				}
+				else if(activities[i].type === "forumMention"){
+					textSpan.innerText = translate("$notification_forumMention")
 				}
 				text.style.maxWidth = "none";
 				text.style.marginTop = "17px"

@@ -16,8 +16,8 @@ exportModule({
 			if(switchL && document.querySelector(".recommendations-wrap")){
 				switchL.parentNode.classList.add("hohRecsSwitch");
 				let optionWrapper = create("div","option",false,switchL);
-				let option = create("span",false,"For You",optionWrapper);
-				option.title = "Each pair is one you like + one you haven't started\nStuff you like on top";
+				let option = create("span",false,translate("$recs_forYou"),optionWrapper);
+				option.title = translate("$recs_description");
 				let fakeContent = create("div",["recommendations-wrap","substitute"],false,false,"display:none;");
 				let realNode = document.querySelector(".recommendations-wrap");
 				realNode.parentNode.insertBefore(fakeContent,realNode);

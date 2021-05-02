@@ -37,12 +37,20 @@
 "$notification_reply_2person_Mreply": " svarte på postane dine.",
 "$notification_reply_Mperson_1reply": " svarte på posten din.",
 "$notification_reply_Mperson_Mreply": " svarte på postane dine.",
+"$notification_replyReply_1person_1reply": " svarte på ein tinga post.",
 "$notification_newMedia": "vart nyleg lagt til.",
 "$notification_message": " sende deg ei melding.",
 "$notification_mention": " nemde deg.",
+"$notification_forumCommentLike": " likte kommentaren din, i forumtråden ",
+"$notification_forumMention": " nemde deg, i forumtråden ",
 "$404_private_or_noUser": "{0} finst ikkje eller har ein privat profil",
 "$404_private": "{0} har ein privat profil",
 "$404_noUser": "{0} finst ikkje",
-"$404_blocked": "{0} har blokka deg"
+"$404_blocked": "{0} har blokka deg",
+"$preview_animeSection_title": "Nyleg Anime",
+"$preview_mangaSection_title": "Nyleg Manga",
+"$preview_airingSection_title": "På Lufta",
+"$recs_forYou": "For Deg",
+"$recs_description": "Kvart par er noko du liker + noko du ikkje har sett enno\nBest fyrst"
 	}
 }

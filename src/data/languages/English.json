@@ -48,15 +48,20 @@
 "$notification_reply_2person_Mreply": " replied to your activities.",
 "$notification_reply_Mperson_1reply": " replied to your activity.",
 "$notification_reply_Mperson_Mreply": " replied to your activities.",
+"$notification_replyReply_1person_1reply": " replied to activity you're subscribed to.",
 "$notification_newMedia": "was recently added to the site.",
 "$notification_message": " sent you a message.",
 "$notification_mention": " mentioned you in their activity.",
+"$notification_forumCommentLike": " liked your comment, in the forum thread ",
+"$notification_forumMention": " mentioned you, in the forum thread ",
 "$preview_animeSection_title": "Anime in Progress",
 "$preview_mangaSection_title": "Manga in Progress",
 "$preview_airingSection_title": "Airing",
 "$404_private_or_noUser": "{0} does not exist or has a private profile",
 "$404_private": "{0} has a private profile",
 "$404_noUser": "{0} does not exist",
-"$404_blocked": "{0} has blocked you"
+"$404_blocked": "{0} has blocked you",
+"$recs_forYou": "For You",
+"$recs_description": "Each pair is one you like + one you haven't started\nBest match first"
 	}
 }
