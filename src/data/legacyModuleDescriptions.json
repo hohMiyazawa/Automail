@@ -225,9 +225,11 @@
 	"categories": ["Lists"]
 },{"id": "dblclickZoom",
 	"description": "Double click activities to zoom",
+	"extendedDescription": "There are likely better browser accesibility addons for this.",
 	"categories": ["Feeds"]
 },{"id": "rightToLeft",
 	"description": "Support for right-to-left flow [under development]",
+	"extendedDescription": "A baseline for adjusting Anilist to act more like a native RTL language site would.\nNot complete.",
 	"categories": ["Script"]
 },{"id": "termsFeedNoImages",
 	"description": "Do not load images on the low bandwidth feed",
@@ -259,6 +261,7 @@
 	"categories": ["Navigation"]
 },{"id": "CSSverticalNav",
 	"description": "Alternative browse mode [with vertical navbar by Kuwabara]",
+	"extendedDescription": "hoh's personal preferences",
 	"categories": ["Navigation"]
 },{"id": "browseSubmenu",
 	"description": "Replace the native 'browse' submenu when using the vertical nav",
