@@ -39,6 +39,7 @@
 "$notification_reply_Mperson_Mreply": " svarte på postane dine.",
 "$notification_newMedia": "vart nyleg lagt til.",
 "$notification_message": " sende deg ei melding.",
+"$notification_mention": " nemgde deg.",
 "$404_private_or_noUser": "{0} finst ikkje eller har ein privat profil",
 "$404_private": "{0} har ein privat profil",
 "$404_noUser": "{0} finst ikkje",

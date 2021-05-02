@@ -548,7 +548,12 @@ You can also turn off this notice there.`,setting)
 				notNotImage.href = activities[i].directLink;
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
-				textSpan.innerText = translate("$notification_message");
+				if(activities[i].type === "message"){
+					textSpan.innerText = translate("$notification_message")
+				}
+				else{
+					textSpan.innerText = translate("$notification_mention")
+				}
 				text.appendChild(textName);
 				text.appendChild(textSpan)
 			}
