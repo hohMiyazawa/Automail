@@ -5,25 +5,36 @@ const languageFiles = {
 	"Åarjelsaemie": m4_include(data/languages/SouthernSami.json),
 	"Norsk": m4_include(data/languages/Norwegian.json)
 }
-function translate(key){
+function translate(key,subs){
 	if(key[0] !== "$"){
 		return key
 	}
 	let immediate = languageFiles[useScripts.partialLocalisationLanguage].keys[key];
-	if(immediate){
-		return immediate
-	}
-	for(let i=0;i<languageFiles[useScripts.partialLocalisationLanguage].info.fallback.length;i++){
-		let possibleFallback = languageFiles[languageFiles[useScripts.partialLocalisationLanguage].info.fallback].keys[key];
-		if(possibleFallback){
-			return possibleFallback
+	if(!immediate){
+		for(let i=0;i<languageFiles[useScripts.partialLocalisationLanguage].info.fallback.length;i++){
+			immediate = languageFiles[languageFiles[useScripts.partialLocalisationLanguage].info.fallback].keys[key];
+			if(immediate){
+				break
+			}
+		}
+		if(!immediate){
+			immediate = languageFiles["English"].keys[key];
+			if(!immediate){
+				console.warn("[Automail localisation] missing key!",key);
+				immediate = key
+			}
 		}
 	}
-	let englishFallback = languageFiles["English"].keys[key];
-	if(englishFallback){
-		return englishFallback
+	if(subs){
+		if(Array.isArray(subs)){
+			subs.forEach(sub => {
+				immediate = immediate.replace("{" + i + "}",sub)
+			})
+		}
+		else{
+			immediate = immediate.replace("{0}",subs)
+		}
 	}
-	console.warn("[Automail localisation] missing key!",key)
-	return key//better than nothing
+	return immediate
 }
 //end "localisation.js"

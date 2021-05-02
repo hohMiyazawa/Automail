@@ -20,13 +20,13 @@ function possibleBlocked(oldURL){
 						notFound.innerText = "This submission was probably denied"
 					}
 					else if(data){
-						notFound.innerText = name + " has blocked you"
+						notFound.innerText = translate("$404_blocked",name)
 					}
 					else if(name === "ModChan"){
 						notFound.innerText = "Nope."
 					}
 					else{
-						notFound.innerText = name + " does not exist or has a private profile";
+						notFound.innerText = translate("$404_private_or_noUser",name);
 						generalAPIcall(
 `
 query($name: String){
@@ -39,10 +39,10 @@ query($name: String){
 							function(data,variables,errors){
 								if(errors){
 									if(errors.errors[0].message === "Private User"){
-										notFound.innerText = name + " has a private profile"
+										notFound.innerText = translate("$404_private",name)
 									}
 									else{
-										notFound.innerText = name + " does not exist"
+										notFound.innerText = translate("$404_noUser",name)
 									}
 								}
 							}

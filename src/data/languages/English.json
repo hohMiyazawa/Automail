@@ -52,6 +52,10 @@
 "$notification_message": " sent you a message.",
 "$preview_animeSection_title": "Anime in Progress",
 "$preview_mangaSection_title": "Manga in Progress",
-"$preview_airingSection_title": "Airing"
+"$preview_airingSection_title": "Airing",
+"$404_private_or_noUser": "{0} does not exist or has a private profile",
+"$404_private": "{0} has a private profile",
+"$404_noUser": "{0} does not exist",
+"$404_blocked": "{0} has blocked you"
 	}
 }
