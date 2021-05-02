@@ -24,6 +24,20 @@
 "$notification_likeActivity_2person_1activity": " likte posten din.",
 "$notification_likeActivity_2person_Mactivity": " likte postane dine.",
 "$notification_likeActivity_Mperson_1activity": " likte posten din.",
-"$notification_likeActivity_Mperson_Mactivity": " likte postane dine."
+"$notification_likeActivity_Mperson_Mactivity": " likte postane dine.",
+"$notification_likeReply_1person_1reply": " likte svaret ditt.",
+"$notification_likeReply_1person_Mreply": " likte svara dine.",
+"$notification_likeReply_2person_1reply": " likte svaret ditt.",
+"$notification_likeReply_2person_Mreply": " likte svara dine.",
+"$notification_likeReply_Mperson_1reply": " likte svaret ditt.",
+"$notification_likeReply_Mperson_Mreply": " likte svara dine.",
+"$notification_reply_1person_1reply": " svarte på posten din.",
+"$notification_reply_1person_Mreply": " svarte på postane dine.",
+"$notification_reply_2person_1reply": " svarte på posten din.",
+"$notification_reply_2person_Mreply": " svarte på postane dine.",
+"$notification_reply_Mperson_1reply": " svarte på posten din.",
+"$notification_reply_Mperson_Mreply": " svarte på postane dine.",
+"$notification_newMedia": "vart nyleg lagt til.",
+"$notification_message": " sende deg ei melding."
 	}
 }

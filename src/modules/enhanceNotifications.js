@@ -400,25 +400,28 @@ You can also turn off this notice there.`,setting)
 					};
 					counter++
 				}
+				textSpan.innerText = translate("$notification_reply_1person_1reply");
 				if(samePerson){
 					if(counter > 1){
 						text.style.marginTop = "45px";
 						activities[i].textName += " x" + counter;
+						textSpan.innerText = translate("$notification_reply_1person_Mreply")
 					}
 				}
 				else{
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName
+						activities[i].textName += " & " + activities[i+1].textName;
+						textSpan.innerText = translate("$notification_reply_2person_1reply")
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter-1)
+						activities[i].textName += " +" + (counter-1);
+						textSpan.innerText = translate("$notification_reply_Mperson_1reply")
 					}
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
-				textSpan.innerText = activities[i].textSpan;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
 				i += counter -1
@@ -436,6 +439,7 @@ You can also turn off this notice there.`,setting)
 					let miniImageWidth = 40;
 					let miniImage = create("a","hohUserImageSmall",false,newNotification);
 					miniImage.href = activities[i + counter].href;
+					miniImage.title = activities[i + counter].textName;
 					miniImage.style.backgroundImage = activities[i + counter].image;
 					miniImage.style.height = miniImageWidth + "px";
 					miniImage.style.width = miniImageWidth + "px";
@@ -509,25 +513,28 @@ You can also turn off this notice there.`,setting)
 					}
 					counter++
 				}
+				textSpan.innerText = translate("$notification_likeReply_1person_1reply");
 				if(samePerson){
 					if(counter > 1){
 						text.style.marginTop = "45px";
-						activities[i].textName += " x" + counter
+						activities[i].textName += " x" + counter;
+						textSpan.innerText = translate("$notification_likeReply_1person_Mreply")
 					}
 				}
 				else{
 					if(counter === 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " & " + activities[i+1].textName
+						activities[i].textName += " & " + activities[i+1].textName;
+						textSpan.innerText = translate("$notification_likeReply_2person_1reply")
 					}
 					else if(counter > 2){
 						text.style.marginTop = "45px";
-						activities[i].textName += " +" + (counter-1)
+						activities[i].textName += " +" + (counter-1);
+						textSpan.innerText = translate("$notification_likeReply_Mperson_1reply")
 					}
 				};
 				text.href = activities[i].directLink;
 				textName.innerText = activities[i].textName;
-				textSpan.innerText = " liked your activity reply.";
 				text.appendChild(textName);
 				text.appendChild(textSpan);
 				i += counter -1
@@ -594,6 +601,7 @@ You can also turn off this notice there.`,setting)
 			else if(activities[i].type === "newMedia"){
 				textSpan.classList.add("hohNewMedia");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);
+				textSpan.querySelector(".context").innerText = translate("$notification_newMedia");
 				text.appendChild(textSpan);
 				notImage.style.width = "51px";
 				text.href = activities[i].href
