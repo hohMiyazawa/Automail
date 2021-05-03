@@ -137,6 +137,13 @@ let wrap = create("div","wrap",false,entry);
 		}
 	let time = create("div","time",false,wrap);
 	let actions = create("div","actions",false,wrap);
+		let actionReplies = create("a",["action","replies"],false,actions);
+			let replyCount = create("span",["count"],act.replyCount || "",actionReplies);
+			replyCount.appendChild(document.createTextNode(" "));
+			actionReplies.appendChild(svgAssets2.reply.cloneNode(true));
+			actionReplies.href = "/activity/" + act.id + "/";
+		actions.appendChild(document.createTextNode(" "));
+		let actionLikes = create("div",["action","replies","hohHandledLike","hohLoadedLikes"],false,actions);
 									}
 									else{
 										setTimeout(adder,500)

@@ -432,7 +432,7 @@ exportModule({
 		};
 		if(useScripts.customCSS && useScripts.accessToken){
 			let pinSettings = create("div",false,false,hohSettings);
-			create("p",false,"Add a pinned activity to your profile",pinSettings);
+			create("p",false,"Add a pinned activity to your profile [EXPERIMENTAL] **rendering not yet supported!**",pinSettings);
 			let inputField = create("input",false,false,pinSettings);
 			inputField.value = useScripts.pinned;
 			inputField.setAttribute("placeholder","activity link");
