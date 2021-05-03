@@ -52,6 +52,7 @@
 "$notification_newMedia": "was recently added to the site.",
 "$notification_message": " sent you a message.",
 "$notification_mention": " mentioned you in their activity.",
+"$notification_follow": " started following you.",
 "$notification_forumCommentLike": " liked your comment, in the forum thread ",
 "$notification_forumMention": " mentioned you, in the forum thread ",
 "$preview_animeSection_title": "Anime in Progress",

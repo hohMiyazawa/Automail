@@ -748,7 +748,7 @@ You can also turn off this notice there.`,setting)
 					active.directLink = info.children[0].href;
 					active.text =       info.children[0].innerHTML;//does not depend on user input
 					active.textName =   (info.children[0] || {textContent: ""}).textContent.trim();
-					active.textSpan =   (info.children[1] || {textContent: ""}).textContent
+					active.textSpan =   translate("$notification_follow")
 				}
 				else if(
 					info.children.length >= 4

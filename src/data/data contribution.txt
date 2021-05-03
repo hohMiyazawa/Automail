@@ -39,3 +39,7 @@ Format:
 	[optional width],
 	[optional height]
 ]
+
+--- languages/translation
+
+See https://github.com/hohMiyazawa/Automail/issues/69
