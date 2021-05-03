@@ -135,7 +135,22 @@ let wrap = create("div","wrap",false,entry);
 				let markdown = create("div","markdown",false,markdownWrapper);
 				markdown.innerHTML = DOMPurify.sanitize(makeHtml(act.text))
 		}
+		else if(act.type === "ANIME_LIST"){
+			content.classList.add("list");
+			let cover = create("a","cover",false,content);
+			cover.href = "/anime/" + act.media.id + "/" + safeURL(titlePicker(act.media)) + "/";
+			cover.style.backgroundImage = 'url("' + act.media.coverImage.large + '")';
+			let details = create("a","details",false,content);
+		}
+		else if(act.type === "MANGA_LIST"){
+			content.classList.add("list");
+			let cover = create("a","cover",false,content);
+			cover.href = "/manga/" + act.media.id + "/" + safeURL(titlePicker(act.media)) + "/";
+			cover.style.backgroundImage = 'url("' + act.media.coverImage.large + '")';
+			let details = create("a","details",false,content);
+		}
 	let time = create("div","time",false,wrap);
+	time.appendChild(nativeTimeElement(act.createdAt));
 	let actions = create("div","actions",false,wrap);
 		let actionReplies = create("a",["action","replies"],false,actions);
 			let replyCount = create("span",["count"],act.replyCount || "",actionReplies);
@@ -156,7 +171,7 @@ let wrap = create("div","wrap",false,entry);
 									}
 								};
 								adder()
-							}
+							},"hohPinned" + jsonData.pinned,60*1000
 						)
 					}
 					catch(e){
