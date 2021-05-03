@@ -475,7 +475,7 @@ function addMoreStats(){
 							let nameCellCount = create("div","count",(index+1),cel);
 							let nameCellTag = create("a",false,data[index].name,cel,"cursor:pointer;");
 							if(isTag){
-								if(mixedFormatter.anime){
+								if(mixedFormatter.anime && data[index].list.some(media => media.type === "ANIME")){
 									nameCellTag.href = "/search/anime?includedTags=" + data[index].name + "&onList=true"
 								}
 								else{
@@ -483,7 +483,7 @@ function addMoreStats(){
 								}
 							}
 							else{
-								if(mixedFormatter.anime){
+								if(mixedFormatter.anime && data[index].list.some(media => media.type === "ANIME")){
 									nameCellTag.href = "/search/anime?includedGenres=" + data[index].name + "&onList=true"
 								}
 								else{
