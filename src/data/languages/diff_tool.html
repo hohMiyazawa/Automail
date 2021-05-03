@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<h1>Translation diff tool</h1>
+		<p>Load two translation files to find untranslated keys</p>
+		<input id="lang1" type="file" accept="application/json" oninput="load()">
+		<input id="lang2" type="file" accept="application/json" oninput="load()">
+		<pre id="results"></pre>
+		<script>
+const input1 = document.getElementById("lang1");
+const input2 = document.getElementById("lang2");
+const results = document.getElementById("results");
+function load(){
+	if(input1.files && input1.files[0]){
+		let fileName = input1.files[0].name;
+		let FR = new FileReader();
+		FR.onload = function(e){
+			if(input2.files && input2.files[0]){
+				let fileName2 = input2.files[0].name;
+				let FR2 = new FileReader();
+				FR2.onload = function(e2){
+					json1 = JSON.parse(e.target.result);
+					json2 = JSON.parse(e2.target.result);
+					let keys1 = new Set(Object.keys(json1.keys));
+					let keys2 = new Set(Object.keys(json2.keys));
+
+					results.innerText = "File 1: " + Object.keys(json1.keys).length + " keys";
+					results.innerText += "\nUnique keys: " + Object.keys(json1.keys).filter(key => !keys2.has(key)).length;
+					results.innerText += "\n" + Object.keys(json1.keys).filter(key => !keys2.has(key)).map(key => '"' + key +'": "' + json1.keys[key] + '"').join("\n");
+					results.innerText += "\n\n";
+					results.innerText += "File 2: " + Object.keys(json2.keys).length + " keys";
+					results.innerText += "\nUnique keys: " + Object.keys(json2.keys).filter(key => !keys1.has(key)).length;
+					results.innerText += "\n" + Object.keys(json2.keys).filter(key => !keys1.has(key)).map(key => '"' + key +'": "' + json2.keys[key] + '"').join("\n");
+				};
+				FR2.readAsText(input2.files[0])
+			}
+		};
+		FR.readAsText(input1.files[0])
+	}
+}
+		</script>
+	</body>
+</html>
