@@ -1,6 +1,7 @@
 //begin "localisation.js"
 const languageFiles = {
 	"English": m4_include(data/languages/English.json),
+	"Deutsch": m4_include(data/languages/German.json),
 	"日本語": m4_include(data/languages/Japanese.json),
 	"Åarjelsaemie": m4_include(data/languages/SouthernSami.json),
 	"Norsk": m4_include(data/languages/Norwegian.json)
