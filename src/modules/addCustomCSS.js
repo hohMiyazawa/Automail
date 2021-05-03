@@ -143,7 +143,13 @@ let wrap = create("div","wrap",false,entry);
 			actionReplies.appendChild(svgAssets2.reply.cloneNode(true));
 			actionReplies.href = "/activity/" + act.id + "/";
 		actions.appendChild(document.createTextNode(" "));
-		let actionLikes = create("div",["action","replies","hohHandledLike","hohLoadedLikes"],false,actions);
+		let actionLikes = create("div",["action","likes","hohHandledLike","hohLoadedLikes"],false,actions);
+			actionLikes.title = act.likes.map(like => like.name).join("\n");
+			let likeWrap = create("div",["like-wrap","activity"],false,actionLikes);
+				let likeButton = create("div","button",false,likeWrap);
+					let likeCount = create("span","count",act.likes.length || "",likeButton);
+					likeButton.appendChild(document.createTextNode(" "));
+					likeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
 									}
 									else{
 										setTimeout(adder,500)
