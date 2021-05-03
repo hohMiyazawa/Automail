@@ -174,7 +174,7 @@
 	"description": "Make the browse section more compact",
 	"categories": ["Browse"]
 },{"id": "customCSS",
-	"description": "Enable custom profile CSS",
+	"description": "Enable custom profile CSS and pinned activities",
 	"categories": ["Profiles","Login"]
 },{"id": "CSSgreenManga",
 	"description": "Green titles for manga",

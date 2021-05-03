@@ -96,6 +96,7 @@ let useScripts = {//most modules are turned on by default
 	rightToLeft: false,
 	subTitleInfo: false,
 	customCSSValue: "",
+	pinned: "",
 	negativeCustomList: false,
 	globalCustomList: false,
 	dblclickZoom: false,

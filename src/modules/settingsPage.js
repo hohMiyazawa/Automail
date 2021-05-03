@@ -362,6 +362,9 @@ exportModule({
 					}
 				}
 				profileJson.background = useScripts.profileBackgroundValue;
+				if(!profileJson.background){
+					delete profileJson["background"]
+				}
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				authAPIcall(
@@ -400,6 +403,9 @@ exportModule({
 					}
 				}
 				profileJson.customCSS = useScripts.customCSSValue;
+				if(!profileJson.customCSS){
+					delete profileJson["customCSS"]
+				}
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				if(newDescription.length > 1e6){
@@ -422,8 +428,99 @@ exportModule({
 					)
 				}
 			};
-			hohSettings.appendChild(create("hr"));
+			hohSettings.appendChild(create("hr"))
 		};
+		if(useScripts.customCSS && useScripts.accessToken){
+			let pinSettings = create("div",false,false,hohSettings);
+			create("p",false,"Add a pinned activity to your profile",pinSettings);
+			let inputField = create("input",false,false,pinSettings);
+			inputField.value = useScripts.pinned;
+			inputField.setAttribute("placeholder","activity link");
+			create("br",false,false,pinSettings);
+			let pinChange = create("button",["hohButton","button"],translate("$button_submit"),pinSettings);
+			pinChange.onclick = function(){
+				let activityID = parseInt(inputField.value);
+				if(inputField.value !== ""){
+					if(!activityID){
+						let matches = inputField.value.match(/^https:\/\/anilist\.co\/activity\/(\d+)\/?$/);
+						if(matches){
+							activityID = parseInt(matches[1])
+						}
+					}
+					if(!activityID){
+						alert("must be a direct link to an activity or an activity ID");
+						return
+					}
+					generalAPIcall(
+`
+query{
+	Activity(id: ${activityID}){
+		... on ListActivity{
+			id
+		}
+		... on MessageActivity{
+			id
+		}
+		... on TextActivity{
+			id
+		}
+	}
+}
+`,
+						{},
+						function(data){
+							if(!data){
+								alert("activity not found!")
+							}
+						}
+					)
+				}
+				else{
+					activityID = ""
+				}
+				useScripts.pinned = activityID;
+				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
+				let profileJson = {};
+				if(jsonMatch){
+					try{
+						profileJson = JSON.parse(atob(jsonMatch[1]))
+					}
+					catch(e){
+						try{
+							profileJson = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
+						}
+						catch(e){
+							console.warn("Invalid profile JSON")
+						}
+					}
+				}
+				profileJson.pinned = useScripts.pinned;
+				if(!profileJson.pinned){
+					delete profileJson["pinned"]
+				}
+				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
+				if(newDescription.length > 1e6){
+					alert("Profile JSON is over 1MB")
+				}
+				else{
+					useScripts.save();
+					authAPIcall(
+						`mutation($about: String){
+							UpdateUser(about: $about){
+								about
+							}
+						}`,
+						{about: newDescription},
+						function(data){
+							if(!data){
+								alert("failed to save pinned activity")
+							}
+						}
+					)
+				}
+			};
+			hohSettings.appendChild(create("hr"))
+		}
 
 		create("p",false,"Delete all custom settings. Re-installing the script will not do that by itself.",hohSettings);
 		let cleanEverything= create("button",["hohButton","button","danger"],"Default Settings",hohSettings);

@@ -2103,6 +2103,46 @@ body.TMPreviewScore > .el-tooltip__popper{
 	border-radius: 3px;
 	color: white;
 }
+.hohPinned .wrap{
+	background: rgb(var(--color-foreground));
+}
+.hohPinned .text .header{
+	display: flex;
+	align-items: center;
+}
+.hohPinned .text .avatar{
+	border-radius: 3px;
+	height: 40px;
+	width: 40px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.hohPinned .text .name{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 12px;
+	vertical-align: top;
+	color: rgb(var(--color-blue));
+	display: inline-block;
+	font-size: 1.4rem;
+}
+.hohPinned .activity-markdown{
+	font-size: 1.4rem;
+	line-height: 1.4;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+.hohPinned .markdown{
+	margin-bottom: 14px;
+	margin-top: 14px;
+	max-height: 560px;
+	overflow: hidden;
+}
+.hohPinned .text{
+	padding: 20px;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
