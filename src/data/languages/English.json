@@ -62,6 +62,8 @@
 "$404_noUser": "{0} does not exist",
 "$404_blocked": "{0} has blocked you",
 "$recs_forYou": "For You",
-"$recs_description": "Each pair is one you like + one you haven't started\nBest match first"
+"$recs_description": "Each pair is one you like + one you haven't started\nBest match first",
+"$module_unicodifier_description": "Convert emojis so they work on anilist",
+"$module_unicodifier_extendedDescription": "Anilist doesn't handle some unicode characters correctly, leading to truncated posts. This module coverts them to HTML entity escape codes instead, which the site can handle (they can easily do this themselves if they want to)\nOriginal idea by the great GoBusto: https://files.kiniro.uk/unicodifier.html"
 	}
 }
