@@ -902,6 +902,8 @@ function dateToJST(string){
 	return Date.UTC(year,month-1,day,-9)
 }
 
+
+//idea by GoBusto: https://gitlab.com/gobusto/unicodifier
 function emojiSanitize(string){
 	return Array.from(string).map(char => {
 		let codePoint = char.codePointAt(0);
