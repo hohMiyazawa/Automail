@@ -301,6 +301,7 @@ query($id: Int,$userName: String){
 		let collectNotes = function(data){
 			let customTags = new Map();	
 			let listData = returnList(data,true);
+			let blurbs = [];
 			listData.forEach(function(entry){
 				if(entry.notes){
 					(
@@ -317,21 +318,33 @@ query($id: Int,$userName: String){
 					})
 					let noteContent = parseListJSON(entry.notes);
 					if(noteContent && noteContent.lists){
-						noteContent.lists.forEach(function(list){
-							if(list.name && list.info){
-								let titles = document.querySelectorAll("h3.section-name");
-								for(var i=0;i<titles.length;i++){
-									if(titles[i].innerText === list.name){
-										let descriptionNode = create("p",false,list.info);
-										titles[i].parentNode.insertBefore(descriptionNode,titles[i].nextSibling);
-										break
-									}
-								}
-							}
-						})
+						blurbs.push(noteContent.lists)
 					}
 				}
 			});
+			let applier = function(){
+				const URLstuff2 = location.pathname.match(/^\/user\/(.+)\/(animelist|mangalist)/);
+				if(!URLstuff2 || URLstuff[0] !== URLstuff2[0]){
+					return
+				};
+				Array.from(document.querySelectorAll(".hohDescriptions")).forEach(matching => matching.remove());
+				blurbs.forEach(blurb => {
+					blurb.forEach(list => {
+						if(list.name && list.info){
+							let titles = document.querySelectorAll("h3.section-name");
+							for(var i=0;i<titles.length;i++){
+								if(titles[i].innerText === list.name){
+									let descriptionNode = create("p","hohDescriptions",list.info);
+									titles[i].parentNode.insertBefore(descriptionNode,titles[i].nextSibling);
+									break
+								}
+							}
+						}
+					})
+				});
+				setTimeout(applier,1000)
+			};
+			applier();
 			if(customTags.has("##STRICT")){
 				customTags.delete("##STRICT")
 			}
