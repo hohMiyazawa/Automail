@@ -135,22 +135,26 @@ let wrap = create("div","wrap",false,entry);
 				let markdown = create("div","markdown",false,markdownWrapper);
 				markdown.innerHTML = DOMPurify.sanitize(makeHtml(act.text))
 		}
-		else if(act.type === "ANIME_LIST"){
+		else if(act.type === "ANIME_LIST" || act.type === "MANGA_LIST"){
 			content.classList.add("list");
 			let cover = create("a","cover",false,content);
-			cover.href = "/anime/" + act.media.id + "/" + safeURL(titlePicker(act.media)) + "/";
+			const linkURL = "/" + (act.type === "ANIME_LIST" ? "anime" : "manga") + "/" + act.media.id + "/" + safeURL(titlePicker(act.media)) + "/";
+			cover.href = linkURL;
 			cover.style.backgroundImage = 'url("' + act.media.coverImage.large + '")';
-			let details = create("a","details",false,content);
-		}
-		else if(act.type === "MANGA_LIST"){
-			content.classList.add("list");
-			let cover = create("a","cover",false,content);
-			cover.href = "/manga/" + act.media.id + "/" + safeURL(titlePicker(act.media)) + "/";
-			cover.style.backgroundImage = 'url("' + act.media.coverImage.large + '")';
-			let details = create("a","details",false,content);
+			let details = create("div","details",false,content);
+				if(act.user.name !== decodeURIComponent(URLstuff[1])){
+					let name = create("a",["name","router-link-exact-active","router-link-active"],act.user.name,details);
+					name.href = "/user/" + act.user.name + "/"
+				}
+				let status = create("div","status",act.status + (act.progress ? " " + act.progress + " of " : " "),details);
+				let title = create("a","title",titlePicker(act.media),status);
+				title.href = linkURL
 		}
 	let time = create("div","time",false,wrap);
-	time.appendChild(nativeTimeElement(act.createdAt));
+		let postLink = create("a","icon",false,time,"margin-right: 10px;");
+			postLink.appendChild(svgAssets2.link.cloneNode(true));
+			postLink.href = "/activity/" + act.id + "/";
+		time.appendChild(nativeTimeElement(act.createdAt));
 	let actions = create("div","actions",false,wrap);
 		let actionReplies = create("a",["action","replies"],false,actions);
 			let replyCount = create("span",["count"],act.replyCount || "",actionReplies);
@@ -165,6 +169,37 @@ let wrap = create("div","wrap",false,entry);
 					let likeCount = create("span","count",act.likes.length || "",likeButton);
 					likeButton.appendChild(document.createTextNode(" "));
 					likeButton.appendChild(svgAssets2.likeNative.cloneNode(true));
+					if(act.likes.findIndex(thing => thing.name === whoAmI) !== -1){
+						likeButton.classList.add("liked")
+					}
+					if(useScripts.accessToken){
+						likeButton.onclick = function(){
+							let indexPlace = act.likes.findIndex(thing => thing.name === whoAmI);
+							if(indexPlace === -1){
+								act.likes.push({name: whoAmI});
+								likeButton.classList.add("liked")
+							}
+							else{
+								act.likes.splice(indexPlace,1);
+								likeButton.classList.remove("liked")
+							}
+							likeCount.innerText = act.likes.length || "";
+							authAPIcall(
+								"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY){id}}",
+								{id: act.id},
+								function(data){
+									if(!data){
+										authAPIcall(//try again once if it fails
+											"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY){id}}",
+											{id: act.id},
+											data => {}
+										)
+									}
+								}
+							);
+							deleteCacheItem("hohPinned" + jsonData.pinned)
+						}
+					}
 									}
 									else{
 										setTimeout(adder,500)
@@ -181,8 +216,9 @@ let wrap = create("div","wrap",false,entry);
 			}
 			catch(e){
 				console.warn("Invalid profile JSON for " + variables.userName + ". Aborting.");
+				console.log(e);
 				console.log(atob(jsonMatch[1]));
 			}
-		},"hohProfileBackground" + variables.userName,25*1000);
+		},"hohProfileBackground" + variables.userName,5*60*1000);
 	}
 }

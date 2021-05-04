@@ -13,7 +13,8 @@
 .reply-markdown a[href^="https://anilist.co/search/manga"]{
 	color: rgba(var(--color-green));
 }
-.activity-manga_list > div > div > div > div > .title{
+.activity-manga_list > div > div > div > div > .title,
+.hohPinned .list .title[href^="/manga/"]{
 	color: rgba(var(--color-green))!important;
 }
 .media .relations .cover[href^="/manga/"] + div div{

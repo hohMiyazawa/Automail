@@ -373,7 +373,12 @@ exportModule({
 							about
 						}
 					}`,
-					{about: newDescription},function(data){/*later*/}
+					{about: newDescription},function(data){
+						if(!data){
+							return
+						}
+						deleteCacheItem("hohProfileBackground" + whoAmI)
+					}
 				)
 			};
 			hohSettings.appendChild(create("hr"));
@@ -424,6 +429,7 @@ exportModule({
 							if(!data){
 								alert("failed to save custom CSS")
 							}
+							deleteCacheItem("hohProfileBackground" + whoAmI)
 						}
 					)
 				}
@@ -432,7 +438,7 @@ exportModule({
 		};
 		if(useScripts.customCSS && useScripts.accessToken){
 			let pinSettings = create("div",false,false,hohSettings);
-			create("p",false,"Add a pinned activity to your profile [EXPERIMENTAL] **rendering not yet supported!**",pinSettings);
+			create("p",false,"Add a pinned activity to your profile",pinSettings);
 			let inputField = create("input",false,false,pinSettings);
 			inputField.value = useScripts.pinned;
 			inputField.setAttribute("placeholder","activity link");
@@ -515,6 +521,7 @@ query{
 							if(!data){
 								alert("failed to save pinned activity")
 							}
+							deleteCacheItem("hohProfileBackground" + whoAmI)
 						}
 					)
 				}

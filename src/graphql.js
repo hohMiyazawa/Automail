@@ -443,6 +443,10 @@ rawQueries = [
 	...
 ]
 */
+function deleteCacheItem(key){
+	sessionStorage.removeItem(key);
+	localStorage.removeItem(key)
+}
 function queryPacker(rawQueries,possibleCallback){//get a list of query calls, and pack them into one query. The result is then split up again and sent back to each call.
 	let queries = rawQueries.filter(function(query){//filter out those that have data in our local cache
 		if(query.cacheKey){
