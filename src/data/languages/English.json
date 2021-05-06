@@ -91,6 +91,6 @@
 "$rewatch_suffix_1": "[rewatch]",
 "$rewatch_suffix_M": "[rewatch {0}]",
 "$reread_suffix_1": "[reread]",
-"$reread_suffix_M": "[reread {0}]",
+"$reread_suffix_M": "[reread {0}]"
 	}
 }
