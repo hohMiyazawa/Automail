@@ -39,20 +39,23 @@ function addCompletedScores(){
 					let rewatchSuffix = "";
 					if(data.repeat > 0){
 						if(data.media.type === "ANIME"){
-							rewatchSuffix = " [rewatch"
+							if(data.repeat === 1){
+								rewatchSuffix = " " + translate("$rewatch_suffix_1")
+							}
+							else{
+								rewatchSuffix = " " + translate("$rewatch_suffix_M",data.repeat)
+							}
 						}
 						else{
-							rewatchSuffix = " [reread"
-						}
-						if(data.repeat === 1){
-							rewatchSuffix += "]"
-						}
-						else{
-							rewatchSuffix += " " + data.repeat + "]"
+							if(data.repeat === 1){
+								rewatchSuffix = " " + translate("$reread_suffix_1")
+							}
+							else{
+								rewatchSuffix = " " + translate("$reread_suffix_M",data.repeat)
+							}
 						}
 					};
 					if(data.score){
-						//innerHTML because: contains an inline svg in the case of the "star" rating system
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
 						if(/^completed/i.test(status.innerText)){
 							scoreInfo.appendChild(scoreSuffix);

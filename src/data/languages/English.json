@@ -87,6 +87,10 @@
 "$module_unicodifier_description": "Convert emojis so they work on anilist",
 "$module_unicodifier_extendedDescription": "Anilist doesn't handle some unicode characters correctly, leading to truncated posts. This module coverts them to HTML entity escape codes instead, which the site can handle (they can easily do this themselves if they want to)\nOriginal idea by the great GoBusto: https://files.kiniro.uk/unicodifier.html",
 "$forum_comment_hide_title": "hide comment chain",
-"$forum_comment_show_title": "show comment chain"
+"$forum_comment_show_title": "show comment chain",
+"$rewatch_suffix_1": "[rewatch]",
+"$rewatch_suffix_M": "[rewatch {0}]",
+"$reread_suffix_1": "[reread]",
+"$reread_suffix_M": "[reread {0}]",
 	}
 }
