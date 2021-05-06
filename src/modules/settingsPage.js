@@ -1,7 +1,7 @@
 exportModule({
 	id: "settingsPage",
 	description: "This settings page",
-	isDefault: true,
+	isDefault: true,//must be true
 	categories: ["Script"],
 	visible: false,
 	urlMatch: function(url,oldUrl){
@@ -67,10 +67,18 @@ exportModule({
 				let input;
 				if(def.type === "select"){
 					input = create("select",false,false,setting);
-					def.values.forEach(
-						value => create("option",false,value,input)
-							.value = value
-					)
+					if(def.id === "partialLocalisationLanguage"){
+						def.values.forEach(
+							value => create("option",false,value + " (" + Object.keys(languageFiles[value].keys).length + " keys)",input)
+								.value = value
+						)
+					}
+					else{
+						def.values.forEach(
+							value => create("option",false,value,input)
+								.value = value
+						)
+					}
 				}
 				else if(def.type === "text"){
 					input = create("input",false,false,setting)
@@ -548,9 +556,9 @@ query{
 
 		hohSettings.appendChild(create("hr"));
 
-		let debugInfo = create("button",["hohButton","button"],"Export settings",hohSettings);
-		create("p",false,"Might come in handy to keep a backup if you do stuff like wiping your browser cache/storage, which will wipe your Automail settings too",hohSettings);
-		create("p",false,"Import settings:",hohSettings);
+		let debugInfo = create("button",["hohButton","button"],translate("$settings_button_export"),hohSettings);
+		create("p",false,translate("$settings_export_description"),hohSettings);
+		create("p",false,translate("$settings_import"),hohSettings);
 		let debugImport = create("input","input-file",false,hohSettings);
 		debugImport.setAttribute("type","file");
 		debugImport.setAttribute("name","json");
