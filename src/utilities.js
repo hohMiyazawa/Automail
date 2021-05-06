@@ -346,7 +346,7 @@ setInterval(function(){
 				m4_include(data/badDomains.json).includes(hashCode(linker))
 			){
 				link.href = "https://anilist.co/forum/thread/14";
-				link.innerText = "THIS BE BAD LINK, IT'S NOW VEWY DISPOSED OF OwO (click the report button to call the mods on this naughty user)"
+				link.innerText = translate("$piracy_message")
 			}
 		}
 	})

@@ -22,16 +22,18 @@ function addComparisionPage(){
 	compareLocation.style.display = "none";
 	let compareArea = create("div","hohCompare",false,compareLocation.parentNode);
 	if(nativeCompareExists){
-		let switchButton = create("span","hohCompareUIfragment","Show default compare",compareLocation.parentNode,"position:absolute;top:0px;right:0px;cursor:pointer;z-index:100;");
+		let isDefaultCompare = false;
+		let switchButton = create("span","hohCompareUIfragment",translate("$compare_default"),compareLocation.parentNode,"position:absolute;top:0px;right:0px;cursor:pointer;z-index:100;");
 		switchButton.onclick = function(){
-			if(switchButton.innerText === "Show default compare"){
-				switchButton.innerText ="Show hoh compare";
+			isDefaultCompare = !isDefaultCompare;
+			if(isDefaultCompare){
+				switchButton.innerText = translate("$compare_hoh");
 				compareLocation.style.display = "";
 				compareArea.style.display = "none";
 				switchButton.style.top = "-30px"
 			}
 			else{
-				switchButton.innerText ="Show default compare";
+				switchButton.innerText = translate("$compare_default");
 				compareLocation.style.display = "none";
 				compareArea.style.display = "";
 				switchButton.style.top = "0px"
@@ -427,7 +429,7 @@ function addComparisionPage(){
 		removeChildren(table)
 		let userRow = create("tr");
 		let resetCel = create("td",false,false,userRow);
-		let resetButton = create("button",["hohButton","button"],"Reset",resetCel,"margin-top:0px;");
+		let resetButton = create("button",["hohButton","button"],translate("$button_add"),resetCel,"margin-top:0px;");
 		resetButton.onclick = function(){
 			users = [];
 			shows = [];
@@ -482,7 +484,7 @@ function addComparisionPage(){
 		});
 		let addCel = create("td");
 		let addInput = create("input","hohNativeInput",false,addCel);
-		let addButton = create("button",["button","hohButton"],"Add",addCel,"margin-top:0px;");
+		let addButton = create("button",["button","hohButton"],translate("$button_add"),addCel,"margin-top:0px;");
 		addButton.style.cursor = "pointer";
 		addButton.onclick = function(){
 			if(addInput.value !== ""){

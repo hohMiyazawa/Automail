@@ -10,7 +10,7 @@ function addMyThreadsLink(){
 		setTimeout(addMyThreadsLink,100)
 	}
 	else{
-		create("a",["hohMyThreads","link"],"My Threads",target)
+		create("a",["hohMyThreads","link"],translate("$myThreads_link"),target)
 			.href = "https://anilist.co/user/" + whoAmI + "/social#my-threads"
 	}
 }

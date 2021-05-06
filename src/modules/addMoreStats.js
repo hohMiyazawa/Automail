@@ -41,7 +41,7 @@ function addMoreStats(){
 	let mangaStaff;
 	let animeStudios;
 	let hohStatsTrigger = create("span","hohStatsTrigger",translate("$stats_moreStats_title"),filterGroup);
-	let hohGenresTrigger = create("span","hohStatsTrigger","Genres & Tags",filterGroup);
+	let hohGenresTrigger = create("span","hohStatsTrigger",translate("$stats_genresTags_title"),filterGroup);
 	let hohSiteStats = create("a","hohStatsTrigger",translate("$stats_siteStats_title"),filterGroup);
 	hohSiteStats.href = "/site-stats";
 	let generateStatPage = function(){
@@ -813,7 +813,7 @@ function addMoreStats(){
 				}
 			}
 
-			create("h1","hohStatHeading","Anime stats for " + user,personalStats);
+			create("h1","hohStatHeading",translate("$stats_anime_heading",user),personalStats);
 			let list = returnList({
 				data: {
 					MediaListCollection: {
@@ -1712,7 +1712,7 @@ function addMoreStats(){
 		let personalStatsMangaCallback = function(data){
 			personalStatsManga.innerText = "";
 			create("hr","hohSeparator",false,personalStatsManga);
-			create("h1","hohStatHeading","Manga stats for " + user,personalStatsManga);
+			create("h1","hohStatHeading",translate("$stats_manga_heading",user),personalStatsManga);
 			let list = returnList(data);
 			let scoreList = list.filter(element => element.scoreRaw);
 			let personalStatsMangaContainer = create("div",false,false,personalStatsManga);

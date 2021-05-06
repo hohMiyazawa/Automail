@@ -214,7 +214,12 @@ function betterListPreview(){
 						const behind = air.media.nextAiringEpisode.episode - 1 - air.progress;
 						if(behind > 0){
 							let infoHeader = create("div","info-header",false,content,"color: rgb(var(--color-blue));font-size: 1.2rem;font-weight: 500;margin-bottom: 8px;");
-							create("div",false,behind + " episode" + (behind > 1 ? "s" : "") + " behind",infoHeader);
+							if(behind > 1){
+								create("div",false,translate("$preview_Mbehind",behind),infoHeader)
+							}
+							else{
+								create("div",false,translate("$preview_1behind"),infoHeader)
+							}
 						}
 					}
 					let title = create("a","title",air.media.title.userPreferred,content,"font-size: 1.4rem;");
@@ -231,7 +236,7 @@ function betterListPreview(){
 							pBar.optimum = air.media.nextAiringEpisode.episode - 1;
 						}
 					};
-					let progress = create("div",false,"Progress: " + air.progress + (air.media.episodes ? "/" + air.media.episodes : ""),info);
+					let progress = create("div",false,translate("$preview_progress") + " " + air.progress + (air.media.episodes ? "/" + air.media.episodes : ""),info);
 					let isBlocked = false;
 					plusProgress.onclick = function(e){
 						if(isBlocked){
