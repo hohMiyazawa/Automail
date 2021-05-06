@@ -178,7 +178,7 @@ function formatTime(diff,type){
 	return "1 " + times[timeIndex].name;
 }
 
-function nativeTimeElement(timestamp){
+function nativeTimeElement(timestamp){//time in seconds
 	let dateObj = new Date(timestamp*1000);
 	let elem = create("time");
 	elem.setAttribute("datetime",dateObj);
@@ -187,59 +187,59 @@ function nativeTimeElement(timestamp){
 		let now = new Date();
 		let diff = Math.round(now.valueOf()/1000) - Math.round(dateObj.valueOf()/1000);
 		if(diff === 0){
-			elem.innerText = "Just now"
+			elem.innerText = translate("$time_now")
 		}
 		if(diff === 1){
-			elem.innerText = "1 second ago"
+			elem.innerText = translate("$time_1second")
 		}
 		else if(diff < 60){
-			elem.innerText = diff + " seconds ago"
+			elem.innerText = translate("$time_Msecond",diff)
 		}
 		else{
 			diff = Math.floor(diff/60);
 			if(diff === 1){
-				elem.innerText = "1 minute ago"
+				elem.innerText = translate("$time_1minute")
 			}
 			else if(diff < 60){
-				elem.innerText = diff + " minutes ago"
+				elem.innerText = translate("$time_Mminute",diff)
 			}
 			else{
 				diff = Math.floor(diff/60);
 				if(diff === 1){
-					elem.innerText = "1 hour ago"
+					elem.innerText = translate("$time_1hour")
 				}
 				else if(diff < 24){
-					elem.innerText = diff + " hours ago"
+					elem.innerText = translate("$time_Mhour",diff)
 				}
 				else{
 					diff = Math.floor(diff/24);
 					if(diff === 1){
-						elem.innerText = "1 day ago"
+						elem.innerText = translate("$time_1day")
 					}
 					else if(diff < 7){
-						elem.innerText = diff + " days ago"
+						elem.innerText = translate("$time_Mday",diff)
 					}
 					else if(diff < 14){
-						elem.innerText = "1 week ago"
+						elem.innerText = translate("$time_1week")
 					}
 					else if(diff < 30){
-						elem.innerText = Math.floor(diff/7) + " weeks ago"
+						elem.innerText = translate("$time_Mweek",Math.floor(diff/7))
 					}
 					else if(diff < 365){
 						if(Math.floor(diff/30) === 1){
-							elem.innerText = "1 month ago";
+							elem.innerText = translate("$time_1month")
 						}
 						else{
-							elem.innerText = Math.floor(diff/30) + " months ago"
+							elem.innerText = translate("$time_Mmonth",Math.floor(diff/30))
 						}
 					}
 					else{
 						diff = Math.floor(diff/365);
 						if(diff === 1){
-							elem.innerText = "1 year ago";
+							elem.innerText = translate("$time_1year")
 						}
 						else{
-							elem.innerText = diff + " years ago"
+							elem.innerText = translate("$time_Myear",diff)
 						}
 					}
 				}

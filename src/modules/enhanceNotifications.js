@@ -59,9 +59,9 @@ function enhanceNotifications(forceFlag){
 				forceRebuildFlag = true;
 				enhanceNotifications(true)
 			};
-			let description = create("span",false,"Hide like notifications",setting);
+			let description = create("span",false,translate("$notifications_hideLike"),setting);
 			setting.style.fontSize = "small";
-			let softBlockSpan = create("span",false,"Soft block users",possibleButton.parentNode,"cursor: pointer;font-size: small;display: block;margin: 10px 0px;");
+			let softBlockSpan = create("span",false,translate("$notifications_softBlock"),possibleButton.parentNode,"cursor: pointer;font-size: small;display: block;margin: 10px 0px;");
 			softBlockSpan.onclick = function(){
 				let manager = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Soft block");
 				create("p",false,"Hide notifications from specific people. A much less drastic solution than blocking them entirely (if that's what you actually want, this is the wrong place).",manager);
@@ -622,11 +622,13 @@ You can also turn off this notice there.`,setting)
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				text.appendChild(textSpan)
 			};
-			let time = create("div","hohTime");
-			time.innerHTML = activities[i - counter + 1].time;//does not depend on user input
 			newNotification.appendChild(notImage);
 			newNotification.appendChild(text);
 			newNotification.appendChild(notNotImageContainer);
+			let time = create("div","hohTime");
+			if(activities[i - counter + 1].time){
+				time.appendChild(nativeTimeElement(activities[i - counter + 1].time))
+			}
 			newNotification.appendChild(time);
 			let commentsContainer = create("div",["hohCommentsContainer","b" + activities[i].link]);
 			let comments = create("a",["hohComments","link"],"comments",commentsContainer);
@@ -761,13 +763,12 @@ You can also turn off this notice there.`,setting)
 			}
 		};
 		if(
-			notification.children.length > 1
-			&& notification.children[1].children.length > 1
+			notification.querySelector("time")
 		){
-			active.time = notification.children[1].children[1].innerHTML//does not depend on user input
+			active.time = (new Date(notification.querySelector("time").dateTime).valueOf())/1000
 		}
 		else{
-			active.time = create("span")
+			active.time = null
 		};
 		activities.push(active)
 	});
