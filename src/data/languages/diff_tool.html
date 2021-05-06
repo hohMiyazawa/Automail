@@ -29,11 +29,11 @@ function load(){
 
 					results.innerText = "File 1: " + Object.keys(json1.keys).length + " keys";
 					results.innerText += "\nUnique keys: " + Object.keys(json1.keys).filter(key => !keys2.has(key)).length;
-					results.innerText += "\n" + Object.keys(json1.keys).filter(key => !keys2.has(key)).map(key => '"' + key +'": "' + json1.keys[key] + '"').join("\n");
+					results.innerText += "\n" + Object.keys(json1.keys).filter(key => !keys2.has(key)).map(key => '"' + key +'": "' + json1.keys[key] + '"').join(",\n");
 					results.innerText += "\n\n";
 					results.innerText += "File 2: " + Object.keys(json2.keys).length + " keys";
 					results.innerText += "\nUnique keys: " + Object.keys(json2.keys).filter(key => !keys1.has(key)).length;
-					results.innerText += "\n" + Object.keys(json2.keys).filter(key => !keys1.has(key)).map(key => '"' + key +'": "' + json2.keys[key] + '"').join("\n");
+					results.innerText += "\n" + Object.keys(json2.keys).filter(key => !keys1.has(key)).map(key => '"' + key +'": "' + json2.keys[key] + '"').join(",\n");
 				};
 				FR2.readAsText(input2.files[0])
 			}
