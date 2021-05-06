@@ -7,10 +7,12 @@ function enhanceForum(){//purpose: reddit-style comment three collapse button
 		if(!comment.hasOwnProperty("hohVisited")){
 			comment.hohVisited = true;
 			let hider = create("span","hohForumHider","[-]");
+			hider.title = translate("$forum_comment_hide_title");
 			hider.onclick = function(){
 				let parentComment = hider.parentNode.parentNode;
 				if(hider.innerText === "[-]"){
 					hider.innerText = "[+]";
+					hider.title = translate("$forum_comment_show_title");
 					parentComment.children[1].style.display = "none";
 					parentComment.parentNode.classList.add("hohCommentHidden");
 					if(parentComment.parentNode.children.length > 1){
@@ -19,6 +21,7 @@ function enhanceForum(){//purpose: reddit-style comment three collapse button
 				}
 				else{
 					hider.innerText = "[-]";
+					hider.title = translate("$forum_comment_hide_title");
 					parentComment.children[1].style.display = "block";
 					parentComment.parentNode.classList.remove("hohCommentHidden");
 					if(parentComment.parentNode.children.length > 1){
