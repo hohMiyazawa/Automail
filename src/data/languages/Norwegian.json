@@ -51,6 +51,8 @@
 "$preview_mangaSection_title": "Nyleg Manga",
 "$preview_airingSection_title": "På Lufta",
 "$recs_forYou": "For Deg",
-"$recs_description": "Kvart par er noko du liker + noko du ikkje har sett enno\nBest fyrst"
+"$recs_description": "Kvart par er noko du liker + noko du ikkje har sett enno\nBest fyrst",
+"$forum_comment_hide_title": "gøym kommentartre",
+"$forum_comment_show_title": "vis kommentartre"
 	}
 }
