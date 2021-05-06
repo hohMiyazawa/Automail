@@ -82,6 +82,8 @@
 "$preview_airingSection_title": "Airing",
 "$timeline_search_description": "Looking for the activities of someone else?",
 "$timeline_title": "Activity Timeline",
+"$filter_replies": "Has Replies",
+"$filter_following": "Following",
 "$input_user_placeholder": "User",
 "$error_userNotFound": "User not found",
 "$404_private_or_noUser": "{0} does not exist or has a private profile",

@@ -12,10 +12,10 @@ function enhanceSocialTabFeed(){
 	feedLocation.insertBefore(hohFeed,feedLocation.children[0]);
 	let optionsContainer = create("div",false,false,hohFeed,"position:absolute;top:0px;right:0px;");
 	let hasReplies = createCheckbox(optionsContainer);
-	create("span",false,"Has Replies",optionsContainer,"margin-right:7px;");
+	create("span",false,translate("$filter_replies"),optionsContainer,"margin-right:7px;");
 	let isFollowing = createCheckbox(optionsContainer);
 	if(useScripts.accessToken){
-		create("span",false,"Following",optionsContainer)
+		create("span",false,translate("$filter_following"),optionsContainer)
 	}
 	else{
 		isFollowing.parentNode.style.display = "none"
