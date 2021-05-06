@@ -10,6 +10,7 @@
 	},
 	"keys": {
 "$button_submit": "Send inn",
+"$button_search": "Søk",
 "$settings_title": "Innstillingar for Automail",
 "$settings_version": "Versjon: ",
 "$settings_homepage": "Heimeside: ",
@@ -50,6 +51,7 @@
 "$preview_animeSection_title": "Nyleg Anime",
 "$preview_mangaSection_title": "Nyleg Manga",
 "$preview_airingSection_title": "På Lufta",
+"$timeline_title": "Tidslinje",
 "$recs_forYou": "For Deg",
 "$recs_description": "Kvart par er noko du liker + noko du ikkje har sett enno\nBest fyrst",
 "$forum_comment_hide_title": "gøym kommentartre",

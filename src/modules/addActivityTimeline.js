@@ -55,7 +55,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 				previousTime = null;
 				removeChildren(activityTimeline)
 				if(data.data.Page.activities.length){
-					create("h2",false,"Activity Timeline",activityTimeline)
+					create("h2",false,translate("$timeline_title"),activityTimeline)
 				}
 			};
 			data.data.Page.activities.forEach(function(activity){
@@ -89,11 +89,11 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		lineCaller(query,variables)
 	};
 	let lookingElse = create("div",false,false,followingLocation.parentNode,"margin-top:30px;");
-	create("div",false,"Looking for the activities of someone else? ",lookingElse);
+	create("div",false,translate("$timeline_search_description"),lookingElse);
 	let lookingElseInput = create("input",false,false,lookingElse);
-	lookingElseInput.placeholder = "User";
+	lookingElseInput.placeholder = translate("$input_user_placeholder");
 	lookingElseInput.setAttribute("list","socialUsers");
-	let lookingElseButton = create("button",["button","hohButton"],"Search",lookingElse);
+	let lookingElseButton = create("button",["button","hohButton"],translate("$button_search"),lookingElse);
 	let lookingElseError = create("span",false,"",lookingElse);
 	lookingElseButton.onclick = function(){
 		if(lookingElseInput.value){
@@ -103,7 +103,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 				{name: lookingElseInput.value},
 				function(data){
 					if(!data){
-						lookingElseError.innerText = "User not found";
+						lookingElseError.innerText = translate("$error_userNotFound");
 						return
 					};
 					lookingElseError.innerText = "";
