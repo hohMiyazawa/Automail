@@ -48,7 +48,7 @@ function enhanceNotifications(forceFlag){
 					child.classList.remove("hohUnread")
 				})
 			};
-			let regularNotifications = create("span",false,svgAssets.envelope + " Show default notifications",possibleButton.parentNode,"cursor: pointer;font-size: small");
+			let regularNotifications = create("span",false,svgAssets.envelope + " " + translate("$notifications_showDefault"),possibleButton.parentNode,"cursor: pointer;font-size: small");
 			let setting = create("p",false,false,possibleButton.parentNode,"cursor: pointer;font-size: small");
 			let checkbox = createCheckbox(setting);
 			checkbox.checked = useScripts["hideLikes"];
@@ -118,7 +118,7 @@ You can also turn off this notice there.`,setting)
 					).forEach(elem => {
 						elem.style.display = "grid"
 					})
-					regularNotifications.innerText = svgAssets.envelope + " Show hoh notifications";
+					regularNotifications.innerText = svgAssets.envelope + " " + translate("$notifications_showHoh");
 					setting.style.display = "none"
 				}
 				else{
@@ -132,7 +132,7 @@ You can also turn off this notice there.`,setting)
 					).forEach(elem => {
 						elem.style.display = "none"
 					})
-					regularNotifications.innerText = svgAssets.envelope + " Show default notifications";
+					regularNotifications.innerText = svgAssets.envelope + " " + translate("$notifications_showDefault");
 					setting.style.display = ""
 				}
 			};

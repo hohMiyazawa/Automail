@@ -7,20 +7,20 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 			navThingy.parentNode.insertBefore(hackContainer,navThingy);
 			hackContainer.appendChild(navThingy);
 			let subMenu = create("div","hohSubMenu",false,hackContainer);
-			let linkStats = create("a","hohSubMenuLink","Stats",subMenu);
+			let linkStats = create("a","hohSubMenuLink",translate("$submenu_stats"),subMenu);
 			if(useScripts.mangaBrowse){
 				linkStats.href = "/user/" + whoAmI + "/stats/manga/overview"
 			}
 			else{
 				linkStats.href = "/user/" + whoAmI + "/stats/anime/overview"
 			}
-			create("a","hohSubMenuLink","Social",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_social"),subMenu)
 				.href = "/user/" + whoAmI + "/social";
-			create("a","hohSubMenuLink","Reviews",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_reviews"),subMenu)
 				.href = "/user/" + whoAmI + "/reviews";
-			create("a","hohSubMenuLink","Favourites",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_favourites"),subMenu)
 				.href = "/user/" + whoAmI + "/favorites";
-			create("a","hohSubMenuLink","Submissions",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_submissions"),subMenu)
 				.href = "/user/" + whoAmI + "/submissions";
 			hackContainer.onmouseenter = function(){
 				subMenu.style.display = "inline";

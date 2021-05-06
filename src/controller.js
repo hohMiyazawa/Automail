@@ -77,7 +77,7 @@ function handleScripts(url,oldUrl){
 				let bannerLink = create("a","hohDownload","⭳",banner);
 				const linkPlace = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
 				bannerLink.href = linkPlace;
-				bannerLink.title = "Download banner";
+				bannerLink.title = translate("$download_banner_tooltip");
 				if(linkPlace === "null"){
 					bannerLink.style.display = "none"
 				}
@@ -217,7 +217,7 @@ function handleScripts(url,oldUrl){
 			let banner = document.querySelector(".banner");
 			if(banner){
 				let bannerLink = create("a","hohDownload","⭳",banner);
-				bannerLink.title = "Download banner";
+				bannerLink.title = translate("$download_banner_tooltip");
 				bannerLink.href = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
 			}
 			else{

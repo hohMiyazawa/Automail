@@ -109,7 +109,7 @@ function drawListStuff(){
 			{name: decodeURIComponent(URLstuff[1])},
 			function(data){
 				if(!data){
-					loader.innerText = "Connection error";
+					loader.innerText = translate("$error_connection");
 					return
 				}
 				let list = returnList(data,true).filter(a => a.status === "CURRENT" && a.media.status === "RELEASING");
@@ -154,7 +154,7 @@ function drawListStuff(){
 					if(returnedItems === list.length){
 						loader.innerText = "";
 						if(!goodItems.length){
-							loader.innerText = "No new items found :("
+							loader.innerText = translate("$updates_noNewManga")
 						}
 					};
 					if(!data){

@@ -79,7 +79,7 @@ if(searchParams.get("user")){
 onlyMediaInput.setAttribute("list","userMedialist");
 let feed = create("div","hohFeed",false,terms);
 let topNav = create("div",false,false,feed,"position:relative;min-height:60px;margin-bottom:15px;");
-let loading = create("p",false,"Loading...",topNav);
+let loading = create("p",false,translate("$loading"),topNav);
 let pageCount = create("p",false,"Page 1",topNav);
 let statusInput = create("div",false,false,topNav);
 let onlySpecificActivity = false;
@@ -768,7 +768,7 @@ let setInputs = function(){
 	}
 };
 topPrevious.onclick = function(){
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	if(page === 1){
 		requestPage(1)
 	}
@@ -777,11 +777,11 @@ topPrevious.onclick = function(){
 	}
 };
 topNext.onclick = function(){
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	requestPage(page + 1);
 };
 onlyGlobal.onchange = function(){
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	statusInputTitle.style.display = "none";
 	inputArea.placeholder = "Write a status...";
 	onlyUser.checked = false;
@@ -790,26 +790,26 @@ onlyGlobal.onchange = function(){
 	requestPage(1);
 };
 onlyStatus.onchange = function(){
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	onlyForum.checked = false;
 	onlyReviews.checked = false;
 	onlyMedia.checked = false;
 	requestPage(1);
 };
 onlyReplies.onchange = function(){
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	onlyReviews.checked = false;
 	requestPage(1);
 };
 onlyUser.onchange = function(){
 	setInputs();
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	onlyGlobal.checked = false;
 	requestPage(1);
 };
 onlyForum.onchange = function(){
 	setInputs();
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	onlyGlobal.checked = false;
 	onlyStatus.checked = false;
 	onlyReviews.checked = false;
@@ -817,7 +817,7 @@ onlyForum.onchange = function(){
 };
 onlyMedia.onchange = function(){
 	setInputs();
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	requestPage(1);
 };
 onlyReviews.onchange = function(){
@@ -826,7 +826,7 @@ onlyReviews.onchange = function(){
 	onlyStatus.checked = false;
 	onlyForum.checked = false;
 	onlyReplies.checked = false;
-	loading.innerText = "Loading...";
+	loading.innerText = translate("$loading");
 	requestPage(1);
 }
 let oldOnlyUser = "";
@@ -876,14 +876,14 @@ onlyMediaInput.onblur = function(){
 						onlyMediaResult.type = media.type;
 						onlyMedia.checked = true;
 						onlyStatus.checked = false;
-						loading.innerText = "Loading...";
+						loading.innerText = translate("$loading");
 						requestPage(1);
 					}
 				});
 				if(data.data.Page.media.length){
 					onlyMedia.checked = true;
 					onlyStatus.checked = false;
-					loading.innerText = "Loading...";
+					loading.innerText = translate("$loading");
 					requestPage(1);
 				}
 				else{
@@ -911,12 +911,12 @@ onlyUserInput.onblur = function(){
 		publishButton.innerText = "Publish";
 	}
 	if(oldOnlyUser !== onlyUserInput.value && onlyUserInput.value !== ""){
-		loading.innerText = "Loading...";
+		loading.innerText = translate("$loading");
 		onlyUser.checked = true;
 		requestPage(1);
 	}
 	else if(onlyUser.checked && oldOnlyUser !== onlyUserInput.value){
-		loading.innerText = "Loading...";
+		loading.innerText = translate("$loading");
 		requestPage(1);
 	}
 };

@@ -4,17 +4,17 @@ if(useScripts.browseSubmenu && useScripts.CSSverticalNav && whoAmI && !useScript
 		if(navThingy){
 			navThingy.classList.add("subMenuContainer");
 			let subMenu = create("div","hohSubMenu",false,navThingy);
-			create("a","hohSubMenuLink","Anime",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_anime"),subMenu)
 				.href = "/search/anime";
-			create("a","hohSubMenuLink","Manga",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_manga"),subMenu)
 				.href = "/search/manga";
-			create("a","hohSubMenuLink","Staff",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_staff"),subMenu)
 				.href = "/search/staff";
-			create("a","hohSubMenuLink","Characters",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_characters"),subMenu)
 				.href = "/search/characters";
-			create("a","hohSubMenuLink","Reviews",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_reviews"),subMenu)
 				.href = "/reviews";
-			create("a","hohSubMenuLink","Recommendations",subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_recommendations"),subMenu)
 				.href = "/recommendations";
 			navThingy.onmouseenter = function(){
 				subMenu.style.display = "inline"

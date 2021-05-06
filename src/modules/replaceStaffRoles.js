@@ -66,7 +66,7 @@ let sortSelect = create("select",false,false,hohMediaSort);
 sortSelect.style.marginLeft = "5px";
 let filterSelect = create("input",false,false,hohMediaSort);
 filterSelect.setAttribute("list","staffRoles");
-filterSelect.placeholder = "Filter by title, role, etc.";
+filterSelect.placeholder = translate("$staff_filter_placeholder");
 let filterExplanation = create("abbr",false,"?",hohMediaSort,"margin-left:5px;cursor:pointer;");
 filterExplanation.title = "Filter help";
 filterExplanation.onclick = function(){
