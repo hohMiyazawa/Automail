@@ -51,7 +51,7 @@ let useScripts = {//most modules are turned on by default
 	feedCommentFilter: false,
 	feedCommentComments: 0,
 	feedCommentLikes: 0,
-	colourPicker: true,
+	colourPicker: false,
 	colourSettings: [],
 	mangaBrowse: false,
 	progressBar: false,
