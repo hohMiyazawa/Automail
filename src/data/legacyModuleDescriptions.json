@@ -180,7 +180,7 @@
 	"description": "Green titles for manga",
 	"categories": ["Media","Feeds"]
 },{"id": "cleanSocial",
-	"description": "Give a better space to the following list on the social tab [under development]",
+	"description": "Place 'following' before 'forum threads' on media social tabs",
 	"categories": ["Media"]
 },{"id": "limitProgress10",
 	"description": "Limit the 'in progress' sections to 10 entries",
