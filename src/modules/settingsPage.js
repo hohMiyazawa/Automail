@@ -452,7 +452,12 @@ exportModule({
 			inputField.setAttribute("placeholder","activity link");
 			create("br",false,false,pinSettings);
 			let pinChange = create("button",["hohButton","button"],translate("$button_submit"),pinSettings);
+			let hohSpinner = create("span","hohSpinner","",pinSettings);
 			pinChange.onclick = function(){
+				hohSpinner.innerText = svgAssets.loading;
+				hohSpinner.classList.remove("spinnerError");
+				hohSpinner.classList.remove("spinnerDone");
+				hohSpinner.classList.add("spinnerLoading");
 				let activityID = parseInt(inputField.value);
 				if(inputField.value !== ""){
 					if(!activityID){
@@ -463,6 +468,9 @@ exportModule({
 					}
 					if(!activityID){
 						alert("must be a direct link to an activity or an activity ID");
+						hohSpinner.innerText = svgAssets.cross;
+						hohSpinner.classList.add("spinnerError");
+						hohSpinner.classList.remove("spinnerLoading");
 						return
 					}
 					generalAPIcall(
@@ -484,6 +492,10 @@ query{
 						{},
 						function(data){
 							if(!data){
+								hohSpinner.innerText = svgAssets.cross;
+								hohSpinner.classList.add("spinnerError");
+								hohSpinner.classList.remove("spinnerLoading");
+								hohSpinner.classList.remove("spinnerDone");
 								alert("activity not found!")
 							}
 						}
@@ -504,7 +516,11 @@ query{
 							profileJson = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
 						}
 						catch(e){
-							console.warn("Invalid profile JSON")
+							hohSpinner.innerText = svgAssets.cross;
+							hohSpinner.classList.add("spinnerError");
+							hohSpinner.classList.remove("spinnerLoading");
+							console.warn("Invalid profile JSON");
+							return
 						}
 					}
 				}
@@ -514,6 +530,9 @@ query{
 				}
 				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				if(newDescription.length > 1e6){
+					hohSpinner.innerText = svgAssets.cross;
+					hohSpinner.classList.add("spinnerError");
+					hohSpinner.classList.remove("spinnerLoading");
 					alert("Profile JSON is over 1MB")
 				}
 				else{
@@ -527,7 +546,15 @@ query{
 						{about: newDescription},
 						function(data){
 							if(!data){
+								hohSpinner.innerText = svgAssets.cross;
+								hohSpinner.classList.add("spinnerError");
+								hohSpinner.classList.remove("spinnerLoading");
 								alert("failed to save pinned activity")
+							}
+							else{
+								hohSpinner.innerText = svgAssets.check;
+								hohSpinner.classList.add("spinnerDone");
+								hohSpinner.classList.remove("spinnerLoading");
 							}
 							deleteCacheItem("hohProfileBackground" + whoAmI)
 						}

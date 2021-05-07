@@ -2196,6 +2196,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+.hohSpinner.spinnerDone{
+	color: rgb(var(--color-green));
+}
+.hohSpinner.spinnerError{
+	color: rgb(var(--color-red));
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

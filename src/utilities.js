@@ -492,6 +492,8 @@ function removeChildren(node){
 const svgAssets = {
 	envelope : "✉",
 	cross : "✕",
+	check: "✓",
+	loading: "…",
 	like : "♥"
 };
 
