@@ -123,7 +123,7 @@ query{
 										};
 let wrap = create("div","wrap",false,entry);
 	let content = create("div",false,false,wrap);
-		if(act.type === "TEXT"){
+		if(act.type === "TEXT" || act.type === "MESSAGE"){
 			content.classList.add("text");
 			let header = create("div","header",false,content);
 				let avatar = create("a",["avatar","router-link-exact-active","router-link-active"],false,header);
