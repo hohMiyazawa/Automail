@@ -824,7 +824,8 @@ select{
 	width: 130px;
 	top: 120px;
 }
-.user-social.listView .user-follow .wrap{
+.user-social.listView .user-follow .wrap,
+.user-social.listView .hohSocialContent.user-follow{
 	display: block!important;
 }
 .user-social.listView .user-follow .user{
@@ -839,6 +840,7 @@ select{
 	width: 250px;
 	margin-left: 80px !important;
 	opacity: 1;
+	padding-bottom: 35px;
 }
 .user-social.listView .user-follow .follow-card{
 	margin: 2px;
@@ -2201,6 +2203,14 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 .hohSpinner.spinnerError{
 	color: rgb(var(--color-red));
+}
+.user-social .filter-group > span{
+	position: relative;
+}
+.hohCount{
+	position: absolute;
+	right: 1px;
+	top: 0px;
 }
 
 m4_include(css/footerLinks.css)

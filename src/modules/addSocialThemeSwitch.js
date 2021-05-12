@@ -26,44 +26,4 @@ function addSocialThemeSwitch(){
 		cardView.classList.add("active");
 		document.querySelector(".user-social.listView").classList.remove("listView");
 	}
-	let traitorTracer = create("button",["button","hohButton"],"⇌",target,"padding:5px;");
-	traitorTracer.title = "Check who follows back.";
-	traitorTracer.onclick = function(){
-		traitorTracer.setAttribute("disabled","disabled");
-		let query = `
-		query($userId: Int!){
-			${new Array(document.getElementById("hohFollowingCount") ? Math.ceil(parseInt(document.getElementById("hohFollowingCount").innerText)/50) : 12).fill(0).map((foo,index) => "a" + index + ":Page(page:" + index + "){following(userId: $userId,sort: USERNAME){name}}").join("\n")}
-		}`;
-		let traitorText = traitorTracer.parentNode.querySelector(".filter-group .active").childNodes[0].textContent.trim();
-		if(traitorText === "Following"){
-			query = `
-			query($userId: Int!){
-				${new Array(document.getElementById("hohFollowersCount") ? Math.ceil(parseInt(document.getElementById("hohFollowingCount").innerText)/50) : 12).fill(0).map((foo,index) => "a" + index + ":Page(page:" + index + "){followers(userId: $userId,sort: USERNAME){name}}").join("\n")}
-			}`
-		}
-		else if(traitorText !== "Followers"){
-			return
-		};
-		generalAPIcall("query($name:String){User(name:$name){id}}",{name: decodeURIComponent(URLstuff[1])},function(data){
-			generalAPIcall(
-				query,
-				{userId: data.data.User.id},
-				function(people){
-					traitorTracer.removeAttribute("disabled");
-					let users = new Set(
-						[].concat(
-							...Object.keys(people.data).map(
-								a => people.data[a].following || people.data[a].followers
-							)
-						).map(a => a.name)
-					);
-					document.querySelectorAll(".user-follow .follow-card .name").forEach(function(place){
-						if(!users.has(place.textContent.trim())){
-							place.parentNode.style.border = "7px solid red"
-						}
-					})
-				}
-			)
-		},"hohIDlookup" + decodeURIComponent(URLstuff[1]).toLowerCase());
-	}
 }

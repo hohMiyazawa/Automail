@@ -129,6 +129,12 @@
 "$reread_suffix_1": "[reread]",
 "$reread_suffix_M": "[reread {0}]",
 "$updates_noNewManga": "No new items found :(",
-"$staff_filter_placeholder": "Filter by title, role, etc."
+"$staff_filter_placeholder": "Filter by title, role, etc.",
+"$relations_following_only": "Following Only",
+"$relations_followers_only": "Followers Only",
+"$relations_mutuals": "Mutuals",
+"$relations_shared_following": "Shared Following",
+"$relations_shared_followers": "Shared Followers",
+"$relations_description": "Add separate tabs on the social page for various types of followers"
 	}
 }

@@ -12,7 +12,7 @@ function addFollowCount(){
 				if(data){
 					followCount = data.data.Page.pageInfo.total
 				};
-				create("span","#hohFollowersCount",followCount,target.children[2],"position:absolute;right:3px;");
+				create("span",["#hohFollowersCount","hohCount"],followCount,target.children[2]);
 			}
 		});
 		//these two must be separate calls, because they are allowed to fail individually (too many followers)
@@ -24,7 +24,7 @@ function addFollowCount(){
 				if(data){
 					followCount = data.data.Page.pageInfo.total
 				};
-				create("span","#hohFollowingCount",followCount,target.children[1],"position:absolute;right:3px;");
+				create("span",["#hohFollowingCount","hohCount"],followCount,target.children[1]);
 			}
 		});
 	},"hohIDlookup" + decodeURIComponent(URLstuff[1]).toLowerCase());
