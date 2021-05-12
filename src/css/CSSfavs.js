@@ -25,6 +25,9 @@ if(useScripts.CSSfavs){
 	background: rgb(0,0,0,0) !important;
 	width: 470px;
 }
+.genre-overview .genre{
+	display: inline;
+}
 .overview .favourite.studio{
 	cursor: pointer;
 	min-height: 115px;
