@@ -333,7 +333,7 @@ exportModule({
 				}
 				else if(their_following && !my_following){
 					my_following = new Map();
-					collect_myFollowing(1,2,userID,sharedFollowingDisplay);
+					collect_myFollowing(1,2,userObject.id,sharedFollowingDisplay);
 				}
 				else if(!their_following && my_following){
 					their_following = new Map();
@@ -342,7 +342,7 @@ exportModule({
 				else{
 					my_following = new Map();
 					their_following = new Map();
-					collect_myFollowing(1,2,userID,sharedFollowingDisplay);
+					collect_myFollowing(1,2,userObject.id,sharedFollowingDisplay);
 					collect_theirFollowing(1,2,userID,sharedFollowingDisplay);
 				}
 			}
@@ -354,7 +354,7 @@ exportModule({
 				}
 				else if(their_followers && !my_followers){
 					my_followers = new Map();
-					collect_myFollowers(1,2,userID,sharedFollowersDisplay);
+					collect_myFollowers(1,2,userObject.id,sharedFollowersDisplay);
 				}
 				else if(!their_followers && my_followers){
 					their_followers = new Map();
@@ -363,7 +363,7 @@ exportModule({
 				else{
 					my_followers = new Map();
 					their_followers = new Map();
-					collect_myFollowers(1,2,userID,sharedFollowersDisplay);
+					collect_myFollowers(1,2,userObject.id,sharedFollowersDisplay);
 					collect_theirFollowers(1,2,userID,sharedFollowersDisplay);
 				}
 			}
