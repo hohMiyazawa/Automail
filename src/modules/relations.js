@@ -357,12 +357,12 @@ exportModule({
 					collect_myFollowers(1,2,userID,sharedFollowersDisplay);
 				}
 				else if(!their_followers && my_followers){
-					their_following = new Map();
+					their_followers = new Map();
 					collect_theirFollowers(1,2,userID,sharedFollowersDisplay);
 				}
 				else{
-					my_following = new Map();
-					their_following = new Map();
+					my_followers = new Map();
+					their_followers = new Map();
 					collect_myFollowers(1,2,userID,sharedFollowersDisplay);
 					collect_theirFollowers(1,2,userID,sharedFollowersDisplay);
 				}
