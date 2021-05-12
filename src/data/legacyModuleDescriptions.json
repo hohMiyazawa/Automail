@@ -86,6 +86,7 @@
 	"description": "",
 	"type": "select",
 	"categories": ["Media"],
+	"displayValues": ["$language_English","$language_German","$language_Italian","$language_Spanish","$language_French","$language_Korean","$language_Portuguese","$language_Hebrew","$language_Hungarian","$language_Chinese","$language_Japanese","$language_Arabic","$language_Filipino","$language_Catalan","$language_Polish","$language_Norwegian"],
 	"values": ["English","German","Italian","Spanish","French","Korean","Portuguese","Hebrew","Hungarian","Chinese","Japanese","Arabic","Filipino","Catalan","Polish","Norwegian"]
 },{"id": "mangaGuess",
 	"description": "Make a guess for the number of chapters for releasing manga",

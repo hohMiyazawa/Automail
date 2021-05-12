@@ -74,10 +74,18 @@ exportModule({
 						)
 					}
 					else{
-						def.values.forEach(
-							value => create("option",false,value,input)
-								.value = value
-						)
+						if(def.displayValues){
+							def.values.forEach(
+								(value,index) => create("option",false,translate(def.displayValues[index]),input)
+									.value = value
+							)
+						}
+						else{
+							def.values.forEach(
+								value => create("option",false,value,input)
+									.value = value
+							)
+						}
 					}
 				}
 				else if(def.type === "text"){
