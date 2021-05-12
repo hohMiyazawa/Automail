@@ -37,7 +37,13 @@ exportModule({
 			Array.from(target.children).forEach(child => {
 				child.onclick = function(){
 					let possibleActive = target.querySelector(".active");
-					possibleActive.classList.remove("active");
+					if(possibleActive){
+						possibleActive.classList.remove("active");
+					}
+					possibleActive = target.querySelector(".active");
+					if(possibleActive){
+						possibleActive.classList.remove("active");
+					}
 					child.classList.add("active");
 					target.parentNode.parentNode.children[1].style.display = "block";
 					hohDisplay.style.display = "none";
@@ -59,10 +65,18 @@ exportModule({
 			}
 			let commonUI = function(){
 				let possibleActive = target.querySelector(".active");
-				possibleActive.classList.remove("active");
+				if(possibleActive){
+					possibleActive.classList.remove("active");
+				}
+				possibleActive = target.querySelector(".active");
+				if(possibleActive){
+					possibleActive.classList.remove("active");
+				}
 				target.parentNode.parentNode.children[1].style.display = "none";
 				hohDisplay.style.display = ""
 			}
+
+			let activeModule = "";
 
 			let followingOnlyDisplay = function(){
 				hohDisplay.innerText = "";
@@ -70,11 +84,13 @@ exportModule({
 				their_following.forEach((user,key) => {
 					if(!their_followers.has(key)){
 						count++;
-						let card = create("div","follow-card",false,hohDisplay);
-						let avatar = create("div","avatar",false,card);
-						avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
-						let name = create("a","name",user.name,avatar);
-						name.href = "/user/" + user.name;
+						if(activeModule === "followingOnly"){
+							let card = create("div","follow-card",false,hohDisplay);
+							let avatar = create("div","avatar",false,card);
+							avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
+							let name = create("a","name",user.name,avatar);
+							name.href = "/user/" + user.name;
+						}
 					}
 				})
 				followingOnly_count.innerText = count
@@ -86,11 +102,13 @@ exportModule({
 				their_followers.forEach((user,key) => {
 					if(!their_following.has(key)){
 						count++;
-						let card = create("div","follow-card",false,hohDisplay);
-						let avatar = create("div","avatar",false,card);
-						avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
-						let name = create("a","name",user.name,avatar);
-						name.href = "/user/" + user.name;
+						if(activeModule === "followersOnly"){
+							let card = create("div","follow-card",false,hohDisplay);
+							let avatar = create("div","avatar",false,card);
+							avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
+							let name = create("a","name",user.name,avatar);
+							name.href = "/user/" + user.name;
+						}
 					}
 				})
 				followersOnly_count.innerText = count
@@ -102,11 +120,13 @@ exportModule({
 				their_followers.forEach((user,key) => {
 					if(their_following.has(key)){
 						count++;
-						let card = create("div","follow-card",false,hohDisplay);
-						let avatar = create("div","avatar",false,card);
-						avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
-						let name = create("a","name",user.name,avatar);
-						name.href = "/user/" + user.name;
+						if(activeModule === "mutuals"){
+							let card = create("div","follow-card",false,hohDisplay);
+							let avatar = create("div","avatar",false,card);
+							avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
+							let name = create("a","name",user.name,avatar);
+							name.href = "/user/" + user.name;
+						}
 					}
 				})
 				mutuals_count.innerText = count
@@ -118,11 +138,13 @@ exportModule({
 				their_following.forEach((user,key) => {
 					if(my_following.has(key)){
 						count++;
-						let card = create("div","follow-card",false,hohDisplay);
-						let avatar = create("div","avatar",false,card);
-						avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
-						let name = create("a","name",user.name,avatar);
-						name.href = "/user/" + user.name;
+						if(activeModule === "sharedFollowing"){
+							let card = create("div","follow-card",false,hohDisplay);
+							let avatar = create("div","avatar",false,card);
+							avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
+							let name = create("a","name",user.name,avatar);
+							name.href = "/user/" + user.name;
+						}
 					}
 				})
 				sharedFollowing_count.innerText = count
@@ -134,11 +156,13 @@ exportModule({
 				their_followers.forEach((user,key) => {
 					if(my_followers.has(key)){
 						count++;
-						let card = create("div","follow-card",false,hohDisplay);
-						let avatar = create("div","avatar",false,card);
-						avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
-						let name = create("a","name",user.name,avatar);
-						name.href = "/user/" + user.name;
+						if(activeModule === "sharedFollowers"){
+							let card = create("div","follow-card",false,hohDisplay);
+							let avatar = create("div","avatar",false,card);
+							avatar.style.backgroundImage = 'url("' + user.avatar.large + '")';
+							let name = create("a","name",user.name,avatar);
+							name.href = "/user/" + user.name;
+						}
 					}
 				})
 				sharedFollowers_count.innerText = count
@@ -264,6 +288,7 @@ exportModule({
 
 			followingOnly.onclick = function(){
 				commonUI();
+				activeModule = "followingOnly";
 				followingOnly.classList.add("active");
 				if(their_followers && their_following){
 					followingOnlyDisplay()
@@ -285,6 +310,7 @@ exportModule({
 			}
 			followersOnly.onclick = function(){
 				commonUI();
+				activeModule = "followersOnly";
 				followersOnly.classList.add("active");
 				if(their_followers && their_following){
 					followersOnlyDisplay()
@@ -306,6 +332,7 @@ exportModule({
 			}
 			mutuals.onclick = function(){
 				commonUI();
+				activeModule = "mutuals";
 				mutuals.classList.add("active");
 				if(their_followers && their_following){
 					mutualDisplay()
@@ -327,6 +354,7 @@ exportModule({
 			}
 			sharedFollowing.onclick = function(){
 				commonUI();
+				activeModule = "sharedFollowing";
 				sharedFollowing.classList.add("active");
 				if(their_following && my_following){
 					sharedFollowingDisplay()
@@ -348,6 +376,7 @@ exportModule({
 			}
 			sharedFollowers.onclick = function(){
 				commonUI();
+				activeModule = "sharedFollowers";
 				sharedFollowers.classList.add("active");
 				if(their_followers && my_followers){
 					sharedFollowersDisplay()
