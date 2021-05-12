@@ -7,6 +7,22 @@ function handleScripts(url,oldUrl){
 			module.code()
 		}
 	})
+	if(useScripts.additionalTranslation){
+		let nav = document.getElementById("nav");
+		if(nav){
+			try{
+				nav.querySelector('a[href="/home"].link').childNodes[0].textContent = translate("$menu_home");
+				nav.querySelector('a[href^="/user/"].link').childNodes[0].textContent = translate("$menu_profile");
+				nav.querySelector('a[href$="/animelist"].link').childNodes[0].textContent = translate("$menu_animelist");
+				nav.querySelector('a[href$="/mangalist"].link').childNodes[0].textContent = translate("$menu_mangalist");
+				nav.querySelector('a[href^="/search/"].link').childNodes[0].textContent = translate("$menu_browse");
+				nav.querySelector('a[href="/forum/overview"].link').childNodes[0].textContent = translate("$menu_forum");
+			}
+			catch(e){
+				console.log(e)
+			}
+		}
+	}
 	if((url === "https://anilist.co/notifications" || url === "https://anilist.co/notifications#") && useScripts.notifications){
 		enhanceNotifications();
 		return

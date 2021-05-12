@@ -35,6 +35,9 @@ function betterListPreview(){
 				if(!heading.innerText.includes("Manga")){
 					heading.parentNode.parentNode.style.display = "none";
 				}
+				else if(useScripts.additionalTranslation){
+					heading.innerText = translate("$preview_mangaSection_title")
+				}
 			})
 		};
 		if(overWrite){

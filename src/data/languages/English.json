@@ -108,6 +108,12 @@
 "$preview_1behind": "1 episode behind",
 "$preview_Mbehind": "{0} episodes behind",
 "$preview_progress": "Progress:",
+"$menu_home": "home",
+"$menu_profile": "profile",
+"$menu_animelist": "anime list",
+"$menu_mangalist": "manga list",
+"$menu_browse": "browse",
+"$menu_forum": "forum",
 "$submenu_stats": "Stats",
 "$submenu_social": "Social",
 "$submenu_reviews": "Reviews",
@@ -152,6 +158,7 @@
 "$relations_mutuals": "Mutuals",
 "$relations_shared_following": "Shared Following",
 "$relations_shared_followers": "Shared Followers",
-"$relations_description": "Add separate tabs on the social page for various types of followers"
+"$relations_description": "Add separate tabs on the social page for various types of followers",
+"$additionalTranslation_description": "Translate additional parts of the Anilist UI [EXPERIMENTAL]"
 	}
 }
