@@ -13,7 +13,7 @@ function translate(key,subs){
 	let immediate = languageFiles[useScripts.partialLocalisationLanguage].keys[key];
 	if(!immediate){
 		for(let i=0;i<languageFiles[useScripts.partialLocalisationLanguage].info.fallback.length;i++){
-			immediate = languageFiles[languageFiles[useScripts.partialLocalisationLanguage].info.fallback].keys[key];
+			immediate = languageFiles[languageFiles[useScripts.partialLocalisationLanguage].info.fallback[i]].keys[key];
 			if(immediate){
 				break
 			}

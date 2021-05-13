@@ -67,6 +67,7 @@
 "$settings_button_export": "Export settings",
 "$settings_export_description": "Might come in handy to keep a backup if you do stuff like wiping your browser cache/storage, which will wipe your Automail settings too",
 "$settings_import": "Import settings:",
+"$settings_experimental_suffix": "[EXPERIMENTAL]",
 "$settings_partialLocalisationLanguage_description": "Automail language [EXPERIMENTAL]",
 "$stats_moreStats_title": "More Stats",
 "$stats_genresTags_title": "Genres & Tags",
@@ -159,7 +160,7 @@
 "$relations_shared_following": "Shared Following",
 "$relations_shared_followers": "Shared Followers",
 "$relations_description": "Add separate tabs on the social page for various types of followers",
-"$additionalTranslation_description": "Translate additional parts of the Anilist UI [EXPERIMENTAL]",
+"$additionalTranslation_description": "Translate additional parts of the Anilist UI",
 "$twoColumnFeed_description": "Split the home feed into two columns"
 	}
 }
