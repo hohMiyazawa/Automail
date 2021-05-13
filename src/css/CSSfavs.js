@@ -28,6 +28,9 @@ if(useScripts.CSSfavs){
 .genre-overview .genre{
 	display: inline!important;
 }
+.genre-overview .genre .name{
+	font-size: small;
+}
 .overview .favourite.studio{
 	cursor: pointer;
 	min-height: 115px;
