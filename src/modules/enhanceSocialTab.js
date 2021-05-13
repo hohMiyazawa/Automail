@@ -67,7 +67,7 @@ const handler = (data,target,idMap) => {
 		let notesEL = create("span","notes") // notes
 		if(
 			e.notes //only if notes
-			&& !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?::$/) //no need to show malSync-only notes, nobody is interested in that
+			&& !e.notes.match(/^,malSync::[a-zA-Z0-9]+=?=?::$/) //no need to show malSync-only notes, nobody is interested in that
 			&& !e.notes.match(/^\s+$/) //whitespace-only notes will not show up properly anyway
 		){
 			if(e.notes.match(/^(#\S+\s+)*(#\S+)$/)){//use a separate symbol for tags-only notes. Also helps popularizing tags
