@@ -25,3 +25,6 @@
 	position: absolute;
 	left: -10px;
 }
+.footer [href="/sitemap/index.xml"]::after{
+	content: ".xml";
+}

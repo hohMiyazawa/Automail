@@ -47,8 +47,8 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 			}
 		})
 	};applyColourStyles();
-	let colourPickerLocation = document.querySelector("#app > .wrap > .footer > .container");
 	let adder = function(){
+		let colourPickerLocation = document.querySelector("#app > .wrap > .footer > .container");
 		if(colourPickerLocation){
 			const supportedColours = [
 				"--color-background",
@@ -85,7 +85,7 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 				useScripts.save()
 			};
 			let cpContainer = create("div","hohColourPicker",false,colourPickerLocation);
-			let cpTitle = create("h2",false,"Adjust Colours",cpContainer);
+			let cpTitle = create("h2",false,translate("$adjustColours_title"),cpContainer);
 			let cpInput = create("input",false,false,cpContainer);
 			cpInput.type = "color";
 			let cpSelector = create("select",false,false,cpContainer);

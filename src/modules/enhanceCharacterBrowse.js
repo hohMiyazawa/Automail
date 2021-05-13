@@ -1,5 +1,7 @@
 function enhanceCharacterBrowse(){
-	if(!document.URL.match(/\/search\/characters\/?(favorites)?$/)){
+	if(
+		!document.URL.match(/\/search\/characters\/?(favorites)?$/)
+	){
 		return
 	};
 	const query = `
@@ -15,7 +17,7 @@ query($page: Int!){
 		if(!document.URL.match(/\/search\/characters\/?(favorites)?$/)){
 			return
 		};
-		let resultsToTag = document.querySelectorAll(".results .staff-card");
+		let resultsToTag = document.querySelectorAll(".results.cover .staff-card,.landing-section.characters .staff-card");
 		if(resultsToTag.length < page*data.data.Page.characters.length){
 			setTimeout(function(){
 				favCallback(data,page)
