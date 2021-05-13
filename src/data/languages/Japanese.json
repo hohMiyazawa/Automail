@@ -5,9 +5,25 @@
 		"fallback": ["English"],
 		"maintainer": "",
 		"maintainer_link": "",
-		"discussion_link": "",
-		"notes": ""
+		"discussion_link": "https://github.com/hohMiyazawa/Automail/issues/69",
+		"notes": "PLEASE HELP"
 	},
 	"keys": {
+"$language_English": "英語",
+"$language_German": "ドイツ語",
+"$language_Italian": "イタリア語",
+"$language_Spanish": "スペイン語",
+"$language_French": "フランス語",
+"$language_Korean": "朝鮮語",
+"$language_Portuguese": "ポルトガル語",
+"$language_Hebrew": "ヘブライ語",
+"$language_Hungarian": "ハンガリー語",
+"$language_Chinese": "中国語",
+"$language_Japanese": "日本語",
+"$language_Arabic": "アラビア語",
+"$language_Filipino": "フィリピン語",
+"$language_Catalan": "カタルーニャ語",
+"$language_Polish": "ポーランド語",
+"$language_Norwegian": "ノルウェー語"
 	}
 }
