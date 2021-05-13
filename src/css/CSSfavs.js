@@ -12,7 +12,7 @@ if(useScripts.CSSfavs){
 	column-gap: 10px!important;
 }
 .user .overview{
-	grid-template-columns: 460px auto!important;
+	grid-template-columns: 470px auto!important;
 }
 .overview .favourites > .favourites-wrap{
 	display: grid!important;
@@ -26,7 +26,7 @@ if(useScripts.CSSfavs){
 	width: 470px;
 }
 .genre-overview .genre{
-	display: inline;
+	display: inline!important;
 }
 .overview .favourite.studio{
 	cursor: pointer;
