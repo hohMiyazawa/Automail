@@ -8,7 +8,7 @@ if(useScripts.browseSubmenu && useScripts.CSSverticalNav && whoAmI && !useScript
 				.href = "/search/anime";
 			create("a","hohSubMenuLink",translate("$submenu_manga"),subMenu)
 				.href = "/search/manga";
-			create("a","hohSubMenuLink",translate("$submenu_staff"),subMenu)
+			create("a","hohSubMenuLink",translate("$submenu_staff"),subMenu,"z-index: 500;position: relative;")
 				.href = "/search/staff";
 			create("a","hohSubMenuLink",translate("$submenu_characters"),subMenu)
 				.href = "/search/characters";

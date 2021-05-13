@@ -30,7 +30,7 @@ query($page: Int!){
 		if(!document.URL.match(/\/search\/staff\/?(favorites)?$/)){
 			return
 		};
-		let resultsToTag = document.querySelectorAll(".results .staff-card");
+		let resultsToTag = document.querySelectorAll(".results.cover .staff-card,.landing-section.staff .staff-card");
 		if(resultsToTag.length < page*data.data.Page.staff.length){
 			setTimeout(function(){
 				favCallback(data,page)
