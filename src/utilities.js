@@ -128,13 +128,13 @@ function formatTime(diff,type){
 		}
 	};
 	let times = [
-		{name: "year",short: "y",value: 60*60*24*365},
-		{name: "month",short: "m",value: 60*60*24*30},
-		{name: "week",short: "w",value: 60*60*24*7},
-		{name: "day",short: "d",value: 60*60*24},
-		{name: "hour",short: "h",value: 60*60},
-		{name: "minute",short: "m",value: 60},
-		{name: "second",short: "s",value: 1}
+		{name: "year",short: translate("$time_short_year"),value: 60*60*24*365},
+		{name: "month",short: translate("$time_short_month"),value: 60*60*24*30},
+		{name: "week",short: translate("$time_short_week"),value: 60*60*24*7},
+		{name: "day",short: translate("$time_short_day"),value: 60*60*24},
+		{name: "hour",short: translate("$time_short_hour"),value: 60*60},
+		{name: "minute",short: translate("$time_short_minute"),value: 60},
+		{name: "second",short: translate("$time_short_second"),value: 1}
 	];
 	let timeIndex = 0;
 	let significantValue = 0;
@@ -147,7 +147,7 @@ function formatTime(diff,type){
 	timeIndex--;
 	if(!Math.floor(significantValue)){
 		if(type === "short"){
-			return magRound(diff) + "s"
+			return magRound(diff) + translate("$time_short_second")
 		};
 		if(magRound(diff) === 1){
 			return magRound(diff) + " second"
@@ -158,13 +158,13 @@ function formatTime(diff,type){
 		if(type === "short"){
 			return magRound(significantValue) + times[timeIndex].short
 		};
-		return magRound(significantValue) + " " + times[timeIndex].name + "s";
+		return magRound(significantValue) + " " + times[timeIndex].name + translate("$time_short_second");
 	}
 	if(magRound(reminder) > 1){
 		if(type === "short"){
 			return "1" + times[timeIndex].short + " " + magRound(reminder) + times[timeIndex + 1].short	
 		}
-		return "1 " + times[timeIndex].name + " " + magRound(reminder) + " " + times[timeIndex + 1].name + "s";
+		return "1 " + times[timeIndex].name + " " + magRound(reminder) + " " + times[timeIndex + 1].name + translate("$time_short_second");
 	}
 	if(magRound(reminder) === 1){
 		if(type === "short"){

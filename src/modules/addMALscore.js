@@ -1,23 +1,23 @@
 function addMALscore(type,id){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
-		return;
+		return
 	};
 	let MALscore = document.getElementById("hohMALscore");
 	if(MALscore){
 		if(parseInt(MALscore.dataset.id) === id){
-			return;
+			return
 		}
 		else{
-			MALscore.remove();
+			MALscore.remove()
 		}
 	};
 	let MALserial = document.getElementById("hohMALserialization");
 	if(MALserial){
 		if(parseInt(MALserial.dataset.id) === id){
-			return;
+			return
 		}
 		else{
-			MALserial.remove();
+			MALserial.remove()
 		}
 	};
 	let possibleReleaseStatus = Array.from(document.querySelectorAll(".data-set .type"));
@@ -31,7 +31,7 @@ function addMALscore(type,id){
 			MALserial = create("div","data-set");
 			MALserial.id = "hohMALserialization";
 			MALserial.dataset.id = id;
-			MALlocation.parentNode.parentNode.insertBefore(MALserial,MALlocation.parentNode.nextSibling.nextSibling);
+			MALlocation.parentNode.parentNode.insertBefore(MALserial,MALlocation.parentNode.nextSibling.nextSibling)
 		}
 		generalAPIcall("query($id:Int){Media(id:$id){idMal}}",{id:id},function(data){
 			if(data.data.Media.idMal){
@@ -39,23 +39,23 @@ function addMALscore(type,id){
 					let score = response.responseText.match(/ratingValue.+?(\d+\.\d+)/);
 					if(score && useScripts.MALscore){
 						MALscore.style.paddingBottom = "14px";
-						create("a",["type","newTab","external"],"MAL Score",MALscore)
+						create("a",["type","newTab","external"],translate("$MAL_score"),MALscore)
 							.href = "https://myanimelist.net/" + type + "/" + data.data.Media.idMal;
-						create("div","value",score[1],MALscore);
+						create("div","value",score[1],MALscore)
 					}
 					if(type === "manga" && useScripts.MALserial){
 						let serialization = response.responseText.match(/Serialization:<\/span>\n.*?href="(.*?)"\stitle="(.*?)"/);
 						if(serialization){
 							create("div","type","Serialization",MALserial);
 							let link = create("a",["value","newTab","external"],serialization[2].replace(/&#039;/g,"'").replace(/&quot;/g,'"'),MALserial)
-							link.href = "https://myanimelist.net" + serialization[1];
+							link.href = "https://myanimelist.net" + serialization[1]
 						}
 					}
 					let adder = function(){
 						let possibleOverview = document.querySelector(".overview .grid-section-wrap:last-child");
 						if(!possibleOverview){
 							setTimeout(adder,500);
-							return;
+							return
 						}
 						(possibleOverview.querySelector(".hohRecContainer") || {remove: ()=>{}}).remove();
 						let recContainer = create("div",["grid-section-wrap","hohRecContainer"],false,possibleOverview);
@@ -78,24 +78,20 @@ function addMALscore(type,id){
 							recTitle.innerText = "MAL ID " + idMal;
 							let recDescription = create("p",false,false,rec,"font-size: 1.4rem;line-height: 1.5;");
 							recDescription.innerText = entityUnescape(description);
-							generalAPIcall("query($idMal:Int,$type:MediaType){Media(idMal:$idMal,type:$type){id title{romaji native english} coverImage{large color} siteUrl}}",{idMal:idMal,type:item[1].toUpperCase()},function(data){
-								if(!data){
-									return;
-								};
-								recImage.style.backgroundColor = data.data.Media.coverImage.color || "rgb(var(--color-foreground))";
-								recImage.style.backgroundImage = "url(\"" + data.data.Media.coverImage.large + "\")";
-								recImage.href = data.data.Media.siteUrl;
-								if(useScripts.titleLanguage === "NATIVE" && data.data.Media.title.native){
-									recTitle.innerText = data.data.Media.title.native;
-								}
-								else if(useScripts.titleLanguage === "ENGLISH" && data.data.Media.title.english){
-									recTitle.innerText = data.data.Media.title.english;
-								}
-								else{
-									recTitle.innerText = data.data.Media.title.romaji;
-								}
-								recTitle.href = data.data.Media.siteUrl;
-							},"hohIDmalReverse" + idMal);
+							generalAPIcall(
+								"query($idMal:Int,$type:MediaType){Media(idMal:$idMal,type:$type){id title{romaji native english} coverImage{large color} siteUrl}}",
+								{idMal:idMal,type:item[1].toUpperCase()},
+								function(data){
+									if(!data){
+										return
+									};
+									recImage.style.backgroundColor = data.data.Media.coverImage.color || "rgb(var(--color-foreground))";
+									recImage.style.backgroundImage = "url(\"" + data.data.Media.coverImage.large + "\")";
+									recImage.href = data.data.Media.siteUrl;
+									recTitle.innerText = titlePicker(data.data.Media);
+									recTitle.href = data.data.Media.siteUrl
+								},"hohIDmalReverse" + idMal
+							)
 						})
 					};
 					if(useScripts.MALrecs){
@@ -114,7 +110,7 @@ function addMALscore(type,id){
 					let oReq = new XMLHttpRequest();
 					oReq.addEventListener("load",function(){handler(this)});
 					oReq.open("GET","https://myanimelist.net/" + type + "/" + data.data.Media.idMal + "/placeholder/userrecs");
-					oReq.send();
+					oReq.send()
 				}
 			}
 		},"hohIDmal" + id);

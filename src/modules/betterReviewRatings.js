@@ -17,9 +17,12 @@ function betterReviewRatings(){
 		reviews.forEach(likeElement => {
 			let likeExtra = document.getElementById(likeElement.attributes["aria-describedby"].value);
 			if(likeExtra){
-				let matches = likeExtra.innerText.match(/out of (\d+)/);
+				let matches = likeExtra.innerText.match(/(\d+) out of (\d+)/);
 				if(matches){
-					likeElement.childNodes[1].textContent += "/" + matches[1]
+					likeElement.childNodes[1].textContent += "/" + matches[2];
+					if(useScripts.additionalTranslation){
+						likeExtra.childNodes[0].textContent = translate("$reviewLike_tooltip",[matches[1],matches[2]])
+					}
 				}
 			}
 			likeElement.style.bottom = "4px";

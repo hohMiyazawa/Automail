@@ -74,7 +74,7 @@ query($userId: Int,$createdAt: Int){
 		else if(data.data.Activity.type === "MESSAGE"){
 			let link = create("a","hohPostLink","↑",false,"left:-25px;top:25px;");
 			link.href = "/user/" + data.data.Activity.recipient.name + "/";
-			link.title = data.data.Activity.recipient.name + "'s profile";
+			link.title = translate("$navigation_profileLink",data.data.Activity.recipient.name);
 			adder(link);
 			variables.messengerId = data.data.Activity.messengerId;
 			queryPrevious = `

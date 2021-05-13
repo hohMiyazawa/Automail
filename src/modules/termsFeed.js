@@ -80,7 +80,7 @@ onlyMediaInput.setAttribute("list","userMedialist");
 let feed = create("div","hohFeed",false,terms);
 let topNav = create("div",false,false,feed,"position:relative;min-height:60px;margin-bottom:15px;");
 let loading = create("p",false,translate("$loading"),topNav);
-let pageCount = create("p",false,"Page 1",topNav);
+let pageCount = create("p",false,translate("$page",1),topNav);
 let statusInput = create("div",false,false,topNav);
 let onlySpecificActivity = false;
 let statusInputTitle = create("input",false,false,statusInput,"display:none;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);background: rgb(var(--color-foreground));");
@@ -92,7 +92,7 @@ let publishButton = create("button",["hohButton","button"],"Publish",statusInput
 let previewArea = create("div",false,false,statusInput,"display:none;");
 inputArea.placeholder = "Write a status...";
 let topPrevious = create("button",["hohButton","button"],"Refresh",topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
-let topNext = create("button",["hohButton","button"],"Next →",topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
+let topNext = create("button",["hohButton","button"],translate("$button_next"),topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
 let feedContent = create("div",false,false,feed);
 let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;");
 notiLink.href = "/notifications";
@@ -135,7 +135,7 @@ let buildPage = function(activities,type,requestTime){
 	}
 	lastUpdated = requestTime;
 	loading.innerText = "";
-	pageCount.innerText = "Page " + page;
+	pageCount.innerText = translate("$page",page);
 	if(page === 1){
 		topPrevious.innerText = "Refresh"
 	}

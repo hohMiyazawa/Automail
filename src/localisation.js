@@ -28,7 +28,7 @@ function translate(key,subs){
 	}
 	if(subs){
 		if(Array.isArray(subs)){
-			subs.forEach(sub => {
+			subs.forEach((sub,i) => {
 				immediate = immediate.replace("{" + i + "}",sub)
 			})
 		}

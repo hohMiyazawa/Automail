@@ -13,14 +13,14 @@ exportModule({
 			return
 		}
 		markdownHelper = create("span","#hohMarkdownHelper","</>?",document.getElementById("app"));
-		markdownHelper.title = "Markdown help";
+		markdownHelper.title = translate("$markdown_help_title");
 		markdownHelper.onclick = function(){
 			let existing = document.querySelector(".hohDisplayBox");
 			if(existing){
 				existing.remove()
 			}
 			else{
-				let disp = createDisplayBox("height: 600px;","Markdown help");
+				let disp = createDisplayBox("height: 600px;",translate("$markdown_help_title"));
 				create("h3","hohGuideHeading","Images",disp);
 				create("pre","hohCode","img(your link here)",disp);
 				create("pre","hohCode","img(https://i.stack.imgur.com/Wlvkk.jpg)",disp);
