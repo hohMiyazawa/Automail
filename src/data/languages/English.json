@@ -159,6 +159,7 @@
 "$relations_shared_following": "Shared Following",
 "$relations_shared_followers": "Shared Followers",
 "$relations_description": "Add separate tabs on the social page for various types of followers",
-"$additionalTranslation_description": "Translate additional parts of the Anilist UI [EXPERIMENTAL]"
+"$additionalTranslation_description": "Translate additional parts of the Anilist UI [EXPERIMENTAL]",
+"$twoColumnFeed_description": "Split the home feed into two columns"
 	}
 }

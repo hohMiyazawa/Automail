@@ -117,7 +117,13 @@ exportModule({
 				input.onchange = function(){
 					useScripts[this.targetSetting] = this.checked;
 					useScripts.save();
-					initCSS()
+					initCSS();
+					if(!this.checked && def.destructor){
+						def.destructor()
+					}
+					if(this.checked && def.css){
+						moreStyle.textContent += def.css
+					}
 				}
 			};
 			if(def.categories){
