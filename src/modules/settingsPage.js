@@ -639,6 +639,7 @@ query{
 					}
 				)
 				useScripts.save();
+				alert("settings imported!");
 			}
 			reader.onerror = function(evt){
 				alert("error reading file")
