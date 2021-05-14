@@ -14,12 +14,12 @@ function notificationCake(){
 						notification.type = "THREAD_SUBSCRIBED"
 					};
 					if(notification.user && !useScripts.notificationColours[notification.type].supress){
-						if(useScripts.softBlock.indexOf(notification.user.name) === -1){
-							names.push(notification.user.name)
+						if(!notification.user || useScripts.softBlock.indexOf(notification.user.name) === -1){
+							names.push((notification.user || {name:""}).name)
 						}
 					};
 					if(!useScripts.notificationColours[notification.type] || !useScripts.notificationColours[notification.type].supress){
-						if(useScripts.softBlock.indexOf(notification.user.name) === -1){
+						if(!notification.user || useScripts.softBlock.indexOf(notification.user.name) === -1){
 							types.push(notification.type)
 						}
 					}
