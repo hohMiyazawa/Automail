@@ -24,8 +24,11 @@ function meanScoreBack(){
 			return;
 		}
 		let adder = function(){
-			if(!location.pathname.match(/^\/user\/(.*?)\/?$/)){
-				return;
+			if(
+				!location.pathname.match(/^\/user\/(.*?)\/?$/)
+				|| location.pathname.match(/^\/user\/(.*?)\/?$/)[1] !== URLstuff[1]
+			){
+				return
 			}
 			let possibleStatsWrap = document.querySelectorAll(".stats-wrap .stats-wrap");
 			if(possibleStatsWrap.length){
@@ -33,37 +36,37 @@ function meanScoreBack(){
 					if(data.data.User.statistics.anime.meanScore){
 						let statAnime = create("div","stat",false,possibleStatsWrap[0]);
 						create("div","value",data.data.User.statistics.anime.episodesWatched,statAnime);
-						create("div","label","Total Episodes",statAnime);
+						create("div","label",translate("$milestones_totalEpisodes"),statAnime);
 						let totalDays = possibleStatsWrap[0].children[1].children[0].innerText;
 						possibleStatsWrap[0].children[1].remove();
-						possibleStatsWrap[0].parentNode.querySelector(".milestone:nth-child(2)").innerText = totalDays + " Days Watched";
-						possibleStatsWrap[0].parentNode.classList.add("hohMilestones");
+						possibleStatsWrap[0].parentNode.querySelector(".milestone:nth-child(2)").innerText = translate("$milestones_daysWatched",totalDays);
+						possibleStatsWrap[0].parentNode.classList.add("hohMilestones")
 					};
 					if(data.data.User.statistics.manga.meanScore){
 						let statManga = create("div","stat",false,possibleStatsWrap[1]);
 						create("div","value",data.data.User.statistics.manga.volumesRead,statManga);
-						create("div","label","Total Volumes",statManga);
+						create("div","label",translate("$milestones_totalVolumes"),statManga);
 						let totalChapters = possibleStatsWrap[1].children[1].children[0].innerText;
 						possibleStatsWrap[1].children[1].remove();
-						possibleStatsWrap[1].parentNode.querySelector(".milestone:nth-child(2)").innerText = totalChapters + " Chapters Read";
-						possibleStatsWrap[1].parentNode.classList.add("hohMilestones");
-					};
+						possibleStatsWrap[1].parentNode.querySelector(".milestone:nth-child(2)").innerText = translate("$milestones_chaptersRead",totalChapters);
+						possibleStatsWrap[1].parentNode.classList.add("hohMilestones")
+					}
 				}
 				else if(possibleStatsWrap[0].innerText.includes("Total Manga")){
 					if(data.data.User.statistics.manga.meanScore){
 						let statManga = create("div","stat",false,possibleStatsWrap[0]);
 						create("div","value",data.data.User.statistics.manga.volumesRead,statManga);
-						create("div","label","Total Volumes",statManga);
+						create("div","label",translate("$milestones_totalVolumes"),statManga);
 						let totalChapters = possibleStatsWrap[0].children[1].children[0].innerText;
 						possibleStatsWrap[0].children[1].remove();
-						possibleStatsWrap[0].parentNode.querySelector(".milestone:nth-child(2)").innerText = totalChapters + " Chapters Read";
-						possibleStatsWrap[0].parentNode.classList.add("hohMilestones");
-					};
+						possibleStatsWrap[0].parentNode.querySelector(".milestone:nth-child(2)").innerText = translate("$milestones_chaptersRead",totalChapters);
+						possibleStatsWrap[0].parentNode.classList.add("hohMilestones")
+					}
 				}
 			}
 			else{
-				setTimeout(adder,200);
+				setTimeout(adder,200)
 			}
 		};adder();
-	},"hohMeanScoreBack" + variables.userName,60*1000);
+	},"hohMeanScoreBack" + variables.userName,60*1000)
 }
