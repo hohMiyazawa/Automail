@@ -22,8 +22,22 @@ function load(){
 				let fileName2 = input2.files[0].name;
 				let FR2 = new FileReader();
 				FR2.onload = function(e2){
-					json1 = JSON.parse(e.target.result);
-					json2 = JSON.parse(e2.target.result);
+					let json1;
+					let json2;
+					try{
+						json1 = JSON.parse(e.target.result);
+					}
+					catch(e){
+						alert("Error parsin JSON in '" + fileName + "'")
+						return
+					}
+					try{
+						json2 = JSON.parse(e2.target.result);
+					}
+					catch(e){
+						alert("Error parsin JSON in '" + fileName2 + "'")
+						return
+					}
 					let keys1 = new Set(Object.keys(json1.keys));
 					let keys2 = new Set(Object.keys(json2.keys));
 
