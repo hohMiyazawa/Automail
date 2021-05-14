@@ -1,6 +1,6 @@
 /*!
     localForage -- Offline Storage, Improved
-    Version 1.7.3
+    Version 1.9.0
     https://localforage.github.io/localForage
     (c) 2013-2017 Mozilla, Apache License 2.0
 */
@@ -376,7 +376,7 @@ function isIndexedDBValid() {
     try {
         // Initialize IndexedDB; fall back to vendor-prefixed versions
         // if needed.
-        if (!idb) {
+        if (!idb || !idb.open) {
             return false;
         }
         // We mimic PouchDB here;
@@ -387,8 +387,12 @@ function isIndexedDBValid() {
 
         var hasFetch = typeof fetch === 'function' && fetch.toString().indexOf('[native code') !== -1;
 
-        // Safari <10.1 does not meet our requirements for IDB support (#5572)
-        // since Safari 10.1 shipped with fetch, we can use that to detect it
+        // Safari <10.1 does not meet our requirements for IDB support
+        // (see: https://github.com/pouchdb/pouchdb/issues/5572).
+        // Safari 10.1 shipped with fetch, we can use that to detect it.
+        // Note: this creates issues with `window.fetch` polyfills and
+        // overrides; see:
+        // https://github.com/localForage/localForage/issues/856
         return (!isSafari || hasFetch) && typeof indexedDB !== 'undefined' &&
         // some outdated implementations of IDB that appear on Samsung
         // and HTC Android devices <4.4 are missing IDBKeyRange
@@ -974,7 +978,7 @@ function iterate(iterator, callback) {
                             }
                             var result = iterator(value, cursor.key, iterationNumber++);
 
-                            // when the iterator callback retuns any
+                            // when the iterator callback returns any
                             // (non-`undefined`) value, then we stop
                             // the iteration immediately
                             if (result !== void 0) {
@@ -1196,7 +1200,7 @@ function key(n, callback) {
                 try {
                     var store = transaction.objectStore(self._dbInfo.storeName);
                     var advanced = false;
-                    var req = store.openCursor();
+                    var req = store.openKeyCursor();
 
                     req.onsuccess = function () {
                         var cursor = req.result;
@@ -1250,7 +1254,7 @@ function keys(callback) {
 
                 try {
                     var store = transaction.objectStore(self._dbInfo.storeName);
-                    var req = store.openCursor();
+                    var req = store.openKeyCursor();
                     var keys = [];
 
                     req.onsuccess = function () {
@@ -2795,4 +2799,3 @@ module.exports = localforage_js;
 
 },{"3":3}]},{},[4])(4)
 });
-
