@@ -1,6 +1,6 @@
 exportModule({
 	id: "moreStats",
-	description: "Show an additional tab on the stats page",
+	description: "$setting_moreStats",
 	extendedDescription: `
 On every users' stats page, there will be an additonal tab called "more stats".
 The "more stats" page also has a section for running various statistical queries about the site or specific users.

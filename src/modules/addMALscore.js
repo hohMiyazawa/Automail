@@ -46,7 +46,7 @@ function addMALscore(type,id){
 					if(type === "manga" && useScripts.MALserial){
 						let serialization = response.responseText.match(/Serialization:<\/span>\n.*?href="(.*?)"\stitle="(.*?)"/);
 						if(serialization){
-							create("div","type","Serialization",MALserial);
+							create("div","type",translate("$MAL_serialization"),MALserial);
 							let link = create("a",["value","newTab","external"],serialization[2].replace(/&#039;/g,"'").replace(/&quot;/g,'"'),MALserial)
 							link.href = "https://myanimelist.net" + serialization[1]
 						}

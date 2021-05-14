@@ -1,6 +1,6 @@
 exportModule({
 	id: "notifications",
-	description: "Improve notifications",
+	description: "$setting_notifications",
 	extendedDescription: `
 Performs several changes to notifications:
 

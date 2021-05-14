@@ -116,10 +116,10 @@
 	"description": "Add 'time to complete' info to the tag tables",
 	"categories": ["Stats"]
 },{"id": "comparissionPage",
-	"description": "Replace the native comparison feature",
+	"description": "$setting_compare",
 	"categories": ["Lists","Profiles"]
 },{"id": "CSSsmileyScore",
-	"description": "Give smiley ratings distinct colours",
+	"description": "$setting_CSSsmileyScore",
 	"categories": ["Lists","Media"]
 },{"id": "hideGlobalFeed",
 	"description": "Hide the global feed",
@@ -156,7 +156,7 @@
 	"description": "Add progress bars to the list previews",
 	"categories": ["Feeds"]
 },{"id": "tweets",
-	"description": "Embed linked tweets",
+	"description": "$setting_tweets",
 	"extendedDescription": "This works by runnig Twitter's official embedding script. But since loading external code is not allowed for Firefox addons, this setting will only work in userscript mode.\nBe adviced that Twitter embedding displays NSFW content no differently than other content.",
 	"categories": ["Feeds"]
 },{"id": "embedHentai",
@@ -178,7 +178,7 @@
 	"description": "Enable custom profile CSS and pinned activities",
 	"categories": ["Profiles","Login"]
 },{"id": "CSSgreenManga",
-	"description": "Green titles for manga",
+	"description": "$setting_CSSgreenManga",
 	"categories": ["Media","Feeds"]
 },{"id": "cleanSocial",
 	"description": "Place 'following' before 'forum threads' on media social tabs",
@@ -237,7 +237,7 @@
 	"extendedDescription": "Refers to the feed located at https://anilist.co/terms if the setting 'low bandwidth feed' is turned on.\nFor very slow connections, images are going to be the most difficult part of the page to load.\nSee if your addblocker also supports setting a size limit for media, which may help if you are struggling.",
 	"categories": ["Feeds","Login"]
 },{"id": "CSSbannerShadow",
-	"description": "Remove banner shadows",
+	"description": "$setting_CSSbannerShadow",
 	"categories": ["Profiles","Media"]
 },{"id": "milestones",
 	"description": "Add total episodes and volumes to profile milestones",
