@@ -336,10 +336,17 @@ function hashCode(string){//non-cryptographic hash
 //piracy links begone
 setInterval(function(){
 	document.querySelectorAll(`a[rel="noopener noreferrer"]`).forEach(link => {
-		if(!link){
+		if(!link || !link.href){
 			return
 		}
-		let linker = (new URL(link.href)).host;
+		let linker;
+		try{
+			linker = (new URL(link.href)).host;
+		}
+		catch(e){
+			console.log("invalid URL:", link.href);
+			return
+		}
 		if(linker && linker.split(".").length >= 2){
 			linker = linker.split(".")[linker.split(".").length - 2];
 			if(
