@@ -28,6 +28,8 @@ m4_include(css/notifications.css)
 .hohCode{
 	font-family: monospace;
 	background: rgb(var(--color-background));
+	overflow-x: scroll;
+	padding: 2px;
 }
 .hohForumHider{
 	margin-right: 3px;
