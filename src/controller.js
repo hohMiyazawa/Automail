@@ -211,9 +211,6 @@ function handleScripts(url,oldUrl){
 			enhanceStaffBrowse()
 		}
 	}
-	else if(url.match(/^https:\/\/anilist\.co\/search\/studios/)){
-		document.title = "Find Studios · AniList";
-	}
 	else if(url.match(/^https:\/\/anilist\.co\/search\/anime/)){
 		if(useScripts.browseFilters){
 			addBrowseFilters("anime")
