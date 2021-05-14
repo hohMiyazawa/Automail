@@ -61,14 +61,14 @@ let hohMediaRolesManga = create("div","grid-wrap",false,hohMediaRoles);
 hohMediaRolesManga.style.margin = "10px";
 //sort
 let hohMediaSort = create("div",["container","hohFilterBar"]);
-let sortText = create("span",false,"Sort",hohMediaSort);
+let sortText = create("span",false,translate("$staff_sort"),hohMediaSort);
 let sortSelect = create("select",false,false,hohMediaSort);
 sortSelect.style.marginLeft = "5px";
 let filterSelect = create("input",false,false,hohMediaSort);
 filterSelect.setAttribute("list","staffRoles");
 filterSelect.placeholder = translate("$staff_filter_placeholder");
 let filterExplanation = create("abbr",false,"?",hohMediaSort,"margin-left:5px;cursor:pointer;");
-filterExplanation.title = "Filter help";
+filterExplanation.title = translate("$staff_filterHelp");
 filterExplanation.onclick = function(){
 	let scrollableContent = createDisplayBox("min-width:400px;width:700px;");
 	scrollableContent.innerText = `
@@ -83,22 +83,22 @@ The start year can also be a range like "2000-2005"`
 };
 let dataList = create("datalist","#staffRoles",false,hohMediaSort);
 let digestStats = create("span",false,false,hohMediaSort,"margin-left:100px;position:relative;");
-let sortOptionAlpha = create("option",false,"Alphabetical",sortSelect);
+let sortOptionAlpha = create("option",false,translate("$sort_alphabetical"),sortSelect);
 sortOptionAlpha.value = "alphabetical";
-let sortOptionChrono2 = create("option",false,"Newest",sortSelect);
+let sortOptionChrono2 = create("option",false,translate("$sort_newest"),sortSelect);
 sortOptionChrono2.value = "chronological2";
-let sortOptionChrono = create("option",false,"Oldest",sortSelect);
+let sortOptionChrono = create("option",false,translate("$sort_oldest"),sortSelect);
 sortOptionChrono.value = "chronological";
-let sortOptionPopularity = create("option",false,"Popularity",sortSelect);
+let sortOptionPopularity = create("option",false,translate("$sort_popularity"),sortSelect);
 sortOptionPopularity.value = "popularity";
-let sortOptionLength = create("option",false,"Length",sortSelect);
+let sortOptionLength = create("option",false,translate("$sort_length"),sortSelect);
 sortOptionLength.value = "length";
-let sortOptionScore = create("option",false,"Score",sortSelect);
+let sortOptionScore = create("option",false,translate("$sort_score"),sortSelect);
 sortOptionScore.value = "score";
 if(useScripts.accessToken){
-	create("option",false,"My Score",sortSelect)
+	create("option",false,translate("$sort_myScore"),sortSelect)
 		.value = "myScore"
-	create("option",false,"My Progress",sortSelect)
+	create("option",false,translate("$sort_myProgress"),sortSelect)
 		.value = "myProgress"
 }
 let autocomplete = new Set();
@@ -661,19 +661,19 @@ let listRenderer = function(){
 	if(sumDuration || sumChapters || sumVolumes || (sumScoresAnime + sumScoresManga)){
 		removeChildren(digestStats)
 		if(sumDuration){
-			create("span",false,"Hours Watched: ",digestStats);
+			create("span",false,translate("$staff_hoursWatched"),digestStats);
 			create("span",false,(sumDuration/60).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))")
 		};
 		if(sumChapters){
-			create("span",false," Chapters Read: ",digestStats);
+			create("span",false,translate("$staff_chaptersRead"),digestStats);
 			create("span",false,sumChapters,digestStats,"color:rgb(var(--color-blue))")
 		};
 		if(sumVolumes){
-			create("span",false," Volumes Read: ",digestStats);
+			create("span",false,translate("$staff_volumesRead"),digestStats);
 			create("span",false,sumVolumes,digestStats,"color:rgb(var(--color-blue))")
 		};
 		if(amountAnime + amountManga){
-			create("span",false," Mean Score: ",digestStats);
+			create("span",false,translate("$staff_meanScore"),digestStats);
 			let averageNode = create("span",false,((sumScoresAnime + sumScoresManga)/(amountAnime + amountManga)).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))");
 			if(((sumScoresAnime + sumScoresManga)/(amountAnime + amountManga)) === 10 && userObject.mediaListOptions.scoreFormat === "POINT_10"){//https://anilist.co/activity/49407649
 				averageNode.innerText += "/100"

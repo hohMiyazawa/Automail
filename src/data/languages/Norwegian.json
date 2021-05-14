@@ -124,6 +124,10 @@
 "$markdown_help_title": "Formateringshjelp",
 "$markdown_help_images_header": "Bilete",
 "$markdown_help_infixOr": "eller",
-"$navigation_profileLink": "Profilen til {0}"
+"$navigation_profileLink": "Profilen til {0}",
+"$staff_sort": "Sorter",
+"$sort_alphabetical": "Alfabetisk",
+"$sort_newest": "Nytt",
+"$sort_oldest": "Gamalt"
 	}
 }
