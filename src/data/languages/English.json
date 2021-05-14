@@ -175,6 +175,8 @@
 "$markdown_help_title": "Markdown help",
 "$navigation_profileLink": "{0}'s profile",
 "$MAL_score": "MAL Score",
-"$adjustColours_title": "Adjust Colours"
+"$adjustColours_title": "Adjust Colours",
+"$button_newChapers": "New Chapters",
+"$scanning": "Scanning..."
 	}
 }

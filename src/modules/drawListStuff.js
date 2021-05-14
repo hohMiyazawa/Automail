@@ -80,11 +80,11 @@ function drawListStuff(){
 		}
 	}
 	if(useScripts.newChapters && URLstuff[2] === "mangalist"){
-		let buttonFindChapters = create("button",["hohButton","button"],"New Chapters",extraFilters,"display:block;");
+		let buttonFindChapters = create("button",["hohButton","button"],translate("$button_newChapters"),extraFilters,"display:block;");
 		buttonFindChapters.title = "Check if there are new chapters available for things you are reading";
 		buttonFindChapters.onclick = function(){
 			let scrollableContent = createDisplayBox("min-width:400px;height:500px;");
-			let loader = create("p",false,"Scanning...",scrollableContent,"cursor:wait;");
+			let loader = create("p",false,translate("$scanning"),scrollableContent,"cursor:wait;");
 			let bannedEntries = new Set();
 			if(useScripts.bannedUpdates){
 				useScripts.bannedUpdates.forEach(item => {
