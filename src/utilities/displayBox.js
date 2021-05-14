@@ -13,11 +13,13 @@ function createDisplayBox(cssProperties,windowTitle){
 	};
 	let resizePearl = create("span","hohResizePearl",false,displayBox);
 	displayBox.addEventListener("mousedown",function(e){
-		isDown = true;
-		offset = [
-			displayBox.offsetLeft - e.clientX,
-			displayBox.offsetTop - e.clientY
-		];
+		if(!["P","PRE"].includes(e.target.tagName)){//don't annoy people trying to copy-paste
+			isDown = true;
+			offset = [
+				displayBox.offsetLeft - e.clientX,
+				displayBox.offsetTop - e.clientY
+			];
+		}
 	},true);
 	resizePearl.addEventListener("mousedown",function(e){
 		event.stopPropagation();
@@ -33,7 +35,6 @@ function createDisplayBox(cssProperties,windowTitle){
 		isDownResize = false;
 	},true);
 	document.addEventListener("mousemove",function(event){
-		event.preventDefault();
 		if(isDownResize){
 			mousePosition = {
 				x : event.clientX,
