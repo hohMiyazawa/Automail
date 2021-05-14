@@ -41,6 +41,9 @@ function enhanceNotifications(forceFlag){
 	if(possibleButton){
 		if(!possibleButton.flag){
 			possibleButton.flag = true;
+			if(useScripts.additionalTranslation){
+				possibleButton.childNodes[0].textContent = translate("$notifications_button_reset")
+			}
 			possibleButton.onclick = function(){
 				Array.from(
 					document.getElementById("hohNotifications").children
@@ -631,7 +634,7 @@ You can also turn off this notice there.`,setting)
 			}
 			newNotification.appendChild(time);
 			let commentsContainer = create("div",["hohCommentsContainer","b" + activities[i].link]);
-			let comments = create("a",["hohComments","link"],"comments",commentsContainer);
+			let comments = create("a",["hohComments","link"],translate("$notifications_comments"),commentsContainer);
 			create("span","hohMonospace","+",comments);
 			comments.onclick = function(){
 				if(this.children[0].innerText === "+"){

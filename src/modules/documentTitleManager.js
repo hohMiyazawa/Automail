@@ -9,7 +9,21 @@ let titleObserver = new MutationObserver(mutations => {
 	if(badApostropheMatch){
 		document.title = badApostropheMatch[1] + "' profile" + badApostropheMatch[2]
 	}
-		
+	if(useScripts.additionalTranslation){
+		[
+["Home · AniList","$documentTitle_home"],
+["Notifications · AniList","$documentTitle_notifications"],
+["Forum - Anime & Manga Discussion · AniList","$documentTitle_forum"],
+["App Settings · AniList","$documentTitle_appSettings"]
+		].forEach(pair => {
+			if(title === pair[0]){
+				let translation = translate(pair[1]);
+				if(translation !== pair[0]){
+					document.title = translation
+				}
+			}
+		})
+	}	
 	if(useScripts.SFWmode && title !== "Table of Contents"){//innocent looking
 		document.title = "Table of Contents"
 	}

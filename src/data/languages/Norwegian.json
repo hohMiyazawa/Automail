@@ -99,6 +99,7 @@
 "$notification_forumCommentLike": " likte kommentaren din, i forumtråden ",
 "$notification_forumMention": " nemde deg, i forumtråden ",
 "$notification_follow": " fylgjer deg.",
+"$notification_button_reset": "Merk alle som lese",
 "$preview_1behind": "1 episode bakpå",
 "$preview_Mbehind": "{0} episodar bakpå",
 "$preview_progress": "Framgang:",
