@@ -173,6 +173,13 @@
 "$additionalTranslation_description": "Translate additional parts of the Anilist UI",
 "$twoColumnFeed_description": "Split the home feed into two columns",
 "$markdown_help_title": "Markdown help",
+"$markdown_help_description": "Add a markdown helper to the bottom left corner",
+"$markdown_help_images_header": "Images",
+"$markdown_help_imageUpload": "(you must upload it somewhere else to get a link)",
+"$markdown_help_imageSize": "Adjusting size:",
+"$markdown_help_links_header": "Links",
+"$markdown_help_formatting_header": "Formatting",
+"$markdown_help_infixOr": "or",
 "$navigation_profileLink": "{0}'s profile",
 "$MAL_score": "MAL Score",
 "$adjustColours_title": "Adjust Colours",
@@ -201,6 +208,7 @@
 "$stats_weightComment_chapers": " (weighted by chapter count)",
 "$stats_globalDifference_comment": " (average difference from global average)",
 "$stats_globalDeviation_comment": " (standard deviation from the global average of each entry)",
-"$stats_ratingEntropy_comment": " bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)"
+"$stats_ratingEntropy_comment": " bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)",
+"$forum_preview_reply": "replied "
 	}
 }

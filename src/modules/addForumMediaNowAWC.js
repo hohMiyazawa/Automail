@@ -44,7 +44,7 @@ function addForumMediaNoAWC(){
 				nameWrap.href = "/user/" + thread.replyUser.name;
 				let nameInner = create("span",false,thread.replyUser.name,nameWrap);
 				name.appendChild(document.createTextNode(" "));
-				let contextText = create("a",false,"replied ",name);
+				let contextText = create("a",false,translate("$forum_preview_reply"),name);
 				contextText.href = "/forum/thread/" + thread.id + "/comment/" + thread.replyCommentId;
 				contextText.appendChild(nativeTimeElement(thread.repliedAt));
 			};

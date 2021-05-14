@@ -122,6 +122,8 @@
 "$forum_comment_hide_title": "gøym kommentartre",
 "$forum_comment_show_title": "vis kommentartre",
 "$markdown_help_title": "Formateringshjelp",
+"$markdown_help_images_header": "Bilete",
+"$markdown_help_infixOr": "eller",
 "$navigation_profileLink": "Profilen til {0}"
 	}
 }
