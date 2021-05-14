@@ -599,7 +599,7 @@ function addMoreStats(){
 				if(regularFilterHeading.children.length === 0){
 					let filterWrap = create("div",false,false,regularFilterHeading);
 					create("p",false,"tip: click a row to show individual media entries",regularFilterHeading);
-					let filterLabel = create("span",false,"Filters",filterWrap);
+					let filterLabel = create("span",false,translate("$filters"),filterWrap);
 					let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
 					let filters = create("div",false,false,filterWrap,"display: none");
 
@@ -775,11 +775,11 @@ function addMoreStats(){
 
 			let regularFilterHeading = create("div",false,false,personalStats,"margin-bottom: 10px;");
 			let filterWrap = create("div",false,false,regularFilterHeading);
-			let filterLabel = create("span",false,"Filters",filterWrap);
+			let filterLabel = create("span",false,translate("$filters"),filterWrap);
 			let tableHider = create("span",["hohMonospace","hohTableHider"],"[+]",filterWrap);
 			let filters = create("div",false,false,filterWrap,"display: none");
 
-			let listFilterHeading = create("p",false,"Lists",filters);
+			let listFilterHeading = create("p",false,translate("$filters_lists"),filters);
 			filterSettings = filterSettings || {
 				lists: {
 				}
@@ -955,48 +955,48 @@ function addMoreStats(){
 			}
 			list.sort((a,b) => a.mediaId - b.mediaId);
 //display scoring stats
-			addStat("Anime on list: ",list.length);
-			addStat("Anime rated: ",amount);
+			addStat(translate("$stats_animeOnList"),list.length);
+			addStat(translate("$stats_animeRated"),amount);
 			if(amount !== 0){//no scores
 				if(amount === 1){
-					addStat("Only one score given: ",maxRunLengthScore)
+					addStat(translate("$stats_onlyOne"),maxRunLengthScore)
 				}
 				else{
 					addStat(
-						"Average score: ",
+						translate("$stats_averageScore"),
 						average.toPrecision(4)
 					);
 					addStat(
-						"Average score: ",
+						translate("$stats_averageScore"),
 						(sumEntriesWeight/sumWeight).toPrecision(4),
-						" (weighted by duration)"
+						translate("$stats_weightComment_duration")
 					);
-					addStat("Median score: ",median);
+					addStat(translate("$stats_medianScore"),median);
 					addStat(
-						"Global difference: ",
+						translate("$stats_globalDifference"),
 						publicDifference.roundPlaces(2),
-						" (average difference from global average)"
+						translate("$stats_globalDifference_comment")
 					);
 					addStat(
-						"Global deviation: ",
+						translate("$stats_globalDeviation"),
 						publicDeviation.roundPlaces(2),
-						" (standard deviation from the global average of each entry)"
+						translate("$stats_globalDeviation_comment")
 					);
 					addStat(
-						"Rating entropy: ",
+						translate("$stats_ratingEntropy"),
 						-histogram.reduce((acc,val) => {
 							if(val){
 								return acc + Math.log2(val/amount) * val/amount
 							}
 							return acc
 						},0).toPrecision(3),
-						" bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)"
+						translate("$stats_ratingEntropy_comment")
 					);
 					if(maxRunLength > 1){
-						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
+						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " (" + maxRunLength + " instances)")
 					}
 					else{
-						addStat("Most common score: ","","no two scores alike")
+						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
 					}
 				};
 //longest activity
@@ -1060,7 +1060,7 @@ function addMoreStats(){
 					};
 				};
 				addStat(
-					"Time watched: ",
+					translate("$stats_timeWatched"),
 					(sumDuration/(60*24)).roundPlaces(2),
 					" days (" + singleText + ")"
 				)
@@ -1074,10 +1074,10 @@ function addMoreStats(){
 					TVepisodesLeft += Math.max((show.media.episodes || 0) - show.progress,0)
 				}
 			});
-			addStat("TV episodes watched: ",TVepisodes);
-			addStat("TV episodes remaining for current shows: ",TVepisodesLeft);
+			addStat(translate("$stats_TVEpisodesWatched"),TVepisodes);
+			addStat(translate("$stats_TVEpisodesRemaining"),TVepisodesLeft);
 			if(oldest){
-				create("p",false,"First logged anime: " + oldest.year + "-" + oldest.month + "-" + oldest.day + ". (users can freely change start dates)",personalStats)
+				create("p",false,translate("$stats_firstLoggedAnime") + oldest.year + "-" + oldest.month + "-" + oldest.day + ". (users can freely change start dates)",personalStats)
 			};
 			let animeFormatter = {
 				title: "Custom Anime Tags",
@@ -1875,10 +1875,10 @@ function addMoreStats(){
 				sumEntriesWeight += item.scoreRaw * item.chaptersRead;
 				histogram[item.scoreRaw - 1]++
 			});
-			addStat("Manga on list: ",list.length);
-			addStat("Manga rated: ",amount);
-			addStat("Total chapters: ",chapters);
-			addStat("Total volumes: ",volumes);
+			addStat(translate("$stats_mangaOnList"),list.length);
+			addStat(translate("$stats_mangaRated"),amount);
+			addStat(translate("$stats_totalChapters"),chapters);
+			addStat(translate("$stats_totalVolumes"),volumes);
 			if(amount){
 				average = sumEntries/amount
 			};
@@ -1902,46 +1902,46 @@ function addMoreStats(){
 			if(amount){//no scores
 				if(amount === 1){
 					addStat(
-						"Only one score given: ",
+						translate("$stats_onlyOne"),
 						maxRunLengthScore
 					)
 				}
 				else{
 					addStat(
-						"Average score: ",
+						translate("$stats_averageScore"),
 						average.toPrecision(4)
 					);
 					addStat(
-						"Average score: ",
+						translate("$stats_averageScore"),
 						(sumEntriesWeight/sumWeight).toPrecision(4),
-						" (weighted by chapter count)"
+						translate("$stats_weightComment_chapers")
 					);
-					addStat("Median score: ",median);
+					addStat(translate("$stats_medianScore"),median);
 					addStat(
-						"Global difference: ",
+						translate("$stats_globalDifference"),
 						publicDifference.roundPlaces(2),
-						" (average difference from global average)"
+						translate("$stats_globalDifference_comment")
 					);
 					addStat(
-						"Global deviation: ",
+						translate("$stats_globalDeviation"),
 						publicDeviation.roundPlaces(2),
-						" (standard deviation from the global average of each entry)"
+						translate("$stats_globalDeviation_comment")
 					);
 					addStat(
-						"Rating entropy: ",
+						translate("$stats_ratingEntropy"),
 						-histogram.reduce((acc,val) => {
 							if(val){
 								return acc + Math.log2(val/amount) * val/amount
 							}
 							return acc
 						},0).toPrecision(3),
-						" bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)"
+						translate("$stats_ratingEntropy_comment")
 					);
 					if(maxRunLength > 1){
-						addStat("Most common score: ",maxRunLengthScore, " (" + maxRunLength + " instances)")
+						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " (" + maxRunLength + " instances)")
 					}
 					else{
-						addStat("Most common score: ","","no two scores alike")
+						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
 					}
 				}
 			};
