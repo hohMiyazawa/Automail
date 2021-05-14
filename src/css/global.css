@@ -42,7 +42,7 @@ m4_include(css/notifications.css)
 #hohDescription{
 	width: 280px;
 	height: 150px;
-	float: left;
+	margin: 10px;
 	color: rgb(var(--color-blue));
 }
 .hohStatsTrigger{
