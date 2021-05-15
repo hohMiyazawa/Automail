@@ -808,7 +808,7 @@ function moreImports(){
 
 	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
 	let gdpr_import = create("div",["section","hohImport"],false,target);
-	create("h2",false,"GDPR data: Import lists [WORK IN PROGESS]",gdpr_import);
+	create("h2",false,"GDPR data: Import lists",gdpr_import);
 	let gdpr_importCheckboxContainer = create("label","el-checkbox",false,gdpr_import);
 	let gdpr_importOverwrite = createCheckbox(gdpr_importCheckboxContainer);
 	create("span","el-checkbox__label","Overwrite entries already on my list",gdpr_importCheckboxContainer);
@@ -818,27 +818,123 @@ function moreImports(){
 	gdpr_importInput.type = "file";
 	gdpr_importInput.name = "json";
 	gdpr_importInput.accept = "application/json";
+
+	let resultsAreaGDPR = create("div","importResults",false,target);
+	let resultsErrorsGDPR = create("div",false,false,resultsAreaGDPR,"color:red;padding:5px;");
+	let resultsWarningsGDPR = create("div",false,false,resultsAreaGDPR,"color:orange;padding:5px;");
+	let resultsStatusGDPR = create("div",false,false,resultsAreaGDPR,"padding:5px;");
+	let pushResultsGDPR = create("button",["hohButton","button"],"Import all",resultsAreaGDPR,"display:none;");
+	let resultsTableGDPR = create("div",false,false,resultsAreaGDPR);
+
 	gdpr_importInput.onchange = function(){
 		let file = gdpr_importInput.files[0];
 		let reader = new FileReader();
 		reader.readAsText(file,"UTF-8");
+		resultsStatusGDPR.innerText = "Loading GDPR JSON file...";
 		reader.onload = function(evt){
+			resultsStatusGDPR.innerText = "";
 			let data;
 			try{
 				data = JSON.parse(evt.target.result)
 			}
 			catch(e){
-				resultsErrorsAL.innerText = "error parsing JSON";
+
+				resultsErrorsGDPR.innerText = "error parsing JSON";
+				return
 			}
 			if(data.hasOwnProperty("User")){
 				resultsErrorsAL.innerText = "This is the GDPR JSON importer, but you uploaded a Anilist JSON file. You either uploaded the wrong file, or ment to use the importer further up the page.";
 				return
 			}
 			if(data.user.display_name.toLowerCase() !== whoAmI.toLowerCase()){
-				resultsWarningsAL.innerText = "List for \"" + data.user.display_name + "\" loaded, but currently signed in as \"" + whoAmI + "\". Are you sure this is right?"
+				resultsWarningsGDPR.innerText = "List for \"" + data.user.display_name + "\" loaded, but currently signed in as \"" + whoAmI + "\". Are you sure this is right?"
 			}
 			if(!useScripts.accessToken){
-				resultsWarningsAL.innerText += "\nNot signed in to the script! Can't do any changes to your lists then. Go to the bottom of the settings > apps page to sign in"
+				resultsWarningsGDPR.innerText += "\nNot signed in to the script! Can't do any changes to your lists then. Go to the bottom of the settings > apps page to sign in"
+			}
+
+			if(!gdpr_importOverwrite.checked){
+				gdpr_importOverwrite.onclick = function(){
+					alert("Non-overwrite mode already selected! Reload this page to start the import in another mode\n(Starting the import now WILL NOT overwrite existing list entries)")
+				}
+				resultsStatusGDPR.innerText = "Loading anime list...";
+				authAPIcall(
+					`query($name: String,$listType: MediaType){
+						Viewer{name mediaListOptions{scoreFormat}}
+						MediaListCollection(userName: $name, type: $listType){
+							lists{
+								entries{
+									mediaId
+								}
+							}
+						}
+					}`,
+					{
+						listType: "ANIME",
+						name: whoAmI
+					},
+					function(dataAnime){
+						resultsStatusGDPR.innerText = "";
+						if(!dataAnime){
+							resultsErrorsGDPR.innerText = "An error occured while loading your anime list";
+						}
+						if(dataAnime.data.Viewer.name !== whoAmI){
+							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
+							return;
+						};
+						let listAnime = new Set(returnList(dataAnime,true).map(a => a.mediaId));
+						resultsStatusGDPR.innerText = "Loading manga list...";
+					}
+				)
+			}
+			else{
+				gdpr_importOverwrite.onclick = function(){
+					alert("Overwrite mode already selected! Reload this page to start the import in another mode\n(Starting the import now WILL overwrite existing list entries!!!)")
+				}
+				pushResultsGDPR.style.display = "inline";
+				resultsTableGDPR.innerText = data.lists.length + " list items will be imported.\nEstimated time to import: " + Math.ceil(data.lists.length/60) + " minutes.\nBrowsing Anilist while the import is running is not recommended.\nClosing this tab will immediately stop the import.";
+				resultsTableGDPR.style.marginTop = "10px";
+
+				let mutater = function(index){
+					if(index + 1 < data.lists.length){
+						setTimeout(function(){
+							mutater(index + 1);
+						},1000);
+					}
+					try{
+/*
+						authAPIcall(
+							`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
+								SaveMediaListEntry(
+									mediaId: ${show.mediaId},
+									status: ${show.status},
+									score: ${show.score},
+									progress: ${show.progress},
+									progressVolumes: ${show.progressVolumes || 0},
+									repeat: ${show.repeat},
+									priority: ${show.priority},
+									notes: $notes,
+									startedAt: $startedAt,
+									completedAt: $completedAt
+								){id}
+							}`,
+							{
+								startedAt: show.startedAt,
+								completedAt: show.completedAt,
+								notes: show.notes
+							},
+							data => {}
+						)
+*/
+					}
+					catch(e){
+						resultsWarningsGDPR.innerText += "\nAn error occured for mediaID " + data.lists[index].series_id
+					}
+					resultsStatusGDPR.innerText = (index + 1) + " of " + data.lists.length + " entries imported"
+				};
+				pushResultsGDPR.onclick = function(){
+					mutater(0)
+				}
 			}
 		}
 	}
