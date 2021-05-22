@@ -902,15 +902,15 @@ function moreImports(){
 						},1000);
 					}
 					try{
-/*
+						let show = data.lists[index];
 						authAPIcall(
 							`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
 								SaveMediaListEntry(
-									mediaId: ${show.mediaId},
+									mediaId: ${show.series_id},
 									status: ${show.status},
 									score: ${show.score},
 									progress: ${show.progress},
-									progressVolumes: ${show.progressVolumes || 0},
+									progressVolumes: ${show.progress_volume || 0},
 									repeat: ${show.repeat},
 									priority: ${show.priority},
 									notes: $notes,
@@ -919,16 +919,15 @@ function moreImports(){
 								){id}
 							}`,
 							{
-								startedAt: show.startedAt,
-								completedAt: show.completedAt,
+								startedAt: show.started_on,
+								completedAt: show.finished_on,
 								notes: show.notes
 							},
 							data => {}
 						)
-*/
 					}
 					catch(e){
-						resultsWarningsGDPR.innerText += "\nAn error occured for mediaID " + data.lists[index].series_id
+						resultsWarningsGDPR.innerText += "\nAn error occured for mediaID " + data.lists[index].series_id + ": " + e
 					}
 					resultsStatusGDPR.innerText = (index + 1) + " of " + data.lists.length + " entries imported"
 				};
