@@ -490,11 +490,6 @@ m4_include(css/notifications.css)
 .activity-feed-wrap + div{
 	margin-top: 25px;
 }
-.page-content > .container,
-.notifications-feed,
-.page-content > .studio{
-	margin-top: 67px !important;
-}
 .hohUserRow td,
 .hohUserRow th{
 	min-width: 120px;
@@ -2214,6 +2209,14 @@ body.TMPreviewScore > .el-tooltip__popper{
 	right: 1px;
 	top: 0px;
 }
+/*
+.home .activity-feed .activity-entry{
+	display: none!important;
+}
+.home .activity-feed .activity-entry:nth-last-child(-n+100){
+	display: block!important;
+}
+*/
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
