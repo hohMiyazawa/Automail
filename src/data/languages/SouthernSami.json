@@ -37,6 +37,15 @@
 "$preview_animeSection_title": "Dov Anime",
 "$preview_mangaSection_title": "Dov Manga",
 "$preview_airingSection_title": "Saadtegh",
-"$recs_forYou": "Dutnjien"
+"$recs_forYou": "Dutnjien",
+"$colour_transparent": "Tjaetsie",
+"$colour_blue": "Plaave",
+"$colour_white": "Veelkes",
+"$colour_black": "Tjeehpes",
+"$colour_red": "Rööpses",
+"$colour_peach": "Peersika",
+"$colour_orange": "Rööps-viskes",
+"$colour_yellow": "Viskes",
+"$colour_green": "Kruana"
 	}
 }

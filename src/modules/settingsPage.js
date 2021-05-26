@@ -188,15 +188,15 @@ exportModule({
 		if(useScripts.accessToken){
 			const notificationTypes = Object.keys(notificationColourDefaults);
 			const supportedColours = [
-				{name:"Transparent",value:"rgb(0,0,0,0)"},
-				{name:"Blue",value:"rgb(61,180,242)"},
-				{name:"White",value:"rgb(255,255,255)"},
-				{name:"Black",value:"rgb(0,0,0)"},
-				{name:"Red",value:"rgb(232,93,117)"},
-				{name:"Peach",value:"rgb(250,122,122)"},
-				{name:"Orange",value:"rgb(247,154,99)"},
-				{name:"Yellow",value:"rgb(247,191,99)"},
-				{name:"Green",value:"rgb(123,213,85)"}
+				{name:translate("$colour_transparent"),value:"rgb(0,0,0,0)"},
+				{name:translate("$colour_blue"),value:"rgb(61,180,242)"},
+				{name:translate("$colour_white"),value:"rgb(255,255,255)"},
+				{name:translate("$colour_black"),value:"rgb(0,0,0)"},
+				{name:translate("$colour_red"),value:"rgb(232,93,117)"},
+				{name:translate("$colour_peach"),value:"rgb(250,122,122)"},
+				{name:translate("$colour_orange"),value:"rgb(247,154,99)"},
+				{name:translate("$colour_yellow"),value:"rgb(247,191,99)"},
+				{name:translate("$colour_green"),value:"rgb(123,213,85)"}
 			];
 			create("p",false,"Notification Dot Colours",notificationColour);
 			let nColourType = create("select",false,false,notificationColour);

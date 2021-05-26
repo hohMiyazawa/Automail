@@ -259,6 +259,15 @@
 "$milestones_totalVolumes": "Total Volumes",
 "$milestones_totalEpisodes": "Total Episodes",
 "$milestones_daysWatched": "{0} Days Watched",
-"$milestones_chaptersRead": "{0} Chapters Read"
+"$milestones_chaptersRead": "{0} Chapters Read",
+"$colour_transparent": "Transparent",
+"$colour_blue": "Blue",
+"$colour_white": "White",
+"$colour_black": "Black",
+"$colour_red": "Red",
+"$colour_peach": "Peach",
+"$colour_orange": "Orange",
+"$colour_yellow": "Yellow",
+"$colour_green": "Green"
 	}
 }

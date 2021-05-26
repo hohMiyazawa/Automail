@@ -156,6 +156,15 @@
 "$compare_default": "Sjå den vanlege samanlikninga",
 "$compare_hoh": "Sjå hoh-samanlikninga",
 "$sort_length": "Lengd",
-"$sort_popularity": "Popularitet"
+"$sort_popularity": "Popularitet",
+"$colour_transparent": "Blank",
+"$colour_blue": "Blå",
+"$colour_white": "Kvit",
+"$colour_black": "Svart",
+"$colour_red": "Rau",
+"$colour_peach": "Pære",
+"$colour_orange": "Branngul",
+"$colour_yellow": "Gul",
+"$colour_green": "Grøn"
 	}
 }
