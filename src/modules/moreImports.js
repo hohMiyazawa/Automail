@@ -811,7 +811,7 @@ function moreImports(){
 	create("h2",false,"GDPR data: Import lists",gdpr_import);
 	let gdpr_importCheckboxContainer = create("label","el-checkbox",false,gdpr_import);
 	let gdpr_importOverwrite = createCheckbox(gdpr_importCheckboxContainer);
-	create("span","el-checkbox__label","Overwrite entries already on my list",gdpr_importCheckboxContainer);
+	create("span","el-checkbox__label","Overwrite entries already on my list (only overwrite mode implemented so far)",gdpr_importCheckboxContainer);
 	let gdpr_importDropzone = create("div","dropbox",false,gdpr_import);
 	let gdpr_importInput = create("input","input-file",false,gdpr_importDropzone);
 	let gdpr_importDropText = create("p",false,"Drop GDPR JSON file here or click to upload",gdpr_importDropzone);
