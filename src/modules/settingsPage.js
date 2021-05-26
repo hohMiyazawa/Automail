@@ -186,20 +186,7 @@ exportModule({
 		//
 		let notificationColour = create("div");
 		if(useScripts.accessToken){
-			const notificationTypes = [
-				"ACTIVITY_MESSAGE",
-				"ACTIVITY_REPLY",
-				"FOLLOWING",
-				"ACTIVITY_MENTION",
-				"THREAD_COMMENT_MENTION",
-				"THREAD_SUBSCRIBED",
-				"THREAD_COMMENT_REPLY",
-				"AIRING",
-				"ACTIVITY_LIKE",
-				"ACTIVITY_REPLY_LIKE",
-				"THREAD_LIKE",
-				"THREAD_COMMENT_LIKE"
-			];
+			const notificationTypes = Object.keys(notificationColourDefaults);
 			const supportedColours = [
 				{name:"Transparent",value:"rgb(0,0,0,0)"},
 				{name:"Blue",value:"rgb(61,180,242)"},
@@ -215,7 +202,7 @@ exportModule({
 			let nColourType = create("select",false,false,notificationColour);
 			let nColourValue = create("select",false,false,notificationColour);
 			let supressOption = createCheckbox(notificationColour);
-			let supressOptionText = create("span",false,"Don't show dot",notificationColour);
+			let supressOptionText = create("span",false,"Don't show dot for this type",notificationColour);
 			notificationTypes.forEach(
 				type => create("option",false,type,nColourType)
 					.value = type
