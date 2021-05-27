@@ -457,6 +457,7 @@ query($id: Int,$userName: String){
 			maxScore = 10
 		}
 		if(document.querySelector(".medialist").classList.contains("POINT_10_DECIMAL")){
+			minScore = 0.1;
 			stepSize = 0.1
 		}
 		if(document.querySelector(".medialist").classList.contains("POINT_5")){

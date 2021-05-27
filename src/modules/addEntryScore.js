@@ -33,6 +33,7 @@ function addEntryScore(id,tries){
 							maxScore = 10
 						}
 						if(userObject.mediaListOptions.scoreFormat === "POINT_10_DECIMAL"){
+							minScore = 0.1;
 							stepSize = 0.1
 						}
 						if(userObject.mediaListOptions.scoreFormat === "POINT_5"){
