@@ -155,13 +155,13 @@ function addComparisionPage(){
 			let sum = 0;
 			let dividents = 0;
 			scoreArray.forEach(function(score){
-				if(score){
+				if(score !== null){
 					sum += score;
 					dividents++
 				}
 			});
 			return {
-				average: ((dividents + (weight || 0)) ? (sum/(dividents + (weight || 0))) : 0),
+				average: ((dividents + (weight || 0)) ? (sum/(dividents + (weight || 0))) : null),
 				dividents: dividents
 			}
 		};
@@ -176,8 +176,8 @@ function addComparisionPage(){
 			"standardDeviation": function(show){
 				let average = averageCalc(show[scoreField]);
 				let variance = 0;
-				show.digest = 0;
-				if(average.dividents){
+				show.digest = null;
+				if(average.dividents > 1){
 					show[scoreField].forEach(score => {
 						if(score !== null){
 							variance += Math.pow(score - average.average,2)
@@ -190,44 +190,61 @@ function addComparisionPage(){
 			"absoluteDeviation": function(show){
 				let average = averageCalc(show[scoreField]);
 				let variance = 0;
-				show.digest = 0;
-				if(average.dividents){
+				show.digest = null;
+				if(average.dividents > 1){
 					show[scoreField].forEach(score => {
 						if(score !== null){
 							variance += Math.abs(score - average.average)
 						}
 					});
 					variance = variance/average.dividents;
-					show.digest = Math.sqrt(variance)
+					show.digest = variance
 				}
 			},
 			"max": function(show){
-				show.digest = Math.max(...show[scoreField])
+				let newScores = show[scoreField].filter(score => score !== null);
+				if(newScores.length){
+					show.digest = Math.max(...newScores)
+				}
+				else{
+					show.digest = null
+				}
 			},
 			"min": function(show){
-				show.digest = Math.min(...show[scoreField].filter(score => score !== null)) || 0
+				let newScores = show[scoreField].filter(score => score !== null);
+				if(newScores.length){
+					show.digest = Math.min(...newScores)
+				}
+				else{
+					show.digest = null
+				}
 			},
 			"difference": function(show){
-				let mini = Math.min(...show[scoreField].filter(score => score !== null)) || 0;
-				let maks = Math.max(...show[scoreField]);
-				show.digest = maks - mini
+				if(show[scoreField].filter(score => score !== null).length){
+					let mini = Math.min(...show[scoreField].filter(score => score !== null)) || 0;
+					let maks = Math.max(...show[scoreField].filter(score => score !== null));
+					show.digest = maks - mini
+				}
+				else{
+					show.digest = null
+				}
 			},
 			"ratings": function(show){
-				show.digest = show[scoreField].filter(score => score !== null).length
+				show.digest = show[scoreField].filter(score => score !== null).length || null
 			},
 			"planned": function(show){
-				show.digest = show.status.filter(value => value === "PLANNING").length
+				show.digest = show.status.filter(value => value === "PLANNING").length || null
 			},
 			"current": function(show){
-				show.digest = show.status.filter(value => (value === "CURRENT" || value === "REPEATING")).length
+				show.digest = show.status.filter(value => (value === "CURRENT" || value === "REPEATING")).length || null
 			},
 			"favourites": function(show){
-				show.digest = show.favourite.filter(TRUTHY).length
+				show.digest = show.favourite.filter(TRUTHY).length || null
 			},
 			"median": function(show){
 				let newScores = show[scoreField].filter(score => score !== null);
 				if(newScores.length === 0){
-					show.digest = 0
+					show.digest = null
 				}
 				else{
 					show.digest = Stats.median(newScores)
@@ -315,7 +332,7 @@ function addComparisionPage(){
 			create("a","newTab",show.title,showID)
 				.href = "/" + type + "/" + show.id + "/" + safeURL(show.title);
 			let showAverage = create("td");
-			if(show.digest){
+			if(show.digest !== null){
 				let fractional = show.digest % 1;
 				showAverage.innerText = show.digest.roundPlaces(3);
 				[
@@ -650,6 +667,9 @@ function addComparisionPage(){
 					if(alia.scoreRaw){
 						alia.scoreNormal = (alia.scoreRaw - averageSum)/std
 					}
+					else{
+						alia.scoreNormal = null
+					}
 				})
 			};
 			shows.sort(function(a,b){return a.id - b.id});
@@ -679,8 +699,8 @@ function addComparisionPage(){
 					averageScore: mediaEntry.media.averageScore,
 					popularity: mediaEntry.media.popularity
 				};
-				entry.score.push(mediaEntry.scoreRaw);
-				entry.scorePersonal.push(mediaEntry.score);
+				entry.score.push(mediaEntry.scoreRaw || null);
+				entry.scorePersonal.push(mediaEntry.score || null);
 				entry.scoreNormal.push(mediaEntry.scoreNormal);
 				entry.status.push(mediaEntry.status);
 				if(mediaEntry.status !== "PLANNING" && mediaEntry.status !== "COMPLETED"){
@@ -705,8 +725,8 @@ function addComparisionPage(){
 					continue
 				}
 				else if(shows[i].id === list[listPointer].mediaId){
-					shows[i].score[userIndeks] = list[listPointer].scoreRaw;
-					shows[i].scorePersonal[userIndeks] = list[listPointer].score;
+					shows[i].score[userIndeks] = list[listPointer].scoreRaw || null;
+					shows[i].scorePersonal[userIndeks] = list[listPointer].score || null;
 					shows[i].scoreNormal[userIndeks] = list[listPointer].scoreNormal;
 					shows[i].status[userIndeks] = list[listPointer].status;
 					if(list[listPointer].scoreRaw){
