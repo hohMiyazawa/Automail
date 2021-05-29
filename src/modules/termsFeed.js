@@ -304,6 +304,11 @@ let buildPage = function(activities,type,requestTime){
 			else{
 				let createReplies = function(){
 					let replies = create("div","replies",false,act);
+					let statusInput;
+					let inputArea;
+					let cancelButton;
+					let publishButton;
+					let onlySpecificActivity = false;
 					activity.replies.forEach(reply => {
 						reply.text = makeHtml(reply.text);
 						let rep = create("div","reply",false,replies);
@@ -361,11 +366,32 @@ let buildPage = function(activities,type,requestTime){
 							likeWrap.title = reply.likes.map(a => a.name).join("\n");
 							likeify(reply.likes,likeQuickView);
 						};
+						if(reply.user.name === whoAmI){
+							let edit = create("a",false,"Edit",rep,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
+							edit.onclick = function(){
+								authAPIcall(
+									`query($id: Int){
+										ActivityReply(id: $id){
+											text(asHtml: false)
+										}
+									}`,
+									{id: reply.id},
+									data => {
+										if(!data){
+											onlySpecificActivity = false;
+										}
+										inputArea.focus();
+										onlySpecificActivity = reply.id;
+										inputArea.value = data.data.ActivityReply.text;
+									}
+								)
+							}
+						}
 					});
-					let statusInput = create("div",false,false,replies);
-					let inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
-					let cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
-					let publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
+					statusInput = create("div",false,false,replies);
+					inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
+					cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
+					publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
 					inputArea.placeholder = "Write a reply...";
 					inputArea.onfocus = function(){
 						cancelButton.style.display = "inline";
@@ -378,28 +404,58 @@ let buildPage = function(activities,type,requestTime){
 						document.activeElement.blur();
 					};
 					publishButton.onclick = function(){
-						loading.innerText = "Publishing reply...";
-						authAPIcall(
-							`mutation($text: String,$activityId: Int){
-								SaveActivityReply(text: $text,activityId: $activityId){
-									id
-									user{name}
-									likes{name}
-									text(asHtml: true)
-									createdAt
+						if(onlySpecificActivity){
+							loading.innerText = "Editing reply...";
+							authAPIcall(
+								`mutation($text: String,$id: Int){
+									SaveActivityReply(text: $text,id: $id){
+										id
+										user{name}
+										likes{name}
+										text(asHtml: true)
+										createdAt
+									}
+								}`,
+								{text: emojiSanitize(inputArea.value),id: onlySpecificActivity},
+								data => {
+									loading.innerText = "";
+									if(data){
+										for(let j=0;j<activity.replies;j++){
+											if(activity.replies[j].id === data.data.SaveActivityReply.id){
+												activity.replies[j] = data.data.SaveActivityReply
+											}
+										}
+										act.lastChild.remove();
+										createReplies()
+									}
 								}
-							}`,
-							{text: emojiSanitize(inputArea.value),activityId: activity.id},
-							data => {
-								loading.innerText = "";
-								if(data){
-									activity.replies.push(data.data.SaveActivityReply);
-									replyCount.innerText = activity.replies.length;
-									act.lastChild.remove();
-									createReplies()
+							);
+							onlySpecificActivity = false;
+						}
+						else{
+							loading.innerText = "Publishing reply...";
+							authAPIcall(
+								`mutation($text: String,$activityId: Int){
+									SaveActivityReply(text: $text,activityId: $activityId){
+										id
+										user{name}
+										likes{name}
+										text(asHtml: true)
+										createdAt
+									}
+								}`,
+								{text: emojiSanitize(inputArea.value),activityId: activity.id},
+								data => {
+									loading.innerText = "";
+									if(data){
+										activity.replies.push(data.data.SaveActivityReply);
+										replyCount.innerText = activity.replies.length;
+										act.lastChild.remove();
+										createReplies()
+									}
 								}
-							}
-						);
+							);
+						}
 						inputArea.value = "";
 						cancelButton.style.display = "none";
 						publishButton.style.display = "none";
