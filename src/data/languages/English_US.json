@@ -1,0 +1,19 @@
+{
+	"info": {
+		"language": "English (US)",
+		"language_english": "English (US)",
+		"fallback": ["English"],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "",
+		"notes": "There's in general no need to translate all the keys, since the default fallback is English."
+	},
+	"keys": {
+"$setting_CSSsmileyScore": "Give smiley ratings distinct colors",
+"$profileBackground_help2": "Tip: Use a color with transparancy, to work better with both light and dark themes. Example:",
+"$compare_colourCell": "Color entire cell:",
+"$adjustColours_title": "Adjust Colors",
+"$submenu_favourites": "Favorites",
+"$compare_normalizeRatings": "Normalize ratings:"
+	}
+}

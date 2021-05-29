@@ -6,7 +6,8 @@ const languageFiles = {
 	"日本語": m4_include(data/languages/Japanese.json),
 	"Åarjelsaemie": m4_include(data/languages/SouthernSami.json),
 	"Norsk": m4_include(data/languages/Norwegian.json),
-	"Svenska": m4_include(data/languages/Swedish.json)
+	"Svenska": m4_include(data/languages/Swedish.json),
+	"English (US)": m4_include(data/languages/English_US.json)
 }
 function translate(key,subs){
 	if(key[0] !== "$"){

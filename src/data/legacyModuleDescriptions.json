@@ -273,6 +273,6 @@
 	"extendedDescription": "Partial localisation. Does not translate the whole site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
 	"type": "select",
 	"categories": ["Script","Newly Added"],
-	"values": ["English","Português","Deutsch","日本語","Åarjelsaemie","Norsk","Svenska"]
+	"values": ["English","Português","Deutsch","日本語","Åarjelsaemie","Norsk","Svenska","English (US)"]
 }
 ]
