@@ -6,9 +6,10 @@
 		"maintainer": "",
 		"maintainer_link": "",
 		"discussion_link": "https://github.com/hohMiyazawa/Automail/issues/69",
-		"notes": "PLEASE HELP"
+		"notes": "This is an unmaintained translation. Translation would be very welcome."
 	},
 	"keys": {
+"$button_next": "次へ →",
 "$language_English": "英語",
 "$language_German": "ドイツ語",
 "$language_Italian": "イタリア語",
@@ -24,6 +25,14 @@
 "$language_Filipino": "フィリピン語",
 "$language_Catalan": "カタルーニャ語",
 "$language_Polish": "ポーランド語",
-"$language_Norwegian": "ノルウェー語"
+"$language_Norwegian": "ノルウェー語",
+"$colour_blue": "青",
+"$colour_white": "白い",
+"$colour_black": "黒",
+"$colour_red": "赤",
+"$colour_peach": "ピーチカラー",
+"$colour_orange": "オレンジ",
+"$colour_yellow": "黄",
+"$colour_green": "緑"
 	}
 }

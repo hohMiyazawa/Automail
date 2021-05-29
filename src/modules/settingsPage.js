@@ -69,7 +69,16 @@ exportModule({
 					input = create("select",false,false,setting);
 					if(def.id === "partialLocalisationLanguage"){
 						def.values.forEach(
-							value => create("option",false,value + " (" + Object.keys(languageFiles[value].keys).length + " keys)",input)
+							value => create("option",false,value + " (" + Math.max(
+									Object.keys(languageFiles[value].keys).length,
+									(
+										languageFiles[value].info.variation_of
+										?
+										Object.keys(languageFiles[languageFiles[value].info.variation_of].keys).length	
+										:
+										0
+									)
+								) + " keys)",input)
 								.value = value
 						)
 					}

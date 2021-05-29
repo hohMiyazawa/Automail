@@ -50,7 +50,7 @@
 "$settings_export_description": "Könnte hilfreich sein, ein Backup zu haben, wenn du den Browser Cache/Storage leerst, was dazu führt, dass alle Automail Einstellungen verloren gehen",
 "$settings_import": "Einstellungen importieren:",
 "$settings_experimental_suffix": "[EXPERIMENTELL]",
-"$settings_partialLocalisationLanguage_description": "Automail Sprache [EXPERIMENTELL]",
+"$settings_partialLocalisationLanguage_description": "Automail Sprache",
 "$stats_moreStats_title": "Mehr Statistiken",
 "$stats_genresTags_title": "Genres & Tags",
 "$stats_siteStats_title": "Seiten-Statistiken",

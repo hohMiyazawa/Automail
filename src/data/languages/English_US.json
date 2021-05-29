@@ -2,6 +2,7 @@
 	"info": {
 		"language": "English (US)",
 		"language_english": "English (US)",
+		"variation_of": "English",
 		"fallback": ["English"],
 		"maintainer": "hoh",
 		"maintainer_link": "https://anilist.co/user/hoh/",
@@ -14,6 +15,7 @@
 "$compare_colourCell": "Color entire cell:",
 "$adjustColours_title": "Adjust Colors",
 "$submenu_favourites": "Favorites",
+"$MAL_serialization": "Serialization",
 "$compare_normalizeRatings": "Normalize ratings:"
 	}
 }

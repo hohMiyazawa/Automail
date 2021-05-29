@@ -77,7 +77,7 @@
 "$settings_export_description": "Pode ser útil fazer backup se você costuma limpar seus dados/cache do navegador, o que também limpará suas preferenças do Automail",
 "$settings_import": "Importar configurações:",
 "$settings_experimental_suffix": "[EXPERIMENTAL]",
-"$settings_partialLocalisationLanguage_description": "Idioma do Automail [EXPERIMENTAL]",
+"$settings_partialLocalisationLanguage_description": "Idioma do Automail",
 "$stats_moreStats_title": "Mais Estat.",
 "$stats_genresTags_title": "Gêneros e Tags",
 "$stats_siteStats_title": "Estat. do Site",
