@@ -56,9 +56,10 @@ Optionally, a user may give the script privileges through the Anilist grant syst
  1. Settings
  2. CSS
  3. tools and helper functions
- 4. The modules, as individual callable functions
+ 4. The old modules, as individual callable functions
  5. The URL matcher, for making the modules run at the right sites
- 6. Module descriptions
+ 6. Old module descriptions
+ 7. The new modules
 */
 m4_include(settings.js)
 m4_include(alias.js)
