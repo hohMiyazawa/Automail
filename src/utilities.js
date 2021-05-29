@@ -677,7 +677,7 @@ let makeHtml = function(markdown){
 		if(webms){
 			webms.forEach(webm => {
 				let webmParts = webm.match(/^webm\((http.+?)\)$/i);
-				component = component.replace(webm,`<video src="${webmParts[1]}"></video>`)
+				component = component.replace(webm,`<video src="${webmParts[1]}" controls="true" loop="" ${useScripts.noAutoplay ? "" : 'autoplay="" '}muted=""></video>`)
 			})
 			return component
 		}
