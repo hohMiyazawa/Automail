@@ -630,7 +630,7 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 			callback(error.errors)
 		}
 		else{
-			handleData(null,errors)
+			handleData(null,error)
 		}
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);

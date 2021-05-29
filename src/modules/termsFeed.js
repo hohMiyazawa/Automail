@@ -694,6 +694,10 @@ Viewer{unreadNotificationCount}
 }`,
 			{page: npage},
 			function(data){
+				if(!data){
+					loading.innerText = "connection error";
+					return
+				}
 				buildPage(data.data.Page.threads.map(thread => {
 					thread.type = "TEXT";
 					thread.replies = [];
@@ -728,6 +732,10 @@ Viewer{unreadNotificationCount}
 }`,
 			{page: npage},
 			function(data){
+				if(!data){
+					loading.innerText = "connection error";
+					return
+				}
 				buildPage(data.data.Page.reviews.map(review => {
 					review.type = "TEXT";
 					review.likes = [];
@@ -808,6 +816,10 @@ Viewer{unreadNotificationCount}
 }`,
 			{page: npage,types:types},
 			function(data){
+				if(!data){
+					loading.innerText = "connection error";
+					return
+				}
 				buildPage(data.data.Page.activities,"activity",requestTime);
 				handleNotifications(data)
 			}
