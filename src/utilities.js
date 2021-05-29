@@ -657,14 +657,27 @@ const converter = new showdown.Converter();
 let makeHtml = function(markdown){
 	markdown = markdown.replace("----","---");
 	let centerSplit = markdown.split("~~~");
-	let imgRegex = /img(\d+%?)?\(.+?\)/gi;
+	let imgRegex = /img(\d+%?)?\(http.+?\)/gi;
 	centerSplit = centerSplit.map(component => {
 		let images = component.match(imgRegex);
 		if(images){
-
 			images.forEach(image => {
-				let imageParts = image.match(/^img(\d+%?)?\((.+?)\)$/i);
+				let imageParts = image.match(/^img(\d+%?)?\((http.+?)\)$/i);
 				component = component.replace(image,`<img width="${imageParts[1] || ""}" src="${imageParts[2]}">`)
+			})
+			return component
+		}
+		else{
+			return component
+		}
+	})
+	let webmRegex = /webm\(http.+?\)/gi;
+	centerSplit = centerSplit.map(component => {
+		let webms = component.match(webmRegex);
+		if(webms){
+			webms.forEach(webm => {
+				let webmParts = webm.match(/^webm\((http.+?)\)$/i);
+				component = component.replace(webm,`<video src="${webmParts[1]}"></video>`)
 			})
 			return component
 		}
