@@ -1,0 +1,32 @@
+{
+	"info": {
+		"language": "Svenska",
+		"language_english": "Swedish",
+		"fallback": ["Norsk","English"],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "",
+		"notes": "I don't speak Swedish, I'm just using this for testing. The position of Swedish translator is up for grabs!"
+	},
+	"keys": {
+"$settings_homepage": "Hemesida: ",
+"$settings_repository": "Källkod: ",
+"$button_search": "Sök",
+"$language_English": "engelska",
+"$language_German": "tyska",
+"$language_Italian": "italienska",
+"$language_Spanish": "spanska",
+"$language_French": "franska",
+"$language_Korean": "koreanska",
+"$language_Portuguese": "portugisiska",
+"$language_Hebrew": "hebreiska",
+"$language_Hungarian": "ungerska",
+"$language_Chinese": "kinesiska",
+"$language_Japanese": "japanska",
+"$language_Arabic": "arabiska",
+"$language_Filipino": "filipino",
+"$language_Catalan": "katalanska",
+"$language_Polish": "polska",
+"$language_Norwegian": "norska"
+	}
+}
