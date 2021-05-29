@@ -56,6 +56,14 @@
 "$button_add": "Add",
 "$button_reset": "Reset",
 "$button_next": "Next →",
+"$button_previous": "← Previous",
+"$button_refresh": "Refresh",
+"$button_edit": "Edit",
+"$button_publish": "Publish",
+"$button_cancel": "Cancel",
+"$placeholder_status": "Write a status...",
+"$placeholder_reply": "Write a reply...",
+"$placeholder_message": "Write a message...",
 "$settings_title": "Automail Settings",
 "$settings_version": "Version: ",
 "$settings_homepage": "Homepage: ",
@@ -268,6 +276,14 @@
 "$colour_peach": "Peach",
 "$colour_orange": "Orange",
 "$colour_yellow": "Yellow",
-"$colour_green": "Green"
+"$colour_green": "Green",
+"$terms_description": "Add a low bandwidth feed to the https://anilist.co/terms page",
+"$terms_option_global": "Global",
+"$terms_option_text": "Text posts",
+"$terms_option_replies": "Has replies",
+"$terms_option_forum": "Forum",
+"$terms_option_reviews": "Reviews",
+"$terms_option_user": "User",
+"$terms_option_media": "Media"
 	}
 }

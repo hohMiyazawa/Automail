@@ -1,6 +1,6 @@
 exportModule({
 	id: "termsFeed",
-	description: "Add a low bandwidth feed to the https://anilist.co/terms page",
+	description: translate("$terms_description"),
 	extendedDescription: `
 Creates a new home page at the URL https://anilist.co/terms.
 
@@ -48,22 +48,22 @@ if(!useScripts.accessToken){
 document.title = "Anilist Feed";
 let browseSettings = create("div",false,false,terms,"margin-top:10px;");
 let onlyGlobal = createCheckbox(browseSettings);
-create("span",false,"Global",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_global"),browseSettings,"margin-right:5px;");
 let onlyStatus = createCheckbox(browseSettings);
-create("span",false,"Text posts",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_text"),browseSettings,"margin-right:5px;");
 let onlyReplies = createCheckbox(browseSettings);
-create("span",false,"Has replies",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_replies"),browseSettings,"margin-right:5px;");
 let onlyForum = createCheckbox(browseSettings);
-create("span",false,"Forum",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_forum"),browseSettings,"margin-right:5px;");
 let onlyReviews = createCheckbox(browseSettings);
-create("span",false,"Reviews",browseSettings);
+create("span",false,translate("$terms_option_reviews"),browseSettings);
 create("br",false,false,browseSettings);
 create("br",false,false,browseSettings);
 let onlyUser = createCheckbox(browseSettings);
-create("span",false,"User",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_user"),browseSettings,"margin-right:5px;");
 let onlyUserInput = create("input",false,false,browseSettings,"background:rgb(31,35,45);border-width:0px;margin-left:20px;border-radius:3px;color:rgb(159,173,189);margin-right: 10px;padding:3px;");
 let onlyMedia = createCheckbox(browseSettings);
-create("span",false,"Media",browseSettings,"margin-right:5px;");
+create("span",false,translate("$terms_option_media"),browseSettings,"margin-right:5px;");
 let onlyMediaResult = {id: 0,type: "ANIME"};
 let onlyMediaInput = create("input",false,false,browseSettings,"background:rgb(31,35,45);border-width:0px;margin-left:20px;border-radius:3px;color:rgb(159,173,189);margin-right: 10px;padding:3px;");
 let mediaDisplayResults = create("div",false,false,browseSettings,"margin-top:5px;");
@@ -87,11 +87,11 @@ let statusInputTitle = create("input",false,false,statusInput,"display:none;bord
 statusInputTitle.placeholder = "Title";
 let inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
 create("br",false,false,statusInput);
-let cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
-let publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
+let cancelButton = create("button",["hohButton","button"],translate("$button_cancel"),statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
+let publishButton = create("button",["hohButton","button"],translate("$button_publish"),statusInput,"display:none;");
 let previewArea = create("div",false,false,statusInput,"display:none;");
-inputArea.placeholder = "Write a status...";
-let topPrevious = create("button",["hohButton","button"],"Refresh",topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
+inputArea.placeholder = translate("$placeholder_status");
+let topPrevious = create("button",["hohButton","button"],translate("$button_refresh"),topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
 let topNext = create("button",["hohButton","button"],translate("$button_next"),topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
 let feedContent = create("div",false,false,feed);
 let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;");
@@ -137,10 +137,10 @@ let buildPage = function(activities,type,requestTime){
 	loading.innerText = "";
 	pageCount.innerText = translate("$page",page);
 	if(page === 1){
-		topPrevious.innerText = "Refresh"
+		topPrevious.innerText = translate("$button_refresh")
 	}
 	else{
-		topPrevious.innerText = "← Previous"
+		topPrevious.innerText = translate("$button_previous")
 	};
 	removeChildren(feedContent)
 	activities.forEach(activity => {
@@ -367,7 +367,7 @@ let buildPage = function(activities,type,requestTime){
 							likeify(reply.likes,likeQuickView);
 						};
 						if(reply.user.name === whoAmI){
-							let edit = create("a",false,"Edit",rep,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
+							let edit = create("a",false,translate("$button_edit"),rep,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
 							edit.onclick = function(){
 								authAPIcall(
 									`query($id: Int){
@@ -390,9 +390,9 @@ let buildPage = function(activities,type,requestTime){
 					});
 					statusInput = create("div",false,false,replies);
 					inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
-					cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
-					publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
-					inputArea.placeholder = "Write a reply...";
+					cancelButton = create("button",["hohButton","button"],translate("$button_cancel"),statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
+					publishButton = create("button",["hohButton","button"],translate("$button_publish"),statusInput,"display:none;");
+					inputArea.placeholder = translate("$placeholder_reply");
 					inputArea.onfocus = function(){
 						cancelButton.style.display = "inline";
 						publishButton.style.display = "inline";
@@ -508,7 +508,7 @@ let buildPage = function(activities,type,requestTime){
 					.href = ytLink.id
 			});
 			if(activity.user.name === whoAmI && activity.type === "TEXT" && type !== "thread"){
-				let edit = create("a",false,"Edit",act,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
+				let edit = create("a",false,translate("$button_edit"),act,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
 				if(useScripts.termsFeedNoImages){
 					edit.style.right = "80px"
 				}
@@ -831,20 +831,20 @@ let setInputs = function(){
 	statusInputTitle.style.display = "none";
 	if(onlyReviews.checked){
 		inputArea.placeholder = "Writing reviews not supported yet...";
-		publishButton.innerText = "Publish";
+		publishButton.innerText = translate("$button_publish");
 	}
 	else if(onlyForum.checked){
 		inputArea.placeholder = "Write a forum post...";
 		statusInputTitle.style.display = "block";
-		publishButton.innerText = "Publish";
+		publishButton.innerText = translate("$button_publish");
 	}
 	else if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
-		inputArea.placeholder = "Write a message...";
+		inputArea.placeholder = translate("$placeholder_message");
 		publishButton.innerText = "Send";
 	}
 	else{
-		inputArea.placeholder = "Write a status...";
-		publishButton.innerText = "Publish";
+		inputArea.placeholder = translate("$placeholder_status");
+		publishButton.innerText = translate("$button_publish");
 	}
 };
 topPrevious.onclick = function(){
@@ -863,7 +863,7 @@ topNext.onclick = function(){
 onlyGlobal.onchange = function(){
 	loading.innerText = translate("$loading");
 	statusInputTitle.style.display = "none";
-	inputArea.placeholder = "Write a status...";
+	inputArea.placeholder = translate("$placeholder_status");
 	onlyUser.checked = false;
 	onlyForum.checked = false;
 	onlyReviews.checked = false;
@@ -977,18 +977,18 @@ onlyMediaInput.onblur = function(){
 onlyUserInput.onblur = function(){
 	if(onlyForum.checked){
 		inputArea.placeholder = "Write a forum post...";
-		publishButton.innerText = "Publish";
+		publishButton.innerText = translate("$button_publish");
 	}
 	else if(
 		(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase())
 		|| (oldOnlyUser !== onlyUserInput.value && onlyUserInput.value !== "")
 	){
-		inputArea.placeholder = "Write a message...";
+		inputArea.placeholder = translate("$placeholder_message");
 		publishButton.innerText = "Send";	
 	}
 	else{
-		inputArea.placeholder = "Write a status...";
-		publishButton.innerText = "Publish";
+		inputArea.placeholder = translate("$placeholder_status");
+		publishButton.innerText = translate("$button_publish");
 	}
 	if(oldOnlyUser !== onlyUserInput.value && onlyUserInput.value !== ""){
 		loading.innerText = translate("$loading");
