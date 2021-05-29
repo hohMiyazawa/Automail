@@ -414,21 +414,33 @@ let buildPage = function(activities,type,requestTime){
 			activity.text = makeHtml(activity.text);
 			//activity.text = "<p>" + activity.text.replace(/\n\n/g,"</p><p>") + "</p>";//workaround for API bug
 			if(useScripts.termsFeedNoImages){
+				let imgCount = 0;
+				let webmCount = 0;
 				let imgText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
 					let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
-					return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
+					imgCount++;
+					return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
 				}).replace(/<video.*?video>/g,video => {
 					let link = video.match(/src=("|')(.*?)("|')/)[2];
-					return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]";
+					webmCount++;
+					return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
 				})
 				status.innerHTML = DOMPurify.sanitize(imgText);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
 				if(imgText !== activity.text){
-					let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:50px;width:10px;cursor:pointer;");
+					let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:20px;cursor:pointer;");
 					render.title = "load images";
+					if(imgCount === 0 && webmCount){
+						render.innerText = "WebM";
+						render.title = "load webms"
+					}
+					else if(imgCount && webmCount){
+						render.innerText = "IMG+WebM";
+						render.title = "load images and webms"
+					}
 					render.onclick = () => {
 						activity.renderingPermission = true;
 						status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
-						render.style.display = "none";
+						render.style.display = "none"
 					}
 				}
 			}
