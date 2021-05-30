@@ -507,7 +507,7 @@ let buildPage = function(activities,type,requestTime){
 				create("a",["link","newTab"],ytLink.id,ytLink)
 					.href = ytLink.id
 			});
-			if(activity.user.name === whoAmI && activity.type === "TEXT" && type !== "thread"){
+			if(activity.user.name === whoAmI && (activity.type === "TEXT" || activity.type === "MESSAGE") && type !== "thread"){
 				let edit = create("a",false,translate("$button_edit"),act,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
 				if(useScripts.termsFeedNoImages){
 					edit.style.right = "80px"
@@ -520,26 +520,50 @@ let buildPage = function(activities,type,requestTime){
 					else{
 						document.body.scrollTop = document.documentElement.scrollTop = 0
 					};
-					authAPIcall(
-						`query($id: Int){
-							Activity(id: $id){
-								... on TextActivity{
-									text(asHtml: false)
+					if(activity.type === "MESSAGE"){
+						authAPIcall(
+							`query($id: Int){
+								Activity(id: $id){
+									... on MessageActivity{
+										text:message(asHtml: false)
+									}
 								}
+							}`,
+							{id: activity.id},
+							data => {
+								if(!data){
+									onlySpecificActivity = false;
+									loading.innerText = "Failed to load message";
+								}
+								inputArea.focus();
+								onlySpecificActivity = activity.id;
+								loading.innerText = "Editing message " + activity.id;
+								inputArea.value = data.data.Activity.text;
 							}
-						}`,
-						{id: activity.id},
-						data => {
-							if(!data){
-								onlySpecificActivity = false;
-								loading.innerText = "Failed to load activity";
+						)
+					}
+					else{
+						authAPIcall(
+							`query($id: Int){
+								Activity(id: $id){
+									... on TextActivity{
+										text(asHtml: false)
+									}
+								}
+							}`,
+							{id: activity.id},
+							data => {
+								if(!data){
+									onlySpecificActivity = false;
+									loading.innerText = "Failed to load activity";
+								}
+								inputArea.focus();
+								onlySpecificActivity = activity.id;
+								loading.innerText = "Editing activity " + activity.id;
+								inputArea.value = data.data.Activity.text;
 							}
-							inputArea.focus();
-							onlySpecificActivity = activity.id;
-							loading.innerText = "Editing activity " + activity.id;
-							inputArea.value = data.data.Activity.text;
-						}
-					)
+						)
+					}
 				}
 			}
 			act.classList.add("text");
@@ -1041,14 +1065,26 @@ publishButton.onclick = function(){
 	}
 	else if(onlySpecificActivity){
 		loading.innerText = "Publishing...";
-		authAPIcall(
-			"mutation($text: String,$id: Int){SaveTextActivity(id: $id,text: $text){id}}",
-			{text: inputArea.value,id: onlySpecificActivity},
-			function(data){
-				onlySpecificActivity = false;
-				requestPage(1);
-			}
-		);
+		if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
+			authAPIcall(
+				"mutation($text: String,$id: Int){SaveMessageActivity(id: $id,message: $text){id}}",
+				{text: inputArea.value,id: onlySpecificActivity},
+				function(data){
+					onlySpecificActivity = false;
+					requestPage(1);
+				}
+			)
+		}
+		else{
+			authAPIcall(
+				"mutation($text: String,$id: Int){SaveTextActivity(id: $id,text: $text){id}}",
+				{text: inputArea.value,id: onlySpecificActivity},
+				function(data){
+					onlySpecificActivity = false;
+					requestPage(1);
+				}
+			)
+		}
 	}
 	else if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
 		loading.innerText = "Sending Message...";
