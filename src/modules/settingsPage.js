@@ -399,9 +399,16 @@ exportModule({
 		if(useScripts.customCSS && useScripts.accessToken){
 			let backgroundSettings = create("div",false,false,hohSettings);
 			create("p",false,"Add custom CSS to your profile. This will be visible to others.",backgroundSettings);
-			let inputField = create("textarea",false,false,backgroundSettings);
+			let inputField = create("textarea",false,false,backgroundSettings,"width: 100%");
 			inputField.value = useScripts.customCSSValue;
+			if(inputField.value){
+				inputField.rows = 10
+			}
+			else{
+				inputField.rows = 4
+			}
 			create("br",false,false,backgroundSettings);
+			create("p",false,"(You can also use a direct link to a stylesheet)",backgroundSettings);
 			let backgroundChange = create("button",["hohButton","button"],translate("$button_submit"),backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;

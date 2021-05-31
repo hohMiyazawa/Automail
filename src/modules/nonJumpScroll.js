@@ -59,10 +59,6 @@ exportModule({
         display: none;
     }
 
-    ::-webkit-resizer {
-        display: none;
-    }
-
     .markdown {
         overflow-y: scroll!important;
         scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
