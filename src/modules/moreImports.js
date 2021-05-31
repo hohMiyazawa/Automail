@@ -877,6 +877,7 @@ function moreImports(){
 						resultsStatusGDPR.innerText = "";
 						if(!dataAnime){
 							resultsErrorsGDPR.innerText = "An error occured while loading your anime list";
+							return;
 						}
 						if(dataAnime.data.Viewer.name !== whoAmI){
 							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
@@ -884,6 +885,87 @@ function moreImports(){
 						};
 						let listAnime = new Set(returnList(dataAnime,true).map(a => a.mediaId));
 						resultsStatusGDPR.innerText = "Loading manga list...";
+						authAPIcall(
+							`query($name: String,$listType: MediaType){
+								Viewer{name mediaListOptions{scoreFormat}}
+								MediaListCollection(userName: $name, type: $listType){
+									lists{
+										entries{
+											mediaId
+										}
+									}
+								}
+							}`,
+							{
+								listType: "MANGA",
+								name: whoAmI
+							},
+							function(dataManga){
+								resultsStatusGDPR.innerText = "";
+								if(!dataManga){
+									resultsErrorsGDPR.innerText = "An error occured while loading your manga list";
+									return;
+								}
+								let listManga = new Set(returnList(dataManga,true).map(a => a.mediaId));
+
+								pushResultsGDPR.style.display = "inline";
+								let filtered_list = data.lists.filter(a => !(listAnime.has(a.series_id) || listManga.has(a.series_id)));
+								resultsTableGDPR.innerText = filtered_list.length + " list items will be imported (" + (data.lists.length - filtered_list.length) + " items already on list will not be imported).\nEstimated time to import: " + Math.ceil(filtered_list.length/60) + " minutes.\nBrowsing Anilist while the import is running is not recommended.\nClosing this tab will immediately stop the import.";
+								resultsTableGDPR.style.marginTop = "10px";
+
+								let mutater = function(index){
+									if(index + 1 < filtered_list.length){
+										setTimeout(function(){
+											mutater(index + 1);
+										},1000);
+									}
+									try{
+										let show = filtered_list[index];
+										authAPIcall(
+											`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
+												SaveMediaListEntry(
+													mediaId: ${show.series_id},
+													status: ${["CURRENT","PLANNING","COMPLETED","DROPPED","PAUSED","REPEATING"][show.status]},
+													score: ${show.score},
+													progress: ${show.progress},
+													progressVolumes: ${show.progress_volume || 0},
+													repeat: ${show.repeat},
+													priority: ${show.priority},
+													notes: $notes,
+													startedAt: $startedAt,
+													completedAt: $completedAt
+												){id}
+											}`,
+											{
+												startedAt: {
+													year: parseInt((show.started_on + "").slice(0,4)),
+													month: parseInt((show.started_on + "").slice(4,6)),
+													day: parseInt((show.started_on + "").slice(6,8)) 
+												},
+												completedAt: {
+													year: parseInt((show.finished_on + "").slice(0,4)),
+													month: parseInt((show.finished_on + "").slice(4,6)),
+													day: parseInt((show.finished_on + "").slice(6,8)) 
+												},
+												notes: show.notes
+											},
+											data => {
+												if(!data){
+													throw "expected API to return ID"
+												}
+											}
+										)
+									}
+									catch(e){
+										resultsWarningsGDPR.innerText += "\nAn error occured for mediaID " + filtered_list[index].series_id + ": " + e
+									}
+									resultsStatusGDPR.innerText = (index + 1) + " of " + filtered_list.length + " entries imported"
+								};
+								pushResultsGDPR.onclick = function(){
+									mutater(0)
+								}
+							}
+						)
 					}
 				)
 			}
@@ -907,7 +989,7 @@ function moreImports(){
 							`mutation($startedAt: FuzzyDateInput,$completedAt: FuzzyDateInput,$notes: String){
 								SaveMediaListEntry(
 									mediaId: ${show.series_id},
-									status: ${show.status},
+									status: ${["CURRENT","PLANNING","COMPLETED","DROPPED","PAUSED","REPEATING"][show.status]},
 									score: ${show.score},
 									progress: ${show.progress},
 									progressVolumes: ${show.progress_volume || 0},
@@ -919,11 +1001,23 @@ function moreImports(){
 								){id}
 							}`,
 							{
-								startedAt: show.started_on,
-								completedAt: show.finished_on,
+								startedAt: {
+									year: parseInt((show.started_on + "").slice(0,4)),
+									month: parseInt((show.started_on + "").slice(4,6)),
+									day: parseInt((show.started_on + "").slice(6,8)) 
+								},
+								completedAt: {
+									year: parseInt((show.finished_on + "").slice(0,4)),
+									month: parseInt((show.finished_on + "").slice(4,6)),
+									day: parseInt((show.finished_on + "").slice(6,8)) 
+								},
 								notes: show.notes
 							},
-							data => {}
+							data => {
+								if(!data){
+									throw "expected API to return ID"
+								}
+							}
 						)
 					}
 					catch(e){
