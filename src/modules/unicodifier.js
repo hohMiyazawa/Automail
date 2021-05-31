@@ -11,7 +11,8 @@ exportModule({
 setInterval(function(){
 	Array.from(document.querySelectorAll(".activity-edit textarea.el-textarea__inner,.editor textarea.el-textarea__inner")).forEach(editor => {
 		if(editor.value){
-			editor.value = emojiSanitize(editor.value)
+			editor.value = emojiSanitize(editor.value);
+			editor.dispatchEvent(new Event("input",{bubbles: false}))
 		}
 	})
 },2000)
