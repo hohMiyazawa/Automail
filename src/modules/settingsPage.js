@@ -359,7 +359,7 @@ exportModule({
 			backgroundChange.onclick = function(){
 				useScripts.profileBackgroundValue = inputField.value;
 				useScripts.save();
-				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
+				let jsonMatch = (userObject.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
 					try{
@@ -379,7 +379,7 @@ exportModule({
 					delete profileJson["background"]
 				}
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
-				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
+				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + ((userObject.about || "").replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				authAPIcall(
 					`mutation($about: String){
 						UpdateUser(about: $about){
@@ -412,7 +412,7 @@ exportModule({
 			let backgroundChange = create("button",["hohButton","button"],translate("$button_submit"),backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;
-				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
+				let jsonMatch = (userObject.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
 					try{
@@ -432,7 +432,7 @@ exportModule({
 					delete profileJson["customCSS"]
 				}
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
-				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
+				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + ((userObject.about || "").replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				if(newDescription.length > 1e6){
 					alert("Custom CSS is over 1MB")
 				}
@@ -517,7 +517,7 @@ query{
 					activityID = ""
 				}
 				useScripts.pinned = activityID;
-				let jsonMatch = userObject.about.match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
+				let jsonMatch = (userObject.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 				let profileJson = {};
 				if(jsonMatch){
 					try{
@@ -540,7 +540,7 @@ query{
 				if(!profileJson.pinned){
 					delete profileJson["pinned"]
 				}
-				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
+				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + ((userObject.about || "").replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				if(newDescription.length > 1e6){
 					hohSpinner.innerText = svgAssets.cross;
 					hohSpinner.classList.add("spinnerError");
