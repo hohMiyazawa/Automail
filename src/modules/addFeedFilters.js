@@ -81,25 +81,25 @@ function addFeedFilters(){
 						)
 					]
 					if(status === "CURRENT"){
-						activityFeed.children[i].style.borderRightWidth = "0px";
-						activityFeed.children[i].style.marginRight = "0px"
+						activityFeed.children[i].children[0].style.borderRightWidth = "0px";
+						activityFeed.children[i].children[0].style.marginRight = "0px"
 					}
 					else if(status === "COMPLETED"){
-						activityFeed.children[i].style.borderRightStyle = "solid";
-						activityFeed.children[i].style.borderRightWidth = "5px";
+						activityFeed.children[i].children[0].style.borderRightStyle = "solid";
+						activityFeed.children[i].children[0].style.borderRightWidth = "5px";
 						if(useScripts.CSSgreenManga && activityFeed.children[i].classList.contains("activity-anime_list")){
-							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-blue))"
+							activityFeed.children[i].children[0].style.borderRightColor = "rgb(var(--color-blue))"
 						}
 						else{
-							activityFeed.children[i].style.borderRightColor = "rgb(var(--color-green))"
+							activityFeed.children[i].children[0].style.borderRightColor = "rgb(var(--color-green))"
 						}
-						activityFeed.children[i].style.marginRight = "-5px"
+						activityFeed.children[i].children[0].style.marginRight = "-5px"
 					}
 					else{
-						activityFeed.children[i].style.borderRightStyle = "solid";
-						activityFeed.children[i].style.borderRightWidth = "5px";
-						activityFeed.children[i].style.marginRight = "-5px";
-						activityFeed.children[i].style.borderRightColor = distributionColours[status];
+						activityFeed.children[i].children[0].style.borderRightStyle = "solid";
+						activityFeed.children[i].children[0].style.borderRightWidth = "5px";
+						activityFeed.children[i].children[0].style.marginRight = "-5px";
+						activityFeed.children[i].children[0].style.borderRightColor = distributionColours[status];
 					}
 				}		
 			}
