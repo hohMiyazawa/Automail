@@ -39,6 +39,7 @@ function addMoreStats(){
 	let regularMangaTable;
 	let animeStaff;
 	let mangaStaff;
+	let mangaStaff2;
 	let animeStudios;
 	let hohStatsTrigger = create("span","hohStatsTrigger",translate("$stats_moreStats_title"),filterGroup);
 	let hohGenresTrigger = create("span","hohStatsTrigger",translate("$stats_genresTags_title"),filterGroup);
@@ -2129,26 +2130,27 @@ function addMoreStats(){
 				});
 				let staffMap = {};
 				rawStaff.filter(obj => obj.status !== "PLANNING").forEach(function(media){
-					media.media.staff.nodes.forEach(function(staff){
-						if(!staffMap[staff.id]){
-							staffMap[staff.id] = {
+					media.media.staff.edges.forEach(function(staff){
+						if(!staffMap[staff.node.id]){
+							staffMap[staff.node.id] = {
 								chaptersRead: 0,
 								volumesRead: 0,
 								count: 0,
 								scoreCount: 0,
 								scoreSum: 0,
-								id: staff.id,
-								name: staff.name
+								id: staff.node.id,
+								name: staff.node.name,
+								translator: !!staff.role.toLowerCase().match(/translator|lettering/)
 							}
 						}
 						if(media.chaptersRead || media.volumesRead){
-							staffMap[staff.id].volumesRead += media.volumesRead;
-							staffMap[staff.id].chaptersRead += media.chaptersRead;
-							staffMap[staff.id].count++
+							staffMap[staff.node.id].volumesRead += media.volumesRead;
+							staffMap[staff.node.id].chaptersRead += media.chaptersRead;
+							staffMap[staff.node.id].count++
 						};
 						if(media.scoreRaw){
-							staffMap[staff.id].scoreSum += media.scoreRaw;
-							staffMap[staff.id].scoreCount++
+							staffMap[staff.node.id].scoreSum += media.scoreRaw;
+							staffMap[staff.node.id].scoreCount++
 						}
 					})
 				});
@@ -2195,6 +2197,9 @@ function addMoreStats(){
 					let timeHeading = create("div",false,"Chapters Read",headerRow,"cursor:pointer;");
 					let volumeHeading = create("div",false,"Volumes Read",headerRow,"cursor:pointer;");
 					staffList.forEach(function(staff,index){
+						if(staff.translator){
+							return
+						}
 						let row = create("div",["row","good"],false,table);
 						let nameCel = create("div",false,(index + 1) + " ",row);
 						create("a","newTab",staff.name.first + " " + (staff.name.last || ""),nameCel)
@@ -2363,6 +2368,7 @@ function addMoreStats(){
 		regularMangaTable = create("div","#regularMangaTable","loading...",statsWrap);
 		animeStaff = create("div","#animeStaff","loading...",statsWrap);
 		mangaStaff = create("div","#mangaStaff","loading...",statsWrap);
+		mangaStaff2 = create("div","#mangaStaff2","loading...",statsWrap);
 		animeStudios = create("div","#animeStudios","loading...",statsWrap);
 		hohStats.calculated = false;
 		generateStatPage()

@@ -103,7 +103,7 @@ query($name: String!, $listType: MediaType){
 			entries{
 				mediaId
 				media{
-					staff{nodes{id name{first last}}}
+					staff{edges{node{id languageV2 name{first last}} role}}
 				}
 			}
 		}
