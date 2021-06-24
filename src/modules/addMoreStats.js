@@ -39,7 +39,6 @@ function addMoreStats(){
 	let regularMangaTable;
 	let animeStaff;
 	let mangaStaff;
-	let mangaStaff2;
 	let animeStudios;
 	let hohStatsTrigger = create("span","hohStatsTrigger",translate("$stats_moreStats_title"),filterGroup);
 	let hohGenresTrigger = create("span","hohStatsTrigger",translate("$stats_genresTags_title"),filterGroup);
@@ -2140,9 +2139,10 @@ function addMoreStats(){
 								scoreSum: 0,
 								id: staff.node.id,
 								name: staff.node.name,
-								translator: !!staff.role.toLowerCase().match(/translator|lettering/)
+								roles: []
 							}
 						}
+						staffMap[staff.node.id].roles.push(staff.role);
 						if(media.chaptersRead || media.volumesRead){
 							staffMap[staff.node.id].volumesRead += media.volumesRead;
 							staffMap[staff.node.id].chaptersRead += media.chaptersRead;
@@ -2183,9 +2183,37 @@ function addMoreStats(){
 					)
 				};
 				let hasScores = staffList.some(a => a.scoreCount);
+				let story_filter;
+				let art_filter;
+				let assistant_filter;
+				let translator_filter;
 				let drawStaffList = function(){
-					removeChildren(mangaStaff)
-					mangaStaff.innerText = "";
+					if(mangaStaff.querySelector(".table")){
+						mangaStaff.querySelector(".table").remove()
+					}
+					if(mangaStaff.querySelector(".jsonExport")){
+						mangaStaff.querySelector(".jsonExport").remove();
+						mangaStaff.querySelector(".csvExport").remove()
+					}
+					else{
+						mangaStaff.innerText = "";
+						story_filter = createCheckbox(mangaStaff);
+						create("span",false,"Story",mangaStaff,"margin-right:5px;");
+						art_filter = createCheckbox(mangaStaff);
+						create("span",false,"Art",mangaStaff,"margin-right:5px;");
+						assistant_filter = createCheckbox(mangaStaff);
+						create("span",false,"Assistants",mangaStaff,"margin-right:5px;");
+						translator_filter = createCheckbox(mangaStaff);
+						create("span",false,"Translators",mangaStaff,"margin-right:5px;");
+						story_filter.checked = true;
+						art_filter.checked = true;
+						assistant_filter.checked = true;
+						translator_filter.checked = true;
+						story_filter.oninput = drawStaffList;
+						art_filter.oninput = drawStaffList;
+						assistant_filter.oninput = drawStaffList;
+						translator_filter.oninput = drawStaffList;
+					}
 					let table = create("div",["table","hohTable","hohNoPointer"],false,mangaStaff);
 					let headerRow = create("div",["header","row","good"],false,table);
 					let nameHeading = create("div",false,"Name",headerRow,"cursor:pointer;");
@@ -2197,7 +2225,20 @@ function addMoreStats(){
 					let timeHeading = create("div",false,"Chapters Read",headerRow,"cursor:pointer;");
 					let volumeHeading = create("div",false,"Volumes Read",headerRow,"cursor:pointer;");
 					staffList.forEach(function(staff,index){
-						if(staff.translator){
+						if(
+							(!story_filter.checked && art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/story/) && !role.toLowerCase().match(/art/)))
+							|| (story_filter.checked && !art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/art/) && !role.toLowerCase().match(/story/)))
+							|| (
+								!story_filter.checked
+								&& !art_filter.checked
+								&& (
+									staff.roles.every(role => role.toLowerCase().match(/art|story/))
+									|| !staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up|assistant/))
+								)
+							)
+							|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assistant/)))
+							|| (!translator_filter.checked && staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up/)))
+						){
 							return
 						}
 						let row = create("div",["row","good"],false,table);
@@ -2368,7 +2409,6 @@ function addMoreStats(){
 		regularMangaTable = create("div","#regularMangaTable","loading...",statsWrap);
 		animeStaff = create("div","#animeStaff","loading...",statsWrap);
 		mangaStaff = create("div","#mangaStaff","loading...",statsWrap);
-		mangaStaff2 = create("div","#mangaStaff2","loading...",statsWrap);
 		animeStudios = create("div","#animeStudios","loading...",statsWrap);
 		hohStats.calculated = false;
 		generateStatPage()

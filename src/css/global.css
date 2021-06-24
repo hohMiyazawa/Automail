@@ -1004,16 +1004,14 @@ meter::-moz-meter-bar{
 #regularMangaTable,
 #animeStaff,
 #animeStudios,
-#mangaStaff,
-#mangaStaff2{
+#mangaStaff{
 	display: none!important;
 }
 .user[type="anime"][page="tags"]:not(.hohSpecialPage) #regularAnimeTable,
 .user[type="manga"][page="tags"]:not(.hohSpecialPage) #regularMangaTable,
 .user[type="anime"][page="staff"]:not(.hohSpecialPage) #animeStaff,
 .user[type="anime"][page="studios"]:not(.hohSpecialPage) #animeStudios,
-.user[type="manga"][page="staff"]:not(.hohSpecialPage) #mangaStaff,
-.user[type="manga"][page="staff"]:not(.hohSpecialPage) #mangaStaff2{
+.user[type="manga"][page="staff"]:not(.hohSpecialPage) #mangaStaff{
 	display: block!important;
 }
 .user[type="anime"][page="tags"] .increase-stats::after,
