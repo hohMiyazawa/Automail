@@ -138,6 +138,8 @@
 "$menu_forum": "forum",
 "$submenu_social": "Sosialt",
 "$submenu_favourites": "Favorittar",
+"$submenu_submissions": "Database",
+"$submenu_reviews": "Omtalar",
 "$reviewLike_tooltip": "{0} av {1} likte dette",
 "$documentTitle_appSettings": "App & Automailinnstillingar · AniList",
 "$documentTitle_home": "Heim · AniList",
