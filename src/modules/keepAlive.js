@@ -50,8 +50,12 @@ let getSessionToken = function(){
 new MutationObserver(function(){
 	let messages = Array.from(document.querySelectorAll(".el-message--error.is-closable"));
 	if(messages.some(message => message.textContent === "Session expired, please refresh")){
-		message.querySelector(".el-message__closeBtn").click()
 		getSessionToken();
+		messages.forEach(message => {
+			if(message.textContent === "Session expired, please refresh"){
+				message.querySelector(".el-message__closeBtn").click()
+			}
+		})
 	}
 }).observe(
 	document.body,
