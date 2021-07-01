@@ -299,7 +299,6 @@ if(window.BroadcastChannel){
 			}
 			else if(message.data.type === "sessionToken"){
 				window.eval('window.al_token = "' + message.data.value + '";');
-				localStorage.setItem("session-reload", Date.now());
 				//to prevent "session expired" messages
 				//see "modules/keepAlive.js"
 			}
