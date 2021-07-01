@@ -298,7 +298,7 @@ if(window.BroadcastChannel){
 				cache.updateIfDifferent(message.data.mediaData,true)
 			}
 			else if(message.data.type === "sessionToken"){
-				window.al_token = message.data.value
+				window.eval('window.al_token = "' + message.data.value + '";');
 				//to prevent "session expired" messages
 				//see "modules/keepAlive.js"
 			}
