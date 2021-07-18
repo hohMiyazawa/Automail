@@ -377,12 +377,10 @@ documentHead.appendChild(customStyle);
 
 
 let aliases = new Map();
-(
+shortRomaji.concat(
 	JSON.parse(
 		localStorage.getItem("titleAliases")
 	) || []
-).concat(
-	shortRomaji
 ).forEach(alias => {
 	let matches = alias[0].match(/^\/(anime|manga)\/(\d+)\/$/);
 	if(matches){
