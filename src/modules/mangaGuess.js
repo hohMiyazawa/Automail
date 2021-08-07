@@ -93,7 +93,7 @@ query($id: Int){
 				let diff = guesses[0] - guesses[1];
 				let inverseDiff = 1 + Math.ceil(25/(diff+1));
 				if(guesses.length >= inverseDiff){
-					if(guesses[1] === guesses[inverseDiff]){
+					if(guesses[1] === guesses[inverseDiff] || guesses[0] - guesses[1] > 500){
 						bestGuess = guesses[1]
 					}
 				}
