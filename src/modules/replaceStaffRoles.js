@@ -343,13 +343,16 @@ let listRenderer = function(){
 	hohMediaRolesMangaHeader.style.display = "none";
 	hohCharacterRolesHeader.style.display = "none";
 	if(animeRolesList.length){
-		hohMediaRolesAnimeHeader.style.display = "inline"
+		hohMediaRolesAnimeHeader.style.display = "inline-block";
+		hohMediaRolesAnimeHeader.style.marginBottom = 0;
 	}
 	if(mangaRolesList.length){
-		hohMediaRolesMangaHeader.style.display = "inline"
+		hohMediaRolesMangaHeader.style.display = "inline-block";
+		hohMediaRolesMangaHeader.style.marginBottom = 0;
 	}
 	if(voiceRolesList.length){
-		hohCharacterRolesHeader.style.display = "inline"
+		hohCharacterRolesHeader.style.display = "inline-block";
+		hohCharacterRolesHeader.style.marginBottom = 0;
 	}
 	let createRoleCard = function(media,type){
 		let roleCard = create("div",["role-card","view-media"]);
