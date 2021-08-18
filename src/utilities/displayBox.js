@@ -1,5 +1,5 @@
 function createDisplayBox(cssProperties,windowTitle){
-	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app"),cssProperties);
+	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app") || document.body,cssProperties);
 	if(windowTitle){
 		create("span","hohDisplayBoxTitle",windowTitle,displayBox)
 	}
@@ -21,7 +21,7 @@ function createDisplayBox(cssProperties,windowTitle){
 			];
 		}
 	},true);
-	resizePearl.addEventListener("mousedown",function(e){
+	resizePearl.addEventListener("mousedown",function(event){
 		event.stopPropagation();
 		event.preventDefault();
 		isDownResize = true;

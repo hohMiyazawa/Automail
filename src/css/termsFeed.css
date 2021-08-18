@@ -1,0 +1,133 @@
+.termsFeed{
+	--color-blue: 61,180,242;
+	--color-green: 123,213,85;
+	--color-red: 232,93,117;
+}
+.hohFeed{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.hohFeed video{
+	max-width: 100%;
+}
+.hohFeed .activity,
+.hohFeed .activity .reply{
+	min-height: 25px;
+	position: relative;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom-width: 0px;
+}
+.hohFeed .activity .replies{
+	margin-left: 60px;
+	margin-top: 5px;
+}
+.hohFeed .activity:last-child{
+	border-bottom-width: 1px;
+}
+.hohFeed a{
+	text-decoration: none;
+	color: rgb(var(--color-blue));
+}
+.hohFeed .hohButton{
+	font-size: 1rem;
+	color: initial;
+	margin: 5px;
+	filter: drop-shadow(1px 1px 2px black);
+}
+.hohFeed img{
+	max-width: 500px;
+}
+.hohFeed .markdown_spoiler{
+	background: rgb(31, 35, 45);
+	color: rgb(31, 35, 45);
+}
+.hohFeed .markdown_spoiler:hover{
+	color: rgb(159,173,189);
+}
+.hohFeed .markdown_spoiler img{
+	filter: blur(10px) hue-rotate(60deg) brightness(0.7);
+}
+.hohFeed .markdown_spoiler:hover img{
+	filter: none;
+}
+.hohFeed .markdown_spoiler::after{
+	content: "Spoiler";
+	color: rgb(159,173,189);
+	margin-left: 2px;
+}
+
+.hohFeed .activity:hover::before{
+	content: ">";
+	position: absolute;
+	left: -20px;
+	top: 0px;
+}
+.hohLikeQuickView{
+	position: absolute;
+	bottom: 0px;
+	left: 45px;
+	font-size: 70%;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 270px;
+}
+.hohFeed .hohLikes:hover{
+	color: rgb(var(--color-red));
+	filter: saturate(50%);
+}
+.hohFeed .hohLikes:hover .hohLikeQuickView{
+	filter: saturate(200%);
+}
+.hohFeed .hohLikes:hover .hohLikeQuickView{
+	color:rgb(159,173,189);
+}
+.hohFeed .activity:hover > .time{
+	color: rgb(var(--color-blue));
+}
+
+.hohSearchResult{
+	width: 18.5%;
+	display: inline-block;
+	text-align: center;
+	padding: 3px;
+	height: 2.2em;
+	overflow: hidden;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 2px;
+	cursor: pointer;
+	background-color: inherit;
+	margin: 1px;
+	position: relative
+}
+.hohSearchResult.anime{
+	color: rgb(var(--color-blue));
+}
+.hohSearchResult.manga{
+	color: rgb(var(--color-green));
+}
+.hohSearchResult.anime:hover{
+	background-color: rgb(var(--color-blue),0.3);
+}
+.hohSearchResult.manga:hover{
+	background-color: rgb(var(--color-green),0.3);
+}
+.hohSearchResult.anime.selected{
+	background-color: rgb(var(--color-blue),0.3);
+	cursor: initial;
+}
+.hohSearchResult.manga.selected{
+	background-color: rgb(var(--color-green),0.3);
+	cursor: initial;
+}
+.termsFeedEdit{
+	cursor: pointer;
+	font-size: small;
+	position: absolute;
+	right: 2px;
+	top: 1px;
+}
+.termsFeedEdit:hover{
+	color: rgb(var(--color-text));
+}

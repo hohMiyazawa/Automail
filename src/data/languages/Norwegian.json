@@ -189,6 +189,7 @@
 "$error_connection": "Koplingsfeil",
 "$terms_option_global": "Global",
 "$terms_option_text": "Tekst",
-"$terms_option_replies": "Med svar"
+"$terms_option_replies": "Med svar",
+"$noResults": "Ingen treff"
 	}
 }

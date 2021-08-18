@@ -957,7 +957,7 @@ onlyMediaInput.onblur = function(){
 			query($search: String){
 				Page(page:1,perPage:5){
 					media(search:$search,sort:SEARCH_MATCH){
-						title{romaji}
+						title{romaji native english}
 						id
 						type
 					}
@@ -967,7 +967,57 @@ onlyMediaInput.onblur = function(){
 			function(data){
 				removeChildren(mediaDisplayResults)
 				data.data.Page.media.forEach((media,index) => {
-					let result = create("span",["hohSearchResult",media.type.toLowerCase()],media.title.romaji,mediaDisplayResults);
+					let result = create("div",["hohSearchResult",media.type.toLowerCase()],false,mediaDisplayResults);
+					let title = create("span",false,titlePicker(media),result);
+					if(useScripts.accessToken){
+						let editButton = create("span","termsFeedEdit","edit",result);
+						editButton.onclick = function(){
+							event.stopPropagation();
+							event.preventDefault();
+							authAPIcall(`
+								query($id: Int,$userName: String){
+									MediaList(
+										userName: $userName,
+										mediaId: $id
+									){
+										progress
+										score
+										status
+										id
+									}
+								}`,
+								{id: media.id,userName: whoAmI},
+								function(entry,errors){
+									if(!entry){
+										console.log(errors);
+										return
+									}
+									console.log(entry);
+									let editor = createDisplayBox("width:600px;height:500px;top:100px;left:220px",titlePicker(media));
+									let progressLabel = create("p",false,"Progress:",editor);
+									let progressInput = create("input","hohInput",false,editor);
+									progressInput.type = "number";
+									progressInput.min = 0;
+									if(entry.data.MediaList.progress){
+										progressInput.value = entry.data.MediaList.progress
+									}
+
+									create("hr",false,false,editor);
+
+									let saveButton = create("button","hohButton","Save",editor);
+									saveButton.onclick = function(){
+										authAPIcall(
+											`mutation($progress: Int,$id: Int){
+												SaveMediaListEntry(progress: $progress,id:$id){id}
+											}`,
+											{id: entry.data.MediaList.id, progress: parseInt(progressInput.value)},
+											data => {}
+										)
+									}
+								}
+							)
+						}
+					}
 					if(index === 0){
 						result.classList.add("selected");
 						onlyMediaResult.id = media.id;
@@ -991,7 +1041,7 @@ onlyMediaInput.onblur = function(){
 					requestPage(1);
 				}
 				else{
-					create("span",false,"No results found",mediaDisplayResults);
+					create("span",false,translate("$noResults"),mediaDisplayResults);
 					onlyMediaResult.id = false;
 				}
 			}
