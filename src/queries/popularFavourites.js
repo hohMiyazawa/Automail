@@ -92,15 +92,29 @@ fragment stuff on User{
 					})
 				});
 				miscResults.innerText = "";
-				create("h1",false,"Anime:",miscResults,"color:rgb(var(--color-blue))");
+				create("h1",false,translate("$heading_anime"),miscResults,"color:rgb(var(--color-blue))");
 				Object.keys(animeFavs).map(key => animeFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
-					create("p",false,entry.count + ": " + entry.title,miscResults)
+					create("p",false,entry.count + ": " + titlePicker({//pretend we have all this fancy API info
+						title: {
+							native: entry.title,
+							romaji: entry.title,
+							english: entry.title
+						},
+						id: parseInt(key)
+					}),miscResults)
 				});
-				create("h1",false,"Manga:",miscResults,"color:rgb(var(--color-blue))");
+				create("h1",false,translate("$heading_manga"),miscResults,"color:rgb(var(--color-blue))");
 				Object.keys(mangaFavs).map(key => mangaFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
-					create("p",false,entry.count + ": " + entry.title,miscResults)
+					create("p",false,entry.count + ": " + titlePicker({
+						title: {
+							native: entry.title,
+							romaji: entry.title,
+							english: entry.title
+						},
+						id: parseInt(key)
+					}),miscResults)
 				});
-				create("h1",false,"Similar favs:",miscResults,"color:rgb(var(--color-blue))");
+				create("h1",false,translate("$heading_similarFavs"),miscResults,"color:rgb(var(--color-blue))");
 				let sharePerc = user => {
 					let total = user.favourites.anime.length + user.favourites.manga.length + me.favourites.anime.length + me.favourites.manga.length;
 					let shared = user.favourites.anime.filter(
@@ -112,10 +126,10 @@ fragment stuff on User{
 							b => a.id === b.id
 						)
 					).length;
-					return shared/total;
+					return shared/total
 				};
 				userList.sort((b,a) => sharePerc(a) - sharePerc(b));
-				userList.slice(0,10).forEach(entry => {
+				userList.slice(0,20).forEach(entry => {
 					let row = create("p",false,false,miscResults,"position: relative");
 					create("a","newTab",entry.name,row)
 						.href = "/user/" + entry.name;
