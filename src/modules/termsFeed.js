@@ -987,32 +987,45 @@ onlyMediaInput.onblur = function(){
 									}
 								}`,
 								{id: media.id,userName: whoAmI},
-								function(entry,errors){
-									if(!entry){
+								function(entry,paras,errors){
+									if(!entry && errors.errors[0].message !== "Not Found."){
 										console.log(errors);
 										return
 									}
-									console.log(entry);
 									let editor = createDisplayBox("width:600px;height:500px;top:100px;left:220px",titlePicker(media));
 									let progressLabel = create("p",false,"Progress:",editor);
 									let progressInput = create("input","hohInput",false,editor);
 									progressInput.type = "number";
 									progressInput.min = 0;
-									if(entry.data.MediaList.progress){
+									if(entry && entry.data.MediaList.progress){
 										progressInput.value = entry.data.MediaList.progress
+									}
+									else{
+										progressInput.value = 0
 									}
 
 									create("hr",false,false,editor);
 
 									let saveButton = create("button","hohButton","Save",editor);
 									saveButton.onclick = function(){
-										authAPIcall(
-											`mutation($progress: Int,$id: Int){
-												SaveMediaListEntry(progress: $progress,id:$id){id}
-											}`,
-											{id: entry.data.MediaList.id, progress: parseInt(progressInput.value)},
-											data => {}
-										)
+										if(entry){
+											authAPIcall(
+												`mutation($progress: Int,$id: Int){
+													SaveMediaListEntry(progress: $progress,id:$id){id}
+												}`,
+												{id: entry.data.MediaList.id, progress: parseInt(progressInput.value)},
+												data => {}
+											)
+										}
+										else{
+											authAPIcall(
+												`mutation($progress: Int,$id: Int){
+													SaveMediaListEntry(progress: $progress,mediaId:$id){id}
+												}`,
+												{id: media.id, progress: parseInt(progressInput.value)},
+												data => {}
+											)
+										}
 									}
 								}
 							)
