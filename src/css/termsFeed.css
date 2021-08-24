@@ -131,3 +131,7 @@
 .termsFeedEdit:hover{
 	color: rgb(var(--color-text));
 }
+.thisIsMe,
+a.thisIsMe{
+	color: rgb(var(--color-red));
+}

@@ -156,6 +156,9 @@ let buildPage = function(activities,type,requestTime){
 			return
 		}
 		let user = create("a",["link","newTab"],activity.user.name,content);
+		if(activity.user.name === whoAmI){
+			user.classList.add("thisIsMe")
+		}
 		if(activity.type === "TEXT" && activity.media){
 			create("a",false,"'s review of " + titlePicker(activity.media),content)
 		}
@@ -316,6 +319,9 @@ let buildPage = function(activities,type,requestTime){
 						let time = create("span",["time","hohMonospace"],formatTime(Math.round(ndiff/1000),"short"),rep,"width:50px;position:absolute;left:1px;top:2px;");
 						time.title = (new Date(activity.createdAt * 1000)).toLocaleString();
 						let user = create("a",["link","newTab"],reply.user.name,rep,"margin-left:60px;position:absolute;");
+						if(reply.user.name === whoAmI){
+							user.classList.add("thisIsMe")
+						}
 						user.href = "/user/" + reply.user.name + "/";
 						let text = create("div","status",false,rep,"padding-bottom:10px;margin-left:5px;max-width:100%;padding-top:10px;");
 						if(useScripts.termsFeedNoImages && !activity.renderingPermission){
