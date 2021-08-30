@@ -1,5 +1,5 @@
 function createDisplayBox(cssProperties,windowTitle){
-	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app") || document.body,cssProperties);
+	let displayBox = create("div","hohDisplayBox",false,document.querySelector("#app") || document.querySelector(".termsFeed") || document.body,cssProperties);
 	if(windowTitle){
 		create("span","hohDisplayBoxTitle",windowTitle,displayBox)
 	}

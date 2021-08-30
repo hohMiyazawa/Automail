@@ -32,15 +32,16 @@ pageLocation.parentNode.style.background = "rgb(39,44,56)";
 pageLocation.parentNode.style.color = "rgb(159,173,189)";
 let terms = create("div",["container","termsFeed"],false,pageLocation.parentNode,"max-width: 1100px;margin-left:170px;margin-right:170px;");
 pageLocation.style.display = "none";
-let policy = create("button",["hohButton","button"],"View Privacy Policy instead",terms,"font-size:1rem;color:initial;");
+let policy = create("button",["hohButton","button"],translate("$terms_privacyPolicy"),terms,"font-size:1rem;color:initial;padding:3px;");
+policy.title = translate("$terms_privacyPolicy_title");
 policy.onclick = function(){
 	pageLocation.style.display = "initial";
 	terms.style.display = "none";
 	document.title = "Anilist Terms"
 };
 if(!useScripts.accessToken){
-	create("p",false,"This module does not work without signing in to the script",terms);
-	let loginURL = create("a",false,"Sign in with the script",terms);
+	create("p",false,translate("$terms_signin"),terms);
+	let loginURL = create("a",false,translate("$terms_signin_link"),terms);
 	loginURL.href = authUrl;
 	loginURL.style.color = "rgb(61,180,242)";
 	return
