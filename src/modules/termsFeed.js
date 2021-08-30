@@ -71,10 +71,14 @@ let dataUsers = new Set([whoAmI]);
 let dataMedia = new Set();
 let dataUsersList = create("datalist","#userDatalist",false,browseSettings);
 let dataMediaList = create("datalist","#userMedialist",false,browseSettings);
+let onlyActivity = null;
 onlyUserInput.setAttribute("list","userDatalist");
 if(searchParams.get("user")){
 	onlyUserInput.value = decodeURIComponent(searchParams.get("user"));
 	onlyUser.checked = true
+}
+if(searchParams.get("activity")){
+	onlyActivity = parseInt(searchParams.get("activity"))
 }
 onlyMediaInput.setAttribute("list","userMedialist");
 let feed = create("div","hohFeed",false,terms);
@@ -86,11 +90,12 @@ let onlySpecificActivity = false;
 let statusInputTitle = create("input",false,false,statusInput,"display:none;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);background: rgb(var(--color-foreground));");
 statusInputTitle.placeholder = "Title";
 let inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
+inputArea.rows = 3;
+inputArea.placeholder = translate("$placeholder_status");
 create("br",false,false,statusInput);
 let cancelButton = create("button",["hohButton","button"],translate("$button_cancel"),statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
 let publishButton = create("button",["hohButton","button"],translate("$button_publish"),statusInput,"display:none;");
 let previewArea = create("div",false,false,statusInput,"display:none;");
-inputArea.placeholder = translate("$placeholder_status");
 let topPrevious = create("button",["hohButton","button"],translate("$button_refresh"),topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
 let topNext = create("button",["hohButton","button"],translate("$button_next"),topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
 let feedContent = create("div",false,false,feed);
@@ -1113,6 +1118,8 @@ inputArea.oninput = function(){
 }
 cancelButton.onclick = function(){
 	inputArea.value = "";
+	inputArea.rows = 3;
+	inputArea.style.height = "unset";
 	previewArea.innerText = "";
 	cancelButton.style.display = "none";
 	publishButton.style.display = "none";
