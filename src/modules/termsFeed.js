@@ -705,7 +705,11 @@ let requestPage = function(npage,userID){
 				requestPage(npage,data.data.User.id)
 			}
 			else{
-				loading.innerText = "Not Found"
+				loading.innerText = "Not Found";
+				deleteCacheItem("hohIDlookup" + specificUser.toLowerCase());
+				if(!onlyUserInput.value){
+					requestPage(npage)
+				}
 			}
 		},"hohIDlookup" + specificUser.toLowerCase());
 		return;
