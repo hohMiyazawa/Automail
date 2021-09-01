@@ -4,7 +4,7 @@ exportModule({
 	extendedDescription: "When hovering over the cover image of an entry in the activity feeds, an arrow will appear. Clicking the arrow will present you with various options, including opening the list editor. I never use any of the other options, so this module turns this into a one-click experience.",
 	isDefault: false,
 	importance: 0,
-	categories: ["Feeds","Newly Added"],
+	categories: ["Feeds"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return url === "https://anilist.co/home" || url.match(/^https:\/\/anilist\.co\/user\/(.*)\/$/)

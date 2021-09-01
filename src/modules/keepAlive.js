@@ -4,7 +4,7 @@ exportModule({
 	extendedDescription: `Not perfectly working yet. Info: https://github.com/hohMiyazawa/Automail/issues/65`,
 	isDefault: false,
 	importance: 0,
-	categories: ["Script","Newly Added"],
+	categories: ["Script"],
 	visible: true
 })
 

@@ -4,7 +4,7 @@ exportModule({
 	extendedDescription: "For those who write entire essays in their list notes",
 	isDefault: true,
 	importance: 0,
-	categories: ["Lists","Newly Added"],
+	categories: ["Lists"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return url.match(/^https:\/\/anilist\.co\/.+\/(anime|manga)list\/?(.*)?$/)

@@ -15,7 +15,7 @@ exportModule({
 	description: "Make unliked hearts hollow [by Reina]",
 	isDefault: false,
 	importance: 0,
-	categories: ["Feeds","Newly Added"],
+	categories: ["Feeds"],
 	visible: true,
 	css: `
 /* Like heart */

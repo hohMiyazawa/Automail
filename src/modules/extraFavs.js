@@ -5,7 +5,7 @@ exportModule({
 Work in progress. Only anime and manga so far.`,
 	isDefault: true,
 	importance: 0,
-	categories: ["Profiles","Newly Added"],
+	categories: ["Profiles"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return url.match(/^https:\/\/anilist\.co\/user\/(.*?)\/?$/)

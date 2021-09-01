@@ -3,7 +3,7 @@ exportModule({
 	description: translate("$twoColumnFeed_description"),
 	isDefault: false,
 	importance: 0,
-	categories: ["Feeds","Newly Added"],
+	categories: ["Feeds"],
 	visible: true,
 	css: `
 .home .activity-feed{

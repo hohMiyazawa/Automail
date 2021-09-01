@@ -15,7 +15,7 @@ exportModule({
 	description: "Stop activity content from jumping around when using scrollbars [by Reina]",
 	isDefault: true,
 	importance: 1,
-	categories: ["Feeds","Newly Added"],
+	categories: ["Feeds"],
 	visible: true,
 	css: `
     /* Scrollbar */
