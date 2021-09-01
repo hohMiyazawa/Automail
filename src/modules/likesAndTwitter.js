@@ -153,8 +153,8 @@ query($id: Int){
 					This is not allowed for Firefox addons, even if this setting is disabled by default.
 					Hence this check
 				*/
-				if(document.getElementById("automailTwitterEmbed")){
-					twttr.widgets.load(tweet)
+				if(document.getElementById("automailTwitterEmbed") && window.twttr){
+					window.twttr.widgets.load(tweet)
 				}
 				else{
 					let script = document.createElement("script");
