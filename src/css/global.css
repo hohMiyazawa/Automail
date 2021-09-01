@@ -1978,12 +1978,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 	width: max-content!important;
 	max-width: 800px;
 }
-/* Add bottom padding only in Firefox as other browsers displays this correctly already */
-@media all and (min--moz-device-pixel-ratio: 0){
-	.activity-edit .input.el-textarea{
-		padding-bottom: 5px;
-	}
-}
 /*no !importants here, since Erwin is styling this on his own:*/
 .activity-feed .hohNoteSuffix:not(:empty),
 .activity-feed .hohRewatchSuffix:not(:empty),
