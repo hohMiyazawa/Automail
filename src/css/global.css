@@ -2086,10 +2086,12 @@ body.TMPreviewScore > .el-tooltip__popper{
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.hohSpinner.spinnerDone{
+.hohSpinner.spinnerDone,
+.spinnerDone{
 	color: rgb(var(--color-green));
 }
-.hohSpinner.spinnerError{
+.hohSpinner.spinnerError,
+.spinnerError{
 	color: rgb(var(--color-red));
 }
 .user-social .filter-group > span{
@@ -2100,14 +2102,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 	right: 1px;
 	top: 0px;
 }
-/*
-.home .activity-feed .activity-entry{
-	display: none!important;
-}
-.home .activity-feed .activity-entry:nth-last-child(-n+100){
-	display: block!important;
-}
-*/
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
