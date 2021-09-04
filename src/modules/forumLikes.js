@@ -16,7 +16,7 @@ exportModule({
 			if((!data) || (!location.pathname.includes("forum/thread/" + URLstuff[1]))){
 				return
 			}
-			let button = document.querySelector(".footer .actions .button.like");
+			let button = document.querySelector(".footer .actions .like-wrap .button");
 			if(!button){
 				setTimeout(function(){adder(data)},200);
 				return;
