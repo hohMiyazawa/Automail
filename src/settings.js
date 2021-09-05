@@ -1,4 +1,5 @@
 //begin "settings.js"
+//this is not the code for the settings page! See /src/modules/settingsPage.js for that
 try{
 	localStorage.setItem("test","test");
 	localStorage.removeItem("test");
@@ -8,24 +9,24 @@ catch(e){
 }
 
 const notificationColourDefaults = {
-	"ACTIVITY_LIKE":{"colour":"rgb(250,122,122)","supress":false},
-	"ACTIVITY_REPLY_LIKE":{"colour":"rgb(250,122,122)","supress":false},
-	"THREAD_COMMENT_LIKE":{"colour":"rgb(250,122,122)","supress":false},
-	"THREAD_LIKE":{"colour":"rgb(250,122,122)","supress":false},
-	"THREAD_COMMENT_REPLY":{"colour":"rgb(61,180,242)","supress":false},
-	"ACTIVITY_REPLY":{"colour":"rgb(61,180,242)","supress":false},
-	"ACTIVITY_MESSAGE":{"colour":"rgb(123,213,85)","supress":false},
-	"FOLLOWING":{"colour":"rgb(123,213,85)","supress":false},
-	"ACTIVITY_MENTION":{"colour":"rgb(123,213,85)","supress":false},
-	"THREAD_COMMENT_MENTION":{"colour":"rgb(123,213,85)","supress":false},
-	"THREAD_SUBSCRIBED":{"colour":"rgb(247,191,99)","supress":false},
-	"ACTIVITY_REPLY_SUBSCRIBED":{"colour":"rgb(247,191,99)","supress":false},
-	"RELATED_MEDIA_ADDITION":{"colour":"rgb(247,191,99)","supress":false},
-	"AIRING":{"colour":"rgb(247,191,99)","supress":false}
+	"ACTIVITY_LIKE":             {"colour":"rgb(250,122,122)","supress":false},
+	"ACTIVITY_REPLY_LIKE":       {"colour":"rgb(250,122,122)","supress":false},
+	"THREAD_COMMENT_LIKE":       {"colour":"rgb(250,122,122)","supress":false},
+	"THREAD_LIKE":               {"colour":"rgb(250,122,122)","supress":false},
+	"THREAD_COMMENT_REPLY":      {"colour":"rgb(61,180,242)", "supress":false},
+	"ACTIVITY_REPLY":            {"colour":"rgb(61,180,242)", "supress":false},
+	"ACTIVITY_MESSAGE":          {"colour":"rgb(123,213,85)", "supress":false},
+	"FOLLOWING":                 {"colour":"rgb(123,213,85)", "supress":false},
+	"ACTIVITY_MENTION":          {"colour":"rgb(123,213,85)", "supress":false},
+	"THREAD_COMMENT_MENTION":    {"colour":"rgb(123,213,85)", "supress":false},
+	"THREAD_SUBSCRIBED":         {"colour":"rgb(247,191,99)", "supress":false},
+	"ACTIVITY_REPLY_SUBSCRIBED": {"colour":"rgb(247,191,99)", "supress":false},
+	"RELATED_MEDIA_ADDITION":    {"colour":"rgb(247,191,99)", "supress":false},
+	"AIRING":                    {"colour":"rgb(247,191,99)", "supress":false}
 };
 
 //this is the legacy way of specifying default modules, use exportModule's isDefault instead.
-let useScripts = {//most modules are turned on by default
+let useScripts = {
 	socialTab: true,
 	socialTabFeed: true,
 	forumComments: true,
@@ -133,14 +134,14 @@ let userObject = JSON.parse(localStorage.getItem("auth"));
 let whoAmI = "";
 let whoAmIid = 0;
 try{//use later for some scripts
-	whoAmI = document.querySelector(".nav .links .link[href^='/user/']").href.match(/\/user\/(.*)\//)[1];//looks at the nav
+	whoAmI = document.querySelector(".nav .links .link[href^='/user/']").href.match(/\/user\/(.*)\//)[1]//looks at the navbar
 }
 catch(err){
 	if(userObject){
-		whoAmI = userObject.name;
+		whoAmI = userObject.name
 	}
 	else{
-		console.warn("could not get username");
+		console.warn("could not get username")
 	}
 }
 
@@ -150,7 +151,7 @@ if(userObject && (userObject.donatorTier > 0 && (new Date()).valueOf() > (new Da
 }
 
 if(document.hohTypeScriptRunning){
-	console.log("Duplicate script detected. Please make sure you don't have more than one instance of Automail or similar installed");
+	console.warn("Duplicate script detected. Please make sure you don't have more than one instance of Automail or similar installed");
 	return
 }
 document.hohTypeScriptRunning = "Automail"
