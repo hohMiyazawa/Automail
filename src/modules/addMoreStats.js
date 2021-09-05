@@ -45,11 +45,11 @@ function addMoreStats(){
 	let hohSiteStats = create("a","hohStatsTrigger",translate("$stats_siteStats_title"),filterGroup);
 	hohSiteStats.href = "/site-stats";
 	let generateStatPage = function(){
-		let personalStats = create("div","#personalStats","loading anime list...",hohStats);
-		let personalStatsManga = create("div","#personalStatsManga","loading manga list...",hohStats);
+		let personalStats = create("div","#personalStats",translate("$stats_loadingAnime"),hohStats);
+		let personalStatsManga = create("div","#personalStatsManga",translate("$stats_loadingManga"),hohStats);
 		let miscQueries = create("div","#miscQueries",false,hohStats);
 		create("hr","hohSeparator",false,miscQueries);
-		create("h1","hohStatHeading","Various statistics",miscQueries);
+		create("h1","hohStatHeading",translate("$stats_varousStats_heading"),miscQueries);
 		let miscInput = create("div",false,false,miscQueries,"padding-top:10px;padding-bottom:10px;");
 		let miscOptions = create("div","#queryOptions",false,miscQueries);
 		let miscResults = create("div","#queryResults",false,miscQueries);
@@ -67,7 +67,7 @@ function addMoreStats(){
 			m4_include(queries/queries.js)
 		];
 		let miscInputSelect = create("select",false,false,miscInput);
-		let miscInputButton = create("button",["button","hohButton"],"Run",miscInput);
+		let miscInputButton = create("button",["button","hohButton"],translate("$button_run"),miscInput);
 		availableQueries.forEach(que => {
 			create("option",false,que.name,miscInputSelect).value = que.name
 		});
@@ -80,7 +80,7 @@ function addMoreStats(){
 			}
 		};
 		miscInputButton.onclick = function(){
-			miscResults.innerText = "Loading...";
+			miscResults.innerText = translate("$loading");
 			availableQueries.find(que => que.name === miscInputSelect.value).code()
 		}
 
@@ -699,7 +699,7 @@ function addMoreStats(){
 						}
 					}
 
-					let applyButton = create("button",["hohButton","button"],"Submit",filters);
+					let applyButton = create("button",["hohButton","button"],translate("$button_submit"),filters);
 					applyButton.onclick = function(){
 						let base_media = collectedMedia;
 						if(!input_a.checked){
@@ -797,7 +797,7 @@ function addMoreStats(){
 				create("span",false,mediaList.name,listSetting);
 			});
 
-			let applyButton = create("button",["hohButton","button"],"Submit",filters);
+			let applyButton = create("button",["hohButton","button"],translate("$button_submit"),filters);
 			applyButton.onclick = function(){
 				personalStatsCallback(data,filterSettings,true);
 			}
@@ -993,76 +993,75 @@ function addMoreStats(){
 						translate("$stats_ratingEntropy_comment")
 					);
 					if(maxRunLength > 1){
-						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " (" + maxRunLength + " instances)")
+						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " " + translate("$stats_instances",maxRunLength))
 					}
 					else{
 						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
 					}
 				};
 //longest activity
-				let singleText = (100*longestDuration.time/sumDuration).roundPlaces(2) + "% is ";
-				singleText += longestDuration.name;
+				let singleText = translate("$stats_longestTime",[(100*longestDuration.time/sumDuration).roundPlaces(2),longestDuration.name]) + ". ";
 				if(longestDuration.rewatch === 0){
 					if(longestDuration.status === "CURRENT"){
-						singleText += ". Currently watching."
+						singleText += "Currently watching."
 					}
 					else if(longestDuration.status === "PAUSED"){
-						singleText += ". On hold."
+						singleText += "On hold."
 					}
 					else if(longestDuration.status === "DROPPED"){
-						singleText += ". Dropped."
+						singleText += "Dropped."
 					}
 				}
 				else{
 					if(longestDuration.status === "COMPLETED"){
 						if(longestDuration.rewatch === 1){
-							singleText += ". Rewatched once."
+							singleText += "Rewatched once."
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += ". Rewatched twice."
+							singleText += "Rewatched twice."
 						}
 						else{
-							singleText += ". Rewatched " + longestDuration.rewatch + " times."
+							singleText += "Rewatched " + longestDuration.rewatch + " times."
 						}
 					}
 					else if(longestDuration.status === "CURRENT" || status === "REPEATING"){
 						if(longestDuration.rewatch === 1){
-							singleText += ". First rewatch in progress."
+							singleText += "First rewatch in progress."
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += ". Second rewatch in progress."
+							singleText += "Second rewatch in progress."
 						}
 						else{
-							singleText += ". Rewatch number " + longestDuration.rewatch + " in progress."
+							singleText += "Rewatch number " + longestDuration.rewatch + " in progress."
 						}
 					}
 					else if(longestDuration.status === "PAUSED"){
 						if(longestDuration.rewatch === 1){
-							singleText += ". First rewatch on hold."
+							singleText += "First rewatch on hold."
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += ". Second rewatch on hold."
+							singleText += "Second rewatch on hold."
 						}
 						else{
-							singleText += ". Rewatch number " + longestDuration.rewatch + " on hold."
+							singleText += "Rewatch number " + longestDuration.rewatch + " on hold."
 						}
 					}
 					else if(longestDuration.status === "DROPPED"){
 						if(longestDuration.rewatch === 1){
-							singleText += ". Dropped on first rewatch."
+							singleText += "Dropped on first rewatch."
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += ". Dropped on second rewatch."
+							singleText += "Dropped on second rewatch."
 						}
 						else{
-							singleText += ". Dropped on rewatch number " + longestDuration.rewatch + "."
+							singleText += "Dropped on rewatch number " + longestDuration.rewatch + "."
 						}
 					};
 				};
 				addStat(
 					translate("$stats_timeWatched"),
 					(sumDuration/(60*24)).roundPlaces(2),
-					" days (" + singleText + ")"
+					" " + translate("$time_medium_Mday") + " (" + singleText + ")"
 				)
 			};
 			let TVepisodes = 0;
@@ -1720,7 +1719,7 @@ function addMoreStats(){
 				let compatabilityButton = create("button",["button","hohButton"],"Compatibility",personalStatsManga);
 				let compatLocation = create("div","#hohCheckCompatManga",false,personalStatsManga);
 				compatabilityButton.onclick = function(){
-					compatLocation.innerText = "loading...";
+					compatLocation.innerText = translate("$loading");
 					compatLocation.style.marginTop = "5px";
 					compatCheck(
 						scoreList,
@@ -1730,7 +1729,7 @@ function addMoreStats(){
 							formatCompat(data,compatLocation,user)
 						}
 					)
-				};
+				}
 			};
 			let addStat = function(text,value,comment){//value,value,html
 				let newStat = create("p","hohStat",false,personalStatsManga);
@@ -1738,8 +1737,8 @@ function addMoreStats(){
 				create("span","hohStatValue",value,newStat);
 				if(comment){
 					let newStatComment = create("span",false,false,newStat);
-					newStatComment.innerText = comment;
-				};
+					newStatComment.innerText = comment
+				}
 			};
 			let chapters = 0;
 			let volumes = 0;

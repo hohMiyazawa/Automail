@@ -25,6 +25,7 @@
 "$time_Mmonth": "{0} months ago",
 "$time_1year": "1 year ago",
 "$time_Myear": "{0} years ago",
+"$time_medium_Mday": "days",
 "$time_short_second": "s",
 "$time_short_minute": "m",
 "$time_short_hour": "h",
@@ -101,6 +102,11 @@
 "$stats_siteStats_title": "Site Stats",
 "$stats_anime_heading": "Anime stats for {0}",
 "$stats_manga_heading": "Manga stats for {0}",
+"$stats_loadingAnime": "loading anime list...",
+"$stats_loadingManga": "loading manga list...",
+"$stats_instances": "({0} instances)",
+"$stats_longestTime": "{0}% is {1}",
+"$stats_varousStats_heading": "Various statistics",
 "$mediaStatus_watching": "watching",
 "$mediaStatus_reading": "reading",
 "$mediaStatus_completed": "completed",
@@ -293,6 +299,7 @@
 "$terms_option_reviews": "Reviews",
 "$terms_option_user": "User",
 "$terms_option_media": "Media",
-"$socialTab_tooManyChapters": "Most likely the database total has been updated"
+"$socialTab_tooManyChapters": "Most likely the database total has been updated",
+"$query_firstActivity": "First Activity"
 	}
 }

@@ -1,4 +1,4 @@
-{name: "First Activity",code: function(){
+{name: translate("$query_firstActivity"),code: function(){
 	generalAPIcall("query($name:String){User(name:$name){id}}",{name: user},function(data){
 		let userId = data.data.User.id;
 		let userFirstQuery =

@@ -1,10 +1,10 @@
 {name: "Autorecs",
 	setup: function(){
 		let select = create("select","#typeSelect",false,miscOptions);
-	let animeOption = create("option",false,"Anime",select);
-	let mangaOption = create("option",false,"Manga",select);
-	animeOption.value = "ANIME";
-	mangaOption.value = "MANGA";
+		let animeOption = create("option",false,"Anime",select);
+		let mangaOption = create("option",false,"Manga",select);
+		animeOption.value = "ANIME";
+		mangaOption.value = "MANGA";
 	},
 	code: function(){
 	miscResults.innerText = "Collecting list data...";
