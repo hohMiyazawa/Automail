@@ -151,9 +151,7 @@ query($name: String!){
 						}
 					}
 					else{
-						if(cache.lock.ANIME !== cache.lock.MANGA){
-							cache.forceUpdate()
-						}
+						cache.forceUpdate()
 					}
 				})
 			}
