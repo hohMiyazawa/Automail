@@ -590,7 +590,7 @@ query{
 		if(useScripts.accessToken){
 			create("hr","hohSeparator",false,hohSettings);
 			create("p",false,"Current access token (do not share with others):",hohSettings);
-			create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;")
+			create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;line-break: anywhere;")
 		}
 
 		hohSettings.appendChild(create("hr"));
