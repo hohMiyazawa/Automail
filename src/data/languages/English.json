@@ -292,6 +292,7 @@
 "$terms_option_forum": "Forum",
 "$terms_option_reviews": "Reviews",
 "$terms_option_user": "User",
-"$terms_option_media": "Media"
+"$terms_option_media": "Media",
+"$socialTab_tooManyChapters": "Most likely the database total has been updated"
 	}
 }

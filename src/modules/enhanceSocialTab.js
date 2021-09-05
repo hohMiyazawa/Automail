@@ -54,7 +54,7 @@ const handler = (data,target,idMap) => {
 		if(e.media.chapters || e.media.episodes){
 			progress.innerText = `${e.progress}/${e.media.chapters || e.media.episodes}`;
 			if(e.progress > (e.media.chapters || e.media.episodes)){
-				progress.title = "Most likely the database total that's been updated"
+				progress.title = translate("$socialTab_tooManyChapters")
 			}
 			else if(
 				e.progress === (e.media.chapters || e.media.episodes)
@@ -163,6 +163,13 @@ function enhanceSocialTab(){
 		return
 	}
 	let listOfFollowers = Array.from(document.getElementsByClassName("follow"));
+	listOfFollowers = listOfFollowers.filter((ele,index) => {
+		if(index && listOfFollowers[index - 1].href === ele.href){
+			ele.remove();
+			return false
+		}
+		return true
+	})
 	if(!listOfFollowers.length){
 		setTimeout(enhanceSocialTab,100);
 		return
@@ -203,7 +210,15 @@ function enhanceSocialTab(){
 			}`,
 			{users: Object.keys(idmap), media: mediaID},
 			function(res){
-				handler(res.data.Page.mediaList,listOfFollowers,idmap)
+				let unique = new Map();
+				res.data.Page.mediaList.forEach(media => {
+					unique.set(media.user.id,media)
+				})
+				handler(
+					Array.from(unique).map(e => e[1]),
+					listOfFollowers,
+					idmap
+				)
 			}
 		)
 		let statsElements = stats.element.querySelectorAll("span > span");
