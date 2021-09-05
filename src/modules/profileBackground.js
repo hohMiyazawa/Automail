@@ -2,7 +2,8 @@ function profileBackground(){
 	if(useScripts.SFWmode){//clearly not safe, users can upload anything
 		return
 	};
-	let URLstuff = location.pathname.match(/^\/user\/(.*?)\/?$/);
+	const userRegex = /^\/user\/([A-Za-z0-9]+)(\/.*)?$/;
+	let URLstuff = location.pathname.match(userRegex);
 	const query = `
 	query($userName: String) {
 		User(name: $userName){
@@ -33,7 +34,7 @@ function profileBackground(){
 				jsonData = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
 			}
 			let adder = function(){
-				if(!location.pathname.match(/^\/user\/(.*?)\/?$/)){
+				if(!userRegex.test(location.pathname)){
 					return
 				};
 				let target = document.querySelector(".user-page-unscoped");
