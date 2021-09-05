@@ -14,8 +14,8 @@ function drawListStuff(){
 	let extraFilters = create("div","hohExtraFilters");
 	extraFilters.style.marginTop = "15px";
 	if(useScripts.draw3x3){
-		let buttonDraw3x3 = create("span","#hohDraw3x3","Make 3x3",extraFilters);
-		buttonDraw3x3.title = "Click this button, then 9 entries on your list";
+		let buttonDraw3x3 = create("span","#hohDraw3x3",translate("$make3x3"),extraFilters);
+		buttonDraw3x3.title = translate("$make3x3_title");
 		buttonDraw3x3.onclick = function(){
 			this.style.color = "rgb(var(--color-blue))";
 			let counter = 0;

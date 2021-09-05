@@ -781,8 +781,7 @@ function addMoreStats(){
 
 			let listFilterHeading = create("p",false,translate("$filters_lists"),filters);
 			filterSettings = filterSettings || {
-				lists: {
-				}
+				lists: {}
 			};
 			data.data.MediaListCollection.lists.forEach(mediaList => {
 				let listSetting = create("p","hohSetting",false,filters);
@@ -996,67 +995,67 @@ function addMoreStats(){
 						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " " + translate("$stats_instances",maxRunLength))
 					}
 					else{
-						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
+						addStat(translate("$stats_mostCommonScore"),"",translate("$stats_instances_unique"))
 					}
 				};
 //longest activity
 				let singleText = translate("$stats_longestTime",[(100*longestDuration.time/sumDuration).roundPlaces(2),longestDuration.name]) + ". ";
 				if(longestDuration.rewatch === 0){
 					if(longestDuration.status === "CURRENT"){
-						singleText += "Currently watching."
+						singleText += translate("$stats_longest_watching")
 					}
 					else if(longestDuration.status === "PAUSED"){
-						singleText += "On hold."
+						singleText += translate("$stats_longest_paused")
 					}
 					else if(longestDuration.status === "DROPPED"){
-						singleText += "Dropped."
+						singleText += translate("$stats_longest_dropped")
 					}
 				}
 				else{
 					if(longestDuration.status === "COMPLETED"){
 						if(longestDuration.rewatch === 1){
-							singleText += "Rewatched once."
+							singleText += translate("$stats_longest_1rewatch")
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += "Rewatched twice."
+							singleText += translate("$stats_longest_2rewatch")
 						}
 						else{
-							singleText += "Rewatched " + longestDuration.rewatch + " times."
+							singleText += translate("$stats_longest_Mrewatch",longestDuration.rewatch)
 						}
 					}
 					else if(longestDuration.status === "CURRENT" || status === "REPEATING"){
 						if(longestDuration.rewatch === 1){
-							singleText += "First rewatch in progress."
+							singleText += translate("$stats_longest_1rewatching")
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += "Second rewatch in progress."
+							singleText += translate("$stats_longest_2rewatching")
 						}
 						else{
-							singleText += "Rewatch number " + longestDuration.rewatch + " in progress."
+							singleText += translate("$stats_longest_Mrewatching",longestDuration.rewatch)
 						}
 					}
 					else if(longestDuration.status === "PAUSED"){
 						if(longestDuration.rewatch === 1){
-							singleText += "First rewatch on hold."
+							singleText += translate("$stats_longest_1rewatchPaused")
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += "Second rewatch on hold."
+							singleText += translate("$stats_longest_2rewatchPaused")
 						}
 						else{
-							singleText += "Rewatch number " + longestDuration.rewatch + " on hold."
+							singleText += translate("$stats_longest_MrewatchPaused",longestDuration.rewatch)
 						}
 					}
 					else if(longestDuration.status === "DROPPED"){
 						if(longestDuration.rewatch === 1){
-							singleText += "Dropped on first rewatch."
+							singleText += translate("$stats_longest_1rewatchDropped")
 						}
 						else if(longestDuration.rewatch === 2){
-							singleText += "Dropped on second rewatch."
+							singleText += translate("$stats_longest_2rewatchDropped")
 						}
 						else{
-							singleText += "Dropped on rewatch number " + longestDuration.rewatch + "."
+							singleText += translate("$stats_longest_MrewatchDropped",longestDuration.rewatch)
 						}
-					};
+					}
 				};
 				addStat(
 					translate("$stats_timeWatched"),
@@ -1076,7 +1075,7 @@ function addMoreStats(){
 			addStat(translate("$stats_TVEpisodesWatched"),TVepisodes);
 			addStat(translate("$stats_TVEpisodesRemaining"),TVepisodesLeft);
 			if(oldest){
-				create("p",false,translate("$stats_firstLoggedAnime") + oldest.year + "-" + oldest.month + "-" + oldest.day + ". (users can freely change start dates)",personalStats)
+				create("p",false,translate("$stats_firstLoggedAnime") + oldest.year + "-" + oldest.month + "-" + oldest.day + ". " + translate("$stats_firstLoggedAnime_note"),personalStats)
 			};
 			let animeFormatter = {
 				title: "Custom Anime Tags",
@@ -1095,10 +1094,10 @@ function addMoreStats(){
 									statusSumDot.style.background = distributionColours[status];
 									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
 									if(data[index].status[status] > 99){
-										statusSumDot.style.fontSize = "8px";
+										statusSumDot.style.fontSize = "8px"
 									}
 									if(data[index].status[status] > 999){
-										statusSumDot.style.fontSize = "6px";
+										statusSumDot.style.fontSize = "6px"
 									}
 									statusSumDot.onclick = function(e){
 										e.stopPropagation();
@@ -1131,7 +1130,7 @@ function addMoreStats(){
 								statusDot.style.backgroundColor = "transparent"//default case
 							}
 							if(data[index].repeat === 1){
-								cel.appendChild(svgAssets2.repeat.cloneNode(true));
+								cel.appendChild(svgAssets2.repeat.cloneNode(true))
 							}
 							else if(data[index].repeat > 1){
 								cel.appendChild(svgAssets2.repeat.cloneNode(true));
@@ -1937,7 +1936,7 @@ function addMoreStats(){
 						translate("$stats_ratingEntropy_comment")
 					);
 					if(maxRunLength > 1){
-						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " (" + maxRunLength + " instances)")
+						addStat(translate("$stats_mostCommonScore"),maxRunLengthScore, " " + translate("$stats_instances",maxRunLength))
 					}
 					else{
 						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
