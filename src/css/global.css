@@ -1961,7 +1961,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 .recommendations > .wrap{
 	margin-left: 5px;
 }
-.character-roles.hohSubstitute > div:not(.hoh-character-roles){
+.character-roles.hohSubstitute > div:not(#hoh-character-roles){
 	display: none;
 }
 [data-icon="notesTags"] text{
