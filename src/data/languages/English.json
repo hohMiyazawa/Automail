@@ -50,6 +50,8 @@
 "$language_Polish": "Polish",
 "$language_Norwegian": "Norwegian",
 "$default_filename": "File from Anilist.co",
+"$generic_anime": "Anime",
+"$generic_manga": "Manga",
 "$page": "Page {0}",
 "$dubMarker_notice": "{0} dub exists",
 "$button_submit": "Submit",
@@ -320,6 +322,15 @@
 "$terms_option_user": "User",
 "$terms_option_media": "Media",
 "$socialTab_tooManyChapters": "Most likely the database total has been updated",
-"$query_firstActivity": "First Activity"
+"$query_firstActivity": "First Activity",
+"$query_autorecs": "Autorecs",
+"$query_autorecs_collecting": "Collecting list data...",
+"$query_autorecs_processing": "Processing...",
+"$query_autorecs_info": "Top picks, based on your ratings, the ratings of others, and the recommendation database. Best matches on top",
+"$mobileFriendly_description": "Mobile Friendly mode. Disables some modules not working properly on mobile, and adjusts others",
+"$hideLikes_description": "Hide like notifications. Will not affect the notification count",
+"$settingsTip_description": "Show a notice on the notification page for where the script settings can be found",
+"$dismissDot_description": "Show a spec to dismiss notifications when signed in",
+"$socialTab_description": "Media social tab average score, progress and notes"
 	}
 }

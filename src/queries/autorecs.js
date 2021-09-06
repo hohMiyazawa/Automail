@@ -1,13 +1,13 @@
-{name: "Autorecs",
+{name: translate("$query_autorecs"),
 	setup: function(){
 		let select = create("select","#typeSelect",false,miscOptions);
-		let animeOption = create("option",false,"Anime",select);
-		let mangaOption = create("option",false,"Manga",select);
+		let animeOption = create("option",false,translate("$generic_anime"),select);
+		let mangaOption = create("option",false,translate("$generic_manga"),select);
 		animeOption.value = "ANIME";
 		mangaOption.value = "MANGA";
 	},
 	code: function(){
-	miscResults.innerText = "Collecting list data...";
+	miscResults.innerText = translate("$query_autorecs_collecting");
 	generalAPIcall(
 		`query($name: String!){
 			User(name: $name){
@@ -40,7 +40,7 @@
 			}
 		}`,
 		{name: user},function(data){
-			miscResults.innerText = "Processing...";
+			miscResults.innerText = translate("$query_autorecs_processing");
 			const list = returnList(data,true).filter(
 				media => media.status !== "PLANNING"
 			);
@@ -69,7 +69,7 @@
 					}
 				})
 			});
-			miscResults.innerText = "Top picks, based on your ratings, the ratings of others, and the recommendation database. Best matches on top";
+			miscResults.innerText = translate("$query_autorecs_info");
 			[...recsMap].map(
 				pair => ({
 					id: pair[0],

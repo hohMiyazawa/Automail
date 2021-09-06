@@ -1,6 +1,6 @@
 exportModule({
 	id: "mobileFriendly",
-	description: "Mobile Friendly mode. Disables some modules not working properly on mobile, and adjusts others",
+	description: translate("$mobileFriendly_description"),
 	isDefault: false,
 	importance: 7,
 	categories: ["Navigation","Script"],

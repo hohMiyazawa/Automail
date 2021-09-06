@@ -1,16 +1,16 @@
 [
 {"id": "hideLikes",
-	"description": "Hide like notifications. Will not affect the notification count",
+	"description": "$hideLikes_description",
 	"categories": ["Notifications"]
 },{"id": "settingsTip",
-	"description": "Show a notice on the notification page for where the script settings can be found",
+	"description": "$settingsTip_description",
 	"extendedDescription": "Options with the 🛈 button has more information available if you click it",
 	"categories": ["Notifications"]
 },{"id": "dismissDot",
-	"description": "Show a spec to dismiss notifications when signed in",
+	"description": "$dismissDot_description",
 	"categories": ["Notifications","Login"]
 },{"id": "socialTab",
-	"description": "Media social tab average score, progress and notes",
+	"description": "$socialTab_description",
 	"categories": ["Media"]
 },{"id": "socialTab",
 	"description": "Media social tab feed filters",
