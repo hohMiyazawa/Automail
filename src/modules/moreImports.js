@@ -102,71 +102,8 @@ function moreImports(){
 					}
 				})
 			};
-			const apAnthologies = {
-				"The Dragon Dentist": 20947,
-				"Hill Climb Girl": 20947,
-				"20min Walk From Nishi-Ogikubo Station": 20947,
-				"Collection of Key Animation Films": 20947,
-				"(Making of) Evangelion: Another Impact": 20947,
-				"Sex and Violence with Mach Speed": 20947,
-				"Memoirs of Amorous Gentlemen": 20947,
-				"Denkou Choujin Gridman: boys invent great hero": 20947,
-				"Evangelion: Another Impact": 20947,
-				"Bureau of Proto Society": 20947,
-				"Cassette Girl": 20947,
-				"Bubu & Bubulina": 20947,
-				"I can Friday by day!": 20947,
-				"Three Fallen Witnesses": 20947,
-				"Robot on the Road": 20947,
-				"Comedy Skit 1989": 20947,
-				"Power Plant No.33": 20947,
-				"Me! Me! Me! Chronic": 20947,
-				"Endless Night": 20947,
-				"Neon Genesis IMPACTS": 20947,
-				"Obake-chan": 20947,
-				"Hammerhead": 20947,
-				"Girl": 20947,
-				"Yamadeloid": 20947,
-				"Me! Me! Me!": 20947,
-				"Ibuseki Yoruni": 20947,
-				"Rapid Rouge": 20947,
-				"Tomorrow from there": 20947,
-				"The Diary of Ochibi": 20947,
-				"until You come to me.": 20947,
-				"Tsukikage no Tokio": 20947,
-				"Carnage": 20947,
-				"Iconic Field": 20947,
-				"The Ultraman (2015)": 20947,
-				"Kanoun": 20947,
-				"Ragnarok": 20947,
-				"Death Note Rewrite 1: Visions of a God": 2994,
-				"Death Note Rewrite 2: L's Successors": 2994,
-			}
-			const apMappings = {
-				"Rebuild of Evangelion: Final": 3786,
-				"KonoSuba – God’s blessing on this wonderful world!! Movie: Legend of Crimson": 102976,
-				"Puella Magi Madoka Magica: Magica Quartet x Nisioisin": 20891,
-				"Kanye West: Good Morning": 8626,
-				"Patlabor 2: The Movie": 1096,
-				"She and Her Cat": 1004,
-				"Star Blazers: Space Battleship Yamato 2199": 12029,
-				"Digimon Season 3: Tamers": 874,
-				"The Anthem of the Heart": 20968,
-				"Digimon Movie 1: Digimon Adventure": 2961,
-				"Love, Chunibyo & Other Delusions!: Sparkling... Slapstick Noel": 16934,
-				"The Labyrinth of Grisaia Special": 21312,
-				"Candy Boy EX01": 5116,
-				"Candy Boy EX02": 6479,
-				"Attack on Titan 3rd Season": 99147,
-				"Attack on Titan 2nd Season": 20958,
-				"Nichijou - My Ordinary Life: Episode 0": 8857,
-				"March Comes in like a Lion 2nd Season": 98478,
-				"KonoSuba – God’s blessing on this wonderful world!! 2 OVA": 97996,
-				"KonoSuba – God’s blessing on this wonderful world!! OVA": 21574,
-				"Laid-Back Camp Specials": 101206,
-				"Spice and Wolf II OVA": 6007,
-				"Mob Psycho 100 Specials": 102449
-			}
+			const apAnthologies = m4_include(data/AnimePlanet_anthologies.json);
+			const apMappings = m4_include(data/AnimePlanet_mappings.json);
 			let bigQuery = [];
 			let myFastMappings = [];
 			data.entries.forEach(function(entry,index){
