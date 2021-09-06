@@ -49,6 +49,7 @@
 "$language_Catalan": "Catalan",
 "$language_Polish": "Polish",
 "$language_Norwegian": "Norwegian",
+"$default_filename": "File from Anilist.co",
 "$page": "Page {0}",
 "$dubMarker_notice": "{0} dub exists",
 "$button_submit": "Submit",

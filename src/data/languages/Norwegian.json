@@ -49,6 +49,7 @@
 "$language_Catalan": "katalansk",
 "$language_Polish": "polsk",
 "$language_Norwegian": "norsk",
+"$default_filename": "Fil frå Anilist.co",
 "$page": "Side {0}",
 "$dubMarker_notice": "Har {0} tale",
 "$button_submit": "Send inn",
