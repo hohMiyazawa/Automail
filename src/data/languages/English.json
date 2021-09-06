@@ -331,6 +331,9 @@
 "$hideLikes_description": "Hide like notifications. Will not affect the notification count",
 "$settingsTip_description": "Show a notice on the notification page for where the script settings can be found",
 "$dismissDot_description": "Show a spec to dismiss notifications when signed in",
-"$socialTab_description": "Media social tab average score, progress and notes"
+"$socialTab_description": "Media social tab average score, progress and notes",
+"$staff_animeRoles": "Anime Staff Roles",
+"$staff_mangaRoles": "Manga Staff Roles",
+"$staff_voiceRoles": "Character Voice Roles"
 	}
 }

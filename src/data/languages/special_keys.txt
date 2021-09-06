@@ -1,0 +1,4 @@
+The English language file does not contain keys of the form "$role_something".
+These are used on staff pages to translate roles, but since those are already in English, there's no need to translate them into English.
+But if you want those roles translated into your language, you need to add keys like "$role_Story & Art" and "$role_Director".
+There's a ton of those roles, so just adding the most common ones is good enough

@@ -24,7 +24,9 @@ function translate(key,subs){
 		if(!immediate){
 			immediate = languageFiles["English"].keys[key];
 			if(!immediate){
-				console.warn("[Automail localisation] missing key!",key);
+				if(key.substring(0,6) !== "$role_"){
+					console.warn("[Automail localisation] missing key!",key)
+				}
 				immediate = key
 			}
 		}

@@ -43,19 +43,19 @@ else{
 };
 insertParent.parentNode.classList.add("substitution");
 let hohCharacterRolesBox = create("div","#hoh-character-roles");
-let hohCharacterRolesHeader = create("h4",false,"Character Voice Roles",hohCharacterRolesBox);
+let hohCharacterRolesHeader = create("h4",false,translate("$staff_voiceRoles"),hohCharacterRolesBox);
 hohCharacterRolesHeader.style.display = "none";
 let hohCharacterRoles = create("div","grid-wrap",false,hohCharacterRolesBox);
 hohCharacterRoles.style.margin = "10px";
 
 let hohMediaRoles = create("div","#hoh-media-roles");
 hohMediaRoles.dataset.staffId = URLstuff[1];
-let hohMediaRolesAnimeHeader = create("h4",false,"Anime Staff Roles",hohMediaRoles);
+let hohMediaRolesAnimeHeader = create("h4",false,translate("$staff_animeRoles"),hohMediaRoles);
 hohMediaRolesAnimeHeader.style.display = "none";
 let hohMediaRolesAnime = create("div","grid-wrap",false,hohMediaRoles);
 hohMediaRolesAnime.style.margin = "10px";
 
-let hohMediaRolesMangaHeader = create("h4",false,"Manga Staff Roles",hohMediaRoles);
+let hohMediaRolesMangaHeader = create("h4",false,translate("$staff_mangaRoles"),hohMediaRoles);
 hohMediaRolesMangaHeader.style.display = "none";
 let hohMediaRolesManga = create("div","grid-wrap",false,hohMediaRoles);
 hohMediaRolesManga.style.margin = "10px";
@@ -381,7 +381,14 @@ let listRenderer = function(){
 			let bmatch = roleValues[b.match(/^(.*?)(\s*\(.*\))?$/)[1]] || 0;
 			return amatch - bmatch
 		})
-		let role = create("div","role",media.role.join(", "),content);
+		let role = create("div","role",media.role.map(word => {
+			let parts = word.match(/^(.*?)(\s+\(.*\))?$/);
+			let t_role = translate("$role_" + parts[1]);
+			if(t_role.substring(0,6) === "$role_"){
+				return word
+			}
+			return t_role + (parts[2] || "")
+		}).join(", "),content);
 		role.title = media.role.join("\n");
 		if(sortSelect.value === "popularity"){
 			create("span","hohStaffPageData",media.popularity,content).title = "Popularity"
@@ -476,7 +483,14 @@ let listRenderer = function(){
 			tag => tag === query.toLowerCase()
 		),
 		"role": (query,media) => media.role.some(
-			role => role.toLowerCase().match(query.toLowerCase())
+			role => {
+				let parts = role.match(/^(.*?)(\s+\(.*\))?$/);
+				let t_role = translate("$role_" + parts[1]);
+				if(t_role.substring(0,6) !== "$role_" && t_role.toLowerCase().match(query.toLowerCase())){
+					return true
+				}
+				return role.toLowerCase().match(query.toLowerCase())
+			}
 		),
 		"title": (query,media) => mediaMatcher["title-romaji"](query,media)
 			|| mediaMatcher["title-english"](query,media)
@@ -764,6 +778,11 @@ let animeHandler = function(data){
 		autocomplete.add(anime.title);
 		autocomplete.add(distributionFormats[anime.format]);
 		autocomplete.add(edge.staffRole);
+		let parts = edge.staffRole.match(/^(.*?)(\s+\(.*\))?$/);
+		let t_role = translate("$role_" + parts[1]);
+		if(t_role.substring(0,6) !== "$role_"){
+			autocomplete.add(t_role + (parts[2] || ""))
+		}
 		animeRolesList.push(anime)
 	});
 	animeRolesList = removeGroupedDuplicates(
@@ -818,6 +837,11 @@ let mangaHandler = function(data){
 		autocomplete.add(manga.title);
 		autocomplete.add(distributionFormats[manga.format]);
 		autocomplete.add(edge.staffRole);
+		let parts = edge.staffRole.match(/^(.*?)(\s+\(.*\))?$/);
+		let t_role = translate("$role_" + parts[1]);
+		if(t_role.substring(0,6) !== "$role_"){
+			autocomplete.add(t_role + (parts[2] || ""))
+		}
 		mangaRolesList.push(manga)
 	});
 	mangaRolesList = removeGroupedDuplicates(
@@ -856,6 +880,11 @@ let voiceHandler = function(data){
 			character.name = (edge.node.name.first || "") + " " + (edge.node.name.last || "")
 		};
 		autocomplete.add(edge.role);
+		let parts = edge.role.match(/^(.*?)(\s+\(.*\))?$/);
+		let t_role = translate("$role_" + parts[1]);
+		if(t_role.substring(0,6) !== "$role_"){
+			autocomplete.add(t_role + (parts[2] || ""))
+		}
 		edge.media.forEach(thingy => {
 			let anime = {
 				role: [edge.role],
