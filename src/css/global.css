@@ -1989,6 +1989,10 @@ body.TMPreviewScore > .el-tooltip__popper{
 	width: max-content!important;
 	max-width: 800px;
 }
+.forum-thread .body .actions .like-wrap.hohHandledLike .users{
+	width: max-content!important;
+	max-width: 800px;
+}
 /*no !importants here, since Erwin is styling this on his own:*/
 .activity-feed .hohNoteSuffix:not(:empty),
 .activity-feed .hohRewatchSuffix:not(:empty),

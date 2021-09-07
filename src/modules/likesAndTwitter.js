@@ -125,6 +125,72 @@ query($id: Int){
 			setTimeout(updateLikes,2000)
 		}
 	});
+	document.querySelectorAll(
+		".forum-thread .body .actions .like-wrap.thread:not(.hohHandledLike)"
+	).forEach(thingy => {
+		thingy.classList.add("hohHandledLike");
+		let updateLikes = function(){
+			let [,threadId] = location.pathname.match(/^\/forum\/thread\/(\d+)/);
+			if(!threadId){
+				return
+			}
+			const id = parseInt(threadId);
+			generalAPIcall(`
+query ($id: Int, $type: LikeableType) {
+	Page(perPage: 20) {
+		likes(likeableId: $id, type: $type) {
+			name
+			avatar {
+				large
+			}
+		}
+	}
+}`,
+				{id, type: "THREAD"},
+				data => {
+					if(!data){
+						return
+					}
+					let seeker = function(comment){
+						let userList = thingy.querySelector(".users");
+						let waitForAnilist = function(tries){
+							tries--;
+							if(!userList.children.length && tries){
+								setTimeout(function(){waitForAnilist(tries)},200);
+								return
+							}
+							for(let i=5;i<comment.likes.length;i++){
+								let newEle = userList.children[0].cloneNode();//to be up to date with those random attributes
+								newEle.href = "/user/" + comment.likes[i].name + "/";
+								newEle.style.backgroundImage = 'url("' + comment.likes[i].avatar.large + '")';
+								userList.appendChild(newEle)
+							}
+						};waitForAnilist(20);
+						return true
+					}
+					seeker(data.data.Page)
+				}
+			)
+		}
+		thingy.onmouseover = function(){
+			if(!thingy.querySelector(".count")){
+				return
+			}
+			let likeCount = parseInt(thingy.querySelector(".count").innerText);
+			if(likeCount <= 5){
+				return
+			}
+			if(thingy.classList.contains("hohLoadedLikes")){
+				return
+			}
+			thingy.classList.add("hohLoadedLikes");
+			updateLikes()
+		}
+		thingy.onclick = function(){
+			//TODO handle this locally
+			setTimeout(updateLikes,2000)
+		}
+	});
 	if(useScripts.tweets){//not enabled by default
 		document.querySelectorAll(
 			`.markdown a[href^="https://twitter.com/"][href*="/status/"]`
