@@ -128,7 +128,11 @@ query($id: Int){
 	let thingy = document.querySelector(".forum-thread .body .actions .like-wrap.thread:not(.hohHandledLike)");
 	if(thingy){
 		thingy.classList.add("hohHandledLike");
+		let shortlist = null;
 		let updateLikes = function(){
+			if(shortlist && shortlist.data.Page.likes.length >= 25 && !shortlist.data.Page.likes.map(like => like.name).includes(whoAmI)){
+				return
+			}
 			let [,threadId] = location.pathname.match(/^\/forum\/thread\/(\d+)/);
 			if(!threadId){
 				return
@@ -150,6 +154,7 @@ query ($id: Int, $type: LikeableType) {
 					if(!data){
 						return
 					}
+					shortlist = data;
 					let seeker = function(comment){
 						let userList = thingy.querySelector(".users");
 						let waitForAnilist = function(tries){
