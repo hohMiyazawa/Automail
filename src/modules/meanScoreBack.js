@@ -1,6 +1,7 @@
 //rename?
 function meanScoreBack(){
-	let URLstuff = location.pathname.match(/^\/user\/(.*?)\/?$/);
+	const userRegex = /^\/user\/([^\/]+)\/?$/;
+	let URLstuff = location.pathname.match(userRegex);
 	const query = `
 	query($userName: String) {
 		User(name: $userName){
@@ -25,8 +26,8 @@ function meanScoreBack(){
 		}
 		let adder = function(){
 			if(
-				!location.pathname.match(/^\/user\/(.*?)\/?$/)
-				|| location.pathname.match(/^\/user\/(.*?)\/?$/)[1] !== URLstuff[1]
+				!userRegex.test(location.pathname)
+				|| location.pathname.match(userRegex)[1] !== URLstuff[1]
 			){
 				return
 			}
