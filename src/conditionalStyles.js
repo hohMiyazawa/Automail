@@ -75,6 +75,9 @@ if(useScripts.annoyingAnimations){
 .cover.loading::before{
 	display: none!important;
 }
+.activity-entry .like-wrap .users{
+	transition: none;
+}
 .search .results .media-card{
 	animation: none;
 }`
