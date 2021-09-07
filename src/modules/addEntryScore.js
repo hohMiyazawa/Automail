@@ -60,7 +60,18 @@ function addEntryScore(id,tries){
 												}
 											}`,
 											{id: id,score: MediaList.score},
-											data => {}
+											data => {
+												if(!data){
+													if(isUp){
+														MediaList.score -= stepSize
+													}
+													else{
+														MediaList.score += stepSize
+													}
+													scoreSpanContainer.style.color = "rgb(var(--color-red))";
+													scoreSpanContainer.title = "Updating score failed"
+												}
+											}
 										);
 										let blockingCache = JSON.parse(sessionStorage.getItem("hohEntryScore" + id + whoAmI));
 										blockingCache.data.data.MediaList.score = MediaList.score.roundPlaces(1);
@@ -95,9 +106,26 @@ function addEntryScore(id,tries){
 											}
 										}`,
 										{id: id,progress: MediaList.progress},
-										data => {}
+										data => {
+											if(!data){
+												MediaList.progress--;
+												progressVal.innerText = MediaList.progress;
+												progressVal.style.color = "rgb(var(--color-red))";
+												progressVal.title = "Updating progress failed"
+											}
+										}
 									);
-									progressVal.innerText = MediaList.progress
+									progressVal.innerText = MediaList.progress;
+									let hohGuesses = Array.from(document.querySelectorAll(".hohGuess"));
+									if(hohGuesses.length === 2){
+										let oldProgress = parseInt(hohGuesses[0].innerText.match(/\d+/));
+										if(MediaList.progress >= oldProgress){
+											hohGuesses[1].remove()
+										}
+										else{
+											hohGuesses[1].innerText = "[+" + (MediaList.progress - oldProgress) + "]"
+										}
+									}
 								}
 							}
 						}
