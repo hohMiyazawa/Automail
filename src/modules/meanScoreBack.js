@@ -2,6 +2,9 @@
 function meanScoreBack(){
 	const userRegex = /^\/user\/([^\/]+)\/?$/;
 	let URLstuff = location.pathname.match(userRegex);
+	if(!URLstuff){
+		return
+	}
 	const query = `
 	query($userName: String) {
 		User(name: $userName){
