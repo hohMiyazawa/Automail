@@ -125,9 +125,8 @@ query($id: Int){
 			setTimeout(updateLikes,2000)
 		}
 	});
-	document.querySelectorAll(
-		".forum-thread .body .actions .like-wrap.thread:not(.hohHandledLike)"
-	).forEach(thingy => {
+	let thingy = document.querySelector(".forum-thread .body .actions .like-wrap.thread:not(.hohHandledLike)");
+	if(thingy){
 		thingy.classList.add("hohHandledLike");
 		let updateLikes = function(){
 			let [,threadId] = location.pathname.match(/^\/forum\/thread\/(\d+)/);
@@ -190,7 +189,7 @@ query ($id: Int, $type: LikeableType) {
 			//TODO handle this locally
 			setTimeout(updateLikes,2000)
 		}
-	});
+	}
 	if(useScripts.tweets){//not enabled by default
 		document.querySelectorAll(
 			`.markdown a[href^="https://twitter.com/"][href*="/status/"]`
