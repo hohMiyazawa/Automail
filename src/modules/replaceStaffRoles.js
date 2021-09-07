@@ -475,6 +475,7 @@ let listRenderer = function(){
 			const rangeMatch = query.trim().match(/^(\d\d\d\d)\s?\-\s?(\d\d\d\d)$/);
 			return parseInt(query) === (media.startDate.year || media.endDate.year)
 				|| rangeMatch && parseInt(rangeMatch[1]) <= media.startDate.year && parseInt(rangeMatch[2]) >= media.startDate.year
+				|| rangeMatch && parseInt(rangeMatch[2]) <= media.startDate.year && parseInt(rangeMatch[1]) >= media.startDate.year
 		},
 		"genre": (query,media) => media.genres.some(
 			genre => genre === query.toLowerCase()
