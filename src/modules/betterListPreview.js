@@ -32,11 +32,11 @@ function betterListPreview(){
 			hohListPreview = create("div","#hohListPreview");
 			listPreviews[0].parentNode.parentNode.parentNode.parentNode.insertBefore(hohListPreview,listPreviews[0].parentNode.parentNode.parentNode);
 			listPreviews.forEach(heading => {
-				if(!heading.innerText.includes("Manga")){
-					heading.parentNode.parentNode.style.display = "none";
+				if(!heading.innerText.includes("Manga") && !heading.innerText.includes(translate("$preview_mangaSection_title"))){
+					heading.parentNode.parentNode.style.display = "none"
 				}
 				else if(useScripts.additionalTranslation){
-					heading.innerText = translate("$preview_mangaSection_title")
+					heading.childNodes[0].textContent = translate("$preview_mangaSection_title")
 				}
 			})
 		};
