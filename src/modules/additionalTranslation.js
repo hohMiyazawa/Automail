@@ -66,6 +66,24 @@ exportModule({
 				]
 			},
 			{
+				regex: /\/user\/([^\/]+)\/?$/,
+				elements: [
+					{
+						lookup: ".activity-edit .el-textarea__inner",
+						textType: "placeholder",
+						replacement: "$placeholder_status"
+					},
+					{
+						lookup: ".activity-feed-wrap h2.section-header",
+						replacement: "$feed_header"
+					},
+					{
+						lookup: ".activity-feed-wrap .load-more",
+						replacement: "$load_more"
+					}
+				]
+			},
+			{
 				regex: /\/home\/?$/,
 				elements: [
 					{

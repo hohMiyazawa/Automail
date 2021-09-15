@@ -385,7 +385,7 @@ let listRenderer = function(){
 			return amatch - bmatch
 		})
 		let role = create("div","role",media.role.map(word => {
-			let parts = word.match(/^(.*?)(\s+\(.*\))?$/);
+			let parts = word.trim().match(/^(.*?)(\s+\(.*\))?$/);
 			let t_role = translate("$role_" + parts[1]);
 			if(t_role.substring(0,6) === "$role_"){
 				return word
@@ -488,7 +488,7 @@ let listRenderer = function(){
 		),
 		"role": (query,media) => media.role.some(
 			role => {
-				let parts = role.match(/^(.*?)(\s+\(.*\))?$/);
+				let parts = role.trim().match(/^(.*?)(\s+\(.*\))?$/);
 				let t_role = translate("$role_" + parts[1]);
 				if(t_role.substring(0,6) !== "$role_" && t_role.toLowerCase().match(query.toLowerCase())){
 					return true
@@ -782,7 +782,7 @@ let animeHandler = function(data){
 		autocomplete.add(anime.title);
 		autocomplete.add(distributionFormats[anime.format]);
 		autocomplete.add(edge.staffRole);
-		let parts = edge.staffRole.match(/^(.*?)(\s+\(.*\))?$/);
+		let parts = edge.staffRole.trim().match(/^(.*?)(\s+\(.*\))?$/);
 		let t_role = translate("$role_" + parts[1]);
 		if(t_role.substring(0,6) !== "$role_"){
 			autocomplete.add(t_role + (parts[2] || ""))
@@ -841,7 +841,7 @@ let mangaHandler = function(data){
 		autocomplete.add(manga.title);
 		autocomplete.add(distributionFormats[manga.format]);
 		autocomplete.add(edge.staffRole);
-		let parts = edge.staffRole.match(/^(.*?)(\s+\(.*\))?$/);
+		let parts = edge.staffRole.trim().match(/^(.*?)(\s+\(.*\))?$/);
 		let t_role = translate("$role_" + parts[1]);
 		if(t_role.substring(0,6) !== "$role_"){
 			autocomplete.add(t_role + (parts[2] || ""))
@@ -884,7 +884,7 @@ let voiceHandler = function(data){
 			character.name = (edge.node.name.first || "") + " " + (edge.node.name.last || "")
 		};
 		autocomplete.add(edge.role);
-		let parts = edge.role.match(/^(.*?)(\s+\(.*\))?$/);
+		let parts = edge.role.trim().match(/^(.*?)(\s+\(.*\))?$/);
 		let t_role = translate("$role_" + parts[1]);
 		if(t_role.substring(0,6) !== "$role_"){
 			autocomplete.add(t_role + (parts[2] || ""))

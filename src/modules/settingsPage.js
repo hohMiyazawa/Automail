@@ -68,13 +68,17 @@ exportModule({
 				if(def.type === "select"){
 					input = create("select",false,false,setting);
 					if(def.id === "partialLocalisationLanguage"){
+						//English stafff credits aren't included in the files since the site is already in English, but we still want to estimate the amount
+						const nativeEnglishRoleCount = Object.keys(languageFiles["Norsk"].keys).filter(e => e.substring(0,6) === "$role_").length;
 						def.values.forEach(
 							value => create("option",false,value + " (" + Math.max(
-									Object.keys(languageFiles[value].keys).length,
+									Object.keys(languageFiles[value].keys).length
+									+ (value === "English" ? nativeEnglishRoleCount : 0),
 									(
 										languageFiles[value].info.variation_of
 										?
 										Object.keys(languageFiles[languageFiles[value].info.variation_of].keys).length	
+										+ (value === "English (US)" ? nativeEnglishRoleCount : 0)
 										:
 										0
 									)

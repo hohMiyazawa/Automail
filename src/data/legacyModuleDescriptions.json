@@ -12,19 +12,19 @@
 },{"id": "socialTab",
 	"description": "$socialTab_description",
 	"categories": ["Media"]
-},{"id": "socialTab",
-	"description": "Media social tab feed filters",
+},{"id": "socialTabFeed",
+	"description": "$socialTabFeed_description",
 	"extendedDescription": "'Has replies' is the only filter that works if not signed in with the script. A 'Following' filter becomes available if you do.",
 	"categories": ["Media","Login"]
 },{"id": "forumComments",
-	"description": "Add a button to collapse comment threads in the forum",
+	"description": "$forumComments_description",
 	"categories": ["Forum"]
 },{"id": "forumMedia",
-	"description": "Add the tagged media to the forum preview on the home page",
+	"description": "$forumMedia_description",
 	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
 	"categories": ["Forum"]
 },{"id": "mangaBrowse",
-	"description": "Make browse default to manga",
+	"description": "$mangaBrowse_description",
 	"categories": ["Browse"]
 },{"id": "draw3x3",
 	"description": "Add a button to lists to create 3x3's from list entries. Click the button, and then select nine entries",
@@ -33,7 +33,7 @@
 	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
 	"categories": ["Script","Login"]
 },{"id": "tagDescriptions",
-	"description": "Show the definitions of tags when adding new ones to an entry",
+	"description": "$tagDescriptions_description",
 	"categories": ["Media"]
 },{"id": "MALscore",
 	"description": "Add MAL scores to media",

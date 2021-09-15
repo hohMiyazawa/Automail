@@ -586,14 +586,14 @@ function addComparisionPage(){
 				ratingMode = "user";
 				guser = index;
 				sortShows();
-				drawTable();
+				drawTable()
 			};
 			let upArrow = create("span","hohArrowSort","▲");
 			upArrow.onclick = function(){
 				ratingMode = "userInverse";
 				guser = index;
 				sortShows();
-				drawTable();
+				drawTable()
 			};
 			let statusFilterDot = create("div","hohStatusDot");
 			if(user.status === false){
