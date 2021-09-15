@@ -606,12 +606,12 @@ function addMoreStats(){
 					let animeSetting = create("p","hohSetting",false,filters);
 					let input_a = createCheckbox(animeSetting);
 					input_a.checked = true;
-					create("span",false,"Anime",animeSetting);
+					create("span",false,translate("$generic_anime"),animeSetting);
 
 					let mangaSetting = create("p","hohSetting",false,filters);
 					let input_m = createCheckbox(mangaSetting);
 					input_m.checked = true;
-					create("span",false,"Manga",mangaSetting);
+					create("span",false,translate("$generic_manga"),mangaSetting);
 
 					let minSetting = create("p","hohSetting",false,filters);
 					let min_s_input = create("input","hohNativeInput",false,minSetting,"width: 80px;margin-right: 10px;");
@@ -827,7 +827,7 @@ function addMoreStats(){
 				let compatabilityButton = create("button",["button","hohButton"],"Compatibility",personalStats);
 				let compatLocation = create("div","#hohCheckCompat",false,personalStats);
 				compatabilityButton.onclick = function(){
-					compatLocation.innerText = "loading...";
+					compatLocation.innerText = translate("$loading");
 					compatLocation.style.marginTop = "5px";
 					compatCheck(
 						scoreList,
@@ -2401,13 +2401,13 @@ function addMoreStats(){
 		hohStats = create("div","#hohStats",false,statsWrap,"display:none;");
 		hohGenres = create("div","#hohGenres",false,statsWrap,"display:none;");
 		regularFilterHeading = create("div","#regularFilterHeading",false,hohGenres);
-		regularGenresTable = create("div","#regularGenresTable","loading...",hohGenres);
-		regularTagsTable = create("div","#regularTagsTable","loading...",hohGenres);
-		regularAnimeTable = create("div","#regularAnimeTable","loading...",statsWrap);
-		regularMangaTable = create("div","#regularMangaTable","loading...",statsWrap);
-		animeStaff = create("div","#animeStaff","loading...",statsWrap);
-		mangaStaff = create("div","#mangaStaff","loading...",statsWrap);
-		animeStudios = create("div","#animeStudios","loading...",statsWrap);
+		regularGenresTable = create("div","#regularGenresTable",translate("$loading"),hohGenres);
+		regularTagsTable = create("div","#regularTagsTable",translate("$loading"),hohGenres);
+		regularAnimeTable = create("div","#regularAnimeTable",translate("$loading"),statsWrap);
+		regularMangaTable = create("div","#regularMangaTable",translate("$loading"),statsWrap);
+		animeStaff = create("div","#animeStaff",translate("$loading"),statsWrap);
+		mangaStaff = create("div","#mangaStaff",translate("$loading"),statsWrap);
+		animeStudios = create("div","#animeStudios",translate("$loading"),statsWrap);
 		hohStats.calculated = false;
 		generateStatPage()
 	};

@@ -597,14 +597,14 @@ function addComparisionPage(){
 			};
 			let statusFilterDot = create("div","hohStatusDot");
 			if(user.status === false){
-				statusFilterDot.title = "any list status\nclick to toggle"
+				statusFilterDot.title = translate("$compare_listStatus")
 			}
 			const stati = ["COMPLETED","CURRENT","PLANNING","PAUSED","DROPPED","REPEATING","NOT"];
 			statusFilterDot.onclick = function(){
 				if(user.status === "NOT"){
 					user.status = false;
 					statusFilterDot.style.background = "rgb(var(--color-background))";
-					statusFilterDot.title = "any list status\nclick to toggle"
+					statusFilterDot.title = translate("$compare_listStatus")
 				}
 				else if(user.status === "REPEATING"){
 					user.status = "NOT";
@@ -619,9 +619,9 @@ function addComparisionPage(){
 				else{
 					user.status = stati[stati.indexOf(user.status) + 1];
 					statusFilterDot.style.background = distributionColours[user.status];
-					statusFilterDot.title = user.status.toLowerCase();
+					statusFilterDot.title = user.status.toLowerCase()
 				};
-				drawTable();
+				drawTable()
 			};
 			userCel.appendChild(downArrow);
 			userCel.appendChild(filter);

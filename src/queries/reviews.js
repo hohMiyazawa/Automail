@@ -2,11 +2,11 @@
 	miscResults.innerText = "";
 	let dataHeader = create("div",false,false,miscResults);
 	create("span",false,"There are ",dataHeader);
-	let data_amount = create("span",false,"[loading...]",dataHeader);
+	let data_amount = create("span",false,"[" + translate("$loading") + "]",dataHeader);
 	create("span",false," reviews on Anilist, with ",dataHeader);
-	let data_ratingAmount = create("span",false,"[loading...]",dataHeader);
+	let data_ratingAmount = create("span",false,"[" + translate("$loading") + "]",dataHeader);
 	create("span",false," ratings (",dataHeader);
-	let data_ratingPositive = create("span",false,"[loading...]",dataHeader);
+	let data_ratingPositive = create("span",false,"[" + translate("$loading") + "]",dataHeader);
 	create("span",false,"% positive)",dataHeader);
 	generalAPIcall(
 		`query ($page: Int) {

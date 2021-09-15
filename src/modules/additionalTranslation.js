@@ -74,6 +74,14 @@ exportModule({
 						replacement: "$placeholder_status"
 					},
 					{
+						lookup: ".activity-feed-wrap h2.section-header",
+						replacement: "$feed_header"
+					},
+					{
+						lookup: ".activity-feed-wrap .load-more",
+						replacement: "$load_more"
+					},
+					{
 						lookup: ".list-preview-wrap .section-header h2",
 						multiple: [
 							{

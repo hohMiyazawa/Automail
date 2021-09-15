@@ -10,6 +10,8 @@
 	},
 	"keys": {
 "$loading": "Loading...",
+"$searching": "Searching...",
+"$load_more": "Load More",
 "$time_now": "Just now",
 "$time_1second": "1 second ago",
 "$time_Msecond": "{0} seconds ago",
@@ -186,6 +188,7 @@
 "$compare_individualRatings": "Individual rating systems:",
 "$compare_normalizeRatings": "Normalise ratings:",
 "$compare_colourCell": "Colour entire cell:",
+"$compare_listStatus": "any list status\nclick to toggle",
 "$404_private_or_noUser": "{0} does not exist or has a private profile",
 "$404_private": "{0} has a private profile",
 "$404_noUser": "{0} does not exist",
@@ -340,6 +343,7 @@
 "$forumHeading_recentlyActive": "Recently Active Threads",
 "$forumHeading_releaseDiscussion": "Release Discussion Threads",
 "$forumHeading_newThreads": "Newly Created Threads",
-"$footer_siteTheme": "Site Theme"
+"$footer_siteTheme": "Site Theme",
+"$feed_header": "Activity"
 	}
 }

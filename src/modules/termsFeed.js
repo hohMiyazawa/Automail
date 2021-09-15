@@ -967,7 +967,7 @@ onlyMediaInput.onblur = function(){
 	}
 	else{
 		if(!mediaDisplayResults.childElementCount){
-			create("span",false,"Searching...",mediaDisplayResults);
+			create("span",false,translate("$searching"),mediaDisplayResults);
 		}
 		generalAPIcall(`
 			query($search: String){
