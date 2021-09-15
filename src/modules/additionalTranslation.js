@@ -57,6 +57,15 @@ exportModule({
 		};
 		[
 			{
+				regex: /./,
+				elements: [
+					{
+						lookup: ".theme-selector > h2",
+						replacement: "$footer_siteTheme"
+					}
+				]
+			},
+			{
 				regex: /\/home\/?$/,
 				elements: [
 					{
@@ -78,7 +87,24 @@ exportModule({
 						]
 					}
 				]
-			}
+			},
+			{
+				regex: /\/forum\/overview\/?$/,
+				elements: [
+					{
+						lookup: ".overview-header[href='/forum/recent']",
+						replacement: "$forumHeading_recentlyActive"
+					},
+					{
+						lookup: ".overview-header[href='/forum/recent?category=5']",
+						replacement: "$forumHeading_releaseDiscussion"
+					},
+					{
+						lookup: ".overview-header[href='/forum/new']",
+						replacement: "$forumHeading_newThreads"
+					}
+				]
+			},
 		].forEach(matchset => {
 			if(document.URL.match(matchset.regex)){
 				matchset.elements.forEach(element => {

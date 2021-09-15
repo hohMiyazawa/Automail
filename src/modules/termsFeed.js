@@ -871,20 +871,20 @@ let setInputs = function(){
 	statusInputTitle.style.display = "none";
 	if(onlyReviews.checked){
 		inputArea.placeholder = "Writing reviews not supported yet...";
-		publishButton.innerText = translate("$button_publish");
+		publishButton.innerText = translate("$button_publish")
 	}
 	else if(onlyForum.checked){
-		inputArea.placeholder = "Write a forum post...";
+		inputArea.placeholder = translate("$placeholder_forum");
 		statusInputTitle.style.display = "block";
-		publishButton.innerText = translate("$button_publish");
+		publishButton.innerText = translate("$button_publish")
 	}
 	else if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
 		inputArea.placeholder = translate("$placeholder_message");
-		publishButton.innerText = "Send";
+		publishButton.innerText = "Send"
 	}
 	else{
 		inputArea.placeholder = translate("$placeholder_status");
-		publishButton.innerText = translate("$button_publish");
+		publishButton.innerText = translate("$button_publish")
 	}
 };
 topPrevious.onclick = function(){
@@ -898,7 +898,7 @@ topPrevious.onclick = function(){
 };
 topNext.onclick = function(){
 	loading.innerText = translate("$loading");
-	requestPage(page + 1);
+	requestPage(page + 1)
 };
 onlyGlobal.onchange = function(){
 	loading.innerText = translate("$loading");
@@ -907,25 +907,25 @@ onlyGlobal.onchange = function(){
 	onlyUser.checked = false;
 	onlyForum.checked = false;
 	onlyReviews.checked = false;
-	requestPage(1);
+	requestPage(1)
 };
 onlyStatus.onchange = function(){
 	loading.innerText = translate("$loading");
 	onlyForum.checked = false;
 	onlyReviews.checked = false;
 	onlyMedia.checked = false;
-	requestPage(1);
+	requestPage(1)
 };
 onlyReplies.onchange = function(){
 	loading.innerText = translate("$loading");
 	onlyReviews.checked = false;
-	requestPage(1);
+	requestPage(1)
 };
 onlyUser.onchange = function(){
 	setInputs();
 	loading.innerText = translate("$loading");
 	onlyGlobal.checked = false;
-	requestPage(1);
+	requestPage(1)
 };
 onlyForum.onchange = function(){
 	setInputs();
@@ -933,12 +933,12 @@ onlyForum.onchange = function(){
 	onlyGlobal.checked = false;
 	onlyStatus.checked = false;
 	onlyReviews.checked = false;
-	requestPage(1);
+	requestPage(1)
 };
 onlyMedia.onchange = function(){
 	setInputs();
 	loading.innerText = translate("$loading");
-	requestPage(1);
+	requestPage(1)
 };
 onlyReviews.onchange = function(){
 	setInputs();
@@ -947,7 +947,7 @@ onlyReviews.onchange = function(){
 	onlyForum.checked = false;
 	onlyReplies.checked = false;
 	loading.innerText = translate("$loading");
-	requestPage(1);
+	requestPage(1)
 }
 let oldOnlyUser = "";
 onlyUserInput.onfocus = function(){
@@ -959,11 +959,11 @@ onlyMediaInput.onfocus = function(){
 };
 onlyMediaInput.onblur = function(){
 	if(onlyMediaInput.value === oldOnlyMedia){
-		return;
+		return
 	}
 	if(onlyMediaInput.value === ""){
 		removeChildren(mediaDisplayResults)
-		onlyMediaResult.id = false;
+		onlyMediaResult.id = false
 	}
 	else{
 		if(!mediaDisplayResults.childElementCount){
@@ -1075,48 +1075,48 @@ onlyMediaInput.onblur = function(){
 				}
 			}
 		)
-	};
+	}
 };
 onlyUserInput.onblur = function(){
 	if(onlyForum.checked){
-		inputArea.placeholder = "Write a forum post...";
-		publishButton.innerText = translate("$button_publish");
+		inputArea.placeholder = translate("$placeholder_forum");
+		publishButton.innerText = translate("$button_publish")
 	}
 	else if(
 		(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase())
 		|| (oldOnlyUser !== onlyUserInput.value && onlyUserInput.value !== "")
 	){
 		inputArea.placeholder = translate("$placeholder_message");
-		publishButton.innerText = "Send";	
+		publishButton.innerText = "Send"
 	}
 	else{
 		inputArea.placeholder = translate("$placeholder_status");
-		publishButton.innerText = translate("$button_publish");
+		publishButton.innerText = translate("$button_publish")
 	}
 	if(oldOnlyUser !== onlyUserInput.value && onlyUserInput.value !== ""){
 		loading.innerText = translate("$loading");
 		onlyUser.checked = true;
-		requestPage(1);
+		requestPage(1)
 	}
 	else if(onlyUser.checked && oldOnlyUser !== onlyUserInput.value){
 		loading.innerText = translate("$loading");
-		requestPage(1);
+		requestPage(1)
 	}
 };
 onlyUserInput.addEventListener("keyup",function(event){
 	if(event.key === "Enter"){
-		onlyUserInput.blur();
+		onlyUserInput.blur()
 	}
 });
 onlyMediaInput.addEventListener("keyup",function(event){
 	if(event.key === "Enter"){
-		onlyMediaInput.blur();
+		onlyMediaInput.blur()
 	}
 });
 inputArea.onfocus = function(){
 	cancelButton.style.display = "inline";
 	publishButton.style.display = "inline";
-	previewArea.style.display = "inline";
+	previewArea.style.display = "inline"
 };
 inputArea.oninput = function(){
 	previewArea.innerHTML = DOMPurify.sanitize(makeHtml(inputArea.value))
@@ -1131,18 +1131,18 @@ cancelButton.onclick = function(){
 	previewArea.style.display = "none";
 	loading.innerText = "";
 	onlySpecificActivity = false;
-	document.activeElement.blur();
+	document.activeElement.blur()
 };
 publishButton.onclick = function(){
 	if(onlyForum.checked){
-		alert("Sorry, not implemented yet");
+		alert(translate("$notImplemented"));
 		//loading.innerText = "Publishing forum post...";
-		return;
+		return
 	}
 	else if(onlyReviews.checked){
-		alert("Sorry, not implemented yet");
+		alert(translate("$notImplemented"));
 		//loading.innerText = "Publishing review...";
-		return;
+		return
 	}
 	else if(onlySpecificActivity){
 		loading.innerText = "Publishing...";
@@ -1193,20 +1193,20 @@ publishButton.onclick = function(){
 			"mutation($text: String){SaveTextActivity(text: $text){id}}",
 			{text: emojiSanitize(inputArea.value)},
 			function(data){
-				requestPage(1);
+				requestPage(1)
 			}
-		);
+		)
 	}
 	inputArea.value = "";
 	previewArea.innerText = "";
 	cancelButton.style.display = "none";
 	publishButton.style.display = "none";
-	document.activeElement.blur();
+	document.activeElement.blur()
 };
 let sideBarContent = create("div","sidebar",false,feed,"position:absolute;left:20px;top:200px;max-width:150px;");
 let buildPreview = function(data){
 	if(!data){
-		return;
+		return
 	}
 	removeChildren(sideBarContent)
 	let mediaLists = data.data.Page.mediaList.map(mediaList => {
@@ -1245,7 +1245,7 @@ let buildPreview = function(data){
 								}`,
 								{id: mediaList.id,progress: mediaList.progress},
 								data => {}
-							);
+							)
 						}
 						else{
 							authAPIcall(
@@ -1262,7 +1262,7 @@ let buildPreview = function(data){
 									}
 								},
 								data => {}
-							);
+							)
 						};
 						mediaEntry.style.backgroundColor = "rgba(0,200,0,0.1)";
 					}
@@ -1298,7 +1298,7 @@ let buildPreview = function(data){
 			e.preventDefault();
 			return false
 		}
-	});
+	})
 };
 authAPIcall(
 	`query($name: String){

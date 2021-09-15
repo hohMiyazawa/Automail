@@ -68,7 +68,9 @@
 "$placeholder_status": "Write a status...",
 "$placeholder_reply": "Write a reply...",
 "$placeholder_message": "Write a message...",
+"$placeholder_forum": "Write a forum post...",
 "$settings_title": "Automail Settings",
+"$notImplemented": "Sorry, not implemented yet",
 "$settings_version": "Version: ",
 "$settings_homepage": "Homepage: ",
 "$settings_repository": "Repository: ",
@@ -334,6 +336,10 @@
 "$socialTab_description": "Media social tab average score, progress and notes",
 "$staff_animeRoles": "Anime Staff Roles",
 "$staff_mangaRoles": "Manga Staff Roles",
-"$staff_voiceRoles": "Character Voice Roles"
+"$staff_voiceRoles": "Character Voice Roles",
+"$forumHeading_recentlyActive": "Recently Active Threads",
+"$forumHeading_releaseDiscussion": "Release Discussion Threads",
+"$forumHeading_newThreads": "Newly Created Threads",
+"$footer_siteTheme": "Site Theme"
 	}
 }
