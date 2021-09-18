@@ -45,7 +45,7 @@ exportModule({
 						place.placeholder = translate(element.replacement)
 					}
 					else{
-						place.childNodes[0].textContent = translate(element.replacement)
+						place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
 					}
 				}
 				else if(counter < times.length){
@@ -80,6 +80,26 @@ exportModule({
 					{
 						lookup: ".activity-feed-wrap .load-more",
 						replacement: "$load_more"
+					},
+					{
+						lookup: ".activity-feed-wrap ul li:nth-child(1)",
+						selectIndex: 1,
+						replacement: "$feedSelect_all"
+					},
+					{
+						lookup: ".activity-feed-wrap ul li:nth-child(2)",
+						selectIndex: 1,
+						replacement: "$feedSelect_status"
+					},
+					{
+						lookup: ".activity-feed-wrap ul li:nth-child(3)",
+						selectIndex: 1,
+						replacement: "$feedSelect_message"
+					},
+					{
+						lookup: ".activity-feed-wrap ul li:nth-child(4)",
+						selectIndex: 1,
+						replacement: "$feedSelect_list"
 					}
 				]
 			},
@@ -98,6 +118,21 @@ exportModule({
 					{
 						lookup: ".activity-feed-wrap .load-more",
 						replacement: "$load_more"
+					},
+					{
+						lookup: ".feed-select ul li:nth-child(1)",
+						selectIndex: 1,
+						replacement: " " + translate("$feedSelect_all") + " "
+					},
+					{
+						lookup: ".feed-select ul li:nth-child(2)",
+						selectIndex: 1,
+						replacement: " " + translate("$feedSelect_text") + " "
+					},
+					{
+						lookup: ".feed-select ul li:nth-child(3)",
+						selectIndex: 1,
+						replacement: " " + translate("$feedSelect_list") + " "
 					},
 					{
 						lookup: ".list-preview-wrap .section-header h2",

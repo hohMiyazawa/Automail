@@ -364,6 +364,11 @@
 "$theme_dark": "Dark",
 "$theme_highContrast": "High Contrast",
 "$theme_highContrastDark": "High Contrast Dark",
-"$feed_header": "Activity"
+"$feed_header": "Activity",
+"$feedSelect_all": "All",
+"$feedSelect_text": "Text Status",
+"$feedSelect_list": "List Progress",
+"$feedSelect_status": "Status",
+"$feedSelect_message": "Messages"
 	}
 }
