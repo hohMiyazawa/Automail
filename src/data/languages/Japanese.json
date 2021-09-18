@@ -10,6 +10,7 @@
 	},
 	"keys": {
 "$button_next": "次へ →",
+"$button_search": "検索",
 "$language_English": "英語",
 "$language_German": "ドイツ語",
 "$language_Italian": "イタリア語",
@@ -33,6 +34,18 @@
 "$colour_peach": "ピーチカラー",
 "$colour_orange": "オレンジ",
 "$colour_yellow": "黄",
-"$colour_green": "緑"
+"$colour_green": "緑",
+
+"$role_Animation Director": "アニメーション監督",
+"$role_Director": "監督",
+"$role_Assistant Director": "助監督",
+"$role_Key Animation": "原画",
+"$role_In-Between Animation": "動画",
+"$role_Storyboard": "絵コンテ",
+"$role_Planning": "企画",
+"$role_Music": "音楽",
+"$role_Color": "カラー",
+"$role_Color Coordination": "色指定",
+"$role_Art Director": "美術監督"
 	}
 }

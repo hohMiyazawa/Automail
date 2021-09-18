@@ -237,6 +237,7 @@
 "$noResults": "No results found",
 "$filters": "Filters",
 "$filters_lists": "Lists",
+"$filters_year": "Year",
 "$heading_anime": "Anime:",
 "$heading_manga": "Manga:",
 "$heading_similarFavs": "Similar favs:",

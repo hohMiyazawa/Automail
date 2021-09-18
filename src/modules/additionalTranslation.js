@@ -20,7 +20,7 @@ exportModule({
 				if(place){
 					Array.from(place).forEach(elem => {
 						element.multiple.forEach(possible => {
-							if(elem.childNodes[0].textContent === possible.ofText){
+							if(elem.childNodes[0].textContent.trim() === possible.ofText){
 								elem.childNodes[0].textContent = translate(possible.replacement)
 								possible.translated = true
 							}
@@ -100,6 +100,42 @@ exportModule({
 						lookup: ".activity-feed-wrap ul li:nth-child(4)",
 						selectIndex: 1,
 						replacement: "$feedSelect_list"
+					}
+				]
+			},
+			{
+				regex: /\/user\/([^\/]+)\/(animelist|mangalist)\/?/,
+				elements: [
+					{
+						lookup: ".filters-wrap [placeholder='Filter']",
+						textType: "placeholder",
+						replacement: "$mediaStaff_filter"
+					},
+					{
+						lookup: ".filters-wrap [placeholder='Genres']",
+						textType: "placeholder",
+						replacement: "$stats_genre"
+					},
+					{
+						lookup: ".filters .filter-group .group-header",
+						multiple: [
+							{
+								ofText: "Lists",
+								replacement: "$filters_lists"
+							},
+							{
+								ofText: "Filters",
+								replacement: "$filters"
+							},
+							{
+								ofText: "Year",
+								replacement: "$filters_year"
+							},
+							{
+								ofText: "Sort",
+								replacement: "$staff_sort"
+							}
+						]
 					}
 				]
 			},
