@@ -24,7 +24,7 @@ exportModule({
 				let filterBoxContainer = create("div","#hohStaffTabFilter",false,mediaStaff.parentNode);
 				let filterRemover = create("span","#hohFilterRemover",svgAssets.cross,filterBoxContainer)
 				let filterBox = create("input",false,false,filterBoxContainer);
-				filterBox.placeholder = "Filter";
+				filterBox.placeholder = translate("$mediaStaff_filter");
 				filterBox.setAttribute("list","staffRoles");
 				let filterer = function(){
 					let val = filterBox.value;
@@ -78,10 +78,10 @@ exportModule({
 					filterer();
 					buildStaffRoles()
 				});
-				observer.observe(mediaStaff.children[0],mutationConfig);
+				observer.observe(mediaStaff.children[0],mutationConfig)
 			}
 			else{
-				setTimeout(function(){waiter(++tries)},250 + tries*100);
+				setTimeout(function(){waiter(++tries)},250 + tries*100)
 			}
 		};waiter(0)
 	}

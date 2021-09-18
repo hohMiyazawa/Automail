@@ -95,11 +95,11 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 			});
 			let cpDomain = create("p",false,false,cpContainer);
 			let cpInitialBox = createCheckbox(cpDomain);
-			create("span",false,"default",cpDomain);
+			create("span",false,translate("$theme_default"),cpDomain);
 			let cpDarkBox = createCheckbox(cpDomain);
-			create("span",false,"dark",cpDomain);
+			create("span",false,translate("$theme_dark"),cpDomain);
 			let cpContrastBox = createCheckbox(cpDomain);
-			create("span",false,"contrast",cpDomain);
+			create("span",false,translate("$theme_highContrast"),cpDomain);
 			let cpSelectorChanger = function(){
 				if(useScripts.colourSettings[cpSelector.value]){
 					cpInitialBox.checked  = !!useScripts.colourSettings[cpSelector.value].initial;
@@ -122,6 +122,6 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 			setTimeout(adder,1000)
 		}
 	};
-	adder();
+	adder()
 }
 

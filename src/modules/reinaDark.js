@@ -181,7 +181,7 @@ if(useScripts.reinaDark){
 				}
 			})
 			let darkContrastSwitch = create("div",["el-tooltip","theme-preview","dark-contrast"],"A",siteThemeSwitch);
-			darkContrastSwitch.title = "High Contrast Dark";//not quite the same as the native tooltip, but that's a minor issue that can be fixed later
+			darkContrastSwitch.title = translate("$theme_highContrastDark");//not quite the same as the native tooltip, but that's a minor issue that can be fixed later
 			darkContrastSwitch.onclick = function(){
 				if(!useScripts.reinaDarkEnable){
 					document.querySelector(".el-tooltip.theme-preview.dark").click();//fallback theme

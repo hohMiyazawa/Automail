@@ -225,7 +225,7 @@ exportModule({
 					.value = colour.value
 			);
 			create("br",false,false,notificationColour);
-			let resetAll = create("button",["hohButton","button"],"Reset all",notificationColour);
+			let resetAll = create("button",["hohButton","button"],translate("$button_resetAll"),notificationColour);
 			resetAll.onclick = function(){
 				useScripts.notificationColours = notificationColourDefaults;
 				useScripts.save();
@@ -257,12 +257,12 @@ exportModule({
 		let blockSettings = create("div");
 		let blockInstructions = create("p",false,false,blockSettings);
 		blockInstructions.innerText = `
-	Block stuff in the home feed.
+Block stuff in the home feed.
 
-	Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
-	Example2: To block a specific piece of media, fill out that field and leave the other two blank.
+Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
+Example2: To block a specific piece of media, fill out that field and leave the other two blank.
 
-	Changes take effect on reload.`;
+Changes take effect on reload.`;
 		let blockInput = create("div","#blockInput",false,blockSettings);
 		create("span",false,"User: ",blockInput);
 		let blockUserInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
@@ -320,7 +320,7 @@ exportModule({
 					if(blockItem.media){
 						create("span","hohBlockSpec","ID:" + blockItem.media,item)
 					}
-			});
+			})
 		};drawBlockList();
 		blockAddInput.onclick = function(){
 			let newBlock = {
@@ -438,7 +438,7 @@ exportModule({
 				//let newDescription = "[](json" + btoa(JSON.stringify(profileJson)) + ")" + (userObject.about.replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				let newDescription = "[](json" + LZString.compressToBase64(JSON.stringify(profileJson)) + ")" + ((userObject.about || "").replace(/^\[\]\(json([A-Za-z0-9+/=]+)\)/,""));
 				if(newDescription.length > 1e6){
-					alert("Custom CSS is over 1MB")
+					alert(translate("$cssTooBig"))
 				}
 				else{
 					useScripts.save();
@@ -647,12 +647,12 @@ query{
 					}
 				)
 				useScripts.save();
-				alert("settings imported!");
+				alert("settings imported!")
 			}
 			reader.onerror = function(evt){
 				alert("error reading file")
 			}
 		}
-		create("p",false,"(Hey, it would be nice if you include this file when you report bugs. Makes my life easier)",hohSettings);
+		create("p",false,translate("debug_tip"),hohSettings);
 	}
 })

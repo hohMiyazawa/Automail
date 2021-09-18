@@ -1,6 +1,6 @@
 exportModule({
 	id: "noScrollPosts",
-	description: "Display all status posts in full regardless of their length",
+	description: translate("$noScrollPosts_description"),
 	isDefault: false,
 	importance: -2,
 	categories: ["Feeds","Newly Added"],

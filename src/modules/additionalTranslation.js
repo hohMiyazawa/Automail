@@ -112,6 +112,7 @@ exportModule({
 							}
 						]
 					}
+					//see also: middleClickLinkFixer.js
 				]
 			},
 			{
