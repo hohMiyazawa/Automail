@@ -163,7 +163,7 @@ query ($id: Int, $type: LikeableType) {
 								setTimeout(function(){waitForAnilist(tries)},200);
 								return
 							}
-							for(let i=5;i<comment.likes.length;i++){
+							for(let i=userList.children.length;i<comment.likes.length;i++){
 								let newEle = userList.children[0].cloneNode();//to be up to date with those random attributes
 								newEle.href = "/user/" + comment.likes[i].name + "/";
 								newEle.style.backgroundImage = 'url("' + comment.likes[i].avatar.large + '")';
