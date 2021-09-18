@@ -211,7 +211,7 @@ exportModule({
 				{name:translate("$colour_yellow"),value:"rgb(247,191,99)"},
 				{name:translate("$colour_green"),value:"rgb(123,213,85)"}
 			];
-			create("p",false,"Notification Dot Colours",notificationColour);
+			create("p",false,translate("$settings_notificationDotColour"),notificationColour);
 			let nColourType = create("select",false,false,notificationColour);
 			let nColourValue = create("select",false,false,notificationColour);
 			let supressOption = createCheckbox(notificationColour);
@@ -402,7 +402,7 @@ Changes take effect on reload.`;
 		};
 		if(useScripts.customCSS && useScripts.accessToken){
 			let backgroundSettings = create("div",false,false,hohSettings);
-			create("p",false,"Add custom CSS to your profile. This will be visible to others.",backgroundSettings);
+			create("p",false,translate("$settings_CSSadd"),backgroundSettings);
 			let inputField = create("textarea",false,false,backgroundSettings,"width: 100%");
 			inputField.value = useScripts.customCSSValue;
 			if(inputField.value){
@@ -412,7 +412,7 @@ Changes take effect on reload.`;
 				inputField.rows = 4
 			}
 			create("br",false,false,backgroundSettings);
-			create("p",false,"(You can also use a direct link to a stylesheet)",backgroundSettings);
+			create("p",false,translate("$settings_CSSlinkTip"),backgroundSettings);
 			let backgroundChange = create("button",["hohButton","button"],translate("$button_submit"),backgroundSettings);
 			backgroundChange.onclick = function(){
 				useScripts.customCSSValue = inputField.value;
@@ -462,7 +462,7 @@ Changes take effect on reload.`;
 		};
 		if(useScripts.customCSS && useScripts.accessToken){
 			let pinSettings = create("div",false,false,hohSettings);
-			create("p",false,"Add a pinned activity to your profile",pinSettings);
+			create("p",false,translate("$settings_pinnedActivity"),pinSettings);
 			let inputField = create("input",false,false,pinSettings);
 			inputField.value = useScripts.pinned;
 			inputField.setAttribute("placeholder","activity link");
@@ -653,6 +653,6 @@ query{
 				alert("error reading file")
 			}
 		}
-		create("p",false,translate("debug_tip"),hohSettings);
+		create("p",false,translate("$debug_tip"),hohSettings);
 	}
 })

@@ -14,6 +14,7 @@
 "$profileBackground_help2": "Tip: Use a color with transparancy, to work better with both light and dark themes. Example:",
 "$compare_colourCell": "Color entire cell:",
 "$adjustColours_title": "Adjust Colors",
+"$settings_notificationDotColour": "Notification Dot Colors",
 "$submenu_favourites": "Favorites",
 "$MAL_serialization": "Serialization",
 "$compare_normalizeRatings": "Normalize ratings:"
