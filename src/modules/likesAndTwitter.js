@@ -169,6 +169,11 @@ query ($id: Int, $type: LikeableType) {
 								newEle.style.backgroundImage = 'url("' + comment.likes[i].avatar.large + '")';
 								userList.appendChild(newEle)
 							}
+							if(userList.children.length>comment.likes.length){
+								for(let i=comment.likes.length;i<userList.children.length;i++){
+									userList.children[i].remove();
+								}
+							}
 						};waitForAnilist(20);
 						return true
 					}
