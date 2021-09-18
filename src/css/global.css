@@ -1953,11 +1953,24 @@ body.TMPreviewScore > .el-tooltip__popper{
 	top: 0px;
 	cursor: pointer;
 }
-.anisongs p{
+.anisong-entry{
 	background: rgb(var(--color-foreground));
 	margin: 2px;
 	padding: 8px;
 	border-radius: 3px;
+}
+.anisongs .has-video {
+	cursor: pointer;
+	color: rgb(var(--color-text));
+}
+.anisongs .has-video:hover {
+	transition: .15s;
+	color: rgb(var(--color-blue));
+}
+.anisongs .anisong-entry video {
+	cursor: auto;
+	margin-top: 10px;
+	width: 39em;
 }
 .search .filter > .icon{
 	display: inline-block;

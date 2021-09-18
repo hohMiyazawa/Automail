@@ -32,6 +32,9 @@ function addRelationStatusDot(id){
 }`,
 		{id: id},
 		function(data){
+			if(!data){
+				return
+			}
 			let adder = function(){
 				let mangaAnimeMatch = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 				if(!mangaAnimeMatch){
