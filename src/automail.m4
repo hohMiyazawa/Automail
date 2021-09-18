@@ -90,3 +90,4 @@ m4_include(controller.js)
 m4_include(build/userModules.js)
 m4_include(HOWTO.js)
 })()
+//wanna translate Automail? https://github.com/hohMiyazawa/Automail/issues/69

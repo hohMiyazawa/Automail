@@ -107,6 +107,7 @@
 "$profileBackground_help1": "Set a profile background, examples:",
 "$profileBackground_help2": "Tip: Use a colour with transparancy, to work better with both light and dark themes. Example:",
 "$profileBackground_help3": "Tip2: Do you want a faded image, staying fixed in place, and filling the screen? This is how:",
+"$mediaStatus_current": "current",
 "$mediaStatus_watching": "watching",
 "$mediaStatus_reading": "reading",
 "$mediaStatus_completed": "completed",
@@ -264,6 +265,10 @@
 "$stats_ratingEntropy_comment": " bits/rating (higher number = more fine-grained ratings. Usually between 1 - 6)",
 "$stats_moreStats_title": "More Stats",
 "$stats_genresTags_title": "Genres & Tags",
+"$stats_genre": "Genre",
+"$stats_tag": "Tag",
+"$stats_count": "Cout",
+"$stats_name": "Name",
 "$stats_siteStats_title": "Site Stats",
 "$stats_anime_heading": "Anime stats for {0}",
 "$stats_manga_heading": "Manga stats for {0}",
@@ -369,6 +374,16 @@
 "$feedSelect_text": "Text Status",
 "$feedSelect_list": "List Progress",
 "$feedSelect_status": "Status",
-"$feedSelect_message": "Messages"
+"$feedSelect_message": "Messages",
+"$mediaFormat_TV" : "TV",
+"$mediaFormat_TV_SHORT" : "TV Short",
+"$mediaFormat_MOVIE" : "Movie",
+"$mediaFormat_SPECIAL" : "Special",
+"$mediaFormat_OVA" : "OVA",
+"$mediaFormat_ONA" : "ONA",
+"$mediaFormat_MUSIC" : "Music",
+"$mediaFormat_MANGA" : "Manga",
+"$mediaFormat_NOVEL" : "Light Novel",
+"$mediaFormat_ONE_SHOT" : "One Shot"
 	}
 }

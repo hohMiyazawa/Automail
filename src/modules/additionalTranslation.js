@@ -135,6 +135,14 @@ exportModule({
 						replacement: " " + translate("$feedSelect_list") + " "
 					},
 					{
+						lookup: ".feed-select .feed-type-toggle div:nth-child(1)",
+						replacement: "$filter_following"
+					},
+					{
+						lookup: ".feed-select .feed-type-toggle div:nth-child(2)",
+						replacement: "$terms_option_global"
+					},
+					{
 						lookup: ".list-preview-wrap .section-header h2",
 						multiple: [
 							{
@@ -148,6 +156,15 @@ exportModule({
 						]
 					}
 					//see also: middleClickLinkFixer.js
+				]
+			},
+			{
+				regex: /\/reviews\/?$/,
+				elements: [
+					{
+						lookup: ".load-more",
+						replacement: "$load_more"
+					}
 				]
 			},
 			{
@@ -174,5 +191,5 @@ exportModule({
 				})
 			}
 		})
-	},
+	}
 })

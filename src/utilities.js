@@ -509,6 +509,15 @@ m4_include(data/inlineSVG.json).forEach(inlineSVG => {
 	svgAssets2[inlineSVG.name] = svgShape(inlineSVG.shape.element,false,inlineSVG.shape.attributes,inlineSVG.shape.children,inlineSVG.shape.content)
 })
 
+const statusTypes = {
+	"COMPLETED" : translate("$mediaStatus_completed"),
+	"CURRENT"   : translate("$mediaStatus_current"),
+	"PAUSED"    : translate("$mediaStatus_paused"),
+	"DROPPED"   : translate("$mediaStatus_dropped"),
+	"PLANNING"  : translate("$mediaStatus_planning"),
+	"REPEATING" : translate("$mediaStatus_repeating")
+};
+
 const distributionColours = {
 	"COMPLETED" : "rgb(104, 214,  57)",
 	"CURRENT"   : "rgb(  2, 169, 255)",
@@ -519,16 +528,16 @@ const distributionColours = {
 };
 
 const distributionFormats = {
-	"TV" : "TV",
-	"TV_SHORT" : "TV Short",
-	"MOVIE" : "Movie",
-	"SPECIAL" : "Special",
-	"OVA" : "OVA",
-	"ONA" : "ONA",
-	"MUSIC" : "Music",
-	"MANGA" : "Manga",
-	"NOVEL" : "Light Novel",
-	"ONE_SHOT" : "One Shot"
+	"TV" : translate("$mediaFormat_TV"),
+	"TV_SHORT" : translate("$mediaFormat_TV_SHORT"),
+	"MOVIE" : translate("$mediaFormat_MOVIE"),
+	"SPECIAL" : translate("$mediaFormat_SPECIAL"),
+	"OVA" : translate("$mediaFormat_OVA"),
+	"ONA" : translate("$mediaFormat_ONA"),
+	"MUSIC" : translate("$mediaFormat_MUSIC"),
+	"MANGA" : translate("$mediaFormat_MANGA"),
+	"NOVEL" : translate("$mediaFormat_NOVEL"),
+	"ONE_SHOT" : translate("$mediaFormat_ONE_SHOT")
 };
 
 const distributionStatus = {

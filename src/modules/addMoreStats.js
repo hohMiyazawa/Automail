@@ -270,8 +270,8 @@ function addMoreStats(){
 					return
 				};
 				let columnTitle = create("div",false,heading,headerRow);
-				if(heading === "Tag" && !isTag && formatter.isMixed){
-					columnTitle.innerText = "Genre"
+				if((heading === "Tag" || heading === translate("$stats_tag")) && !isTag && formatter.isMixed){
+					columnTitle.innerText = translate("$stats_genre")
 				}
 				if(formatter.focus === indexAccumulator){
 					columnTitle.innerText += " ";
@@ -413,13 +413,10 @@ function addMoreStats(){
 				{
 					key : "name",
 					method : function(media){
-						if(useScripts.titleLanguage === "NATIVE" && media.media.title.native){
-							return media.media.title.native
-						}
-						else if(useScripts.titleLanguage === "ENGLISH" && media.media.title.english){
-							return media.media.title.english
-						}
-						return media.media.title.romaji
+						return titlePicker({
+							id: media.mediaId,
+							title: media.media.title
+						})
 					}
 				},{
 					key : "repeat",
@@ -465,7 +462,7 @@ function addMoreStats(){
 				title: "",
 				display: true,
 				isMixed: true,
-				headings: ["Tag","Count","Mean Score","Time Watched","Chapters Read"],
+				headings: [translate("$stats_tag"),translate("$stats_count"),"Mean Score","Time Watched","Chapters Read"],
 				focus: -1,
 				anime: true,
 				manga: true,
@@ -641,11 +638,11 @@ function addMoreStats(){
 					let statusFilter = {};
 					create("p",false,"Status",filters);
 					let statusLine = create("p","hohSetting",false,filters);
-					Object.keys(distributionColours).sort().forEach(key => {
+					Object.keys(statusTypes).sort().forEach(key => {
 						statusFilter[key] = true;
 						let input_status = createCheckbox(statusLine);
 						input_status.checked = true;
-						create("span",false,capitalize(key.toLowerCase()),statusLine,"margin-right: 20px");
+						create("span",false,capitalize(statusTypes[key]),statusLine,"margin-right: 20px");
 						input_status.onchange = function(){
 							statusFilter[key] = input_status.checked
 						}
@@ -1080,7 +1077,7 @@ function addMoreStats(){
 			let animeFormatter = {
 				title: "Custom Anime Tags",
 				display: !useScripts.hideCustomTags,
-				headings: ["Tag","Count","Mean Score","Time Watched","Episodes","Eps remaining"],
+				headings: [translate("$stats_tag"),translate("$stats_count"),"Mean Score","Time Watched","Episodes","Eps remaining"],
 				focus: -1,
 				celData: [
 					function(cel,data,index,isPrimary){
@@ -1208,16 +1205,10 @@ function addMoreStats(){
 				{
 					key : "name",
 					method : function(media){
-						if(aliases.has(media.mediaId)){
-							return aliases.get(media.mediaId)
-						}
-						if(useScripts.titleLanguage === "NATIVE" && media.media.title.native){
-							return media.media.title.native
-						}
-						else if(useScripts.titleLanguage === "ENGLISH" && media.media.title.english){
-							return media.media.title.english
-						};
-						return media.media.title.romaji
+						return titlePicker({
+							id: media.mediaId,
+							title: media.media.title
+						})
 					}
 				},{
 					key : "mediaId",
@@ -1337,8 +1328,8 @@ function addMoreStats(){
 					animeStaff.innerText = "";
 					let table        = create("div",["table","hohTable","hohNoPointer"],false,animeStaff);
 					let headerRow    = create("div",["header","row","good"],false,table);
-					let nameHeading  = create("div",false,"Name",headerRow,"cursor:pointer;");
-					let countHeading = create("div",false,"Count",headerRow,"cursor:pointer;");
+					let nameHeading  = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
+					let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
 					let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
 					if(!hasScores){
 						scoreHeading.style.display = "none"
@@ -1498,8 +1489,8 @@ function addMoreStats(){
 				animeStudios.innerText = "";
 				let table = create("div",["table","hohTable"],false,animeStudios);
 				let headerRow = create("div",["header","row","good"],false,table);
-				let nameHeading = create("div",false,"Name",headerRow,"cursor:pointer;");
-				let countHeading = create("div",false,"Count",headerRow,"cursor:pointer;");
+				let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
+				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
 				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
 				if(!hasScores){
 					scoreHeading.style.display = "none"
@@ -1947,7 +1938,7 @@ function addMoreStats(){
 			let mangaFormatter = {
 				title: "Custom Manga Tags",
 				display: !useScripts.hideCustomTags,
-				headings: ["Tag","Count","Mean Score","Chapters","Volumes"],
+				headings: [translate("$stats_tag"),translate("$stats_count"),"Mean Score","Chapters","Volumes"],
 				focus: -1,
 				celData: [
 					function(cel,data,index,isPrimary){
@@ -2052,16 +2043,10 @@ function addMoreStats(){
 				{
 					key : "name",
 					method : function(media){
-						if(aliases.has(media.mediaId)){
-							return aliases.get(media.mediaId)
-						}
-						if(useScripts.titleLanguage === "NATIVE" && media.media.title.native){
-							return media.media.title.native
-						}
-						else if(useScripts.titleLanguage === "ENGLISH" && media.media.title.english){
-							return media.media.title.english
-						}
-						return media.media.title.romaji
+						return titlePicker({
+							id: media.mediaId,
+							title: media.media.title
+						})
 					}
 				},{
 					key : "repeat",
@@ -2214,8 +2199,8 @@ function addMoreStats(){
 					}
 					let table = create("div",["table","hohTable","hohNoPointer"],false,mangaStaff);
 					let headerRow = create("div",["header","row","good"],false,table);
-					let nameHeading = create("div",false,"Name",headerRow,"cursor:pointer;");
-					let countHeading = create("div",false,"Count",headerRow,"cursor:pointer;");
+					let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
+					let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
 					let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
 					if(!hasScores){
 						scoreHeading.style.display = "none"

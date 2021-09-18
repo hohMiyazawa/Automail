@@ -16,6 +16,7 @@
 "$stats_siteStats_title": "Sijjien Deahpadimmieh",
 "$stats_longestTime": "{1} {0}% lea",
 "$stats_mostCommonScore": "Sïejhmemes: ",
+"$stats_name": "Nomme",
 "$settings_title": "Automailen bïjre",
 "$settings_version": "Versjovne: ",
 "$settings_homepage": "Gaskeviermesne: ",
@@ -48,6 +49,7 @@
 "$colour_peach": "Peersika",
 "$colour_orange": "Rööps-viskes",
 "$colour_yellow": "Viskes",
-"$colour_green": "Kruana"
+"$colour_green": "Kruana",
+"$mediaFormat_ONE_SHOT" : "Oktegh"
 	}
 }
