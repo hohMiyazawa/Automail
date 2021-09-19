@@ -14,9 +14,9 @@ Your contributions may still be accepted if you don't but there will be less cle
 
 4. If statements should always have curly brackets {}, even when trivial
 
-5. Ommit semicolons when possible
+5. Omit semicolons when possible
 
-6. Conditonals can be split over multiple lines for clarity
+6. Conditionals can be split over multiple lines for clarity
 
 --- example if statement, showing 1-6:
 
@@ -36,7 +36,7 @@ if(
 
 8. Make HTML elements with the "create" function.
 
-9. All usage of "innerHTML" should be avoided if possible, and if that's unavoidable, you MUST use DOMPurify.sanitize
+9. All usage of "innerHTML" should be avoided if possible (innerText, textContent), and if that's unavoidable, you MUST use DOMPurify.sanitize
 
 10. If you need some caching, use localForage
 
@@ -44,10 +44,10 @@ if(
 
 12. Don't import any external libraries. (see if you usecase can be covered by purify.js, localforage.js, anything in utilities.js, or src/utitilites/). Write it yourself if you really need it.
 
-13. Don't make any dependencies to Anilist's JS framework
+13. Avoid calling anilist code. (permitted, for opening the list editor: document.getElementById("app").__vue__.$store.dispatch("medialistEditor/open",mediaID) )
 
 14. All communication with the Anilist API must be done via the interfaces defined in src/graphql.js
 
 15. Joke comments are permitted.
 
-16. m4 and make are the only permitted pre-processing tools
+16. m4 and make are the only permitted pre-processing tools (Python scripts, using the standard library only, can be permitted)

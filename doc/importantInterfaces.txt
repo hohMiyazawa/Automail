@@ -1,7 +1,8 @@
 The "create" function
 Used to create new DOM elements
+documented in /src/utilities.js
 
-TODO: write documentation
+---
 
 graphql.js contains some important functions for interacting with the Anilist API
 
@@ -33,3 +34,9 @@ Current interfaces:
 	automailAPI.logOut
 		-- a function to make Automail forget its access token
 		-- the access token is still valid, and must be retracted from the apps permission page if you want to disable it entirely
+
+---
+
+All raw HTML (avoid if possible) must be sanitised.
+Do:
+DOMPurify.sanitize(yourHTML)
