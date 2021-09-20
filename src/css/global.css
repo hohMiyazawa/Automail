@@ -1758,6 +1758,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 .review .actions .icon:hover,.review .actions .icon.active{
 	opacity: 1;
 }
+.home .activity-entry .actions{
+	user-select: none;
+}
 .hohStaffPageData{
 	position: absolute;
 	right: 10px;
