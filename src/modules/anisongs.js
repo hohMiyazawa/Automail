@@ -227,10 +227,17 @@ class Videos {
       }
       return url
     }
+    if(videos) {
+      return entries.map((e, i) => {
+        return {
+          title: cleanTitle(e),
+          url: findUrl(i)
+        }
+      })
+    }
     return entries.map((e, i) => {
       return {
-        title: cleanTitle(e),
-        url: findUrl(i)
+        title: cleanTitle(e)
       }
     })
   }
