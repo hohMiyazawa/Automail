@@ -53,10 +53,7 @@ const API = {
     }
   },
   async getSongs(mal_id) {
-    const splitSongs = list => list.flatMap(e => e.split(/\#\d{1,2}\s/)).filter(e => e!=="")
     let {opening_themes, ending_themes} = await request(`https://api.jikan.moe/v3/anime/${mal_id}/`)
-    opening_themes = splitSongs(opening_themes)
-    ending_themes = splitSongs(ending_themes)
     return {opening_themes, ending_themes}
   },
   async getVideos(anilist_id) {
@@ -219,8 +216,11 @@ class Videos {
   }
 
   static merge(entries, videos) {
+    const cleanTitle = song => {
+      return song.replace(/^#\d{1,2}:\s/, "")
+    }
     const findUrl = n => {
-      let url = null;
+      let url;
       if(videos[n]) {
         url = videos[n].animethemeentries[0]?.videos[0]?.link
         if(url) url = url.replace(/staging\./, "")
@@ -229,7 +229,7 @@ class Videos {
     }
     return entries.map((e, i) => {
       return {
-        title: e,
+        title: cleanTitle(e),
         url: findUrl(i)
       }
     })
