@@ -518,6 +518,11 @@ const statusTypes = {
 	"REPEATING" : translate("$mediaStatus_repeating")
 };
 
+//semantic order, from "very positive", completed, to "very negative", dropped.
+//planning is a neutral in the middle.
+//repeating is kinda like a middle ground between current and completed
+const semmanticStatusOrder = ["COMPLETED","REPEATING","CURRENT","PLANNING","PAUSED","DROPPED"];
+
 const distributionColours = {
 	"COMPLETED" : "rgb(104, 214,  57)",
 	"CURRENT"   : "rgb(  2, 169, 255)",

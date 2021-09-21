@@ -701,11 +701,11 @@ let listRenderer = function(){
 			}
 		};
 		let statusList = create("span","#statusList",false,digestStats,"position: absolute;top: -2px;margin-left: 20px;width: 300px;");
-		Object.keys(distributionColours).sort().forEach(status => {
+		semmanticStatusOrder.forEach(status => {
 			if(distribution[status]){
-				let statusSumDot = create("div","hohSumableStatus",distribution[status],statusList,"cursor:pointer;");
+				let statusSumDot = create("div","hohSummableStatus",distribution[status],statusList);
 				statusSumDot.style.background = distributionColours[status];
-				let title = capitalize(status.toLowerCase());
+				let title = capitalize(translate("$mediaStatus_" + status.toLowerCase()));
 				if(status === "CURRENT" && !animeCurrentFlag){
 					title = "Reading"
 				}

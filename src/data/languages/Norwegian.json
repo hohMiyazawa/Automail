@@ -184,6 +184,7 @@
 "$notifications_softBlock": "Mjukblokk",
 "$setting_CSSgreenManga": "Grøne mangatitlar",
 "$mediaStatus_reading": "les",
+"$mediaStatus_watching": "ser",
 "$mediaStatus_dropped": "droppa",
 "$mediaStatus_paused": "pausa",
 "$listActivity_MreadChapter": "las kapittel {0} av ",

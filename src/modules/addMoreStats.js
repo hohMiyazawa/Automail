@@ -490,10 +490,10 @@ function addMoreStats(){
 							if(tagDescriptions[data[index].name]){
 								nameCellTag.title = tagDescriptions[data[index].name]
 							}
-							let nameCellStatus = create("span","hohSumableStatusContainer",false,cel);
-							Object.keys(distributionColours).sort().forEach(function(status){
+							let nameCellStatus = create("span","hohSummableStatusContainer",false,cel);
+							semmanticStatusOrder.forEach(function(status){
 								if(data[index].status[status]){
-									let statusSumDot = create("div","hohSumableStatus",data[index].status[status],nameCellStatus);
+									let statusSumDot = create("div","hohSummableStatus",data[index].status[status],nameCellStatus);
 									statusSumDot.style.background = distributionColours[status];
 									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
 									if(data[index].status[status] > 99){
@@ -1084,10 +1084,10 @@ function addMoreStats(){
 						if(isPrimary){
 							let nameCellCount = create("div","count",(index+1),cel);
 							let nameCellTag = create("a",false,data[index].name,cel,"cursor:pointer;");
-							let nameCellStatus = create("span","hohSumableStatusContainer",false,cel);
-							Object.keys(distributionColours).sort().forEach(function(status){
+							let nameCellStatus = create("span","hohSummableStatusContainer",false,cel);
+							semmanticStatusOrder.forEach(function(status){
 								if(data[index].status && data[index].status[status]){
-									let statusSumDot = create("div","hohSumableStatus",data[index].status[status],nameCellStatus);
+									let statusSumDot = create("div","hohSummableStatus",data[index].status[status],nameCellStatus);
 									statusSumDot.style.background = distributionColours[status];
 									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
 									if(data[index].status[status] > 99){
@@ -1504,11 +1504,11 @@ function addMoreStats(){
 					if(!studio.isAnimationStudio){
 						studioLink.style.color = "rgb(var(--color-green))"
 					};
-					let nameCellStatus = create("span","hohSumableStatusContainer",false,nameCel);
-					Object.keys(distributionColours).sort().forEach(status => {
+					let nameCellStatus = create("span","hohSummableStatusContainer",false,nameCel);
+					semmanticStatusOrder.forEach(status => {
 						let statCount = studio.media.filter(media => media.status === status).length;
 						if(statCount){
-							let statusSumDot = create("div","hohSumableStatus",statCount,nameCellStatus);
+							let statusSumDot = create("div","hohSummableStatus",statCount,nameCellStatus);
 							statusSumDot.style.background = distributionColours[status];
 							statusSumDot.title = statCount + " " + capitalize(status.toLowerCase());
 							if(statCount > 99){
@@ -1945,10 +1945,10 @@ function addMoreStats(){
 						if(isPrimary){
 							let nameCellCount = create("div","count",(index+1),cel);
 							create("a",false,data[index].name,cel,"cursor:pointer;");
-							let nameCellStatus = create("span","hohSumableStatusContainer",false,cel);
-							Object.keys(distributionColours).sort().forEach(function(status){
+							let nameCellStatus = create("span","hohSummableStatusContainer",false,cel);
+							semmanticStatusOrder.forEach(function(status){
 								if(data[index].status && data[index].status[status]){
-									let statusSumDot = create("div","hohSumableStatus",data[index].status[status],nameCellStatus);
+									let statusSumDot = create("div","hohSummableStatus",data[index].status[status],nameCellStatus);
 									statusSumDot.style.background = distributionColours[status];
 									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
 									if(data[index].status[status] > 99){

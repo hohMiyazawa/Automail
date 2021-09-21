@@ -292,11 +292,11 @@ function enhanceSocialTab(){
 		}
 		removeChildren(statusList);
 		let sortStatus = "";
-		Object.keys(distributionColours).sort().forEach(status => {
+		semmanticStatusOrder.forEach(status => {
 			if(distribution[status]){
-				let statusSumDot = create("div","hohSumableStatus",distribution[status],statusList,"cursor:pointer;");
+				let statusSumDot = create("div","hohSummableStatus",distribution[status],statusList);
 				statusSumDot.style.background = distributionColours[status];
-				statusSumDot.title = distribution[status] + " " + capitalize(status.toLowerCase());
+				statusSumDot.title = distribution[status] + " " + capitalize(translate("$mediaStatus_" + status.toLowerCase()));
 				if(distribution[status] > 99){
 					statusSumDot.style.fontSize = "8px"
 				}

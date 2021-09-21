@@ -762,10 +762,10 @@ select{
 	content: "";
 	margin-left: 5px;
 }
-.hohSumableStatusContainer{
+.hohSummableStatusContainer{
 	float: right;
 }
-.hohSumableStatus{
+.hohSummableStatus{
 	width: 16px;
 	height: 16px;
 	text-align: center;
@@ -776,6 +776,7 @@ select{
 	font-size: 10px;
 	display: inline-block;
 	margin-left: 2px;
+	cursor: pointer;
 }
 .relations.small > div{
 	margin-left: 5px;
@@ -994,7 +995,7 @@ meter::-moz-meter-bar{
 	min-width: 20px;
 	font-size: 70%;
 }
-.hohTable .hohSumableStatusContainer{
+.hohTable .hohSummableStatusContainer{
 	margin-right: 8px;
 }
 .hohTable .header.row{
