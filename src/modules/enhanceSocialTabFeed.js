@@ -84,6 +84,9 @@ function enhanceSocialTabFeed(){
 									else if(act.status === "reread chapter" && act.progress){
 										status.innerText = translate("$listActivity_MrepeatingManga",act.progress)
 									}
+									else if(act.status === "dropped" && act.progress){
+										status.innerText = " " + translate("$listActivity_MdroppedManga",act.progress)
+									}
 									else if(act.status === "completed"){
 										status.innerText = translate("$listActivity_completedManga")
 									}
@@ -103,6 +106,9 @@ function enhanceSocialTabFeed(){
 									}
 									else if(act.status === "rewatched episode" && act.progress){
 										status.innerText = translate("$listActivity_MrepeatingAnime",act.progress)
+									}
+									else if(act.status === "dropped" && act.progress){
+										status.innerText = " " + translate("$listActivity_MdroppedAnime",act.progress)
 									}
 									else if(act.status === "completed"){
 										status.innerText = translate("$listActivity_completedAnime")

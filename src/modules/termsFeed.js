@@ -583,23 +583,69 @@ let buildPage = function(activities,type,requestTime){
 			actions.style.bottom = "4px";
 		}
 		else{
-			status = create("span",false," " + activity.status,content);
+			status = create("span",false," " + activity.status + " ",content);
 			if(activity.progress){
-				create("span",false," " + activity.progress + " of",content);
+				status.innerText += " " + activity.progress + " of "
 			};
+			if(activity.media.type === "MANGA"){
+				if(activity.status === "read chapter" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MreadChapter",activity.progress)
+				}
+				else if(activity.status === "reread chapter" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MrepeatingManga",activity.progress)
+				}
+				else if(activity.status === "dropped" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MdroppedManga",activity.progress)
+				}
+				else if(activity.status === "completed"){
+					status.innerText = " " + translate("$listActivity_completedManga")
+				}
+				else if(activity.status === "plans to read"){
+					status.innerText = " " + translate("$listActivity_planningManga")
+				}
+				else if(activity.status === "paused reading"){
+					status.innerText = " " + translate("$listActivity_pausedManga")
+				}
+				else{
+					console.warn("Missing listActivity translation key for:",activity.status)
+				}
+			}
+			else{
+				if(activity.status === "watched episode" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MwatchedEpisode",activity.progress)
+				}
+				else if(activity.status === "rewatched episode" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MrepeatingAnime",activity.progress)
+				}
+				else if(activity.status === "dropped" && activity.progress){
+					status.innerText = " " + translate("$listActivity_MdroppedAnime",activity.progress)
+				}
+				else if(activity.status === "completed"){
+					status.innerText = " " + translate("$listActivity_completedAnime")
+				}
+				else if(activity.status === "plans to watch"){
+					status.innerText = " " + translate("$listActivity_planningAnime")
+				}
+				else if(activity.status === "paused watching"){
+					status.innerText = " " + translate("$listActivity_pausedAnime")
+				}
+				else{
+					console.warn("Missing listActivity translation key for:",activity.status)
+				}
+			}
 			let title = activity.media.title.romaji;
 			if(useScripts.titleLanguage === "NATIVE" && activity.media.title.native){
-				title = activity.media.title.native;
+				title = activity.media.title.native
 			}
 			else if(useScripts.titleLanguage === "ENGLISH" && activity.media.title.english){
-				title = activity.media.title.english;
+				title = activity.media.title.english
 			};
 			dataMedia.add(title);
 			title = titlePicker(activity.media);
-			let media = create("a",["link","newTab"]," " + title,content);
+			let media = create("a",["link","newTab"],title,content);
 			media.href = "/" + activity.media.type.toLowerCase() + "/" + activity.media.id + "/" + safeURL(title) + "/";
 			if(activity.media.type === "MANGA" && useScripts.CSSgreenManga){
-				media.style.color = "rgb(var(--color-green))";
+				media.style.color = "rgb(var(--color-green))"
 			};
 			act.classList.add("list");
 			actions.style.right = "21px";
@@ -636,7 +682,7 @@ let buildPage = function(activities,type,requestTime){
 				else{
 					act.style.borderLeftWidth = "3px";
 					act.style.marginLeft = "-2px";
-					act.style.borderLeftColor = distributionColours[status];
+					act.style.borderLeftColor = distributionColours[status]
 				}
 			}
 		};
@@ -680,13 +726,13 @@ let buildPage = function(activities,type,requestTime){
 	removeChildren(dataUsersList)
 	dataUsers.forEach(user => {
 		create("option",false,false,dataUsersList)
-			.value = user;
+			.value = user
 	});
 	removeChildren(dataMediaList)
 	dataMedia.forEach(media => {
 		create("option",false,false,dataMediaList)
-			.value = media;
-	});
+			.value = media
+	})
 };
 let requestPage = function(npage,userID){
 	page = npage;
@@ -744,9 +790,9 @@ Viewer{unreadNotificationCount}
 					thread.text = "<h2>" + thread.title + "</h2>" + thread.text;
 					return thread
 				}).filter(thread => thread.replyCount || !onlyReplies.checked),"thread",requestTime);
-				handleNotifications(data);
+				handleNotifications(data)
 			}
-		);
+		)
 	}
 	else if(onlyReviews.checked){
 		authAPIcall(
@@ -791,7 +837,7 @@ Viewer{unreadNotificationCount}
 				}),"review",requestTime);
 				handleNotifications(data)
 			}
-		);
+		)
 	}
 	else{
 		authAPIcall(
@@ -863,7 +909,7 @@ Viewer{unreadNotificationCount}
 				buildPage(data.data.Page.activities,"activity",requestTime);
 				handleNotifications(data)
 			}
-		);
+		)
 	}
 };
 requestPage(page);
@@ -1050,7 +1096,7 @@ onlyMediaInput.onblur = function(){
 					if(index === 0){
 						result.classList.add("selected");
 						onlyMediaResult.id = media.id;
-						onlyMediaResult.type = media.type;
+						onlyMediaResult.type = media.type
 					}
 					result.onclick = function(){
 						mediaDisplayResults.querySelector(".selected").classList.toggle("selected");
@@ -1060,18 +1106,18 @@ onlyMediaInput.onblur = function(){
 						onlyMedia.checked = true;
 						onlyStatus.checked = false;
 						loading.innerText = translate("$loading");
-						requestPage(1);
+						requestPage(1)
 					}
 				});
 				if(data.data.Page.media.length){
 					onlyMedia.checked = true;
 					onlyStatus.checked = false;
 					loading.innerText = translate("$loading");
-					requestPage(1);
+					requestPage(1)
 				}
 				else{
 					create("span",false,translate("$noResults"),mediaDisplayResults);
-					onlyMediaResult.id = false;
+					onlyMediaResult.id = false
 				}
 			}
 		)
@@ -1146,26 +1192,21 @@ publishButton.onclick = function(){
 	}
 	else if(onlySpecificActivity){
 		loading.innerText = "Publishing...";
+		let mutation;
 		if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
-			authAPIcall(
-				"mutation($text: String,$id: Int){SaveMessageActivity(id: $id,message: $text){id}}",
-				{text: inputArea.value,id: onlySpecificActivity},
-				function(data){
-					onlySpecificActivity = false;
-					requestPage(1);
-				}
-			)
+			mutation = "mutation($text: String,$id: Int){SaveMessageActivity(id: $id,message: $text){id}}"
 		}
 		else{
-			authAPIcall(
-				"mutation($text: String,$id: Int){SaveTextActivity(id: $id,text: $text){id}}",
-				{text: inputArea.value,id: onlySpecificActivity},
-				function(data){
-					onlySpecificActivity = false;
-					requestPage(1);
-				}
-			)
+			mutation = "mutation($text: String,$id: Int){SaveTextActivity(id: $id,text: $text){id}}"
 		}
+		authAPIcall(
+			mutation,
+			{text: inputArea.value,id: onlySpecificActivity},
+			function(data){
+				onlySpecificActivity = false;
+				requestPage(1)
+			}
+		)
 	}
 	else if(onlyUser.checked && onlyUserInput.value && onlyUserInput.value.toLowerCase() !== whoAmI.toLowerCase()){
 		loading.innerText = "Sending Message...";
@@ -1178,14 +1219,14 @@ publishButton.onclick = function(){
 						recipientId: data.data.User.id
 					},
 					function(data){
-						requestPage(1);
+						requestPage(1)
 					}
 				)
 			}
 			else{
-				loading.innerText = "Not Found";
+				loading.innerText = "Not Found"
 			}
-		},"hohIDlookup" + onlyUserInput.value.toLowerCase());
+		},"hohIDlookup" + onlyUserInput.value.toLowerCase())
 	}
 	else{
 		loading.innerText = "Publishing...";
@@ -1264,7 +1305,7 @@ let buildPreview = function(data){
 								data => {}
 							)
 						};
-						mediaEntry.style.backgroundColor = "rgba(0,200,0,0.1)";
+						mediaEntry.style.backgroundColor = "rgba(0,200,0,0.1)"
 					}
 					else{
 						authAPIcall(
@@ -1273,9 +1314,9 @@ let buildPreview = function(data){
 							}`,
 							{id: mediaList.id,progress: mediaList.progress},
 							data => {}
-						);
+						)
 					}
-					localStorage.setItem("hohListPreview",JSON.stringify(data));
+					localStorage.setItem("hohListPreview",JSON.stringify(data))
 				}
 			}
 			else{
@@ -1292,7 +1333,7 @@ let buildPreview = function(data){
 					{id: mediaList.id,progress: mediaList.progress},
 					data => {}
 				);
-				localStorage.setItem("hohListPreview",JSON.stringify(data));
+				localStorage.setItem("hohListPreview",JSON.stringify(data))
 			};
 			e.stopPropagation();
 			e.preventDefault();
@@ -1320,9 +1361,9 @@ authAPIcall(
 		}
 	}`,{name: whoAmI},function(data){
 		localStorage.setItem("hohListPreview",JSON.stringify(data));
-		buildPreview(data,true);
+		buildPreview(data,true)
 	}
 );
-buildPreview(JSON.parse(localStorage.getItem("hohListPreview")),false);
+buildPreview(JSON.parse(localStorage.getItem("hohListPreview")),false)
 }
 })
