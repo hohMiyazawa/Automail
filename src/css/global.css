@@ -1766,6 +1766,17 @@ body.TMPreviewScore > .el-tooltip__popper{
 	right: 10px;
 	top: 40%;
 }
+.hohSocialFeed .load-more{
+	display: none;
+	background: rgb(var(--color-foreground));
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1.4rem;
+	margin-top: 20px;
+	padding: 14px;
+	text-align: center;
+	transition: .2s;
+}
 .recent-recommendations > .header-wrap{
 	grid-template-columns: 330px 0 auto;
 	justify-content: space-between;
