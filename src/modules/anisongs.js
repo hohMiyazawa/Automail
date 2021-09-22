@@ -12,7 +12,7 @@ exportModule({
 	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
-		return ["anime","manga"].includes(window.location.pathname.split("/")[1])
+    return /^https:\/\/anilist\.co\/(anime|manga)\/[0-9]+\/.*/.test(url)
 	},
 	code: function(){
 const options = {
@@ -243,10 +243,10 @@ class Videos {
   }
 }
 
-let currentpath = window.location.pathname.split("/");
+let currentpath = location.pathname.match(/(anime|manga)\/([0-9]+)\/[^\/]*\/?(.*)/)
 if(currentpath[1] === "anime") {
 	let currentid = currentpath[2];
-	let location = currentpath.pop();
+	let location = currentpath[3];
 	if(location !== ""){
 		anisongs_temp.last = 0
 	}
