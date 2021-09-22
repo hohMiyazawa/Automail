@@ -57,12 +57,7 @@ const API = {
     return {opening_themes, ending_themes}
   },
   async getVideos(anilist_id) {
-    const res = await request(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
-    if(res.anime.length === 0){
-      return null
-    } else {
-      return res.anime[0];
-    }
+    return request(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
   }
 }
 
@@ -201,8 +196,11 @@ class Videos {
   }
 
   async get() {
-    const {animethemes} = await API.getVideos(this.id);
-    return Videos.groupTypes(animethemes)
+    const {anime} = await API.getVideos(this.id);
+    if(anime.length === 0){
+      return {"OP":[], "ED":[]}
+    }
+    return Videos.groupTypes(anime[0].animethemes)
   }
 
   static groupTypes(songs) {
