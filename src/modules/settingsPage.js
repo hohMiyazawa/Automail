@@ -374,7 +374,7 @@ Changes take effect on reload.`;
 							profileJson = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
 						}
 						catch(e){
-							console.warn("Invalid profile JSON")
+							console.warn(translate("$settings_errorInvalidJSON"))
 						}
 					}
 				}
@@ -427,7 +427,7 @@ Changes take effect on reload.`;
 							profileJson = JSON.parse(LZString.decompressFromBase64(jsonMatch[1]))
 						}
 						catch(e){
-							console.warn("Invalid profile JSON")
+							console.warn(translate("$settings_errorInvalidJSON"))
 						}
 					}
 				}
@@ -483,7 +483,7 @@ Changes take effect on reload.`;
 						}
 					}
 					if(!activityID){
-						alert("must be a direct link to an activity or an activity ID");
+						alert(translate("$settings_errorInvalidActivity"));
 						hohSpinner.innerText = svgAssets.cross;
 						hohSpinner.classList.add("spinnerError");
 						hohSpinner.classList.remove("spinnerLoading");
@@ -512,7 +512,7 @@ query{
 								hohSpinner.classList.add("spinnerError");
 								hohSpinner.classList.remove("spinnerLoading");
 								hohSpinner.classList.remove("spinnerDone");
-								alert("activity not found!")
+								alert(translate("$settings_errorInvalidActivity"))
 							}
 						}
 					)
@@ -535,7 +535,7 @@ query{
 							hohSpinner.innerText = svgAssets.cross;
 							hohSpinner.classList.add("spinnerError");
 							hohSpinner.classList.remove("spinnerLoading");
-							console.warn("Invalid profile JSON");
+							console.warn(translate("$settings_errorInvalidJSON"));
 							return
 						}
 					}
@@ -549,7 +549,7 @@ query{
 					hohSpinner.innerText = svgAssets.cross;
 					hohSpinner.classList.add("spinnerError");
 					hohSpinner.classList.remove("spinnerLoading");
-					alert("Profile JSON is over 1MB")
+					alert(translate("$jsonTooBig"))
 				}
 				else{
 					useScripts.save();
@@ -587,7 +587,7 @@ query{
 			window.location.reload(false);
 		}
 		create("hr","hohSeparator",false,hohSettings);
-		let loginURL = create("a",false,"Sign in with the script",hohSettings,"font-size: x-large;");
+		let loginURL = create("a",false,translate("$terms_signin_link"),hohSettings,"font-size: x-large;");
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
 		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
