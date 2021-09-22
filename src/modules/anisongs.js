@@ -12,7 +12,7 @@ exportModule({
 	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
-		return ["anime","manga"].includes(window.location.pathname.split("/")[1])
+    return /^https:\/\/anilist\.co\/(anime|manga)\/[0-9]+\/.*/.test(url)
 	},
 	code: function(){
 const options = {
@@ -53,11 +53,11 @@ const API = {
     }
   },
   async getSongs(mal_id) {
-    const splitSongs = list => list.flatMap(e => e.split(/\#\d{1,2}\s/)).filter(e => e!=="")
     let {opening_themes, ending_themes} = await request(`https://api.jikan.moe/v3/anime/${mal_id}/`)
-    opening_themes = splitSongs(opening_themes)
-    ending_themes = splitSongs(ending_themes)
     return {opening_themes, ending_themes}
+  },
+  async getVideos(anilist_id) {
+    return request(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
   }
 }
 
@@ -160,14 +160,14 @@ async function launch(currentid) {
   const cache = await Cache.get(currentid) || {time: 0};
   const TTLpassed = TTLpassedCheck(cache.time, options.cacheTTL);
   if (TTLpassed) {
-    const {mal_id, year, status} = await API.getMedia(currentid);
+    const {mal_id, status} = await API.getMedia(currentid);
     if (mal_id) {
       let {opening_themes, ending_themes} = await API.getSongs(mal_id);
       // add songs to cache if they're not empty and query videos
       if (opening_themes.length || ending_themes.length) {
         if (["FINISHED", "RELEASING"].includes(status)) {
           try {
-            const _videos = await new Videos(year, mal_id).get()
+            const _videos = await new Videos(currentid).get()
             opening_themes = Videos.merge(opening_themes, _videos.OP)
             ending_themes = Videos.merge(ending_themes, _videos.ED)
           }
@@ -191,66 +191,16 @@ async function launch(currentid) {
 }
 
 class Videos {
-  constructor(year, id_mal) {
-    this.year = this.parseYear(year)
-    this.URL = `https://www.reddit.com/r/AnimeThemes/wiki/${this.year}.json`;
-    this.id_mal = id_mal
+  constructor(id) {
+    this.id = id
   }
 
   async get() {
-    const cache_name = `cache${this.year}`
-    const cached = await Cache.get(cache_name)
-    const makepromise = async v => v // small hack because things
-    if (cached && !TTLpassedCheck(cached.time, options.cacheTTL)) {
-      console.log("Anisongs: used videos cache")
-      return makepromise(cached.html)
-        .then(cache => Videos.find(cache, this.id_mal))
-        .then(Videos.groupTypes)
+    const {anime} = await API.getVideos(this.id);
+    if(anime.length === 0){
+      return {"OP":[], "ED":[]}
     }
-    else {
-      return request(this.URL)
-        .then(Videos.parseResponse)
-        .then(html => Cache.add(cache_name, {html, time: +new Date()}))
-        .then(cache => cache.html)
-        .then(html => Videos.find(html, this.id_mal))
-        .then(Videos.groupTypes)
-    }
-  }
-
-  parseYear(year) {
-    if (year > 1999) {
-      return year
-    }
-    else {
-      return `${year.toString()[2]}0s`
-    }
-  }
-
-  static parseResponse(data) {
-    const html = data.data.content_html
-      .replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&quot;/g, "\"")
-    return html
-  }
-
-  static find(html_str, mal_id) {
-    const html = new DOMParser().parseFromString(html_str, "text/html")
-    const findTable = el => el.nodeName === "TABLE" ? el : findTable(el.nextElementSibling),
-          url_el = html.querySelector(`a[href='https://myanimelist.net/anime/${mal_id}/']`),
-          table = findTable(url_el.parentNode.nextElementSibling),
-          entries = [...table.children[1].children]
-    return entries.map(Videos.parseSong).filter(e => e)
-  }
-
-  static parseSong(entry) {
-    const cells = [...entry.cells]
-    if (cells[0].innerText === "") return null
-    const url = cells[1].children.length ? cells[1].children[0].href : null
-    let [_, type, n] = cells[0].innerText.match(/(OP|ED)(\d*)/)
-    n = n!=="" ? parseInt(n) : 1
-    return {type, n, url}
+    return Videos.groupTypes(anime[0].animethemes)
   }
 
   static groupTypes(songs) {
@@ -264,23 +214,37 @@ class Videos {
   }
 
   static merge(entries, videos) {
+    const cleanTitle = song => {
+      return song.replace(/^#\d{1,2}:\s/, "")
+    }
     const findUrl = n => {
-      const found = videos.find(e => e.n == n+1)
-      return found ? found.url : null
+      let url;
+      if(videos[n]) {
+        url = videos[n].animethemeentries[0]?.videos[0]?.link
+        if(url) url = url.replace(/staging\./, "")
+      }
+      return url
+    }
+    if(videos) {
+      return entries.map((e, i) => {
+        return {
+          title: cleanTitle(e),
+          url: findUrl(i)
+        }
+      })
     }
     return entries.map((e, i) => {
       return {
-        title: e,
-        url: findUrl(i)
+        title: cleanTitle(e)
       }
     })
   }
 }
 
-let currentpath = window.location.pathname.split("/");
+let currentpath = location.pathname.match(/(anime|manga)\/([0-9]+)\/[^\/]*\/?(.*)/)
 if(currentpath[1] === "anime") {
 	let currentid = currentpath[2];
-	let location = currentpath.pop();
+	let location = currentpath[3];
 	if(location !== ""){
 		anisongs_temp.last = 0
 	}
