@@ -16,14 +16,9 @@ exportModule({
 	},
 	code: function(){
 const options = {
-  cacheName: 'anison', // name in localstorage
   cacheTTL: 604800000, // 1 week in ms
   class: 'anisongs', // container class
 }
-
-localforage.config({
-    name: 'Anisongs'
-})
 
 const Cache = {
   async add(key, value) {
