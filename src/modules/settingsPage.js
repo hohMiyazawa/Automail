@@ -403,7 +403,7 @@ Changes take effect on reload.`;
 		if(useScripts.customCSS && useScripts.accessToken){
 			let backgroundSettings = create("div",false,false,hohSettings);
 			create("p",false,translate("$settings_CSSadd"),backgroundSettings);
-			let inputField = create("textarea",false,false,backgroundSettings,"width: 100%");
+			let inputField = create("textarea",false,false,backgroundSettings,"width: 100%;scrollbar-width: auto;");
 			inputField.value = useScripts.customCSSValue;
 			if(inputField.value){
 				inputField.rows = 10
