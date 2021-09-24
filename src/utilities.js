@@ -310,13 +310,13 @@ function csvEscape(string){
 }
 
 function entityUnescape(string){
-	return string.replace(/&amp;/g,"&")
-		.replace(/&lt;/g,"<")
+	return string.replace(/&lt;/g,"<")
 		.replace(/&gt;/g,">")
 		.replace(/&quot;/g,"\"")
 		.replace(/&#039;/g,"'")
 		.replace(/<br\s?\/?>\n?/g,"\n")
 		.replace(/&nbsp;/g," ")//not a nbsp, but close enough in most cases. Better than the raw entity at least
+		.replace(/&amp;/g,"&")
 }
 
 //https://stackoverflow.com/a/7616484/5697837
