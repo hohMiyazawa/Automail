@@ -425,7 +425,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 			handleData(null,error);
 			return
 		};
-		console.error(error,variables);
+		console.error({error: error,variables: variables});
 		handleData(null,error)
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
