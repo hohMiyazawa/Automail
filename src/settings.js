@@ -100,7 +100,6 @@ let useScripts = {
 	pinned: "",
 	negativeCustomList: false,
 	globalCustomList: false,
-	dblclickZoom: false,
 	betterListPreview: false,
 	homeScroll: true,
 	blockWordValue: "nsfw",

@@ -372,6 +372,8 @@
 "$forumComments_description": "Add a button to collapse comment threads in the forum",
 "$mangaBrowse_description": "Make browse default to manga",
 "$tagDescriptions_description": "Show the definitions of tags when adding new ones to an entry",
+"$dblclickZoom_description": "Double click activities to zoom",
+"$dblclickZoom_extendedDescription": "There are likely better browser accesibility addons for this.",
 "$staff_animeRoles": "Anime Staff Roles",
 "$staff_mangaRoles": "Manga Staff Roles",
 "$staff_voiceRoles": "Character Voice Roles",

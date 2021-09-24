@@ -1133,16 +1133,6 @@ meter::-moz-meter-bar{
 
 m4_include(css/termsFeed.css)
 
-.hohZoom{
-	transform: scale(1.5);
-	transform-origin: 0 0;
-	transition: transform 0.4s;
-	z-index: 200;
-	box-shadow: 5px 5px 5px black;
-}
-.hohZoom .reply-wrap{
-	background: rgb(var(--color-background));
-}
 .hohTable.hohNoPointer .row,
 .hohNoPointer{
 	cursor: unset;
