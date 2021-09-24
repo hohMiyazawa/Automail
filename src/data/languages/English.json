@@ -310,6 +310,7 @@
 "$stats_longest_1rewatchDropped": "Dropped on first rewatch.",
 "$stats_longest_2rewatchDropped": "Dropped on second rewatch.",
 "$stats_longest_MrewatchDropped": "Dropped on rewatch number {0}.",
+"$characterBrowseTooltip": "Favourites",
 "$make3x3": "Make 3x3",
 "$make3x3_title": "Click this button, then 9 entries on your list",
 "$forum_preview_reply": "replied ",

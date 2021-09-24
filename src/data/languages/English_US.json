@@ -16,6 +16,7 @@
 "$adjustColours_title": "Adjust Colors",
 "$settings_notificationDotColour": "Notification Dot Colors",
 "$submenu_favourites": "Favorites",
+"$characterBrowseTooltip": "Favorites",
 "$MAL_serialization": "Serialization",
 "$compare_normalizeRatings": "Normalize ratings:"
 	}

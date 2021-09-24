@@ -35,7 +35,6 @@ let useScripts = {
 	tagDescriptions: true,
 	completedScore: true,
 	droppedScore: false,
-	characterFavouriteCount: true,
 	studioFavouriteCount: true,
 	CSSfavs: true,
 	CSScompactBrowse: true,

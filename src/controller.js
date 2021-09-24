@@ -201,12 +201,7 @@ function handleScripts(url,oldUrl){
 			})
 		}
 	}
-	if(url.match(/^https:\/\/anilist\.co\/search\/characters/)){
-		if(useScripts.characterFavouriteCount){
-			enhanceCharacterBrowse()
-		}
-	}
-	else if(url.match(/^https:\/\/anilist\.co\/search\/staff/)){
+	if(url.match(/^https:\/\/anilist\.co\/search\/staff/)){
 		if(useScripts.staffPages){
 			enhanceStaffBrowse()
 		}
@@ -343,9 +338,6 @@ function handleScripts(url,oldUrl){
 		};
 		if(useScripts.noImagePolyfill || useScripts.SFWmode){
 			addImageFallback()
-		};
-		if(useScripts.dblclickZoom){
-			addDblclickZoom()
 		};
 		if(useScripts.hideGlobalFeed){
 			hideGlobalFeed()

@@ -301,6 +301,7 @@
 "$milestones_totalEpisodes": "Episodar",
 "$milestones_daysWatched": "{0} dagar sett",
 "$milestones_chaptersRead": "{0} kapittel lese",
+"$characterBrowseTooltip": "Favorittar",
 "$make3x3": "Lag 3x3",
 "$make3x3_title": "Klikk knappen, og så 9 ting på lista",
 "$myThreads_link": "Mine Trådar",
