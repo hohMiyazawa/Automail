@@ -210,7 +210,7 @@ class Videos {
 
   static merge(entries, videos) {
     const cleanTitle = song => {
-      return song.replace(/^#\d{1,2}:\s/, "")
+      return song.replace(/^\d{1,2}:/, "")
     }
     const findUrl = n => {
       let url;
