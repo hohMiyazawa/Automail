@@ -32,43 +32,20 @@ const Cache = {
 
 const API = {
   async getMedia(id) {
-    const query = "query($id:Int){Media(id:$id){idMal startDate{year} status}}",
-          vars = {id}
-    const resp = await request("https://graphql.anilist.co", {
-      method: "POST",
-      body: JSON.stringify({query: query, variables: vars}),
-    })
-    try {
-      const {idMal, startDate, status} = resp.data.Media
-      return {mal_id: idMal, year: startDate.year, status}
-    }
-    catch(e) {
-      console.log("Anisongs: Error getting malId")
-      return null
-    }
+    return new Promise((resolve, reject) => {
+      generalAPIcall("query($id:Int){Media(id:$id){idMal status}}", {id}, ({data}) => {
+        resolve(data.Media)
+      })
+    });
   },
   async getSongs(mal_id) {
-    let {opening_themes, ending_themes} = await request(`https://api.jikan.moe/v3/anime/${mal_id}/`)
-    return {opening_themes, ending_themes}
+    const res = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}`)
+    return res.json()
   },
   async getVideos(anilist_id) {
-    return request(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
+    const res = await fetch(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
+    return res.json()
   }
-}
-
-function request(url, options={}) {
-  return new Promise((resolve, reject) => {
-    GM_xmlhttpRequest({
-      url,
-      method: options.method || "GET",
-      headers: options.headers || {Accept: "application/json",
-                                   "Content-Type": "application/json"},
-      responseType: options.responseType || "json",
-      data: options.body || options.data,
-      onload: res => resolve(res.response),
-      onerror: reject
-    })
-  })
 }
 
 class VideoElement {
@@ -155,7 +132,7 @@ async function launch(currentid) {
   const cache = await Cache.get(currentid) || {time: 0};
   const TTLpassed = TTLpassedCheck(cache.time, options.cacheTTL);
   if (TTLpassed) {
-    const {mal_id, status} = await API.getMedia(currentid);
+    const {idMal: mal_id, status} = await API.getMedia(currentid);
     if (mal_id) {
       let {opening_themes, ending_themes} = await API.getSongs(mal_id);
       // add songs to cache if they're not empty and query videos
@@ -210,7 +187,7 @@ class Videos {
 
   static merge(entries, videos) {
     const cleanTitle = song => {
-      return song.replace(/^#\d{1,2}:\s/, "")
+      return song.replace(/^\d{1,2}:/, "")
     }
     const findUrl = n => {
       let url;
