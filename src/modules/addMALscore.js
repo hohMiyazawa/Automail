@@ -59,7 +59,7 @@ function addMALscore(type,id){
 						}
 						(possibleOverview.querySelector(".hohRecContainer") || {remove: ()=>{}}).remove();
 						let recContainer = create("div",["grid-section-wrap","hohRecContainer"],false,possibleOverview);
-						create("h2",false,"MAL recs",recContainer);
+						create("h2",false,"MAL Recommendations",recContainer);
 						let pattern = /class="picSurround"><a href="https:\/\/myanimelist.net\/(anime|manga)\/(\d+)\/(.|\n)*?detail\-user\-recs\-text.*?">(.*?)<\/div>/g;
 						let matching = [];
 						let matchingItem;
