@@ -2,7 +2,8 @@ function addForumMediaTitle(){
 	if(location.pathname !== "/home"){
 		return
 	}
-	let forumThreads = Array.from(document.querySelectorAll(".home .forum-wrap .thread-card .category"));
+	// Forum previews may contain multiple categories but only show the first one
+	let forumThreads = Array.from(document.querySelectorAll(".home .forum-wrap .thread-card .categories span:first-child .category"));
 	if(!forumThreads.length){
 		setTimeout(addForumMediaTitle,200);
 		return;
