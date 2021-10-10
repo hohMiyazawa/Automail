@@ -5095,7 +5095,8 @@ showdown.subParser('makeMarkdown.txt', function (node) {
   // emphasis, strong and strikethrough - can appear everywhere
   // we also escape pipe (|) because of tables
   // and escape ` because of code blocks and spans
-  txt = txt.replace(/([*_~|`])/g, '\\$1');
+  txt = txt.replace(/([\\*_~|`])/g, '\\$1');
+  // backport: escape escape characters!
 
   // escape > because of blockquotes
   txt = txt.replace(/^(\s*)>/g, '\\$1>');
