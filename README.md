@@ -12,9 +12,7 @@ Automail primarily deals with:
 ## Available releases
 
 As a userscript: https://greasyfork.org/en/scripts/370473-automail  
-As a Firefox addon: https://addons.mozilla.org/en-US/firefox/addon/automail/
-
-Which one should you use? The userscript is rolling release, so you get new features immediately. There might be some bugs here and there, as they haven't been tested much. The Firefox addon is updated every couple of months. It's intended to be more stable, and tries to meet the minimum security standards of Mozilla. It is however often slightly outdated.
+As a Firefox addon: https://github.com/hohMiyazawa/Automail/releases
 
 ## Build from source
 
