@@ -44,7 +44,9 @@ if(
 
 12. Don't import any external libraries. (see if you usecase can be covered by purify.js, localforage.js, anything in utilities.js, or src/utitilites/). Write it yourself if you really need it.
 
-13. Avoid calling anilist code. (permitted, for opening the list editor: document.getElementById("app").__vue__.$store.dispatch("medialistEditor/open",mediaID) )
+13. Avoid calling anilist code.
+(permitted, for opening the list editor: document.getElementById("app").__vue__.$store.dispatch("medialistEditor/open",mediaID) )
+(permitted, for loading other parts of the site from memory: document.getElementById("app").__vue__._router.push() BUT MAKE SURE IT FALLS BACK TO A REGULA LINK!)
 
 14. All communication with the Anilist API must be done via the interfaces defined in src/graphql.js
 
