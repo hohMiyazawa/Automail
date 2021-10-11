@@ -364,16 +364,21 @@ let listRenderer = function(){
 		let content = create("a","content",false,mediaA);
 		content.href = "/" + type + "/" + media.id + "/" + safeURL(media.title);
 		let name = create("div","name",media.title,content);
-		let roleValues = {//default role value is 0, so positive values are important, negative less important
+
+		//default value of a credit not listed here is 0. Positive values are more important, negative less important
+		let roleValues = {
 			"Director": 2,
+			"Creator": 1.91,
 			"Original Creator": 1.9,//important that this is early
 			"Script": 1.8,
 			"Storyboard": 1.75,
 			"Art Director": 1.7,//personal bias :)
 			"Character Design": 1.65,
 			"Animation Director": 1.6,
+			"Sound Director": 1.5,
 			"Assistant Director": 1,
 			"Episode Director": 1,
+			"Main Animator": 0.1,
 			"Key Animation": 0,
 			"Animation": -0.1,
 			"2nd Key Animation": -0.5,
@@ -384,6 +389,7 @@ let listRenderer = function(){
 			let bmatch = roleValues[b.match(/^(.*?)(\s*\(.*\))?$/)[1]] || 0;
 			return amatch - bmatch
 		})
+
 		let role = create("div","role",media.role.map(word => {
 			let parts = word.trim().match(/^(.*?)(\s+\(.*\))?$/);
 			let t_role = translate("$role_" + parts[1]);
