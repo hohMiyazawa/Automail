@@ -23,9 +23,6 @@
 	"description": "$forumMedia_description",
 	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
 	"categories": ["Forum"]
-},{"id": "mangaBrowse",
-	"description": "$mangaBrowse_description",
-	"categories": ["Browse"]
 },{"id": "draw3x3",
 	"description": "Add a button to lists to create 3x3's from list entries. Click the button, and then select nine entries",
 	"categories": ["Lists"]

@@ -53,7 +53,6 @@ let useScripts = {
 	feedCommentLikes: 0,
 	colourPicker: false,
 	colourSettings: [],
-	mangaBrowse: false,
 	progressBar: false,
 	noRewatches: false,
 	hideCustomTags: false,

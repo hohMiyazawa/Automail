@@ -572,20 +572,6 @@ const categoryColours = new Map([
 	[18,"rgb(43, 76, 105)"]
 ]);
 
-if(useScripts.mangaBrowse){
-	let navLinks = document.querySelector(`#nav .links .link[href="/search/anime"]`);
-	if(navLinks){
-		navLinks.href = "/search/manga";
-		/*must remove the existing evenlistener for clicks.
-		the reason for this is that it fires before the link, making the href useless
-		this unfortunately turns it into a regular link, which reloads the page, so it's slower than the default behaviour.
-		but since user interactions is even slower, this still saves time for those who only are interested in manga
-		*/
-		let mangaBrowseLink = navLinks.cloneNode(true);//copying and pasting the node should remove all event references to it
-		navLinks.parentNode.replaceChild(mangaBrowseLink,navLinks);
-	}
-};
-
 m4_include(utilities/colourPicker.js)
 
 function scoreFormatter(score,format){
