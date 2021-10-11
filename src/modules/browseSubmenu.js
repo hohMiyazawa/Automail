@@ -4,18 +4,53 @@ if(useScripts.browseSubmenu && useScripts.CSSverticalNav && whoAmI && !useScript
 		if(navThingy){
 			navThingy.classList.add("subMenuContainer");
 			let subMenu = create("div","hohSubMenu",false,navThingy);
-			create("a","hohSubMenuLink",translate("$submenu_anime"),subMenu)
-				.href = "/search/anime";
-			create("a","hohSubMenuLink",translate("$submenu_manga"),subMenu)
-				.href = "/search/manga";
-			create("a","hohSubMenuLink",translate("$submenu_staff"),subMenu,"z-index: 500;position: relative;")
-				.href = "/search/staff";
-			create("a","hohSubMenuLink",translate("$submenu_characters"),subMenu)
-				.href = "/search/characters";
-			create("a","hohSubMenuLink",translate("$submenu_reviews"),subMenu)
-				.href = "/reviews";
-			create("a","hohSubMenuLink",translate("$submenu_recommendations"),subMenu)
-				.href = "/recommendations";
+
+			[
+				{
+					text: "$submenu_anime",
+					href: "/search/anime",
+					vue: { name: 'Search', params: {type:'anime'}}
+				},
+				{
+					text: "$submenu_manga",
+					href: "/search/manga",
+					vue: { name: 'Search', params: {type:'manga'}}
+				},
+				{
+					text: "$submenu_staff",
+					href: "/search/staff",
+					vue: { name: 'Search', params: {type:'staff'}}
+				},
+				{
+					text: "$submenu_characters",
+					href: "/search/characters",
+					vue: { name: 'Search', params: {type:'characters'}}
+				},
+				{
+					text: "$submenu_reviews",
+					href: "/reviews",
+					vue: { name: 'Reviews'}
+				},
+				{
+					text: "$submenu_recommendations",
+					href: "/recommendations",
+					vue: { name: 'Recommendations'}
+				}
+			].forEach(link => {
+				let element = create("a","hohSubMenuLink",translate(link.text),subMenu);
+				element.href = link.href;
+				if(link.vue){
+					element.onclick = function(){
+						try{
+							document.getElementById('app').__vue__._router.push(link.vue);
+							return false
+						}
+						catch(e){
+							console.warn("vue routes are outdated!")
+						}
+					}
+				}
+			})
 			navThingy.onmouseenter = function(){
 				subMenu.style.display = "inline"
 			}
