@@ -9,24 +9,70 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 			let subMenu = create("div","hohSubMenu",false,hackContainer);
 			let linkStats = create("a","hohSubMenuLink",translate("$submenu_stats"),subMenu);
 			if(useScripts.mangaBrowse){
-				linkStats.href = "/user/" + whoAmI + "/stats/manga/overview"
+				linkStats.href = "/user/" + whoAmI + "/stats/manga/overview";
+				linkStats.onclick = function(){
+					try{
+						document.getElementById('app').__vue__._router.push({path: "/user/" + whoAmI + "/stats/manga/overview"});
+						return false
+					}
+					catch(e){
+						console.warn("vue routes are outdated!")
+					}
+				}
 			}
 			else{
-				linkStats.href = "/user/" + whoAmI + "/stats/anime/overview"
+				linkStats.href = "/user/" + whoAmI + "/stats/anime/overview";
+				linkStats.onclick = function(){
+					try{
+						document.getElementById('app').__vue__._router.push({path: "/user/" + whoAmI + "/stats/anime/overview"});
+						return false
+					}
+					catch(e){
+						console.warn("vue routes are outdated!")
+					}
+				}
 			}
-			create("a","hohSubMenuLink",translate("$submenu_social"),subMenu)
-				.href = "/user/" + whoAmI + "/social";
-			create("a","hohSubMenuLink",translate("$submenu_reviews"),subMenu)
-				.href = "/user/" + whoAmI + "/reviews";
-			create("a","hohSubMenuLink",translate("$submenu_favourites"),subMenu)
-				.href = "/user/" + whoAmI + "/favorites";
-			create("a","hohSubMenuLink",translate("$submenu_submissions"),subMenu)
-				.href = "/user/" + whoAmI + "/submissions";
+			[
+				{
+					text: "$submenu_social",
+					href: "/user/" + whoAmI + "/social",
+					vue: {path: "/user/" + whoAmI + "/social"}
+				},
+				{
+					text: "$submenu_reviews",
+					href: "/user/" + whoAmI + "/reviews",
+					vue: {path: "/user/" + whoAmI + "/reviews"}
+				},
+				{
+					text: "$submenu_favourites",
+					href: "/user/" + whoAmI + "/favorites",
+					vue: {path: "/user/" + whoAmI + "/favorites"}
+				},
+				{
+					text: "$submenu_submissions",
+					href: "/user/" + whoAmI + "/submissions",
+					vue: {path: "/user/" + whoAmI + "/submissions"}
+				}
+			].forEach(link => {
+				let element = create("a","hohSubMenuLink",translate(link.text),subMenu);
+				element.href = link.href;
+				if(link.vue){
+					element.onclick = function(){
+						try{
+							document.getElementById('app').__vue__._router.push(link.vue);
+							return false
+						}
+						catch(e){
+							console.warn("vue routes are outdated!")
+						}
+					}
+				}
+			})
 			hackContainer.onmouseenter = function(){
-				subMenu.style.display = "inline";
+				subMenu.style.display = "inline"
 			}
 			hackContainer.onmouseleave = function(){
-				subMenu.style.display = "none";
+				subMenu.style.display = "none"
 			}
 		}
 		else{
