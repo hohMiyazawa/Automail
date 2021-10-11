@@ -44,6 +44,15 @@ function addMoreStats(){
 	let hohGenresTrigger = create("span","hohStatsTrigger",translate("$stats_genresTags_title"),filterGroup);
 	let hohSiteStats = create("a","hohStatsTrigger",translate("$stats_siteStats_title"),filterGroup);
 	hohSiteStats.href = "/site-stats";
+	hohSiteStats.onclick = function(){
+		try{
+			document.getElementById('app').__vue__._router.push({name: "SiteStats"});
+			return false
+		}
+		catch(e){
+			console.warn("vue routes are outdated!")
+		}
+	}
 	let generateStatPage = function(){
 		let personalStats = create("div","#personalStats",translate("$stats_loadingAnime"),hohStats);
 		let personalStatsManga = create("div","#personalStatsManga",translate("$stats_loadingManga"),hohStats);
