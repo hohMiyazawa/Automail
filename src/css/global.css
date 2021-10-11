@@ -2121,6 +2121,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 	right: 1px;
 	top: 0px;
 }
+.forum-thread .comments .nav{
+	z-index: 2; /*the forum navigation should beat Automail UI elements*/
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
