@@ -2124,6 +2124,9 @@ body.TMPreviewScore > .el-tooltip__popper{
 .forum-thread .comments .nav{
 	z-index: 2; /*the forum navigation should beat Automail UI elements*/
 }
+a.external-link.Official.Site[href*=".jp"]::after{
+	content: "(JP)"
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
