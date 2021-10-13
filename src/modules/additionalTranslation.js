@@ -204,7 +204,7 @@ exportModule({
 				]
 			},
 			{
-				regex: /\/forum\/overview\/?$/,
+				regex: /\/forum\/(overview|recent)\/?$/,
 				elements: [
 					{
 						lookup: ".overview-header[href='/forum/recent']",
