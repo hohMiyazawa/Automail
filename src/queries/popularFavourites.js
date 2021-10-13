@@ -47,6 +47,10 @@ fragment stuff on User{
 }`,
 			{userId: data.data.User.id},
 			function(foll){
+				if(!foll){
+					create("h1",false,"Query failed!",miscResults,"color:rgb(var(--color-red))")
+					return
+				}
 				let userList = [].concat(
 					...Object.keys(foll.data).map(
 						a => foll.data[a].following || []
