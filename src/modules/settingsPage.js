@@ -141,7 +141,14 @@ exportModule({
 			};
 			if(def.categories){
 				def.categories.forEach(
-					category => setting.classList.add(category.replace(/\s/g,""))
+					category => {
+						if(catList.includes(category)){
+							setting.classList.add(category.replace(/\s/g,""))
+						}
+						else{
+							console.warn("Unknown category '" + category + "' for module '" + def.id + "'")
+						}
+					}
 				)
 			};
 			create("span",false,translate(def.description),setting);

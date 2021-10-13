@@ -67,7 +67,6 @@ let useScripts = {
 	timeToCompleteColumn: false,
 	mangaGuess: true,
 	settingsTip: true,
-	enumerateSubmissionStaff: true,
 	MALscore: false,
 	MALserial: false,
 	tweets: false,

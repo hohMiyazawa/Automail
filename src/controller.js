@@ -151,12 +151,6 @@ function handleScripts(url,oldUrl){
 			addStudioBrowseSwitch()
 		}
 	}
-	else if(
-		url.match(/^https:\/\/anilist\.co\/edit/)
-		&& useScripts.enumerateSubmissionStaff
-	){
-		enumerateSubmissionStaff()
-	}
 	if(
 		url.match(/^https:\/\/anilist\.co\/user\/.*\/social/)
 	){
