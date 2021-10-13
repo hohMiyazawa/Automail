@@ -141,6 +141,9 @@ function drawListStuff(){
 				let sortName = create("span",false,"▲",tagIndex,"cursor:pointer");
 				let sortNumber = create("span",false,"▼",tagIndex,"cursor:pointer;float:right");
 				customTags.forEach(tag => {
+					if(tag.name.match(/,(malSync|last)::/)){
+						return
+					}
 					let tagElement = create("p",false,tag.name,tagIndex);
 					create("span","count",tag.count,tagElement);
 					tagElement.onclick = function(){
@@ -164,7 +167,7 @@ function drawListStuff(){
 					drawTags()
 				}
 			};
-			if(customTags.length){
+			if(customTags.some(tag => !tag.name.match(/,(malSync|last)::/))){
 				drawTags()
 			}
 		};

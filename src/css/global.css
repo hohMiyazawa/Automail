@@ -953,6 +953,7 @@ meter::-moz-meter-bar{
 }
 .tagIndex p{
 	cursor: pointer;
+	line-break: anywhere;
 }
 .tagIndex p:hover{
 	cursor: pointer;
@@ -2125,7 +2126,10 @@ body.TMPreviewScore > .el-tooltip__popper{
 	z-index: 2; /*the forum navigation should beat Automail UI elements*/
 }
 a.external-link.Official.Site[href*=".jp"]::after{
-	content: "(JP)"
+	content: "(JP)";
+}
+.forum-feed .filter-group [href="/forum/subscribed"] + a[href="/forum/search"]::after{
+	content: " 🔎";
 }
 
 m4_include(css/footerLinks.css)
