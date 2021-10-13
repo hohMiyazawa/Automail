@@ -16,7 +16,7 @@ function handleScripts(url,oldUrl){
 				nav.querySelector('a[href$="/animelist"].link').childNodes[0].textContent = translate("$menu_animelist");
 				nav.querySelector('a[href$="/mangalist"].link').childNodes[0].textContent = translate("$menu_mangalist");
 				nav.querySelector('a[href^="/search/"].link').childNodes[0].textContent = translate("$menu_browse");
-				nav.querySelector('a[href="/forum/overview"].link').childNodes[0].textContent = translate("$menu_forum");
+				(nav.querySelector('a[href="/forum/overview"].link') || nav.querySelector('a[href="/forum/recent"].link')).childNodes[0].textContent = translate("$menu_forum")
 			}
 			catch(e){
 				console.log(e)
