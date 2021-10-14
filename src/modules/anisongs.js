@@ -134,7 +134,10 @@ async function launch(currentid) {
   if (TTLpassed) {
     const {idMal: mal_id, status} = await API.getMedia(currentid);
     if (mal_id) {
+      const filterThemes = themes => themes.filter(theme => !theme.includes("Help improve our database"))
       let {opening_themes, ending_themes} = await API.getSongs(mal_id);
+      opening_themes = filterThemes(opening_themes)
+      ending_themes = filterThemes(ending_themes)
       // add songs to cache if they're not empty and query videos
       if (opening_themes.length || ending_themes.length) {
         if (["FINISHED", "RELEASING"].includes(status)) {
