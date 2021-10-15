@@ -150,10 +150,6 @@
 },{"id": "progressBar",
 	"description": "Add progress bars to the list previews",
 	"categories": ["Feeds"]
-},{"id": "tweets",
-	"description": "$setting_tweets",
-	"extendedDescription": "This works by runnig Twitter's official embedding script. But since loading external code is not allowed for Firefox addons, this setting will only work in userscript mode.\nBe adviced that Twitter embedding displays NSFW content no differently than other content.",
-	"categories": ["Feeds"]
 },{"id": "embedHentai",
 	"description": "Make cards for links to age restricted content",
 	"categories": ["Feeds"]

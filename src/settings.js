@@ -69,7 +69,6 @@ let useScripts = {
 	settingsTip: true,
 	MALscore: false,
 	MALserial: false,
-	tweets: false,
 	MALrecs: false,
 	entryScore: true,
 	showRecVotes: true,
