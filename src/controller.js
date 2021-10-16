@@ -442,6 +442,7 @@ if(useScripts.automailAPI){
 		console.warn("Multiple copies of Automail running? Shutting down this instance.");
 		clearInterval(mainLoop);
 		clearInterval(likeLoop);
+		clearInterval(tweetLoop);
 	}
 	document.automailAPI = {
 		scriptInfo: scriptInfo,
