@@ -5,7 +5,7 @@ exportModule({
 	categories: ["Forum"],
 	visible: false,
 	urlMatch: function(url,oldUrl){
-		return url.match(/^https:\/\/anilist\.co\/forum\/thread\/.*/)
+		return /^https:\/\/anilist\.co\/forum\/thread\/.*/.test(url)
 	},
 	code: function(){
 		let URLstuff = location.pathname.match(/^\/forum\/thread\/(\d+)/);
