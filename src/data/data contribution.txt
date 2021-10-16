@@ -2,7 +2,7 @@
 
 This file contains an array of hashes for illegal manga/anime aggregators, for link filtering (it's currently only used by a few modules)
 
-Use the simple java-hash on the domain name, without the top level domain (so "wikipedia.org" would be just "wikipedia")
+Use the simple java-hash on the domain name, without the top level domain (so "wikipedia.org" would be just "wikipedia", which would be 1558992055 (and not a domain we want to block!))
 
 
 function hashCode(string){
@@ -21,7 +21,7 @@ function hashCode(string){
 
 It's not supposed to be cryptocraphically secure, the purpouse is just to not dump a huge catalogue of such sites to anyone taking a glance.
 
-If you submit a new domain, your pull request must mention the plaintext domain it blocks.
+If you submit a new domain, your pull request must mention in plaintext the domain it blocks.
 
 --- inlineSVG.json
 
@@ -39,6 +39,22 @@ Format:
 	[optional width],
 	[optional height]
 ]
+
+Example:
+
+[
+	309,
+	"GoHands",
+	"https://i.stack.imgur.com/pScIZ.jpg",
+]
+
+--- shortRomaji.json
+
+Alternate romaji titles for stuff that's too long.
+
+--- legacyModuleDescriptions.json
+
+Do not use, see HOWTO.js instead.
 
 --- languages/translation
 
