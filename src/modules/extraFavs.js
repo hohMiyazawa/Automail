@@ -22,8 +22,14 @@ Work in progress. Only anime and manga so far.`,
 				return
 			}
 			if(favSection.classList.contains("hohExtraFavs")){
-				return
+				if(favSection.dataset.user === decodeURIComponent(URLstuff[1])){
+					return
+				}
+				else{
+					Array.from(favSection.querySelectorAll(".hohExtraFav")).forEach(fav => fav.remove())
+				}
 			}
+			favSection.dataset.user = decodeURIComponent(URLstuff[1]);
 			if(favSection.children.length === 0){
 				setTimeout(finder,1000);
 				return
