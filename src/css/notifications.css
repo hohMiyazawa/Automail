@@ -174,3 +174,9 @@ span.hohMediaImageContainer{
 .hohNewMedia a[href^="/manga/"]{
 	color: rgb(var(--color-green));
 }
+.hohDataChange a{
+	color: rgb(var(--color-blue));
+}
+.hohDataChange .expand-reason{
+	display: none;
+}

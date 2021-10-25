@@ -263,6 +263,12 @@ You can also turn off this notice there.`,setting)
 			}
 		})
 	};
+	let findAct = function(act){
+		let modi = document.querySelector("#hohNotifications [href='" + act.href + "'");
+		if(modi){
+			modi.parentNode.querySelector(".hohDataChange").innerHTML = DOMPurify.sanitize(act.text)
+		}
+	}
 	let notificationDrawer = function(activities){
 		let newContainer = document.getElementById("hohNotifications")
 		if(newContainer){
@@ -620,6 +626,15 @@ You can also turn off this notice there.`,setting)
 				notImage.style.width = "51px";
 				text.href = activities[i].href
 			}
+			else if(activities[i].type === "dataChange"){
+				textSpan.classList.add("hohDataChange");
+				notImage.classList.remove("hohUserImage");
+				notImage.classList.add("hohBackgroundCover");
+				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
+				text.style.marginTop = "10px";
+				text.style.marginLeft = "10px";
+				text.appendChild(textSpan)
+			}
 			else{//display as-is
 				textSpan.classList.add("hohUnhandledSpecial");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
@@ -739,6 +754,14 @@ You can also turn off this notice there.`,setting)
 			if(notification.innerText.includes("was recently added to the site")){
 				active.type = "newMedia";
 				active.text = notification.children[1].innerHTML
+			}
+			else if(notification.innerText.includes("received site data changes")){
+				active.type = "dataChange";
+				notification.querySelector(".expand-reason").click();
+				setTimeout(function(){
+					active.text = notification.children[1].innerHTML;
+					findAct(active);
+				},100);
 			}
 		}
 		if(active.type === "special"){
