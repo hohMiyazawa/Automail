@@ -22,6 +22,9 @@ const notificationColourDefaults = {
 	"THREAD_SUBSCRIBED":         {"colour":"rgb(247,191,99)", "supress":false},
 	"ACTIVITY_REPLY_SUBSCRIBED": {"colour":"rgb(247,191,99)", "supress":false},
 	"RELATED_MEDIA_ADDITION":    {"colour":"rgb(247,191,99)", "supress":false},
+	"MEDIA_DATA_CHANGE":         {"colour":"rgb(247,191,99)", "supress":false},
+	"MEDIA_MERGE":               {"colour":"rgb(247,191,99)", "supress":false},
+	"MEDIA_DELETION":            {"colour":"rgb(247,191,99)", "supress":false},
 	"AIRING":                    {"colour":"rgb(247,191,99)", "supress":false}
 };
 
