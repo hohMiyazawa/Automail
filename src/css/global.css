@@ -1738,9 +1738,14 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 .review .actions .icon{
 	opacity: 0.5;
+	border: rgba(0, 0, 0, 0);
+	border-width: 3px;
+	border-style: solid;
 }
 .review .actions .icon:hover,.review .actions .icon.active{
 	opacity: 1;
+	border: rgb(var(--color-text));
+	border-style: solid;
 }
 .home .activity-entry .actions{
 	user-select: none;

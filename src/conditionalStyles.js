@@ -364,6 +364,13 @@ if(useScripts.cleanSocial){
 	margin-top: 25px;
 }`
 }
+if(useScripts.statusBorder){
+	moreStyle.textContent += `
+.home .activity-text .wrap{
+	border-right-width: 0px !important;
+	margin-right: 0px !important;
+}`
+}
 if(useScripts.rightToLeft){
 	moreStyle.textContent += `
 m4_include(css/rightToLeft.css)
