@@ -13,7 +13,7 @@ function addCustomCSS(){
 		let variables = {
 			userName: decodeURIComponent(URLstuff[1])
 		}
-		generalAPIcall(query,variables,data => {
+		let css_handler = function(data){
 			customStyle.textContent = "";
 			let external = document.getElementById("customExternalCSS");
 			if(external){
@@ -219,6 +219,12 @@ let wrap = create("div","wrap",false,entry);
 				console.log(e);
 				console.log(atob(jsonMatch[1]));
 			}
-		},"hohProfileBackground" + variables.userName,5*60*1000);
+		};
+		if(variables.userName === whoAmI){
+			authAPIcall(query,variables,css_handler,"hohProfileBackground" + variables.userName,5*60*1000)
+		}
+		else{
+			generalAPIcall(query,variables,css_handler,"hohProfileBackground" + variables.userName,5*60*1000)
+		}
 	}
 }
