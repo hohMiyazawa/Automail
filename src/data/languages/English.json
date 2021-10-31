@@ -130,6 +130,8 @@
 "$listActivity_planningAnime": "plans to watch ",
 "$listActivity_completedManga": "completed ",
 "$listActivity_completedAnime": "completed ",
+"$listActivity_repeatedManga": "reread ",
+"$listActivity_repeatedAnime": "rewatched ",
 "$listActivity_pausedManga": "paused reading ",
 "$listActivity_pausedAnime": "paused watching ",
 "$listActivity_MdroppedManga": "dropped {0} of ",

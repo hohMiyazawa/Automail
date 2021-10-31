@@ -8,7 +8,13 @@ function addCompletedScores(){
 	let statusCollection = document.querySelectorAll(".status");
 	statusCollection.forEach(function(status){
 		if(
-			(useScripts.completedScore && /^completed/i.test(status.innerText))
+			(useScripts.completedScore
+				&& (
+					/^completed/i.test(status.innerText)
+					|| status.childNodes[0].textContent.trim() === "Rewatched"
+					|| status.childNodes[0].textContent.trim() === "Reread"
+				)
+			)
 			|| (useScripts.droppedScore && /^dropped/i.test(status.innerText))
 			|| /^\/activity/.test(location.pathname)
 		){

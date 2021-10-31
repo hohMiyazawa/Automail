@@ -207,6 +207,8 @@
 "$listActivity_MdroppedAnime": "droppa {0} av ",
 "$listActivity_planningManga": "vil lesa ",
 "$listActivity_planningAnime": "vil sjå ",
+"$listActivity_repeatedManga": "las oppatt ",
+"$listActivity_repeatedAnime": "såg oppatt ",
 "$preview_1behind": "1 episode bakpå",
 "$preview_Mbehind": "{0} episodar bakpå",
 "$preview_progress": "Framgang:",

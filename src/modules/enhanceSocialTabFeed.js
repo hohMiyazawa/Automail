@@ -81,6 +81,9 @@ function enhanceSocialTabFeed(){
 									if(act.status === "read chapter" && act.progress){
 										status.innerText = translate("$listActivity_MreadChapter",act.progress)
 									}
+									else if(act.status === "reread"){
+										status.innerText = translate("$listActivity_repeatedManga")
+									}
 									else if(act.status === "reread chapter" && act.progress){
 										status.innerText = translate("$listActivity_MrepeatingManga",act.progress)
 									}
@@ -103,6 +106,9 @@ function enhanceSocialTabFeed(){
 								else{
 									if(act.status === "watched episode" && act.progress){
 										status.innerText = translate("$listActivity_MwatchedEpisode",act.progress)
+									}
+									else if(act.status === "rewatched"){
+										status.innerText = translate("$listActivity_repeatedAnime")
 									}
 									else if(act.status === "rewatched episode" && act.progress){
 										status.innerText = translate("$listActivity_MrepeatingAnime",act.progress)
