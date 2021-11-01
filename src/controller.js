@@ -90,6 +90,11 @@ function handleScripts(url,oldUrl){
 		let adder = function(){
 			let banner = document.querySelector(".banner");
 			if(banner && banner.style.backgroundImage !== "url(\"undefined\")"){
+				if(banner.style.backgroundImage === `url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")`){
+					//edge case, no avaiable banner to show (private profiles, etc.)
+					//do not create banner download icon
+					return
+				}
 				let bannerLink = create("a","hohDownload","⭳",banner);
 				const linkPlace = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
 				bannerLink.href = linkPlace;
@@ -216,7 +221,7 @@ function handleScripts(url,oldUrl){
 			if(!document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/?/)){
 				return
 			};
-			let banner = document.querySelector(".banner");
+			let banner = document.querySelector(".media .banner");
 			if(banner){
 				let bannerLink = create("a","hohDownload","⭳",banner);
 				bannerLink.title = translate("$download_banner_tooltip");
