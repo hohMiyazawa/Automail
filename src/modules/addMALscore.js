@@ -60,7 +60,7 @@ function addMALscore(type,id){
 						(possibleOverview.querySelector(".hohRecContainer") || {remove: ()=>{}}).remove();
 						let recContainer = create("div",["grid-section-wrap","hohRecContainer"],false,possibleOverview);
 						create("h2",false,"MAL Recommendations",recContainer);
-						let pattern = /class="picSurround"><a href="https:\/\/myanimelist.net\/(anime|manga)\/(\d+)\/(.|\n)*?detail\-user\-recs\-text.*?">(.*?)<\/div>/g;
+						let pattern = /class="picSurround"><a href="https:\/\/myanimelist\.net\/(anime|manga)\/(\d+)\/[\s\S]*?detail\-user\-recs\-text.*?">([\s\S]*?)<\/div>/g;
 						let matching = [];
 						let matchingItem;
 						while((matchingItem = pattern.exec(response.responseText)) && matching.length < 5){//single "=" is intended, we are setting the value of each match, not comparing
@@ -71,13 +71,13 @@ function addMALscore(type,id){
 						}
 						matching.forEach(function(item){
 							let idMal = item[2];
-							let description = item[4];
+							let description = item[3];
 							let rec = create("div","hohRec",false,recContainer);
 							let recImage = create("a","hohBackgroundCover",false,rec,"border-radius: 3px;");
 							let recTitle = create("a","title",false,rec,"position:absolute;top:35px;left:80px;color:rgb(var(--color-blue));");
 							recTitle.innerText = "MAL ID " + idMal;
 							let recDescription = create("p",false,false,rec,"font-size: 1.4rem;line-height: 1.5;");
-							recDescription.innerText = entityUnescape(description);
+							recDescription.innerText = new DOMParser().parseFromString(description, 'text/html').body.textContent.replace(/\s*?read more\s*?$/,"") || "";
 							generalAPIcall(
 								"query($idMal:Int,$type:MediaType){Media(idMal:$idMal,type:$type){id title{romaji native english} coverImage{large color} siteUrl}}",
 								{idMal:idMal,type:item[1].toUpperCase()},
