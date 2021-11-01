@@ -471,7 +471,7 @@ const removeGroupedDuplicates = function(
 
 //for the school/workplace methods
 let badWords = ["hentai","loli","nsfw","ecchi","sex","gore","porn","violence","lewd","fuck","waifu","nigger",];//woooo so bad.
-const badTags = ["gore","nudity","ahegao","irrumatio","sex toys","ashikoki","defloration","paizuri","tekoki","nakadashi","large breasts","facial","futanari","public sex","flat chest","voyeur","fellatio","incest","threesome","anal sex","bondage","cunnilingus","harem","masturbation","slavery","gyaru","rape"];
+const badTags = ["gore","nudity","ahegao","irrumatio","sex toys","ashikoki","defloration","paizuri","tekoki","nakadashi","large breasts","facial","futanari","public sex","flat chest","voyeur","fellatio","incest","threesome","anal sex","bondage","cunnilingus","harem","masturbation","slavery","gyaru","rape","netori","milf","handjob","blackmail","sumata","watersports","boobjob","femdom","exhibitionism","human pet","virginity","group sex"];
 badWords = badWords.concat(badTags);
 
 function createCheckbox(target,id,checked){//target[,id]
