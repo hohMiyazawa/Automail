@@ -126,7 +126,7 @@
 	"categories": ["Feeds"]
 },{"id": "blockWord",
 	"description": "Hide status posts containing this word:",
-	"extendedDescription": "RegEx syntax accepted too, do not use delimeters.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
+	"extendedDescription": "RegEx syntax accepted too, do not use /delimeters/.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
 	"categories": ["Feeds"]
 },{
 	"id": "blockWordValue",
