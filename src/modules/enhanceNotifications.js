@@ -628,6 +628,7 @@ You can also turn off this notice there.`,setting)
 			}
 			else if(activities[i].type === "dataChange"){
 				textSpan.classList.add("hohDataChange");
+				text.href = activities[i].href;
 				notImage.classList.remove("hohUserImage");
 				notImage.classList.add("hohBackgroundCover");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
