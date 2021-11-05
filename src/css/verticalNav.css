@@ -562,9 +562,6 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .actions{
 	cursor: default;
 }
-.activity-manga_list > div > div > div > div > .title{
-	color: rgba(var(--color-green))!important;
-}
 .markdown-editor > [title="Image"],
 .markdown-editor > [title="Youtube Video"],
 .markdown-editor > [title="WebM Video"]{
