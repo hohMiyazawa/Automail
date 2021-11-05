@@ -77,7 +77,7 @@ fragment stuff on User{
 						if(!user.statistics.anime.minutesWatched){
 							timeString = "-"
 						}
-						create("div",false,timeString,row);
+						create("div",false,timeString,row).title = Math.round(user.statistics.anime.minutesWatched/60) + " hours";
 						create("div",false,user.statistics.manga.count,row);
 						if(user.statistics.manga.chaptersRead){
 							create("div",false,user.statistics.manga.chaptersRead,row)
