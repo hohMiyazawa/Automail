@@ -671,7 +671,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .medialist.table .row{
 	border-bottom: solid;
 	border-bottom-width: 1px;
-	border-color: rgb(var(--color-text),0.5);
+	border-color: rgb(var(--color-text),0.1);
 }
 .markdown .markdown-spoiler.spoiler-visible i.hide-spoiler{
 	right: -10px;
