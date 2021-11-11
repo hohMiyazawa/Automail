@@ -18,7 +18,7 @@
 					}
 				}
 			}
-			MediaListCollection(userName: $name,type: ${document.getElementById("typeSelect").value},status_not: PLANNING){
+			MediaListCollection(userName: $name,type: ${document.getElementById("typeSelect").value}){
 				lists{
 					entries{
 						mediaId
@@ -41,11 +41,21 @@
 		}`,
 		{name: user},function(data){
 			miscResults.innerText = translate("$query_autorecs_processing");
-			const list = returnList(data,true).filter(
+			if(!data){
+				miscResults.innerText = translate("$error_connection");
+				return
+			}
+			const filtered = returnList(data,true);
+			const list = filtered.filter(
 				media => media.status !== "PLANNING"
 			);
 			const existingSet = new Set(
 				list.map(media => media.mediaId)
+			);
+			const existingSet_planning = new Set(
+				filtered.filter(
+					media => media.status === "PLANNING"
+				).map(media => media.mediaId)
 			);
 			const statistics = data.data.User.statistics[document.getElementById("typeSelect").value.toLowerCase()];
 			const recsMap = new Map();
@@ -74,7 +84,7 @@
 				pair => ({
 					id: pair[0],
 					title: pair[1].title,
-					score: pair[1].score
+					score: (existingSet_planning.has(pair[0]) ? pair[1].score - 2 : pair[1].score)//punish stuff already on planning
 				})
 			).sort(
 				(b,a) => a.score - b.score
