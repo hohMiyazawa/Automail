@@ -79,6 +79,7 @@ if(documentHead){
 else{
 	return//xml documents or something. At least it's not a place where the script can run
 }
+m4_include(polyfills.js)
 m4_include(conditionalStyles.js)
 m4_include(localisation.js)
 m4_include(utilities.js)
