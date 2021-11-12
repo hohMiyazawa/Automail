@@ -713,10 +713,10 @@ let listRenderer = function(){
 				statusSumDot.style.background = distributionColours[status];
 				let title = capitalize(translate("$mediaStatus_" + status.toLowerCase()));
 				if(status === "CURRENT" && !animeCurrentFlag){
-					title = "Reading"
+					title = capitalize(translate("$mediaStatus_reading"))
 				}
 				else if(status === "CURRENT" && !mangaCurrentFlag){
-					title = "Watching"
+					title = capitalize(translate("$mediaStatus_watching"))
 				}
 				statusSumDot.title = distribution[status] + " " + title;
 				if(distribution[status] > 99){

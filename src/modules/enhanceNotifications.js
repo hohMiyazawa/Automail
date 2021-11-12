@@ -215,7 +215,7 @@ You can also turn off this notice there.`,setting)
 			let inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);");
 			let cancelButton = create("button",["hohButton","button"],"Cancel",statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
 			let publishButton = create("button",["hohButton","button"],"Publish",statusInput,"display:none;");
-			inputArea.placeholder = "Write a reply...";
+			inputArea.placeholder = translate("$placeholder_reply");
 			inputArea.onfocus = function(){
 				cancelButton.style.display = "inline";
 				publishButton.style.display = "inline"
@@ -227,7 +227,7 @@ You can also turn off this notice there.`,setting)
 				document.activeElement.blur()
 			};
 			publishButton.onclick = function(){
-				loading.innerText = "Publishing reply...";
+				loading.innerText = translate("$publishingReply");
 				authAPIcall(
 					`mutation($text: String,$activityId: Int){
 						SaveActivityReply(text: $text,activityId: $activityId){

@@ -445,7 +445,7 @@ let buildPage = function(activities,type,requestTime){
 							onlySpecificActivity = false;
 						}
 						else{
-							loading.innerText = "Publishing reply...";
+							loading.innerText = translate("$publishingReply");
 							authAPIcall(
 								`mutation($text: String,$activityId: Int){
 									SaveActivityReply(text: $text,activityId: $activityId){
