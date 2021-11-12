@@ -72,6 +72,7 @@
 "$placeholder_reply": "Write a reply...",
 "$placeholder_message": "Write a message...",
 "$placeholder_forum": "Write a forum post...",
+"$forumMedia_backlink": "Add a link back to a work's database page on its forum feed",
 "$settings_title": "Automail Settings",
 "$notImplemented": "Sorry, not implemented yet",
 "$settings_version": "Version: ",

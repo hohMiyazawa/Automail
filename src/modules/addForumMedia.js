@@ -1,6 +1,6 @@
 exportModule({
 	id: "addForumMedia",
-	description: "Add a link back to a work's database page on its forum feed",
+	description: translate("$forumMedia_backlink"),
 	isDefault: true,
 	importance: -1,
 	categories: ["Forum","Navigation"],
