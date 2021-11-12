@@ -2136,6 +2136,10 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .forum-feed .filter-group [href="/forum/subscribed"] + a[href="/forum/search"]::after{
 	content: " 🔎";
 }
+.list-preview-wrap .size-toggle,
+.feed-filter.el-dropdown-link{
+	opacity: 1;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
