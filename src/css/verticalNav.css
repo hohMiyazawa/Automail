@@ -637,6 +637,8 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 	font-size: 130%;
 	text-align: left;
 	color: rgb(160, 177, 197);
+	z-index: 1;
+	position: relative;
 }
 .hohSubMenuLink:visited{
 	color: rgb(160, 177, 197);
