@@ -4,7 +4,7 @@ function enhanceStaffBrowse(){
 	};
 	const query = `
 query($page: Int!){
-	Page(page: $page,perPage: 20){
+	Page(page: $page,perPage: 30){
 		staff(sort: [FAVOURITES_DESC]){
 			id
 			favourites
