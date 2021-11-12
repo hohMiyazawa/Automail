@@ -296,6 +296,11 @@ function drawListStuff(){
 					let changeMinus = create("span","hohChangeScore","-");
 					entry.insertBefore(changeMinus,entry.firstChild);
 					let changePluss = create("span","hohChangeScore","+",entry);
+					if(useScripts.CSSdecimalPoint){
+						entry.style.position = "relative";
+						changePluss.style.position = "absolute";
+						changePluss.style.right = "calc(50% - 2em)";
+					}
 					changeMinus.onclick = function(){updateScore(false)};
 					changePluss.onclick = function(){updateScore(true)}
 				}
