@@ -6,7 +6,7 @@
 		"maintainer": "hoh",
 		"maintainer_link": "https://anilist.co/user/hoh/",
 		"discussion_link": "",
-		"notes": "This is the default language of Automail. This key should have all the translation keys, while other translations don't have to. I'm not a native speaker, but I try to stick to British English here (feel free to britpick!). You can make tranlation files for other version of English too if you want, name it something like 'English (US)', and put 'English' in the fallback array. You need only include the keys that are different."
+		"notes": "This is the default language of Automail. This key should have all the translation keys, while other translations don't have to. I'm not a native speaker, but I try to stick to British English here (feel free to britpick!). You can make translation files for other version of English too if you want, name it something like 'English (US)', and put 'English' in the fallback array. You need only include the keys that are different."
 	},
 	"keys": {
 "$loading": "Loading...",
@@ -110,7 +110,7 @@
 "$jsonTooBig": "Profile JSON is over 1MB",
 "$debug_tip": "(Hey, it would be nice if you include this file when you report bugs. Makes my life easier)",
 "$profileBackground_help1": "Set a profile background, examples:",
-"$profileBackground_help2": "Tip: Use a colour with transparancy, to work better with both light and dark themes. Example:",
+"$profileBackground_help2": "Tip: Use a colour with transparency, to work better with both light and dark themes. Example:",
 "$profileBackground_help3": "Tip2: Do you want a faded image, staying fixed in place, and filling the screen? This is how:",
 "$mediaStatus_current": "current",
 "$mediaStatus_watching": "watching",
@@ -221,7 +221,7 @@
 "$download_banner_tooltip": "Download banner",
 "$recs_description": "Each pair is one you like + one you haven't started\nBest match first",
 "$module_unicodifier_description": "Convert emojis so they work on anilist",
-"$module_unicodifier_extendedDescription": "Anilist doesn't handle some unicode characters correctly, leading to truncated posts. This module coverts them to HTML entity escape codes instead, which the site can handle (they can easily do this themselves if they want to)\nOriginal idea by the great GoBusto: https://files.kiniro.uk/unicodifier.html",
+"$module_unicodifier_extendedDescription": "Anilist doesn't handle some Unicode characters correctly, leading to truncated posts. This module coverts them to HTML entity escape codes instead, which the site can handle (they can easily do this themselves if they want to)\nOriginal idea by the great GoBusto: https://files.kiniro.uk/unicodifier.html",
 "$forum_comment_hide_title": "hide comment chain",
 "$forum_comment_show_title": "show comment chain",
 "$rewatch_suffix_1": "[rewatch]",
@@ -377,7 +377,7 @@
 "$mangaBrowse_description": "Make browse default to manga",
 "$tagDescriptions_description": "Show the definitions of tags when adding new ones to an entry",
 "$dblclickZoom_description": "Double click activities to zoom",
-"$dblclickZoom_extendedDescription": "There are likely better browser accesibility addons for this.",
+"$dblclickZoom_extendedDescription": "There are likely better browser accessibility addons for this.",
 "$staff_animeRoles": "Anime Staff Roles",
 "$staff_mangaRoles": "Manga Staff Roles",
 "$staff_voiceRoles": "Character Voice Roles",
