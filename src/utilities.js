@@ -940,19 +940,4 @@ function looseMatcher(string,searcher){
 	return string.toLowerCase().includes(searcher.toLowerCase())
 	|| RegExp(searcher,"i").test(string.toLowerCase())
 }
-
-const months = [
-"January",
-"February",
-"March",
-"April",
-"May",
-"June",
-"July",
-"August",
-"September",
-"October",
-"November",
-"December"
-];
 //end "utilities.js"
