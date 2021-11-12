@@ -10,27 +10,11 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 			let linkStats = create("a","hohSubMenuLink",translate("$submenu_stats"),subMenu);
 			if(useScripts.mangaBrowse){
 				linkStats.href = "/user/" + whoAmI + "/stats/manga/overview";
-				linkStats.onclick = function(){
-					try{
-						document.getElementById('app').__vue__._router.push({path: "/user/" + whoAmI + "/stats/manga/overview"});
-						return false
-					}
-					catch(e){
-						console.warn("vue routes are outdated!")
-					}
-				}
+				cheapReload(linkStats,{path: "/user/" + whoAmI + "/stats/manga/overview"});
 			}
 			else{
 				linkStats.href = "/user/" + whoAmI + "/stats/anime/overview";
-				linkStats.onclick = function(){
-					try{
-						document.getElementById('app').__vue__._router.push({path: "/user/" + whoAmI + "/stats/anime/overview"});
-						return false
-					}
-					catch(e){
-						console.warn("vue routes are outdated!")
-					}
-				}
+				cheapReload(linkStats,{path: "/user/" + whoAmI + "/stats/anime/overview"});
 			}
 			[
 				{
@@ -57,15 +41,7 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 				let element = create("a","hohSubMenuLink",translate(link.text),subMenu);
 				element.href = link.href;
 				if(link.vue){
-					element.onclick = function(){
-						try{
-							document.getElementById('app').__vue__._router.push(link.vue);
-							return false
-						}
-						catch(e){
-							console.warn("vue routes are outdated!")
-						}
-					}
+					cheapReload(element,link.vue)
 				}
 			})
 			hackContainer.onmouseenter = function(){
@@ -78,5 +54,5 @@ if(useScripts.CSSverticalNav && whoAmI && !useScripts.mobileFriendly){
 		else{
 			setTimeout(addMouseover,500)
 		}
-	};addMouseover();
+	};addMouseover()
 }

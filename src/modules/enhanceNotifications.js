@@ -330,8 +330,16 @@ You can also turn off this notice there.`,setting)
 					let notNotImage = create("a",false,false,notNotImageContainer);
 					create("img",["hohMediaImage",activities[i + counter].link],false,notNotImage);
 					notNotImage.href = activities[i + counter].directLink;
+					let possibleDirect = activities[i + counter].directLink.match(/activity\/(\d+)/);
+					if(possibleDirect){
+						cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+					}
 				};
 				text.href = activities[i].directLink;
+				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
+				if(possibleDirect){
+					cheapReload(text,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+				}
 				textSpan.innerText = translate("$notification_likeActivity_1person_1activity");
 				if(counter > 1){
 					textSpan.innerText = translate("$notification_likeActivity_1person_Mactivity")
@@ -430,6 +438,11 @@ You can also turn off this notice there.`,setting)
 					}
 				};
 				text.href = activities[i].directLink;
+				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
+				if(possibleDirect){
+					cheapReload(text,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+					cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+				}
 				textName.innerText = activities[i].textName;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
@@ -484,6 +497,11 @@ You can also turn off this notice there.`,setting)
 					}
 				};
 				text.href = activities[i].directLink;
+				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
+				if(possibleDirect){
+					cheapReload(text,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+					cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+				}
 				textName.innerText = activities[i].textName;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
@@ -543,6 +561,11 @@ You can also turn off this notice there.`,setting)
 					}
 				};
 				text.href = activities[i].directLink;
+				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
+				if(possibleDirect){
+					cheapReload(text,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+					cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+				}
 				textName.innerText = activities[i].textName;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
@@ -556,6 +579,11 @@ You can also turn off this notice there.`,setting)
 				create("img",["hohMediaImage",activities[i].link],false,notNotImage);
 				notNotImage.href = activities[i].directLink;
 				text.href = activities[i].directLink;
+				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
+				if(possibleDirect){
+					cheapReload(text,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+					cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
+				}
 				textName.innerText = activities[i].textName;
 				if(activities[i].type === "message"){
 					textSpan.innerText = translate("$notification_message")

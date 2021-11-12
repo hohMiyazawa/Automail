@@ -919,4 +919,16 @@ function looseMatcher(string,searcher){
 	return string.toLowerCase().includes(searcher.toLowerCase())
 	|| RegExp(searcher,"i").test(string.toLowerCase())
 }
+
+function cheapReload(linkElement,vueData){
+	linkElement.onclick = function(){
+		try{
+			document.getElementById('app').__vue__._router.push(vueData);
+			return false
+		}
+		catch(e){
+			console.warn("vue routes are outdated!")
+		}
+	}
+}
 //end "utilities.js"

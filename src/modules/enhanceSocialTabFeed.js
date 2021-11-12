@@ -138,6 +138,7 @@ function enhanceSocialTabFeed(){
 							let action = create("a","action",false,timeWrapper);
 							action.appendChild(svgAssets2.link.cloneNode(true));
 							action.href = "/activity/" + act.id;
+							cheapReload(action,{name: "Activity", params: {id: act.id}});
 							let time = nativeTimeElement(act.createdAt);timeWrapper.appendChild(time);
 						let actions = create("div","actions",false,wrap);
 							let actionReplies = create("div",["action","replies"],false,actions);
