@@ -5,6 +5,9 @@
 		let mangaOption = create("option",false,translate("$generic_manga"),select);
 		animeOption.value = "ANIME";
 		mangaOption.value = "MANGA";
+		if(useScripts.mangaBrowse){
+			select.selectedIndex = 1
+		}
 	},
 	code: function(){
 	miscResults.innerText = translate("$query_autorecs_collecting");
