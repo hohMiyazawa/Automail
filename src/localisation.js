@@ -9,7 +9,7 @@ const languageFiles = {
 	"Svenska": m4_include(data/languages/Swedish.json),
 	"English (US)": m4_include(data/languages/English_US.json)
 }
-function translate(key,subs){
+function translate(key,subs,fallback){
 	if(key[0] !== "$"){
 		return key
 	}
@@ -24,6 +24,9 @@ function translate(key,subs){
 		if(!immediate){
 			immediate = languageFiles["English"].keys[key];
 			if(!immediate){
+				if(fallback){
+					return fallback
+				}
 				if(key.substring(0,6) !== "$role_"){
 					console.warn("[Automail localisation] missing key!",key)
 				}
