@@ -2182,9 +2182,9 @@ function addMoreStats(){
 					else{
 						mangaStaff.innerText = "";
 						story_filter = createCheckbox(mangaStaff);
-						create("span",false,"Story",mangaStaff,"margin-right:5px;");
+						create("span",false,translate("$role_Story",null,"Story"),mangaStaff,"margin-right:5px;");
 						art_filter = createCheckbox(mangaStaff);
-						create("span",false,"Art",mangaStaff,"margin-right:5px;");
+						create("span",false,translate("$role_Art",null,"Art"),mangaStaff,"margin-right:5px;");
 						assistant_filter = createCheckbox(mangaStaff);
 						create("span",false,"Assistants",mangaStaff,"margin-right:5px;");
 						translator_filter = createCheckbox(mangaStaff);
@@ -2217,10 +2217,10 @@ function addMoreStats(){
 								&& !art_filter.checked
 								&& (
 									staff.roles.every(role => role.toLowerCase().match(/art|story/))
-									|| !staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up|assistant/))
+									|| !staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up|assistant|assistance/))
 								)
 							)
-							|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assistant/)))
+							|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assistant|assistance/)))
 							|| (!translator_filter.checked && staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up/)))
 						){
 							return
