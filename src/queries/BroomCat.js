@@ -26,6 +26,7 @@
 		["Incomplete dates","incompleteDates"],
 		["No tags","noTags"],
 		["No genres","noGenres"],
+		["Duplicate tags","doubleTags",false,"Has a tag appearing twice, which is not valid"],
 		["Has tag below 20%","lowTag",false,"Tags start out at 20%, so if it's below it's controversial"],
 		["Has invalid genre","badGenre",true,"There's a fixed list of 19 genres, so anything else must be wrong"],
 		["Missing banner","noBanner"],
@@ -118,6 +119,9 @@
 		},require: ["startDate{year month day}","endDate{year month day}","status"]},
 		{name: "noTags",description: "No tags",code: function(media){
 			return media.tags.length === 0;
+		},require: ["tags{rank name}"]},
+		{name: "doubleTags",description: "Duplicate tags",code: function(media){
+			return new Set(media.tags.map(a => a.name)).size !== media.tags.length
 		},require: ["tags{rank name}"]},
 		{name: "noGenres",description: "No genres",code: function(media){
 			return media.genres.length === 0;
