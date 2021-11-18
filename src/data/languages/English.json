@@ -180,6 +180,7 @@
 "$documentTitle_notifications": "Notifications · AniList",
 "$documentTitle_home": "Home · AniList",
 "$documentTitle_forum": "Forum - Anime & Manga Discussion · AniList",
+"$documentTitle_forum_prefix": "Forum",
 "$documentTitle_appSettings": "App & Automail Settings · AniList",
 "$preview_animeSection_title": "Anime in Progress",
 "$preview_mangaSection_title": "Manga in Progress",
@@ -418,6 +419,23 @@
 "$mediaFormat_MUSIC" : "Music",
 "$mediaFormat_MANGA" : "Manga",
 "$mediaFormat_NOVEL" : "Light Novel",
-"$mediaFormat_ONE_SHOT" : "One Shot"
+"$mediaFormat_ONE_SHOT" : "One Shot",
+"$forumCategory_1": "Anime",
+"$forumCategory_2": "Manga",
+"$forumCategory_3": "Light Novels",
+"$forumCategory_4": "Visual Novels",
+"$forumCategory_5": "Release Discussion",
+"$forumCategory_7": "General",
+"$forumCategory_8": "News",
+"$forumCategory_9": "Music",
+"$forumCategory_10": "Gaming",
+"$forumCategory_11": "Site Feedback",
+"$forumCategory_12": "Bug Reports",
+"$forumCategory_13": "Site Announcements",
+"$forumCategory_14": "List Customisation",
+"$forumCategory_15": "Recommendations",
+"$forumCategory_16": "Forum Games",
+"$forumCategory_17": "Misc",
+"$forumCategory_18": "AniList Apps"
 	}
 }

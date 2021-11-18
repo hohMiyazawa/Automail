@@ -52,6 +52,9 @@ function addForumMediaNoAWC(){
 				contextText.appendChild(nativeTimeElement(thread.repliedAt));
 			};
 			let categories = create("div","categories",false,footer);
+			thread.categories.forEach(category => {
+				category.name = translate("$forumCategory_" + category.id,null,category.name)
+			});
 			if(thread.mediaCategories.length === 0){
 				if(thread.categories.length){
 					let catWrap = create("span",false,false,categories);

@@ -173,6 +173,7 @@
 "$documentTitle_notifications": "Notificações · AniList",
 "$documentTitle_home": "Início · AniList",
 "$documentTitle_forum": "Foro - Debate de Animé e Mangá · AniList",
+"$documentTitle_forum_prefix": "Foro",
 "$documentTitle_appSettings": "Definições de App e Automail · AniList",
 "$preview_animeSection_title": "Animé em Progresso",
 "$preview_mangaSection_title": "Mangá em Progresso",

@@ -379,6 +379,11 @@ function handleScripts(url,oldUrl){
 	if(useScripts.notifications && useScripts.accessToken && !useScripts.mobileFriendly){
 		notificationCake()
 	}
+	[1,2,3,4,5/*no 6*/,7,8,9,10,11,12,13,14,15,16,17,18,19].forEach(forumCategory => {
+		if(url === "https://anilist.co/forum/recent?category=" + forumCategory){
+			document.title = translate("$documentTitle_forum_prefix") + " - " + translate("$forumCategory_" + forumCategory) + " · AniList"
+		}
+	})
 };
 
 let useScriptsDefinitions = m4_include(data/legacyModuleDescriptions.json)
