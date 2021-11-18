@@ -24,7 +24,7 @@ buttonFindChapters.onclick = function(){
 					mediaId
 					status
 					media{
-						status
+						status(version: 2)
 					}
 				}
 			}
