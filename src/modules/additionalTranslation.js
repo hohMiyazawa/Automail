@@ -1,6 +1,6 @@
 exportModule({
 	id: "additionalTranslation",
-	description: translate("$additionalTranslation_description") + " " + translate("$settings_experimental_suffix"),
+	description: translate("$additionalTranslation_description"),
 	extendedDescription: `Use "Automail language" to translate some native parts of the site too`,
 	isDefault: false,
 	importance: 0,
