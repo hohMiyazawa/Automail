@@ -1,8 +1,8 @@
 exportModule({
 	id: "CSSmobileTags",
-	description: "Don't hide tags from media pages on mobile",
+	description: translate("$setting_CSSmobileTags"),
 	isDefault: true,
-	importance: 3,
+	importance: 0,
 	categories: ["Media"],
 	visible: true,
 	css: `

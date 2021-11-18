@@ -276,7 +276,7 @@ Changes take effect on reload.`;
 		blockUserInput.value = "";
 		create("span",false," Status: ",blockInput);
 		let blockStatusInput = create("select",false,false,blockInput,"margin-right:10px;");
-		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading"];
+		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"];
 		blockStatuses.forEach(
 			status => create("option",false,capitalize(status),blockStatusInput)
 				.value = status
@@ -588,7 +588,7 @@ query{
 		}
 
 		create("p",false,"Delete all custom settings. Re-installing the script will not do that by itself.",hohSettings);
-		let cleanEverything= create("button",["hohButton","button","danger"],"Default Settings",hohSettings);
+		let cleanEverything= create("button",["hohButton","button","danger"],translate("$button_defaultSettings"),hohSettings);
 		cleanEverything.onclick = function(){
 			localStorage.removeItem("hohSettings");
 			window.location.reload(false);

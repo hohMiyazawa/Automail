@@ -1,6 +1,6 @@
 exportModule({
 	id: "infoTable",
-	description: "Use a two-column table layout for info on media pages",
+	description: translate("$setting_infoTable"),
 	isDefault: false,
 	importance: 1,
 	categories: ["Media"],

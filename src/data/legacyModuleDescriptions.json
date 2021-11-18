@@ -33,13 +33,13 @@
 	"description": "$tagDescriptions_description",
 	"categories": ["Media"]
 },{"id": "MALscore",
-	"description": "Add MAL scores to media",
+	"description": "$setting_MALscore",
 	"categories": ["Media"]
 },{"id": "MALserial",
-	"description": "Add MAL serialization info to manga",
+	"description": "$setting_MALserial",
 	"categories": ["Media"]
 },{"id": "MALrecs",
-	"description": "Add MAL recs to media",
+	"description": "$setting_MALrecs",
 	"categories": ["Media"]
 },{"id": "subTitleInfo",
 	"description": "Add basic data below the title on media pages",

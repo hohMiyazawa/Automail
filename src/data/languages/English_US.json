@@ -18,6 +18,7 @@
 "$submenu_favourites": "Favorites",
 "$characterBrowseTooltip": "Favorites",
 "$MAL_serialization": "Serialization",
-"$compare_normalizeRatings": "Normalize ratings:"
+"$compare_normalizeRatings": "Normalize ratings:",
+"$setting_MALserial": "Add MAL serialization info to manga"
 	}
 }
