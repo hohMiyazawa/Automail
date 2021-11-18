@@ -329,7 +329,7 @@ function handleScripts(url,oldUrl){
 		if(useScripts.embedHentai){
 			embedHentai()
 		};
-		if(useScripts.hideAWC){
+		if(useScripts.hideAWC || useScripts.hideOtherThreads){
 			addForumMediaNoAWC()
 		}
 		else if(useScripts.forumMedia){

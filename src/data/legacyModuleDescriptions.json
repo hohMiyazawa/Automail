@@ -197,6 +197,10 @@
 	"min": 0,
 	"max": 50,
 	"categories": ["Forum"]
+},{"id": "hideOtherThreads",
+	"description": "Hide additional low-quality forum threads on the home page",
+	"extendedDescription": "Curated list of high-volume threads with little reading value.\nRequest threads added: https://github.com/hohMiyazawa/Automail/issues\n\nhttps://anilist.co/forum/thread/15346\nhttps://anilist.co/forum/thread/2340/\nhttps://anilist.co/forum/thread/1\n\"Where can I watch/read/find\"",
+	"categories": ["Forum","Newly Added"]
 },{"id": "expandRight",
 	"description": "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
 	"categories": ["Feeds"]

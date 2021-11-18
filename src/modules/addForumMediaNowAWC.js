@@ -14,7 +14,10 @@ function addForumMediaNoAWC(){
 		forumPreview.classList.add("hohNoAWC");
 		removeChildren(forumPreview)
 		data.data.Page.threads.filter(
-			thread => !thread.title.match(/^(AWC|Anime\sWatching\s(Challenge|Club)|MRC)/)
+			thread => !(
+				(useScripts.hideAWC && thread.title.match(/^(AWC|Anime\sWatching\s(Challenge|Club)|MRC)/))
+				|| (useScripts.hideOtherThreads && thread.title.match(/(Boys\svs\sGirls|New\sUser\sIntro\sThread|Support\sAniList\s&\sAniChart|Where\scan\sI\s(watch|read|find))/i))
+			)
 		).slice(0,parseInt(useScripts.forumPreviewNumber)).forEach(thread => {
 			let card = create("div",["thread-card","small"],false,forumPreview);
 			create("a","title",thread.title,card).href = "/forum/thread/" + thread.id;

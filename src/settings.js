@@ -106,6 +106,7 @@ let useScripts = {
 	cleanSocial: false,
 	SFWmode: false,
 	hideAWC: false,
+	hideOtherThreads: false,
 	forumPreviewNumber: 3,
 	profileBackground: true,
 	profileBackgroundValue: "inherit",
