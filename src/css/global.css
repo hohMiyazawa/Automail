@@ -2140,6 +2140,9 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .feed-filter.el-dropdown-link{
 	opacity: 1;
 }
+.medialist.table .entry:hover .cover .image{/*https://anilist.co/forum/thread/46727*/
+	z-index: 1000;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
