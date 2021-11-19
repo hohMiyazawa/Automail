@@ -189,7 +189,16 @@ function drawListStuff(){
 		}
 		else{
 			generalAPIcall(
-				queryMediaListNotes,
+`query($name: String!, $listType: MediaType){
+	MediaListCollection(userName: $name, type: $listType){
+		lists{
+			entries{
+				mediaId
+				notes
+			}
+		}
+	}
+}`,
 				variables,
 				collectNotes,
 				"hohCustomTagIndex" + variables.listType + variables.name,

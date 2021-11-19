@@ -149,18 +149,6 @@ fragment mediaListEntry on MediaList{
 }
 `;
 
-const queryMediaListNotes = `
-query($name: String!, $listType: MediaType){
-	MediaListCollection(userName: $name, type: $listType){
-		lists{
-			entries{
-				mediaId
-				notes
-			}
-		}
-	}
-}`;
-
 const queryActivity = `
 query($id: Int!){
 	Activity(id: $id){
