@@ -9,8 +9,10 @@
 }
 .activity-markdown a[href^="https://anilist.co/manga/"],
 .activity-markdown a[href^="https://anilist.co/search/manga"],
+.activity-markdown a[href^="/manga/"],
 .reply-markdown a[href^="https://anilist.co/manga/"],
-.reply-markdown a[href^="https://anilist.co/search/manga"]{
+.reply-markdown a[href^="https://anilist.co/search/manga"],
+.reply-markdown a[href^="/manga/"]{
 	color: rgba(var(--color-green));
 }
 .activity-manga_list > div > div > div > div > .title,
