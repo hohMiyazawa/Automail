@@ -1055,7 +1055,7 @@ onlyMediaInput.onblur = function(){
 										return
 									}
 									let editor = createDisplayBox("width:600px;height:500px;top:100px;left:220px",titlePicker(media));
-									let progressLabel = create("p",false,"Progress:",editor);
+									let progressLabel = create("p",false,translate("$preview_progress"),editor);
 									let progressInput = create("input","hohInput",false,editor);
 									progressInput.type = "number";
 									progressInput.min = 0;
@@ -1261,7 +1261,7 @@ let buildPreview = function(data){
 		create("a","link",mediaList.media.title.userPreferred,mediaEntry,"min-height:40px;display:inline-block;")
 			.href = "/anime/" + mediaList.media.id + "/" + safeURL(mediaList.media.title.userPreferred);
 		let progress = create("div",false,false,mediaEntry,"font-size: small;");
-		create("span",false,"Progress: ",progress);
+		create("span",false,translate("$preview_progress") + " ",progress);
 		let number = create("span",false,mediaList.progress + (mediaList.media.episodes ? "/" + mediaList.media.episodes : ""),progress);
 		let plusProgress = create("span",false,"+",progress,"padding-left:5px;padding-right:5px;cursor:pointer;");
 		let isBlocked = false;
