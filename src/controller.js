@@ -7,7 +7,7 @@ function handleScripts(url,oldUrl){
 			module.code()
 		}
 	})
-	if(useScripts.additionalTranslation){
+	if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !== "English"){
 		let nav = document.getElementById("nav");
 		if(nav){
 			try{
@@ -16,7 +16,10 @@ function handleScripts(url,oldUrl){
 				nav.querySelector('a[href$="/animelist"].link').childNodes[0].textContent = translate("$menu_animelist");
 				nav.querySelector('a[href$="/mangalist"].link').childNodes[0].textContent = translate("$menu_mangalist");
 				nav.querySelector('a[href^="/search/"].link').childNodes[0].textContent = translate("$menu_browse");
-				(nav.querySelector('a[href="/forum/overview"].link') || nav.querySelector('a[href="/forum/recent"].link')).childNodes[0].textContent = translate("$menu_forum")
+				(nav.querySelector('a[href="/forum/overview"].link') || nav.querySelector('a[href="/forum/recent"].link')).childNodes[0].textContent = translate("$menu_forum");
+				nav.querySelector('.user-wrap .dropdown a[href="/notifications"] .label').textContent = translate("$mainMenu_notifications");
+				nav.querySelector('.user-wrap .dropdown a[href^="/user/"] .label').textContent = translate("$mainMenu_profile");
+				nav.querySelector('.user-wrap .dropdown a[href="/settings"] .label').textContent = translate("$mainMenu_settings");
 			}
 			catch(e){
 				console.log(e)
