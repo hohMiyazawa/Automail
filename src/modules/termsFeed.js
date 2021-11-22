@@ -190,6 +190,9 @@ let buildPage = function(activities,type,requestTime){
 			likeWrap.classList.add("hohILikeThis")
 		};
 		let likeify = function(likes,likeQuickView){
+			likes.forEach(like => {
+				dataUsers.add(like.name)
+			})
 			removeChildren(likeQuickView)
 			if(likes.length === 0){}
 			else if(likes.length === 1){
@@ -207,11 +210,11 @@ let buildPage = function(activities,type,requestTime){
 				}
 			}
 			else if(likes.length === 3){
-				let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 3 ? likes[0].name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
+				let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 5 ? likes[0].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
 				create("span",false,", ",likeQuickView);
-				let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 3 ? likes[1].name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
+				let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
 				create("span",false," & ",likeQuickView);
-				let name3 = create("span",false,likes[2].name.slice(0,(likes[2].name.length <= 3 ? likes[1].name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[2].name)) % 360},50%,50%)`);
+				let name3 = create("span",false,likes[2].name.slice(0,(likes[2].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[2].name)) % 360},50%,50%)`);
 				name1.onmouseover = function(){
 					name1.innerText = likes[0].name
 				}
