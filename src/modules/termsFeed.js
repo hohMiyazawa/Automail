@@ -100,8 +100,7 @@ let previewArea = create("div",false,false,statusInput,"display:none;");
 let topPrevious = create("button",["hohButton","button"],translate("$button_refresh"),topNav,"position:fixed;top:120px;left:calc(5% - 50px);z-index:50;");
 let topNext = create("button",["hohButton","button"],translate("$button_next"),topNav,"position:fixed;top:120px;right:calc(5% - 50px);z-index:50;");
 let feedContent = create("div",false,false,feed);
-let notiLink = create("a",["link","newTab"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;");
-notiLink.href = "/notifications";
+let notiLink = create("a",["link"],"",topNav,"position:fixed;top:10px;right:10px;color:rgb(var(--color-blue));text-decoration:none;background:rgb(var(--color-red));border-radius: 10px;min-width: 20px;text-align: center;color:white;cursor: pointer;");
 let lastUpdated = 0;
 let changeURL = function(){
 	const baseState = location.protocol + "//" + location.host + location.pathname;
@@ -133,6 +132,195 @@ let handleNotifications = function(data){
 		else{
 			notiLink.title = "no unread notifications"
 		}
+	}
+}
+//notiLink.href = "/notifications";
+notiLink.onclick = function(){
+	loading.innerText = translate("$loading");
+	let callNots = function(){
+		authAPIcall(
+`
+query{
+	Viewer{
+		unreadNotificationCount
+	}
+	Page(perPage: 25){
+		notifications{
+... on AiringNotification{type createdAt episode media{id title{native romaji english}}}
+... on FollowingNotification{type createdAt user{name}}
+... on ActivityMessageNotification{
+	type createdAt user{name}
+	activityId
+}
+... on ActivityMentionNotification{type createdAt user{name}}
+... on ActivityReplyNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{id type}
+... on ListActivity{id type progress}
+... on MessageActivity{id type}
+	}
+}
+... on ActivityReplySubscribedNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on ActivityLikeNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on ActivityReplyLikeNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on ThreadCommentMentionNotification{type createdAt}
+... on ThreadCommentReplyNotification{type createdAt}
+... on ThreadCommentSubscribedNotification{type createdAt}
+... on ThreadCommentLikeNotification{type createdAt}
+... on ThreadLikeNotification{type createdAt}
+... on RelatedMediaAdditionNotification{
+	type createdAt
+	media{id type title{romaji native english}}
+}
+		}
+	}
+}`,
+			{},
+			function(data){
+				if(!data){
+					loading.innerText = translate("$error_connection");
+					return
+				}
+				notiLink.title = "no unread notifications"
+				renderNots(data)
+			}
+		)
+	};callNots();
+	let renderNots = function(data){
+		loading.innerText = "";
+		removeChildren(feedContent);
+		(data ? data.data.Page.notifications : []).forEach((notification,index) => {
+			let noti = create("div","activity",false,feedContent);
+			let diff = NOW() - (new Date(notification.createdAt * 1000)).valueOf();
+			let time = create("span",["time","hohMonospace"],formatTime(Math.round(diff/1000),"short"),noti,"width:50px;position:absolute;left:1px;top:2px;");
+			time.title = (new Date(notification.createdAt * 1000)).toLocaleString();
+			let content = create("div",false,false,noti,"margin-left:60px;position:relative;");
+			if(notification.user){
+				let user = create("a",["link","newTab"],notification.user.name,content);
+				if(notification.user.name === whoAmI){
+					user.classList.add("thisIsMe")
+				}
+				user.href = "/user/" + notification.user.name + "/"
+			}
+			if(notification.type === "ACTIVITY_LIKE"){
+				create("span",false," liked your ",content);
+				let activityLink = create("span","ilink","activity",content);
+				if(notification.activity.type === "TEXT"){
+					activityLink.innerText = "status";
+				}
+				if(notification.activity.type === "MANGA_LIST"){
+					activityLink.classList.add("manga")
+				}
+				activityLink.onclick = function(){
+					viewSingleActivity(notification.activity.id)
+				}
+			}
+			else if(notification.type === "ACTIVITY_REPLY_LIKE"){
+				create("span",false," liked your ",content);
+				let activityLink = create("span","ilink","reply",content);
+				activityLink.onclick = function(){
+					viewSingleActivity(notification.activity.id)
+				}
+			}
+			else if(notification.type === "ACTIVITY_REPLY_SUBSCRIBED"){
+				create("span",false," replied to subscribed ",content);
+				let activityLink = create("span","ilink","activity",content);
+				if(notification.activity.type === "TEXT"){
+					activityLink.innerText = "status";
+				}
+				activityLink.onclick = function(){
+					viewSingleActivity(notification.activity.id)
+				}
+			}
+			else if(notification.type === "ACTIVITY_MESSAGE"){
+				create("span",false," sent you a ",noti);
+				let activityLink = create("span","ilink","message",content);
+				activityLink.onclick = function(){
+					viewSingleActivity(notification.activityId)
+				}
+			}
+			else if(notification.type === "ACTIVITY_REPLY"){
+				let action = create("span",false," replied to your ",content);
+				let activityLink = create("span","ilink","activity",content);
+				if(notification.activity.type === "TEXT"){
+					activityLink.innerText = "status";
+				}
+				else if(notification.activity.type === "MESSAGE"){
+					action.innerText = " replied to a ";
+					activityLink.innerText = "message";
+				}
+				activityLink.onclick = function(){
+					viewSingleActivity(notification.activity.id)
+				}
+			}
+			else if(notification.type === "RELATED_MEDIA_ADDITION"){
+				create("span",false,"New media added: ",content);
+				let mediaLink = create("span","ilink",notification.media.title.romaji,content);
+				if(notification.media.type === "MANGA_LIST"){
+					mediaLink.classList.add("manga")
+				}
+			}
+			else if(notification.type === "ACTIVITY_MENTION"){
+				create("span",false," mentioned you",content)
+			}
+			else if(notification.type === "FOLLOWING"){
+				create("span",false," started following you",content)
+			}
+			else if(notification.type === "AIRING"){
+				create("span",false,"Episode ",noti);
+				create("span",false,notification.episode,content);
+				create("span",false," of ",content);
+				let mediaLink = create("span","ilink",notification.media.title.romaji,content);
+				create("span",false," aired",content);
+			}
+			else{
+				noti.innerText = notification.type
+			}
+			if((index + 1) === data.data.Viewer.unreadNotificationCount){
+				create("hr","divider",false,feedContent);
+				noti.style.borderBottomWidth = "1px"
+			}
+		})
 	}
 }
 let buildPage = function(activities,type,requestTime){
@@ -233,7 +421,7 @@ let buildPage = function(activities,type,requestTime){
 						name.innerText = like.name
 					}
 				});
-				likeQuickView.lastChild.remove();
+				likeQuickView.lastChild.remove()
 			}
 			else if(likes.length === 5 || likes.length === 6){
 				likes.forEach(like => {
@@ -246,7 +434,7 @@ let buildPage = function(activities,type,requestTime){
 						name.innerText = like.name.slice(0,2)
 					}
 				});
-				likeQuickView.lastChild.remove();
+				likeQuickView.lastChild.remove()
 			}
 			else if(likes.length < 12){
 				likes.forEach(like => {
@@ -259,7 +447,7 @@ let buildPage = function(activities,type,requestTime){
 						name.innerText = like.name[0]
 					}
 				});
-				likeQuickView.lastChild.remove();
+				likeQuickView.lastChild.remove()
 			}
 			else if(likes.length <= 20){
 				likes.forEach(like => {
@@ -270,7 +458,7 @@ let buildPage = function(activities,type,requestTime){
 					name.onmouseout = function(){
 						name.innerText = like.name[0]
 					}
-				});
+				})
 			}
 		};
 		likeify(activity.likes,likeQuickView);
@@ -306,12 +494,6 @@ let buildPage = function(activities,type,requestTime){
 			}
 			else if(type === "thread"){
 				window.location = "https://anilist.co/forum/thread/" + activity.id + "/";//remove when implemented
-				let createReplies = data => {//what's happening here? Must look into it later
-					let replies = create("div","replies",false,act);
-					data.data.threadReplies.forEach(function(repy){
-					});
-				};
-				//generalAPIcall(``,{},createReplies)
 			}
 			else{
 				let createReplies = function(){
@@ -345,7 +527,7 @@ let buildPage = function(activities,type,requestTime){
 						}
 						Array.from(text.querySelectorAll(".youtube")).forEach(ytLink => {
 							create("a",["link","newTab"],"Youtube " + ytLink.id,ytLink)
-								.href = "https://www.youtube.com/watch?v=" + ytLink.id;
+								.href = "https://www.youtube.com/watch?v=" + ytLink.id
 						});
 						let actions = create("div","actions",false,rep,"position:absolute;text-align:right;right:4px;bottom:0px;");
 						let likeWrap = create("span",["action","hohLikes"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
@@ -445,7 +627,7 @@ let buildPage = function(activities,type,requestTime){
 									}
 								}
 							);
-							onlySpecificActivity = false;
+							onlySpecificActivity = false
 						}
 						else{
 							loading.innerText = translate("$publishingReply");
@@ -469,15 +651,15 @@ let buildPage = function(activities,type,requestTime){
 										createReplies()
 									}
 								}
-							);
+							)
 						}
 						inputArea.value = "";
 						cancelButton.style.display = "none";
 						publishButton.style.display = "none";
 						document.activeElement.blur();
 					};
-				};createReplies();
-			};
+				};createReplies()
+			}
 		};
 		let status;
 		if(activity.type === "TEXT" || activity.type === "MESSAGE"){
@@ -784,7 +966,7 @@ Viewer{unreadNotificationCount}
 			{page: npage},
 			function(data){
 				if(!data){
-					loading.innerText = "connection error";
+					loading.innerText = translate("$error_connection");
 					return
 				}
 				buildPage(data.data.Page.threads.map(thread => {
@@ -822,7 +1004,7 @@ Viewer{unreadNotificationCount}
 			{page: npage},
 			function(data){
 				if(!data){
-					loading.innerText = "connection error";
+					loading.innerText = translate("$error_connection");
 					return
 				}
 				buildPage(data.data.Page.reviews.map(review => {
@@ -906,7 +1088,7 @@ Viewer{unreadNotificationCount}
 			{page: npage,types:types},
 			function(data){
 				if(!data){
-					loading.innerText = "connection error";
+					loading.innerText = translate("$error_connection");
 					return
 				}
 				buildPage(data.data.Page.activities,"activity",requestTime);
