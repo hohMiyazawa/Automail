@@ -134,6 +134,602 @@ let handleNotifications = function(data){
 		}
 	}
 }
+let likeify = function(likes,likeQuickView){
+	likes.forEach(like => {
+		dataUsers.add(like.name)
+	})
+	removeChildren(likeQuickView)
+	if(likes.length === 0){}
+	else if(likes.length === 1){
+		create("span",false,likes[0].name,likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`)
+	}
+	else if(likes.length === 2){
+		let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 6 ? likes[0].name.length : 4)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
+		create("span",false," & ",likeQuickView);
+		let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 6 ? likes[1].name.length : 4)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
+		name1.onmouseover = function(){
+			name1.innerText = likes[0].name
+		}
+		name2.onmouseover = function(){
+			name2.innerText = likes[1].name
+		}
+	}
+	else if(likes.length === 3){
+		let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 5 ? likes[0].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
+		create("span",false,", ",likeQuickView);
+		let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
+		create("span",false," & ",likeQuickView);
+		let name3 = create("span",false,likes[2].name.slice(0,(likes[2].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[2].name)) % 360},50%,50%)`);
+		name1.onmouseover = function(){
+			name1.innerText = likes[0].name
+		}
+		name2.onmouseover = function(){
+			name2.innerText = likes[1].name
+		}
+		name3.onmouseover = function(){
+			name3.innerText = likes[2].name
+		}
+	}
+	else if(likes.length === 4){
+		likes.forEach(like => {
+			let name = create("span",false,like.name.slice(0,(like.name.length <= 3 ? like.name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
+			create("span",false,", ",likeQuickView);
+			name.onmouseover = function(){
+				name.innerText = like.name
+			}
+		});
+		likeQuickView.lastChild.remove()
+	}
+	else if(likes.length === 5 || likes.length === 6){
+		likes.forEach(like => {
+			let name = create("span",false,like.name.slice(0,2),likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
+			create("span",false," ",likeQuickView);
+			name.onmouseover = function(){
+				name.innerText = like.name
+			}
+			name.onmouseout = function(){
+				name.innerText = like.name.slice(0,2)
+			}
+		});
+		likeQuickView.lastChild.remove()
+	}
+	else if(likes.length < 12){
+		likes.forEach(like => {
+			let name = create("span",false,like.name[0],likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
+			create("span",false," ",likeQuickView);
+			name.onmouseover = function(){
+				name.innerText = like.name
+			}
+			name.onmouseout = function(){
+				name.innerText = like.name[0]
+			}
+		});
+		likeQuickView.lastChild.remove()
+	}
+	else if(likes.length <= 20){
+		likes.forEach(like => {
+			let name = create("span",false,like.name[0],likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
+			name.onmouseover = function(){
+				name.innerText = " " + like.name + " "
+			}
+			name.onmouseout = function(){
+				name.innerText = like.name[0]
+			}
+		})
+	}
+}
+let viewSingleActivity = function(id){
+	loading.innerText = translate("$loading");
+	authAPIcall(
+`query($id: Int){
+	Activity(id: $id){
+		... on TextActivity{
+			id
+			type
+			createdAt
+			text
+			user{name}
+			likes{name}
+			replies{
+				id
+				createdAt
+				text
+				user{name}
+				likes{name}
+			}
+		}
+		... on MessageActivity{
+			id
+			type
+			createdAt
+			text: message
+			user: messenger{name}
+			recipient{name}
+			likes{name}
+			replies{
+				id
+				createdAt
+				text
+				user{name}
+				likes{name}
+			}
+		}
+		... on ListActivity{
+			id
+			type
+			createdAt
+			user{name}
+			likes{name}
+			media{type id title{romaji}}
+			progress
+			status
+			replies{
+				id
+				createdAt
+				text
+				user{name}
+				likes{name}
+			}
+		}
+	}
+}`,
+		{id: id},
+		function(data){
+			loading.innerText = "";
+			if(!data){
+				loading.innerText = translate("$error_connection");
+				return
+			}
+			removeChildren(feedContent);
+////
+			let activity = data.data.Activity;
+			let act = create("div","activity",false,feedContent);
+			let diff = NOW() - (new Date(activity.createdAt * 1000)).valueOf();
+			let time = create("span",["time","hohMonospace"],formatTime(Math.round(diff/1000),"short"),act,"width:50px;position:absolute;left:1px;top:2px;");
+			time.title = (new Date(activity.createdAt * 1000)).toLocaleString();
+			let content = create("div",false,false,act,"margin-left:60px;position:relative;");
+			if(!activity.user){
+				return
+			}
+			let user = create("a",["link","newTab"],activity.user.name,content);
+			if(activity.user.name === whoAmI){
+				user.classList.add("thisIsMe")
+			}
+			user.href = "/user/" + activity.user.name + "/";
+			let actions = create("div","actions",false,content,"position:absolute;text-align:right;");
+			let replyWrap = create("span",["action","hohReplies"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
+			let replyCount = create("span","count",(activity.replies.length || activity.replyCount ? activity.replies.length || activity.replyCount : " "),replyWrap);
+			let replyIcon = create("span",false,false,replyWrap);
+			replyIcon.appendChild(svgAssets2.reply.cloneNode(true));
+			replyWrap.style.cursor = "pointer";
+			replyIcon.children[0].style.width = "13px";
+			replyIcon.stylemarginLeft = "-2px";
+			let likeWrap = create("span",["action","hohLikes"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
+			likeWrap.title = activity.likes.map(a => a.name).join("\n");
+			let likeCount = create("span","count",(activity.likes.length ? activity.likes.length : " "),likeWrap);
+			let heart = create("span",false,"♥",likeWrap,"position:relative;");
+			let likeQuickView = create("div","hohLikeQuickView",false,heart);
+			likeWrap.style.cursor = "pointer";
+			if(activity.likes.some(like => like.name === whoAmI)){
+				likeWrap.classList.add("hohILikeThis")
+			};
+			likeify(activity.likes,likeQuickView);
+			likeWrap.onclick = function(){
+				authAPIcall(
+					"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY){id}}",
+					{id: activity.id},
+					data => {}
+				);
+				if(likeWrap.classList.contains("hohILikeThis")){
+					activity.likes.splice(activity.likes.findIndex(user => user.name === whoAmI),1);
+					if(activity.likes.length === 0){
+						likeCount.innerText = " "
+					}
+					else{
+						likeCount.innerText = activity.likes.length
+					}
+				}
+				else{
+					activity.likes.push({name: whoAmI});
+					likeCount.innerText = activity.likes.length
+				};
+				likeWrap.classList.toggle("hohILikeThis");
+				likeWrap.title = activity.likes.map(a => a.name).join("\n");
+				likeify(activity.likes,likeQuickView);
+			};
+			replyWrap.onclick = function(){
+				if(act.querySelector(".replies")){
+					act.lastChild.remove()
+				}
+				else{
+					let createReplies = function(){
+						let replies = create("div","replies",false,act);
+						let statusInput;
+						let inputArea;
+						let cancelButton;
+						let publishButton;
+						let onlySpecificActivity = false;
+						activity.replies.forEach(reply => {
+							reply.text = makeHtml(reply.text);
+							let rep = create("div","reply",false,replies);
+							let ndiff = NOW() - (new Date(reply.createdAt * 1000)).valueOf();
+							let time = create("span",["time","hohMonospace"],formatTime(Math.round(ndiff/1000),"short"),rep,"width:50px;position:absolute;left:1px;top:2px;");
+							time.title = (new Date(activity.createdAt * 1000)).toLocaleString();
+							let user = create("a",["link","newTab"],reply.user.name,rep,"margin-left:60px;position:absolute;");
+							if(reply.user.name === whoAmI){
+								user.classList.add("thisIsMe")
+							}
+							user.href = "/user/" + reply.user.name + "/";
+							let text = create("div","status",false,rep,"padding-bottom:10px;margin-left:5px;max-width:100%;padding-top:10px;");
+							if(useScripts.termsFeedNoImages && !activity.renderingPermission){
+								let imgText = reply.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
+									let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
+									return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
+								})
+								text.innerHTML = DOMPurify.sanitize(imgText)//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+							}
+							else{
+								text.innerHTML = DOMPurify.sanitize(reply.text)//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+							}
+							Array.from(text.querySelectorAll(".youtube")).forEach(ytLink => {
+								create("a",["link","newTab"],"Youtube " + ytLink.id,ytLink)
+									.href = "https://www.youtube.com/watch?v=" + ytLink.id
+							});
+							let actions = create("div","actions",false,rep,"position:absolute;text-align:right;right:4px;bottom:0px;");
+							let likeWrap = create("span",["action","hohLikes"],false,actions,"display:inline-block;min-width:35px;margin-left:2px");
+							likeWrap.title = reply.likes.map(a => a.name).join("\n");
+							let likeCount = create("span","count",(reply.likes.length ? reply.likes.length : " "),likeWrap);
+							let heart = create("span",false,"♥",likeWrap,"position:relative;");
+							let likeQuickView = create("div","hohLikeQuickView",false,heart,"position:absolute;bottom:0px;left:30px;font-size:70%;white-space:nowrap;");
+							likeWrap.style.cursor = "pointer";
+							if(reply.likes.some(like => like.name === whoAmI)){
+								likeWrap.classList.add("hohILikeThis");
+							};
+							likeify(reply.likes,likeQuickView);
+							likeWrap.onclick = function(){
+								authAPIcall(
+									"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY_REPLY){id}}",
+									{id: reply.id},
+									data => {}
+								);
+								if(likeWrap.classList.contains("hohILikeThis")){
+									reply.likes.splice(reply.likes.findIndex(user => user.name === whoAmI),1);
+									if(reply.likes.length === 0){
+										likeCount.innerText = " ";
+									}
+									else{
+										likeCount.innerText = reply.likes.length;
+									};
+								}
+								else{
+									reply.likes.push({name: whoAmI});
+									likeCount.innerText = reply.likes.length;
+								};
+								likeWrap.classList.toggle("hohILikeThis");
+								likeWrap.title = reply.likes.map(a => a.name).join("\n");
+								likeify(reply.likes,likeQuickView);
+							};
+							if(reply.user.name === whoAmI){
+								let edit = create("a",false,translate("$button_edit"),rep,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
+								edit.onclick = function(){
+									authAPIcall(
+										`query($id: Int){
+											ActivityReply(id: $id){
+												text(asHtml: false)
+											}
+										}`,
+										{id: reply.id},
+										data => {
+											if(!data){
+												onlySpecificActivity = false;
+											}
+											inputArea.focus();
+											onlySpecificActivity = reply.id;
+											inputArea.value = data.data.ActivityReply.text;
+										}
+									)
+								}
+							}
+						});
+						statusInput = create("div",false,false,replies);
+						inputArea = create("textarea",false,false,statusInput,"width: 99%;border-width: 1px;padding: 4px;border-radius: 2px;color: rgb(159, 173, 189);resize: vertical;");
+						cancelButton = create("button",["hohButton","button"],translate("$button_cancel"),statusInput,"background:rgb(31,35,45);display:none;color: rgb(159, 173, 189);");
+						publishButton = create("button",["hohButton","button"],translate("$button_publish"),statusInput,"display:none;");
+						inputArea.placeholder = translate("$placeholder_reply");
+						inputArea.onfocus = function(){
+							cancelButton.style.display = "inline";
+							publishButton.style.display = "inline";
+						};
+						cancelButton.onclick = function(){
+							inputArea.value = "";
+							cancelButton.style.display = "none";
+							publishButton.style.display = "none";
+							document.activeElement.blur();
+						};
+						publishButton.onclick = function(){
+							if(onlySpecificActivity){
+								loading.innerText = "Editing reply...";
+								authAPIcall(
+									`mutation($text: String,$id: Int){
+										SaveActivityReply(text: $text,id: $id){
+											id
+											user{name}
+											likes{name}
+											text(asHtml: true)
+											createdAt
+										}
+									}`,
+									{text: emojiSanitize(inputArea.value),id: onlySpecificActivity},
+									data => {
+										loading.innerText = "";
+										if(data){
+											for(let j=0;j<activity.replies;j++){
+												if(activity.replies[j].id === data.data.SaveActivityReply.id){
+													activity.replies[j] = data.data.SaveActivityReply
+												}
+											}
+											act.lastChild.remove();
+											createReplies()
+										}
+									}
+								);
+								onlySpecificActivity = false
+							}
+							else{
+								loading.innerText = translate("$publishingReply");
+								authAPIcall(
+									`mutation($text: String,$activityId: Int){
+										SaveActivityReply(text: $text,activityId: $activityId){
+											id
+											user{name}
+											likes{name}
+											text(asHtml: true)
+											createdAt
+										}
+									}`,
+									{text: emojiSanitize(inputArea.value),activityId: activity.id},
+									data => {
+										loading.innerText = "";
+										if(data){
+											activity.replies.push(data.data.SaveActivityReply);
+											replyCount.innerText = activity.replies.length;
+											act.lastChild.remove();
+											createReplies()
+										}
+									}
+								)
+							}
+							inputArea.value = "";
+							cancelButton.style.display = "none";
+							publishButton.style.display = "none";
+							document.activeElement.blur();
+						};
+					};createReplies()
+				}
+			};replyWrap.click();
+			let status;
+			if(activity.type === "TEXT" || activity.type === "MESSAGE"){
+				status = create("div",false,false,content,"padding-bottom:10px;width:95%;overflow-wrap:anywhere;");
+				activity.text = makeHtml(activity.text);
+				if(useScripts.termsFeedNoImages){
+					let imgCount = 0;
+					let webmCount = 0;
+					let imgText = activity.text.replace(/<img.*?src=("|')(.*?)("|').*?>/g,img => {
+						let link = img.match(/<img.*?src=("|')(.*?)("|').*?>/)[2];
+						imgCount++;
+						return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
+					}).replace(/<video.*?video>/g,video => {
+						let link = video.match(/src=("|')(.*?)("|')/)[2];
+						webmCount++;
+						return "[<a href=\"" + link + "\">" + (link.length > 200 ? link.slice(0,200) + "…" : link) + "</a>]"
+					})
+					status.innerHTML = DOMPurify.sanitize(imgText);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+					if(imgText !== activity.text){
+						let render = create("a",false,"IMG",act,"position:absolute;top:2px;right:20px;cursor:pointer;");
+						render.title = "load images";
+						if(imgCount === 0 && webmCount){
+							render.innerText = "WebM";
+							render.title = "load webms"
+						}
+						else if(imgCount && webmCount){
+							render.innerText = "IMG+WebM";
+							render.title = "load images and webms"
+						}
+						render.onclick = () => {
+							activity.renderingPermission = true;
+							status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+							render.style.display = "none"
+						}
+					}
+				}
+				else{
+					status.innerHTML = DOMPurify.sanitize(activity.text);//reason for inner HTML: preparsed sanitized HTML from the Anilist API
+				}
+				Array.from(status.querySelectorAll(".youtube")).forEach(ytLink => {
+					create("a",["link","newTab"],ytLink.id,ytLink)
+						.href = ytLink.id
+				});
+				if(activity.user.name === whoAmI && (activity.type === "TEXT" || activity.type === "MESSAGE")){
+					let edit = create("a",false,translate("$button_edit"),act,"position:absolute;top:2px;right:40px;width:10px;cursor:pointer;font-size:small;color:inherit;");
+					if(useScripts.termsFeedNoImages){
+						edit.style.right = "80px"
+					}
+					edit.onclick = function(){
+						loading.innerText = "Loading activity " + activity.id + "...";
+						if(terms.scrollIntoView){
+							terms.scrollIntoView({"behavior": "smooth","block": "start"})
+						}
+						else{
+							document.body.scrollTop = document.documentElement.scrollTop = 0
+						};
+						if(activity.type === "MESSAGE"){
+							authAPIcall(
+								`query($id: Int){
+									Activity(id: $id){
+										... on MessageActivity{
+											text:message(asHtml: false)
+										}
+									}
+								}`,
+								{id: activity.id},
+								data => {
+									if(!data){
+										onlySpecificActivity = false;
+										loading.innerText = "Failed to load message";
+									}
+									inputArea.focus();
+									onlySpecificActivity = activity.id;
+									loading.innerText = "Editing message " + activity.id;
+									inputArea.value = data.data.Activity.text;
+								}
+							)
+						}
+						else{
+							authAPIcall(
+								`query($id: Int){
+									Activity(id: $id){
+										... on TextActivity{
+											text(asHtml: false)
+										}
+									}
+								}`,
+								{id: activity.id},
+								data => {
+									if(!data){
+										onlySpecificActivity = false;
+										loading.innerText = "Failed to load activity";
+									}
+									inputArea.focus();
+									onlySpecificActivity = activity.id;
+									loading.innerText = "Editing activity " + activity.id;
+									inputArea.value = data.data.Activity.text;
+								}
+							)
+						}
+					}
+				}
+				act.classList.add("text");
+				actions.style.right = "21px";
+				actions.style.bottom = "4px";
+			}
+			else{
+				status = create("span",false," " + activity.status + " ",content);
+				if(activity.progress){
+					status.innerText += " " + activity.progress + " of "
+				};
+				if(activity.media.type === "MANGA"){
+					if(activity.status === "read chapter" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MreadChapter",activity.progress)
+					}
+					else if(activity.status === "reread chapter" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MrepeatingManga",activity.progress)
+					}
+					else if(activity.status === "dropped" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MdroppedManga",activity.progress)
+					}
+					else if(activity.status === "completed"){
+						status.innerText = " " + translate("$listActivity_completedManga")
+					}
+					else if(activity.status === "plans to read"){
+						status.innerText = " " + translate("$listActivity_planningManga")
+					}
+					else if(activity.status === "paused reading"){
+						status.innerText = " " + translate("$listActivity_pausedManga")
+					}
+					else{
+						console.warn("Missing listActivity translation key for:",activity.status)
+					}
+				}
+				else{
+					if(activity.status === "watched episode" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MwatchedEpisode",activity.progress)
+					}
+					else if(activity.status === "rewatched episode" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MrepeatingAnime",activity.progress)
+					}
+					else if(activity.status === "dropped" && activity.progress){
+						status.innerText = " " + translate("$listActivity_MdroppedAnime",activity.progress)
+					}
+					else if(activity.status === "completed"){
+						status.innerText = " " + translate("$listActivity_completedAnime")
+					}
+					else if(activity.status === "plans to watch"){
+						status.innerText = " " + translate("$listActivity_planningAnime")
+					}
+					else if(activity.status === "paused watching"){
+						status.innerText = " " + translate("$listActivity_pausedAnime")
+					}
+					else{
+						console.warn("Missing listActivity translation key for:",activity.status)
+					}
+				}
+				let title = activity.media.title.romaji;
+				if(useScripts.titleLanguage === "NATIVE" && activity.media.title.native){
+					title = activity.media.title.native
+				}
+				else if(useScripts.titleLanguage === "ENGLISH" && activity.media.title.english){
+					title = activity.media.title.english
+				};
+				dataMedia.add(title);
+				title = titlePicker(activity.media);
+				let media = create("a",["link","newTab"],title,content);
+				media.href = "/" + activity.media.type.toLowerCase() + "/" + activity.media.id + "/" + safeURL(title) + "/";
+				if(activity.media.type === "MANGA" && useScripts.CSSgreenManga){
+					media.style.color = "rgb(var(--color-green))"
+				};
+				act.classList.add("list");
+				actions.style.right = "21px";
+				actions.style.top = "2px";
+				if(useScripts.statusBorder){
+					let blockerMap = {
+						"plans": "PLANNING",
+						"watched": "CURRENT",
+						"read": "CURRENT",
+						"completed": "COMPLETED",
+						"paused": "PAUSED",
+						"dropped": "DROPPED",
+						"rewatched": "REPEATING",
+						"reread": "REPEATING"
+					};
+					let status = blockerMap[
+						Object.keys(blockerMap).find(
+							key => activity.status.includes(key)
+						)
+					]
+					if(status === "CURRENT"){
+						//nothing
+					}
+					else if(status === "COMPLETED"){
+						act.style.borderLeftWidth = "3px";
+						act.style.marginLeft = "-2px";
+						if(useScripts.CSSgreenManga && activity.media.type === "ANIME"){
+							act.style.borderLeftColor = "rgb(var(--color-blue))";
+						}
+						else{
+							act.style.borderLeftColor = "rgb(var(--color-green))";
+						}
+					}
+					else{
+						act.style.borderLeftWidth = "3px";
+						act.style.marginLeft = "-2px";
+						act.style.borderLeftColor = distributionColours[status]
+					}
+				}
+			};
+			let link = create("a",["link","newTab"],false,act,"position:absolute;top:2px;right:4px;width:10px;");
+			link.appendChild(svgAssets2.link.cloneNode(true));
+			link.href = "https://anilist.co/activity/" + activity.id + "/"
+			dataUsers.add(activity.user.name);
+			activity.replies.forEach(reply => {
+				dataUsers.add(reply.user.name);
+				(reply.text.match(/@(.*?)</g) || []).forEach(user => {
+					dataUsers.add(user.slice(1,user.length-1))
+				})
+			})
+////
+		}
+	)
+}
 //notiLink.href = "/notifications";
 notiLink.onclick = function(){
 	loading.innerText = translate("$loading");
@@ -376,90 +972,6 @@ let buildPage = function(activities,type,requestTime){
 		likeWrap.style.cursor = "pointer";
 		if(activity.likes.some(like => like.name === whoAmI)){
 			likeWrap.classList.add("hohILikeThis")
-		};
-		let likeify = function(likes,likeQuickView){
-			likes.forEach(like => {
-				dataUsers.add(like.name)
-			})
-			removeChildren(likeQuickView)
-			if(likes.length === 0){}
-			else if(likes.length === 1){
-				create("span",false,likes[0].name,likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`)
-			}
-			else if(likes.length === 2){
-				let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 6 ? likes[0].name.length : 4)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
-				create("span",false," & ",likeQuickView);
-				let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 6 ? likes[1].name.length : 4)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
-				name1.onmouseover = function(){
-					name1.innerText = likes[0].name
-				}
-				name2.onmouseover = function(){
-					name2.innerText = likes[1].name
-				}
-			}
-			else if(likes.length === 3){
-				let name1 = create("span",false,likes[0].name.slice(0,(likes[0].name.length <= 5 ? likes[0].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`);
-				create("span",false,", ",likeQuickView);
-				let name2 = create("span",false,likes[1].name.slice(0,(likes[1].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[1].name)) % 360},50%,50%)`);
-				create("span",false," & ",likeQuickView);
-				let name3 = create("span",false,likes[2].name.slice(0,(likes[2].name.length <= 5 ? likes[1].name.length : 3)),likeQuickView,`color: hsl(${Math.abs(hashCode(likes[2].name)) % 360},50%,50%)`);
-				name1.onmouseover = function(){
-					name1.innerText = likes[0].name
-				}
-				name2.onmouseover = function(){
-					name2.innerText = likes[1].name
-				}
-				name3.onmouseover = function(){
-					name3.innerText = likes[2].name
-				}
-			}
-			else if(likes.length === 4){
-				likes.forEach(like => {
-					let name = create("span",false,like.name.slice(0,(like.name.length <= 3 ? like.name.length : 2)),likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
-					create("span",false,", ",likeQuickView);
-					name.onmouseover = function(){
-						name.innerText = like.name
-					}
-				});
-				likeQuickView.lastChild.remove()
-			}
-			else if(likes.length === 5 || likes.length === 6){
-				likes.forEach(like => {
-					let name = create("span",false,like.name.slice(0,2),likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
-					create("span",false," ",likeQuickView);
-					name.onmouseover = function(){
-						name.innerText = like.name
-					}
-					name.onmouseout = function(){
-						name.innerText = like.name.slice(0,2)
-					}
-				});
-				likeQuickView.lastChild.remove()
-			}
-			else if(likes.length < 12){
-				likes.forEach(like => {
-					let name = create("span",false,like.name[0],likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
-					create("span",false," ",likeQuickView);
-					name.onmouseover = function(){
-						name.innerText = like.name
-					}
-					name.onmouseout = function(){
-						name.innerText = like.name[0]
-					}
-				});
-				likeQuickView.lastChild.remove()
-			}
-			else if(likes.length <= 20){
-				likes.forEach(like => {
-					let name = create("span",false,like.name[0],likeQuickView,`color: hsl(${Math.abs(hashCode(like.name)) % 360},50%,50%)`);
-					name.onmouseover = function(){
-						name.innerText = " " + like.name + " "
-					}
-					name.onmouseout = function(){
-						name.innerText = like.name[0]
-					}
-				})
-			}
 		};
 		likeify(activity.likes,likeQuickView);
 		likeWrap.onclick = function(){

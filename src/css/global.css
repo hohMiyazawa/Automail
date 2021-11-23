@@ -2143,6 +2143,10 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .medialist.table .entry:hover .cover .image{/*https://anilist.co/forum/thread/46727*/
 	z-index: 1000;
 }
+.ilink:hover{
+	color: rgb(var(--color-blue));
+	cursor: pointer;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
