@@ -1,0 +1,17 @@
+The main JSON object has two field: "info", containing the metadata, and "keys", containing the translations.
+
+In "info":
+	"language": The name of your language, in your language. Add parenthesis if you need to distinguish it as a variant of another language.
+	"language_english": The name of your language, in English. Copy the value of "language" if your language doesn't have a name in English.
+	(Optional) "variation_of": If you are adding a dialect of an existing translation, this should be the name of that translation.
+	"fallback": A list, containing in descending order what languages the script should try to search for missing translations until it finds one. The last one should be "English".
+	"maintainer": The name you wish to be addressed as. Does not have to be your real name. Your Anilist name or Github name are good candidates, but it doesn't have to be one of those.
+	"maintainer_link": Were people can contact you. An anilist user page or a Github page are good candidates. But you can also use a nick on some chat platform if that's your preference. Can be left blank. Add "I do not wish to be contacted" + the same in your language if you really do not wish people to contact you.
+	"discussion_link": Where people can discuss this translation. Use "https://github.com/hohMiyazawa/Automail/issues/69" if you don't have a dedicated place for discussion.
+	(Optional) "notes": Anything
+	(Optional) "translators": A list of translators, if multiple people have contributed. But there can only be one maintainer.
+
+	You are allowed to add additional fields in "info".
+
+In "keys":
+	language keys, all starting with "$". You do not have to translate all the keys as the script will fall back to English or the dedicated fallback languages.
