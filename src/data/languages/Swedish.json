@@ -3,10 +3,10 @@
 		"language": "Svenska",
 		"language_english": "Swedish",
 		"fallback": ["Norsk","English"],
-		"maintainer": "hoh",
-		"maintainer_link": "https://anilist.co/user/hoh/",
+		"maintainer": "no maintainer",
+		"maintainer_link": "",
 		"discussion_link": "",
-		"notes": "I don't speak Swedish, I'm just using this for testing. The position of Swedish translator is up for grabs!"
+		"notes": ""
 	},
 	"keys": {
 "$settings_homepage": "Hemesida: ",
