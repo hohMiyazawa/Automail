@@ -82,7 +82,7 @@ exportModule({
 										:
 										0
 									)
-								) + " keys)",input)
+								) + " keys) [" + (languageFiles[value].info.translators ? languageFiles[value].info.translators.join(", ") : languageFiles[value].info.maintainer) + "]",input)
 								.value = value
 						)
 					}
