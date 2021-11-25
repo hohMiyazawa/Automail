@@ -8,6 +8,7 @@ const languageFiles = {
 	"Norsk": m4_include(data/languages/Norwegian.json),
 	"Svenska": m4_include(data/languages/Swedish.json),
 	"English (US)": m4_include(data/languages/English_US.json),
+	"English (short)": m4_include(data/languages/English_short.json),
 	"Español": m4_include(data/languages/Spanish.json)
 }
 function translate(key,subs,fallback){

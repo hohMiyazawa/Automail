@@ -78,7 +78,7 @@ exportModule({
 										languageFiles[value].info.variation_of
 										?
 										Object.keys(languageFiles[languageFiles[value].info.variation_of].keys).length	
-										+ (value === "English (US)" ? nativeEnglishRoleCount : 0)
+										+ (languageFiles[value].info.variation_of === "English" ? nativeEnglishRoleCount : 0)
 										:
 										0
 									)
