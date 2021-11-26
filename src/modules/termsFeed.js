@@ -879,10 +879,10 @@ query{
 				}
 			}
 			else if(notification.type === "ACTIVITY_MESSAGE"){
-				create("span",false," sent you a ",noti);
+				create("span",false," sent you a ",content);
 				let activityLink = create("span","ilink","message",content);
 				activityLink.onclick = function(){
-					viewSingleActivity(notification.activity.id)
+					viewSingleActivity(notification.activityId)
 				}
 			}
 			else if(notification.type === "ACTIVITY_REPLY"){

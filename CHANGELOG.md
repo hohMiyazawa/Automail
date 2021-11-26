@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added Spanish translation.
 - Added English "short" translation.
 - Added a very basic notification interface and activity viewer to the terms feed.
+- Extended translation now also applies to feeds.
 
 ### Changed
 
@@ -25,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- More translation keys, especially for the forum an menus.
+- More translation keys, especially for the forum and menus.
 
 ### Changed
 

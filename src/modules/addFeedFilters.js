@@ -170,6 +170,72 @@ function addFeedFilters(){
 			}
 		};
 	};
+	let postTranslator = function(){
+		Array.from(activityFeed.children).forEach(activity => {
+			let status = activity.querySelector(".status");
+			if(!status){
+				return
+			}
+			status = status.childNodes[0];
+			let cont = status.textContent.trim().match(/(.+?)(\s(\d+|\d+ - \d+) of)?$/);
+			if(cont){
+				let prog = cont[3];
+				let type = cont[1];
+				if(activity.classList.contains("activity-anime_list")){
+					if(type === "Completed"){
+						status.textContent = translate("$listActivity_completedAnime")
+					}
+					else if(type === "Watched episode" && prog){
+						status.textContent = translate("$listActivity_MwatchedEpisode",prog)
+					}
+					else if(type === "Dropped" && prog){
+						status.textContent = translate("$listActivity_MdroppedAnime",prog)
+					}
+					else if(type === "Dropped"){
+						status.textContent = translate("$listActivity_droppedAnime")
+					}
+					else if(type === "Rewatched" && prog){
+						status.textContent = translate("$listActivity_MrepeatingAnime",prog)
+					}
+					else if(type === "Rewatched episode"){
+						status.textContent = translate("$listActivity_repeatedAnime")
+					}
+					else if(type === "Paused watching"){
+						status.textContent = translate("$listActivity_pausedAnime")
+					}
+					else if(type === "Plans to watch"){
+						status.textContent = translate("$listActivity_planningAnime")
+					}
+				}
+				else if(activity.classList.contains("activity-manga_list")){
+					if(type === "Completed"){
+						status.textContent = translate("$listActivity_completedManga")
+					}
+					else if(type === "Read chapter" && prog){
+						status.textContent = translate("$listActivity_MreadChapter",prog)
+					}
+					else if(type === "Dropped" && prog){
+						status.textContent = translate("$listActivity_MdroppedManga",prog)
+					}
+					else if(type === "Dropped"){
+						status.textContent = translate("$listActivity_droppedManga")
+					}
+					else if(type === "Reread chapter" && prog){
+						status.textContent = translate("$listActivity_MrepeatingManga",prog)
+					}
+					else if(type === "Reread"){
+						status.textContent = translate("$listActivity_repeatedManga")
+					}
+					else if(type === "Paused reading"){
+						status.textContent = translate("$listActivity_pausedManga")
+					}
+					else if(type === "Plans to read"){
+						status.textContent = translate("$listActivity_planningManga")
+					}
+				}
+			}
+		});
+	}
 	if(useScripts.feedCommentFilter){
 		filterBox = create("div","hohFeedFilter",false,activityFeedWrap);
 		create("span","hohDescription","At least ",filterBox);
@@ -210,6 +276,9 @@ function addFeedFilters(){
 	};
 	let observer = new MutationObserver(function(){
 		postRemover();
+		if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !== "English"){
+			postTranslator()
+		}
 		setTimeout(postRemover,500);
 	});
 	observer.observe(activityFeed,mutationConfig);
@@ -219,6 +288,9 @@ function addFeedFilters(){
 			observer.disconnect();
 			observer = new MutationObserver(function(){
 				postRemover();
+				if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !== "English"){
+					postTranslator()
+				}
 				setTimeout(postRemover,500);
 			});
 			observer.observe(activityFeed,mutationConfig);
@@ -226,6 +298,9 @@ function addFeedFilters(){
 	});
 	observerObserver.observe(activityFeedWrap,mutationConfig);
 	postRemover();
+	if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !== "English"){
+		postTranslator()
+	}
 	let waiter = function(){
 		setTimeout(function(){
 			if(location.pathname.match(/^\/home\/?$/)){

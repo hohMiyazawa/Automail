@@ -192,13 +192,13 @@ function betterListPreview(){
 								}
 							};
 							if(days){
-								create("span",false,days + "d ",imageTextWrapper)
+								create("span",false,days + translate("$time_short_day",null,"d") + " ",imageTextWrapper)
 							}
 							if(hours){
-								create("span",false,hours + "h ",imageTextWrapper)
+								create("span",false,hours + translate("$time_short_hour",null,"h") + " ",imageTextWrapper)
 							}
 							if(minutes){
-								create("span",false,minutes + "m",imageTextWrapper)
+								create("span",false,minutes + translate("$time_short_minute",null,"m"),imageTextWrapper)
 							}
 							setTimeout(function(){
 								air.media.nextAiringEpisode.timeUntilAiring -= 60;
@@ -333,7 +333,7 @@ function betterListPreview(){
 						fallback.innerText = air.media.title.userPreferred
 					}
 					
-				});
+				})
 			};
 			if(airingImportant > 3){
 				drawSection(
@@ -345,7 +345,7 @@ function betterListPreview(){
 			}
 			else{
 				let remainderAiring = airing.slice(0,airingImportant).filter(air => air.index >= 20);
-				drawSection(mediaLists.slice(0,20 - remainderAiring.length).concat(remainderAiring),translate("$preview_animeSection_title"),true);
+				drawSection(mediaLists.slice(0,20 - remainderAiring.length).concat(remainderAiring),translate("$preview_animeSection_title"),true)
 			}
 		}
 	}catch(e){errorHandler(e)}}
@@ -369,7 +369,7 @@ function betterListPreview(){
 			}
 		}`,{name: whoAmI},function(data){
 			localStorage.setItem("hohListPreview",JSON.stringify(data));
-			buildPreview(data,true);
+			buildPreview(data,true)
 		}
 	);
 	buildPreview(JSON.parse(localStorage.getItem("hohListPreview")),false);
