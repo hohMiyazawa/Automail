@@ -627,6 +627,9 @@ let viewSingleActivity = function(id){
 					else if(activity.status === "dropped" && activity.progress){
 						status.innerText = " " + translate("$listActivity_MdroppedManga",activity.progress)
 					}
+					else if(activity.status === "dropped"){
+						status.innerText = " " + translate("$listActivity_droppedManga")
+					}
 					else if(activity.status === "completed"){
 						status.innerText = " " + translate("$listActivity_completedManga")
 					}
@@ -649,6 +652,9 @@ let viewSingleActivity = function(id){
 					}
 					else if(activity.status === "dropped" && activity.progress){
 						status.innerText = " " + translate("$listActivity_MdroppedAnime",activity.progress)
+					}
+					else if(activity.status === "dropped"){
+						status.innerText = " " + translate("$listActivity_droppedAnime")
 					}
 					else if(activity.status === "completed"){
 						status.innerText = " " + translate("$listActivity_completedAnime")
@@ -792,6 +798,10 @@ query{
 	id
 	type
 }
+... on MessageActivity{
+	id
+	type
+}
 ... on ListActivity{
 	id
 	type
@@ -872,7 +882,7 @@ query{
 				create("span",false," sent you a ",noti);
 				let activityLink = create("span","ilink","message",content);
 				activityLink.onclick = function(){
-					viewSingleActivity(notification.activityId)
+					viewSingleActivity(notification.activity.id)
 				}
 			}
 			else if(notification.type === "ACTIVITY_REPLY"){
@@ -1294,6 +1304,9 @@ let buildPage = function(activities,type,requestTime){
 				else if(activity.status === "dropped" && activity.progress){
 					status.innerText = " " + translate("$listActivity_MdroppedManga",activity.progress)
 				}
+				else if(activity.status === "dropped"){
+					status.innerText = " " + translate("$listActivity_droppedManga")
+				}
 				else if(activity.status === "completed"){
 					status.innerText = " " + translate("$listActivity_completedManga")
 				}
@@ -1316,6 +1329,9 @@ let buildPage = function(activities,type,requestTime){
 				}
 				else if(activity.status === "dropped" && activity.progress){
 					status.innerText = " " + translate("$listActivity_MdroppedAnime",activity.progress)
+				}
+				else if(activity.status === "dropped"){
+					status.innerText = " " + translate("$listActivity_droppedAnime")
 				}
 				else if(activity.status === "completed"){
 					status.innerText = " " + translate("$listActivity_completedAnime")

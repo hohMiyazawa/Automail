@@ -142,6 +142,8 @@
 "$listActivity_repeatedAnime": "rewatched ",
 "$listActivity_pausedManga": "paused reading ",
 "$listActivity_pausedAnime": "paused watching ",
+"$listActivity_droppedManga": "dropped ",
+"$listActivity_droppedAnime": "dropped ",
 "$listActivity_MdroppedManga": "dropped {0} of ",
 "$listActivity_MdroppedAnime": "dropped {0} of ",
 "$listActivity_MrepeatingManga": "reread chapter {0} of ",

@@ -226,6 +226,8 @@
 "$listActivity_MrepeatingAnime": "såg oppatt episode {0} av ",
 "$listActivity_completedManga": "las ferdig ",
 "$listActivity_completedAnime": "såg ferdig ",
+"$listActivity_droppedManga": "droppa ",
+"$listActivity_droppedAnime": "droppa ",
 "$listActivity_MdroppedManga": "droppa {0} av ",
 "$listActivity_MdroppedAnime": "droppa {0} av ",
 "$listActivity_planningManga": "vil lesa ",
