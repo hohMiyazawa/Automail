@@ -2,7 +2,7 @@ exportModule({
 	id: "additionalTranslation",
 	description: translate("$additionalTranslation_description"),
 	extendedDescription: `Use "Automail language" to translate some native parts of the site too`,
-	isDefault: false,
+	isDefault: true,//logic: if translation is turned on, it should be comprehensive. Turning *off* parts of it should be the active opt
 	importance: 0,
 	categories: ["Script","Newly Added"],
 	visible: true,
