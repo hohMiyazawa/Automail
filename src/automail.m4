@@ -73,7 +73,7 @@ style.textContent = `
 m4_include(css/global.css)
 `;
 let documentHead = document.querySelector("head");
-if(documentHead){
+if(documentHead && document.URL !== "https://anilist.co/graphiql"){
 	documentHead.appendChild(style)
 }
 else{
