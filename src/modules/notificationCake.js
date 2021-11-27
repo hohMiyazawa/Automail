@@ -5,6 +5,9 @@ function notificationCake(){
 			queryAuthNotifications,
 			{page:1,name:whoAmI},
 			function(data){
+				if(!data){
+					return
+				}
 				let Page = data.data.Page;
 				let User = data.data.User;
 				let types = [];
