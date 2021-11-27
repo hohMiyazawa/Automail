@@ -79,23 +79,17 @@ class VideoElement {
 
 function insert(songs, parent) {
   if (!songs || !songs.length) {
-    const node = document.createElement('div')
-    node.innerText = 'No songs to show (つ﹏<)･ﾟ｡'
-    node.style.textAlign = "center"
-    parent.appendChild(node)
+    create("div",false,"No songs to show (つ﹏<)･ﾟ｡",parent,"text-align:center");
   }
   else {
     songs.forEach( (song, i) => {
-      const node = document.createElement('div')
-      const txt = `${i+1}. ${song.title || song}`
+      const txt = `${i+1}. ${song.title || song}`;
+      const node = create("div","anisongs-entry",txt,parent);
       if (song.url) {
         const vid = new VideoElement(node, song.url)
         node.addEventListener("click", () => vid.toggle())
         node.classList.add("has-video")
       }
-      node.innerText = txt
-      node.classList.add("anisong-entry")
-      parent.appendChild(node)
     })
   }
 }
@@ -111,8 +105,14 @@ function createTargetDiv(text, target, pos) {
 
 function placeData(data) {
   cleaner(anisongs_temp.target);
-  let op = createTargetDiv('Openings', anisongs_temp.target, 0);
-  let ed = createTargetDiv('Endings', anisongs_temp.target, 1);
+  let op = createTargetDiv(translate("$anisongs_openings"), anisongs_temp.target, 0);
+  if(data.opening_themes.length === 1){
+    op.innerText = translate("$anisongs_opening")
+  }
+  let ed = createTargetDiv(translate("$anisongs_endings"), anisongs_temp.target, 1);
+  if(data.ending_themes.length === 1){
+    op.innerText = translate("$anisongs_ending")
+  }
   insert(data.opening_themes, op);
   insert(data.ending_themes, ed);
 }
@@ -123,15 +123,13 @@ function cleaner(target) {
   el.forEach(e => target.removeChild(e))
 }
 
-function TTLpassedCheck(timestamp, TTL) {
-  return (timestamp + TTL) < +new Date()
-}
-
 async function launch(currentid) {
   // get from cache and check TTL
   const cache = await Cache.get(currentid) || {time: 0};
-  const TTLpassed = TTLpassedCheck(cache.time, options.cacheTTL);
-  if (TTLpassed) {
+  if(
+    (cache.time + options.cacheTTL)
+    < +new Date()
+  ) {
     const {idMal: mal_id, status} = await API.getMedia(currentid);
     if (mal_id) {
       const filterThemes = themes => themes.filter(theme => !theme.includes("Help improve our database"))
