@@ -21,6 +21,14 @@ function moreImports(){
 	apAnimeInput.accept = "application/json";
 	let apManga = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Manga List",apManga);
+	const array = ["All", "Manga", "Light Novel", "One Shot"]
+	let selectFormat = create("select", "meter", false, apManga);
+	for (let i = 0; i < array.length; i++) {
+		let option = document.createElement("option");
+		option.text = array[i];
+		option.value = array[i];
+		selectFormat.appendChild(option);
+	}
 	let apMangaCheckboxContainer = create("label","el-checkbox",false,apManga);
 	let apMangaOverwrite = createCheckbox(apMangaCheckboxContainer);
 	create("span","el-checkbox__label","Overwrite manga already on my list",apMangaCheckboxContainer);
@@ -35,8 +43,11 @@ function moreImports(){
 	let resultsWarnings = create("div",false,false,resultsArea,"color:orange;padding:5px;");
 	let resultsStatus = create("div",false,false,resultsArea,"padding:5px;");
 	let missingList = create("div",false,false,resultsArea,"padding:5px;");
-	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display:none;");
+	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px");
 	let resultsTable = create("div",false,false,resultsArea);
+
+	let selectedValues = {}
+
 	let apImport = function(type,file){
 		let reader = new FileReader();
 		reader.readAsText(file,"UTF-8");
@@ -62,7 +73,6 @@ function moreImports(){
 			let shows = [];
 			let drawShows = function(){
 				removeChildren(resultsTable);
-				removeChildren(missingList);
 				shows = shows.filter(a => {
 					if(a.titles.length){
 						return true
@@ -75,7 +85,7 @@ function moreImports(){
 				shows.sort(
 					(b,a) => a.titles[0].levDistance - b.titles[0].levDistance
 				);
-				shows.forEach(show => {
+				shows.forEach((show, index) => {
 					let row = create("div","hohImportRow",false,resultsTable);
 					if(show.isAnthology){
 						create("div","hohImportEntry",show.apData.map(a => a.name).join(", "),row)
@@ -84,9 +94,32 @@ function moreImports(){
 						create("div","hohImportEntry",show.apData.name,row)
 					}
 					create("span","hohImportArrow","→",row);
-					let aniEntry = create("div","hohImportEntry",false,row,"margin-left:50px");
-					let aniLink = create("a",["link","newTab"],show.titles[0].title,aniEntry);
-					aniLink.href = "/" + type + "/" + show.titles[0].id;
+					let aniEntry = create("div", "hohImportSelect", false, row);
+
+					let selectEntry = create("select", "#typeSelect", false, aniEntry, "width: 100%; white-space: nowrap; text-overflow: ellipsis")
+
+					let images = {}
+
+					for (let i = 0; i < show.titles.length; i++) {
+						let optionEntry = document.createElement("option")
+						optionEntry.text = show.titles[i].title + " (" + show.titles[i].format + ")"
+						optionEntry.value = show.titles[i].id
+						selectEntry.appendChild(optionEntry)
+						images[optionEntry.value] = show.titles[i].cover
+					}
+					selectedValues[show.apData.name] = parseInt(selectEntry.value)
+					let aniLink = create("a", ["hohButton","button","link","newTab"], "View", row, "margin: 0 10px")
+					aniLink.href = "/" + type + "/" + selectEntry.value
+
+					const image = create("img", false, false, row, "margin-right: 10px")
+					image.src = images[selectEntry.value]
+
+					selectEntry.onchange = () => { 
+						selectedValues[show.apData.name] = parseInt(selectEntry.value)
+						aniLink.href = "/" + type + "/" + selectEntry.value
+						image.src = images[selectEntry.value]
+					}
+
 					let button = createCheckbox(row);
 					row.style.backgroundColor = "hsl(" + (120 - Math.min(show.titles[0].levDistance,12)*10) + ",30%,50%)";
 					if(show.titles[0].levDistance > 8){
@@ -133,15 +166,29 @@ function moreImports(){
 					})
 					return;
 				}
+
+				let format;
+				switch(selectFormat.value) {
+					case "Manga":
+						format = "MANGA"
+						break;
+					case "Light Novel":
+						format = "NOVEL"
+						break;
+					case "One Shot":
+						format = "ONE_SHOT"
+						break;
+				}
+				const formatInQuery = format ? ("format:" + format) : ""
 				bigQuery.push({
-					query: `query($search:String){Page(perPage:3){media(type:${type.toUpperCase()},search:$search){title{romaji english native} id synonyms}}}`,
+					query: `query($search:String){Page(perPage:5){media(type:${type.toUpperCase()},search:$search,${formatInQuery}){title{romaji english native} id synonyms format coverImage{medium}}}}`,
 					variables: {search: entry.name},
 					callback: function(dat){
 						let show = {
 							apData: entry,
-							aniData: dat.data.Page.media
+							aniData: dat.data.Page.media,
+							titles: []
 						}
-						show.titles = [];
 						show.aniData.forEach(function(hit){
 							show.titles.push({
 								title: hit.title.romaji,
@@ -150,13 +197,17 @@ function moreImports(){
 									levDist(show.apData.name,hit.title.romaji),
 									levDist(show.apData.name,hit.title.romaji.toUpperCase()),
 									levDist(show.apData.name,hit.title.romaji.toLowerCase())
-								)
+								),
+								format: hit.format,
+								cover: hit.coverImage.medium
 							});
 							if(hit.title.native){
 								show.titles.push({
 									title: hit.title.native,
 									id: hit.id,
-									levDistance: levDist(show.apData.name,hit.title.native)
+									levDistance: levDist(show.apData.name,hit.title.native),
+									format: hit.format,
+									cover: hit.coverImage.medium
 								});
 							}
 							if(hit.title.english){
@@ -167,20 +218,37 @@ function moreImports(){
 										levDist(show.apData.name,hit.title.english),
 										levDist(show.apData.name,hit.title.english.toUpperCase()),
 										levDist(show.apData.name,hit.title.english.toLowerCase())
-									)
+									),
+									format: hit.format,
+									cover: hit.coverImage.medium
 								});
 							}
 							hit.synonyms.forEach(
 								synonym => show.titles.push({
 									title: synonym,
 									id: hit.id,
-									levDistance: levDist(show.apData.name,synonym)
+									levDistance: levDist(show.apData.name,synonym),
+									format: hit.format,
+									cover: hit.coverImage.medium
 								})
 							)
 						});
+
+						const groupBy = (arr) => arr.reduce((prev, cur) => ((prev[cur.id] = prev[cur.id] || []).push(cur), prev), {})
+						const min = (arr) => Math.min(...arr.map(res => res.levDistance))
+						const findTitle = (id, levDistance) => show.titles.find(element => element.id === id && element.levDistance === levDistance);
+
+						show.titles = Object.entries(groupBy(show.titles)).map(([key, val]) => {
+							const levDistance = min(val)
+							key = parseInt(key)
+							return { id: key, levDistance: levDistance, title: findTitle(key, levDistance).title, format: findTitle(key, levDistance).format, cover: findTitle(key, levDistance).cover }
+						})
+						
+
 						show.titles.sort(
 							(a,b) => a.levDistance - b.levDistance
 						);
+					
 						shows.push(show);
 						drawShows();
 					}
@@ -231,23 +299,24 @@ function moreImports(){
 								return;
 							};
 							let list = returnList(data,true).map(a => a.mediaId);
-							shows = shows.filter(function(show){
+							shows = shows.filter(show => {
 								if(!show.toImport){
 									return false;
 								}
 								if(type === "anime"){
-									if(!apAnimeOverwrite.checked && list.includes(show.titles[0].id)){
+									if(!apAnimeOverwrite.checked && list.includes(selectedValues[show.apData.name])){
 										return false;
 									}
 								}
 								else{
-									if(!apMangaOverwrite.checked && list.includes(show.titles[0].id)){
+									if(!apMangaOverwrite.checked && list.includes(selectedValues[show.apData.name])){
 										return false;
 									}
 								}
 								return true;
 							});
 							if(!shows.length){
+								resultsStatus.innerText = "No entries imported. All the entries already exist in your AniList account.";
 								return;
 							};
 							let mutater = function(show,index){
@@ -314,7 +383,7 @@ function moreImports(){
 								if(type === "manga"){
 									progressVolumes = show.apData.vol
 								}
-								if(progress){
+								if(progress || progressVolumes){
 									authAPIcall(
 										`mutation(
 											$mediaId: Int,
@@ -336,7 +405,7 @@ function moreImports(){
 											}
 										}`,
 										{
-											mediaId: show.titles[0].id,
+											mediaId: selectedValues[show.apData.name],
 											status: status,
 											score: score,
 											progress: progress,
@@ -345,7 +414,8 @@ function moreImports(){
 										},
 										data => {
 											if(data.errors){
-												resultsErrors.innerText += JSON.stringify(data.errors.map(e => e.validation)) + " " + show.titles[0].title + "\n"
+												const title = show.titles.find(element => element.id === selectedValues[show.apData.name]).title
+												resultsErrors.innerText += JSON.stringify(data.errors.map(e => e.validation)) + " " + title + "\n"
 											}
 										}
 									)
@@ -368,14 +438,15 @@ function moreImports(){
 											}
 										}`,
 										{
-											mediaId: show.titles[0].id,
+											mediaId: selectedValues[show.apData.name],
 											status: status,
 											score: score,
 											repeat: repeat
 										},
 										data => {
 											if(data.errors){
-												resultsErrors.innerText += JSON.stringify(data.errors.map(e => e.validation)) + " " + show.titles[0].title +  "\n"
+												const title = show.titles.find(element => element.id === selectedValues[show.apData.name]).title
+												resultsErrors.innerText += JSON.stringify(data.errors.map(e => e.validation)) + " " + title +  "\n"
 											}
 										}
 									)
