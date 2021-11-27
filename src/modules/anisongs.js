@@ -111,7 +111,7 @@ function placeData(data) {
   }
   let ed = createTargetDiv(translate("$anisongs_endings"), anisongs_temp.target, 1);
   if(data.ending_themes.length === 1){
-    op.innerText = translate("$anisongs_ending")
+    ed.innerText = translate("$anisongs_ending")
   }
   insert(data.opening_themes, op);
   insert(data.ending_themes, ed);
