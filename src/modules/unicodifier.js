@@ -2,9 +2,9 @@ exportModule({
 	id: "unicodifier",
 	description: "$module_unicodifier_description",
 	extendedDescription: "$module_unicodifier_extendedDescription",
-	isDefault: false,
+	isDefault: true,
 	importance: 0,
-	categories: ["Feeds","Forum","Newly Added"],
+	categories: ["Feeds","Forum"],
 	visible: true
 })
 

@@ -20,7 +20,7 @@ Github: https://github.com/Reinachan/AniList-High-Contrast-Dark-Theme
 `,
 	isDefault: true,
 	importance: 1,
-	categories: ["Script","Newly Added"],
+	categories: ["Script"],
 	visible: true,
 	css: `
 .theme-preview.dark-contrast{

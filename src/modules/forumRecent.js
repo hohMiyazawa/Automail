@@ -2,7 +2,7 @@ exportModule({
 	id: "forumRecent",
 	description: "Make the 'Forum' navbar item lead directly to /forum/recent",
 	isDefault: false,
-	categories: ["Forum","Navigation","Newly Added"],
+	categories: ["Forum","Navigation"],
 	visible: true,
 	urlMatch: function(url,oldUrl){
 		return false
