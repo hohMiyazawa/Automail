@@ -21,13 +21,13 @@ function moreImports(){
 	apAnimeInput.accept = "application/json";
 	let apManga = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Manga List",apManga);
-	const array = ["All", "Manga", "Light Novel", "One Shot"]
-	let selectFormat = create("select", "meter", false, apManga);
-	for (let i = 0; i < array.length; i++) {
-		let option = document.createElement("option");
-		option.text = array[i];
-		option.value = array[i];
-		selectFormat.appendChild(option);
+	const arrayFormat = ["All", "Manga", "Light Novel", "One Shot"]
+	let selectFormat = create("select", "meter", false, apManga)
+	for (let i = 0; i < arrayFormat.length; i++) {
+		let option = document.createElement("option")
+		option.text = arrayFormat[i]
+		option.value = arrayFormat[i]
+		selectFormat.appendChild(option)
 	}
 	let apMangaCheckboxContainer = create("label","el-checkbox",false,apManga);
 	let apMangaOverwrite = createCheckbox(apMangaCheckboxContainer);
@@ -43,7 +43,14 @@ function moreImports(){
 	let resultsWarnings = create("div",false,false,resultsArea,"color:orange;padding:5px;");
 	let resultsStatus = create("div",false,false,resultsArea,"padding:5px;");
 	let missingList = create("div",false,false,resultsArea,"padding:5px;");
-	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px");
+	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px")
+	let exportErrors = create("button",["hohButton","button", "danger"],"Export all errors",resultsArea,"display: none; margin: 5px 10px")
+	exportErrors.onclick = function() {
+		var link = document.createElement("a")
+		link.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(missingList.innerText))
+		link.setAttribute("download", "errors_ap_import.txt")
+		link.click()
+	}
 	let resultsTable = create("div",false,false,resultsArea);
 
 	let selectedValues = {}
@@ -78,7 +85,8 @@ function moreImports(){
 						return true
 					}
 					else{
-						create("p",false,"No matches found for " + a.apData.name,missingList);
+						create("p", false, "No matches found for " + a.apData.name, missingList, "color: rgba(var(--color-peach), .8)")
+						exportErrors.style.display = "inline"
 						return false
 					}
 				});
@@ -167,17 +175,17 @@ function moreImports(){
 					return;
 				}
 
-				let format;
+				let format
 				switch(selectFormat.value) {
 					case "Manga":
 						format = "MANGA"
-						break;
+						break
 					case "Light Novel":
 						format = "NOVEL"
-						break;
+						break
 					case "One Shot":
 						format = "ONE_SHOT"
-						break;
+						break
 				}
 				const formatInQuery = format ? ("format:" + format) : ""
 				bigQuery.push({
@@ -201,15 +209,6 @@ function moreImports(){
 								format: hit.format,
 								cover: hit.coverImage.medium
 							});
-							if(hit.title.native){
-								show.titles.push({
-									title: hit.title.native,
-									id: hit.id,
-									levDistance: levDist(show.apData.name,hit.title.native),
-									format: hit.format,
-									cover: hit.coverImage.medium
-								});
-							}
 							if(hit.title.english){
 								show.titles.push({
 									title: hit.title.english,
@@ -223,6 +222,15 @@ function moreImports(){
 									cover: hit.coverImage.medium
 								});
 							}
+							if(hit.title.native){
+								show.titles.push({
+									title: hit.title.native,
+									id: hit.id,
+									levDistance: levDist(show.apData.name,hit.title.native),
+									format: hit.format,
+									cover: hit.coverImage.medium
+								})
+							}
 							hit.synonyms.forEach(
 								synonym => show.titles.push({
 									title: synonym,
@@ -234,20 +242,24 @@ function moreImports(){
 							)
 						});
 
-						const groupBy = (arr) => arr.reduce((prev, cur) => ((prev[cur.id] = prev[cur.id] || []).push(cur), prev), {})
+						const groupBy = (arr) => arr.reduce((prev, cur) => ((prev[cur.cover] = prev[cur.cover] || []).push(cur), prev), {})
 						const min = (arr) => Math.min(...arr.map(res => res.levDistance))
-						const findTitle = (id, levDistance) => show.titles.find(element => element.id === id && element.levDistance === levDistance);
+						const findTitle = (cover, levDistance) => show.titles.find(element => element.cover === cover && element.levDistance === levDistance)
 
 						show.titles = Object.entries(groupBy(show.titles)).map(([key, val]) => {
 							const levDistance = min(val)
-							key = parseInt(key)
-							return { id: key, levDistance: levDistance, title: findTitle(key, levDistance).title, format: findTitle(key, levDistance).format, cover: findTitle(key, levDistance).cover }
+							return { id: findTitle(key, levDistance).id, levDistance: levDistance, title: findTitle(key, levDistance).title, format: findTitle(key, levDistance).format, cover: key }
 						})
 						
 
 						show.titles.sort(
-							(a,b) => a.levDistance - b.levDistance
-						);
+							(a,b) => {
+								const distance = a.levDistance - b.levDistance
+								if(distance === 0) {
+									return a.format.localeCompare(b.format)
+								}
+								return distance
+							});
 					
 						shows.push(show);
 						drawShows();
@@ -316,7 +328,7 @@ function moreImports(){
 								return true;
 							});
 							if(!shows.length){
-								resultsStatus.innerText = "No entries imported. All the entries already exist in your AniList account.";
+								resultsStatus.innerText = "No entries imported. All the entries already exist in your AniList account."
 								return;
 							};
 							let mutater = function(show,index){
@@ -333,7 +345,11 @@ function moreImports(){
 									status = apStatusMap[show.apData.status];
 								}
 								if(!status){
-									console.log("Unknown status: " + show.apData.status);
+									console.log("Unknown status \"" + show.apData.status + "\" for " + show.apData.name)
+									let unknownStatus = create("p",false, "Unknown status \"" + show.apData.status + "\" for " + show.apData.name, false, "color: rgba(var(--color-orange), .8)")
+									missingList.insertBefore(unknownStatus, missingList.firstChild)
+									exportErrors.style.display = "inline"
+									resultsStatus.innerText = index + " of " + shows.length + " entries imported. Closing this tab will stop the import."
 									return;
 								}
 								let score = 0;
