@@ -6,11 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+Better Anime-Planet list import (nzoba)
+
 ## v9.99.70
 
 ### Added
 
-- Added Spanish translation.
+- Added Spanish translation. (MrJako2001)
 - Added English "short" translation.
 - Added a very basic notification interface and activity viewer to the terms feed.
 - Extended translation now also applies to feeds.
@@ -21,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Green manga titles for relative URLs.
+- Green manga titles for relative URLs. (nfitzen)
 - Missing standalone "dropped" translation keys added
 
 ## v9.99.69
@@ -32,7 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated Portuguese translation.
+- Updated Portuguese translation. (samOAK)
 
 ### Removed
 
@@ -65,7 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Better parsing of MAL recommendations
+- Better parsing of MAL recommendations (synthtech)
 - Stopped banner download links from sometimes appear on the wrong page
 
 ## v9.99.63 
@@ -84,7 +88,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added expanded like view of forum likes
+- Added expanded like view of forum likes (synthtech)
+- More short romaji aliases
+
+## v9.99.60
+
+## v9.99.59
+
+### Removed
+
+- Firefox addon no longer published on the mozilla addons page due to loss of account. You can still install the addon from releases on Github or build it from source.
 
 
 ## Ancient
