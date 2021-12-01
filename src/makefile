@@ -31,3 +31,4 @@ build/firefox_addon.zip: build/automail.js ../icons manifest.json
 post-build:
 	$(info )
 	$(info Automail build completed)
+	$(info The compiled script is in /src/build/)
