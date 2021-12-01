@@ -597,6 +597,13 @@ You can also turn off this notice there.`,setting)
 			else if(activities[i].type === "airing"){
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				text.appendChild(textSpan);
+				if(useScripts.partialLocalisationLanguage !== "English"){
+					let episodeNumber = parseInt(textSpan.childNodes[1].textContent.trim());
+					let episodeLink = textSpan.childNodes[4].outerHTML;
+					if(episodeNumber){
+						textSpan.innerHTML = DOMPurify.sanitize(translate("$notification_airing",[episodeNumber,episodeLink]));//reason for innerHTML: preparsed sanitized HTML from the Anilist API
+					}
+				}
 			}
 			else if(activities[i].type === "follow"){
 				text.href = activities[i].directLink;

@@ -148,9 +148,9 @@ const MakeStats = () => {
 		create("span",false,number,el);
 		return el
 	}
-	let count = createStat("Users: ",stats.count);
+	let count = createStat(translate("$socialTab_users") + ": ",stats.count);
 	main.append(count);
-	let avg = createStat("Avg: ",0);
+	let avg = createStat(translate("$socialTab_shortAverage") + ": ",0);
 	avg.style.float = "right";
 	main.append(avg);
 	const parent = document.querySelector(".following");
