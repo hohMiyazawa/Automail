@@ -64,18 +64,32 @@ function addFeedFilters(){
 				}
 			}
 			if(useScripts.statusBorder){
+				let blockerMap = {
+					"plans": "PLANNING",
+					"watched": "CURRENT",
+					"read": "CURRENT",
+					"completed": "COMPLETED",
+					"paused": "PAUSED",
+					"dropped": "DROPPED",
+					"rewatched": "REPEATING",
+					"reread": "REPEATING"
+				};
+				let blockerClassMap = {
+					"activityPlanning": "PLANNING",
+					"activityWatching": "CURRENT",
+					"activityReading": "CURRENT",
+					"activityCompleted": "COMPLETED",
+					"activityPaused": "PAUSED",
+					"activityDropped": "DROPPED",
+					"activityRewatching": "REPEATING",
+					"activityRewatched": "REPEATING",
+					"activityRereading": "REPEATING",
+					"activityReread": "REPEATING"
+				};
 				if(activityFeed.children[i].classList.contains("activity-anime_list") || activityFeed.children[i].classList.contains("activity-manga_list")){
-					let blockerMap = {
-						"plans": "PLANNING",
-						"watched": "CURRENT",
-						"read": "CURRENT",
-						"completed": "COMPLETED",
-						"paused": "PAUSED",
-						"dropped": "DROPPED",
-						"rewatched": "REPEATING",
-						"reread": "REPEATING"
-					};
-					let status = blockerMap[
+					let status = blockerClassMap[
+							activityFeed.children[i].querySelector(".status").classList[1]
+						] || blockerMap[
 						Object.keys(blockerMap).find(
 							key => activityFeed.children[i].querySelector(".status").innerText.toLowerCase().includes(key)
 						)
@@ -172,65 +186,81 @@ function addFeedFilters(){
 	};
 	let postTranslator = function(){
 		Array.from(activityFeed.children).forEach(activity => {
-			let status = activity.querySelector(".status");
-			if(!status){
+			let statusParent = activity.querySelector(".status");
+			if(!statusParent){
 				return
 			}
-			status = status.childNodes[0];
+			let status = statusParent.childNodes[0];
 			let cont = status.textContent.trim().match(/(.+?)(\s(\d+|\d+ - \d+) of)?$/);
 			if(cont){
 				let prog = cont[3];
 				let type = cont[1];
 				if(activity.classList.contains("activity-anime_list")){
 					if(type === "Completed"){
-						status.textContent = translate("$listActivity_completedAnime")
+						status.textContent = translate("$listActivity_completedAnime");
+						statusParent.classList.add("activityCompleted")
 					}
 					else if(type === "Watched episode" && prog){
-						status.textContent = translate("$listActivity_MwatchedEpisode",prog)
+						status.textContent = translate("$listActivity_MwatchedEpisode",prog);
+						statusParent.classList.add("activityWatching")
 					}
 					else if(type === "Dropped" && prog){
-						status.textContent = translate("$listActivity_MdroppedAnime",prog)
+						status.textContent = translate("$listActivity_MdroppedAnime",prog);
+						statusParent.classList.add("activityDropped")
 					}
 					else if(type === "Dropped"){
-						status.textContent = translate("$listActivity_droppedAnime")
+						status.textContent = translate("$listActivity_droppedAnime");
+						statusParent.classList.add("activityDropped")
 					}
 					else if(type === "Rewatched" && prog){
-						status.textContent = translate("$listActivity_MrepeatingAnime",prog)
+						status.textContent = translate("$listActivity_MrepeatingAnime",prog);
+						statusParent.classList.add("activityRewatching")
 					}
 					else if(type === "Rewatched episode"){
-						status.textContent = translate("$listActivity_repeatedAnime")
+						status.textContent = translate("$listActivity_repeatedAnime");
+						statusParent.classList.add("activityRewatched")
 					}
 					else if(type === "Paused watching"){
-						status.textContent = translate("$listActivity_pausedAnime")
+						status.textContent = translate("$listActivity_pausedAnime");
+						statusParent.classList.add("activityPaused")
 					}
 					else if(type === "Plans to watch"){
-						status.textContent = translate("$listActivity_planningAnime")
+						status.textContent = translate("$listActivity_planningAnime");
+						statusParent.classList.add("activityPlanning")
 					}
 				}
 				else if(activity.classList.contains("activity-manga_list")){
 					if(type === "Completed"){
-						status.textContent = translate("$listActivity_completedManga")
+						status.textContent = translate("$listActivity_completedManga");
+						statusParent.classList.add("activityCompleted")
 					}
 					else if(type === "Read chapter" && prog){
-						status.textContent = translate("$listActivity_MreadChapter",prog)
+						status.textContent = translate("$listActivity_MreadChapter",prog);
+						statusParent.classList.add("activityReading")
 					}
 					else if(type === "Dropped" && prog){
-						status.textContent = translate("$listActivity_MdroppedManga",prog)
+						status.textContent = translate("$listActivity_MdroppedManga",prog);
+						statusParent.classList.add("activityDropped")
 					}
 					else if(type === "Dropped"){
-						status.textContent = translate("$listActivity_droppedManga")
+						status.textContent = translate("$listActivity_droppedManga");
+						statusParent.classList.add("activityDropped")
 					}
 					else if(type === "Reread chapter" && prog){
-						status.textContent = translate("$listActivity_MrepeatingManga",prog)
+						status.textContent = translate("$listActivity_MrepeatingManga",prog);
+						statusParent.classList.add("activityRereading")
 					}
 					else if(type === "Reread"){
-						status.textContent = translate("$listActivity_repeatedManga")
+						status.textContent = translate("$listActivity_repeatedManga");
+						statusParent.classList.add("activityReread")
 					}
 					else if(type === "Paused reading"){
-						status.textContent = translate("$listActivity_pausedManga")
+						status.textContent = translate("$listActivity_pausedManga");
+						statusParent.classList.add("activityPaused")
 					}
 					else if(type === "Plans to read"){
-						status.textContent = translate("$listActivity_planningManga")
+						status.textContent = translate("$listActivity_planningManga");
+						statusParent.classList.add("activityPlanning")
 					}
 				}
 			}
