@@ -227,6 +227,9 @@ query($page: Int,$name: String){
 			... on ThreadLikeNotification{type user{name}}
 			... on ActivityReplySubscribedNotification{type user{name}}
 			... on RelatedMediaAdditionNotification{type media{title{userPreferred}}}
+			... on MediaDataChangeNotification{type media{title{userPreferred}}}
+			... on MediaMergeNotification{type media{title{userPreferred}}}
+			... on MediaDeletionNotification{type}
 		}
 	}
 }

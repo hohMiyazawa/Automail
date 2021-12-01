@@ -809,6 +809,9 @@ query{
 }
 	}
 }
+... on MediaDataChangeNotification{type createdAt}
+... on MediaMergeNotification{type createdAt}
+... on MediaDeletionNotification{type createdAt}
 ... on ThreadCommentMentionNotification{type createdAt}
 ... on ThreadCommentReplyNotification{type createdAt}
 ... on ThreadCommentSubscribedNotification{type createdAt}
@@ -906,6 +909,9 @@ query{
 					mediaLink.classList.add("manga")
 				}
 			}
+			else if(notification.type === "MEDIA_DATA_CHANGE"){
+				create("span",false,"MEDIA_DATA_CHANGE",content);
+			}
 			else if(notification.type === "ACTIVITY_MENTION"){
 				create("span",false," mentioned you",content)
 			}
@@ -913,7 +919,7 @@ query{
 				create("span",false," started following you",content)
 			}
 			else if(notification.type === "AIRING"){
-				create("span",false,"Episode ",noti);
+				create("span",false,"Episode ",content);
 				create("span",false,notification.episode,content);
 				create("span",false," of ",content);
 				let mediaLink = create("span","ilink",notification.media.title.romaji,content);
