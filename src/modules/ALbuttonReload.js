@@ -1,5 +1,5 @@
 if(useScripts.ALbuttonReload){
-	let logo = document.querySelector(".logo");
+	let logo = document.querySelector("#nav .logo");
 	if(logo){
 		logo.onclick = function(){
 			if(/\/home\/?$/.test(location.pathname)){//we only want this behaviour here
@@ -11,7 +11,7 @@ if(useScripts.ALbuttonReload){
 
 exportModule({
 	id: "ALbuttonReload",
-	description: "Make the 'AL' button reload the feeds on the homepage",
+	description: "$ALbuttonReload_description",
 	isDefault: true,
 	categories: ["Navigation"],
 	visible: true

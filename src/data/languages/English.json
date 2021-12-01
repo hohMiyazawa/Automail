@@ -217,6 +217,7 @@
 "$mainMenu_settings": "Settings",
 "$timeline_search_description": "Looking for the activities of someone else?",
 "$noScrollPosts_description": "Display all status posts in full regardless of their length",
+"$ALbuttonReload_description": "Make the 'AL' button reload the feeds on the homepage",
 "$timeline_title": "Activity Timeline",
 "$filter_replies": "Has Replies",
 "$filter_following": "Following",
