@@ -1,14 +1,23 @@
 {
 	"manifest_version": 2,
 	"name": "Automail",
-	"version": "9.99,",
+	"version": "9.99",
 
 	"description": "Extra parts for Anilist.co",
 
+	"author": "hoh",
+
+	"homepage_url": "https://github.com/hohMiyazawa/Automail",
+
 	"icons": {
+		"2": "icons/automail-2.png",
+		"3": "icons/automail-3.png",
+		"8": "icons/automail-8.png",
+		"16": "icons/automail-16.png",
 		"48": "icons/automail-48.png",
 		"96": "icons/automail-96.png",
-		"128": "icons/automail-128.png"
+		"128": "icons/automail-128.png",
+		"256": "icons/automail.svg"
 	},
 
 	"content_scripts": [
