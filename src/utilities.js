@@ -631,6 +631,8 @@ m4_include(utilities/levDist.js)
 
 m4_include(utilities/lz-string.js)
 
+m4_include(utilities/localforage.js)
+
 m4_include(utilities/showdown.js)
 
 showdown.setOption("strikethrough", true);
