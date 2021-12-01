@@ -1,6 +1,6 @@
 exportModule({
 	id: "markdownHelp",
-	description: translate("$markdown_help_description"),
+	description: "$markdown_help_description",
 	isDefault: false,
 	categories: ["Navigation"],
 	visible: true,

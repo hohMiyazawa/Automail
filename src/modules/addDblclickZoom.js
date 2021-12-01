@@ -1,7 +1,7 @@
 exportModule({
 	id: "dblclickZoom",
-	description: translate("$dblclickZoom_description"),
-	extendedDescription: translate("$dblclickZoom_extendedDescription"),
+	description: "$dblclickZoom_description",
+	extendedDescription: "$dblclickZoom_extendedDescription",
 	isDefault: false,
 	importance: -1,
 	categories: ["Feeds"],

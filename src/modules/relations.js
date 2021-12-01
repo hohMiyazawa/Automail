@@ -1,6 +1,6 @@
 exportModule({
 	id: "relations",
-	description: translate("$relations_description"),
+	description: "$relations_description",
 	isDefault: true,
 	categories: ["Profiles"],
 	visible: true,

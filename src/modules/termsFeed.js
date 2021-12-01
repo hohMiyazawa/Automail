@@ -1,6 +1,6 @@
 exportModule({
 	id: "termsFeed",
-	description: translate("$terms_description"),
+	description: "$terms_description",
 	extendedDescription: `
 Creates a new home page at the URL https://anilist.co/terms.
 

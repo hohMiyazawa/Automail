@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 //updated code here: https://github.com/Reinachan/AniList-High-Contrast-Dark-Theme
 exportModule({
 	id: "reinaDark",
-	description: translate("$setting_reinaDark"),
+	description: "$setting_reinaDark",
 	extendedDescription: `
 More info and standalone versions: https://anilist.co/activity/136403139
 

@@ -1,6 +1,6 @@
 exportModule({
 	id: "CSSmobileTags",
-	description: translate("$setting_CSSmobileTags"),
+	description: "$setting_CSSmobileTags",
 	isDefault: true,
 	importance: 0,
 	categories: ["Media"],

@@ -1,6 +1,6 @@
 exportModule({
 	id: "addForumMedia",
-	description: translate("$forumMedia_backlink"),
+	description: "$forumMedia_backlink",
 	isDefault: true,
 	importance: -1,
 	categories: ["Forum","Navigation"],

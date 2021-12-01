@@ -1,6 +1,6 @@
 exportModule({
 	id: "mobileFriendly",
-	description: translate("$mobileFriendly_description"),
+	description: "$mobileFriendly_description",
 	isDefault: false,
 	importance: 7,
 	categories: ["Navigation","Script"],

@@ -1,7 +1,7 @@
 exportModule({
 	id: "unicodifier",
-	description: translate("$module_unicodifier_description"),
-	extendedDescription: translate("$module_unicodifier_extendedDescription"),
+	description: "$module_unicodifier_description",
+	extendedDescription: "$module_unicodifier_extendedDescription",
 	isDefault: false,
 	importance: 0,
 	categories: ["Feeds","Forum","Newly Added"],

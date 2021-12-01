@@ -1,6 +1,6 @@
 exportModule({
 	id: "infoTable",
-	description: translate("$setting_infoTable"),
+	description: "$setting_infoTable",
 	isDefault: false,
 	importance: 1,
 	categories: ["Media"],

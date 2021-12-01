@@ -1,6 +1,6 @@
 exportModule({
 	id: "twoColumnFeed",
-	description: translate("$twoColumnFeed_description"),
+	description: "$twoColumnFeed_description",
 	isDefault: false,
 	importance: 0,
 	categories: ["Feeds"],
