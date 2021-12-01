@@ -41,5 +41,7 @@ a.title${dataSelect}::before
 	}
 }
 
-const shortRomaji = (useScripts.shortRomaji ? m4_include(data/shortRomaji.json) : []);
+const shortRomaji = (useScripts.titlecaseRomaji ? m4_include(data/titlecaseRomaji.json) : []).concat(
+	(useScripts.shortRomaji ? m4_include(data/shortRomaji.json) : [])
+);
 //end "alias.js"

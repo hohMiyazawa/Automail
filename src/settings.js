@@ -59,6 +59,7 @@ let useScripts = {
 	progressBar: false,
 	noRewatches: false,
 	hideCustomTags: false,
+	titlecaseRomaji: false,
 	shortRomaji: false,
 	replaceNativeTags: true,
 	draw3x3: true,
