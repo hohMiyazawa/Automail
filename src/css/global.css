@@ -2147,6 +2147,9 @@ a.external-link.Official.Site[href*=".jp"]::after{
 	color: rgb(var(--color-blue));
 	cursor: pointer;
 }
+.settings .nav a[href="/settings/apps"]::after{
+	content: " & Automail";
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
