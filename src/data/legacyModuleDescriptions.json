@@ -29,9 +29,6 @@
 },{"id": "automailAPI",
 	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
 	"categories": ["Script","Login"]
-},{"id": "tagDescriptions",
-	"description": "$tagDescriptions_description",
-	"categories": ["Media"]
 },{"id": "MALscore",
 	"description": "$setting_MALscore",
 	"categories": ["Media"]

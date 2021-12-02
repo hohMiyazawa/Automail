@@ -35,7 +35,6 @@ let useScripts = {
 	forumComments: true,
 	forumMedia: true,
 	staffPages: true,
-	tagDescriptions: true,
 	completedScore: true,
 	droppedScore: false,
 	studioFavouriteCount: true,
