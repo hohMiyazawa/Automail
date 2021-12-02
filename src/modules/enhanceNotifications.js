@@ -422,7 +422,7 @@ You can also turn off this notice there.`,setting)
 					if(counter > 1){
 						text.style.marginTop = "45px";
 						activities[i].textName += " x" + counter;
-						textSpan.innerText = translate("$notification_reply_1person_Mreply")
+						textSpan.innerText = translate("$notification_reply_1person_1reply")
 					}
 				}
 				else{
