@@ -360,9 +360,11 @@ let listRenderer = function(){
 		let mediaA = create("div","media",false,roleCard);
 		let cover = create("a","cover",false,mediaA);
 		cover.href = "/" + type + "/" + media.id + "/" + safeURL(media.title);
+		cheapReload(cover,{path: cover.pathname})
 		cover.style.backgroundImage = "url(" + media.image + ")";
 		let content = create("a","content",false,mediaA);
 		content.href = "/" + type + "/" + media.id + "/" + safeURL(media.title);
+		cheapReload(content,{path: content.pathname})
 		let name = create("div","name",media.title,content);
 
 		//default value of a credit not listed here is 0. Positive values are more important, negative less important
@@ -551,9 +553,11 @@ let listRenderer = function(){
 			let character = create("div","character",false,false,"grid-area: character;grid-template-columns: auto 60px;grid-template-areas: 'content image'");
 			let cover = create("a","cover",false,character);
 			cover.href = "/character/" + anime.character.id + "/" + safeURL(anime.character.name);
+			cheapReload(cover,{path: cover.pathname})
 			cover.style.backgroundImage = "url(" + anime.character.image + ")";
 			let content = create("a","content",false,character,"text-align: right;");
 			content.href = "/character/" + anime.character.id + "/" + safeURL(anime.character.name);
+			cheapReload(content,{path: content.pathname})
 			let name = create("a","name",anime.character.name,content);
 			roleCard.insertBefore(character,roleCard.children[0]);
 			hohCharacterRoles.appendChild(roleCard);
