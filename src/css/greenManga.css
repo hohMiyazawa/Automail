@@ -15,6 +15,9 @@
 .reply-markdown a[href^="/manga/"]{
 	color: rgba(var(--color-green));
 }
+.hohDataChange a[href^="/manga/"]{
+	color: rgba(var(--color-green));
+}
 .activity-manga_list > div > div > div > div > .title,
 .hohPinned .list .title[href^="/manga/"]{
 	color: rgba(var(--color-green))!important;
