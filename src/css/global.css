@@ -40,8 +40,8 @@ m4_include(css/notifications.css)
 	color: rgb(var(--color-blue));
 }
 #hohDescription{
-	width: 280px;
-	height: 150px;
+	width: 400px;
+	display: inline-block;
 	margin: 10px;
 	color: rgb(var(--color-blue));
 }
