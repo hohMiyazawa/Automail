@@ -10,8 +10,8 @@ function moreImports(){
 	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
 	let apAnime = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Anime List",apAnime);
-	const mapFormatAnime = new Map([["All", ""], ["TV Show", "format:TV"], ["Movie", "format:MOVIE"], ["TV Short", "format:TV_SHORT"],
-									["Special", "format:SPECIAL"], ["OVA", "format:OVA"], ["ONA", "format:ONA"], ["MUSIC", "format:MUSIC"]])
+	const mapFormatAnime = new Map([["All", ""], ["TV Show", "TV"], ["Movie", "MOVIE"], ["TV Short", "TV_SHORT"],
+									["Special", "SPECIAL"], ["OVA", "OVA"], ["ONA", "ONA"], ["MUSIC", "MUSIC"]])
 	let selectFormatAnime = create("select", "meter", false, apAnime)
 	mapFormatAnime.forEach((_, key) => {
 		let option = create("option", false, key, selectFormatAnime)
@@ -30,7 +30,7 @@ function moreImports(){
 	let apManga = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Manga List",apManga);
 
-	const mapFormatManga = new Map([["All", ""], ["Manga", "format:MANGA"], ["Light Novel", "format:NOVEL"], ["One Shot", "format:ONE_SHOT"]])
+	const mapFormatManga = new Map([["All", ""], ["Manga", "MANGA"], ["Light Novel", "NOVEL"], ["One Shot", "ONE_SHOT"]])
 	let selectFormatManga = create("select", "meter", false, apManga)
 	mapFormatManga.forEach((_, key) => {
 		let option = create("option", false, key, selectFormatManga)
@@ -51,14 +51,19 @@ function moreImports(){
 	let resultsWarnings = create("div",false,false,resultsArea,"color:orange;padding:5px;");
 	let resultsStatus = create("div",false,false,resultsArea,"padding:5px;");
 	let missingList = create("div",false,false,resultsArea,"padding:5px;");
-	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px")
-	let exportErrors = create("button",["hohButton","button", "danger"],"Export all errors",resultsArea,"display: none; margin: 5px 10px")
+	let exportErrors = create("button",["hohButton","button", "danger"],"Export all errors and unchecked",resultsArea,"display: none; margin: 5px 10px")
+	let uncheckedTitles = [];
 	exportErrors.onclick = function() {
 		var link = create("a")
-		link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(missingList.innerText)
+		let dataTitles = ""
+		uncheckedTitles.map(title => {
+			dataTitles += `Unchecked title : ${title}\n`			
+		})
+		link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(dataTitles + "\n" + missingList.innerText.replace(/[\n\r]+/g, "\n"))
 		link.download =  "errors_ap_import.txt"
 		link.click()
 	}
+	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px")
 	let resultsTable = create("div",false,false,resultsArea);
 
 	let selectedValues = {}
@@ -139,6 +144,8 @@ function moreImports(){
 					if(show.titles[0].levDistance > 8){
 						button.checked = false;
 						show.toImport = false;
+						uncheckedTitles = uncheckedTitles.filter(e => e !== show.apData.name)
+						uncheckedTitles.push(show.apData.name)
 					}
 					else{
 						button.checked = true;
@@ -146,6 +153,8 @@ function moreImports(){
 					}
 					button.oninput = function(){
 						show.toImport = button.checked
+						if(!show.toImport) uncheckedTitles.push(show.apData.name)
+						else uncheckedTitles = uncheckedTitles.filter(e => e !== show.apData.name)
 					}
 				})
 			};
@@ -181,7 +190,8 @@ function moreImports(){
 					return;
 				}
 
-				const formatInQuery = type === "manga" ? mapFormatManga.get(selectFormatManga.value) : mapFormatAnime.get(selectFormatAnime.value)
+				const chosenFormat = type === "manga" ? mapFormatManga.get(selectFormatManga.value) : mapFormatAnime.get(selectFormatAnime.value)
+				const formatInQuery = chosenFormat === "" ? "" : `format:${chosenFormat}`
 				bigQuery.push({
 					query: `query($search:String){Page(perPage:5){media(type:${type.toUpperCase()},search:$search,${formatInQuery}){title{romaji english native} id synonyms format coverImage{medium}}}}`,
 					variables: {search: entry.name},
@@ -248,7 +258,7 @@ function moreImports(){
 						const getMapIndex = (map, format) => {
 							let indexMap;
 							[...map].some(([_, val], index) => {
-								if(val.replace("format:", "") === format) { 
+								if(val === format) { 
 									indexMap = index
 									return true
 								}
@@ -338,6 +348,7 @@ function moreImports(){
 								resultsStatus.innerText = "No entries imported. All the entries already exist in your AniList account."
 								return;
 							};
+							let importSuccess = 0
 							let mutater = function(show,index){
 								if(index + 1 < shows.length){
 									setTimeout(function(){
@@ -356,7 +367,8 @@ function moreImports(){
 									let unknownStatus = create("p",false, "Unknown status \"" + show.apData.status + "\" for " + show.apData.name, false, "color: rgba(var(--color-orange), .8)")
 									missingList.insertBefore(unknownStatus, missingList.firstChild)
 									exportErrors.style.display = "inline"
-									resultsStatus.innerText = index + " of " + shows.length + " entries imported. Closing this tab will stop the import."
+									resultsStatus.innerText = index + 1 === shows.length ? `Import completed !\n${importSuccess} of ${shows.length} entries successfully imported.`
+								 		: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
 									return;
 								}
 								let score = 0;
@@ -474,7 +486,9 @@ function moreImports(){
 										}
 									)
 								}
-								resultsStatus.innerText = (index + 1) + " of " + shows.length + " entries imported. Closing this tab will stop the import.";
+								importSuccess += 1
+								resultsStatus.innerText = index + 1 === shows.length ? `Import completed !\n${importSuccess} of ${shows.length} entries successfully imported.`
+								 	: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
 							};
 							mutater(shows[0],0);
 						})
