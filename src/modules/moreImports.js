@@ -10,6 +10,14 @@ function moreImports(){
 	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
 	let apAnime = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Anime List",apAnime);
+	const mapFormatAnime = new Map([["All", ""], ["TV Show", "format:TV"], ["Movie", "format:MOVIE"], ["TV Short", "format:TV_SHORT"],
+									["Special", "format:SPECIAL"], ["OVA", "format:OVA"], ["ONA", "format:ONA"], ["MUSIC", "format:MUSIC"]])
+	let selectFormatAnime = create("select", "meter", false, apAnime)
+	mapFormatAnime.forEach((_, key) => {
+		let option = create("option", false, key, selectFormatAnime)
+		option.value = key
+	})
+
 	let apAnimeCheckboxContainer = create("label","el-checkbox",false,apAnime);
 	let apAnimeOverwrite = createCheckbox(apAnimeCheckboxContainer);
 	create("span","el-checkbox__label","Overwrite anime already on my list",apAnimeCheckboxContainer);
@@ -21,14 +29,14 @@ function moreImports(){
 	apAnimeInput.accept = "application/json";
 	let apManga = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Manga List",apManga);
-	const arrayFormat = ["All", "Manga", "Light Novel", "One Shot"]
-	let selectFormat = create("select", "meter", false, apManga)
-	for (let i = 0; i < arrayFormat.length; i++) {
-		let option = document.createElement("option")
-		option.text = arrayFormat[i]
-		option.value = arrayFormat[i]
-		selectFormat.appendChild(option)
-	}
+
+	const mapFormatManga = new Map([["All", ""], ["Manga", "format:MANGA"], ["Light Novel", "format:NOVEL"], ["One Shot", "format:ONE_SHOT"]])
+	let selectFormatManga = create("select", "meter", false, apManga)
+	mapFormatManga.forEach((_, key) => {
+		let option = create("option", false, key, selectFormatManga)
+		option.value = key
+	})
+
 	let apMangaCheckboxContainer = create("label","el-checkbox",false,apManga);
 	let apMangaOverwrite = createCheckbox(apMangaCheckboxContainer);
 	create("span","el-checkbox__label","Overwrite manga already on my list",apMangaCheckboxContainer);
@@ -46,9 +54,9 @@ function moreImports(){
 	let pushResults = create("button",["hohButton","button"],"Import all selected",resultsArea,"display: none; margin: 5px 10px")
 	let exportErrors = create("button",["hohButton","button", "danger"],"Export all errors",resultsArea,"display: none; margin: 5px 10px")
 	exportErrors.onclick = function() {
-		var link = document.createElement("a")
-		link.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(missingList.innerText))
-		link.setAttribute("download", "errors_ap_import.txt")
+		var link = create("a")
+		link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(missingList.innerText)
+		link.download =  "errors_ap_import.txt"
 		link.click()
 	}
 	let resultsTable = create("div",false,false,resultsArea);
@@ -93,7 +101,7 @@ function moreImports(){
 				shows.sort(
 					(b,a) => a.titles[0].levDistance - b.titles[0].levDistance
 				);
-				shows.forEach((show, index) => {
+				shows.forEach(show => {
 					let row = create("div","hohImportRow",false,resultsTable);
 					if(show.isAnthology){
 						create("div","hohImportEntry",show.apData.map(a => a.name).join(", "),row)
@@ -107,14 +115,12 @@ function moreImports(){
 					let selectEntry = create("select", "#typeSelect", false, aniEntry, "width: 100%; white-space: nowrap; text-overflow: ellipsis")
 
 					let images = {}
+					show.titles.forEach(title => {
+						let optionEntry = create("option", false, title.title + " (" + title.format + ")", selectEntry)
+						optionEntry.value = title.id
+						images[title.id] = title.cover
+					})
 
-					for (let i = 0; i < show.titles.length; i++) {
-						let optionEntry = document.createElement("option")
-						optionEntry.text = show.titles[i].title + " (" + show.titles[i].format + ")"
-						optionEntry.value = show.titles[i].id
-						selectEntry.appendChild(optionEntry)
-						images[optionEntry.value] = show.titles[i].cover
-					}
 					selectedValues[show.apData.name] = parseInt(selectEntry.value)
 					let aniLink = create("a", ["hohButton","button","link","newTab"], "View", row, "margin: 0 10px")
 					aniLink.href = "/" + type + "/" + selectEntry.value
@@ -175,19 +181,7 @@ function moreImports(){
 					return;
 				}
 
-				let format
-				switch(selectFormat.value) {
-					case "Manga":
-						format = "MANGA"
-						break
-					case "Light Novel":
-						format = "NOVEL"
-						break
-					case "One Shot":
-						format = "ONE_SHOT"
-						break
-				}
-				const formatInQuery = format ? ("format:" + format) : ""
+				const formatInQuery = type === "manga" ? mapFormatManga.get(selectFormatManga.value) : mapFormatAnime.get(selectFormatAnime.value)
 				bigQuery.push({
 					query: `query($search:String){Page(perPage:5){media(type:${type.toUpperCase()},search:$search,${formatInQuery}){title{romaji english native} id synonyms format coverImage{medium}}}}`,
 					variables: {search: entry.name},
@@ -251,12 +245,25 @@ function moreImports(){
 							return { id: findTitle(key, levDistance).id, levDistance: levDistance, title: findTitle(key, levDistance).title, format: findTitle(key, levDistance).format, cover: key }
 						})
 						
+						const getMapIndex = (map, format) => {
+							let indexMap;
+							[...map].some(([_, val], index) => {
+								if(val.replace("format:", "") === format) { 
+									indexMap = index
+									return true
+								}
+							})
+							return indexMap
+						}
 
 						show.titles.sort(
 							(a,b) => {
 								const distance = a.levDistance - b.levDistance
 								if(distance === 0) {
-									return a.format.localeCompare(b.format)
+									const mapFormat = type === "manga" ? mapFormatManga : mapFormatAnime
+									let indexA = getMapIndex(mapFormat, a.format)
+									let indexB = getMapIndex(mapFormat, b.format)
+									return indexA - indexB
 								}
 								return distance
 							});
@@ -477,16 +484,18 @@ function moreImports(){
 			bigQuery = [];
 			myFastMappings.forEach(function(entry){
 				bigQuery.push({
-					query: `query($id:Int){Media(type:${type.toUpperCase()},id:$id){title{romaji english native} id}}`,
+					query: `query($id:Int){Media(type:${type.toUpperCase()},id:$id){title{romaji english native} id format coverImage{medium}}}`,
 					variables: {id: entry.id},
 					callback: function(dat){
+						const media =  dat.data.Media
+						const titles = [{title: media.title.romaji,id: entry.id,levDistance: 0,format: media.format,cover: media.coverImage.medium}]
 						if(entry.isAnthology){
 							let show = {
 								apData: entry.entries,
 								directMapping: true,
 								isAnthology: true,
-								aniData: dat.data.Media,
-								titles: [{title: dat.data.Media.title.romaji,id: entry.id,levDistance: 0}]
+								aniData: media,
+								titles: titles
 							}
 							shows.push(show);
 							drawShows();
@@ -495,8 +504,8 @@ function moreImports(){
 							let show = {
 								apData: entry.entries[0],
 								directMapping: true,
-								aniData: dat.data.Media,
-								titles: [{title: dat.data.Media.title.romaji,id: entry.id,levDistance: 0}]
+								aniData: media,
+								titles: titles
 							}
 							shows.push(show);
 							drawShows();
