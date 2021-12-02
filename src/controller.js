@@ -234,9 +234,6 @@ function handleScripts(url,oldUrl){
 				setTimeout(adder,500)
 			}
 		};adder();
-		if(useScripts.tagDescriptions){
-			enhanceTags()
-		};
 		if(useScripts.subTitleInfo){
 			addSubTitleInfo()
 		}
