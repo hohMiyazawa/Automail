@@ -159,7 +159,8 @@ function moreImports(){
 				})
 			};
 			const apAnthologies = m4_include(data/AnimePlanet_anthologies.json);
-			const apMappings = m4_include(data/AnimePlanet_mappings.json);
+			const apMappings_anime = m4_include(data/AnimePlanet_mappings_anime.json);
+			const apMappings_manga = m4_include(data/AnimePlanet_mappings_manga.json);
 			let bigQuery = [];
 			let myFastMappings = [];
 			data.entries.forEach(function(entry,index){
@@ -182,12 +183,23 @@ function moreImports(){
 					}
 					return;
 				}
-				if(apMappings[entry.name]){
-					myFastMappings.push({
-						entries: [entry],
-						id: apMappings[entry.name]
-					})
-					return;
+				if(type === "manga"){
+					if(apMappings_manga[entry.name]){
+						myFastMappings.push({
+							entries: [entry],
+							id: apMappings_manga[entry.name]
+						})
+						return;
+					}
+				}
+				else{
+					if(apMappings_anime[entry.name]){
+						myFastMappings.push({
+							entries: [entry],
+							id: apMappings_anime[entry.name]
+						})
+						return;
+					}
 				}
 
 				const chosenFormat = type === "manga" ? mapFormatManga.get(selectFormatManga.value) : mapFormatAnime.get(selectFormatAnime.value)
