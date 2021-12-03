@@ -6,9 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## v9.99.72
+
 ### Changed
 
-Better Anime-Planet list import (nzoba)
+- Better Anime-Planet list import (nzoba)
+
+### Fixed
+
+- Fixed a bug where some tag descriptions failed to show (synthtech)
 
 ## v9.99.70
 
