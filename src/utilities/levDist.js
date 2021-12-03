@@ -1,5 +1,7 @@
 function levDist(s,t){//https://stackoverflow.com/a/11958496/5697837
 	// Step 1
+	s = s.replace("’", "'")
+	t = t.replace("’", "'")
 	let n = s.length;
 	let m = t.length;
 	if(!n){

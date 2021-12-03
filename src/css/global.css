@@ -791,11 +791,18 @@ select{
 	margin: 5px;
 	border-radius: 2px;
 }
+.hohImportSelect{
+	display: inline-table;
+	width: 80%;
+	padding: 5px;
+}
 .hohImportArrow{
 	font-size: 40px;
 }
 .hohImportRow{
 	margin: 10px;
+	display: flex;
+	align-items: center;
 }
 .results.characters + .hohThemeSwitch,
 .results.staff + .hohThemeSwitch{
