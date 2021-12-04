@@ -32,8 +32,8 @@ if(!window.BroadcastChannel){
         this._mc.port1.start();
         this._mc.port2.start();
 
-        global.addEventListener('storage', function(e) {
-            if (e.storageArea !== global.localStorage) return;
+        window.addEventListener('storage', function(e) {
+            if (e.storageArea !== window.localStorage) return;
             if (e.newValue == null || e.newValue === '') return;
             if (e.key.substring(0, id.length) !== id) return;
             var data = JSON.parse(e.newValue);
@@ -57,9 +57,9 @@ if(!window.BroadcastChannel){
 
             // Broadcast to other contexts via storage events...
             var key = this._id + String(Date.now()) + '$' + String(Math.random());
-            global.localStorage.setItem(key, value);
+            window.localStorage.setItem(key, value);
             setTimeout(function() {
-                global.localStorage.removeItem(key);
+                window.localStorage.removeItem(key);
             }, 500);
 
             // Broadcast to current context via ports
@@ -96,5 +96,5 @@ if(!window.BroadcastChannel){
         },
     };
 
-    window.BroadcastChannel = windowl.BroadcastChannel || BroadcastChannel;
+    window.BroadcastChannel = window.BroadcastChannel || BroadcastChannel;
 }
