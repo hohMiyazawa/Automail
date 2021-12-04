@@ -249,6 +249,7 @@
 "$reread_suffix_1": "[reread]",
 "$reread_suffix_M": "[reread {0}]",
 "$reviewLike_tooltip": "{0} out of {1} liked this review",
+"$review_reviewTitle": "Review of {0} by\u00a0{1}",
 "$updates_noNewManga": "No new items found :(",
 "$staff_filter_placeholder": "Filter by title, role, etc.",
 "$relations_following_only": "Following Only",
