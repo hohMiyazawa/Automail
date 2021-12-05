@@ -320,6 +320,7 @@ function handleScripts(url,oldUrl){
 			|| localStorage.getItem("blockList")
 			|| useScripts.blockWord
 			|| useScripts.statusBorder
+			|| useScripts.partialLocalisationLanguage !== "English"
 		){
 			addFeedFilters()
 		};

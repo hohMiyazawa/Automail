@@ -264,6 +264,16 @@ function addFeedFilters(){
 					}
 				}
 			}
+			let timeElement = activity.querySelector(".time time:not(.hohTime)");
+			if(timeElement){
+				let seconds = new Date(timeElement.dateTime).valueOf()/1000;
+				let replacement = nativeTimeElement(seconds);
+				timeElement.style.display = "none";
+				replacement.style.position = "relative";
+				replacement.style.right = "unset";
+				replacement.style.top = "unset";
+				timeElement.parentNode.insertBefore(replacement, timeElement)
+			}
 		});
 	}
 	if(useScripts.feedCommentFilter){

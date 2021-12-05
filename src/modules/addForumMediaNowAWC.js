@@ -49,7 +49,12 @@ function addForumMediaNoAWC(){
 				name.appendChild(document.createTextNode(" "));
 				let contextText = create("a",false,translate("$forum_preview_reply"),name);
 				contextText.href = "/forum/thread/" + thread.id + "/comment/" + thread.replyCommentId;
-				contextText.appendChild(nativeTimeElement(thread.repliedAt));
+				let timer = nativeTimeElement(thread.repliedAt);
+				timer.style.position = "relative";
+				timer.style.right = "unset";
+				timer.style.top = "unset";
+				timer.style.fontSize = "1.3rem";
+				contextText.appendChild(timer);
 			};
 			let categories = create("div","categories",false,footer);
 			thread.categories.forEach(category => {
