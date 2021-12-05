@@ -265,7 +265,7 @@ function addFeedFilters(){
 				}
 			}
 			let timeElement = activity.querySelector(".time time");
-			if(timeElement && !timeElement.classList.contains("hohTime")){
+			if(timeElement && !timeElement.classList.contains("hohTimeGeneric")){
 				let seconds = new Date(timeElement.dateTime).valueOf()/1000;
 				let replacement = nativeTimeElement(seconds);
 				timeElement.style.display = "none";

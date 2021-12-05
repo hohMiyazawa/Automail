@@ -180,7 +180,7 @@ function formatTime(diff,type){
 
 function nativeTimeElement(timestamp){//time in seconds
 	let dateObj = new Date(timestamp*1000);
-	let elem = create("time","hohTime");
+	let elem = create("time","hohTimeGeneric");
 	elem.setAttribute("datetime",dateObj);
 	elem.title = dateObj.toLocaleDateString() + ", " + dateObj.toLocaleTimeString();
 	let calculateTime = function(){
