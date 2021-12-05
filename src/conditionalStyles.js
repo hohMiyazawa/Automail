@@ -347,6 +347,12 @@ if(useScripts.rightToLeft){
 m4_include(css/rightToLeft.css)
 	`
 }
+if(useScripts.partialLocalisationLanguage === "Português"){//https://github.com/hohMiyazawa/Automail/pull/123
+	moreStyle.textContent += `
+#app #nav.nav .wrap .links a.link{
+	text-transform: none;
+}`
+}
 };initCSS();
 
 documentHead.appendChild(moreStyle);
