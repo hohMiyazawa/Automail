@@ -264,8 +264,8 @@ function addFeedFilters(){
 					}
 				}
 			}
-			let timeElement = activity.querySelector(".time time:not(.hohTime)");
-			if(timeElement){
+			let timeElement = activity.querySelector(".time time");
+			if(timeElement && !timeElement.classList.includes("hohTime")){
 				let seconds = new Date(timeElement.dateTime).valueOf()/1000;
 				let replacement = nativeTimeElement(seconds);
 				timeElement.style.display = "none";
@@ -274,7 +274,7 @@ function addFeedFilters(){
 				replacement.style.top = "unset";
 				timeElement.parentNode.insertBefore(replacement, timeElement)
 			}
-		});
+		})
 	}
 	if(useScripts.feedCommentFilter){
 		filterBox = create("div","hohFeedFilter",false,activityFeedWrap);
