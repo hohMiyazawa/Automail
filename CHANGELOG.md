@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated Portuguese translation. (samOAK)
+
+## v9.99.73
+
+### Fixed
+
+- Fixed Safari compatibility lost in v9.99.72
+
 ## v9.99.72
 
 ### Changed
@@ -15,6 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed a bug where some tag descriptions failed to show (synthtech)
+
+### Broken
+
+- Safari compatibility accidentally lost. Use v9.99.73 or stay on v9.99.70
 
 ## v9.99.70
 
