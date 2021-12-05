@@ -894,7 +894,7 @@ function compatCheck(list,name,type,callback){
 //used by the stats module, and to safeguard the manga chapter guesses
 //publishing manga is a bit tricky, since Anilist doesn't track chapters
 const commonUnfinishedManga = m4_include(data/commonUnfinishedManga.json)
-if(NOW() - new Date(2021,8,6) > 365*24*60*60*1000){
+if(NOW() - new Date(2021,11,5) > 365*24*60*60*1000){
 	console.log("remind hoh to update the commonUnfinishedManga list")
 }
 

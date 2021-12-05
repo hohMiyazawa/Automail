@@ -5,18 +5,18 @@
 		"comment":"berserk"
 	},
 	"30013":{
-		"chapters":1024,
-		"volumes":100,
+		"chapters":1034,
+		"volumes":101,
 		"comment":"one piece"
 	},
 	"85486":{
-		"chapters":325,
-		"volumes":31,
+		"chapters":336,
+		"volumes":32,
 		"comment":"mha"
 	},
 	"74347":{
-		"chapters":133,
-		"volumes":21,
+		"chapters":152,
+		"volumes":24,
 		"comment":"opm"
 	},
 	"30026":{
@@ -35,23 +35,28 @@
 		"comment":"yotsuba&"
 	},
 	"105398":{
-		"chapters":165,
-		"volumes":1,
+		"chapters":173,
+		"volumes":4,
 		"comment":"solo leveling"
 	},
 	"86635":{
-		"chapters":236,
+		"chapters":246,
 		"volumes":23,
 		"comment":"kaguya"
 	},
 	"101517":{
-		"chapters":157,
-		"volumes":16,
+		"chapters":167,
+		"volumes":17,
 		"comment":"juju"
 	},
 	"97852":{
-		"chapters":319,
-		"volumes":22,
+		"chapters":333,
+		"volumes":23,
 		"comment":"komi"
+	},
+	"102988":{
+		"chapters":233,
+		"volumes":24,
+		"comment":"revengers"
 	}
 }

@@ -1758,7 +1758,8 @@ function addMoreStats(){
 							return commonUnfinishedManga[mediaId].volumes
 						}
 						else{
-							return 0//conservative
+							//if much behind, assume volumes scale linearly
+							return Math.floor(commonUnfinishedManga[mediaId].volumes * commonUnfinishedManga[mediaId].chapters/mediaProgress)
 						}
 					};
 					return 0;//fallback
