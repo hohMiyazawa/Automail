@@ -14,7 +14,7 @@ function betterReviewRatings(){
 		likeElement.dispatchEvent(new Event("mouseleave"));
 		//bonus: add some alias and localisation
 		let showId;
-		if(likeElement.parentNode.previousElementSibling.classList.contains("banner")){//unreliable: they load separately. But better than nothing
+		if(likeElement.parentNode.previousElementSibling && likeElement.parentNode.previousElementSibling.classList.contains("banner")){//unreliable: they load separately. But better than nothing
 			let possibleRefId = likeElement.parentNode.previousElementSibling.style.backgroundImage.match(/banner\/n?(\d+)-/);
 			if(possibleRefId){
 				showId = parseInt(possibleRefId[1])
