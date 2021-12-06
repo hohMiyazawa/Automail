@@ -278,6 +278,9 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 	background-position: center;
 	filter: grayscale(100%) brightness(1.4);
 }
+#app #nav.nav .subMenuContainer > a.link[href*="/user/"]{
+	height: 48px !important;
+}
 .nav .link[href*="/user/"]:hover::before,
 .nav .link[href^="/forum/"]:hover::before,
 .nav .link[href="/login"]::before,
@@ -429,17 +432,6 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 }
 /*home stuff*/
 
-.reply .header a.name[href="/user/Abyss/"]::after{
-	content: "Crocodile Isle";
-	margin-left:10px;
-	padding:3px;
-	border-radius:2px;
-	animation-duration: 20s;
-	animation-iteration-count: infinite;
-	animation-name: rainbow;
-	animation-timing-function: ease-in-out;
-	color: rgba(var(--color-white));
-}
 .reply .header a.name[href="/user/Taluun/"]::after{
 	content: "Best Friend";
 	margin-left:10px;
