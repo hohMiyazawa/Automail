@@ -4,9 +4,6 @@
 #hohListPreview .content{
 	width: 240px;
 }
-.details .donator-badge{/*overpass really doesn't look great for this. That's just like my opinion, so overriding it goes here, and not in the global CSS*/
-	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-}
 .user .overview > .section:first-child{
 	max-width: 555px;
 }
