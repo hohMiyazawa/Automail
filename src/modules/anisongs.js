@@ -84,7 +84,7 @@ function insert(songs, parent) {
   else {
     songs.forEach( (song, i) => {
       const txt = `${i+1}. ${song.title || song}`;
-      const node = create("div","anisongs-entry",txt,parent);
+      const node = create("div","anisong-entry",txt,parent);
       if (song.url) {
         const vid = new VideoElement(node, song.url)
         node.addEventListener("click", () => vid.toggle())
@@ -107,11 +107,11 @@ function placeData(data) {
   cleaner(anisongs_temp.target);
   let op = createTargetDiv(translate("$anisongs_openings"), anisongs_temp.target, 0);
   if(data.opening_themes.length === 1){
-    op.innerText = translate("$anisongs_opening")
+    op.children[0].innerText = translate("$anisongs_opening")
   }
   let ed = createTargetDiv(translate("$anisongs_endings"), anisongs_temp.target, 1);
   if(data.ending_themes.length === 1){
-    ed.innerText = translate("$anisongs_ending")
+    ed.children[0].innerText = translate("$anisongs_ending")
   }
   insert(data.opening_themes, op);
   insert(data.ending_themes, ed);
