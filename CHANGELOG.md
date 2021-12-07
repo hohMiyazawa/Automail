@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## v9.99.75
+
+### Changed
+
+- Changed mobile tag voting, to work with the native site change
+
+### Removed
+
+- Removed forum comment collapse, as that's now a native feature
+- Removed tag descriptions when adding thats, as that's now a native feature
+
 ### Changed
 
 - Updated Portuguese translation. (samOAK)
