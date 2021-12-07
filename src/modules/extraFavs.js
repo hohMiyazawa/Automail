@@ -85,6 +85,8 @@ query($user: String!){
 					if(!data){
 						return//could be a private profile
 					}
+					const firstFav = favSection.children[0].getAttributeNames();
+					const dataAttrs = firstFav.filter((attr) => attr.includes("data"));
 					let findTooltip = function(){
 						let possibleTooltip = document.querySelector(".tooltip.visible.animate-position");
 						if(
@@ -117,6 +119,7 @@ query($user: String!){
 						data.data.User.favourites.anime3.nodes
 					).forEach(fav => {
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
+						dataAttrs.forEach(attr => element.setAttribute(attr, ""))
 						element.href = "/anime/" + fav.id + "/" + safeURL(titlePicker(fav));
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
@@ -217,6 +220,8 @@ query($user: String!){
 					if(!data){
 						return//could be a private profile
 					}
+					const firstFav = favSection.children[0].getAttributeNames();
+					const dataAttrs = firstFav.filter((attr) => attr.includes("data"));
 					let findTooltip = function(){
 						let possibleTooltip = document.querySelector(".tooltip.visible.animate-position");
 						if(possibleTooltip.innerText.match(/(TV|Movie)$/)){
@@ -252,6 +257,7 @@ query($user: String!){
 						data.data.User.favourites.manga3.nodes
 					).forEach(fav => {
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
+						dataAttrs.forEach(attr => element.setAttribute(attr, ""))
 						element.href = "/manga/" + fav.id + "/" + safeURL(titlePicker(fav));
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
@@ -286,19 +292,6 @@ query($user: String!){
 		};finder2()
 	},
 	css: `
-.hohExtraFav{
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	border-radius: 4px;
-	cursor: pointer;
-	display: inline-block;
-	height: 115px;
-	position: relative;
-	width: 85px;
-	margin-bottom: 20px;
-	margin-right: 21px;
-}
 .hohExtraFavs:hover{
 	overflow-y: auto;
 	scrollbar-width: none;
