@@ -126,9 +126,6 @@ function handleScripts(url,oldUrl){
 	if(
 		url.match(/^https:\/\/anilist\.co\/forum\/thread\/.*/)
 	){
-		if(useScripts.forumComments){
-			enhanceForum()
-		}
 		if(useScripts.embedHentai){
 			embedHentai()
 		}

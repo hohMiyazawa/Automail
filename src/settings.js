@@ -32,7 +32,6 @@ const notificationColourDefaults = {
 let useScripts = {
 	socialTab: true,
 	socialTabFeed: true,
-	forumComments: true,
 	forumMedia: true,
 	staffPages: true,
 	completedScore: true,

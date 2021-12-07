@@ -16,9 +16,6 @@
 	"description": "$socialTabFeed_description",
 	"extendedDescription": "'Has replies' is the only filter that works if not signed in with the script. A 'Following' filter becomes available if you do.",
 	"categories": ["Media","Login"]
-},{"id": "forumComments",
-	"description": "$forumComments_description",
-	"categories": ["Forum"]
 },{"id": "forumMedia",
 	"description": "$forumMedia_description",
 	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
