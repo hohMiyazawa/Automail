@@ -81,7 +81,7 @@ query($user: String!){
 					user: decodeURIComponent(URLstuff[1]),
 				},
 				function(data){
-					favSection.style.height = (favSection.clientHeight || 615) + "px";
+					favSection.style.maxHeight = (favSection.clientHeight || 615) + "px";
 					if(!data){
 						return//could be a private profile
 					}
@@ -118,6 +118,7 @@ query($user: String!){
 					).forEach(fav => {
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
 						element.href = "/anime/" + fav.id + "/" + safeURL(titlePicker(fav));
+						cheapReload(element,{path: element.pathname})
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
 							if(possibleTooltip){
@@ -141,6 +142,12 @@ query($user: String!){
 							}
 							else{
 								element.title = titlePicker(fav)
+							}
+						}
+						element.onmouseout = function(){
+							let possibleTooltip = findTooltip();
+							if(possibleTooltip){
+								possibleTooltip.classList.remove("visible");
 							}
 						}
 					})
@@ -213,7 +220,7 @@ query($user: String!){
 					user: decodeURIComponent(URLstuff[1]),
 				},
 				function(data){
-					favSection.style.height = (favSection.clientHeight || 615) + "px";
+					favSection.style.maxHeight = (favSection.clientHeight || 615) + "px";
 					if(!data){
 						return//could be a private profile
 					}
@@ -253,6 +260,7 @@ query($user: String!){
 					).forEach(fav => {
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
 						element.href = "/manga/" + fav.id + "/" + safeURL(titlePicker(fav));
+						cheapReload(element,{path: element.pathname})
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
 							if(possibleTooltip){
@@ -276,6 +284,12 @@ query($user: String!){
 							}
 							else{
 								element.title = titlePicker(fav)
+							}
+						}
+						element.onmouseout = function(){
+							let possibleTooltip = findTooltip();
+							if(possibleTooltip){
+								possibleTooltip.classList.remove("visible");
 							}
 						}
 					})
