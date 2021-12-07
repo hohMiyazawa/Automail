@@ -1,0 +1,29 @@
+Repository at https://github.com/hohMiyazawa/Automail
+
+A collection of enhancements for Anilist.
+Main:
+- New notification system
+- More stats (including full lists instead of just 30 items)
+- Add scores to completion activities in the feed
+- Custom tags
+- Find old media activities
+Minor:
+- Social tab average score, notes and progress
+- Various pieces of optional page styling
+- Title aliases
+- Studio logos
+- Themes (including high contrast dark)
+- Following/follower counts
+- Custom profile backgrounds and CSS
+- Colour picker
+- MAL score, recs and serialisation
+- Manga magazines
+- Feed filtering and blocking
+- Anime-Planet list importer
+- A tool to fix your dates
+- A list exporter
+- Feed filtering
+- Accessibility options
+- Staff page sorting and filtering
+
+These can be turned on and off individually in settings > apps
