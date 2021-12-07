@@ -121,6 +121,7 @@ query($user: String!){
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
 						dataAttrs.forEach(attr => element.setAttribute(attr, ""))
 						element.href = "/anime/" + fav.id + "/" + safeURL(titlePicker(fav));
+						cheapReload(element,{path: element.pathname})
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
 							if(possibleTooltip){
@@ -265,6 +266,7 @@ query($user: String!){
 						let element = create("a",["favourite","media","hohExtraFav"],false,favSection,'background-image: url("' + fav.coverImage.large + '")');
 						dataAttrs.forEach(attr => element.setAttribute(attr, ""))
 						element.href = "/manga/" + fav.id + "/" + safeURL(titlePicker(fav));
+						cheapReload(element,{path: element.pathname})
 						element.onmouseover = function(){
 							let possibleTooltip = findTooltip();
 							if(possibleTooltip){
