@@ -122,17 +122,17 @@
 	font-size: 1.3rem;
 }
 .forum-thread .comment-wrap{
-	border-left: solid!important;
 	margin-bottom: 10px!important;
 }
-.forum-thread .comment-wrap.odd{
-	border-left-style: double!important;
+.forum-thread .comment-wrap .collapse{
+	opacity: 1;
+	border-left: 1px;
+	border-left-style: solid;
+	justify-content: left;
 }
-.forum-thread .comment-wrap.hohCommentSelected{
-	border-left-color: rgb(var(--color-blue))!important;
-}
-.forum-thread .comment-wrap.hohCommentHidden{
-	border-left-style: dotted!important;
+.forum-thread .comment-wrap .collapse .collapse-bar{
+	width: 8px;
+	border-radius: 0px 8px 8px 0px;
 }
 .forum-feed .overview-header{
 	color: rgba(var(--color-blue))!important;

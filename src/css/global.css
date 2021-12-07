@@ -31,14 +31,6 @@ m4_include(css/notifications.css)
 	overflow-x: scroll;
 	padding: 2px;
 }
-.hohForumHider{
-	margin-right: 3px;
-	cursor: pointer;
-	font-family: monospace;
-}
-.hohForumHider:hover{
-	color: rgb(var(--color-blue));
-}
 .hohStatsTrigger{
 	cursor: pointer;
 	border-radius: 3px;
