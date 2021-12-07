@@ -108,7 +108,7 @@
 "$setting_tweets": "Embed linked tweets",
 "$setting_CSSgreenManga": "Green titles for manga",
 "$setting_CSSbannerShadow": "Remove banner shadows",
-"$setting_CSSmobileTags": "Don't hide tags from media pages on mobile",
+"$setting_CSSmobileTags": "Don't hide tag voting from media pages on mobile",
 "$setting_infoTable": "Use a two-column table layout for info on media pages",
 "$setting_reinaDark": "Add a High Contrast Dark site theme [by Reina]",
 "$setting_MALserial": "Add MAL serialisation info to manga",

@@ -17,11 +17,13 @@ exportModule({
 	.media .sidebar .tags .tag .rank{
 		display: inline;
 	}
-	.media .sidebar .tags .tag .vote-dropdown .el-dropdown-link{
-		display: inline;
-	}
-	.media .sidebar .tags .add-icon{
+	.media .overview .tags .tag .vote-dropdown .el-dropdown-link{
 		opacity: 1;
+		display: inline!important;
+	}
+	.media .overview .tags .add-icon{
+		opacity: 1;
+		display: inline!important;
 	}
 	.media-page-unscoped .review.button{
 		display: inline-block;
