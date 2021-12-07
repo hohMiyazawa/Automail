@@ -146,6 +146,12 @@ query($user: String!){
 								element.title = titlePicker(fav)
 							}
 						}
+						element.onmouseout = function(){
+							let possibleTooltip = findTooltip();
+							if(possibleTooltip){
+								possibleTooltip.classList.remove("visible");
+							}
+						}
 					})
 				},
 				"hohExtraFavs" + URLstuff[1],
@@ -282,6 +288,12 @@ query($user: String!){
 							}
 							else{
 								element.title = titlePicker(fav)
+							}
+						}
+						element.onmouseout = function(){
+							let possibleTooltip = findTooltip();
+							if(possibleTooltip){
+								possibleTooltip.classList.remove("visible");
 							}
 						}
 					})
