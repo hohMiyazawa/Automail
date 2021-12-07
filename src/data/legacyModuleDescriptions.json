@@ -79,9 +79,6 @@
 },{"id": "mangaGuess",
 	"description": "Make a guess for the number of chapters for releasing manga",
 	"categories": ["Media"]
-},{"id": "CSSmobileExternalLinks",
-	"description": "Don't remove external links from media pages on mobile",
-	"categories": ["Media"]
 },{"id": "replaceNativeTags",
 	"description": "Full lists for tags, staff and studios in stats",
 	"categories": ["Stats"]

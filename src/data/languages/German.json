@@ -107,8 +107,6 @@
 "$recs_description": "Paare bestehen aus Medien, die du magst + Medien, die du noch nicht angefangen hast\nBeste Übereinstimmungen zuerst",
 "$module_unicodifier_description": "Konvertiert Emojis, damit sie auf Anilist funktionieren",
 "$module_unicodifier_extendedDescription": "Anilist verarbeitet einige Unicode Zeichen inkorrekt, was zum Abschneiden von Posts führt. Dieses Modul konvertiert sie zu sog. 'HTML entity escape codes', mit denen die Seite umgehen kann. (Dies könnten sie selber tun, wenn sie wollten)\nOriginale Idee vom großartigen GoBusto: https://files.kiniro.uk/unicodifier.html",
-"$forum_comment_hide_title": "Verstecke Kommentarkette",
-"$forum_comment_show_title": "Zeige Kommentarkette",
 "$rewatch_suffix_1": "[Rewatch]",
 "$rewatch_suffix_M": "[Rewatch {0}]",
 "$reread_suffix_1": "[Reread]",

@@ -89,7 +89,6 @@ let useScripts = {
 	plussMinus: true,
 	milestones: false,
 	allStudios: false,
-	CSSmobileExternalLinks: false,
 	termsFeedNoImages: false,
 	customCSS: false,
 	rightToLeft: false,

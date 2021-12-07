@@ -277,15 +277,6 @@ if(parseInt(useScripts.forumPreviewNumber) === 0){
 }
 	`
 }
-if(useScripts.CSSmobileExternalLinks){
-	moreStyle.textContent += `
-@media(max-width: 760px){
-	.media .sidebar .external-links{
-		display: block;
-	}
-}
-	`
-}
 if(useScripts.SFWmode){
 	moreStyle.textContent += `
 m4_include(css/SFWmode.css)
