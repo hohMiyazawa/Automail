@@ -81,7 +81,7 @@ query($user: String!){
 					user: decodeURIComponent(URLstuff[1]),
 				},
 				function(data){
-					favSection.style.height = (favSection.clientHeight || 615) + "px";
+					favSection.style.maxHeight = (favSection.clientHeight || 615) + "px";
 					if(!data){
 						return//could be a private profile
 					}
@@ -213,7 +213,7 @@ query($user: String!){
 					user: decodeURIComponent(URLstuff[1]),
 				},
 				function(data){
-					favSection.style.height = (favSection.clientHeight || 615) + "px";
+					favSection.style.maxHeight = (favSection.clientHeight || 615) + "px";
 					if(!data){
 						return//could be a private profile
 					}
