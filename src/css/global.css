@@ -39,12 +39,6 @@ m4_include(css/notifications.css)
 .hohForumHider:hover{
 	color: rgb(var(--color-blue));
 }
-#hohDescription{
-	width: 400px;
-	display: inline-block;
-	margin: 10px;
-	color: rgb(var(--color-blue));
-}
 .hohStatsTrigger{
 	cursor: pointer;
 	border-radius: 3px;

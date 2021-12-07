@@ -402,27 +402,6 @@ let mainLoop = setInterval(() => {
 		}
 	}
 },200);
-let tagDescriptions = {};
-let expired = true;
-let tagCache = localStorage.getItem("hohTagCache");
-if(tagCache){
-	tagCache = JSON.parse(tagCache);
-	expired = (NOW() - tagCache.updated) > 3*60*60*1000//three hours
-};
-if(expired){
-	generalAPIcall("query{MediaTagCollection{name description}}",{},data => {
-		data.data.MediaTagCollection.forEach(tag => {
-			tagDescriptions[tag.name] = tag.description
-		});
-		localStorage.setItem("hohTagCache",JSON.stringify({
-			tags: tagDescriptions,
-			updated: NOW()
-		}))
-	})
-}
-else{
-	tagDescriptions = tagCache.tags
-};
 console.log("Automail " + scriptInfo.version);
 Object.keys(localStorage).forEach(key => {
 	if(key.includes("hohListActivityCall")){
