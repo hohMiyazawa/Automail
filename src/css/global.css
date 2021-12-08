@@ -2143,6 +2143,9 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .settings .nav a[href="/settings/apps"]::after{
 	content: " & Automail";
 }
+.forum-thread h1.title.locked ~ div .nav svg[data-icon="reply"]{/*letting people write out entire comments before telling them the thread is locked is cruel*/
+	display: none;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
