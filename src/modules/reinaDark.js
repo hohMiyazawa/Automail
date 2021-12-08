@@ -79,6 +79,10 @@ if(useScripts.reinaDark){
 	background: rgb(20, 25, 31);
 	color: #eaeeff!important;
 }
+.media .nav .link.router-link-exact-active.router-link-active,
+.user .nav .link.router-link-exact-active.router-link-active{
+	background: rgba(var(--color-foreground-grey-dark));
+}
 .site-theme-dark {
 	--color-blue: 120, 180, 255;
 	--color-shadow-blue: 8, 10, 16, 0.5;

@@ -204,7 +204,7 @@
 .wrap .link.router-link-exact-active.router-link-active,
 .nav .link.router-link-exact-active.router-link-active,
 .nav .browse-wrap.router-link-exact-active.router-link-active{
-	background: rgba(var(--color-foreground-grey));
+	background: rgba(var(--color-foreground-grey-dark));
 	color: rgba(var(--color-blue));
 }
 /*--------------VERTICAL-NAV----------------*/
