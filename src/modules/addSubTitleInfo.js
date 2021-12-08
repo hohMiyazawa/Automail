@@ -11,6 +11,18 @@ function addSubTitleInfo(){
 		setTimeout(addSubTitleInfo,200);
 		return
 	};
+	let cover_inner = document.querySelector(".cover-wrap-inner");
+	if(cover_inner){
+		let diff = sidebar.getBoundingClientRect().top - cover_inner.getBoundingClientRect().bottom;
+		if(diff < 20){
+			if(sidebar.style.marginTop){
+				sidebar.style.marginTop = Math.round(20 - diff + parseInt(sidebar.style.marginTop.match(/\d+/)[0])) + "px"
+			}
+			else{
+				sidebar.style.marginTop = Math.round(20 - diff) + "px"
+			}
+		}
+	}
 	let infoNeeded = {};
 	Array.from(sidebar.querySelectorAll(".data-set .type")).forEach(pair => {
 		if(pair.innerText === "Native"){
