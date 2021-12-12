@@ -215,6 +215,12 @@ let wrap = create("div","wrap",false,entry);
 						console.warn("pinned activity error",jsonData.pinned,e)
 					}
 				}
+				else{
+					let carriedOver = document.querySelector(".hohPinned");
+					if(carriedOver){
+						carriedOver.remove()
+					}
+				}
 			}
 			catch(e){
 				console.warn("Invalid profile JSON for " + variables.userName + ". Aborting.");
