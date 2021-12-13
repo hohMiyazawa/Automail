@@ -20,15 +20,7 @@ const options = {
   class: 'anisongs', // container class
 }
 
-const Cache = {
-  async add(key, value) {
-    await localforage.setItem(key, value)
-    return value
-  },
-  async get(key) {
-    return localforage.getItem(key)
-  }
-}
+const songCache = localforage.createInstance({name: "automail", storeName: "anisongs"});
 
 const API = {
   async getSongs(mal_id) {
@@ -118,7 +110,7 @@ function cleaner(target) {
 
 async function launch(currentid) {
   // get from cache and check TTL
-  const cache = await Cache.get(currentid) || {time: 0};
+  const cache = await songCache.getItem(currentid) || {time: 0};
   if(
     (cache.time + options.cacheTTL)
     < +new Date()
@@ -145,7 +137,7 @@ async function launch(currentid) {
           }
           catch(e){console.log("Anisongs", e)} // 🐟
         }
-        await Cache.add(currentid, {opening_themes, ending_themes, time: +new Date()});
+        await songCache.setItem(currentid, {opening_themes, ending_themes, time: +new Date()});
       }
       // place the data onto site
       placeData({opening_themes, ending_themes});
