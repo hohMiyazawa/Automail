@@ -628,4 +628,48 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 	APIcallsUsed++
 }
 const ANILIST_QUERY_LIMIT = 90;
+
+
+class QueryArgs{
+	constructor(args){
+		this.variables = args[variables] || {}
+		this.cacheKey = args[cacheKey] || null
+		this.timeFresh = args[timeFresh] || null
+		this.useLocalStorage = args[useLocalStorage] || false
+		this.overWrite = args[overWrite] || false
+		this.auth = args[auth] || false
+		/*const validArgs = ["variables", "cacheKey", "timeFresh", "useLocalStorage", "overWrite", "auth"];
+		Object.entries(args).forEach(([k, v]) => {
+			if(validArgs.includes(k)) this[k] = v
+		})*/
+	}
+}
+
+class QueryOptions{
+	constructor(query, variables, auth){
+		function isAuth(){
+			if(auth === true && useScripts.accessToken) return "Bearer " + useScripts.accessToken
+			return null
+		}
+		this.method = "POST",
+		this.headers = {
+			"Authorization": isAuth(),
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+		},
+		this.body = JSON.stringify({
+			"query": query,
+			"variables": variables
+		})
+	}
+}
+
+async function anilistAPI(query, args){
+	if(!query) return "No query provided"
+	const queryArgs = new QueryArgs(args);
+	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth);
+	const res = await fetch(url, options);
+	APIcallsUsed++;
+	return res.json();
+}
 //end "graphql.js"
