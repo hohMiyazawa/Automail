@@ -664,12 +664,17 @@ class QueryOptions{
 	}
 }
 
+function updateLimit(res){
+	APIlimit = res.headers.get("x-ratelimit-limit");
+	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
+}
+
 async function anilistAPI(query, args){
 	if(!query) return "No query provided"
 	const queryArgs = new QueryArgs(args);
 	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth);
 	const res = await fetch(url, options);
-	APIcallsUsed++;
-	return res.json();
+	updateLimit(res);
+	return (res.ok ? res.json() : Promise.reject(res.json()));
 }
 //end "graphql.js"
