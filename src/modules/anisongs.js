@@ -31,13 +31,6 @@ const Cache = {
 }
 
 const API = {
-  async getMedia(id) {
-    return new Promise((resolve, reject) => {
-      generalAPIcall("query($id:Int){Media(id:$id){idMal status}}", {id}, ({data}) => {
-        resolve(data.Media)
-      })
-    });
-  },
   async getSongs(mal_id) {
     const res = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}`)
     return res.json()
@@ -130,7 +123,13 @@ async function launch(currentid) {
     (cache.time + options.cacheTTL)
     < +new Date()
   ) {
-    const {idMal: mal_id, status} = await API.getMedia(currentid);
+    const {data, errors} = await anilistAPI("query($id:Int){Media(id:$id){idMal status}}", {
+      variables: {id: currentid}
+    });
+    if(errors){
+      return "AniList API failure"
+    }
+    const {idMal: mal_id, status} = data.Media;
     if (mal_id) {
       const filterThemes = themes => themes.filter(theme => !theme.includes("Help improve our database"))
       let {opening_themes, ending_themes} = await API.getSongs(mal_id);
