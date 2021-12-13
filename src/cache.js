@@ -1,5 +1,4 @@
 //begin "cache.js"
-localforage.config({name: 'automail'});//can't be named just 'localforage', as Anilist uses it too
 
 let reliablePersistentStorage = true;
 if (navigator.storage && navigator.storage.persist){

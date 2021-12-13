@@ -629,13 +629,14 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 }
 const ANILIST_QUERY_LIMIT = 90;
 
+localforage.config({name: "automail"});
+const apiCache = localforage.createInstance({storeName: "api"});
 
 class QueryArgs{
 	constructor(args){
 		this.variables = args[variables] || {}
 		this.cacheKey = args[cacheKey] || null
 		this.timeFresh = args[timeFresh] || null
-		this.useLocalStorage = args[useLocalStorage] || false
 		this.overWrite = args[overWrite] || false
 		this.auth = args[auth] || false
 		/*const validArgs = ["variables", "cacheKey", "timeFresh", "useLocalStorage", "overWrite", "auth"];
@@ -669,10 +670,25 @@ function updateLimit(res){
 	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
 }
 
+async function checkCache(key){
+	const item = await apiCache.getItem(key);
+	if(item){
+		if(!item.duration || (NOW() < item.time + item.duration)){
+			return item;
+		}
+		return apiCache.removeItem(key);
+	}
+	return null;
+}
+
 async function anilistAPI(query, args){
 	if(!query) return "No query provided"
 	const queryArgs = new QueryArgs(args);
 	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth);
+	if(queryArgs.cacheKey && !queryArgs.overWrite){
+		const cache = await checkCache(queryArgs.cacheKey);
+		if(cache) return cache;
+	}
 	const res = await fetch(url, options);
 	updateLimit(res);
 	return (res.ok ? res.json() : Promise.reject(res.json()));
