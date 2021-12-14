@@ -630,7 +630,7 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 const ANILIST_QUERY_LIMIT = 90;
 
 localforage.config({name: "automail"});
-const apiCache = localforage.createInstance({storeName: "api"});
+const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
 
 class QueryArgs{
 	constructor(args={}){
