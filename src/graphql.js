@@ -648,20 +648,21 @@ class QueryArgs{
 
 class QueryOptions{
 	constructor(query, variables, auth){
-		function isAuth(){
-			if(auth === true && useScripts.accessToken) return "Bearer " + useScripts.accessToken
-			return null
-		}
 		this.method = "POST",
-		this.headers = {
-			"Authorization": isAuth(),
+		this.headers = new Headers({
 			"Content-Type": "application/json",
 			"Accept": "application/json"
-		},
+		}),
 		this.body = JSON.stringify({
 			"query": query,
 			"variables": variables
 		})
+		this.#isAuth(auth)
+	}
+	#isAuth(auth){
+		if(auth === true && useScripts.accessToken){
+			this.headers.set("Authorization", "Bearer " + useScripts.accessToken)
+		}
 	}
 }
 
