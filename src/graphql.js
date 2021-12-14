@@ -681,6 +681,15 @@ async function checkCache(key){
 	return null;
 }
 
+function saveCache(data, key, duration){
+	const saltedHam = {
+		data: data,
+		time: NOW(),
+		duration: duration
+	}
+	apiCache.setItem(key, saltedHam);
+}
+
 async function anilistAPI(query, args){
 	if(!query) return "No query provided"
 	const queryArgs = new QueryArgs(args);
@@ -691,6 +700,11 @@ async function anilistAPI(query, args){
 	}
 	const res = await fetch(url, options);
 	updateLimit(res);
-	return (res.ok ? res.json() : Promise.reject(res.json()));
+	const data = await res.json();
+	if(res.ok){
+		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh);
+		return data;
+	}
+	return Promise.reject(data);
 }
 //end "graphql.js"
