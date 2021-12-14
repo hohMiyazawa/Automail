@@ -633,16 +633,13 @@ localforage.config({name: "automail"});
 const apiCache = localforage.createInstance({storeName: "api"});
 
 class QueryArgs{
-	constructor(args){
-		this.variables = args[variables] || {}
-		this.cacheKey = args[cacheKey] || null
-		this.timeFresh = args[timeFresh] || null
-		this.overWrite = args[overWrite] || false
-		this.auth = args[auth] || false
-		/*const validArgs = ["variables", "cacheKey", "timeFresh", "useLocalStorage", "overWrite", "auth"];
-		Object.entries(args).forEach(([k, v]) => {
-			if(validArgs.includes(k)) this[k] = v
-		})*/
+	constructor(args={}){
+		this.variables = {};
+		this.cacheKey = null;
+		this.timeFresh = null;
+		this.overWrite = false;
+		this.auth = false;
+		Object.assign(this, args);
 	}
 }
 
