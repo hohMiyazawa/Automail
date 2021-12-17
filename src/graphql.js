@@ -630,7 +630,8 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 const ANILIST_QUERY_LIMIT = 90;
 
 localforage.config({name: "automail"});
-const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
+const apiPersistCache = localforage.createInstance({name: "automail", storeName: "api"});
+const apiCache = {};
 
 class QueryArgs{
 	constructor(args={}){
@@ -639,6 +640,7 @@ class QueryArgs{
 		this.timeFresh = null;
 		this.overWrite = false;
 		this.auth = false;
+		this.persist = false;
 		Object.assign(this, args);
 	}
 }
@@ -668,24 +670,35 @@ function updateLimit(res){
 	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
 }
 
-async function checkCache(key){
-	const item = await apiCache.getItem(key);
+async function checkCache(key, persist){
+	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache[key];
 	if(item){
 		if(!item.duration || (NOW() < item.time + item.duration)){
 			return item;
 		}
-		return apiCache.removeItem(key);
+		else{
+			if(persist === true){
+				return apiPersistCache.removeItem(key);
+			}
+			delete apiCache[key];
+			return null;
+		}
 	}
 	return null;
 }
 
-function saveCache(data, key, duration){
+function saveCache(data, key, duration, persist){
 	const saltedHam = {
 		data: data,
 		time: NOW(),
 		duration: duration
 	}
-	apiCache.setItem(key, saltedHam);
+	if(persist === true){
+		apiPersistCache.setItem(key, saltedHam);
+	}
+	else{
+		apiCache[key] = saltedHam;
+	}
 }
 
 async function anilistAPI(query, args){
@@ -693,14 +706,14 @@ async function anilistAPI(query, args){
 	const queryArgs = new QueryArgs(args);
 	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth);
 	if(queryArgs.cacheKey && !queryArgs.overWrite){
-		const cache = await checkCache(queryArgs.cacheKey);
+		const cache = await checkCache(queryArgs.cacheKey, queryArgs.persist);
 		if(cache) return cache;
 	}
 	const res = await fetch(url, options);
 	updateLimit(res);
 	const data = await res.json();
 	if(res.ok){
-		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh);
+		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh, queryArgs.persist);
 		return data;
 	}
 	return Promise.reject(data);
