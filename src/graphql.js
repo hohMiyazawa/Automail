@@ -288,6 +288,9 @@ if(window.BroadcastChannel){
 			else if(message.data.type === "cachev2"){
 				cache.updateIfDifferent(message.data.mediaData,true)
 			}
+			else if(message.data.type === "cachev3"){
+				apiCache[message.data.key] = message.data.value
+			}
 			else if(message.data.type === "sessionToken"){
 				window.al_token = message.data.value
 				//to prevent "session expired" messages
@@ -698,6 +701,7 @@ function saveCache(data, key, duration, persist){
 	}
 	else{
 		apiCache[key] = saltedHam;
+		aniCast.postMessage({type:"cachev3",key:key,value:saltedHam})
 	}
 }
 
