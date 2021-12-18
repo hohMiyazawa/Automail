@@ -2,6 +2,7 @@
 	"info": {
 		"language": "Svenska",
 		"language_english": "Swedish",
+		"locale": "sv-SE",
 		"fallback": ["Norsk","English"],
 		"maintainer": "no maintainer",
 		"maintainer_link": "",

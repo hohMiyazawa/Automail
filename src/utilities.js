@@ -128,13 +128,13 @@ function formatTime(diff,type){
 		}
 	};
 	let times = [
-		{name: "year",short: translate("$time_short_year"),value: 60*60*24*365},
-		{name: "month",short: translate("$time_short_month"),value: 60*60*24*30},
-		{name: "week",short: translate("$time_short_week"),value: 60*60*24*7},
-		{name: "day",short: translate("$time_short_day"),value: 60*60*24},
-		{name: "hour",short: translate("$time_short_hour"),value: 60*60},
-		{name: "minute",short: translate("$time_short_minute"),value: 60},
-		{name: "second",short: translate("$time_short_second"),value: 1}
+		{name: "year",short: translate("$time_short_year"),medium: translate("$time_medium_year"),Mmedium: translate("$time_medium_Myear"),value: 60*60*24*365},
+		{name: "month",short: translate("$time_short_month"),medium: translate("$time_medium_month"),Mmedium: translate("$time_medium_Mmonth"),value: 60*60*24*30},
+		{name: "week",short: translate("$time_short_week"),medium: translate("$time_medium_week"),Mmedium: translate("$time_medium_Mweek"),value: 60*60*24*7},
+		{name: "day",short: translate("$time_short_day"),medium: translate("$time_medium_day"),Mmedium: translate("$time_medium_Mday"),value: 60*60*24},
+		{name: "hour",short: translate("$time_short_hour"),medium: translate("$time_medium_hour"),Mmedium: translate("$time_medium_Mhour"),value: 60*60},
+		{name: "minute",short: translate("$time_short_minute"),medium: translate("$time_medium_minute"),Mmedium: translate("$time_medium_Mminute"),value: 60},
+		{name: "second",short: translate("$time_short_second"),medium: translate("$time_medium_second"),Mmedium: translate("$time_medium_Msecond"),value: 1}
 	];
 	let timeIndex = 0;
 	let significantValue = 0;
@@ -150,39 +150,40 @@ function formatTime(diff,type){
 			return magRound(diff) + translate("$time_short_second")
 		};
 		if(magRound(diff) === 1){
-			return magRound(diff) + " second"
+			return magRound(diff) + " " + translate("$time_medium_second")
 		};
-		return magRound(diff) + " seconds";
+		return magRound(diff) + " " + translate("$time_medium_Msecond");
 	}
 	if(Math.floor(significantValue) > 1){
 		if(type === "short"){
 			return magRound(significantValue) + times[timeIndex].short
 		};
-		return magRound(significantValue) + " " + times[timeIndex].name + translate("$time_short_second");
+		return magRound(significantValue) + " " + times[timeIndex].Mmedium;
 	}
 	if(magRound(reminder) > 1){
 		if(type === "short"){
 			return "1" + times[timeIndex].short + " " + magRound(reminder) + times[timeIndex + 1].short	
 		}
-		return "1 " + times[timeIndex].name + " " + magRound(reminder) + " " + times[timeIndex + 1].name + translate("$time_short_second");
+		return "1 " + times[timeIndex].medium + " " + magRound(reminder) + " " + times[timeIndex + 1].Mmedium
 	}
 	if(magRound(reminder) === 1){
 		if(type === "short"){
 			return "1" + times[timeIndex].short + " 1" + times[timeIndex + 1].short	
 		}
-		return "1 " + times[timeIndex].name + " 1 " + times[timeIndex + 1].name;
+		return "1 " + times[timeIndex].medium + " 1 " + times[timeIndex + 1].medium;
 	}
 	if(type === "short"){
 		return "1" + times[timeIndex].short
 	}
-	return "1 " + times[timeIndex].name;
+	return "1 " + times[timeIndex].medium;
 }
 
 function nativeTimeElement(timestamp){//time in seconds
 	let dateObj = new Date(timestamp*1000);
 	let elem = create("time","hohTimeGeneric");
 	elem.setAttribute("datetime",dateObj);
-	elem.title = dateObj.toLocaleDateString() + ", " + dateObj.toLocaleTimeString();
+	let locale = languageFiles[useScripts.partialLocalisationLanguage].info.locale || "en-UK";
+	elem.title = dateObj.toLocaleDateString(locale,{weekday: undefined, year: "numeric", month: "numeric", day: "numeric"}) + ", " + dateObj.toLocaleTimeString(locale);
 	let calculateTime = function(){
 		let now = new Date();
 		let diff = Math.round(now.valueOf()/1000) - Math.round(dateObj.valueOf()/1000);
@@ -534,11 +535,25 @@ const distributionFormats = {
 };
 
 const distributionStatus = {
-	"FINISHED" : "Finished",
-	"RELEASING" : "Releasing",
-	"NOT_YET_RELEASED" : "Not Yet Released",
-	"CANCELLED" : "Cancelled",
-	"HIATUS"    : "Hiatus"
+	"FINISHED" : translate("$mediaReleaseStatus_finished",null,"Finished"),
+	"RELEASING" : translate("$mediaReleaseStatus_releasing",null,"Releasing"),
+	"NOT_YET_RELEASED" : translate("$mediaReleaseStatus_notYetReleased",null,"Not Yet Released"),
+	"CANCELLED" : translate("$mediaReleaseStatus_cancelled",null,"Cancelled"),
+	"HIATUS"    : translate("$mediaReleaseStatus_hiatus",null,"Hiatus"),
+	anime: {
+		"FINISHED" : translate("$mediaReleaseStatusAnime_finished",null,"Finished"),
+		"RELEASING" : translate("$mediaReleaseStatusAnime_releasing",null,"Releasing"),
+		"NOT_YET_RELEASED" : translate("$mediaReleaseStatusAnime_notYetReleased",null,"Not Yet Released"),
+		"CANCELLED" : translate("$mediaReleaseStatusAnime_cancelled",null,"Cancelled"),
+		"HIATUS"    : translate("$mediaReleaseStatusAnime_hiatus",null,"Hiatus"),
+	},
+	manga: {
+		"FINISHED" : translate("$mediaReleaseStatusManga_finished",null,"Finished"),
+		"RELEASING" : translate("$mediaReleaseStatusManga_releasing",null,"Releasing"),
+		"NOT_YET_RELEASED" : translate("$mediaReleaseStatusManga_notYetReleased",null,"Not Yet Released"),
+		"CANCELLED" : translate("$mediaReleaseStatusManga_cancelled",null,"Cancelled"),
+		"HIATUS"    : translate("$mediaReleaseStatusManga_hiatus",null,"Hiatus"),
+	}
 };
 
 const categoryColours = new Map([

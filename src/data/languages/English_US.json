@@ -3,6 +3,7 @@
 		"language": "English (US)",
 		"language_english": "English (US)",
 		"variation_of": "English",
+		"locale": "en-US",
 		"fallback": ["English"],
 		"maintainer": "hoh",
 		"maintainer_link": "https://anilist.co/user/hoh/",

@@ -2,6 +2,7 @@
 	"info": {
 		"language": "Español",
 		"language_english": "Spanish",
+		"locale": "es",
 		"fallback": ["English"],
 		"maintainer": "MrJako2001",
 		"maintainer_link": "https://anilist.co/user/MrJaco/",

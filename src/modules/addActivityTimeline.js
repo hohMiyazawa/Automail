@@ -68,12 +68,70 @@ query($userId: Int,$mediaId: Int,$page: Int){
 					activityEntry.style.color = "rgb(var(--color-blue))"
 				};
 				let activityContext = create("a","newTab",capitalize(activity.status),activityEntry);
+				if(URLstuff[1] === "manga"){
+					if(activity.status === "read chapter" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MreadChapter_known",activity.progress))
+					}
+					else if(activity.status === "reread"){
+						activityContext.innerText = capitalize(translate("$listActivity_repeatedManga_known"))
+					}
+					else if(activity.status === "reread chapter" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MrepeatingManga_known",activity.progress))
+					}
+					else if(activity.status === "dropped" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MdroppedManga_known",activity.progress))
+					}
+					else if(activity.status === "dropped"){
+						activityContext.innerText = capitalize(translate("$listActivity_droppedManga_known",activity.progress))
+					}
+					else if(activity.status === "completed"){
+						activityContext.innerText = capitalize(translate("$listActivity_completedManga_known"))
+					}
+					else if(activity.status === "plans to read"){
+						activityContext.innerText = capitalize(translate("$listActivity_planningManga_known"))
+					}
+					else if(activity.status === "paused reading"){
+						activityContext.innerText = capitalize(translate("$listActivity_pausedManga_known"))
+					}
+					else{
+						console.warn("Missing listActivity translation key for:",activity.status)
+					}
+				}
+				else{
+					if(activity.status === "watched episode" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MwatchedEpisode_known",activity.progress))
+					}
+					else if(activity.status === "rewatched"){
+						activityContext.innerText = capitalize(translate("$listActivity_repeatedAnime_known"))
+					}
+					else if(activity.status === "rewatched episode" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MrepeatingAnime_known",activity.progress))
+					}
+					else if(activity.status === "dropped" && activity.progress){
+						activityContext.innerText = capitalize(translate("$listActivity_MdroppedAnime_known",activity.progress))
+					}
+					else if(activity.status === "dropped"){
+						activityContext.innerText = capitalize(translate("$listActivity_droppedAnime_known",activity.progress))
+					}
+					else if(activity.status === "completed"){
+						activityContext.innerText = capitalize(translate("$listActivity_completedAnime_known"))
+					}
+					else if(activity.status === "plans to watch"){
+						activityContext.innerText = capitalize(translate("$listActivity_planningAnime_known"))
+					}
+					else if(activity.status === "paused watching"){
+						activityContext.innerText = capitalize(translate("$listActivity_pausedAnime_known"))
+					}
+					else{
+						console.warn("Missing listActivity translation key for:",activity.status)
+					}
+				}
 				activityContext.href = activity.siteUrl;
-				if(["watched episode","read chapter","rewatched episode","reread chapter"].includes(activity.status)){
-					activityContext.innerText += " " + activity.progress
-				};
+				const options = {weekday: "short", year: "numeric", month: "short", day: "numeric"};
+				let locale = languageFiles[useScripts.partialLocalisationLanguage].info.locale || "en-UK";
+				let datestring = (new Date(activity.createdAt*1000)).toLocaleDateString(locale,options)
 				create("span",false,
-					" " + (new Date(activity.createdAt*1000)).toDateString(),
+					" " + datestring,
 					activityEntry,
 					"position:absolute;right:7px;"
 				).title = (new Date(activity.createdAt*1000)).toLocaleString();

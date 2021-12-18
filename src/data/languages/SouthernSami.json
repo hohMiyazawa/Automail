@@ -2,6 +2,7 @@
 	"info": {
 		"language": "Åarjelsaemie",
 		"language_english": "Southern Sami",
+		"locale": "sma",
 		"fallback": ["Norsk","Svenska","English"],
 		"maintainer": "hoh",
 		"maintainer_link": "https://anilist.co/user/hoh/",

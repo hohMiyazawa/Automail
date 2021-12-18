@@ -255,7 +255,7 @@
 },{
 	"id": "partialLocalisationLanguage",
 	"description": "$settings_partialLocalisationLanguage_description",
-	"extendedDescription": "Partial localisation. Does not translate the whole site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
+	"extendedDescription": "Partial localisation, translates Automail-specific elements.\nCheck \"Translate additional parts of the Anilist UI\" for translating more fo the site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
 	"type": "select",
 	"categories": ["Script","Newly Added"],
 	"values": ["English","Português","Español","Norsk","Deutsch","日本語","Åarjelsaemie","Svenska","English (US)","English (short)"]

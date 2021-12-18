@@ -113,16 +113,18 @@ const handler = (data,target,idMap) => {
 			].filter(TRUTHY).map(a => ((a + "").length === 1 ? "0" + a : "" + a)).join("-")
 		}
 		if(
-			!e.startedAt.year
-			&& !e.completedAt.year
+			!e.completedAt.year
 			&& e.createdAt
 			&& e.status === "PLANNING"
 		){
-			e.created
-			dateString = "planned " + new Date(e.createdAt*1000).toISOString().split("T")[0]
+			dateString = translate("$mediaStatus_planning_time",new Date(e.createdAt*1000).toISOString().split("T")[0])
 		}
 		if(dateString !== " - "){
 			target[idMap[e.user.id]].children[3].title = dateString;
+		}
+		if(useScripts.partialLocalisationLanguage !== "English"){
+			let text = target[idMap[e.user.id]].children[3].childNodes[0].textContent;
+			target[idMap[e.user.id]].children[3].childNodes[0].textContent = capitalize(translate("$mediaStatus_" + text.toLowerCase(),null,text))
 		}
 		target[idMap[e.user.id]].insertBefore(
 			notesEL,target[idMap[e.user.id]].children[4]
@@ -281,7 +283,12 @@ function enhanceSocialTab(){
 			insertLocation.insertBefore(
 				dataList,
 				insertLocation.children[0]
-			)
+			);
+			if(insertLocation.parentNode.children[0].nodeName === "H2"){
+				insertLocation.parentNode.children[0].classList.remove("link");
+				insertLocation.parentNode.children[0].classList.remove("router-link-exact-active");
+				insertLocation.parentNode.children[0].classList.remove("router-link-active")
+			}
 		}
 		locationForIt.nextSibling.style.marginTop = "5px";
 		if(dataList.childElementCount < listOfFollowers.length){

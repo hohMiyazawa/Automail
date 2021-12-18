@@ -2,6 +2,7 @@
 	"info": {
 		"language": "Deutsch",
 		"language_english": "German",
+		"locale": "de-DE",
 		"fallback": ["English"],
 		"maintainer": "Koopz",
 		"maintainer_link": "https://anilist.co/user/Koopz/",

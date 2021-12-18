@@ -11,7 +11,7 @@ function embedHentai(){
 	mediaEmbeds.forEach(function(embed){
 		if(embed.children.length === 0 && !embed.classList.contains("hohMediaEmbed")){//if( "not-rendered-natively" && "not-rendered-by-this sript" )
 			embed.classList.add("hohMediaEmbed");
-			let createEmbed = function(data){
+			let createEmbed = function(data,test){
 				if(!data){
 					return
 				};
