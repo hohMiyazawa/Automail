@@ -644,12 +644,14 @@ class QueryArgs{
 		this.overWrite = false;
 		this.auth = false;
 		this.persist = false;
+		this.internal = false;
+		this.schema = "default";
 		Object.assign(this, args);
 	}
 }
 
 class QueryOptions{
-	constructor(query, variables, auth){
+	constructor(query, variables, auth, internal, schema){
 		this.method = "POST",
 		this.headers = new Headers({
 			"Content-Type": "application/json",
@@ -660,10 +662,17 @@ class QueryOptions{
 			"variables": variables
 		})
 		this.#isAuth(auth)
+		this.#isInternal(internal, schema)
 	}
 	#isAuth(auth){
 		if(auth === true && useScripts.accessToken){
 			this.headers.set("Authorization", "Bearer " + useScripts.accessToken)
+		}
+	}
+	#isInternal(internal, schema){
+		if(internal === true){
+			if(al_token) this.headers.set("x-csrf-token", al_token)
+			this.headers.set("schema", schema)
 		}
 	}
 }
@@ -707,14 +716,16 @@ function saveCache(data, key, duration, persist){
 
 async function anilistAPI(query, args){
 	if(!query) return "No query provided"
+	let apiUrl = url;
 	const queryArgs = new QueryArgs(args);
-	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth);
+	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth, queryArgs.internal, queryArgs.schema);
 	if(queryArgs.cacheKey && !queryArgs.overWrite){
 		const cache = await checkCache(queryArgs.cacheKey, queryArgs.persist);
 		if(cache) return cache;
 	}
-	const res = await fetch(url, options);
-	updateLimit(res);
+	if(queryArgs.internal === true) apiUrl = "https://anilist.co/graphql";
+	const res = await fetch(apiUrl, options);
+	if(queryArgs.internal !== true) updateLimit(res);
 	const data = await res.json();
 	if(res.ok){
 		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh, queryArgs.persist);
