@@ -10,6 +10,7 @@
 		"notes": "This is the default language of Automail. This key should have all the translation keys, while other translations don't have to. I'm not a native speaker, but I try to stick to British English here (feel free to britpick!). You can make translation files for other version of English too if you want, name it something like 'English (US)', and put 'English' in the fallback array. You need only include the keys that are different."
 	},
 	"keys": {
+"$meta_scriptDescription": "Extra parts for Anilist.co",
 "$loading": "Loading...",
 "$searching": "Searching...",
 "$load_more": "Load More",

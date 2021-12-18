@@ -7,6 +7,7 @@ m4_divert(0)m4_dnl
 // @namespace    http://tampermonkey.net/
 // @version      AUTOMAIL_VERSION
 // @description  Extra parts for Anilist.co
+// @description:nn-NO Ekstradelar for Anilist.co
 // @author       hoh
 // @match        https://anilist.co/*
 // @grant        GM_xmlhttpRequest

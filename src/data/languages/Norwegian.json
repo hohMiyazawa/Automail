@@ -10,6 +10,7 @@
 		"notes": ""
 	},
 	"keys": {
+"$meta_scriptDescription": "Ekstradelar for Anilist.co",
 "$loading": "Lastar...",
 "$searching": "Søker",
 "$load_more": "Last Meir",
