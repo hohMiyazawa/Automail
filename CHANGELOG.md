@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+- Updated Japanese translation (fill in name here later)
+
+## v9.99.78
+
+### Fixed
+
+- Fixed broken genres and tags table broken in v9.99.75
+
+## v9.99.77
+
+### Fixed
+
+- Stopped pinned activities from carrying over to other profiles in some cases
+
+## v9.99.76
+
+### Added
+
+- More Title Case aliases
+
 ## v9.99.75
 
 ### Changed
@@ -16,6 +40,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Removed forum comment collapse, as that's now a native feature
 - Removed tag descriptions when adding thats, as that's now a native feature
+
+### Broken
+
+- Genres and tags table accidentally affected by tag description change. Upgrade to v9.99.78
 
 ### Changed
 
