@@ -48,4 +48,21 @@ function translate(key,subs,fallback){
 	}
 	return immediate
 }
+
+if(!languageFiles[useScripts.partialLocalisationLanguage]){
+	let candidates = []
+	Object.keys(languageFiles).forEach(key => {
+		if(key.includes(useScripts.partialLocalisationLanguage)){
+			candidates.push(key)
+		}
+	})
+	if(candidates.length){
+		alert("No \"" + useScripts.partialLocalisationLanguage +"\" language file for Automail found. Setting language to \"English\"\nPossible candidates: " + candidates.map(a => "\"" + a + "\"").join(",") +"\nYou can change this in the settings")
+	}
+	else{
+		alert("No \"" + useScripts.partialLocalisationLanguage +"\" language file for Automail found. Setting language to \"English\"\nYou can change this in the settings")
+	}
+	useScripts.partialLocalisationLanguage = "English";
+	useScripts.save()
+}
 //end "localisation.js"
