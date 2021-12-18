@@ -11,19 +11,15 @@ Minor:
 - Social tab average score, notes and progress
 - Various pieces of optional page styling
 - Title aliases
-- Studio logos
 - Themes (including high contrast dark)
 - Following/follower counts
 - Custom profile backgrounds and CSS
-- Colour picker
-- MAL score, recs and serialisation
-- Manga magazines
+- MAL score, recs and serialisation info
 - Feed filtering and blocking
 - Anime-Planet list importer
-- A tool to fix your dates
 - A list exporter
-- Feed filtering
 - Accessibility options
 - Staff page sorting and filtering
+- Translation (Português, Español, Norsk, Deutsch)
 
 These can be turned on and off individually in settings > apps
