@@ -2,7 +2,7 @@
 	"info": {
 		"language": "Português",
 		"language_english": "Portuguese",
-		"locale": "pt-PT",
+		"locale": "pt",
 		"fallback": ["English"],
 		"maintainer": "samOAK",
 		"maintainer_link": "https://anilist.co/user/samOAK/",

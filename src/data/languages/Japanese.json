@@ -2,6 +2,7 @@
 	"info": {
 		"language": "日本語",
 		"language_english": "Japanese",
+		"locale": "jp-JP",
 		"fallback": ["English"],
 		"maintainer": "no maintainer",
 		"maintainer_link": "",

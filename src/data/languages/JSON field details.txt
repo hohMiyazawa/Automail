@@ -10,6 +10,7 @@ In "info":
 	"discussion_link": Where people can discuss this translation. Use "https://github.com/hohMiyazawa/Automail/issues/69" if you don't have a dedicated place for discussion.
 	(Optional) "notes": Anything
 	(Optional) "translators": A list of translators, if multiple people have contributed. But there can only be one maintainer.
+	(Optional) "locale": a BCP 47 code identifying the language. Mostly the same as the ISO 639 two and three letter language codes.
 
 	You are allowed to add additional fields in "info".
 
