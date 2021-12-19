@@ -16,6 +16,7 @@
 "$compare_colourCell": "Color entire cell:",
 "$adjustColours_title": "Adjust Colors",
 "$settings_notificationDotColour": "Notification Dot Colors",
+"$statusBorder_description": "Color code the right border of activities by media status",
 "$submenu_favourites": "Favorites",
 "$characterBrowseTooltip": "Favorites",
 "$MAL_serialization": "Serialization",

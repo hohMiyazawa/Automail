@@ -21,7 +21,7 @@
 	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
 	"categories": ["Forum"]
 },{"id": "draw3x3",
-	"description": "Add a button to lists to create 3x3's from list entries. Click the button, and then select nine entries",
+	"description": "$draw3x3_description",
 	"categories": ["Lists"]
 },{"id": "automailAPI",
 	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
@@ -36,37 +36,38 @@
 	"description": "$setting_MALrecs",
 	"categories": ["Media"]
 },{"id": "subTitleInfo",
-	"description": "Add basic data below the title on media pages",
+	"description": "$subTitleInfo_description",
 	"categories": ["Media"]
 },{"id": "entryScore",
-	"description": "Add your score and progress to media pages",
+	"description": "$entryScore_description",
 	"categories": ["Media","Login"]
 },{"id": "reviewConfidence",
 	"description": "Add confidence scores to reviews"
 },{"id": "betterReviewRatings",
-	"description": "Add the total number of ratings to review ratings on the home page"
+	"description": "Add the total number of ratings to reviews on the home page"
 },{"id": "activityTimeline",
-	"description": "Link your activities in the social tab of media, and between individual activities",
+	"description": "$activityTimeline_description",
 	"categories": ["Media","Navigation"]
 },{"id": "browseFilters",
 	"description": "Add more sorting options to browse",
 	"categories": ["Browse"]
 },{"id": "completedScore",
-	"description": "Show the score on the activity when people complete something",
+	"description": "$completedScore_description",
 	"categories": ["Feeds"]
 },{"id": "droppedScore",
-	"description": "Show the score on the activity when people drop something",
+	"description": "$droppedScore_description",
 	"categories": ["Feeds"]
 },{"id": "tagIndex",
 	"description": "Show an index of custom tags on anime and manga lists",
 	"categories": ["Lists"]
 },{"id": "CSSfollowCounter",
-	"description": "Follow count on social page",
+	"description": "$CSSfollowCounter_description",
 	"categories": ["Profiles"]
 },{
 	"id": "dubMarker",
 	"subSettings": ["dubMarkerLanguage"],
-	"description": "Add a notice on top of the other data on an anime page if a dub is available (works by checking for voice actors)",
+	"description": "Add a notice on top of the other data on an anime page if a dub is available",
+	"extendedDescription": "Works by checking for voice actors",
 	"categories": ["Media"]
 },{
 	"id": "dubMarkerLanguage",
@@ -80,7 +81,7 @@
 	"description": "Make a guess for the number of chapters for releasing manga",
 	"categories": ["Media"]
 },{"id": "replaceNativeTags",
-	"description": "Full lists for tags, staff and studios in stats",
+	"description": "$replaceNativeTags_description",
 	"categories": ["Stats"]
 },{"id": "allStudios",
 	"description": "Include companies that aren't animation studios in the extended studio table",
@@ -107,16 +108,16 @@
 	"description": "$setting_CSSsmileyScore",
 	"categories": ["Lists","Media"]
 },{"id": "hideGlobalFeed",
-	"description": "Hide the global feed",
+	"description": "$hideGlobalFeed_description",
 	"categories": ["Feeds"]
 },{"id": "feedCommentFilter",
 	"description": "Add filter options to the feeds to hide posts with few comments or likes",
 	"categories": ["Feeds"]
 },{"id": "statusBorder",
-	"description": "Colour code the right border of activities by media status",
+	"description": "$statusBorder_description",
 	"categories": ["Feeds"]
 },{"id": "blockWord",
-	"description": "Hide status posts containing this word:",
+	"description": "$blockWord_description",
 	"extendedDescription": "RegEx syntax accepted too, do not use /delimeters/.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
 	"categories": ["Feeds"]
 },{
@@ -154,7 +155,7 @@
 	"description": "Use 5-width favourite layout at all screen sizes",
 	"categories": ["Profiles"]
 },{"id": "CSScompactBrowse",
-	"description": "Make the browse section more compact",
+	"description": "$CSScompactBrowse_description",
 	"categories": ["Browse"]
 },{"id": "customCSS",
 	"description": "Enable custom profile CSS and pinned activities",
@@ -163,7 +164,7 @@
 	"description": "$setting_CSSgreenManga",
 	"categories": ["Media","Feeds"]
 },{"id": "cleanSocial",
-	"description": "Place 'following' before 'forum threads' on media social tabs",
+	"description": "$cleanSocial_description",
 	"categories": ["Media"]
 },{"id": "limitProgress10",
 	"description": "Limit the 'in progress' sections to 10 entries",
@@ -246,7 +247,7 @@
 	"description": "Remove annoying UI animations",
 	"categories": ["Navigation"]
 },{"id": "CSSverticalNav",
-	"description": "Alternative browse mode [with vertical navbar by Kuwabara]",
+	"description": "$CSSverticalNav_description",
 	"extendedDescription": "hoh's personal preferences",
 	"categories": ["Navigation"]
 },{"id": "browseSubmenu",

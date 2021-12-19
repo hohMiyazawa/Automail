@@ -12,73 +12,73 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 //updated code here: https://github.com/Reinachan/AniList-High-Contrast-Dark-Theme
 exportModule({
 	id: "nonJumpScroll",
-	description: "Stop activity content from jumping around when using scrollbars [by Reina]",
+	description: "$nonJumpScroll_description",
 	isDefault: true,
 	importance: 1,
 	categories: ["Feeds"],
 	visible: true,
 	css: `
-    /* Scrollbar */
-    * {
-        scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
-        scrollbar-width: thin;
-    }
-    ::-webkit-scrollbar {
-        width: 4px;
-        height: 8px;
-    }
+/* Scrollbar */
+* {
+	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+	scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+	width: 4px;
+	height: 8px;
+}
 
-    ::-webkit-scrollbar-button {
-        display: none;
-    }
+::-webkit-scrollbar-button {
+	display: none;
+}
 
-    ::-webkit-scrollbar-track {
-        background-color: #1110;
-        width: 0px;
-    }
+::-webkit-scrollbar-track {
+	background-color: #1110;
+	width: 0px;
+}
 
-    ::-webkit-scrollbar-track-piece {
-        display: none;
-    }
+::-webkit-scrollbar-track-piece {
+	display: none;
+}
 
-    ::-webkit-scrollbar-thumb {
-        background-color: rgb(var(--color-blue));
-    }
+::-webkit-scrollbar-thumb {
+	background-color: rgb(var(--color-blue));
+}
 
-    .markdown::-webkit-scrollbar-thumb,
-    .about .content-wrap::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0);
-    }
+.markdown::-webkit-scrollbar-thumb,
+.about .content-wrap::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0);
+}
 
-    .markdown:hover::-webkit-scrollbar-thumb,
-    .about .content-wrap:hover::-webkit-scrollbar-thumb {
-        background-color: rgb(var(--color-blue));
-    }
+.markdown:hover::-webkit-scrollbar-thumb,
+.about .content-wrap:hover::-webkit-scrollbar-thumb {
+	background-color: rgb(var(--color-blue));
+}
 
-    ::-webkit-scrollbar-corner {
-        display: none;
-    }
+::-webkit-scrollbar-corner {
+	display: none;
+}
 
-    .markdown {
-        overflow-y: scroll!important;
-        scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-    }
-    .markdown:hover {
-        scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
-    }
+.markdown {
+	overflow-y: scroll!important;
+	scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+.markdown:hover {
+	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+}
 
-    .about .content-wrap .markdown {
-        overflow: hidden!important;
-    }
+.about .content-wrap .markdown {
+	overflow: hidden!important;
+}
 
-    .about .content-wrap {
-        overflow-y: scroll!important;
-        scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-    }
-    
-    .about .content-wrap:hover {
-        overflow-y: scroll!important;
-        scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
-    }
+.about .content-wrap {
+	overflow-y: scroll!important;
+	scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+
+.about .content-wrap:hover {
+	overflow-y: scroll!important;
+	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+}
 `
 })
