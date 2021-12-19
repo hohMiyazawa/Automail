@@ -706,7 +706,20 @@ function saveCache(data, key, duration, persist){
 		duration: duration
 	}
 	if(persist === true){
-		apiPersistCache.setItem(key, saltedHam);
+		try{
+			apiPersistCache.setItem(key, saltedHam);
+		}
+		catch(e){
+			if(e.name === "QuotaExceededError"){
+				console.error("Automail: Persistent storage quota exceeded. Attempting to purge expired items.")
+				apiPersistCache.iterate((item, key) => {
+					if(item.time && (NOW() - item.time > item.duration)){
+						apiPersistCache.removeItem(key);
+					}
+				})
+				//apiPersistCache.clear()
+			}
+		}
 	}
 	else{
 		apiCache[key] = saltedHam;
