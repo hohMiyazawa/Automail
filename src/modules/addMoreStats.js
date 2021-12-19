@@ -487,7 +487,7 @@ function addMoreStats(){
 								else{
 									nameCellTag.href = "/search/manga?includedGenres=" + data[index].name + "&onList=true"
 								}
-							}	
+							}
 							let nameCellStatus = create("span","hohSummableStatusContainer",false,cel);
 							semmanticStatusOrder.forEach(function(status){
 								if(data[index].status[status]){

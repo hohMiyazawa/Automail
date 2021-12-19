@@ -342,7 +342,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .nav .user-wrap .dropdown{
 	left: -2px;
 	z-index: 2000;
-}	
+}
 .nav .user-wrap .dropdown::before{
 	left: 16px;
 }

@@ -20,6 +20,6 @@ Minor:
 - A list exporter
 - Accessibility options
 - Staff page sorting and filtering
-- Translation (Português, Español, Norsk, Deutsch)
+- Translation (Português, Español, 日本語, Norsk, Deutsch)
 
 These can be turned on and off individually in settings > apps

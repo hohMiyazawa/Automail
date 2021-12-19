@@ -115,7 +115,7 @@ function addFeedFilters(){
 						activityFeed.children[i].children[0].style.marginRight = "-5px";
 						activityFeed.children[i].children[0].style.borderRightColor = distributionColours[status];
 					}
-				}		
+				}	
 			}
 			const statusCheck = {
 				"planning": /^plans/i,

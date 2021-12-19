@@ -23,7 +23,7 @@ let titleObserver = new MutationObserver(mutations => {
 				}
 			}
 		})
-	}	
+	}
 	if(useScripts.SFWmode && title !== "Table of Contents"){//innocent looking
 		document.title = "Table of Contents"
 	}
