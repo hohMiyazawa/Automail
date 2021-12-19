@@ -56,7 +56,7 @@
 "$setting_MALserial": "漫画にMALの連載情報を追加",
 "$setting_MALscore": "メディアにMALの点数を追加",
 "$setting_MALrecs": "メディアにMALの推奨事項を追加",
-"$settings_moreInfo_tooltip": "もっと見る"
+"$settings_moreInfo_tooltip": "もっと見る",
 "$settings_export_description": "ブラウザのキャッシュやストレージを消去するような場合、バックアップをとっておくと便利かもしれません。Automailの設定も消去されます。",
 "$settings_CSSadd": "プロフィールにカスタムCSSを追加します。これはスクリプトで他の人にも見えるようになります。",
 "$settings_CSSlinkTip": "(スタイルシートへの直接リンクも使用できます）",
@@ -129,10 +129,10 @@
 "$notifications_hideLike": "「いいね！」通知を隠す",
 "$notifications_showDefault": "デフォルトの通知を表示する",
 "$notifications_comments": "コメント",
-"$notifications_button_reset": "全て既読にする"
+"$notifications_button_reset": "全て既読にする",
 "$notifications_showHoh": "代替の通知を表示する",
-"$notification_forumCommentLike": " フォーラムスレッドで、は貴方のコメントが気に入りました。", #formatting has been reversed, with forum thread at the beginning of the sentence. After the で、 the user's name would appear there. I am not sure how to format that correctly, so please fix it up if possible.
-"$notification_forumMention": " フォーラムスレッドで、は貴方にメンションしました。,"　#formatting has been reversed, with forum thread at the beginning of the sentence. After the で、 the user's name would appear there. I am not sure how to format that correctly, so please fix it up if possible.
+"$notification_forumCommentLike": " フォーラムスレッドで、は貴方のコメントが気に入りました。",
+"$notification_forumMention": " フォーラムスレッドで、は貴方にメンションしました。,",
 "$timeline_search_description": "誰かのアクティビティを探していますか？",
 "$noScrollPosts_description": "長さに関係なく、すべてのステータスポストをフルで表示する",
 "$ALbuttonReload_description": "「AL」ボタンでトップページのフィードを再読み込みする",
@@ -441,7 +441,7 @@
 "$forumCategory_15": "おすすめ",
 "$forumCategory_16": "フォーラムゲーム",
 "$forumCategory_17": "その他",
-"$forumCategory_18": "AniList アップ"
+"$forumCategory_18": "AniList アップ",
 "$submenu_anime": "アニメ",
 "$submenu_manga": "漫画",
 "$menu_home": "ホーム",
@@ -461,7 +461,7 @@
 "$role_Music": "音楽",
 "$role_Color": "カラー",
 "$role_Color Coordination": "色指定",
-"$role_Art Director": "美術監督"
+"$role_Art Director": "美術監督",
 "$role_Theme Song Arrangement": "テーマ曲のアレンジ",
 "$role_Theme Song Lyrics": "テーマ曲の歌詞",
 "$role_Chief Producer": "チーフプロデューサー",
