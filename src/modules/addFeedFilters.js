@@ -186,6 +186,21 @@ function addFeedFilters(){
 	};
 	let postTranslator = function(){
 		Array.from(activityFeed.children).forEach(activity => {
+			try{
+				let timeElement = activity.querySelector(".time time");
+				if(timeElement && !timeElement.classList.contains("hohTimeGeneric")){
+					let seconds = new Date(timeElement.dateTime).valueOf()/1000;
+					let replacement = nativeTimeElement(seconds);
+					timeElement.style.display = "none";
+					replacement.style.position = "relative";
+					replacement.style.right = "unset";
+					replacement.style.top = "unset";
+					timeElement.parentNode.insertBefore(replacement, timeElement)
+				}
+			}
+			catch(e){
+				console.warn("time element translation is broken")
+			}
 			let statusParent = activity.querySelector(".status");
 			if(!statusParent){
 				return
@@ -263,16 +278,6 @@ function addFeedFilters(){
 						statusParent.classList.add("activityPlanning")
 					}
 				}
-			}
-			let timeElement = activity.querySelector(".time time");
-			if(timeElement && !timeElement.classList.contains("hohTimeGeneric")){
-				let seconds = new Date(timeElement.dateTime).valueOf()/1000;
-				let replacement = nativeTimeElement(seconds);
-				timeElement.style.display = "none";
-				replacement.style.position = "relative";
-				replacement.style.right = "unset";
-				replacement.style.top = "unset";
-				timeElement.parentNode.insertBefore(replacement, timeElement)
 			}
 		})
 	}
