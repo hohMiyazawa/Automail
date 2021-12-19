@@ -686,7 +686,7 @@ async function checkCache(key, persist){
 	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache[key];
 	if(item){
 		if(!item.duration || (NOW() < item.time + item.duration)){
-			return item;
+			return item.data;
 		}
 		else{
 			if(persist === true){
