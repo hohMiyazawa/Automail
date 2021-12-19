@@ -227,11 +227,11 @@ function addFeedFilters(){
 						status.textContent = translate("$listActivity_droppedAnime");
 						statusParent.classList.add("activityDropped")
 					}
-					else if(type === "Rewatched" && prog){
+					else if(type === "Rewatched episode" && prog){
 						status.textContent = translate("$listActivity_MrepeatingAnime",prog);
 						statusParent.classList.add("activityRewatching")
 					}
-					else if(type === "Rewatched episode"){
+					else if(type === "Rewatched"){
 						status.textContent = translate("$listActivity_repeatedAnime");
 						statusParent.classList.add("activityRewatched")
 					}
