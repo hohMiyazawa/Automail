@@ -633,16 +633,18 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 const ANILIST_QUERY_LIMIT = 90;
 
 localforage.config({name: "automail"});
+
+//begin api v2
 const apiPersistCache = localforage.createInstance({name: "automail", storeName: "api"});
 const apiCache = {};
 let apiResetLimit;
 
-class QueryArgs{
+class QueryOptions{
 	constructor(args={}){
 		this.variables = {};
 		this.cacheKey = null;
-		this.timeFresh = null;
-		this.overWrite = false;
+		this.duration = null;
+		this.overwrite = false;
 		this.auth = false;
 		this.persist = false;
 		this.internal = false;
@@ -650,7 +652,7 @@ class QueryArgs{
 	}
 }
 
-class QueryOptions{
+class RequestOptions{
 	constructor(query, variables, auth, internal){
 		this.method = "POST",
 		this.headers = new Headers({
@@ -685,7 +687,7 @@ function updateLimit(res){
 async function checkCache(key, persist){
 	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache[key];
 	if(item){
-		if(!item.duration || (NOW() < item.time + item.duration)){
+		if(!item.expiresAt || (NOW() < item.expiresAt)){
 			return item.data;
 		}
 		else{
@@ -702,8 +704,8 @@ async function checkCache(key, persist){
 function saveCache(data, key, duration, persist){
 	const saltedHam = {
 		data: data,
-		time: NOW(),
-		duration: duration
+		createdAt: NOW(),
+		expiresAt: duration ? NOW() + duration*1000 : undefined
 	}
 	if(persist === true){
 		try{
@@ -713,7 +715,7 @@ function saveCache(data, key, duration, persist){
 			if(e.name === "QuotaExceededError"){
 				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 				apiPersistCache.iterate((item, key) => {
-					if(item.time && (NOW() - item.time > item.duration)){
+					if(NOW() > item.expiresAt){
 						apiPersistCache.removeItem(key);
 					}
 				})
@@ -727,13 +729,13 @@ function saveCache(data, key, duration, persist){
 	}
 }
 
-async function anilistAPI(query, args){
+async function anilistAPI(query, queryArgs){
 	if(!query) throw new Error("No query provided")
 	let apiUrl = url;
-	const queryArgs = new QueryArgs(args);
-	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth, queryArgs.internal);
-	if(queryArgs.cacheKey && !queryArgs.overWrite){
-		const cache = await checkCache(queryArgs.cacheKey, queryArgs.persist);
+	const args = new QueryOptions(queryArgs);
+	const options = new RequestOptions(query, args.variables, args.auth, args.internal);
+	if(args.cacheKey && !args.overwrite){
+		const cache = await checkCache(args.cacheKey, args.persist);
 		if(cache) return cache;
 	}
 	if(apiResetLimit){
@@ -743,12 +745,12 @@ async function anilistAPI(query, args){
 		}
 		apiResetLimit = null;
 	}
-	if(queryArgs.internal === true) apiUrl = "https://anilist.co/graphql";
+	if(args.internal === true) apiUrl = "https://anilist.co/graphql";
 	const res = await fetch(apiUrl, options);
-	if(queryArgs.internal !== true) updateLimit(res);
+	if(args.internal !== true) updateLimit(res);
 	const data = await res.json();
 	if(res.ok){
-		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh, queryArgs.persist);
+		if(args.cacheKey) saveCache(data, args.cacheKey, args.duration, args.persist);
 		return data;
 	}
 	else if(res.status === 404){
@@ -762,4 +764,5 @@ async function anilistAPI(query, args){
 	console.error(`AniList API returned ${res.status} ${res.statusText}`);
 	return null;
 }
+//end api v2
 //end "graphql.js"
