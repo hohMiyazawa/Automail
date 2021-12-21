@@ -1,7 +1,8 @@
-function addActivityLinks(activityID){
-	let arrowCallback = function(data){
-		if(!data){
-			return
+async function addActivityLinks(activityID){
+	async function arrowCallback(res){
+		const {data, errors} = res;
+		if(errors){
+			return;
 		}
 		let adder = function(link){
 			if(!location.pathname.includes("/activity/" + activityID)){
@@ -19,11 +20,11 @@ function addActivityLinks(activityID){
 		let queryPrevious;
 		let queryNext;
 		let variables = {
-			userId: data.data.Activity.userId || data.data.Activity.recipientId,
-			createdAt: data.data.Activity.createdAt
+			userId: data.Activity.userId || data.Activity.recipientId,
+			createdAt: data.Activity.createdAt
 		};
-		if(data.data.Activity.type === "ANIME_LIST" || data.data.Activity.type === "MANGA_LIST"){
-			variables.mediaId = data.data.Activity.media.id;
+		if(data.Activity.type === "ANIME_LIST" || data.Activity.type === "MANGA_LIST"){
+			variables.mediaId = data.Activity.media.id;
 			queryPrevious = `
 query ($userId: Int,$mediaId: Int,$createdAt: Int){
 	Activity(
@@ -47,7 +48,7 @@ query($userId: Int,$mediaId: Int,$createdAt: Int){
 	}
 }`;
 		}
-		else if(data.data.Activity.type === "TEXT"){
+		else if(data.Activity.type === "TEXT"){
 			queryPrevious = `
 query($userId: Int,$createdAt: Int){
 	Activity(
@@ -71,12 +72,12 @@ query($userId: Int,$createdAt: Int){
 	}
 }`;
 		}
-		else if(data.data.Activity.type === "MESSAGE"){
+		else if(data.Activity.type === "MESSAGE"){
 			let link = create("a","hohPostLink","↑",false,"left:-25px;top:25px;");
-			link.href = "/user/" + data.data.Activity.recipient.name + "/";
-			link.title = translate("$navigation_profileLink",data.data.Activity.recipient.name);
+			link.href = "/user/" + data.Activity.recipient.name + "/";
+			link.title = translate("$navigation_profileLink",data.Activity.recipient.name);
 			adder(link);
-			variables.messengerId = data.data.Activity.messengerId;
+			variables.messengerId = data.Activity.messengerId;
 			queryPrevious = `
 query($userId: Int,$messengerId: Int,$createdAt: Int){
 	Activity(
@@ -105,76 +106,71 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 		else{//unknown new types of activities
 			return;
 		}
-		if(data.previous){
-			if(data.previous !== "FIRST"){
+		if(res.previous){
+			if(res.previous !== "FIRST"){
 				let link = create("a","hohPostLink","←",false,"left:-25px;");
-				link.href = data.previous;
+				link.href = res.previous;
 				link.rel = "prev";
 				link.title = "Previous activity";
 				adder(link);
 			}
 		}
 		else{
-			data.previous = "FIRST";
-			generalAPIcall(queryPrevious,variables,function(pdata){
-				if(!pdata){
-					return;
-				}
-				let link = create("a","hohPostLink","←",false,"left:-25px;");
-				link.title = "Previous activity";
-				link.rel = "prev";
-				link.href = pdata.data.Activity.siteUrl;
-				adder(link);
-				data.previous = pdata.data.Activity.siteUrl;
-				sessionStorage.setItem("hohActivity" + activityID,JSON.stringify(data));
-				pdata.data.Activity.type = data.data.Activity.type;
-				pdata.data.Activity.userId = variables.userId;
-				pdata.data.Activity.media = data.data.Activity.media;
-				pdata.data.Activity.messengerId = data.data.Activity.messengerId;
-				pdata.data.Activity.recipientId = data.data.Activity.recipientId;
-				pdata.data.Activity.recipient = data.data.Activity.recipient;
-				pdata.next = document.URL;
-				sessionStorage.setItem("hohActivity" + pdata.data.Activity.id,JSON.stringify(pdata));
-			});
+			res.previous = "FIRST";
+			const prevRes = await anilistAPI(queryPrevious, {variables});
+			const {data: pdata, errors} = prevRes;
+			if(errors){
+				return;
+			}
+			let link = create("a","hohPostLink","←",false,"left:-25px;");
+			link.title = "Previous activity";
+			link.rel = "prev";
+			link.href = pdata.Activity.siteUrl;
+			adder(link);
+			res.previous = pdata.Activity.siteUrl;
+			updateCache("hohActivity" + activityID, res);
+			pdata.Activity.type = data.Activity.type;
+			pdata.Activity.userId = variables.userId;
+			pdata.Activity.media = data.Activity.media;
+			pdata.Activity.messengerId = data.Activity.messengerId;
+			pdata.Activity.recipientId = data.Activity.recipientId;
+			pdata.Activity.recipient = data.Activity.recipient;
+			prevRes.next = document.URL;
+			saveCache("hohActivity" + pdata.Activity.id, Object.assign(prevRes,{data: pdata}), 20*60);
 		}
-		if(data.next){
+		if(res.next){
 			let link = create("a","hohPostLink","→",false,"right:-25px;");
-			link.href = data.next;
+			link.href = res.next;
 			link.rel = "next";
 			link.title = "Next activity";
 			adder(link);
 		}
 		else{
-			generalAPIcall(queryNext,variables,function(pdata){
-				if(!pdata){
-					return;
-				}
-				let link = create("a","hohPostLink","→",false,"right:-25px;");
-				link.href = pdata.data.Activity.siteUrl;
-				link.rel = "next";
-				link.title = "Next activity";
-				adder(link);
-				data.next = pdata.data.Activity.siteUrl;
-				sessionStorage.setItem("hohActivity" + activityID,JSON.stringify(data));
-				pdata.data.Activity.type = data.data.Activity.type;
-				pdata.data.Activity.userId = variables.userId;
-				pdata.data.Activity.media = data.data.Activity.media;
-				pdata.data.Activity.messengerId = data.data.Activity.messengerId;
-				pdata.data.Activity.recipientId = data.data.Activity.recipientId;
-				pdata.data.Activity.recipient = data.data.Activity.recipient;
-				pdata.previous = document.URL;
-				sessionStorage.setItem("hohActivity" + pdata.data.Activity.id,JSON.stringify(pdata));
-			});
+			const nextRes = await anilistAPI(queryNext, {variables});
+			const {data: ndata, errors} = nextRes;
+			if(errors){
+				return;
+			}
+			let link = create("a","hohPostLink","→",false,"right:-25px;");
+			link.href = ndata.Activity.siteUrl;
+			link.rel = "next";
+			link.title = "Next activity";
+			adder(link);
+			res.next = ndata.Activity.siteUrl;
+			updateCache("hohActivity" + activityID, res);
+			ndata.Activity.type = data.Activity.type;
+			ndata.Activity.userId = variables.userId;
+			ndata.Activity.media = data.Activity.media;
+			ndata.Activity.messengerId = data.Activity.messengerId;
+			ndata.Activity.recipientId = data.Activity.recipientId;
+			ndata.Activity.recipient = data.Activity.recipient;
+			nextRes.previous = document.URL;
+			saveCache("hohActivity" + ndata.Activity.id, Object.assign(nextRes,{data: ndata}), 20*60);
 		}
-		sessionStorage.setItem("hohActivity" + activityID,JSON.stringify(data));
+		return;
 	}
-	let possibleCache = sessionStorage.getItem("hohActivity" + activityID);
-	if(possibleCache){
-		arrowCallback(JSON.parse(possibleCache));
-	}
-	else{
-		//has to be auth now that private messages are a thing
-		authAPIcall(`
+
+	const dataQuery = `
 query($id: Int){
 	Activity(id: $id){
 		... on ListActivity{
@@ -196,6 +192,13 @@ query($id: Int){
 			createdAt
 		}
 	}
-}`,{id:activityID},arrowCallback);
-	}
+}`
+	//has to be auth now that private messages are a thing
+	const data = await anilistAPI(dataQuery, {
+		variables: {id: activityID},
+		cacheKey: "hohActivity" + activityID,
+		duration: 20*60*1000,
+		auth: true
+	})
+	return arrowCallback(data)
 }
