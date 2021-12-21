@@ -646,13 +646,12 @@ class QueryArgs{
 		this.auth = false;
 		this.persist = false;
 		this.internal = false;
-		this.schema = "default";
 		Object.assign(this, args);
 	}
 }
 
 class QueryOptions{
-	constructor(query, variables, auth, internal, schema){
+	constructor(query, variables, auth, internal){
 		this.method = "POST",
 		this.headers = new Headers({
 			"Content-Type": "application/json",
@@ -663,17 +662,17 @@ class QueryOptions{
 			"variables": variables
 		})
 		this.#isAuth(auth)
-		this.#isInternal(internal, schema)
+		this.#isInternal(internal)
 	}
 	#isAuth(auth){
 		if(auth === true && useScripts.accessToken){
 			this.headers.set("Authorization", "Bearer " + useScripts.accessToken)
 		}
 	}
-	#isInternal(internal, schema){
+	#isInternal(internal){
 		if(internal === true){
 			if(al_token) this.headers.set("x-csrf-token", al_token)
-			this.headers.set("schema", schema)
+			this.headers.set("schema", "internal")
 		}
 	}
 }
@@ -732,7 +731,7 @@ async function anilistAPI(query, args){
 	if(!query) throw new Error("No query provided")
 	let apiUrl = url;
 	const queryArgs = new QueryArgs(args);
-	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth, queryArgs.internal, queryArgs.schema);
+	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth, queryArgs.internal);
 	if(queryArgs.cacheKey && !queryArgs.overWrite){
 		const cache = await checkCache(queryArgs.cacheKey, queryArgs.persist);
 		if(cache) return cache;
