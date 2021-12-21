@@ -635,6 +635,7 @@ const ANILIST_QUERY_LIMIT = 90;
 localforage.config({name: "automail"});
 const apiPersistCache = localforage.createInstance({name: "automail", storeName: "api"});
 const apiCache = {};
+let apiResetLimit;
 
 class QueryArgs{
 	constructor(args={}){
@@ -711,7 +712,7 @@ function saveCache(data, key, duration, persist){
 		}
 		catch(e){
 			if(e.name === "QuotaExceededError"){
-				console.error("Automail: Persistent storage quota exceeded. Attempting to purge expired items.")
+				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 				apiPersistCache.iterate((item, key) => {
 					if(item.time && (NOW() - item.time > item.duration)){
 						apiPersistCache.removeItem(key);
@@ -728,13 +729,20 @@ function saveCache(data, key, duration, persist){
 }
 
 async function anilistAPI(query, args){
-	if(!query) return "No query provided"
+	if(!query) throw new Error("No query provided")
 	let apiUrl = url;
 	const queryArgs = new QueryArgs(args);
 	const options = new QueryOptions(query, queryArgs.variables, queryArgs.auth, queryArgs.internal, queryArgs.schema);
 	if(queryArgs.cacheKey && !queryArgs.overWrite){
 		const cache = await checkCache(queryArgs.cacheKey, queryArgs.persist);
 		if(cache) return cache;
+	}
+	if(apiResetLimit){
+		if(NOW() < apiResetLimit*1000){
+			console.warn(`API limit resets at ${new Date(apiResetLimit*1000).toLocaleString()}`);
+			return null;
+		}
+		apiResetLimit = null;
 	}
 	if(queryArgs.internal === true) apiUrl = "https://anilist.co/graphql";
 	const res = await fetch(apiUrl, options);
@@ -744,6 +752,15 @@ async function anilistAPI(query, args){
 		if(queryArgs.cacheKey) saveCache(data, queryArgs.cacheKey, queryArgs.timeFresh, queryArgs.persist);
 		return data;
 	}
-	return Promise.reject(data);
+	else if(res.status === 404){
+		return null;
+	}
+	else if(res.status === 429){
+		console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`);
+		apiResetLimit = res.headers.get("x-ratelimit-reset");
+		return null;
+	}
+	console.error(`AniList API returned ${res.status} ${res.statusText}`);
+	return null;
 }
 //end "graphql.js"
