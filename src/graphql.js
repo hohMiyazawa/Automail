@@ -289,7 +289,7 @@ if(window.BroadcastChannel){
 				cache.updateIfDifferent(message.data.mediaData,true)
 			}
 			else if(message.data.type === "cachev3"){
-				apiCache[message.data.key] = message.data.value
+				apiCache.set(message.data.key, message.data.value)
 			}
 			else if(message.data.type === "sessionToken"){
 				window.al_token = message.data.value
@@ -636,7 +636,7 @@ localforage.config({name: "automail"});
 
 //begin api v2
 const apiPersistCache = localforage.createInstance({name: "automail", storeName: "api"});
-const apiCache = {};
+const apiCache = new Map();
 let apiResetLimit;
 
 class QueryOptions{
@@ -685,7 +685,7 @@ function updateLimit(res){
 }
 
 async function checkCache(key, persist){
-	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache[key];
+	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache.get(key);
 	if(item){
 		if(!item.expiresAt || (NOW() < item.expiresAt)){
 			return item.data;
@@ -694,7 +694,7 @@ async function checkCache(key, persist){
 			if(persist === true){
 				return apiPersistCache.removeItem(key);
 			}
-			delete apiCache[key];
+			apiCache.delete(key);
 			return null;
 		}
 	}
@@ -724,7 +724,7 @@ function saveCache(data, key, duration, persist){
 		}
 	}
 	else{
-		apiCache[key] = saltedHam;
+		apiCache.set(key, saltedHam);
 		aniCast.postMessage({type:"cachev3",key:key,value:saltedHam})
 	}
 }
