@@ -288,9 +288,6 @@ if(window.BroadcastChannel){
 			else if(message.data.type === "cachev2"){
 				cache.updateIfDifferent(message.data.mediaData,true)
 			}
-			else if(message.data.type === "cachev3"){
-				apiCache.set(message.data.key, message.data.value)
-			}
 			else if(message.data.type === "sessionToken"){
 				window.al_token = message.data.value
 				//to prevent "session expired" messages
@@ -635,8 +632,7 @@ const ANILIST_QUERY_LIMIT = 90;
 localforage.config({name: "automail"});
 
 //begin api v2
-const apiPersistCache = localforage.createInstance({name: "automail", storeName: "api"});
-const apiCache = new Map();
+const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
 let apiResetLimit;
 
 class QueryOptions{
@@ -646,7 +642,6 @@ class QueryOptions{
 		this.duration = null;
 		this.overwrite = false;
 		this.auth = false;
-		this.persist = false;
 		this.internal = false;
 		Object.assign(this, args);
 	}
@@ -684,48 +679,38 @@ function updateLimit(res){
 	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
 }
 
-async function checkCache(key, persist){
-	const item = persist === true ? await apiPersistCache.getItem(key) : apiCache.get(key);
+async function checkCache(key){
+	const item = await apiCache.getItem(key);
 	if(item){
 		if(!item.expiresAt || (NOW() < item.expiresAt)){
 			return item.data;
 		}
 		else{
-			if(persist === true){
-				return apiPersistCache.removeItem(key);
-			}
-			apiCache.delete(key);
-			return null;
+			return apiCache.removeItem(key);
 		}
 	}
 	return null;
 }
 
-function saveCache(data, key, duration, persist){
+function saveCache(data, key, duration){
 	const saltedHam = {
 		data: data,
 		createdAt: NOW(),
 		expiresAt: duration ? NOW() + duration*1000 : undefined
 	}
-	if(persist === true){
-		try{
-			apiPersistCache.setItem(key, saltedHam);
-		}
-		catch(e){
-			if(e.name === "QuotaExceededError"){
-				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
-				apiPersistCache.iterate((item, key) => {
-					if(NOW() > item.expiresAt){
-						apiPersistCache.removeItem(key);
-					}
-				})
-				//apiPersistCache.clear()
-			}
-		}
+	try{
+		apiCache.setItem(key, saltedHam);
 	}
-	else{
-		apiCache.set(key, saltedHam);
-		aniCast.postMessage({type:"cachev3",key:key,value:saltedHam})
+	catch(e){
+		if(e.name === "QuotaExceededError"){
+			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
+			apiCache.iterate((item, key) => {
+				if(NOW() > item.expiresAt){
+					apiCache.removeItem(key);
+				}
+			})
+			//apiCache.clear()
+		}
 	}
 }
 
@@ -735,7 +720,7 @@ async function anilistAPI(query, queryArgs){
 	const args = new QueryOptions(queryArgs);
 	const options = new RequestOptions(query, args.variables, args.auth, args.internal);
 	if(args.cacheKey && !args.overwrite){
-		const cache = await checkCache(args.cacheKey, args.persist);
+		const cache = await checkCache(args.cacheKey);
 		if(cache) return cache;
 	}
 	if(apiResetLimit){
@@ -750,7 +735,7 @@ async function anilistAPI(query, queryArgs){
 	if(args.internal !== true) updateLimit(res);
 	const data = await res.json();
 	if(res.ok){
-		if(args.cacheKey) saveCache(data, args.cacheKey, args.duration, args.persist);
+		if(args.cacheKey) saveCache(data, args.cacheKey, args.duration);
 		return data;
 	}
 	else if(res.status === 404){
