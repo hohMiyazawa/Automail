@@ -668,7 +668,9 @@ class RequestOptions{
 	}
 	#isInternal(internal){
 		if(internal === true){
-			if(al_token) this.headers.set("x-csrf-token", al_token)
+			if(al_token){
+				this.headers.set("x-csrf-token", al_token)
+			}
 			this.headers.set("schema", "internal")
 		}
 	}
@@ -697,7 +699,7 @@ function saveCache(data, key, duration){
 		data: data,
 		createdAt: NOW(),
 		expiresAt: duration ? NOW() + duration*1000 : undefined
-	}
+	};
 	try{
 		apiCache.setItem(key, saltedHam);
 	}
@@ -715,38 +717,47 @@ function saveCache(data, key, duration){
 }
 
 async function anilistAPI(query, queryArgs){
-	if(!query) throw new Error("No query provided")
+	if(!query){
+		throw new Error("No query provided")
+	}
 	let apiUrl = url;
 	const args = new QueryOptions(queryArgs);
 	const options = new RequestOptions(query, args.variables, args.auth, args.internal);
 	if(args.cacheKey && !args.overwrite){
 		const cache = await checkCache(args.cacheKey);
-		if(cache) return cache;
+		if(cache){
+			return cache;
+		}
 	}
 	if(apiResetLimit){
 		if(NOW() < apiResetLimit*1000){
-			console.warn(`API limit resets at ${new Date(apiResetLimit*1000).toLocaleString()}`);
 			return null;
 		}
 		apiResetLimit = null;
 	}
-	if(args.internal === true) apiUrl = "https://anilist.co/graphql";
+	if(args.internal === true){
+		apiUrl = "https://anilist.co/graphql";
+	}
 	const res = await fetch(apiUrl, options);
-	if(args.internal !== true) updateLimit(res);
+	if(args.internal !== true){
+		updateLimit(res);
+	}
 	const data = await res.json();
 	if(res.ok){
-		if(args.cacheKey) saveCache(data, args.cacheKey, args.duration);
+		if(args.cacheKey){
+			saveCache(data, args.cacheKey, args.duration);
+		}
 		return data;
 	}
 	else if(res.status === 404){
 		return null;
 	}
 	else if(res.status === 429){
-		console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`);
+		console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
 		apiResetLimit = res.headers.get("x-ratelimit-reset");
 		return null;
 	}
-	console.error(`AniList API returned ${res.status} ${res.statusText}`);
+	console.error(`AniList API returned ${res.status} ${res.statusText}`)
 	return null;
 }
 //end api v2
