@@ -694,7 +694,7 @@ async function checkCache(key){
 	return null;
 }
 
-function saveCache(data, key, duration){
+function saveCache(key, data, duration){
 	const saltedHam = {
 		data: data,
 		createdAt: NOW(),
@@ -713,6 +713,20 @@ function saveCache(data, key, duration){
 			})
 			//apiCache.clear()
 		}
+	}
+}
+
+async function updateCache(key, newData){
+	const data = await apiCache.getItem(key);
+	if(data){
+		Object.assign(data, {
+			data: newData,
+			updatedAt: NOW()
+		});
+		return apiCache.setItem(key, data);
+	}
+	else{
+		throw new Error(`Key ${key} does not exist in cache.`)
 	}
 }
 
@@ -745,7 +759,7 @@ async function anilistAPI(query, queryArgs){
 	const data = await res.json();
 	if(res.ok){
 		if(args.cacheKey){
-			saveCache(data, args.cacheKey, args.duration);
+			saveCache(args.cacheKey, data, args.duration);
 		}
 		return data;
 	}
