@@ -727,12 +727,19 @@ function saveCache(key, data, duration){
 	catch(e){
 		if(e.name === "QuotaExceededError"){
 			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
-			apiCache.iterate((item, key) => {
-				if(NOW() > item.expiresAt){
-					apiCache.removeItem(key);
-				}
-			})
-			//apiCache.clear()
+			try{
+				apiCache.iterate((item, key) => {
+					if(NOW() > item.expiresAt){
+						apiCache.removeItem(key);
+					}
+				})
+			}
+			catch(e){
+				throw new Error(e)
+			}
+		}
+		else{
+			throw new Error(e)
 		}
 	}
 }
@@ -750,7 +757,27 @@ async function updateCache(key, newData){
 			data: newData,
 			updatedAt: NOW()
 		});
-		return apiCache.setItem(key, data);
+		try{
+			return apiCache.setItem(key, data);
+		}
+		catch(e){
+			if(e.name === "QuotaExceededError"){
+				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
+				try{
+					return apiCache.iterate((item, key) => {
+						if(NOW() > item.expiresAt){
+							apiCache.removeItem(key);
+						}
+					});
+				}
+				catch(e){
+					throw new Error(e)
+				}
+			}
+			else{
+				throw new Error(e)
+			}
+		}
 	}
 	else{
 		throw new Error(`Key ${key} does not exist in cache.`)
