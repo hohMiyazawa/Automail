@@ -635,7 +635,12 @@ localforage.config({name: "automail"});
 const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
 let apiResetLimit;
 
+/** Provides default arguments for an {@link anilistAPI()} request */
 class QueryOptions{
+	/**
+	 * Creates an arguments object
+	 * @param {object} [args={}] - Contains the options which will override the default options for the request.
+	 */
 	constructor(args={}){
 		this.variables = {};
 		this.cacheKey = null;
@@ -647,6 +652,7 @@ class QueryOptions{
 	}
 }
 
+/** Configures options for a network request */
 class RequestOptions{
 	constructor(query, variables, auth, internal){
 		this.method = "POST",
@@ -676,11 +682,20 @@ class RequestOptions{
 	}
 }
 
+/**
+ * Updates the variables tracking the API request limit
+ * @param {Response} res - The Response object from a network request.
+ */
 function updateLimit(res){
 	APIlimit = res.headers.get("x-ratelimit-limit");
 	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
 }
 
+/**
+ * Checks the API cache for an existing item and returns it if it has not expired
+ * @param {string} key - The key to check for in the datastore.
+ * @returns {Promise<object|null>} The cached data or nothing.
+ */
 async function checkCache(key){
 	const item = await apiCache.getItem(key);
 	if(item){
@@ -694,6 +709,12 @@ async function checkCache(key){
 	return null;
 }
 
+/**
+ * Saves data to the API cache
+ * @param {string} key - The key used to store the data.
+ * @param {object} data - The data to store.
+ * @param {number} [duration] - The length of time to store in seconds.
+ */
 function saveCache(key, data, duration){
 	const saltedHam = {
 		data: data,
@@ -716,6 +737,12 @@ function saveCache(key, data, duration){
 	}
 }
 
+/**
+ * Updates data in the API cache
+ * @param {string} key - The existing key to store updated data.
+ * @param {object} newData - The new data to overwrite the existing data.
+ * @returns {Promise}
+ */
 async function updateCache(key, newData){
 	const data = await apiCache.getItem(key);
 	if(data){
@@ -730,6 +757,18 @@ async function updateCache(key, newData){
 	}
 }
 
+/**
+ * Constructs and sends a request to the AniList GraphQL API
+ * @param {string} query - A GraphQL query string.
+ * @param {object} [queryArgs] - An object containing request parameters. (e.g. GraphQL variables)
+ * @param {object} [queryArgs.variables] - GraphQL variables.
+ * @param {string} [queryArgs.cacheKey] - A key used to cache API data.
+ * @param {number} [queryArgs.duration] - How long data should remain cached (in seconds.)
+ * @param {boolean} [queryArgs.overwrite] - Ignore cached data when making a request.
+ * @param {boolean} [queryArgs.auth] - Make an authenticated request as the current user.
+ * @param {boolean} [queryArgs.internal] - Make an internal request. Only uses the internal schema.
+ * @returns {Promise<object|null>} Response data from the API, cached data, or nothing.
+ */
 async function anilistAPI(query, queryArgs){
 	if(!query){
 		throw new Error("No query provided")
