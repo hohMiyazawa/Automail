@@ -709,6 +709,14 @@ async function checkCache(key){
 	return null;
 }
 
+function flushCache(){
+	return apiCache.iterate((item, key) => {
+		if(NOW() > item.expiresAt){
+			apiCache.removeItem(key);
+		}
+	})
+}
+
 /**
  * Saves data to the API cache
  * @param {string} key - The key used to store the data.
@@ -728,11 +736,7 @@ function saveCache(key, data, duration){
 		if(e.name === "QuotaExceededError"){
 			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 			try{
-				apiCache.iterate((item, key) => {
-					if(NOW() > item.expiresAt){
-						apiCache.removeItem(key);
-					}
-				})
+				flushCache()
 			}
 			catch(e){
 				throw new Error(e)
@@ -764,11 +768,7 @@ async function updateCache(key, newData){
 			if(e.name === "QuotaExceededError"){
 				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 				try{
-					return apiCache.iterate((item, key) => {
-						if(NOW() > item.expiresAt){
-							apiCache.removeItem(key);
-						}
-					});
+					return flushCache()
 				}
 				catch(e){
 					throw new Error(e)
