@@ -709,7 +709,11 @@ async function checkCache(key){
 	return null;
 }
 
-function flushCache(){
+/**
+ * Iterates the API cache for expired items and removes them
+ * @returns {Promise}
+ */
+async function flushCache(){
 	return apiCache.iterate((item, key) => {
 		if(NOW() > item.expiresAt){
 			apiCache.removeItem(key);
@@ -722,21 +726,22 @@ function flushCache(){
  * @param {string} key - The key used to store the data.
  * @param {object} data - The data to store.
  * @param {number} [duration] - The length of time to store in seconds.
+ * @return {Promise}
  */
-function saveCache(key, data, duration){
+async function saveCache(key, data, duration){
 	const saltedHam = {
 		data: data,
 		createdAt: NOW(),
 		expiresAt: duration ? NOW() + duration*1000 : undefined
 	};
 	try{
-		apiCache.setItem(key, saltedHam);
+		return apiCache.setItem(key, saltedHam);
 	}
 	catch(e){
 		if(e.name === "QuotaExceededError"){
 			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 			try{
-				flushCache()
+				return await flushCache()
 			}
 			catch(e){
 				throw new Error(e)
@@ -768,7 +773,7 @@ async function updateCache(key, newData){
 			if(e.name === "QuotaExceededError"){
 				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 				try{
-					return flushCache()
+					return await flushCache()
 				}
 				catch(e){
 					throw new Error(e)
@@ -825,7 +830,7 @@ async function anilistAPI(query, queryArgs){
 	const data = await res.json();
 	if(res.ok){
 		if(args.cacheKey){
-			saveCache(args.cacheKey, data, args.duration);
+			await saveCache(args.cacheKey, data, args.duration);
 		}
 		return data;
 	}
