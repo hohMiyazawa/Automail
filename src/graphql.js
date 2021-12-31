@@ -845,5 +845,23 @@ async function anilistAPI(query, queryArgs){
 	console.error(`AniList API returned ${res.status} ${res.statusText}`)
 	return null;
 }
+
+/**
+ * Runs an API cache checkup weekly
+ * @returns {Promise|null}
+ */
+const cacheCheckup = async () => {
+	const check = localStorage.getItem("automail-db-check")
+	if(check){
+		if(NOW() > check){
+			localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+			return await flushCache();
+		}
+		return null;
+	}
+	localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+	return null;
+};
+cacheCheckup()
 //end api v2
 //end "graphql.js"
