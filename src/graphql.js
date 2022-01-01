@@ -799,7 +799,7 @@ async function updateCache(key, newData){
  * @param {boolean} [queryArgs.overwrite] - Ignore cached data when making a request.
  * @param {boolean} [queryArgs.auth] - Make an authenticated request as the current user.
  * @param {boolean} [queryArgs.internal] - Make an internal request. Only uses the internal schema.
- * @returns {Promise<object|null>} Response data from the API, cached data, or nothing.
+ * @returns {Promise<object>} Response data from the API or cached data.
  */
 async function anilistAPI(query, queryArgs){
 	if(!query){
@@ -816,7 +816,10 @@ async function anilistAPI(query, queryArgs){
 	}
 	if(apiResetLimit){
 		if(NOW() < apiResetLimit*1000){
-			return null;
+			return {
+				"data": null,
+				"errors": [{"message": "Too Many Requests.","status": 429}]
+			};
 		}
 		apiResetLimit = null;
 	}
