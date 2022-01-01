@@ -832,18 +832,17 @@ async function anilistAPI(query, queryArgs){
 		if(args.cacheKey){
 			await saveCache(args.cacheKey, data, args.duration);
 		}
-		return data;
 	}
 	else if(res.status === 404){
-		return null;
 	}
 	else if(res.status === 429){
 		console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
 		apiResetLimit = res.headers.get("x-ratelimit-reset");
-		return null;
 	}
-	console.error(`AniList API returned ${res.status} ${res.statusText}`)
-	return null;
+	else{
+		console.error(`AniList API returned ${res.status} ${res.statusText}`)
+	}
+	return data;
 }
 
 /**
