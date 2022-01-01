@@ -694,7 +694,7 @@ function updateLimit(res){
 /**
  * Checks the API cache for an existing item and returns it if it has not expired
  * @param {string} key - The key to check for in the datastore.
- * @returns {Promise<object|null>} The cached data or nothing.
+ * @returns {Promise<object>} The cached data if found.
  */
 async function checkCache(key){
 	const item = await apiCache.getItem(key);
@@ -706,7 +706,7 @@ async function checkCache(key){
 			return apiCache.removeItem(key);
 		}
 	}
-	return null;
+	return;
 }
 
 /**
@@ -833,17 +833,17 @@ async function anilistAPI(query, queryArgs){
 	const data = await res.json();
 	if(res.ok){
 		if(args.cacheKey){
-			await saveCache(args.cacheKey, data, args.duration);
+			saveCache(args.cacheKey, data, args.duration);
 		}
 	}
-	else if(res.status === 404){
-	}
-	else if(res.status === 429){
-		console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
-		apiResetLimit = res.headers.get("x-ratelimit-reset");
-	}
 	else{
-		console.error(`AniList API returned ${res.status} ${res.statusText}`)
+		if(res.status === 429){
+			console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
+			apiResetLimit = res.headers.get("x-ratelimit-reset");
+		}
+		else if(res.status !== 404){
+			console.error(`AniList API returned ${res.status} ${res.statusText}`)
+		}
 	}
 	return data;
 }
