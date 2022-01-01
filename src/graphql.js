@@ -848,21 +848,18 @@ async function anilistAPI(query, queryArgs){
 	return data;
 }
 
-/**
- * Runs an API cache checkup weekly
- * @returns {Promise|null}
- */
-const cacheCheckup = async () => {
+/** Runs an API cache checkup weekly */
+const cacheCheckup = () => {
 	const check = localStorage.getItem("automail-db-check")
 	if(check){
 		if(NOW() > check){
 			localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
-			return await flushCache();
+			flushCache();
 		}
-		return null;
 	}
-	localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
-	return null;
+	else{
+		localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+	}
 };
 cacheCheckup()
 //end api v2
