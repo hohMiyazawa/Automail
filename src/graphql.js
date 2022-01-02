@@ -837,6 +837,13 @@ async function anilistAPI(query, queryArgs){
 		}
 	}
 	else{
+		if(data.errors){
+			if(data.errors.some(thing => thing.message === "Invalid token")){//status 400
+				useScripts.accessToken = "";
+				useScripts.save();
+				console.warn("Access token retracted.");
+			}
+		}
 		if(res.status === 429){
 			console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
 			apiResetLimit = res.headers.get("x-ratelimit-reset");
