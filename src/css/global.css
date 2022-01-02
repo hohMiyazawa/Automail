@@ -2153,6 +2153,13 @@ a.external-link.Official.Site[href*=".jp"]::after{
 	order: -1;
 	margin-right: 5px;
 }
+.medialist.table.compact .hohNeedsPositioning,
+.medialist.table .hohNeedsPositioning{
+	position: relative;
+}
+.medialist.cards .hohNeedsPositioning .hohChangeScore:last-of-type{
+	right: 2px!important;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

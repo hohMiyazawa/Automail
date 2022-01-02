@@ -306,7 +306,7 @@ function drawListStuff(){
 					entry.insertBefore(changeMinus,entry.firstChild);
 					let changePluss = create("span","hohChangeScore","+",entry);
 					if(useScripts.CSSdecimalPoint){
-						entry.style.position = "relative";
+						entry.classList.add("hohNeedsPositioning");
 						changePluss.style.position = "absolute";
 						changePluss.style.right = "calc(50% - 2em)";
 					}
