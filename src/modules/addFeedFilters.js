@@ -278,7 +278,7 @@ function addFeedFilters(){
 						statusParent.classList.add("activityPlanning")
 					}
 				}
-				if(useScripts.partialLocalisationLanguage !== "Japanese"){
+				if(useScripts.partialLocalisationLanguage === "日本語"){
 					statusParent.classList.add("hohReverseTitle")
 				}
 			}
