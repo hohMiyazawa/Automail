@@ -745,7 +745,7 @@ async function saveCache(key, data, duration){
 		if(e.name === "QuotaExceededError"){
 			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 			try{
-				return await flushCache()
+				return flushCache();
 			}
 			catch(e){
 				throw new Error(e)
@@ -777,7 +777,7 @@ async function updateCache(key, newData){
 			if(e.name === "QuotaExceededError"){
 				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
 				try{
-					return await flushCache()
+					return flushCache();
 				}
 				catch(e){
 					throw new Error(e)
@@ -825,7 +825,7 @@ async function anilistAPI(query, queryArgs){
 				"errors": [{"message": "Too Many Requests.","status": 429}]
 			};
 		}
-		apiResetLimit = null;
+		apiResetLimit = undefined;
 	}
 	if(args.internal === true){
 		apiUrl = "https://anilist.co/graphql";
