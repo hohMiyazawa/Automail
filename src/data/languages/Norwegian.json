@@ -121,6 +121,7 @@
 "$settings_errorInvalidJSON": "Ugyldig profil-JSON",
 "$noScrollPosts_description": "Ikkje kort ned tekstpostar, uansett kor lange dei er",
 "$notImplemented": "Ikkje implementert",
+"$socialTabFeed_noActivities": "Ingen treff",
 "$rewatch_suffix_1": "[sett oppatt]",
 "$reread_suffix_1": "[lese oppatt]",
 "$reread_suffix_M": "[oppattlesing {0}]",

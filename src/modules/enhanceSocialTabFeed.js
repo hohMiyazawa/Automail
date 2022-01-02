@@ -55,7 +55,7 @@ function enhanceSocialTabFeed(){
 					loadMore.style.display = "none"
 				}
 				if(data.data.Page.activities.length === 0){
-					create("div","activity-entry","No matching activities",feedContent)
+					create("div","activity-entry",translate("$socialTabFeed_noActivities"),feedContent)
 				}
 				data.data.Page.activities.forEach(act => {
 					let activityEntry = create("div",["activity-entry","activity-" + URLstuff[1] + "_list"],false,feedContent);

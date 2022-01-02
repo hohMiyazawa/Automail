@@ -440,6 +440,7 @@
 "$dismissDot_description": "Show a spec to dismiss notifications when signed in",
 "$socialTab_description": "Media social tab average score, progress and notes",
 "$socialTabFeed_description": "Media social tab feed filters",
+"$socialTabFeed_noActivities": "No matching activities",
 "$forumMedia_description": "Add the tagged media to the forum preview on the home page",
 "$mangaBrowse_description": "Make browse default to manga",
 "$dblclickZoom_description": "Double click activities to zoom",
