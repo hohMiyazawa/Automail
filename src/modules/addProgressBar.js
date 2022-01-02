@@ -25,9 +25,11 @@ function addProgressBar(){
 			}
 		}
 	});
-	document.querySelector(".size-toggle").onclick = function(){
-		setTimeout(function(){
-			addProgressBar()
-		},200);
+	if(document.querySelector(".size-toggle")){
+		document.querySelector(".size-toggle").onclick = function(){
+			setTimeout(function(){
+				addProgressBar()
+			},200);
+		}
 	}
 }
