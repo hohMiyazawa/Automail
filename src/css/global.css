@@ -2146,6 +2146,13 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .forum-thread h1.title.locked ~ div .nav svg[data-icon="reply"]{/*letting people write out entire comments before telling them the thread is locked is cruel*/
 	display: none;
 }
+.hohReverseTitle.status{
+	display: flex!important;
+}
+.hohReverseTitle .title{
+	order: -1;
+	margin-right: 5px;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)

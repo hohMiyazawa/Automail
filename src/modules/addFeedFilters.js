@@ -278,6 +278,9 @@ function addFeedFilters(){
 						statusParent.classList.add("activityPlanning")
 					}
 				}
+				if(useScripts.partialLocalisationLanguage !== "Japanese"){
+					statusParent.classList.add("hohReverseTitle")
+				}
 			}
 		})
 	}
