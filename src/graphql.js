@@ -687,8 +687,12 @@ class RequestOptions{
  * @param {Response} res - The Response object from a network request.
  */
 function updateLimit(res){
-	APIlimit = res.headers.get("x-ratelimit-limit");
-	APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
+	if(res.headers.has("x-ratelimit-limit")){
+		APIlimit = res.headers.get("x-ratelimit-limit");
+	}
+	if(res.headers.has("x-ratelimit-remaining")){
+		APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
+	}
 }
 
 /**
@@ -845,8 +849,16 @@ async function anilistAPI(query, queryArgs){
 			}
 		}
 		if(res.status === 429){
-			console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
-			apiResetLimit = res.headers.get("x-ratelimit-reset");
+			if(res.headers.has("retry-after")){
+				console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
+			}
+			if(res.headers.has("x-ratelimit-reset")){
+				apiResetLimit = res.headers.get("x-ratelimit-reset");
+			}
+			else{
+				apiResetLimit = (NOW()+60*1000)/1000;
+				throw new Error("Exceeded AniList API request limit. Please report the issue at https://github.com/hohMiyazawa/Automail/issues")
+			}
 		}
 		else if(res.status !== 404){
 			console.error(`AniList API returned ${res.status} ${res.statusText}`)
