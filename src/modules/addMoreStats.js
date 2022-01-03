@@ -1070,7 +1070,7 @@ function addMoreStats(){
 			addStat(translate("$stats_TVEpisodesWatched"),TVepisodes);
 			addStat(translate("$stats_TVEpisodesRemaining"),TVepisodesLeft);
 			if(oldest){
-				create("p",false,translate("$stats_firstLoggedAnime") + oldest.year + "-" + oldest.month + "-" + oldest.day + ". " + translate("$stats_firstLoggedAnime_note"),personalStats)
+				create("p",false,translate("$stats_firstLoggedAnime") + [oldest.year, oldest.month, oldest.day].filter(TRUTHY).join("-") + ". " + translate("$stats_firstLoggedAnime_note"),personalStats)
 			};
 			let animeFormatter = {
 				title: "Custom Anime Tags",
