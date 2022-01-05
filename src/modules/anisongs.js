@@ -24,7 +24,7 @@ const songCache = localforage.createInstance({name: "automail", storeName: "anis
 
 const API = {
   async getSongs(mal_id) {
-    const res = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}`)
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/themes`)
     return res.json()
   },
   async getVideos(anilist_id) {
@@ -123,10 +123,8 @@ async function launch(currentid) {
     }
     const {idMal: mal_id, status} = data.Media;
     if (mal_id) {
-      const filterThemes = themes => themes.filter(theme => !theme.includes("Help improve our database"))
-      let {opening_themes, ending_themes} = await API.getSongs(mal_id);
-      opening_themes = filterThemes(opening_themes)
-      ending_themes = filterThemes(ending_themes)
+      const {data} = await API.getSongs(mal_id);
+      let {openings: opening_themes, endings: ending_themes} = data;
       // add songs to cache if they're not empty and query videos
       if (opening_themes.length || ending_themes.length) {
         if (["FINISHED", "RELEASING"].includes(status)) {
