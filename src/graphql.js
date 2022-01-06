@@ -729,14 +729,14 @@ async function flushCache(){
  * Saves data to the API cache
  * @param {string} key - The key used to store the data.
  * @param {object} data - The data to store.
- * @param {number} [duration] - The length of time to store in seconds.
+ * @param {number} [duration] - The length of time to store in milliseconds.
  * @return {Promise}
  */
 async function saveCache(key, data, duration){
 	const saltedHam = {
 		data: data,
 		createdAt: NOW(),
-		expiresAt: duration ? NOW() + duration*1000 : undefined
+		expiresAt: duration ? NOW() + duration : undefined
 	};
 	try{
 		return apiCache.setItem(key, saltedHam);
@@ -799,7 +799,7 @@ async function updateCache(key, newData){
  * @param {object} [queryArgs] - An object containing request parameters. (e.g. GraphQL variables)
  * @param {object} [queryArgs.variables] - GraphQL variables.
  * @param {string} [queryArgs.cacheKey] - A key used to cache API data.
- * @param {number} [queryArgs.duration] - How long data should remain cached (in seconds.)
+ * @param {number} [queryArgs.duration] - How long data should remain cached (in milliseconds.)
  * @param {boolean} [queryArgs.overwrite] - Ignore cached data when making a request.
  * @param {boolean} [queryArgs.auth] - Make an authenticated request as the current user.
  * @param {boolean} [queryArgs.internal] - Make an internal request. Only uses the internal schema.
