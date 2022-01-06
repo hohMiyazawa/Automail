@@ -748,7 +748,12 @@ async function saveCache(key, data, duration){
 				return flushCache();
 			}
 			catch(e){
-				throw new Error(e)
+				try{
+					return apiCache.clear();//clear all items in the store if flushing fails
+				}
+				catch(e){
+					throw new Error(e)
+				}
 			}
 		}
 		else{
@@ -780,7 +785,12 @@ async function updateCache(key, newData){
 					return flushCache();
 				}
 				catch(e){
-					throw new Error(e)
+					try{
+						return apiCache.clear();//clear all items in the store if flushing fails
+					}
+					catch(e){
+						throw new Error(e)
+					}
 				}
 			}
 			else{
