@@ -15,7 +15,7 @@ let likeLoop = setInterval(function(){
 			if(!thingy.querySelector(".count")){
 				return
 			}
-			let likeCount = parseInt(thingy.querySelector(".count").innerText);
+			let likeCount = parseInt(thingy.querySelector(".count").innerText) || 0;
 			if(likeCount <= 5){
 				return
 			}
