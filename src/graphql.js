@@ -628,4 +628,268 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 	APIcallsUsed++
 }
 const ANILIST_QUERY_LIMIT = 90;
+
+localforage.config({name: "automail"});
+
+//begin api v2
+const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
+let apiResetLimit;
+
+/** Provides default arguments for an {@link anilistAPI()} request */
+class QueryOptions{
+	/**
+	 * Creates an arguments object
+	 * @param {object} [args={}] - Contains the options which will override the default options for the request.
+	 */
+	constructor(args={}){
+		this.variables = {};
+		this.cacheKey = null;
+		this.duration = null;
+		this.overwrite = false;
+		this.auth = false;
+		this.internal = false;
+		Object.assign(this, args);
+	}
+}
+
+/** Configures options for a network request */
+class RequestOptions{
+	constructor(query, variables, auth, internal){
+		this.method = "POST",
+		this.headers = new Headers({
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+		}),
+		this.body = JSON.stringify({
+			"query": query,
+			"variables": variables
+		})
+		this.#isAuth(auth)
+		this.#isInternal(internal)
+	}
+	#isAuth(auth){
+		if(auth === true && useScripts.accessToken){
+			this.headers.set("Authorization", "Bearer " + useScripts.accessToken)
+		}
+	}
+	#isInternal(internal){
+		if(internal === true){
+			if(al_token){
+				this.headers.set("x-csrf-token", al_token)
+			}
+			this.headers.set("schema", "internal")
+		}
+	}
+}
+
+/**
+ * Updates the variables tracking the API request limit
+ * @param {Response} res - The Response object from a network request.
+ */
+function updateLimit(res){
+	if(res.headers.has("x-ratelimit-limit")){
+		APIlimit = res.headers.get("x-ratelimit-limit");
+	}
+	if(res.headers.has("x-ratelimit-remaining")){
+		APIcallsUsed = APIlimit - res.headers.get("x-ratelimit-remaining");
+	}
+}
+
+/**
+ * Checks the API cache for an existing item and returns it if it has not expired
+ * @param {string} key - The key to check for in the datastore.
+ * @returns {Promise<object>} The cached data if found.
+ */
+async function checkCache(key){
+	const item = await apiCache.getItem(key);
+	if(item){
+		if(!item.expiresAt || (NOW() < item.expiresAt)){
+			return item.data;
+		}
+		else{
+			return apiCache.removeItem(key);
+		}
+	}
+	return;
+}
+
+/**
+ * Iterates the API cache for expired items and removes them
+ * @returns {Promise}
+ */
+async function flushCache(){
+	return apiCache.iterate((item, key) => {
+		if(NOW() > item.expiresAt){
+			apiCache.removeItem(key);
+		}
+	})
+}
+
+/**
+ * Saves data to the API cache
+ * @param {string} key - The key used to store the data.
+ * @param {object} data - The data to store.
+ * @param {number} [duration] - The length of time to store in milliseconds.
+ * @return {Promise}
+ */
+async function saveCache(key, data, duration){
+	const saltedHam = {
+		data: data,
+		createdAt: NOW(),
+		expiresAt: duration ? NOW() + duration : undefined
+	};
+	try{
+		return apiCache.setItem(key, saltedHam);
+	}
+	catch(e){
+		if(e.name === "QuotaExceededError"){
+			console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
+			try{
+				return flushCache();
+			}
+			catch(e){
+				try{
+					return apiCache.clear();//clear all items in the store if flushing fails
+				}
+				catch(e){
+					throw new Error(e)
+				}
+			}
+		}
+		else{
+			throw new Error(e)
+		}
+	}
+}
+
+/**
+ * Updates data in the API cache
+ * @param {string} key - The existing key to store updated data.
+ * @param {object} newData - The new data to overwrite the existing data.
+ * @returns {Promise}
+ */
+async function updateCache(key, newData){
+	const data = await apiCache.getItem(key);
+	if(data){
+		Object.assign(data, {
+			data: newData,
+			updatedAt: NOW()
+		});
+		try{
+			return apiCache.setItem(key, data);
+		}
+		catch(e){
+			if(e.name === "QuotaExceededError"){
+				console.error("Persistent storage quota exceeded. Attempting to purge expired items.")
+				try{
+					return flushCache();
+				}
+				catch(e){
+					try{
+						return apiCache.clear();//clear all items in the store if flushing fails
+					}
+					catch(e){
+						throw new Error(e)
+					}
+				}
+			}
+			else{
+				throw new Error(e)
+			}
+		}
+	}
+	else{
+		throw new Error(`Key ${key} does not exist in cache.`)
+	}
+}
+
+/**
+ * Constructs and sends a request to the AniList GraphQL API
+ * @param {string} query - A GraphQL query string.
+ * @param {object} [queryArgs] - An object containing request parameters. (e.g. GraphQL variables)
+ * @param {object} [queryArgs.variables] - GraphQL variables.
+ * @param {string} [queryArgs.cacheKey] - A key used to cache API data.
+ * @param {number} [queryArgs.duration] - How long data should remain cached (in milliseconds.)
+ * @param {boolean} [queryArgs.overwrite] - Ignore cached data when making a request.
+ * @param {boolean} [queryArgs.auth] - Make an authenticated request as the current user.
+ * @param {boolean} [queryArgs.internal] - Make an internal request. Only uses the internal schema.
+ * @returns {Promise<object>} Response data from the API or cached data.
+ */
+async function anilistAPI(query, queryArgs){
+	if(!query){
+		throw new Error("No query provided")
+	}
+	let apiUrl = url;
+	const args = new QueryOptions(queryArgs);
+	const options = new RequestOptions(query, args.variables, args.auth, args.internal);
+	if(args.cacheKey && !args.overwrite){
+		const cache = await checkCache(args.cacheKey);
+		if(cache){
+			return cache;
+		}
+	}
+	if(apiResetLimit){
+		if(NOW() < apiResetLimit*1000){
+			return {
+				"data": null,
+				"errors": [{"message": "Too Many Requests.","status": 429}]
+			};
+		}
+		apiResetLimit = undefined;
+	}
+	if(args.internal === true){
+		apiUrl = "https://anilist.co/graphql";
+	}
+	const res = await fetch(apiUrl, options);
+	if(args.internal !== true){
+		updateLimit(res);
+	}
+	const data = await res.json();
+	if(res.ok){
+		if(args.cacheKey){
+			saveCache(args.cacheKey, data, args.duration);
+		}
+	}
+	else{
+		if(data.errors){
+			if(data.errors.some(thing => thing.message === "Invalid token")){//status 400
+				useScripts.accessToken = "";
+				useScripts.save();
+				console.warn("Access token retracted.");
+			}
+		}
+		if(res.status === 429){
+			if(res.headers.has("retry-after")){
+				console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
+			}
+			if(res.headers.has("x-ratelimit-reset")){
+				apiResetLimit = res.headers.get("x-ratelimit-reset");
+			}
+			else{
+				apiResetLimit = (NOW()+60*1000)/1000;
+				throw new Error("Exceeded AniList API request limit. Please report the issue at https://github.com/hohMiyazawa/Automail/issues")
+			}
+		}
+		else if(res.status !== 404){
+			console.error(`AniList API returned ${res.status} ${res.statusText}`)
+		}
+	}
+	return data;
+}
+
+/** Runs an API cache checkup weekly */
+const cacheCheckup = () => {
+	const check = localStorage.getItem("automail-db-check")
+	if(check){
+		if(NOW() > check){
+			localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+			flushCache();
+		}
+	}
+	else{
+		localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+	}
+};
+cacheCheckup()
+//end api v2
 //end "graphql.js"
