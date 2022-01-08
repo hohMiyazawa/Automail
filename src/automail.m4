@@ -13,7 +13,7 @@ m4_divert(0)m4_dnl
 // @grant        GM_xmlhttpRequest
 // @license      GPL-3.0-or-later
 // ==/UserScript==
-// SPDX-FileCopyrightText: 2019-2021 hoh and the Automail contributors
+// SPDX-FileCopyrightText: 2019-2022 hoh and the Automail contributors
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 (function(){
