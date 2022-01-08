@@ -20,26 +20,11 @@ const options = {
   class: 'anisongs', // container class
 }
 
-const Cache = {
-  async add(key, value) {
-    await localforage.setItem(key, value)
-    return value
-  },
-  async get(key) {
-    return localforage.getItem(key)
-  }
-}
+const songCache = localforage.createInstance({name: "automail", storeName: "anisongs"});
 
 const API = {
-  async getMedia(id) {
-    return new Promise((resolve, reject) => {
-      generalAPIcall("query($id:Int){Media(id:$id){idMal status}}", {id}, ({data}) => {
-        resolve(data.Media)
-      })
-    });
-  },
   async getSongs(mal_id) {
-    const res = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}`)
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/themes`)
     return res.json()
   },
   async getVideos(anilist_id) {
@@ -125,17 +110,21 @@ function cleaner(target) {
 
 async function launch(currentid) {
   // get from cache and check TTL
-  const cache = await Cache.get(currentid) || {time: 0};
+  const cache = await songCache.getItem(currentid) || {time: 0};
   if(
     (cache.time + options.cacheTTL)
     < +new Date()
   ) {
-    const {idMal: mal_id, status} = await API.getMedia(currentid);
+    const {data, errors} = await anilistAPI("query($id:Int){Media(id:$id){idMal status}}", {
+      variables: {id: currentid}
+    });
+    if(errors){
+      return "AniList API failure"
+    }
+    const {idMal: mal_id, status} = data.Media;
     if (mal_id) {
-      const filterThemes = themes => themes.filter(theme => !theme.includes("Help improve our database"))
-      let {opening_themes, ending_themes} = await API.getSongs(mal_id);
-      opening_themes = filterThemes(opening_themes)
-      ending_themes = filterThemes(ending_themes)
+      const {data} = await API.getSongs(mal_id);
+      let {openings: opening_themes, endings: ending_themes} = data;
       // add songs to cache if they're not empty and query videos
       if (opening_themes.length || ending_themes.length) {
         if (["FINISHED", "RELEASING"].includes(status)) {
@@ -146,7 +135,7 @@ async function launch(currentid) {
           }
           catch(e){console.log("Anisongs", e)} // 🐟
         }
-        await Cache.add(currentid, {opening_themes, ending_themes, time: +new Date()});
+        await songCache.setItem(currentid, {opening_themes, ending_themes, time: +new Date()});
       }
       // place the data onto site
       placeData({opening_themes, ending_themes});
