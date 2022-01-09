@@ -8,7 +8,7 @@ exportModule({
 	urlMatch: function(url,oldUrl){
 		return url.includes("https://anilist.co/forum/recent?media=")
 	},
-	code: function(){
+	code: async function(){
 		let id = parseInt(document.URL.match(/\d+$/)[0]);
 		let adder = function(data){
 			if(!document.URL.includes(id) || !data){
@@ -30,11 +30,15 @@ exportModule({
 			}
 			feed.insertBefore(mediaLink,feed.firstChild);
 		}
-		generalAPIcall(
-			`query($id:Int){Media(id:$id){title{native english romaji} siteUrl}}`,
-			{id: id},
-			adder,
-			"hohMediaLookup" + id
-		)
+		const data = await anilistAPI("query($id:Int){Media(id:$id){title{native english romaji} siteUrl}}", {
+			variables: {id},
+			cacheKey: "hohMediaLookup" + id,
+			duration: 30*60*1000
+		})
+		if(data.errors){
+			return
+		}
+		adder(data)
+		return
 	}
 })
