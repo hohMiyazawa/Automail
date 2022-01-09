@@ -22,6 +22,7 @@ exportModule({
 			data.data.Media.id = id;
 			let mediaLink = create("a",false,titlePicker(data.data.Media),false,"padding:10px;display:block;");
 			mediaLink.href = data.data.Media.siteUrl;
+			cheapReload(mediaLink,{path: mediaLink.pathname})
 			if(data.data.Media.siteUrl.includes("manga") && useScripts.CSSgreenManga){
 				mediaLink.style.color = "rgb(var(--color-green))"
 			}
