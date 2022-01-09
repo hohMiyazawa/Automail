@@ -99,8 +99,10 @@ async function addMALscore(type,id){
 						recImage.style.backgroundColor = reverseData.data.Media.coverImage.color || "rgb(var(--color-foreground))";
 						recImage.style.backgroundImage = "url(\"" + reverseData.data.Media.coverImage.large + "\")";
 						recImage.href = reverseData.data.Media.siteUrl;
+						cheapReload(recImage,{path: recImage.pathname})
 						recTitle.innerText = titlePicker(reverseData.data.Media);
 						recTitle.href = reverseData.data.Media.siteUrl
+						cheapReload(recTitle,{path: recTitle.pathname})
 						return
 					})
 				};
