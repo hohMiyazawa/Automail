@@ -840,41 +840,46 @@ async function anilistAPI(query, queryArgs){
 	if(args.internal === true){
 		apiUrl = "https://anilist.co/graphql";
 	}
-	const res = await fetch(apiUrl, options);
-	if(args.internal !== true){
-		updateLimit(res);
+	try{
+		const res = await fetch(apiUrl, options);
+		if(args.internal !== true){
+			updateLimit(res);
+		}
+		const data = await res.json();
+		if(res.ok){
+			if(args.cacheKey){
+				saveCache(args.cacheKey, data, args.duration);
+			}
+		}
+		else{
+			if(data.errors){
+				if(data.errors.some(thing => thing.message === "Invalid token")){//status 400
+					useScripts.accessToken = "";
+					useScripts.save();
+					console.warn("Access token retracted.");
+				}
+			}
+			if(res.status === 429){
+				if(res.headers.has("retry-after")){
+					console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
+				}
+				if(res.headers.has("x-ratelimit-reset")){
+					apiResetLimit = res.headers.get("x-ratelimit-reset");
+				}
+				else{
+					apiResetLimit = (NOW()+60*1000)/1000;
+					throw new Error("Exceeded AniList API request limit. Please report the issue at https://github.com/hohMiyazawa/Automail/issues")
+				}
+			}
+			else if(res.status !== 404){
+				console.error(`AniList API returned ${res.status} ${res.statusText}`)
+			}
+		}
+		return data;
 	}
-	const data = await res.json();
-	if(res.ok){
-		if(args.cacheKey){
-			saveCache(args.cacheKey, data, args.duration);
-		}
+	catch(e){
+		throw e
 	}
-	else{
-		if(data.errors){
-			if(data.errors.some(thing => thing.message === "Invalid token")){//status 400
-				useScripts.accessToken = "";
-				useScripts.save();
-				console.warn("Access token retracted.");
-			}
-		}
-		if(res.status === 429){
-			if(res.headers.has("retry-after")){
-				console.warn(`Exceeded AniList API request limit. Limit resets in ${res.headers.get("retry-after")} seconds.`)
-			}
-			if(res.headers.has("x-ratelimit-reset")){
-				apiResetLimit = res.headers.get("x-ratelimit-reset");
-			}
-			else{
-				apiResetLimit = (NOW()+60*1000)/1000;
-				throw new Error("Exceeded AniList API request limit. Please report the issue at https://github.com/hohMiyazawa/Automail/issues")
-			}
-		}
-		else if(res.status !== 404){
-			console.error(`AniList API returned ${res.status} ${res.statusText}`)
-		}
-	}
-	return data;
 }
 
 /** Runs an API cache checkup weekly */
