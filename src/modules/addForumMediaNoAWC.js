@@ -13,7 +13,7 @@ async function addForumMediaNoAWC(){
 		};
 		forumPreview.classList.add("hohNoAWC");
 		removeChildren(forumPreview)
-		data.data.Page.threads.filter(
+		data.Page.threads.filter(
 			thread => !(
 				(useScripts.hideAWC && thread.title.match(/^(AWC|Anime\sWatching\s(Challenge|Club)|MRC)/))
 				|| (useScripts.hideOtherThreads && thread.title.match(/(Boys\svs\sGirls|New\sUser\sIntro\sThread|Support\sAniList\s&\sAniChart|Where\scan\sI\s(watch|read|find))/i))
