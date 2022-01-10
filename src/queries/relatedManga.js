@@ -1,7 +1,7 @@
-{name: "Related anime not on list",code: function(){
+{name: "Related manga not on list",code: function(){
 	generalAPIcall(
 `query($name: String!){
-	MediaListCollection(userName: $name,type: ANIME){
+	MediaListCollection(userName: $name,type: MANGA){
 		lists{
 			entries{
 				mediaId
@@ -30,7 +30,7 @@
 		list.forEach(function(media){
 			if(media.status !== "PLANNING"){
 				media.media.relations.edges.forEach(relation => {
-					if(!listEntries.has(relation.node.id) && relation.node.type === "ANIME"){
+					if(!listEntries.has(relation.node.id) && relation.node.type === "MANGA"){
 						relation.host = media.score;
 						relation.relationType = [relation.relationType];
 						relation.isDropped = [media.status === "DROPPED"];
@@ -51,7 +51,7 @@
 			(b,a) => a.host - b.host
 		);
 		miscResults.innerText = "";
-		create("p",false,"Found " + found.length + " anime:",miscResults);
+		create("p",false,"Found " + found.length + " manga:",miscResults);
 		let filters = create("div",false,false,miscResults);
 
 		let row1 = create("p",false,false,filters);
@@ -76,7 +76,7 @@
 
 		let row6 = create("p",false,false,filters);
 		let checkBox6 = createCheckbox(row6);
-		let label6 = create("span",false,"Include media related to dropped anime",row6);
+		let label6 = create("span",false,"Include media related to dropped manga",row6);
 
 		checkBox1.checked = true;
 		checkBox2.checked = true;
@@ -99,7 +99,7 @@
 					&& (checkBox6.checked || item.isDropped.some(val => !val))
 				){
 					create("a",["link","newTab"],item.node.title.romaji,f_results,"display:block;padding:5px;")
-						.href = "/anime/" + item.node.id
+						.href = "/manga/" + item.node.id
 				}
 			})
 		};
