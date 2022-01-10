@@ -634,7 +634,7 @@ function addComparisionPage(){
 		table.appendChild(userRow);
 		table.appendChild(headerRow)
 	};
-	let addUser = function(userName,paramDemand){
+	let addUser = async function(userName,paramDemand){
 		let handleData = function(data,cached){
 			users.push({
 				name: userName,
@@ -765,8 +765,8 @@ function addComparisionPage(){
 			handleData(listCache[userName],true)
 		}
 		else{
-			generalAPIcall(
-`query($name: String, $listType: MediaType){
+			const listQuery = `
+query($name: String, $listType: MediaType){
 	MediaListCollection(userName: $name, type: $listType){
 		lists{
 			entries{
@@ -812,14 +812,17 @@ fragment mediaListEntry on MediaList{
 		averageScore
 		popularity
 	}
-}`,
-				{name:userName,listType:type.toUpperCase()},
-				function(data){
-					listCache[userName] = data;
-					handleData(data,false)
-				}
-			);
+}`
+			const data = await anilistAPI(listQuery, {
+				variables: {name:userName,listType:type.toUpperCase()}
+			})
+			if(data.errors){
+				return
+			}
+			listCache[userName] = data;
+			handleData(data,false)
 		};
+		return
 	};
 	let deleteUser = function(index){
 		users.splice(index,1);

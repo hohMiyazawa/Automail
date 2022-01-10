@@ -1,4 +1,4 @@
-function addForumMediaNoAWC(){
+async function addForumMediaNoAWC(){
 	if(location.pathname !== "/home"){
 		return
 	};
@@ -107,7 +107,7 @@ function addForumMediaNoAWC(){
 		})
 	};
 	if(useScripts.forumPreviewNumber > 0){
-		generalAPIcall(
+		const {data, errors} = await anilistAPI(
 			`query{
 				Page(perPage:${parseInt(useScripts.forumPreviewNumber) + 12},page:1){
 					threads(sort:REPLIED_AT_DESC){
@@ -136,9 +136,12 @@ function addForumMediaNoAWC(){
 						}
 					}
 				}
-			}`,
-			{},
-			buildPreview
-		)
+			}`
+		);
+		if(errors){
+			return
+		}
+		buildPreview(data)
 	}
+	return
 }
