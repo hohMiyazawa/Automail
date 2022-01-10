@@ -878,7 +878,11 @@ async function anilistAPI(query, queryArgs){
 		return data;
 	}
 	catch(e){
-		throw e
+		console.error(e)
+		return {
+			"data": null,
+			"errors": [{"message": e,"status": null}]
+		};
 	}
 }
 
