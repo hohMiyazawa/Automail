@@ -1,0 +1,17 @@
+{
+    "env": {
+        "browser": true,
+        "es2017": true,
+        "greasemonkey": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 9
+    },
+    "rules": {
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "no-extra-semi": "warn",
+        "no-useless-escape": "warn"
+    }
+}
