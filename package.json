@@ -1,0 +1,19 @@
+{
+  "name": "automail",
+  "version": "10.0.0",
+  "description": "An enhancement collection for anilist.co",
+  "author": "hoh",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hohMiyazawa/Automail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hohMiyazawa/Automail/issues"
+  },
+  "homepage": "https://github.com/hohMiyazawa/Automail",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
