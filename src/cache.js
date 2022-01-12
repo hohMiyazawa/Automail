@@ -24,9 +24,8 @@ const cache = {
 			},10*1000)
 		}
 	},
-	forceUpdate: function(){
-		authAPIcall(
-			`
+	forceUpdate: async function(){
+		const mediaListQuery = `
 query($name: String!){
 	anime:MediaListCollection(userName: $name, type: ANIME){
 		lists{
@@ -89,33 +88,33 @@ query($name: String!){
 			}
 		}
 	}
-}`,
-			{name: whoAmI},
-			function(data){
-				if(!data){
-					return
-				}
-				cache.list.ANIME = {
-					time: NOW(),
-					duration: 60*60*1000,
-					data: data.data.anime
-				}
-				cache.list.MANGA = {
-					time: NOW(),
-					duration: 60*60*1000,
-					data: data.data.manga
-				}
-				localforage.setItem("automailListCacheANIME",cache.list.ANIME);
-				localforage.setItem("automailListCacheMANGA",cache.list.MANGA);
-				cache.lockedCallbacks.ANIME.forEach(a => a.callback(cache.list[a.type].data));
-				cache.lockedCallbacks.MANGA.forEach(a => a.callback(cache.list[a.type].data));
-				cache.lockedCallbacks.ANIME = [];
-				cache.lockedCallbacks.MANGA = [];
-				cache.lock.ANIME = false;
-				cache.lock.MANGA = false;
-			}
-		)
-		
+}`
+		const data = await anilistAPI(mediaListQuery, {
+			variables: {name: whoAmI},
+			auth: true
+		});
+		if(data.errors){
+			return
+		}
+		cache.list.ANIME = {
+			time: NOW(),
+			duration: 60*60*1000,
+			data: data.data.anime
+		}
+		cache.list.MANGA = {
+			time: NOW(),
+			duration: 60*60*1000,
+			data: data.data.manga
+		}
+		localforage.setItem("automailListCacheANIME",cache.list.ANIME);
+		localforage.setItem("automailListCacheMANGA",cache.list.MANGA);
+		cache.lockedCallbacks.ANIME.forEach(a => a.callback(cache.list[a.type].data));
+		cache.lockedCallbacks.MANGA.forEach(a => a.callback(cache.list[a.type].data));
+		cache.lockedCallbacks.ANIME = [];
+		cache.lockedCallbacks.MANGA = [];
+		cache.lock.ANIME = false;
+		cache.lock.MANGA = false;
+		return
 	},
 	updateIfDifferent: function(mediaData,doNotWrite){
 		let different = false;
