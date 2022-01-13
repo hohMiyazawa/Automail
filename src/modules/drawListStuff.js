@@ -180,11 +180,7 @@ function drawListStuff(){
 		}
 		if(variables.name === whoAmI && reliablePersistentStorage){
 			cache.getList(variables.listType,function(data){
-				collectNotes({
-					data: {
-						MediaListCollection: data
-					}
-				})
+				collectNotes(data)
 			})
 		}
 		else{

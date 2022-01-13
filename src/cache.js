@@ -15,19 +15,11 @@ const cache = {
 	scheduled: false,
 	lock: {ANIME: false,MANGA: false},
 	lockedCallbacks: {ANIME: [],MANGA: []},
-	synch: function(){
-		if(!cache.scheduled){
-			cache.scheduled = true;
-			setTimeout(function(){
-				localStorage.setItem("automailListCache",cache.list);
-				cache.scheduled = false
-			},10*1000)
-		}
-	},
-	forceUpdate: async function(){
-		const mediaListQuery = `
+	listQuery: {
+		get ANIME(){
+			return `
 query($name: String!){
-	anime:MediaListCollection(userName: $name, type: ANIME){
+	MediaListCollection(userName: $name, type: ANIME){
 		lists{
 			name
 			isCustomList
@@ -58,7 +50,12 @@ query($name: String!){
 			}
 		}
 	}
-	manga:MediaListCollection(userName: $name, type: MANGA){
+}`;
+		},
+		get MANGA(){
+			return `
+query($name: String!){
+	MediaListCollection(userName: $name, type: MANGA){
 		lists{
 			name
 			isCustomList
@@ -88,32 +85,35 @@ query($name: String!){
 			}
 		}
 	}
-}`
-		const data = await anilistAPI(mediaListQuery, {
+}`;
+		}
+	},
+	synch: function(){
+		if(!cache.scheduled){
+			cache.scheduled = true;
+			setTimeout(function(){
+				localStorage.setItem("automailListCache",cache.list);
+				cache.scheduled = false
+			},10*1000)
+		}
+	},
+	forceUpdate: async function(type){
+		const data = await anilistAPI(this.listQuery[type], {
 			variables: {name: whoAmI},
 			auth: true
 		});
 		if(data.errors){
 			return
 		}
-		cache.list.ANIME = {
+		cache.list[type] = {
 			time: NOW(),
 			duration: 60*60*1000,
-			data: data.data.anime
+			data: data
 		}
-		cache.list.MANGA = {
-			time: NOW(),
-			duration: 60*60*1000,
-			data: data.data.manga
-		}
-		localforage.setItem("automailListCacheANIME",cache.list.ANIME);
-		localforage.setItem("automailListCacheMANGA",cache.list.MANGA);
-		cache.lockedCallbacks.ANIME.forEach(a => a.callback(cache.list[a.type].data));
-		cache.lockedCallbacks.MANGA.forEach(a => a.callback(cache.list[a.type].data));
-		cache.lockedCallbacks.ANIME = [];
-		cache.lockedCallbacks.MANGA = [];
-		cache.lock.ANIME = false;
-		cache.lock.MANGA = false;
+		localforage.setItem("automailListCache" + type,cache.list[type]);
+		cache.lockedCallbacks[type].forEach(a => a.callback(cache.list[a.type].data));
+		cache.lockedCallbacks[type] = [];
+		cache.lock[type] = false;
 		return
 	},
 	updateIfDifferent: function(mediaData,doNotWrite){
@@ -139,7 +139,7 @@ query($name: String!){
 					}
 					if(value){
 						if(NOW() - value.time > value.duration){
-							cache.forceUpdate()
+							cache.forceUpdate(type)
 						}
 						else{
 							cache.list[type] = value;
@@ -149,7 +149,7 @@ query($name: String!){
 						}
 					}
 					else{
-						cache.forceUpdate()
+						cache.forceUpdate(type)
 					}
 				})
 			}

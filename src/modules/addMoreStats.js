@@ -1684,11 +1684,7 @@ function addMoreStats(){
 		};
 		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("ANIME",function(data){
-				personalStatsCallback({
-					data: {
-						MediaListCollection: data
-					}
-				})
+				personalStatsCallback(data)
 			})
 		}
 		else{
@@ -2356,11 +2352,7 @@ function addMoreStats(){
 		};
 		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("MANGA",data => {
-				personalStatsMangaCallback({
-					data: {
-						MediaListCollection: data
-					}
-				})
+				personalStatsMangaCallback(data)
 			})
 		}
 		else{
