@@ -127,17 +127,25 @@ let useScripts = {
 	partialLocalisationLanguage: "English"
 };
 
-let userObject = JSON.parse(localStorage.getItem("auth"));
+let userObject;
 let whoAmI = "";
 let whoAmIid = 0;
-try{//use later for some scripts
-	whoAmI = document.querySelector(".nav .links .link[href^='/user/']").href.match(/\/user\/(.*)\//)[1]//looks at the navbar
+try{
+	JSON.parse(localStorage.getItem("auth"));
 }
 catch(err){
-	if(userObject){
-		whoAmI = userObject.name
+	console.warn("could not get userObject")
+}
+if(userObject){
+	whoAmI = userObject.name
+	useScripts.titleLanguage = userObject.options.titleLanguage;
+	whoAmIid = userObject.id
+}
+else{
+	try{
+		whoAmI = document.querySelector(".nav .links .link[href^='/user/']").href.match(/\/user\/(.*)\//)[1]//looks at the navbar
 	}
-	else{
+	catch{
 		console.warn("could not get username")
 	}
 }
@@ -164,10 +172,6 @@ if(useScriptsSettings){
 	keys.forEach(//this is to keep the default settings if the version in local storage is outdated
 		key => useScripts[key] = useScriptsSettings[key]
 	)
-}
-if(userObject){
-	useScripts.titleLanguage = userObject.options.titleLanguage;
-	whoAmIid = userObject.id
 }
 useScripts.save();
 //end "settings.js"
