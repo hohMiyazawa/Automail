@@ -145,7 +145,7 @@ else{
 	try{
 		whoAmI = document.querySelector(".nav .links .link[href^='/user/']").href.match(/\/user\/(.*)\//)[1]//looks at the navbar
 	}
-	catch{
+	catch(e){
 		console.warn("could not get username")
 	}
 }
