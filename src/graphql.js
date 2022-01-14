@@ -664,15 +664,15 @@ class RequestOptions{
 			"query": query,
 			"variables": variables
 		})
-		this.#isAuth(auth)
-		this.#isInternal(internal)
+		this.isAuth(auth)
+		this.isInternal(internal)
 	}
-	#isAuth(auth){
+	isAuth(auth){
 		if(auth === true && useScripts.accessToken){
 			this.headers.set("Authorization", "Bearer " + useScripts.accessToken)
 		}
 	}
-	#isInternal(internal){
+	isInternal(internal){
 		if(internal === true){
 			if(al_token){
 				this.headers.set("x-csrf-token", al_token)
