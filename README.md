@@ -11,7 +11,7 @@ Automail primarily deals with:
 
 ## Available releases
 
-As a userscript: https://greasyfork.org/en/scripts/370473-automail  
+As a userscript: https://greasyfork.org/en/scripts/370473-automail ([How to use userscripts](https://greasyfork.org/en/help/installing-user-scripts))  
 As a Firefox addon: https://github.com/hohMiyazawa/Automail/releases
 
 ## Build from source
