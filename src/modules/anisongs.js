@@ -182,7 +182,9 @@ class Videos {
     const findUrl = n => {
       let url;
       if(videos[n]) {
-        url = videos[n].animethemeentries[0]?.videos[0]?.link
+        if(videos[n].animethemeentries[0] && videos[n].animethemeentries[0].videos[0]){
+          url = videos[n].animethemeentries[0].videos[0].link
+        }
         if(url) url = url.replace(/staging\./, "")
       }
       return url
