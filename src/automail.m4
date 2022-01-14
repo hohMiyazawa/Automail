@@ -23,7 +23,7 @@ const scriptInfo = {
 	"name" : "Automail",
 	"link" : "https://greasyfork.org/en/scripts/370473-automail",
 	"repo" : "https://github.com/hohMiyazawa/Automail",
-	"firefox" : "https://addons.mozilla.org/en-US/firefox/addon/automail/ (outdated)",
+	"firefox" : "https://github.com/hohMiyazawa/Automail/releases",
 	"chrome" : "NO KNOWN BUILDS",
 	"author" : "hoh",
 	"authorLink" : "https://anilist.co/user/hoh/",
