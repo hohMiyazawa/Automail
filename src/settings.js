@@ -131,7 +131,7 @@ let userObject;
 let whoAmI = "";
 let whoAmIid = 0;
 try{
-	JSON.parse(localStorage.getItem("auth"));
+	userObject = JSON.parse(localStorage.getItem("auth"));
 }
 catch(err){
 	console.warn("could not get userObject")
