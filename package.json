@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/hohMiyazawa/Automail",
   "scripts": {
-    "test": "eslint \"src/build/automail.js\""
+    "lint": "eslint --ignore-pattern \"src/build/automail.js\" \"**/*.js\"",
+    "lint-build": "eslint src/build/automail.js"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
