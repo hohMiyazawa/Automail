@@ -21,7 +21,7 @@ function enhanceStaff(){
 					favCount.innerText = parseInt(favCount.innerText) + 1
 				}
 			};
-			if(data.data.Staff.favourites === 0 && favButton[0].classList.contains("isFavourite")){//safe to assume
+			if(data.data.Staff.favourites === 0 && favCount[0].classList.contains("isFavourite")){//safe to assume
 				favCount.innerText = data.data.Staff.favourites + 1
 			}
 			else{

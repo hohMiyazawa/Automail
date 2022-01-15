@@ -21,7 +21,7 @@ function enhanceStudio(){//adds a favourite count to every studio page
 					favCount.innerText = parseInt(favCount.innerText) + 1
 				}
 			};
-			if(data.data.Studio.favourites === 0 && favButton[0].classList.contains("isFavourite")){//safe to assume
+			if(data.data.Studio.favourites === 0 && favCount[0].classList.contains("isFavourite")){//safe to assume
 				favCount.innerText = data.data.Studio.favourites + 1
 			}
 			else{

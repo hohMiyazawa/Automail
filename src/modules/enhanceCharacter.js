@@ -21,7 +21,7 @@ function enhanceCharacter(){//adds a favourite count on every character page
 						favCount.innerText = parseInt(favCount.innerText) + 1
 					}
 				};
-				if(data.data.Character.favourites === 0 && favButton[0].classList.contains("isFavourite")){//safe to assume
+				if(data.data.Character.favourites === 0 && favCount[0].classList.contains("isFavourite")){//safe to assume
 					favCount.innerText = data.data.Character.favourites + 1
 				}
 				else{
