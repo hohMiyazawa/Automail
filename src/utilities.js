@@ -913,14 +913,6 @@ if(NOW() - new Date(2021,11,5) > 365*24*60*60*1000){
 	console.log("remind hoh to update the commonUnfinishedManga list")
 }
 
-function uniqueBy(a,key){
-	let seen = new Set();
-	return a.filter(item => {
-		let k = key(item);
-		return seen.has(k) ? false : seen.add(k)
-	})
-}
-
 //idea by GoBusto: https://gitlab.com/gobusto/unicodifier
 function emojiSanitize(string){
 	return Array.from(string).map(char => {
