@@ -539,6 +539,31 @@ query{
 	}
 }
 
+function accessTokenRetractedInfo(){
+	console.warn("Access token retracted.");
+	let box = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Automail");
+	let title = create("h4",false,"Access token retracted",box);
+	let body = create("p",false,`
+The authentication access token you gave automail has been retracted.
+
+This means some modules that require elevated priviledges will not work. Other parts of the script will work fine.
+
+There could be several reasons:
+ - Anilist is experiencing heavy trafic, shutting down connected apps to try staying online.
+ - It has expired.
+ - You clicked "Revoke App" in https://anilist.co/settings/apps
+ - The API or the script glitched.
+
+You can try getting a new token by clicking this link:
+`,box);
+	let link = create("a",false,translate("$terms_signin_link"),box,"font-size: x-large;");
+	link.href = authUrl;
+	link.style.color = "rgb(var(--color-blue))";
+	let note = create("p",false,`
+(If you always want to sign in again when this happens, enable "Warn me when I get signed out from Automail" in the settings. That will cause this dialogue to always pop up when the token is missing)
+`,box);
+}
+
 function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback){//only use this for queries explicitely requiring auth permissions
 	if(!useScripts.accessToken){
 		generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback)
@@ -613,7 +638,7 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 			){
 				useScripts.accessToken = "";
 				useScripts.save();
-				console.log("access token retracted");
+				accessTokenRetractedInfo();
 				return
 			}
 		}
@@ -856,7 +881,7 @@ async function anilistAPI(query, queryArgs){
 				if(data.errors.some(thing => thing.message === "Invalid token")){//status 400
 					useScripts.accessToken = "";
 					useScripts.save();
-					console.warn("Access token retracted.");
+					accessTokenRetractedInfo()
 				}
 			}
 			if(res.status === 429){
