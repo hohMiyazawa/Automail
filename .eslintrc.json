@@ -1,4 +1,5 @@
 {
+    "root": true,
     "env": {
         "browser": true,
         "es2017": true,
@@ -13,6 +14,11 @@
         "no-undef": "off",
         "no-extra-semi": "warn",
         "no-useless-escape": "warn"
+    },
+    "globals": {
+        "DOMPurify": "readonly",
+        "localforage": "readonly",
+        "showdown": "readonly"
     },
     "settings": {
         "polyfills": [
