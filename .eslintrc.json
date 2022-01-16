@@ -13,5 +13,12 @@
         "no-undef": "off",
         "no-extra-semi": "warn",
         "no-useless-escape": "warn"
+    },
+    "settings": {
+        "polyfills": [
+            "String.prototype.includes",
+            "BroadcastChannel",
+            "Array.prototype.flat"
+        ]
     }
 }
