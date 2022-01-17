@@ -27,12 +27,12 @@ function addCompletedScores(){
 				const mediaId = /\/(\d+)\//.exec(status.children[0].href);
 				if(!mediaId || !mediaId.length){
 					return
-				};
+				}
 				scoreInfo.style.display = "none";
 				let callback = function(data){
 					if(!data){
 						return
-					};
+					}
 					data = data.data.MediaList;
 					let scoreSuffix = scoreFormatter(
 						data.score,
@@ -44,7 +44,7 @@ function addCompletedScores(){
 						if(noteContent.hasOwnProperty("message")){
 							noteSuffix += " " + noteContent.message
 						}
-					};
+					}
 					let rewatchSuffix = "";
 					if(data.repeat > 0){
 						if(data.media.type === "ANIME"){
@@ -63,7 +63,7 @@ function addCompletedScores(){
 								rewatchSuffix = " " + translate("$reread_suffix_M",data.repeat)
 							}
 						}
-					};
+					}
 					if(data.score){
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
 						if(
@@ -79,7 +79,7 @@ function addCompletedScores(){
 						else{
 							scoreInfo.appendChild(scoreSuffix);
 							create("span","hohNoteSuffix",noteSuffix,scoreInfo)
-						};
+						}
 						scoreInfo.style.display = "inline"
 					}
 				};
@@ -119,4 +119,4 @@ query($userName: String,$mediaId: Int){
 		}
 	});
 	queryPacker(bigQuery)
-};
+}

@@ -1,21 +1,21 @@
 function addFeedFilters(){
 	if(!location.pathname.match(/^\/home\/?$/)){
 		return
-	};
+	}
 	let filterBox = document.querySelector(".hohFeedFilter");
 	if(filterBox){
 		return
-	};
+	}
 	let activityFeedWrap = document.querySelector(".activity-feed-wrap");
 	if(!activityFeedWrap){
 		setTimeout(addFeedFilters,100);
 		return
-	};
+	}
 	let activityFeed = activityFeedWrap.querySelector(".activity-feed");
 	if(!activityFeed){
 		setTimeout(addFeedFilters,100);
 		return
-	};
+	}
 	let commentFilterBoxInput;
 	let commentFilterBoxLabel;
 	let likeFilterBoxInput;
@@ -27,29 +27,29 @@ function addFeedFilters(){
 	}
 	else{
 		blockList = []
-	};
+	}
 	let postRemover = function(){
 		if(!location.pathname.match(/^\/home\/?$/)){
 			return
-		};
+		}
 		for(var i=0;i<activityFeed.children.length;i++){
 			if(activityFeed.children[i].querySelector(".el-dialog__wrapper")){
 				continue
-			};
+			}
 			let actionLikes = activityFeed.children[i].querySelector(".action.likes .button .count");
 			if(actionLikes){
 				actionLikes = parseInt(actionLikes.innerText)
 			}
 			else{
 				actionLikes = 0
-			};
+			}
 			let actionReplies = activityFeed.children[i].querySelector(".action.replies .count");
 			if(actionReplies){
 				actionReplies = parseInt(actionReplies.innerText)
 			}
 			else{
 				actionReplies = 0
-			};
+			}
 			let blockRequire = true;
 			if(useScripts.blockWord && activityFeed.children[i].classList.contains("activity-text")){
 				try{
@@ -182,7 +182,7 @@ function addFeedFilters(){
 			else{
 				activityFeed.children[i].style.display = "none"
 			}
-		};
+		}
 	};
 	let postTranslator = function(){
 		Array.from(activityFeed.children).forEach(activity => {
@@ -354,7 +354,7 @@ function addFeedFilters(){
 			if(location.pathname.match(/^\/home\/?$/)){
 				postRemover();
 				waiter();
-			};
+			}
 		},5*1000);
 	};waiter();
-};
+}

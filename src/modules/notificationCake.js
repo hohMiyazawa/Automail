@@ -15,12 +15,12 @@ function notificationCake(){
 				Page.notifications.slice(0,User.unreadNotificationCount).forEach(notification => {
 					if(!notification.type){//probably obsolete, remove later
 						notification.type = "THREAD_SUBSCRIBED"
-					};
+					}
 					if(notification.user && !useScripts.notificationColours[notification.type].supress){
 						if(!notification.user || useScripts.softBlock.indexOf(notification.user.name) === -1){
 							names.push((notification.user || {name:""}).name)
 						}
-					};
+					}
 					if(!useScripts.notificationColours[notification.type] || !useScripts.notificationColours[notification.type].supress){
 						if(!notification.user || useScripts.softBlock.indexOf(notification.user.name) === -1){
 							types.push(notification.type)
@@ -67,11 +67,11 @@ function notificationCake(){
 						if(!document.querySelector(".hohNotificationCake")){
 							try{
 								notificationCake();
-							}catch(err){};
+							}catch(err){}
 						}
 						else{
 							setTimeout(poller,4000);
-						};
+						}
 					};poller();
 					if(!document.querySelector(".hohDismiss") && useScripts.dismissDot){
 						let dismisser = create("span","hohDismiss",".",notificationDot.parentNode);
@@ -97,4 +97,4 @@ function notificationCake(){
 
 if(useScripts.accessToken && !useScripts.mobileFriendly){
 	setInterval(notificationCake,4*1000)
-};
+}

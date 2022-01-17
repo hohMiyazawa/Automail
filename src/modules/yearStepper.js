@@ -17,7 +17,7 @@ exportModule({
 			if(!slider){
 				setTimeout(yearStepper,200);
 				return
-			};
+			}
 			const maxYear = parseInt(slider.getAttribute("aria-valuemax"));
 			const minYear = parseInt(slider.getAttribute("aria-valuemin"));
 			const yearRange = maxYear - minYear;
@@ -48,7 +48,7 @@ exportModule({
 			};
 			if(document.querySelector(".hohStepper")){
 				return
-			};
+			}
 			slider.style.position = "relative";
 			let decButton = create("span","hohStepper","<",slider,"left:-27px;font-size:200%;top:0px;");
 			let incButton = create("span","hohStepper",">",slider,"right:-27px;font-size:200%;top:0px;");

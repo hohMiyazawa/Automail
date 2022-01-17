@@ -1,14 +1,14 @@
 function addProgressBar(){
 	if(location.pathname !== "/home"){
 		return
-	};
+	}
 	let mediaCards = document.querySelectorAll(".media-preview-card .content .info:not(.hasMeter) > div");
 	if(!mediaCards.length){
 		setTimeout(function(){
 			addProgressBar()
 		},200);//may take some time to load
 		return
-	};
+	}
 	mediaCards.forEach(card => {
 		const progressInformation = card.innerText.match(/Progress:\ (\d+)\/(\d+)/);
 		if(progressInformation){

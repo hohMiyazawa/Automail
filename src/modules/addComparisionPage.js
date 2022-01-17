@@ -3,7 +3,7 @@ function addComparisionPage(){
 	let URLstuff = document.URL.match(/^https:\/\/anilist\.co\/user\/(.*)\/(anime|manga)list\/compare/);
 	if(!URLstuff){
 		return
-	};
+	}
 	let userA = decodeURIComponent(URLstuff[1]);
 	let type = URLstuff[2];
 	let compareLocation = document.querySelector(".compare");
@@ -15,10 +15,10 @@ function addComparisionPage(){
 			setTimeout(addComparisionPage,200);
 			return
 		}
-	};
+	}
 	if(document.querySelector(".hohCompare")){
 		return
-	};
+	}
 	compareLocation.style.display = "none";
 	let compareArea = create("div","hohCompare",false,compareLocation.parentNode);
 	if(nativeCompareExists){
@@ -40,7 +40,7 @@ function addComparisionPage(){
 			}
 		};
 		compareLocation.parentNode.style.position = "relative"
-	};
+	}
 	let formatFilterLabel = create("span",false,"Filter:",compareArea);
 	formatFilterLabel.style.padding = "5px";
 	let formatFilter = create("select","hohNativeInput",false,compareArea);
@@ -62,7 +62,7 @@ function addComparisionPage(){
 		addOption("MANGA","Manga");
 		addOption("NOVEL","Novel");
 		addOption("ONE_SHOT","One Shot");
-	};
+	}
 	let ratingFilterLabel = create("span",false,translate("$compare_minRatings"),compareArea);
 	ratingFilterLabel.style.padding = "5px";
 	let ratingFilter = create("input","hohNativeInput",false,compareArea,"width:45px;color:rgb(var(--color-text))");
@@ -96,20 +96,20 @@ function addComparisionPage(){
 				}
 				else if(user.demand === -1 && show.score[index] !== 0){
 					return false
-				};
+				}
 				return (!user.status || show.status[index] === user.status);
 			});
 			if(formatFilter.value !== "all"){
 				if(formatFilter.value !== show.format){
 					display = false
 				}
-			};
+			}
 			if(show.numberWatched < ratingFilter.value){
 				display = false;
-			};
+			}
 			if(!display){
 				return
-			};
+			}
 			csvContent += csvEscape(show.title) + "," + show.digest + "," + show.score.join(",") + "\n"
 		});
 		let filename = capitalize(type) + " table";
@@ -260,7 +260,7 @@ function addComparisionPage(){
 				if(!show.averageScore){
 					show.digest = 0;
 					return
-				};
+				}
 				show.digest = averageCalc(show[scoreField]).average - show.averageScore
 			}
 		};
@@ -293,7 +293,7 @@ function addComparisionPage(){
 	let drawTable = function(){
 		while(table.childElementCount > 2){
 			table.lastChild.remove()
-		};
+		}
 		let columnAmounts = [];
 		users.forEach(function(element){
 			columnAmounts.push({sum:0,amount:0})
@@ -305,20 +305,20 @@ function addComparisionPage(){
 				}
 				else if(user.demand === -1 && show.score[index] !== 0){
 					return false
-				};
+				}
 				return (!user.status || show.status[index] === user.status);
 			});
 			if(formatFilter.value !== "all"){
 				if(formatFilter.value !== show.format){
 					display = false
 				}
-			};
+			}
 			if(show.numberWatched < ratingFilter.value){
 				display = false
-			};
+			}
 			if(!display){
 				return
-			};
+			}
 			let row = create("tr","hohAnimeTable");
 			row.onclick = function(){
 				if(this.style.background === "rgb(var(--color-blue),0.5)"){
@@ -351,7 +351,7 @@ function addComparisionPage(){
 					}
 					return false
 				})
-			};
+			}
 			row.appendChild(showID);
 			row.appendChild(showAverage);
 			for(var i=0;i<show.score.length;i++){
@@ -368,7 +368,7 @@ function addComparisionPage(){
 					}
 					else{
 						showUserScore.innerText = show.score[i]
-					};
+					}
 					columnAmounts[i].sum += show.score[i];
 					columnAmounts[i].amount++
 				}
@@ -379,7 +379,7 @@ function addComparisionPage(){
 					else{
 						showUserScore.innerText = "–"//n-dash
 					}
-				};
+				}
 				if(show.status[i] !== "NOT"){
 					if(colourFilter.checked){
 						showUserScore.style.backgroundImage = "linear-gradient(to right,rgb(0,0,0,0)," + distributionColours[show.status[i]] + ")";
@@ -389,15 +389,15 @@ function addComparisionPage(){
 						statusDot.style.background = distributionColours[show.status[i]];
 						statusDot.title = show.status[i].toLowerCase();
 					}
-				};
+				}
 				if(show.progress[i]){
 					create("span","hohStatusProgress",show.progress[i],showUserScore)
-				};
+				}
 				if(show.favourite[i]){
 					let favStar = create("span",false,false,showUserScore,"color:gold;font-size:1rem;vertical-align:middle;padding-bottom:2px;");
 					favStar.appendChild(svgAssets2.star.cloneNode(true))
 				}
-			};
+			}
 			table.appendChild(row);
 		});
 		if(columnAmounts.some(amount => amount.amount > 0)){
@@ -420,22 +420,22 @@ function addComparisionPage(){
 		}
 		if(formatFilter.value !== "all"){
 			params += "&filter=" + encodeURIComponent(formatFilter.value)
-		};
+		}
 		if(ratingFilter.value !== 1){
 			params += "&minRatings=" + encodeURIComponent(ratingFilter.value)
-		};
+		}
 		if(systemFilter.checked){
 			params += "&ratingSystems=true"
-		};
+		}
 		if(normalFilter.checked){
 			params += "&normalizeRatings=true"
-		};
-		if(colourFilter.checked){;
+		}
+		if(colourFilter.checked){
 			params += "&fullColour=true"
-		};
-		if(ratingMode !== "average"){;
+		}
+		if(ratingMode !== "average"){
 			params += "&sort=" + ratingMode
-		};
+		}
 		if(params.length){
 			params = "?" + params.substring(1)
 		}
@@ -479,7 +479,7 @@ function addComparisionPage(){
 		addOption("averageScoreDiff","$Score diff.","Sort by difference between site-wide score and average score of the users in the table");
 		if(["title","titleInverse","user","userInverse"].includes(ratingMode)){
 			digestSelect.value = ratingMode;
-		};
+		}
 		digestSelect.oninput = function(){
 			ratingMode = digestSelect.value;
 			sortShows();
@@ -560,7 +560,7 @@ function addComparisionPage(){
 			else{
 				filter.innerText = "✕";
 				filter.style.color = "red"
-			};
+			}
 			filter.classList.add("hohFilterSort");
 			filter.onclick = function(){
 				if(filter.innerText === "☵"){
@@ -577,7 +577,7 @@ function addComparisionPage(){
 					filter.innerText = "☵";
 					filter.style.color = "";
 					user.demand = 0
-				};
+				}
 				drawTable();
 				changeUserURL()
 			};
@@ -620,7 +620,7 @@ function addComparisionPage(){
 					user.status = stati[stati.indexOf(user.status) + 1];
 					statusFilterDot.style.background = distributionColours[user.status];
 					statusFilterDot.title = user.status.toLowerCase()
-				};
+				}
 				drawTable()
 			};
 			userCel.appendChild(downArrow);
@@ -671,13 +671,13 @@ function addComparisionPage(){
 						alia.scoreNormal = null
 					}
 				})
-			};
+			}
 			shows.sort(function(a,b){return a.id - b.id});
 			let listPointer = 0;
 			let userIndeks = 0;
 			if(shows.length){
 				userIndeks = shows[0].score.length
-			};
+			}
 			let favs = data.data.MediaListCollection.user.favourites.fav.nodes.concat(
 				data.data.MediaListCollection.user.favourites.fav2.nodes
 			).concat(
@@ -731,7 +731,7 @@ function addComparisionPage(){
 					shows[i].status[userIndeks] = list[listPointer].status;
 					if(list[listPointer].scoreRaw){
 						shows[i].numberWatched++
-					};
+					}
 					if(list[listPointer].status !== "PLANNING" && list[listPointer].status !== "COMPLETED"){
 						shows[i].progress[userIndeks] =
 							list[listPointer].progress
@@ -744,7 +744,7 @@ function addComparisionPage(){
 					}
 					else{
 						shows[i].progress[userIndeks] = false
-					};
+					}
 					shows[i].favourite[userIndeks] = favs.includes(shows[i].id);
 					listPointer++
 				}
@@ -752,10 +752,10 @@ function addComparisionPage(){
 					shows.splice(i,0,createEntry(list[listPointer]));
 					listPointer++
 				}
-			};
+			}
 			for(;listPointer < list.length;listPointer++){
 				shows.push(createEntry(list[listPointer]))
-			};
+			}
 			sortShows();
 			drawUsers();
 			drawTable();
@@ -821,7 +821,7 @@ fragment mediaListEntry on MediaList{
 			}
 			listCache[userName] = data;
 			handleData(data,false)
-		};
+		}
 		return
 	};
 	let deleteUser = function(index){
@@ -841,7 +841,7 @@ fragment mediaListEntry on MediaList{
 		}
 		else if(guser > index){
 			guser--
-		};
+		}
 		sortShows();
 		drawUsers();
 		drawTable();
@@ -875,27 +875,27 @@ fragment mediaListEntry on MediaList{
 	let paramFormat = searchParams.get("filter");
 	if(paramFormat){
 		formatFilter.value = paramFormat
-	};
+	}
 	let paramRating = searchParams.get("minRatings");
 	if(paramRating){
 		ratingFilter.value = paramRating
-	};
+	}
 	let paramSystem = searchParams.get("ratingSystems");
 	if(paramSystem){
 		systemFilter.checked = (paramSystem === "true")
-	};
+	}
 	let normalSystem = searchParams.get("normalizeRatings");
 	if(normalSystem){
 		normalFilter.checked = (normalSystem === "true")
-	};
+	}
 	let paramColour = searchParams.get("fullColour");
 	if(paramColour){
 		colourFilter.checked = (paramColour === "true")
-	};
+	}
 	let paramSort = searchParams.get("sort");
 	if(paramSort){
 		ratingMode = paramSort
-	};
+	}
 	let paramUsers = searchParams.get("users");
 	if(paramUsers){
 		paramUsers.split(",").forEach(user => {

@@ -17,7 +17,7 @@ let tweetLoop = setInterval(function(){
 		).forEach(tweet => {
 			if(tweet.classList.contains("hohEmbedded")){
 				return
-			};
+			}
 			let tweetMatch = tweet.href.match(/^https:\/\/twitter\.com\/(.+?)\/status\/\d+/)
 			if(!tweetMatch || tweet.href !== tweet.innerText){
 				return

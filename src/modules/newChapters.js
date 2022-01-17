@@ -80,7 +80,7 @@ buttonFindChapters.onclick = function(){
 				if(!goodItems.length){
 					loader.innerText = translate("$updates_noNewManga")
 				}
-			};
+			}
 			if(!data){
 				return
 			}
@@ -106,12 +106,12 @@ buttonFindChapters.onclick = function(){
 							bestGuess = guesses[1]
 						}
 					}
-				};
+				}
 				if(commonUnfinishedManga.hasOwnProperty(data.data.MediaList.media.id)){
 					if(bestGuess < commonUnfinishedManga[data.data.MediaList.media.id].chapters){
 						bestGuess = commonUnfinishedManga[data.data.MediaList.media.id].chapters
 					}
-				};
+				}
 				let bestDiff = bestGuess - data.data.MediaList.progress;
 				if(bestDiff > 0 && (bestDiff < 30 || list.length <= 30)){
 					goodItems.push({data:data,bestGuess:bestGuess});
@@ -167,7 +167,7 @@ buttonFindChapters.onclick = function(){
 									guess.innerText = ""
 								}
 							}
-						};
+						}
 						create("a",["link","newTab"],title,listing)
 							.href = "/manga/" + media.id + "/" + safeURL(title) + "/";
 						let chapterClose = create("span","hohDisplayBoxClose",svgAssets.cross,listing);
@@ -195,7 +195,7 @@ buttonFindChapters.onclick = function(){
 										id: media.id,
 										title: title
 									})
-								};
+								}
 								useScripts.save()
 							}
 						}

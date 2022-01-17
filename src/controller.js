@@ -65,13 +65,13 @@ function handleScripts(url,oldUrl){
 		&& useScripts.moreStats
 	){
 		addMoreStats()
-	};
+	}
 	if(/^https:\/\/anilist\.co\/home#access_token/.test(url)){
 		let tokenList = location.hash.split("&").map(a => a.split("="));
 		useScripts.accessToken = tokenList[0][1];
 		useScripts.save();
 		location.replace(location.protocol + "//" + location.hostname + location.pathname);
-	};
+	}
 	if(/^https:\/\/anilist\.co\/home#aniscripts-login/.test(url)){
 		if(useScripts.accessToken){
 			alert("Already authorized. You can rewoke this under 'apps' in your Anilist settings")
@@ -79,17 +79,17 @@ function handleScripts(url,oldUrl){
 		else{
 			location.href = authUrl
 		}
-	};
+	}
 	if(/^https:\/\/anilist\.co\/user/.test(url)){
 		if(useScripts.completedScore || useScripts.droppedScore){//we also want this script to run on user pages
 			addCompletedScores()
-		};
+		}
 		if(useScripts.embedHentai){
 			embedHentai()
-		};
+		}
 		if(useScripts.noImagePolyfill || useScripts.SFWmode){
 			addImageFallback()
-		};
+		}
 		let adder = function(){
 			let banner = document.querySelector(".banner");
 			if(banner && banner.style.backgroundImage !== "url(\"undefined\")"){
@@ -112,10 +112,10 @@ function handleScripts(url,oldUrl){
 		};adder();
 		if(useScripts.milestones){
 			meanScoreBack()
-		};
+		}
 		if(useScripts.profileBackground){
 			profileBackground()
-		};
+		}
 		if(useScripts.customCSS){
 			addCustomCSS()
 		}
@@ -163,7 +163,7 @@ function handleScripts(url,oldUrl){
 			addFollowCount()
 		}
 		addSocialThemeSwitch();
-	};
+	}
 	if(
 		url.match(/^https:\/\/anilist\.co\/.+\/(anime|manga)list\/?(.*)?$/)
 	){
@@ -184,7 +184,7 @@ function handleScripts(url,oldUrl){
 			(document.querySelectorAll(".hohCompareUIfragment") || []).forEach(fragment => fragment.remove());
 			possibleHohCompareRemaining.remove()
 		}
-	};
+	}
 	if(url.match(/^https:\/\/anilist\.co\/search/) && useScripts.CSSverticalNav){
 		let lamaDrama = document.querySelector(".nav .browse-wrap .router-link-exact-active.router-link-active");
 		if(lamaDrama){
@@ -214,13 +214,13 @@ function handleScripts(url,oldUrl){
 		if(useScripts.browseFilters){
 			addBrowseFilters("manga")
 		}
-	};
+	}
 	let mangaAnimeMatch = url.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 	if(mangaAnimeMatch){
 		let adder = function(){
 			if(!document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/?/)){
 				return
-			};
+			}
 			let banner = document.querySelector(".media .banner");
 			if(banner){
 				let bannerLink = create("a","hohDownload","⭳",banner);
@@ -239,22 +239,22 @@ function handleScripts(url,oldUrl){
 		}
 		else if(useScripts.mangaGuess && mangaAnimeMatch[1] === "manga"){
 			mangaGuess(false,parseInt(mangaAnimeMatch[2]))
-		};
+		}
 		if(useScripts.mangaGuess && mangaAnimeMatch[1] === "anime"){
 			mangaGuess(true)
-		};
+		}
 		if(useScripts.MALscore || useScripts.MALserial || useScripts.MALrecs){
 			addMALscore(mangaAnimeMatch[1],mangaAnimeMatch[2])
-		};
+		}
 		if(useScripts.accessToken){
 			addRelationStatusDot(mangaAnimeMatch[2])
-		};
+		}
 		if(useScripts.entryScore && whoAmI){
 			addEntryScore(mangaAnimeMatch[2])
-		};
+		}
 		if(useScripts.SFWmode){
 			cencorMediaPage(mangaAnimeMatch[2])
-		};
+		}
 
 		const urlID = parseInt(mangaAnimeMatch[2]);
 		if(aliases.has(urlID)){
@@ -262,14 +262,14 @@ function handleScripts(url,oldUrl){
 			let newState = "/" + mangaAnimeMatch[1] + "/" + urlID + "/" + safeURL(alias) + "/";
 			if(mangaAnimeMatch[4]){
 				newState += mangaAnimeMatch[4]
-			};
+			}
 			history.replaceState({},"",newState);
 			current = document.URL;
 			let titleReplacer = () => {
 				let mangaAnimeMatch2 = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 				if(!mangaAnimeMatch2 || mangaAnimeMatch[2] !== mangaAnimeMatch2[2]){
 					return
-				};
+				}
 				let mainTitle = document.querySelector("h1");//fragile, just like your heterosexuality
 				if(mainTitle){
 					mainTitle.id = "hohAliasHeading";
@@ -286,7 +286,7 @@ function handleScripts(url,oldUrl){
 				let mangaAnimeMatch2 = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 				if(!mangaAnimeMatch2 || mangaAnimeMatch[2] !== mangaAnimeMatch2[2]){
 					return
-				};
+				}
 				let mainTitle = document.querySelector("h1");
 				if(mainTitle){
 					mainTitle.childNodes[0].textContent = mainTitle.childNodes[0].textContent.trim()
@@ -301,17 +301,17 @@ function handleScripts(url,oldUrl){
 		if(useScripts.socialTab){
 			scoreOverviewFixer()
 		}
-	};
+	}
 	if(url.match(/^https:\/\/anilist\.co\/home\/?$/)){
 		if(useScripts.completedScore || useScripts.droppedScore){
 			addCompletedScores()
-		};
+		}
 		if(useScripts.betterListPreview && whoAmI && useScripts.accessToken && (!useScripts.mobileFriendly)){
 			betterListPreview()
-		};
+		}
 		if(useScripts.progressBar){
 			addProgressBar()
-		};
+		}
 		if(
 			(useScripts.feedCommentFilter && (!useScripts.mobileFriendly))
 			|| localStorage.getItem("blockList")
@@ -320,28 +320,28 @@ function handleScripts(url,oldUrl){
 			|| useScripts.partialLocalisationLanguage !== "English"
 		){
 			addFeedFilters()
-		};
+		}
 		if(useScripts.expandRight){
 			expandRight()
-		};
+		}
 		if(useScripts.embedHentai){
 			embedHentai()
-		};
+		}
 		if(useScripts.hideAWC || useScripts.hideOtherThreads){
 			addForumMediaNoAWC()
 		}
 		else if(useScripts.forumMedia){
 			addForumMediaTitle()
-		};
+		}
 		if(useScripts.noImagePolyfill || useScripts.SFWmode){
 			addImageFallback()
-		};
+		}
 		if(useScripts.hideGlobalFeed){
 			hideGlobalFeed()
-		};
+		}
 		if(useScripts.betterReviewRatings){
 			betterReviewRatings()
-		};
+		}
 		if(useScripts.homeScroll){
 			let homeButton = document.querySelector(".nav .link[href=\"/home\"]");
 			if(homeButton){
@@ -351,29 +351,29 @@ function handleScripts(url,oldUrl){
 					}
 				}
 			}
-		};
+		}
 		linkFixer()
 	}
 	let activityMatch = url.match(/^https:\/\/anilist\.co\/activity\/(\d+)/);
 	if(activityMatch){
 		if(useScripts.completedScore || useScripts.droppedScore){
 			addCompletedScores()
-		};
+		}
 		if(useScripts.activityTimeline){
 			addActivityLinks(activityMatch[1])
-		};
+		}
 		if(useScripts.embedHentai){
 			embedHentai()
-		};
+		}
 		if(useScripts.showMarkdown){
 			showMarkdown(activityMatch[1])
 		}
-	};
+	}
 	if(url.match(/^https:\/\/anilist\.co\/edit/)){//seems to give mixed results. At least it's better than nothing
 		window.onbeforeunload = function(){
 			return "Page refresh has been intercepted to avoid an accidental loss of work"
 		}
-	};
+	}
 	if(useScripts.notifications && useScripts.accessToken && !useScripts.mobileFriendly){
 		notificationCake()
 	}
@@ -382,7 +382,7 @@ function handleScripts(url,oldUrl){
 			document.title = translate("$documentTitle_forum_prefix") + " - " + translate("$forumCategory_" + forumCategory) + " · AniList"
 		}
 	})
-};
+}
 
 let useScriptsDefinitions = m4_include(data/legacyModuleDescriptions.json)
 let current = "";
@@ -391,7 +391,7 @@ let mainLoop = setInterval(() => {
 		let oldURL = current + "";
 		current = document.URL;
 		handleScripts(current,oldURL)
-	};
+	}
 	if(useScripts.expandDescriptions){
 		let expandPossible = document.querySelector(".description-length-toggle");
 		if(expandPossible){

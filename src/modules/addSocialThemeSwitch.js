@@ -2,10 +2,10 @@ function addSocialThemeSwitch(){
 	let URLstuff = location.pathname.match(/^\/user\/(.*)\/social/)
 	if(!URLstuff){
 		return
-	};
+	}
 	if(document.querySelector(".filters .hohThemeSwitch")){
 		return
-	};
+	}
 	let target = document.querySelector(".filters");
 	if(!target){
 		setTimeout(addSocialThemeSwitch,100);

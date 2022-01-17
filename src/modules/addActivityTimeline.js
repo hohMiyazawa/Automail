@@ -2,10 +2,10 @@ async function addActivityTimeline(){
 	const URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w\-]*\/social/);
 	if(!URLstuff){
 		return
-	};
+	}
 	if(document.getElementById("activityTimeline")){
 		return
-	};
+	}
 	if(!whoAmIid){
 		const {data, errors} = await anilistAPI("query($name:String){User(name:$name){id}}", {
 			variables: {name: whoAmI},
@@ -18,12 +18,12 @@ async function addActivityTimeline(){
 		whoAmIid = data.User.id;
 		addActivityTimeline()
 		return
-	};
+	}
 	let followingLocation = document.querySelector(".following");
 	if(!followingLocation){
 		setTimeout(addActivityTimeline,200);
 		return
-	};
+	}
 	const status = document.querySelector(".actions .list .add").innerText;
 	let activityTimeline = create("div","#activityTimeline",false,followingLocation.parentNode);
 	let variables = {
@@ -65,7 +65,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			if(data.data.Page.activities.length){
 				create("h2",false,translate("$timeline_title"),activityTimeline)
 			}
-		};
+		}
 		data.data.Page.activities.forEach(function(activity){
 			let diffTime = activity.createdAt - previousTime;
 			if(previousTime && diffTime > 60*60*24*30*3){//three months
@@ -74,7 +74,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			let activityEntry = create("div","hohTimelineEntry",false,activityTimeline);
 			if(activity.replyCount){
 				activityEntry.style.color = "rgb(var(--color-blue))"
-			};
+			}
 			let activityContext = create("a","newTab",capitalize(activity.status),activityEntry);
 			if(URLstuff[1] === "manga"){
 				if(activity.status === "read chapter" && activity.progress){
@@ -153,7 +153,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 	};
 	if(status !== "Add To List"){
 		lineCaller(query,variables)
-	};
+	}
 	let lookingElse = create("div",false,false,followingLocation.parentNode,"margin-top:30px;");
 	create("div",false,translate("$timeline_search_description"),lookingElse);
 	let lookingElseInput = create("input",false,false,lookingElse);
@@ -172,7 +172,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			if(errors){
 				lookingElseError.innerText = translate("$error_userNotFound");
 				return
-			};
+			}
 			lookingElseError.innerText = "";
 			variables.userId = data.User.id;
 			variables.page = 1;

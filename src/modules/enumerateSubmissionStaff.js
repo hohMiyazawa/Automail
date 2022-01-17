@@ -10,7 +10,7 @@ exportModule({
 	code: function enumerateSubmissionStaff(){
 		if(!location.pathname.match(/^\/edit/)){
 			return
-		};
+		}
 		setTimeout(enumerateSubmissionStaff,500);
 		let staffFound = [];
 		let staffEntries = document.querySelectorAll(".staff-row .col > .image");
@@ -23,7 +23,7 @@ exportModule({
 						create("span","hohEnumerateStaff",1),
 						firstStaff
 					)
-				};
+				}
 			}
 			if(enumerate > 0){
 				if(staff.previousSibling){
@@ -35,7 +35,7 @@ exportModule({
 						staff
 					)
 				}
-			};
+			}
 			staffFound.push(staff.href);
 		})
 	}

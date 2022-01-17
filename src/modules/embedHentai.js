@@ -1,10 +1,10 @@
 function embedHentai(){
 	if(!document.URL.match(/^https:\/\/anilist\.co\/(home|user|forum|activity)/)){
 		return
-	};
+	}
 	if(useScripts.SFWmode){//saved you there
 		return
-	};
+	}
 	setTimeout(embedHentai,1000);
 	let mediaEmbeds = document.querySelectorAll(".media-embed");
 	let bigQuery = [];//collects all on a page first so we only have to send 1 API query.
@@ -14,7 +14,7 @@ function embedHentai(){
 			let createEmbed = function(data){
 				if(!data){
 					return
-				};
+				}
 				embed.innerText = "";
 				let eContainer = create("div",false,false,embed);
 				let eEmbed = create("div","embed",false,eContainer);
@@ -65,7 +65,7 @@ function embedHentai(){
 				callback: createEmbed,
 				cacheKey: "hohMedia" + embed.dataset.mediaId
 			})
-		};
+		}
 	});
 	queryPacker(bigQuery);
 }

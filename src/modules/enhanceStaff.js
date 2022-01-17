@@ -4,7 +4,7 @@ function enhanceStaff(){
 	}
 	if(document.querySelector(".hohFavCount")){
 		return
-	};
+	}
 	const variables = {id: document.URL.match(/\/staff\/(\d+)\/?/)[1]};
 	const query = "query($id: Int!){Staff(id: $id){favourites}}";
 	let favCallback = function(data){

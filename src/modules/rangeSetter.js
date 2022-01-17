@@ -40,7 +40,7 @@ if(useScripts.rangeSetter && useScripts.accessToken){
 			let realInput = inputPlace.querySelector("input");
 			if(!realInput){
 				return
-			};
+			}
 			let seriesID = null;//we need to gather this quickly!
 			let possibleDirectMatch = document.URL.match(/\/(anime|manga)\/(\d+)/);
 			if(possibleDirectMatch){

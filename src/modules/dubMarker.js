@@ -24,7 +24,7 @@ query($id: Int!, $type: MediaType, $page: Int = 1, $language: StaffLanguage){
 	let dubCallback = function(data){
 		if(!document.URL.match(/^https:\/\/anilist\.co\/anime\/.*/)){
 			return
-		};
+		}
 		let dubNoticeLocation = document.querySelector(".sidebar");
 		if(!dubNoticeLocation){
 			setTimeout(function(){

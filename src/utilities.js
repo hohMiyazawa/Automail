@@ -43,16 +43,16 @@ function create(
 				element.setAttribute("target","_blank")
 			}
 		}
-	};
+	}
 	if(text || text === 0){
 		element.innerText = text
-	};
+	}
 	if(appendLocation && appendLocation.appendChild){
 		appendLocation.appendChild(element)
-	};
+	}
 	if(cssText){
 		element.style.cssText = cssText
-	};
+	}
 	return element
 }
 
@@ -148,16 +148,16 @@ function formatTime(diff,type){
 	if(!Math.floor(significantValue)){
 		if(type === "short"){
 			return magRound(diff) + translate("$time_short_second")
-		};
+		}
 		if(magRound(diff) === 1){
 			return magRound(diff) + " " + translate("$time_medium_second")
-		};
+		}
 		return magRound(diff) + " " + translate("$time_medium_Msecond");
 	}
 	if(Math.floor(significantValue) > 1){
 		if(type === "short"){
 			return magRound(significantValue) + times[timeIndex].short
-		};
+		}
 		return magRound(significantValue) + " " + times[timeIndex].Mmedium;
 	}
 	if(magRound(reminder) > 1){
@@ -245,7 +245,7 @@ function nativeTimeElement(timestamp){//time in seconds
 					}
 				}
 			}
-		};
+		}
 		setTimeout(function(){
 			if(!document.body.contains(elem)){
 				return
@@ -436,7 +436,7 @@ const removeGroupedDuplicates = function(
 ){//both functions optional
 	if(!uniquenessFunction){
 		uniquenessFunction = e => e
-	};
+	}
 	list = list.sort(
 		(a,b) => uniquenessFunction(a) - uniquenessFunction(b)
 	);
@@ -635,7 +635,7 @@ function convertScore(score,format){
 	else if(format === "POINT_5"){
 		if(score === 0){
 			return 0
-		};
+		}
 		return score*20 - 10
 	}
 }
@@ -726,7 +726,7 @@ let makeHtml = function(markdown){
 function returnList(list,skipProcessing){
 	if(!list){
 		return null
-	};
+	}
 	let retl = [];
 	list.data.MediaListCollection.lists.forEach(mediaList => {
 		mediaList.entries.forEach(entry => {
@@ -737,14 +737,14 @@ function returnList(list,skipProcessing){
 				}
 				else{
 					entry.listLocations = []
-				};
+				}
 				entry.scoreRaw = Math.min(entry.scoreRaw,100);
 				if(!entry.media.episodes && entry.media.nextAiringEpisode){
 					entry.media.episodes = entry.media.nextAiringEpisode.episode - 1
 				}
 				if(entry.notes){
 					entry.listJSON = parseListJSON(entry.notes)
-				};
+				}
 				if(entry.media.a){
 					entry.media.staff = removeGroupedDuplicates(
 						entry.media.a.nodes.concat(
@@ -761,7 +761,7 @@ function returnList(list,skipProcessing){
 				if(entry.status === "REPEATING" && entry.repeat === 0){
 					entry.repeat = 1
 				}
-			};
+			}
 			retl.push(entry);
 		})
 	})
@@ -775,7 +775,7 @@ function returnList(list,skipProcessing){
 			}
 		}
 	)
-};
+}
 
 m4_include(utilities/parseListJSON.js)
 
@@ -786,7 +786,7 @@ function formatCompat(compatData,targetLocation,name){
 	}
 	else if(compatData.difference > 1.1){
 		differenceSpan.style.color = "red"
-	};
+	}
 	targetLocation.innerText = "";
 	targetLocation.appendChild(differenceSpan);
 	let countSpan = create("span",false," based on " + compatData.shared + " shared entries. Lower is better. 0.8 - 1.1 is common\nFormally, this is 'standard deviation between normalized ratings'",targetLocation);
@@ -856,11 +856,11 @@ function compatCheck(list,name,type,callback){
 			if(list2[indeks2].mediaId > list[indeks1].mediaId){
 				indeks1++;
 				continue
-			};
+			}
 			if(list2[indeks2].mediaId < list[indeks1].mediaId){
 				indeks2++;
 				continue
-			};
+			}
 			if(list2[indeks2].mediaId === list[indeks1].mediaId){
 				list3.push({
 					mediaId: list[indeks1].mediaId,
@@ -870,7 +870,7 @@ function compatCheck(list,name,type,callback){
 				indeks1++;
 				indeks2++
 			}
-		};
+		}
 		let average1 = 0;
 		let average2 = 0;
 		list3.forEach(item => {

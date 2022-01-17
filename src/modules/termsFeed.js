@@ -25,7 +25,7 @@ let page = 1;
 let searchParams = new URLSearchParams(location.search);
 if(searchParams.get("page")){
 	page = parseInt(searchParams.get("page"))
-};
+}
 let date = searchParams.get("date");
 let pageLocation = document.querySelector(".container");
 pageLocation.parentNode.style.background = "rgb(39,44,56)";
@@ -45,7 +45,7 @@ if(!useScripts.accessToken){
 	loginURL.href = authUrl;
 	loginURL.style.color = "rgb(61,180,242)";
 	return
-};
+}
 document.title = "Anilist Feed";
 let browseSettings = create("div",false,false,terms,"margin-top:10px;");
 let onlyGlobal = createCheckbox(browseSettings);
@@ -312,7 +312,7 @@ let viewSingleActivity = function(id){
 			likeWrap.style.cursor = "pointer";
 			if(activity.likes.some(like => like.name === whoAmI)){
 				likeWrap.classList.add("hohILikeThis")
-			};
+			}
 			likeify(activity.likes,likeQuickView);
 			likeWrap.onclick = function(){
 				authAPIcall(
@@ -332,7 +332,7 @@ let viewSingleActivity = function(id){
 				else{
 					activity.likes.push({name: whoAmI});
 					likeCount.innerText = activity.likes.length
-				};
+				}
 				likeWrap.classList.toggle("hohILikeThis");
 				likeWrap.title = activity.likes.map(a => a.name).join("\n");
 				likeify(activity.likes,likeQuickView);
@@ -384,7 +384,7 @@ let viewSingleActivity = function(id){
 							likeWrap.style.cursor = "pointer";
 							if(reply.likes.some(like => like.name === whoAmI)){
 								likeWrap.classList.add("hohILikeThis");
-							};
+							}
 							likeify(reply.likes,likeQuickView);
 							likeWrap.onclick = function(){
 								authAPIcall(
@@ -399,12 +399,12 @@ let viewSingleActivity = function(id){
 									}
 									else{
 										likeCount.innerText = reply.likes.length;
-									};
+									}
 								}
 								else{
 									reply.likes.push({name: whoAmI});
 									likeCount.innerText = reply.likes.length;
-								};
+								}
 								likeWrap.classList.toggle("hohILikeThis");
 								likeWrap.title = reply.likes.map(a => a.name).join("\n");
 								likeify(reply.likes,likeQuickView);
@@ -561,7 +561,7 @@ let viewSingleActivity = function(id){
 						}
 						else{
 							document.body.scrollTop = document.documentElement.scrollTop = 0
-						};
+						}
 						if(activity.type === "MESSAGE"){
 							authAPIcall(
 								`query($id: Int){
@@ -616,7 +616,7 @@ let viewSingleActivity = function(id){
 				status = create("span",false," " + activity.status + " ",content);
 				if(activity.progress){
 					status.innerText += " " + activity.progress + " of "
-				};
+				}
 				if(activity.media.type === "MANGA"){
 					if(activity.status === "read chapter" && activity.progress){
 						status.innerText = " " + translate("$listActivity_MreadChapter",activity.progress)
@@ -675,14 +675,14 @@ let viewSingleActivity = function(id){
 				}
 				else if(useScripts.titleLanguage === "ENGLISH" && activity.media.title.english){
 					title = activity.media.title.english
-				};
+				}
 				dataMedia.add(title);
 				title = titlePicker(activity.media);
 				let media = create("a",["link","newTab"],title,content);
 				media.href = "/" + activity.media.type.toLowerCase() + "/" + activity.media.id + "/" + safeURL(title) + "/";
 				if(activity.media.type === "MANGA" && useScripts.CSSgreenManga){
 					media.style.color = "rgb(var(--color-green))"
-				};
+				}
 				act.classList.add("list");
 				actions.style.right = "21px";
 				actions.style.top = "2px";
@@ -721,7 +721,7 @@ let viewSingleActivity = function(id){
 						act.style.borderLeftColor = distributionColours[status]
 					}
 				}
-			};
+			}
 			let link = create("a",["link","newTab"],false,act,"position:absolute;top:2px;right:4px;width:10px;");
 			link.appendChild(svgAssets2.link.cloneNode(true));
 			link.href = "https://anilist.co/activity/" + activity.id + "/"
@@ -947,7 +947,7 @@ let buildPage = function(activities,type,requestTime){
 	}
 	else{
 		topPrevious.innerText = translate("$button_previous")
-	};
+	}
 	removeChildren(feedContent)
 	activities.forEach(activity => {
 		if(type === "thread" && useScripts.hideAWC && (activity.user === "AnimeWatchingClub" || activity.user === "AWC")){
@@ -984,11 +984,11 @@ let buildPage = function(activities,type,requestTime){
 		let likeQuickView = create("div","hohLikeQuickView",false,heart);
 		if(type === "review"){
 			heart.innerText = activity.rating + "/" + activity.ratingAmount
-		};
+		}
 		likeWrap.style.cursor = "pointer";
 		if(activity.likes.some(like => like.name === whoAmI)){
 			likeWrap.classList.add("hohILikeThis")
-		};
+		}
 		likeify(activity.likes,likeQuickView);
 		likeWrap.onclick = function(){
 			if(type === "review"){
@@ -1011,7 +1011,7 @@ let buildPage = function(activities,type,requestTime){
 			else{
 				activity.likes.push({name: whoAmI});
 				likeCount.innerText = activity.likes.length
-			};
+			}
 			likeWrap.classList.toggle("hohILikeThis");
 			likeWrap.title = activity.likes.map(a => a.name).join("\n");
 			likeify(activity.likes,likeQuickView);
@@ -1066,7 +1066,7 @@ let buildPage = function(activities,type,requestTime){
 						likeWrap.style.cursor = "pointer";
 						if(reply.likes.some(like => like.name === whoAmI)){
 							likeWrap.classList.add("hohILikeThis");
-						};
+						}
 						likeify(reply.likes,likeQuickView);
 						likeWrap.onclick = function(){
 							authAPIcall(
@@ -1081,12 +1081,12 @@ let buildPage = function(activities,type,requestTime){
 								}
 								else{
 									likeCount.innerText = reply.likes.length;
-								};
+								}
 							}
 							else{
 								reply.likes.push({name: whoAmI});
 								likeCount.innerText = reply.likes.length;
-							};
+							}
 							likeWrap.classList.toggle("hohILikeThis");
 							likeWrap.title = reply.likes.map(a => a.name).join("\n");
 							likeify(reply.likes,likeQuickView);
@@ -1244,7 +1244,7 @@ let buildPage = function(activities,type,requestTime){
 					}
 					else{
 						document.body.scrollTop = document.documentElement.scrollTop = 0
-					};
+					}
 					if(activity.type === "MESSAGE"){
 						authAPIcall(
 							`query($id: Int){
@@ -1299,7 +1299,7 @@ let buildPage = function(activities,type,requestTime){
 			status = create("span",false," " + activity.status + " ",content);
 			if(activity.progress){
 				status.innerText += " " + activity.progress + " of "
-			};
+			}
 			if(activity.media.type === "MANGA"){
 				if(activity.status === "read chapter" && activity.progress){
 					status.innerText = " " + translate("$listActivity_MreadChapter",activity.progress)
@@ -1358,14 +1358,14 @@ let buildPage = function(activities,type,requestTime){
 			}
 			else if(useScripts.titleLanguage === "ENGLISH" && activity.media.title.english){
 				title = activity.media.title.english
-			};
+			}
 			dataMedia.add(title);
 			title = titlePicker(activity.media);
 			let media = create("a",["link","newTab"],title,content);
 			media.href = "/" + activity.media.type.toLowerCase() + "/" + activity.media.id + "/" + safeURL(title) + "/";
 			if(activity.media.type === "MANGA" && useScripts.CSSgreenManga){
 				media.style.color = "rgb(var(--color-green))"
-			};
+			}
 			act.classList.add("list");
 			actions.style.right = "21px";
 			actions.style.top = "2px";
@@ -1404,7 +1404,7 @@ let buildPage = function(activities,type,requestTime){
 					act.style.borderLeftColor = distributionColours[status]
 				}
 			}
-		};
+		}
 		let link = create("a",["link","newTab"],false,act,"position:absolute;top:2px;right:4px;width:10px;");
 		link.appendChild(svgAssets2.link.cloneNode(true));
 		if(type === "thread"){
@@ -1441,7 +1441,7 @@ let buildPage = function(activities,type,requestTime){
 	}
 	else{
 		document.body.scrollTop = document.documentElement.scrollTop = 0
-	};
+	}
 	removeChildren(dataUsersList)
 	dataUsers.forEach(user => {
 		create("option",false,false,dataUsersList)
@@ -1462,7 +1462,7 @@ let requestPage = function(npage,userID){
 	}
 	if(onlyStatus.checked){
 		types.push("ANIME_LIST","MANGA_LIST")
-	};
+	}
 	let specificUser = onlyUserInput.value || whoAmI;
 	if(onlyUser.checked && !userID){
 		generalAPIcall("query($name:String){User(name:$name){id}}",{name: specificUser},function(data){
@@ -1478,7 +1478,7 @@ let requestPage = function(npage,userID){
 			}
 		},"hohIDlookup" + specificUser.toLowerCase());
 		return;
-	};
+	}
 	let requestTime = NOW();
 	if(onlyForum.checked){
 		authAPIcall(
@@ -1987,7 +1987,7 @@ let buildPreview = function(data){
 		plusProgress.onclick = function(e){
 			if(isBlocked){
 				return
-			};
+			}
 			if(mediaList.media.episodes){
 				if(mediaList.progress < mediaList.media.episodes){
 					mediaList.progress++;
@@ -2023,7 +2023,7 @@ let buildPreview = function(data){
 								},
 								data => {}
 							)
-						};
+						}
 						mediaEntry.style.backgroundColor = "rgba(0,200,0,0.1)"
 					}
 					else{
@@ -2053,7 +2053,7 @@ let buildPreview = function(data){
 					data => {}
 				);
 				localStorage.setItem("hohListPreview",JSON.stringify(data))
-			};
+			}
 			e.stopPropagation();
 			e.preventDefault();
 			return false

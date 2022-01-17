@@ -19,17 +19,17 @@ In these tables, you can click the rows to see the individual works contributing
 function addMoreStats(){
 	if(!document.URL.match(/\/stats\/?/)){
 		return
-	};
+	}
 	if(document.querySelector(".hohStatsTrigger")){
 		return
-	};
+	}
 	let filterGroup = document.querySelector(".filter-wrap");
 	if(!filterGroup){
 		setTimeout(function(){
 			addMoreStats()
 		},200);//takes some time to load
 		return;
-	};
+	}
 	let hohStats;
 	let hohGenres;
 	let regularFilterHeading;
@@ -129,7 +129,7 @@ function addMoreStats(){
 						}
 						customTags.get(tagMatch).list.push(item)
 					})
-				};
+				}
 				media.media.tags.forEach(mediaTag => {
 					if(regularTags.has(mediaTag.name)){
 						regularTags.get(mediaTag.name).list.push(item)
@@ -145,7 +145,7 @@ function addMoreStats(){
 				}
 				else if(useScripts.negativeCustomList){
 					customLists.get("Not on custom list").list.push(item)
-				};
+				}
 				if(useScripts.globalCustomList){
 					customLists.get("All media").list.push(item)
 				}
@@ -191,10 +191,10 @@ function addMoreStats(){
 			}
 			if(!customLists.get("Not on custom list").list.length){
 				customLists.delete("Not on custom list")
-			};
+			}
 			if(!customLists.get("All media").list.length){
 				customLists.delete("All media")
-			};
+			}
 			return [...customTags, ...regularTags, ...customLists].map(
 				pair => pair[1]
 			).map(tag => {
@@ -204,7 +204,7 @@ function addMoreStats(){
 					if(item.score !== 0){
 						amountCount++;
 						average += item.score;
-					};
+					}
 					fields.forEach(field => {
 						if(field.sumable){
 							tag[field.key] = field.sumable(tag[field.key],item[field.key]);
@@ -242,7 +242,7 @@ function addMoreStats(){
 					if(item.score){
 						tag.amountCount++;
 						tag.average += item.score;
-					};
+					}
 					fields.forEach(field => {
 						if(field.sumable){
 							tag[field.key] = field.sumable(tag[field.key],item[field.key])
@@ -269,7 +269,7 @@ function addMoreStats(){
 			formatter.headings.forEach(function(heading){
 				if(!hasScores && heading === "Mean Score"){
 					return
-				};
+				}
 				let columnTitle = create("div",false,heading,headerRow);
 				if((heading === "Tag" || heading === translate("$stats_tag")) && !isTag && formatter.isMixed){
 					columnTitle.innerText = translate("$stats_genre")
@@ -277,7 +277,7 @@ function addMoreStats(){
 				if(formatter.focus === indexAccumulator){
 					columnTitle.innerText += " ";
 					columnTitle.appendChild(svgAssets2.angleDown.cloneNode(true))
-				};
+				}
 				columnTitle.index = +indexAccumulator;
 				columnTitle.addEventListener("click",function(){
 					formatter.focus = this.index;
@@ -291,7 +291,7 @@ function addMoreStats(){
 				formatter.celData.forEach((celData,index) => {
 					if(index === 2 && !hasScores){
 						return
-					};
+					}
 					celData(
 						create("div",false,false,row),
 						data,i,true,isTag
@@ -331,7 +331,7 @@ function addMoreStats(){
 				});
 				showList.style.display = "none";
 				tableContent.insertBefore(showList,row.nextSibling);
-			};
+			}
 			tableLocation.appendChild(header);
 			tableLocation.appendChild(tableContent);
 			if(autoHide){
@@ -354,15 +354,15 @@ function addMoreStats(){
 								localStorage.setItem("regularTags" + formatter.title,JSON.stringify(regularTags));
 								break
 							}
-						};
+						}
 						this.parentNode.remove();
 					})
-				};
+				}
 				regularTagsSettingAdd.addEventListener("click",function(){
 					let newTagName = this.previousSibling.value;
 					if(!newTagName){
 						return
-					};
+					}
 					newTagName = capitalize(newTagName);
 					regularTags.push(newTagName);
 					let tag = create("span","hohRegularTag");
@@ -401,7 +401,7 @@ function addMoreStats(){
 					tableContent.style.display = "none";
 					regularTagsSetting.style.display = "none";
 				}
-			};
+			}
 		};
 		let semaPhoreAnime = false;//I have no idea what "semaphore" means in software
 		let semaPhoreManga = false;//but it sounds cool so this is a semaphore
@@ -409,7 +409,7 @@ function addMoreStats(){
 		let nativeTagsReplacer = function(){
 			if(useScripts.replaceNativeTags === false || semaPhoreAnime === false || semaPhoreManga === false){
 				return
-			};
+			}
 			const mixedFields = [
 				{
 					key : "name",
@@ -589,7 +589,7 @@ function addMoreStats(){
 			let listOfTags = regularTagsCollection(collectedMedia,mixedFields,media => media.media.tags);
 			if(!document.URL.match(/\/stats/)){
 				return
-			};
+			}
 			let drawer = function(){
 				if(regularFilterHeading.children.length === 0){
 					let filterWrap = create("div",false,false,regularFilterHeading);
@@ -831,7 +831,7 @@ function addMoreStats(){
 						data => formatCompat(data,compatLocation,user)
 					)
 				};
-			};
+			}
 			let addStat = function(text,value,comment){//value,value,html
 				let newStat = create("p","hohStat",false,personalStats);
 				create("span",false,text,newStat);
@@ -900,7 +900,7 @@ function addMoreStats(){
 				if(item.listJSON && item.listJSON.adjustValue){
 					item.episodes = Math.max(0,item.episodes + item.listJSON.adjustValue);
 					entryDuration = Math.max(0,entryDuration + item.listJSON.adjustValue*(item.media.duration || 1));
-				};
+				}
 				item.watchedDuration = entryDuration;
 				sumDuration += entryDuration;
 				if(entryDuration > longestDuration.time){
@@ -923,7 +923,7 @@ function addMoreStats(){
 				else{
 					runLength = 1;
 					previouScore = item.scoreRaw
-				};
+				}
 				sumWeight += (item.media.duration || 1) * (item.media.episodes || 0);
 				sumEntriesWeight += item.scoreRaw*(item.media.duration || 1) * (item.media.episodes || 0);
 				histogram[item.scoreRaw - 1]++
@@ -992,7 +992,7 @@ function addMoreStats(){
 					else{
 						addStat(translate("$stats_mostCommonScore"),"",translate("$stats_instances_unique"))
 					}
-				};
+				}
 //longest activity
 				let singleText = translate("$stats_longestTime",[(100*longestDuration.time/sumDuration).roundPlaces(2),longestDuration.name]) + ". ";
 				if(longestDuration.rewatch === 0){
@@ -1051,13 +1051,13 @@ function addMoreStats(){
 							singleText += translate("$stats_longest_MrewatchDropped",longestDuration.rewatch)
 						}
 					}
-				};
+				}
 				addStat(
 					translate("$stats_timeWatched"),
 					(sumDuration/(60*24)).roundPlaces(2),
 					" " + translate("$time_medium_Mday") + " (" + singleText + ")"
 				)
-			};
+			}
 			let TVepisodes = 0;
 			let TVepisodesLeft = 0;
 			list.filter(show => show.media.format === "TV").forEach(function(show){
@@ -1071,7 +1071,7 @@ function addMoreStats(){
 			addStat(translate("$stats_TVEpisodesRemaining"),TVepisodesLeft);
 			if(oldest){
 				create("p",false,translate("$stats_firstLoggedAnime") + [oldest.year, oldest.month, oldest.day].filter(TRUTHY).join("-") + ". " + translate("$stats_firstLoggedAnime_note"),personalStats)
-			};
+			}
 			let animeFormatter = {
 				title: "Custom Anime Tags",
 				display: !useScripts.hideCustomTags,
@@ -1256,7 +1256,7 @@ function addMoreStats(){
 			if(customTags.length){
 				let customTagsAnimeTable = create("div","#customTagsAnimeTable",false,personalStats);
 				drawTable(customTags,animeFormatter,customTagsAnimeTable,true,true)
-			};
+			}
 
 			if(onlyStats){
 				return
@@ -1291,11 +1291,11 @@ function addMoreStats(){
 								id: staff.id,
 								name: staff.name
 							}
-						};
+						}
 						if(media.watchedDuration){
 							staffMap[staff.id].watchedDuration += media.watchedDuration;
 							staffMap[staff.id].count++
-						};
+						}
 						if(media.scoreRaw){
 							staffMap[staff.id].scoreSum += media.scoreRaw;
 							staffMap[staff.id].scoreCount++
@@ -1313,13 +1313,13 @@ function addMoreStats(){
 				);
 				if(staffList.length > 300){
 					staffList = staffList.filter(obj => obj.count >= 3)
-				};
+				}
 				if(staffList.length > 300){
 					staffList = staffList.filter(obj => obj.count >= 5)
-				};
+				}
 				if(staffList.length > 300){
 					staffList = staffList.filter(obj => obj.count >= 10)
-				};
+				}
 				let hasScores = staffList.some(a => a.scoreCount);
 				let drawStaffList = function(){
 					removeChildren(animeStaff)
@@ -1445,11 +1445,11 @@ function addMoreStats(){
 					if(anime.watchedDuration){
 						studioMap[studio.name].watchedDuration += anime.watchedDuration;
 						studioMap[studio.name].count++
-					};
+					}
 					if(anime.scoreRaw){
 						studioMap[studio.name].scoreSum += anime.scoreRaw;
 						studioMap[studio.name].scoreCount++
-					};
+					}
 					let title = anime.media.title.romaji;
 					if(anime.status !== "PLANNING"){
 						if(useScripts.titleLanguage === "NATIVE" && anime.media.title.native){
@@ -1501,7 +1501,7 @@ function addMoreStats(){
 					studioLink.href = "/studio/" + studio.id;
 					if(!studio.isAnimationStudio){
 						studioLink.style.color = "rgb(var(--color-green))"
-					};
+					}
 					let nameCellStatus = create("span","hohSummableStatusContainer",false,nameCel);
 					semmanticStatusOrder.forEach(status => {
 						let statCount = studio.media.filter(media => media.status === status).length;
@@ -1718,7 +1718,7 @@ function addMoreStats(){
 						}
 					)
 				}
-			};
+			}
 			let addStat = function(text,value,comment){//value,value,html
 				let newStat = create("p","hohStat",false,personalStatsManga);
 				create("span",false,text,newStat);
@@ -1742,7 +1742,7 @@ function addMoreStats(){
 			let unfinishedLookup = function(mediaId,mode,mediaStatus,mediaProgress){//wow, this is a mess. But it works
 				if(mediaStatus === "FINISHED"){
 					return 0//it may have finished since the list was updated
-				};
+				}
 				if(commonUnfinishedManga.hasOwnProperty(mediaId)){
 					if(mode === "chapters"){
 						return commonUnfinishedManga[mediaId].chapters
@@ -1758,7 +1758,7 @@ function addMoreStats(){
 							//if much behind, assume volumes scale linearly
 							return Math.floor(commonUnfinishedManga[mediaId].volumes * commonUnfinishedManga[mediaId].chapters/mediaProgress)
 						}
-					};
+					}
 					return 0;//fallback
 				}
 				else{
@@ -1791,7 +1791,7 @@ function addMoreStats(){
 						item.progressVolumes,
 						unfinishedLookup(item.mediaId+"","volumesNow",item.media.status,item.progress)
 					)
-				};
+				}
 				if(useScripts.noRewatches && item.repeat){//if they have a reread, they have at least completed it
 					chaptersRead = Math.max(//first round
 						item.media.chapters,
@@ -1821,10 +1821,10 @@ function addMoreStats(){
 						item.progressVolumes,//better than nothing if a volume count is missing
 						unfinishedLookup(item.mediaId+"","volumes",item.media.status)
 					)
-				};
+				}
 				if(item.listJSON && item.listJSON.adjustValue){
 					chaptersRead = Math.max(0,chaptersRead + item.listJSON.adjustValue)
-				};
+				}
 				chapters += chaptersRead;
 				volumes += volumesRead;
 				item.volumesRead = volumesRead;
@@ -1858,7 +1858,7 @@ function addMoreStats(){
 				else{	
 					runLength = 1;
 					previouScore = item.scoreRaw
-				};
+				}
 				sumWeight += item.chaptersRead;
 				sumEntriesWeight += item.scoreRaw * item.chaptersRead;
 				histogram[item.scoreRaw - 1]++
@@ -1869,7 +1869,7 @@ function addMoreStats(){
 			addStat(translate("$stats_totalVolumes"),volumes);
 			if(amount){
 				average = sumEntries/amount
-			};
+			}
 			if(scoreList.length){
 				publicDeviation = Math.sqrt(
 					scoreList.reduce(function(accum,element){
@@ -1932,7 +1932,7 @@ function addMoreStats(){
 						addStat(translate("$stats_mostCommonScore"),"","no two scores alike")
 					}
 				}
-			};
+			}
 //
 			let mangaFormatter = {
 				title: "Custom Manga Tags",
@@ -2083,7 +2083,7 @@ function addMoreStats(){
 			if(customTags.length){
 				let customTagsMangaTable = create("div","#customTagsMangaTable",false,personalStatsManga);
 				drawTable(customTags,mangaFormatter,customTagsMangaTable,true,true)
-			};
+			}
 			let listOfTags = regularTagsCollection(list,mangaFields,media => media.media.tags);
 			if(listOfTags.length > 50){
 				listOfTags = listOfTags.filter(a => a.list.length >= 3)
@@ -2129,7 +2129,7 @@ function addMoreStats(){
 							staffMap[staff.node.id].volumesRead += media.volumesRead;
 							staffMap[staff.node.id].chaptersRead += media.chaptersRead;
 							staffMap[staff.node.id].count++
-						};
+						}
 						if(media.scoreRaw){
 							staffMap[staff.node.id].scoreSum += media.scoreRaw;
 							staffMap[staff.node.id].scoreCount++
@@ -2149,21 +2149,21 @@ function addMoreStats(){
 						|| (obj.count >= 2 && obj.chaptersRead > 100)
 						|| obj.chaptersRead > 200
 					)
-				};
+				}
 				if(staffList.length > 300){
 					staffList = staffList.filter(
 						obj => obj.count >= 5
 						|| (obj.count >= 2 && obj.chaptersRead > 200)
 						|| obj.chaptersRead > 300
 					)
-				};
+				}
 				if(staffList.length > 300){
 					staffList = staffList.filter(
 						obj => obj.count >= 10
 						|| (obj.count >= 2 && obj.chaptersRead > 300)
 						|| obj.chaptersRead > 400
 					)
-				};
+				}
 				let hasScores = staffList.some(a => a.scoreCount);
 				let story_filter;
 				let art_filter;
@@ -2394,7 +2394,7 @@ function addMoreStats(){
 		animeStudios = create("div","#animeStudios",translate("$loading"),statsWrap);
 		hohStats.calculated = false;
 		generateStatPage()
-	};
+	}
 	hohStatsTrigger.onclick = function(){
 		hohStatsTrigger.classList.add("hohActive");
 		hohGenresTrigger.classList.remove("hohActive");
@@ -2403,7 +2403,7 @@ function addMoreStats(){
 		if(otherActive){
 			otherActive.classList.remove("router-link-active");
 			otherActive.classList.remove("router-link-exact-active");
-		};
+		}
 		document.querySelectorAll(".stats-wrap > div").forEach(
 			module => module.style.display = "none"
 		);
@@ -2418,11 +2418,11 @@ function addMoreStats(){
 		if(otherActive){
 			otherActive.classList.remove("router-link-active");
 			otherActive.classList.remove("router-link-exact-active")
-		};
+		}
 		document.querySelectorAll(".stats-wrap > div").forEach(
 			module => module.style.display = "none"
 		);
 		hohStats.style.display = "none";
 		hohGenres.style.display = "initial"
 	}
-};
+}

@@ -17,7 +17,7 @@ const scoreColors = e => {
 		// smiley
 		if(el.dataset.icon === "meh"){
 			el.childNodes[0].setAttribute("fill",`hsl(60, 100%, ${light}%)`)
-		};
+		}
 		return {
 			scoreCount: 0.5,//weight those scores lower because of the precision
 			scoreSum: ({"smile": 85,"meh": 60,"frown": 35}[el.dataset.icon])*0.5
@@ -175,7 +175,7 @@ function enhanceSocialTab(){
 	if(!listOfFollowers.length){
 		setTimeout(enhanceSocialTab,100);
 		return
-	};
+	}
 	MakeStats();
 	let idmap = {};//TODO, rewrite as actual map?
 	listOfFollowers.forEach(function(e,i){
@@ -256,7 +256,7 @@ function enhanceSocialTab(){
 		let statusType = follower.querySelector(".status").innerText.toUpperCase();
 		if(statusType === "WATCHING" || statusType === "READING"){
 			statusType = "CURRENT"
-		};
+		}
 		distribution[statusType]++
 	});
 	if(
@@ -309,7 +309,7 @@ function enhanceSocialTab(){
 				}
 				if(distribution[status] > 999){
 					statusSumDot.style.fontSize = "6px"
-				};
+				}
 				statusSumDot.onclick = function(){
 					if(sortStatus === status){
 						Array.from(root.querySelectorAll(".follow .status")).forEach(item => {
@@ -331,7 +331,7 @@ function enhanceSocialTab(){
 				}
 			}
 		});
-	};
+	}
 	let waiter = function(){
 		setTimeout(function(){
 			if(root.childElementCount !== listOfFollowers.length){

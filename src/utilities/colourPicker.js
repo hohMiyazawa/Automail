@@ -38,10 +38,10 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 			}
 			if(colour.initial){
 				colourStyle.textContent += `:root{${key}:${hexToRgb(colour.initial).join(",")};}`
-			};
+			}
 			if(colour.dark){
 				colourStyle.textContent += `.site-theme-dark{${key}:${hexToRgb(colour.dark).join(",")};}`
-			};
+			}
 			if(colour.contrast){
 				colourStyle.textContent += `.site-theme-contrast{${key}:${hexToRgb(colour.contrast).join(",")};}`
 			}

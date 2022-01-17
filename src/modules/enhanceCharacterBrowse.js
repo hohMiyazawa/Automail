@@ -12,7 +12,7 @@ exportModule({
 			!document.URL.match(/\/search\/characters\/?(favorites)?$/)
 		){
 			return
-		};
+		}
 		const query = `
 query($page: Int!){
 	Page(page: $page,perPage: 20){
@@ -25,14 +25,14 @@ query($page: Int!){
 		let favCallback = function(data,page){
 			if(!document.URL.match(/\/search\/characters\/?(favorites)?$/)){
 				return
-			};
+			}
 			let resultsToTag = document.querySelectorAll(".results.cover .staff-card,.landing-section.characters .staff-card");
 			if(resultsToTag.length < page*data.data.Page.characters.length){
 				setTimeout(function(){
 					favCallback(data,page)
 				},200);//may take some time to load
 				return;
-			};
+			}
 			data = data.data.Page.characters;
 			data.forEach((character,index) => create(
 				"span",

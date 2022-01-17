@@ -8,7 +8,7 @@ function addImageFallback(){
 		cover.parentNode.parentNode.classList.add("hohFallback");
 		if(cover.parentNode.parentNode.querySelector(".hohFallback")){
 			return
-		};
+		}
 		let fallback = create("span","hohFallback",cover.textContent,cover.parentNode.parentNode);
 		if(useScripts.titleLanguage === "ROMAJI"){
 			fallback.textContent = cover.textContent;

@@ -1,7 +1,7 @@
 function expandRight(){
 	if(!location.pathname.match(/^\/home\/?$/)){
 		return
-	};
+	}
 	let possibleFullWidth = document.querySelector(".home.full-width");
 	if(possibleFullWidth){
 		let homeContainer = possibleFullWidth.parentNode;
@@ -9,7 +9,7 @@ function expandRight(){
 		if(!sideBar){
 			setTimeout(expandRight,100);
 			return;
-		};
+		}
 		sideBar = sideBar.nextElementSibling;
 		sideBar.insertBefore(possibleFullWidth,sideBar.firstChild);
 		let setSemantics = function(){
@@ -21,7 +21,7 @@ function expandRight(){
 			}
 			else{
 				setTimeout(setSemantics,200)
-			};
+			}
 		};setSemantics();
 	}
 }

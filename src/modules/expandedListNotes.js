@@ -61,7 +61,7 @@ exportModule({
 									activityContext.href = activity.siteUrl;
 									if(["watched episode","read chapter","rewatched episode","reread chapter"].includes(activity.status)){
 										activityContext.innerText += " " + activity.progress
-									};
+									}
 									create("span",false,
 										" " + (new Date(activity.createdAt*1000)).toDateString(),
 										activityEntry,

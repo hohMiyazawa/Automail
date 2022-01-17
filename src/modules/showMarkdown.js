@@ -9,7 +9,7 @@ function showMarkdown(id){
 	if(!timeContainer){
 		setTimeout(function(){showMarkdown(id)},200);
 		return
-	};
+	}
 	if(!useScripts.accessToken && document.querySelector(".private-badge")){
 		return//can't fetch private messages without privileges
 	}
@@ -32,7 +32,7 @@ function showMarkdown(id){
 				caller("query($id:Int){Activity(id:$id){...on MessageActivity{text:message}...on TextActivity{text}}}",{id:id},function(data){
 					if(!location.pathname.match(id) || !data){
 						return
-					};
+					}
 					markdownSource = create("div",["activity-markdown","hohMarkdownSource"],data.data.Activity.text,activityMarkdown.parentNode);
 				},"hohGetMarkdown" + id,20*1000)
 			}

@@ -1,7 +1,7 @@
 async function addMALscore(type,id){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
 		return
-	};
+	}
 	let MALscore = document.getElementById("hohMALscore");
 	if(MALscore){
 		if(parseInt(MALscore.dataset.id) === id){
@@ -10,7 +10,7 @@ async function addMALscore(type,id){
 		else{
 			MALscore.remove()
 		}
-	};
+	}
 	let MALserial = document.getElementById("hohMALserialization");
 	if(MALserial){
 		if(parseInt(MALserial.dataset.id) === id){
@@ -19,7 +19,7 @@ async function addMALscore(type,id){
 		else{
 			MALserial.remove()
 		}
-	};
+	}
 	let possibleReleaseStatus = Array.from(document.querySelectorAll(".data-set .type"));
 	const MALlocation = possibleReleaseStatus.find(element => element.innerText === "Mean Score");
 	if(MALlocation){

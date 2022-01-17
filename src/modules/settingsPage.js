@@ -44,10 +44,10 @@ exportModule({
 	code: function(){
 		if(location.pathname !== "/settings/apps"){
 			return
-		};
+		}
 		if(document.getElementById("hohSettings")){
 			return
-		};
+		}
 		let targetLocation = document.querySelector(".settings.container .content");
 		let hohSettings = create("div","#hohSettings",false,targetLocation);
 		hohSettings.classList.add("all");
@@ -80,7 +80,7 @@ exportModule({
 				else{
 					if(activeCategory !== ""){
 						categories.querySelector(".hohCategory.active").classList.remove("active")
-					};
+					}
 					catBox.classList.add("active");
 					hohSettings.classList.add(category.replace(" ",""));
 					activeCategory = category
@@ -96,7 +96,7 @@ exportModule({
 			let setting = create("p","hohSetting",false,scriptSettings);
 			if(def.visible === false){
 				setting.style.display = "none"
-			};
+			}
 			if(def.hasOwnProperty("type")){//other kinds of input
 				let input;
 				if(def.type === "select"){
@@ -172,7 +172,7 @@ exportModule({
 						moreStyle.textContent += def.css
 					}
 				}
-			};
+			}
 			if(def.categories){
 				def.categories.forEach(
 					category => {
@@ -184,7 +184,7 @@ exportModule({
 						}
 					}
 				)
-			};
+			}
 			create("span",false,translate(def.description),setting);
 			if(def.extendedDescription){
 				let infoButton = create("span","hohInfoButton",infoChar,setting);
@@ -223,9 +223,9 @@ exportModule({
 					let cssMatches = content.match(cssAlias);
 					if(cssMatches){
 						newAliases.push([cssMatches[1],cssMatches[2]])
-					};
+					}
 					return
-				};
+				}
 				newAliases.push([matches[1],matches[3]]);
 			});
 			localStorage.setItem("titleAliases",JSON.stringify(newAliases))
@@ -294,7 +294,7 @@ exportModule({
 		}
 		else{
 			blockList = []
-		};
+		}
 		let blockSettings = create("div");
 		let blockInstructions = create("p",false,false,blockSettings);
 		blockInstructions.innerText = `
@@ -344,7 +344,7 @@ Changes take effect on reload.`;
 		let blockVisual = create("div",false,false,blockSettings);
 		let drawBlockList = function(){
 			removeChildren(blockVisual)
-			blockList.forEach(function(blockItem,index){;
+			blockList.forEach(function(blockItem,index){
 					let item = create("div","hohBlock",false,blockVisual);
 					let cross = create("span","hohBlockCross",svgAssets.cross,item);
 					cross.onclick = function(){
@@ -440,7 +440,7 @@ Changes take effect on reload.`;
 				)
 			};
 			hohSettings.appendChild(create("hr"));
-		};
+		}
 		if(useScripts.customCSS && useScripts.accessToken){
 			let backgroundSettings = create("div",false,false,hohSettings);
 			create("p",false,translate("$settings_CSSadd"),backgroundSettings);
@@ -500,7 +500,7 @@ Changes take effect on reload.`;
 				}
 			};
 			hohSettings.appendChild(create("hr"))
-		};
+		}
 		if(useScripts.customCSS && useScripts.accessToken){
 			let pinSettings = create("div",false,false,hohSettings);
 			create("p",false,translate("$settings_pinnedActivity"),pinSettings);

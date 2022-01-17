@@ -6,7 +6,7 @@ function moreImports(){
 	if(!target){
 		setTimeout(moreImports,200);
 		return;
-	};
+	}
 	create("hr","hohSeparator",false,target,"margin-bottom:40px;");
 	let apAnime = create("div",["section","hohImport"],false,target);
 	create("h2",false,"Anime-Planet: Import Anime List",apAnime);
@@ -166,7 +166,7 @@ function moreImports(){
 			data.entries.forEach(function(entry,index){
 				if(entry.status === "won't watch"){
 					return
-				};
+				}
 				if(apAnthologies[entry.name]){
 					let already = myFastMappings.findIndex(function(mapping){
 						return mapping.id === apAnthologies[entry.name]
@@ -338,7 +338,7 @@ function moreImports(){
 							if(data.data.Viewer.name !== whoAmI){
 								alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
 								return;
-							};
+							}
 							let list = returnList(data,true).map(a => a.mediaId);
 							shows = shows.filter(show => {
 								if(!show.toImport){
@@ -359,7 +359,7 @@ function moreImports(){
 							if(!shows.length){
 								resultsStatus.innerText = "No entries imported. All the entries already exist in your AniList account."
 								return;
-							};
+							}
 							let importSuccess = 0
 							let mutater = function(show,index){
 								if(index + 1 < shows.length){
@@ -408,8 +408,8 @@ function moreImports(){
 										else{
 											score = 3
 										}
-									};
-								};
+									}
+								}
 								let progress = 0;
 								let progressVolumes = 0;
 								let repeat = 0;
@@ -786,7 +786,7 @@ function moreImports(){
 						if(data2.data.Viewer.name !== whoAmI){
 							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the script again to fix this.");
 							return
-						};
+						}
 						let existing = new Set(data2.data.MediaListCollection.lists.map(list => list.entries).flat().map(entry => entry.mediaId));
 						let dataList = returnList({data: data},true);
 						let already = dataList.filter(entry => existing.has(entry.mediaId)).length;
@@ -941,7 +941,7 @@ function moreImports(){
 						if(dataAnime.data.Viewer.name !== whoAmI){
 							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
 							return;
-						};
+						}
 						let listAnime = new Set(returnList(dataAnime,true).map(a => a.mediaId));
 						resultsStatusGDPR.innerText = "Loading manga list...";
 						authAPIcall(

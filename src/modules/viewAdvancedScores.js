@@ -18,7 +18,7 @@ function viewAdvancedScores(url){
 			)
 		){
 			return
-		};
+		}
 		generalAPIcall(
 			`query($name:String!,$listType:MediaType){
 				MediaListCollection(userName:$name,type:$listType){
@@ -33,7 +33,7 @@ function viewAdvancedScores(url){
 				let finder = function(){
 					if(!document.URL.match(/^https:\/\/anilist\.co\/user\/(.+)\/(anime|manga)list\/?/)){
 						return
-					};
+					}
 					document.querySelectorAll(
 						".list-entries .entry .title > a:not(.hohAdvanced)"
 					).forEach(function(entry){
@@ -58,4 +58,4 @@ function viewAdvancedScores(url){
 			}
 		)
 	})
-};
+}

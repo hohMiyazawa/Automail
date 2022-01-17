@@ -23,7 +23,7 @@ This module will add extra options in that dropdown.
 				if(!selector){
 					setTimeout(optionsAdder,500);
 					return
-				};
+				}
 				if(useScripts.customDefaultListOrder){
 					selector.value = useScripts.customDefaultListOrder
 				}
@@ -95,7 +95,7 @@ This module will add extra options in that dropdown.
 									){
 										element.classList.add("selected")
 										element.classList.add("hohSelected")
-									};
+									}
 									element.onclick = function(){
 										if(option.native){
 											nativeOrder = option.name;
@@ -108,7 +108,7 @@ This module will add extra options in that dropdown.
 											useScripts.customDefaultListOrder = option.name;
 											selector.value = useScripts.customDefaultListOrder;
 											useScripts.save()
-										};
+										}
 										let badSelected = ul.querySelector(".hohSelected");
 										badSelected.classList.remove("selected");
 										badSelected.classList.remove("hohSelected");
@@ -142,7 +142,7 @@ This module will add extra options in that dropdown.
 				if(!selector){
 					setTimeout(optionsAdder,200);
 					return
-				};
+				}
 				if(selector.classList.contains("hohCustomSelected")){
 					return
 				}

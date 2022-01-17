@@ -2,10 +2,10 @@ function addStudioBrowseSwitch(){
 	let URLstuff = location.pathname.match(/^\/studio\//)
 	if(!URLstuff){
 		return
-	};
+	}
 	if(document.querySelector(".studio-page-unscoped .hohThemeSwitch")){
 		return
-	};
+	}
 	let target = document.querySelector(".studio-page-unscoped");
 	if(!target){
 		setTimeout(addStudioBrowseSwitch,100);

@@ -61,7 +61,7 @@ exportModule({
 			if(!place){
 				setTimeout(function(){speedAdder(data)},200);
 				return;
-			};
+			}
 			let activityContainer = create("div",false,false,place.parentNode);
 			create("h3","heading","Current Activity",activityContainer);
 			create("p",false,Math.round((3600*199/(data.data.act1.activities[0].createdAt - data.data.act2.activities[data.data.act2.activities.length - 1].createdAt))) + " activities/hour",activityContainer);

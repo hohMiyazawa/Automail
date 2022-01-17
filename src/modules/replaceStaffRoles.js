@@ -12,7 +12,7 @@ let selfcaller = function(){
 let URLstuff = location.pathname.match(/^\/staff\/(\d+)\/?.*/);
 if(!URLstuff){
 	return
-};
+}
 let possibleGarbage = document.getElementById("hoh-media-roles");
 if(possibleGarbage){
 	if(possibleGarbage.dataset.staffId === URLstuff[1]){
@@ -25,13 +25,13 @@ if(possibleGarbage){
 			possibleFilterBar.remove()
 		}
 	}
-};
+}
 let insertParent = document.querySelector(".media-roles");
 let insertParentCharacters = document.querySelector(".character-roles");
 if(!insertParent && !insertParentCharacters){
 	setTimeout(selfcaller	,200);
 	return;
-};
+}
 insertParentCharacters.classList.add("hohSubstitute");
 let substitution = false;
 if(!insertParent){
@@ -40,7 +40,7 @@ if(!insertParent){
 }
 else{
 	insertParent.classList.add("substitution")
-};
+}
 insertParent.parentNode.classList.add("substitution");
 let hohCharacterRolesBox = create("div","#hoh-character-roles");
 let hohCharacterRolesHeader = create("h4",false,translate("$staff_voiceRoles"),hohCharacterRolesBox);
@@ -171,7 +171,7 @@ const mangaValueFunction = function(manga){
 			manga.myStatus.progressVolumes
 		);
 		volumesRead += manga.myStatus.progressVolumes;
-	};
+	}
 	if(useScripts.noRewatches && (manga.myStatus.repeat || 0)){//if they have a reread, they have at least completed it
 		chaptersRead = Math.max(//first round
 			manga.chapters,
@@ -197,7 +197,7 @@ const mangaValueFunction = function(manga){
 			manga.volumes,
 			manga.myStatus.progressVolumes
 		)
-	};
+	}
 	if(manga.listJSON && manga.listJSON.adjustValue){
 		chaptersRead = Math.max(0,chaptersRead + manga.listJSON.adjustValue)
 	}
@@ -209,7 +209,7 @@ const mangaValueFunction = function(manga){
 let listRenderer = function(){
 	if(!initPerformed){
 		UIinit()
-	};
+	}
 	useScripts.staffRoleOrder = sortSelect.value;
 	useScripts.save();
 	if(sortSelect.value === "alphabetical"){
@@ -433,7 +433,7 @@ let listRenderer = function(){
 			if(media.myStatus.status === "CURRENT"){
 				statusDot.title += " (" + media.myStatus.progress + ")"
 			}
-		};
+		}
 		return roleCard;
 	};
 	let sumDuration = 0;
@@ -691,15 +691,15 @@ let listRenderer = function(){
 		if(sumDuration){
 			create("span",false,translate("$staff_hoursWatched"),digestStats);
 			create("span",false,(sumDuration/60).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))")
-		};
+		}
 		if(sumChapters){
 			create("span",false,translate("$staff_chaptersRead"),digestStats);
 			create("span",false,sumChapters,digestStats,"color:rgb(var(--color-blue))")
-		};
+		}
 		if(sumVolumes){
 			create("span",false,translate("$staff_volumesRead"),digestStats);
 			create("span",false,sumVolumes,digestStats,"color:rgb(var(--color-blue))")
-		};
+		}
 		if(amountAnime + amountManga){
 			create("span",false,translate("$staff_meanScore"),digestStats);
 			let averageNode = create("span",false,((sumScoresAnime + sumScoresManga)/(amountAnime + amountManga)).roundPlaces(1),digestStats,"color:rgb(var(--color-blue))");
@@ -709,7 +709,7 @@ let listRenderer = function(){
 			if(sumScoresAnime && sumScoresManga){
 				averageNode.title = "Anime: " + (sumScoresAnime/amountAnime).roundPlaces(1) + "\nManga: " + (sumScoresManga/amountManga).roundPlaces(1);
 			}
-		};
+		}
 		let statusList = create("span","#statusList",false,digestStats,"position: absolute;top: -2px;margin-left: 20px;width: 300px;");
 		semmanticStatusOrder.forEach(status => {
 			if(distribution[status]){
@@ -763,7 +763,7 @@ let animeHandler = function(data){
 				animeHandler
 			)
 		}
-	};
+	}
 	data.data.Staff.staffMedia.edges.forEach(edge => {
 		let anime = {
 			role: [edge.staffRole],
@@ -822,7 +822,7 @@ let mangaHandler = function(data){
 				mangaHandler
 			)
 		}
-	};
+	}
 	data.data.Staff.staffMedia.edges.forEach(edge => {
 		let manga = {
 			role: [edge.staffRole],
@@ -880,7 +880,7 @@ let voiceHandler = function(data){
 				voiceHandler
 			)
 		}
-	};
+	}
 	data.data.Staff.characters.edges.forEach(edge => {
 		edge.role = capitalize(edge.role.toLowerCase());
 		let character = {
@@ -892,7 +892,7 @@ let voiceHandler = function(data){
 		}
 		else{
 			character.name = (edge.node.name.first || "") + " " + (edge.node.name.last || "")
-		};
+		}
 		autocomplete.add(edge.role);
 		let parts = edge.role.trim().match(/^(.*?)(\s+\(.*\))?$/);
 		let t_role = translate("$role_" + parts[1]);

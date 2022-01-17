@@ -45,7 +45,7 @@ function meanScoreBack(){
 						possibleStatsWrap[0].children[1].remove();
 						possibleStatsWrap[0].parentNode.querySelector(".milestone:nth-child(2)").innerText = translate("$milestones_daysWatched",totalDays);
 						possibleStatsWrap[0].parentNode.classList.add("hohMilestones")
-					};
+					}
 					if(data.data.User.statistics.manga.meanScore){
 						let statManga = create("div","stat",false,possibleStatsWrap[1]);
 						create("div","value",data.data.User.statistics.manga.volumesRead,statManga);

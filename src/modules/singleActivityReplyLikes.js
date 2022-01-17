@@ -15,21 +15,21 @@ exportModule({
 			}
 			if(!document.URL.includes("activity/" + id || !data)){
 				return
-			};
+			}
 			let post = document.querySelector(".activity-entry > .wrap > .actions .action.likes");
 			if(!post){
 				setTimeout(function(){adder(data)},200);
 				return
-			};
+			}
 			post.classList.add("hohLoadedLikes");
 			post.classList.add("hohHandledLike");
 			if(post.querySelector(".count") && !(parseInt(post.querySelector(".count").innerText) <= 5)){
 				post.title = data.data.Activity.likes.map(like => like.name).join("\n")
-			};
+			}
 			let smallAdder = function(){
 				if(!document.URL.includes("activity/" + id)){
 					return
-				};
+				}
 				let actionLikes = document.querySelectorAll(".activity-replies .action.likes");
 				if(!actionLikes.length){
 					setTimeout(smallAdder,200);

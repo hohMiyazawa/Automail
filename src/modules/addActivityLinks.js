@@ -6,7 +6,7 @@ function addActivityLinks(activityID){
 		let adder = function(link){
 			if(!location.pathname.includes("/activity/" + activityID)){
 				return;
-			};
+			}
 			let activityLocation = document.querySelector(".activity-entry");
 			if(activityLocation){
 				activityLocation.appendChild(link);
@@ -104,7 +104,7 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 		}
 		else{//unknown new types of activities
 			return;
-		};
+		}
 		if(data.previous){
 			if(data.previous !== "FIRST"){
 				let link = create("a","hohPostLink","←",false,"left:-25px;");
@@ -165,7 +165,7 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 				pdata.previous = document.URL;
 				sessionStorage.setItem("hohActivity" + pdata.data.Activity.id,JSON.stringify(pdata));
 			});
-		};
+		}
 		sessionStorage.setItem("hohActivity" + activityID,JSON.stringify(data));
 	}
 	let possibleCache = sessionStorage.getItem("hohActivity" + activityID);

@@ -1,7 +1,7 @@
 function enhanceStaffBrowse(){
 	if(!document.URL.match(/\/search\/staff\/?(favorites)?$/)){
 		return
-	};
+	}
 	const query = `
 query($page: Int!){
 	Page(page: $page,perPage: 30){
@@ -29,14 +29,14 @@ query($page: Int!){
 	let favCallback = function(data,page){
 		if(!document.URL.match(/\/search\/staff\/?(favorites)?$/)){
 			return
-		};
+		}
 		let resultsToTag = document.querySelectorAll(".results.cover .staff-card,.landing-section.staff .staff-card");
 		if(resultsToTag.length < page*data.data.Page.staff.length){
 			setTimeout(function(){
 				favCallback(data,page)
 			},200);//may take some time to load
 			return
-		};
+		}
 		data = data.data.Page.staff;
 		data.forEach(function(staff,index){
 			create("span","hohFavCountBrowse",staff.favourites,resultsToTag[(page - 1)*data.length + index]).title = "Favourites";
@@ -64,4 +64,4 @@ query($page: Int!){
 		generalAPIcall(query,{page:page+1},data => favCallback(data,page+1))
 	};
 	generalAPIcall(query,{page:1},data => favCallback(data,1))
-};
+}

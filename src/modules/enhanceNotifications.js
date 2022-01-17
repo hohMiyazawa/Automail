@@ -33,7 +33,7 @@ function enhanceNotifications(forceFlag){
 	},300);
 	if(displayMode === "native"){
 		return
-	};
+	}
 	if(document.getElementById("hohNotifications") && !forceFlag){
 		return
 	}
@@ -108,14 +108,14 @@ function enhanceNotifications(forceFlag){
 settings > apps.
 
 You can also turn off this notice there.`,setting)
-			};
+			}
 			regularNotifications.onclick = function(){
 				if(displayMode === "hoh"){
 					displayMode = "native";
 					let hohNotsToToggle = document.getElementById("hohNotifications");
 					if(hohNotsToToggle){
 						hohNotsToToggle.style.display = "none"
-					};
+					}
 					Array.from(
 						document.getElementsByClassName("notification")
 					).forEach(elem => {
@@ -129,7 +129,7 @@ You can also turn off this notice there.`,setting)
 					let hohNotsToToggle = document.getElementById("hohNotifications");
 					if(hohNotsToToggle){
 						hohNotsToToggle.style.display = "block"
-					};
+					}
 					Array.from(
 						document.getElementsByClassName("notification")
 					).forEach(elem => {
@@ -148,7 +148,7 @@ You can also turn off this notice there.`,setting)
 				console.warn("Unexpected Anilist UI. Is Automail up to date?")
 			}
 		}
-	};
+	}
 	let commentCallback = function(data){
 		let listOfComments = Array.from(document.getElementsByClassName("b" + data.data.Activity.id));
 		listOfComments.forEach(function(comment){
@@ -162,7 +162,7 @@ You can also turn off this notice there.`,setting)
 				let quickComName = create("span","hohQuickComName",reply.user.name,quickCom);
 				if(reply.user.name === whoAmI){
 					quickComName.classList.add("hohThisIsMe")
-				};
+				}
 				let quickComContent = create("span","hohQuickComContent",false,quickCom);
 				quickComContent.innerHTML = DOMPurify.sanitize(reply.text) //reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				let quickComLikes = create("span","hohQuickComLikes","♥",quickCom);
@@ -205,7 +205,7 @@ You can also turn off this notice there.`,setting)
 							reply.likes.push({name: whoAmI});
 							quickComLikes.classList.add("hohILikeThis");
 							quickComLikes.innerText = reply.likes.length + "♥"
-						};
+						}
 						quickComLikes.title = reply.likes.map(a => a.name).join("\n")
 					}
 				}
@@ -273,7 +273,7 @@ You can also turn off this notice there.`,setting)
 		let newContainer = document.getElementById("hohNotifications")
 		if(newContainer){
 			newContainer.remove()
-		};
+		}
 		newContainer = create("div","#hohNotifications");
 		let notificationsContainer = document.querySelector(".notifications");
 		if(!notificationsContainer){
@@ -289,7 +289,7 @@ You can also turn off this notice there.`,setting)
 		for(let i=0;i<activities.length;i++){
 			if(useScripts.hideLikes && (activities[i].type === "likeReply" || activities[i].type === "like")){
 				continue
-			};
+			}
 			let newNotification = create("div");
 			newNotification.onclick = function(){
 				this.classList.remove("hohUnread");
@@ -308,7 +308,7 @@ You can also turn off this notice there.`,setting)
 			};
 			if(activities[i].unread){
 				newNotification.classList.add("hohUnread")
-			};
+			}
 			newNotification.classList.add("hohNotification");
 			let notImage = create("a","hohUserImage"); //container for profile images
 			notImage.href = activities[i].href;
@@ -334,7 +334,7 @@ You can also turn off this notice there.`,setting)
 					if(possibleDirect){
 						cheapReload(notNotImage,{name: "Activity", params: {id: parseInt(possibleDirect[1])}});
 					}
-				};
+				}
 				text.href = activities[i].directLink;
 				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
 				if(possibleDirect){
@@ -343,7 +343,7 @@ You can also turn off this notice there.`,setting)
 				textSpan.innerText = translate("$notification_likeActivity_1person_1activity");
 				if(counter > 1){
 					textSpan.innerText = translate("$notification_likeActivity_1person_Mactivity")
-				};
+				}
 				if(counter === 1){
 					while(
 						i + counter < activities.length
@@ -365,7 +365,7 @@ You can also turn off this notice there.`,setting)
 							if(counter % 2 === 1){
 								miniImage.style.top = miniImageWidth/2 + "px"
 							}
-						};
+						}
 						counter++;
 					}
 					if(counter === 2){
@@ -381,7 +381,7 @@ You can also turn off this notice there.`,setting)
 				}
 				else{
 					newNotification.classList.add("hohCombined")
-				};
+				}
 				textName.innerText = activities[i].textName;
 				text.appendChild(textName);
 				text.appendChild(textSpan);
@@ -414,7 +414,7 @@ You can also turn off this notice there.`,setting)
 					}
 					if(activities[i].textName !== activities[i + counter].textName){
 						samePerson = false
-					};
+					}
 					counter++
 				}
 				textSpan.innerText = translate("$notification_reply_1person_1reply");
@@ -436,7 +436,7 @@ You can also turn off this notice there.`,setting)
 						activities[i].textName += " +" + (counter-1);
 						textSpan.innerText = translate("$notification_reply_Mperson_1reply")
 					}
-				};
+				}
 				text.href = activities[i].directLink;
 				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
 				if(possibleDirect){
@@ -495,7 +495,7 @@ You can also turn off this notice there.`,setting)
 						text.style.marginTop = "45px";
 						activities[i].textName += " +" + (counter-1)
 					}
-				};
+				}
 				text.href = activities[i].directLink;
 				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
 				if(possibleDirect){
@@ -559,7 +559,7 @@ You can also turn off this notice there.`,setting)
 						activities[i].textName += " +" + (counter-1);
 						textSpan.innerText = translate("$notification_likeReply_Mperson_1reply")
 					}
-				};
+				}
 				text.href = activities[i].directLink;
 				let possibleDirect = activities[i].directLink.match(/activity\/(\d+)/);
 				if(possibleDirect){
@@ -675,7 +675,7 @@ You can also turn off this notice there.`,setting)
 				textSpan.classList.add("hohUnhandledSpecial");
 				textSpan.innerHTML = DOMPurify.sanitize(activities[i].text);//reason for innerHTML: preparsed sanitized HTML from the Anilist API
 				text.appendChild(textSpan)
-			};
+			}
 			newNotification.appendChild(notImage);
 			newNotification.appendChild(text);
 			newNotification.appendChild(notNotImageContainer);
@@ -714,7 +714,7 @@ You can also turn off this notice there.`,setting)
 	else{
 		prevLength = notifications.length;
 		forceRebuildFlag = false
-	};
+	}
 	const activityTypes = {
 		" liked your activity." :                           "like",
 		" replied to your activity." :                      "reply",
@@ -768,7 +768,7 @@ You can also turn off this notice there.`,setting)
 			let linkMatch =     info.href.match(/activity\/(\d+)/);
 			if(linkMatch){
 				active.link = linkMatch[1]
-			};
+			}
 			let testType = info.children[0].textContent;
 			active.type = activityTypes[testType];
 			if(!active.type){
@@ -823,7 +823,7 @@ You can also turn off this notice there.`,setting)
 					active.text = info.innerHTML;//does not depend on user input
 				}
 			}
-		};
+		}
 		if(
 			notification.querySelector("time")
 		){
@@ -831,7 +831,7 @@ You can also turn off this notice there.`,setting)
 		}
 		else{
 			active.time = null
-		};
+		}
 		activities.push(active)
 	});
 	notificationDrawer(activities);
@@ -839,7 +839,7 @@ You can also turn off this notice there.`,setting)
 	for(let i=0;APIcallsUsed < (APIlimit - 5);i++){//heavy
 		if(!activities.length || i >= activities.length){//loading is difficult to predict. There may be nothing there when this runs
 			break
-		};
+		}
 		let imageCallBack = function(data){
 			if(!data){
 				return
@@ -862,7 +862,7 @@ You can also turn off this notice there.`,setting)
 					stuff.classList.add("hohBackgroundUserCover");
 					stuff.parentNode.style.background = "none"
 				})
-			};
+			}
 			if(data.data.Activity.replies.length){
 				if(!alreadyRenderedComments.has(data.data.Activity.id)){
 					alreadyRenderedComments.add(data.data.Activity.id);
