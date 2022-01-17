@@ -10,7 +10,7 @@ function addProgressBar(){
 		return
 	}
 	mediaCards.forEach(card => {
-		const progressInformation = card.innerText.match(/Progress:\ (\d+)\/(\d+)/);
+		const progressInformation = card.innerText.match(/Progress: (\d+)\/(\d+)/);
 		if(progressInformation){
 			let pBar = create("meter");
 			pBar.value = progressInformation[1];
@@ -20,7 +20,7 @@ function addProgressBar(){
 			card.parentNode.parentNode.parentNode.querySelector(".plus-progress").onclick = function(){
 				pBar.value++;
 				setTimeout(function(){
-					pBar.value = card.innerText.match(/Progress:\ (\d+)\/(\d+)/)[1]
+					pBar.value = card.innerText.match(/Progress: (\d+)\/(\d+)/)[1]
 				},1000)
 			}
 		}

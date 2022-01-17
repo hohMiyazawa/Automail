@@ -205,7 +205,7 @@ class Videos {
   }
 }
 
-let currentpath = location.pathname.match(/(anime|manga)\/([0-9]+)\/[^\/]*\/?(.*)/)
+let currentpath = location.pathname.match(/(anime|manga)\/([0-9]+)\/[^/]*\/?(.*)/)
 if(currentpath[1] === "anime") {
 	let currentid = currentpath[2];
 	let location = currentpath[3];

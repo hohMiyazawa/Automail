@@ -1,6 +1,6 @@
 function addCompletedScores(){
 	//also for dropped, if in the settings
-	if(! /^\/(home|user|activity)\/?([\w\-]+)?\/?$/.test(location.pathname)){
+	if(! /^\/(home|user|activity)\/?([\w-]+)?\/?$/.test(location.pathname)){
 		return
 	}
 	setTimeout(addCompletedScores,1000);

@@ -118,7 +118,7 @@ function addMoreStats(){
 						customTags.get(tagMatch).list.push(item)
 					});
 					(//candidates for multi word tags, which we try to detect even if they are not allowed
-						media.notes.match(/(#\S+\ [^#]\S+)/g) || []
+						media.notes.match(/(#\S+ [^#]\S+)/g) || []
 					).filter(
 						tagMatch => !tagMatch.match(/^#039/)
 					).map(

@@ -48,8 +48,8 @@ if(useScripts.rangeSetter && useScripts.accessToken){
 			}
 			else{
 				let secondPosition = inputPlace.parentNode.parentNode.parentNode.querySelector(".cover img");
-				if(secondPosition && secondPosition.src.match(/cover\/.*\/[a-z]?[a-z]?(\d+)\-/)){
-					seriesID = parseInt(secondPosition.src.match(/cover\/.*\/[a-z]?[a-z]?(\d+)\-/)[1]);
+				if(secondPosition && secondPosition.src.match(/cover\/.*\/[a-z]?[a-z]?(\d+)-/)){
+					seriesID = parseInt(secondPosition.src.match(/cover\/.*\/[a-z]?[a-z]?(\d+)-/)[1]);
 				}
 				else{//oh no! pray the query is fast enough
 					let title = inputPlace.parentNode.parentNode.parentNode.querySelector(".title").innerText;

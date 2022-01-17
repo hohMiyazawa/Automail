@@ -71,7 +71,7 @@ async function addForumMediaNoAWC(){
 			else{
 				let mediaTitle = titlePicker(thread.mediaCategories[0]);
 				if(mediaTitle.length > 25){
-					mediaTitle = mediaTitle.replace(/(2nd|Second)\ Season/,"2").replace(/\((\d+)\)/g,(string,year) => year);
+					mediaTitle = mediaTitle.replace(/(2nd|Second) Season/,"2").replace(/\((\d+)\)/g,(string,year) => year);
 					let lastIndex = mediaTitle.slice(0,25).lastIndexOf(" ");
 					if(lastIndex > 20){
 						mediaTitle.slice(0,lastIndex);

@@ -67,7 +67,7 @@ async function addMALscore(type,id){
 					(possibleOverview.querySelector(".hohRecContainer") || {remove: ()=>{}}).remove();
 					let recContainer = create("div",["grid-section-wrap","hohRecContainer"],false,possibleOverview);
 					create("h2",false,"MAL Recommendations",recContainer);
-					let pattern = /class="picSurround"><a href="https:\/\/myanimelist\.net\/(anime|manga)\/(\d+)\/[\s\S]*?detail\-user\-recs\-text.*?">([\s\S]*?)<\/div>/g;
+					let pattern = /class="picSurround"><a href="https:\/\/myanimelist\.net\/(anime|manga)\/(\d+)\/[\s\S]*?detail-user-recs-text.*?">([\s\S]*?)<\/div>/g;
 					let matching = [];
 					let matchingItem;
 					while((matchingItem = pattern.exec(response.responseText)) && matching.length < 5){//single "=" is intended, we are setting the value of each match, not comparing

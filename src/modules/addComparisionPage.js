@@ -899,11 +899,11 @@ fragment mediaListEntry on MediaList{
 	let paramUsers = searchParams.get("users");
 	if(paramUsers){
 		paramUsers.split(",").forEach(user => {
-			let paramDemand = user.match(/(\*|\-)$/);
+			let paramDemand = user.match(/(\*|-)$/);
 			if(paramDemand){
 				paramDemand = paramDemand[0]
 			}
-			user = user.replace(/(\*|\-)$/,"");
+			user = user.replace(/(\*|-)$/,"");
 			if(user === "~"){
 				addUser(whoAmI,paramDemand)
 			}

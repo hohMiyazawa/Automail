@@ -1,6 +1,6 @@
 //rename?
 function meanScoreBack(){
-	const userRegex = /^\/user\/([^\/]+)\/?$/;
+	const userRegex = /^\/user\/([^/]+)\/?$/;
 	let URLstuff = location.pathname.match(userRegex);
 	if(!URLstuff){
 		return

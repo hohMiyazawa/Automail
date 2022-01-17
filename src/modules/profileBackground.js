@@ -2,7 +2,7 @@ function profileBackground(){
 	if(useScripts.SFWmode){//clearly not safe, users can upload anything
 		return
 	}
-	const userRegex = /^\/user\/([^\/]+)(\/.*)?$/;
+	const userRegex = /^\/user\/([^/]+)(\/.*)?$/;
 	let URLstuff = location.pathname.match(userRegex);
 	const query = `
 	query($userName: String) {
