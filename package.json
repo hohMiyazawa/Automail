@@ -1,0 +1,31 @@
+{
+  "name": "automail",
+  "version": "10.0.0",
+  "description": "An enhancement collection for anilist.co",
+  "author": "hoh",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hohMiyazawa/Automail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hohMiyazawa/Automail/issues"
+  },
+  "homepage": "https://github.com/hohMiyazawa/Automail",
+  "scripts": {
+    "lint": "eslint --ignore-pattern \"src/build/automail.js\" \"**/*.js\"",
+    "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" src/build/automail.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-plugin-compat": "^4.0.1"
+  },
+  "browserslist": [
+    "Edge >= 79",
+    "Firefox >= 78",
+    "Chrome >= 64",
+    "Safari >= 12",
+    "Opera >= 51"
+  ]
+}
