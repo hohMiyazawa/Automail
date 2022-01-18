@@ -286,7 +286,7 @@ function addMoreStats(){
 				});
 				indexAccumulator++;
 			});
-			for(var i=0;i<data.length;i++){
+			for(let i=0;i<data.length;i++){
 				let row = create("div","row");
 				formatter.celData.forEach((celData,index) => {
 					if(index === 2 && !hasScores){
@@ -342,13 +342,13 @@ function addMoreStats(){
 				let regularTagsSettingNew = create("input",false,false,regularTagsSetting);
 				let regularTagsSettingAdd = create("button",["hohButton","button"],"+",regularTagsSetting);
 				let regularTags = JSON.parse(localStorage.getItem("regularTags" + formatter.title)) || [];
-				for(var i=0;i<regularTags.length;i++){
+				for(let i=0;i<regularTags.length;i++){
 					let tag = create("span","hohRegularTag",false,regularTagsSettingContent);
 					let tagContent = create("span",false,regularTags[i],tag);
 					let tagCross = create("span","hohCross",svgAssets.cross,tag);
 					tagCross.regularTag = regularTags[i] + "";
 					tagCross.addEventListener("click",function(){
-						for(var j=0;j<regularTags.length;j++){
+						for(let j=0;j<regularTags.length;j++){
 							if(regularTags[j] === this.regularTag){
 								regularTags.splice(j,1);
 								localStorage.setItem("regularTags" + formatter.title,JSON.stringify(regularTags));
@@ -370,7 +370,7 @@ function addMoreStats(){
 					let tagCross = create("span","hohCross",svgAssets.cross,tag);
 					tagCross.regularTag = newTagName + "";
 					tagCross.addEventListener("click",function(){
-						for(var j=0;j<regularTags.length;j++){
+						for(let j=0;j<regularTags.length;j++){
 							if(regularTags[j] === this.regularTag){
 								regularTags.splice(j,1);
 								localStorage.setItem("regularTags" + formatter.title,JSON.stringify(regularTags));
