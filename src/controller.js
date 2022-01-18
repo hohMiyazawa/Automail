@@ -454,7 +454,7 @@ function exportModule(module){
 		extendedDescription: module.extendedDescription,
 		css: module.css
 	});
-	if(!useScripts.hasOwnProperty(module.id)){
+	if(!Object.prototype.hasOwnProperty.call(useScripts, module.id)){
 		useScripts[module.id] = module.isDefault;
 		useScripts.save()
 	}
