@@ -16,7 +16,7 @@ if(!String.prototype.includes){//https://developer.mozilla.org/en-US/docs/Web/Ja
 if(!window.BroadcastChannel){
     var channels = [];
 
-    function BroadcastChannel(channel) {
+    const BroadcastChannel = function(channel) {
         var $this = this;
         channel = String(channel);
 
