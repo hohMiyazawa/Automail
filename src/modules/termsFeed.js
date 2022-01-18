@@ -139,7 +139,7 @@ let likeify = function(likes,likeQuickView){
 		dataUsers.add(like.name)
 	})
 	removeChildren(likeQuickView)
-	if(likes.length === 0){}
+	if(likes.length === 0){ /*do nothing*/ }
 	else if(likes.length === 1){
 		create("span",false,likes[0].name,likeQuickView,`color: hsl(${Math.abs(hashCode(likes[0].name)) % 360},50%,50%)`)
 	}

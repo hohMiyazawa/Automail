@@ -67,7 +67,7 @@ function notificationCake(){
 						if(!document.querySelector(".hohNotificationCake")){
 							try{
 								notificationCake();
-							}catch(err){}
+							}catch(err){ /*do nothing*/ }
 						}
 						else{
 							setTimeout(poller,4000);
