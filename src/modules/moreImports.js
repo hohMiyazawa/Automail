@@ -380,7 +380,7 @@ function moreImports(){
 									missingList.insertBefore(unknownStatus, missingList.firstChild)
 									exportErrors.style.display = "inline"
 									resultsStatus.innerText = index + 1 === shows.length ? `Import completed !\n${importSuccess} of ${shows.length} entries successfully imported.`
-								 		: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
+										: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
 									return;
 								}
 								let score = 0;
@@ -500,7 +500,7 @@ function moreImports(){
 								}
 								importSuccess += 1
 								resultsStatus.innerText = index + 1 === shows.length ? `Import completed !\n${importSuccess} of ${shows.length} entries successfully imported.`
-								 	: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
+									: `Importing : ${index + 1} of ${shows.length} entries. Closing this tab will stop the import.\n${importSuccess} of ${shows.length} entries successfully imported.`
 							};
 							mutater(shows[0],0);
 						})
