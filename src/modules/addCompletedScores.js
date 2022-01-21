@@ -13,9 +13,12 @@ function addCompletedScores(){
 					/^completed/i.test(status.innerText)
 					|| status.childNodes[0].textContent.trim() === "Rewatched"
 					|| status.childNodes[0].textContent.trim() === "Reread"
+					|| status.classList.contains("activityCompleted")
+					|| status.classList.contains("activityRewatched")
+					|| status.classList.contains("activityReread")
 				)
 			)
-			|| (useScripts.droppedScore && /^dropped/i.test(status.innerText))
+			|| (useScripts.droppedScore && (/^dropped/i.test(status.innerText) || status.classList.contains("activityDropped")))
 			|| /^\/activity/.test(location.pathname)
 		){
 			if(!status.hasOwnProperty("hohScoreMatched")){
@@ -63,7 +66,12 @@ function addCompletedScores(){
 					};
 					if(data.score){
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
-						if(/^completed/i.test(status.innerText)){
+						if(
+							/^completed/i.test(status.innerText)
+							|| status.classList.contains("activityCompleted")
+							|| status.classList.contains("activityRewatched")
+							|| status.classList.contains("activityReread")
+						){
 							scoreInfo.appendChild(scoreSuffix);
 							create("span","hohNoteSuffix",noteSuffix,scoreInfo);
 							create("span","hohRewatchSuffix",rewatchSuffix,scoreInfo)
