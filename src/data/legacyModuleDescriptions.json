@@ -165,7 +165,7 @@
 	"categories": ["Media","Feeds"]
 },{"id": "cleanSocial",
 	"description": "$cleanSocial_description",
-	"categories": ["Media"]
+	"categories": ["Media","Forum"]
 },{"id": "limitProgress10",
 	"description": "Limit the 'in progress' sections to 10 entries",
 	"categories": ["Feeds"]
