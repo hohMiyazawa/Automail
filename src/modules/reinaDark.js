@@ -74,6 +74,18 @@ if(useScripts.reinaDark){
 	--color-blue-800: 12, 101, 166;
 	--color-blue-900: 11, 70, 113;
 	--color-blue-1000: 16, 61, 85;
+	--color-gray-1200: 251, 251, 251;
+	--color-gray-1100: 240, 243, 246;
+	--color-gray-1000: 221, 230, 238;
+	--color-gray-900: 201, 215, 227;
+	--color-gray-800: 173, 192, 210;
+	--color-gray-700: 139, 160, 178;
+	--color-gray-600: 116, 136, 153;
+	--color-gray-500: 100, 115, 128;
+	--color-gray-400: 81, 97, 112;
+	--color-gray-300: 30, 42, 56;
+	--color-gray-100: 21, 31, 46;
+	--color-gray-200: 11, 22, 34;
 }
 #nav {
 	background: rgb(20, 25, 31);
