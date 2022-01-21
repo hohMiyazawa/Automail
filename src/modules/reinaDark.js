@@ -176,6 +176,39 @@ if(useScripts.reinaDark){
 .review .banner .date{
 	color: rgba(var(--color-white),.6);
 }
+/* Date Picker */
+.el-picker-panel {
+	border: 1px solid rgb(var(--color-foreground));
+	background-color: rgb(var(--color-foreground-grey-dark));
+	color: rgb(var(--color-text-bright));
+	.el-date-picker__header-label {
+		color: rgb(var(--color-text));
+	}
+	.el-picker-panel__icon-btn,
+	.el-date-table th {
+		color: rgb(var(--color-text-light));
+	}
+	.el-date-table {
+		td.current:not(.disabled) span {
+			background-color: rgb(var(--color-blue-700));
+		}
+		th {
+			border-bottom: 1px solid #60656c;
+			padding: 1px;
+		}
+		td.next-month,
+		td.prev-month {
+			color: #76777a;
+		}
+		tbody tr:nth-of-type(2) td {
+			padding-top: 10px;
+		}
+	}
+	.popper__arrow::after {
+		border-bottom-color: rgb(var(--color-foreground-grey-dark)) !important;
+		border-top-color: rgb(var(--color-foreground-grey-dark)) !important;
+	}
+}
 `
 	if(useScripts.reinaDarkEnable){
 		darkContrastStyle.textContent = style
