@@ -761,14 +761,16 @@ You can also turn off this notice there.`,setting)
 		){
 			//TODO replace this with document.querySelector?
 			const info = notification.children[1].children[0].children[0];
-			active.directLink = info.href
+			if(info.href){
+				active.directLink = info.href
+				let linkMatch =     info.href.match(/activity\/(\d+)/);
+				if(linkMatch){
+					active.link = linkMatch[1]
+				}
+			}
 			active.text =       info.innerHTML;//does not depend on user input
 			active.textName =   (info.childNodes[0] || {textContent: ""}).textContent.trim();
 			active.textSpan =   (info.childNodes[1] || {textContent: ""}).textContent;
-			let linkMatch =     info.href.match(/activity\/(\d+)/);
-			if(linkMatch){
-				active.link = linkMatch[1]
-			}
 			let testType = info.children[0].textContent;
 			active.type = activityTypes[testType];
 			if(!active.type){
