@@ -2,3 +2,6 @@
 /src/utilities/localforage.js
 /src/utilities/showdown.js
 /src/purify.js
+
+# Code fragments
+/src/queries/
