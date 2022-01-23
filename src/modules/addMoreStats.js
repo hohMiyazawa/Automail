@@ -706,7 +706,7 @@ function addMoreStats(){
 						mixedFormatter.anime = input_a.checked;
 						mixedFormatter.manga = input_m.checked;
 						base_media = base_media.filter(mediaEntry => {
-							if(Object.prototype.hasOwnProperty.call(mediaEntry, "progressVolumes")){
+							if(hasOwn(mediaEntry, "progressVolumes")){
 								if(mediaEntry.progress < parseInt(min_c_input.value)){
 									return false
 								}
@@ -781,7 +781,7 @@ function addMoreStats(){
 			data.data.MediaListCollection.lists.forEach(mediaList => {
 				let listSetting = create("p","hohSetting",false,filters);
 				let listSetting_input = createCheckbox(listSetting);
-				if(!Object.prototype.hasOwnProperty.call(filterSettings.lists, mediaList.name) || filterSettings.lists[mediaList.name]){
+				if(!hasOwn(filterSettings.lists, mediaList.name) || filterSettings.lists[mediaList.name]){
 					listSetting_input.checked = true;
 					filterSettings.lists[mediaList.name] = true
 				}
@@ -1743,7 +1743,7 @@ function addMoreStats(){
 				if(mediaStatus === "FINISHED"){
 					return 0//it may have finished since the list was updated
 				}
-				if(Object.prototype.hasOwnProperty.call(commonUnfinishedManga, mediaId)){
+				if(hasOwn(commonUnfinishedManga, mediaId)){
 					if(mode === "chapters"){
 						return commonUnfinishedManga[mediaId].chapters
 					}

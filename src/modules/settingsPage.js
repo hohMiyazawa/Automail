@@ -97,7 +97,7 @@ exportModule({
 			if(def.visible === false){
 				setting.style.display = "none"
 			}
-			if(Object.prototype.hasOwnProperty.call(def, "type")){//other kinds of input
+			if(hasOwn(def, "type")){//other kinds of input
 				let input;
 				if(def.type === "select"){
 					input = create("select",false,false,setting);
@@ -671,7 +671,7 @@ query{
 					alert("error parsing JSON")
 					return
 				}
-				if(!Object.prototype.hasOwnProperty.call(data, "automailAPI")){//sanity check
+				if(!hasOwn(data, "automailAPI")){//sanity check
 					alert("not a settings file")
 					return
 				}

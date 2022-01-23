@@ -98,7 +98,7 @@ query($id: Int){
 					}
 				}
 			}
-			if(Object.prototype.hasOwnProperty.call(commonUnfinishedManga, variables.id)){
+			if(hasOwn(commonUnfinishedManga, variables.id)){
 				if(bestGuess < commonUnfinishedManga[variables.id].chapters){
 					bestGuess = commonUnfinishedManga[variables.id].chapters
 				}

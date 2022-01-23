@@ -21,7 +21,7 @@ function addCompletedScores(){
 			|| (useScripts.droppedScore && (/^dropped/i.test(status.innerText) || status.classList.contains("activityDropped")))
 			|| /^\/activity/.test(location.pathname)
 		){
-			if(!Object.prototype.hasOwnProperty.call(status, "hohScoreMatched")){
+			if(!hasOwn(status, "hohScoreMatched")){
 				status.hohScoreMatched = true;
 				let scoreInfo = create("span","hohFeedScore",false,status);
 				const mediaId = /\/(\d+)\//.exec(status.children[0].href);
@@ -41,7 +41,7 @@ function addCompletedScores(){
 					let noteContent = parseListJSON(data.notes);
 					let noteSuffix = "";
 					if(noteContent){
-						if(Object.prototype.hasOwnProperty.call(noteContent, "message")){
+						if(hasOwn(noteContent, "message")){
 							noteSuffix += " " + noteContent.message
 						}
 					}

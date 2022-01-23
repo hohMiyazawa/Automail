@@ -740,7 +740,7 @@ function moreImports(){
 			catch(e){
 				resultsErrorsAL.innerText = "error parsing JSON";
 			}
-			if(Object.prototype.hasOwnProperty.call(data, "user")){
+			if(hasOwn(data, "user")){
 				resultsErrorsAL.innerText = "This is the Anilist JSON importer, but you uploaded a GDPR JSON file. You either uploaded the wrong file, or ment to use the importer further down the page.";
 				return;
 			}
@@ -901,7 +901,7 @@ function moreImports(){
 				resultsErrorsGDPR.innerText = "error parsing JSON";
 				return
 			}
-			if(Object.prototype.hasOwnProperty.call(data, "User")){
+			if(hasOwn(data, "User")){
 				resultsErrorsAL.innerText = "This is the GDPR JSON importer, but you uploaded a Anilist JSON file. You either uploaded the wrong file, or ment to use the importer further up the page.";
 				return
 			}

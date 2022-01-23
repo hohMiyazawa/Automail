@@ -940,4 +940,14 @@ function cheapReload(linkElement,vueData){
 		}
 	}
 }
+
+/**
+ * Check if a property exists in the given object
+ * @param {object} obj
+ * @param {string} prop
+ * @returns {boolean}
+ */
+function hasOwn(obj, prop){
+	return Object.hasOwn ? Object.hasOwn(obj, prop) : Object.prototype.hasOwnProperty.call(obj, prop)
+}
 //end "utilities.js"

@@ -761,7 +761,7 @@ function addComparisionPage(){
 			drawTable();
 			changeUserURL()
 		};
-		if(Object.prototype.hasOwnProperty.call(listCache, userName)){
+		if(hasOwn(listCache, userName)){
 			handleData(listCache[userName],true)
 		}
 		else{

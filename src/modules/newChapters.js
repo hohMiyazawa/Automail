@@ -107,7 +107,7 @@ buttonFindChapters.onclick = function(){
 						}
 					}
 				}
-				if(Object.prototype.hasOwnProperty.call(commonUnfinishedManga, data.data.MediaList.media.id)){
+				if(hasOwn(commonUnfinishedManga, data.data.MediaList.media.id)){
 					if(bestGuess < commonUnfinishedManga[data.data.MediaList.media.id].chapters){
 						bestGuess = commonUnfinishedManga[data.data.MediaList.media.id].chapters
 					}
