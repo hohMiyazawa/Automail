@@ -1,5 +1,5 @@
 function enhanceSocialTabFeed(){
-	let URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w\-]*\/social/);
+	let URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w-]*\/social/);
 	if(!URLstuff){
 		return
 	}
@@ -7,7 +7,7 @@ function enhanceSocialTabFeed(){
 	if(!feedLocation){
 		setTimeout(enhanceSocialTabFeed,100);
 		return
-	};
+	}
 	let hohFeed = create("div","hohSocialFeed");
 	feedLocation.insertBefore(hohFeed,feedLocation.children[0]);
 	let optionsContainer = create("div",false,false,hohFeed,"position:absolute;top:0px;right:0px;");
@@ -145,7 +145,7 @@ function enhanceSocialTabFeed(){
 								if(act.replies.length){
 									let replyCount = create("span","count",act.replies.length,actionReplies);
 									actionReplies.appendChild(document.createTextNode(" "));
-								};
+								}
 								actionReplies.appendChild(svgAssets2.reply.cloneNode(true));
 							actions.appendChild(document.createTextNode(" "));
 							let actionLikes = create("div",["action","likes"],false,actions);
@@ -157,7 +157,7 @@ function enhanceSocialTabFeed(){
 									likeButton.title = act.likes.map(a => a.name).join("\n");
 									if(act.likes.some(like => like.name === whoAmI)){
 										likeButton.classList.add("liked")
-									};
+									}
 									likeButton.onclick = function(){
 										authAPIcall(
 											"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY){id}}",
@@ -186,7 +186,7 @@ function enhanceSocialTabFeed(){
 											act.likes.push({name: whoAmI});
 											likeButton.classList.add("liked");
 											likeButton.querySelector(".count").innerText = act.likes.length;
-										};
+										}
 										likeButton.title = act.likes.map(a => a.name).join("\n")
 									};
 					let replyWrap = create("div","reply-wrap",false,activityEntry,"display:none;");
@@ -219,7 +219,7 @@ function enhanceSocialTabFeed(){
 											repLikeButton.title = rep.likes.map(a => a.name).join("\n");
 											if(rep.likes.some(like => like.name === whoAmI)){
 												repLikeButton.classList.add("liked")
-											};
+											}
 											repLikeButton.onclick = function(){
 												authAPIcall(
 													"mutation($id:Int){ToggleLike(id:$id,type:ACTIVITY_REPLY){id}}",
@@ -250,7 +250,7 @@ function enhanceSocialTabFeed(){
 													repLikeButton.classList.add("liked");
 													repLikeButton.classList.add("hohILikeThis");
 													repLikeButton.querySelector(".count").innerText = rep.likes.length;
-												};
+												}
 												repLikeButton.title = rep.likes.map(a => a.name).join("\n")
 											};
 									let repActionTime = create("div",["action","time"],false,cornerWrapper,"display: inline-block");
@@ -403,7 +403,7 @@ query($mediaId: Int,$page: Int){
 		}
 	}
 }`;
-			};
+			}
 			buildFeed(1)
 		}
 		else{

@@ -20,12 +20,5 @@
   "devDependencies": {
     "eslint": "^8.6.0",
     "eslint-plugin-compat": "^4.0.1"
-  },
-  "browserslist": [
-    "Edge >= 79",
-    "Firefox >= 78",
-    "Chrome >= 64",
-    "Safari >= 12",
-    "Opera >= 51"
-  ]
+  }
 }

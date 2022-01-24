@@ -1,6 +1,6 @@
 function addCompletedScores(){
 	//also for dropped, if in the settings
-	if(! /^\/(home|user|activity)\/?([\w\-]+)?\/?$/.test(location.pathname)){
+	if(! /^\/(home|user|activity)\/?([\w-]+)?\/?$/.test(location.pathname)){
 		return
 	}
 	setTimeout(addCompletedScores,1000);
@@ -21,18 +21,18 @@ function addCompletedScores(){
 			|| (useScripts.droppedScore && (/^dropped/i.test(status.innerText) || status.classList.contains("activityDropped")))
 			|| /^\/activity/.test(location.pathname)
 		){
-			if(!status.hasOwnProperty("hohScoreMatched")){
+			if(!hasOwn(status, "hohScoreMatched")){
 				status.hohScoreMatched = true;
 				let scoreInfo = create("span","hohFeedScore",false,status);
 				const mediaId = /\/(\d+)\//.exec(status.children[0].href);
 				if(!mediaId || !mediaId.length){
 					return
-				};
+				}
 				scoreInfo.style.display = "none";
 				let callback = function(data){
 					if(!data){
 						return
-					};
+					}
 					data = data.data.MediaList;
 					let scoreSuffix = scoreFormatter(
 						data.score,
@@ -41,10 +41,10 @@ function addCompletedScores(){
 					let noteContent = parseListJSON(data.notes);
 					let noteSuffix = "";
 					if(noteContent){
-						if(noteContent.hasOwnProperty("message")){
+						if(hasOwn(noteContent, "message")){
 							noteSuffix += " " + noteContent.message
 						}
-					};
+					}
 					let rewatchSuffix = "";
 					if(data.repeat > 0){
 						if(data.media.type === "ANIME"){
@@ -63,7 +63,7 @@ function addCompletedScores(){
 								rewatchSuffix = " " + translate("$reread_suffix_M",data.repeat)
 							}
 						}
-					};
+					}
 					if(data.score){
 						//depends on the parameters score and scoreFormat, which are defined as a float and an enum in the Anilist API docs
 						if(
@@ -79,7 +79,7 @@ function addCompletedScores(){
 						else{
 							scoreInfo.appendChild(scoreSuffix);
 							create("span","hohNoteSuffix",noteSuffix,scoreInfo)
-						};
+						}
 						scoreInfo.style.display = "inline"
 					}
 				};
@@ -119,4 +119,4 @@ query($userName: String,$mediaId: Int){
 		}
 	});
 	queryPacker(bigQuery)
-};
+}

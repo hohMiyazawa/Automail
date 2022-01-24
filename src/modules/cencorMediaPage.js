@@ -1,7 +1,7 @@
 function cencorMediaPage(id){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
 		return
-	};
+	}
 	let possibleLocation = document.querySelectorAll(".tags .tag .name");
 	if(possibleLocation.length){
 		if(possibleLocation.some(

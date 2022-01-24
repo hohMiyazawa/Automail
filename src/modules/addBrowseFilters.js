@@ -1,21 +1,21 @@
 function addBrowseFilters(type){
 	if(! /^\/search/.test(location.pathname)){
 		return
-	};
+	}
 	let sorts = document.querySelector(".hohAlready");
 	if(!sorts){
 		sorts = document.querySelector(".sort-wrap.sort-select");
 		if(!sorts){
 			setTimeout(function(){addBrowseFilters(type)},200);
 			return
-		};
+		}
 		sorts.classList.add("hohAlready")
-	};
+	}
 
 	let applySorts = function(){
 		if(! /^\/search/.test(location.pathname)){
 			return
-		};
+		}
 		let dropdown = sorts.querySelector(".dropdown");
 		if(!dropdown){
 			setTimeout(applySorts,200);

@@ -2,15 +2,15 @@ function drawListStuff(){
 	const URLstuff = location.pathname.match(/^\/user\/(.+)\/(animelist|mangalist)/);
 	if(!URLstuff){
 		return
-	};
+	}
 	if(document.querySelector(".hohExtraFilters")){
 		return
-	};
+	}
 	let filters = document.querySelector(".filters-wrap");
 	if(!filters){
 		setTimeout(drawListStuff,200);
 		return
-	};
+	}
 	let extraFilters = create("div","hohExtraFilters");
 	extraFilters.style.marginTop = "15px";
 	if(useScripts.draw3x3){
@@ -81,7 +81,7 @@ function drawListStuff(){
 	}
 	if(useScripts.newChapters && URLstuff[2] === "mangalist"){
 		newChaptersInsertion(extraFilters)
-	};
+	}
 	if(useScripts.tagIndex && (!useScripts.mobileFriendly)){
 		let tagIndex = create("div","tagIndex",false,extraFilters);
 		let collectNotes = function(data){
@@ -112,7 +112,7 @@ function drawListStuff(){
 				const URLstuff2 = location.pathname.match(/^\/user\/(.+)\/(animelist|mangalist)/);
 				if(!URLstuff2 || URLstuff[0] !== URLstuff2[0]){
 					return
-				};
+				}
 				Array.from(document.querySelectorAll(".hohDescriptions")).forEach(matching => matching.remove());
 				blurbs.forEach(blurb => {
 					blurb.forEach(list => {
@@ -177,7 +177,7 @@ function drawListStuff(){
 		};
 		if(URLstuff[2] === "mangalist"){
 			variables.listType = "MANGA"
-		};
+		}
 		if(variables.name === whoAmI && reliablePersistentStorage){
 			cache.getList(variables.listType,function(data){
 				collectNotes({
@@ -300,7 +300,7 @@ function drawListStuff(){
 									}
 								}
 							);
-						};
+						}
 					};
 					let changeMinus = create("span","hohChangeScore","-");
 					entry.insertBefore(changeMinus,entry.firstChild);
@@ -321,4 +321,4 @@ function drawListStuff(){
 		observer.observe(lists,mutationConfig);
 		scoreChanger()
 	}
-};
+}

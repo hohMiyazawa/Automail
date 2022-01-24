@@ -1,7 +1,7 @@
 function addEntryScore(id,tries){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
 		return
-	};
+	}
 	let existing = document.getElementById("hohEntryScore");
 	if(existing){
 		if(existing.dataset.mediaId === id && !tries){
@@ -10,7 +10,7 @@ function addEntryScore(id,tries){
 		else{
 			existing.remove()
 		}
-	};
+	}
 	let possibleLocation = document.querySelector(".actions .list .add");
 	if(possibleLocation){
 		let miniHolder = create("div","#hohEntryScore",false,possibleLocation.parentNode.parentNode,"position:relative;");
@@ -91,7 +91,7 @@ function addEntryScore(id,tries){
 								changeMinus.onclick = function(){updateScore(false)};
 								changePluss.onclick = function(){updateScore(true)};
 							}
-						};
+						}
 						if(type !== "Completed"){
 							let progressPlace = create("span","hohMediaScore",false,miniHolder,"right:0px;");
 							let progressVal = create("span",false,MediaList.progress,progressPlace);

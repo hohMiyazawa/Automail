@@ -5,12 +5,12 @@ function addSubTitleInfo(){
 	}
 	else if(document.querySelector(".hohExtraBox")){
 		document.querySelector(".hohExtraBox").remove()
-	};
+	}
 	let sidebar = document.querySelector(".sidebar");
 	if(!sidebar){
 		setTimeout(addSubTitleInfo,200);
 		return
-	};
+	}
 	let cover_inner = document.querySelector(".cover-wrap-inner");
 	if(cover_inner){
 		let diff = sidebar.getBoundingClientRect().top - cover_inner.getBoundingClientRect().bottom;

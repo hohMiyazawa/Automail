@@ -395,7 +395,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 							console.warn("Setting cache item failed. Please report or check your localStorage settings.")
 						}
 					}
-				};
+				}
 				aniCast.postMessage({type:"cache",key:cacheKey,value:saltedHam});
 			}
 		}
@@ -415,7 +415,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 		if(error.errors && error.errors.some(err => err.status === 404)){//not really an error
 			handleData(null,error);
 			return
-		};
+		}
 		console.error({error: error,variables: variables});
 		handleData(null,error)
 	};

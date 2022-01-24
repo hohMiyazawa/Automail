@@ -1,10 +1,10 @@
 function enhanceCharacter(){//adds a favourite count on every character page
 	if(!location.pathname.match(/^\/character(\/.*)?/)){
 		return
-	};
+	}
 	if(document.getElementById("hohFavCount")){
 		return
-	};
+	}
 	let oldData = false;
 	let favCallback = function(data){
 		let adder = function(){
@@ -48,4 +48,4 @@ function enhanceCharacter(){//adds a favourite count on every character page
 		"hohCharacterFavs" + variables.id + "page1",
 		60*60*1000
 	)
-};
+}

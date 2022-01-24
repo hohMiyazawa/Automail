@@ -14,7 +14,7 @@ new MutationObserver(function(){
 		fetch("index.html").then(function(response){
 			return response.text()
 		}).then(function(html){
-			let token = html.match(/window\.al_token\ =\ "([a-zA-Z0-9]+)";/);
+			let token = html.match(/window\.al_token = "([a-zA-Z0-9]+)";/);
 			console.log("token",token);
 			if(!token){
 				return//idk, stuff changed, better do nothing

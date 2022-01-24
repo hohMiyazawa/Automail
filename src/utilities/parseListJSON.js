@@ -1,7 +1,7 @@
 function parseListJSON(listNote){
 	if(!listNote){
 		return null
-	};
+	}
 	let commandMatches = listNote.match(/\$({.*})\$/);
 	if(commandMatches){
 		try{
@@ -13,11 +13,11 @@ function parseListJSON(listNote){
 				}
 				else if(typeof thing === "string"){
 					thing = thing.split(",").map(a => a.trim())
-				};
+				}
 				return thing.reduce(function(acc,item){
 					if(typeof item === "number"){
 						return acc + 1
-					};
+					}
 					let multiplierPresent = item.split("x").map(a => a.trim());
 					let value = 1;
 					let rangePresent = multiplierPresent[0].split("-").map(a => a.trim());
@@ -47,10 +47,10 @@ function parseListJSON(listNote){
 			};
 			if(noteContent.more){
 				noteContent.adjustValue += rangeParser(noteContent.more)
-			};
+			}
 			if(noteContent.skip){
 				noteContent.adjustValue -= rangeParser(noteContent.skip)
-			};
+			}
 			return noteContent;
 		}
 		catch(e){
@@ -60,4 +60,4 @@ function parseListJSON(listNote){
 	else{
 		return null
 	}
-};
+}

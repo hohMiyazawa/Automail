@@ -344,7 +344,7 @@ if(useScripts.partialLocalisationLanguage === "Português" || useScripts.partial
 	text-transform: none;
 }`
 }
-};initCSS();
+}initCSS();
 
 documentHead.appendChild(moreStyle);
 let customStyle = create("style");

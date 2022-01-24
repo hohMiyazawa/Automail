@@ -66,7 +66,7 @@ exportModule({
 				]
 			},
 			{
-				regex: /\/user\/([^\/]+)\/?$/,
+				regex: /\/user\/([^/]+)\/?$/,
 				elements: [
 					{
 						lookup: ".activity-edit .el-textarea__inner",
@@ -104,7 +104,7 @@ exportModule({
 				]
 			},
 			{
-				regex: /\/user\/([^\/]+)\/(animelist|mangalist)\/?/,
+				regex: /\/user\/([^/]+)\/(animelist|mangalist)\/?/,
 				elements: [
 					{
 						lookup: ".filters-wrap [placeholder='Filter']",

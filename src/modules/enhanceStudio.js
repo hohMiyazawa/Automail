@@ -1,12 +1,12 @@
 function enhanceStudio(){//adds a favourite count to every studio page
 	if(!location.pathname.match(/^\/studio(\/.*)?/)){
 		return
-	};
+	}
 	let filterGroup = document.querySelector(".container.header");
 	if(!filterGroup){
 		setTimeout(enhanceStudio,200);//may take some time to load
 		return;
-	};
+	}
 	let favCallback = function(data){
 		if(!document.URL.match(/^https:\/\/anilist\.co\/studio\/.*/)){
 			return
@@ -42,4 +42,4 @@ query($id: Int!){
 }`,
 		variables,favCallback,"hohStudioFavs" + variables.id,60*60*1000
 	);
-};
+}

@@ -19,7 +19,7 @@ exportModule({
 			if(!mediaStaff){
 				setTimeout(function(){waiter(0)},250);
 				return
-			};
+			}
 			if(mediaStaff.children[0].children.length > 9){
 				let filterBoxContainer = create("div","#hohStaffTabFilter",false,mediaStaff.parentNode);
 				let filterRemover = create("span","#hohFilterRemover",svgAssets.cross,filterBoxContainer)

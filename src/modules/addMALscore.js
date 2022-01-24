@@ -1,7 +1,7 @@
 async function addMALscore(type,id){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
 		return
-	};
+	}
 	let MALscore = document.getElementById("hohMALscore");
 	if(MALscore){
 		if(parseInt(MALscore.dataset.id) === id){
@@ -10,7 +10,7 @@ async function addMALscore(type,id){
 		else{
 			MALscore.remove()
 		}
-	};
+	}
 	let MALserial = document.getElementById("hohMALserialization");
 	if(MALserial){
 		if(parseInt(MALserial.dataset.id) === id){
@@ -19,7 +19,7 @@ async function addMALscore(type,id){
 		else{
 			MALserial.remove()
 		}
-	};
+	}
 	let possibleReleaseStatus = Array.from(document.querySelectorAll(".data-set .type"));
 	const MALlocation = possibleReleaseStatus.find(element => element.innerText === "Mean Score");
 	if(MALlocation){
@@ -67,7 +67,7 @@ async function addMALscore(type,id){
 					(possibleOverview.querySelector(".hohRecContainer") || {remove: ()=>{}}).remove();
 					let recContainer = create("div",["grid-section-wrap","hohRecContainer"],false,possibleOverview);
 					create("h2",false,"MAL Recommendations",recContainer);
-					let pattern = /class="picSurround"><a href="https:\/\/myanimelist\.net\/(anime|manga)\/(\d+)\/[\s\S]*?detail\-user\-recs\-text.*?">([\s\S]*?)<\/div>/g;
+					let pattern = /class="picSurround"><a href="https:\/\/myanimelist\.net\/(anime|manga)\/(\d+)\/[\s\S]*?detail-user-recs-text.*?">([\s\S]*?)<\/div>/g;
 					let matching = [];
 					let matchingItem;
 					while((matchingItem = pattern.exec(response.responseText)) && matching.length < 5){//single "=" is intended, we are setting the value of each match, not comparing

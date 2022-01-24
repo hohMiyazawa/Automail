@@ -142,7 +142,7 @@ fragment stuff on MediaList{
 											data => {
 												if(data.data){
 													thumbsDownWrap.style.color = "rgb(var(--color-red))";
-													if(rec.userRating = rec.userRating === "RATE_UP"){
+													if(rec.userRating === "RATE_UP"){
 														thumbsUpWrap.style.color = "inherit";
 														rec.rating--;
 													}
@@ -181,7 +181,7 @@ fragment stuff on MediaList{
 											data => {
 												if(data.data){
 													thumbsUpWrap.style.color = "rgb(var(--color-green))";
-													if(rec.userRating = rec.userRating === "RATE_UP"){
+													if(rec.userRating === "RATE_UP"){
 														thumbsDownWrap.style.color = "inherit";
 														rec.rating++;
 													}

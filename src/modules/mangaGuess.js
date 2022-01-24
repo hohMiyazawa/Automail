@@ -5,14 +5,14 @@ function mangaGuess(cleanAnime,id){
 		|| id !== parseInt(possibleMangaGuess.dataset.mediaId)
 	)){
 		removeChildren(possibleMangaGuess)
-	};
+	}
 	if(cleanAnime){
 		return
-	};
+	}
 	let URLstuff = location.pathname.match(/^\/manga\/(\d+)\/?(.*)?/);
 	if(!URLstuff){
 		return
-	};
+	}
 	let possibleReleaseStatus = Array.from(
 		document.querySelectorAll(".data-set .value")
 	).find(
@@ -30,7 +30,7 @@ function mangaGuess(cleanAnime,id){
 	}
 	else{
 		removeChildren(possibleReleaseStatus)
-	};
+	}
 	possibleReleaseStatus.dataset.mediaId = URLstuff[1];
 	const variables = {id: parseInt(URLstuff[1]),userName: whoAmI};
 	let query = `
@@ -70,7 +70,7 @@ query($id: Int){
 		}
 	}
 }`;
-	};
+	}
 	let highestChapterFinder = function(data){
 		if(possibleReleaseStatus.children.length !== 0){
 			return
@@ -97,12 +97,12 @@ query($id: Int){
 						bestGuess = guesses[1]
 					}
 				}
-			};
-			if(commonUnfinishedManga.hasOwnProperty(variables.id)){
+			}
+			if(hasOwn(commonUnfinishedManga, variables.id)){
 				if(bestGuess < commonUnfinishedManga[variables.id].chapters){
 					bestGuess = commonUnfinishedManga[variables.id].chapters
 				}
-			};
+			}
 			if(simpleQuery && bestGuess){
 				create("span","hohGuess"," (" + bestGuess + "?)",possibleReleaseStatus)
 			}
@@ -117,8 +117,8 @@ query($id: Int){
 						create("span","hohGuess"," [+" + (bestGuess - data.data.MediaList.progress) + "]",possibleReleaseStatus,"color:rgb(var(--color-red));")
 					}
 				}
-			};
-		};
+			}
+		}
 	};
 	try{
 		generalAPIcall(query,variables,highestChapterFinder,"hohMangaGuess" + variables.id,30*60*1000)

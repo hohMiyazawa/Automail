@@ -1,7 +1,7 @@
 function addCustomCSS(){
 	if(useScripts.SFWmode){
 		return
-	};
+	}
 	let URLstuff = location.pathname.match(/^\/user\/([^/]*)\/?/);
 	if(!customStyle.textContent || (decodeURIComponent(URLstuff[1]) !== currentUserCSS)){
 		const query = `
@@ -21,14 +21,14 @@ function addCustomCSS(){
 			}
 			if(!data){
 				return
-			};
+			}
 			if(!(/anilist\.co\/user\//.test(document.URL))){
 				return
 			}
 			let jsonMatch = (data.data.User.about || "").match(/^\[\]\(json([A-Za-z0-9+/=]+)\)/);
 			if(!jsonMatch){
 				return
-			};
+			}
 			try{
 				let jsonData;
 				try{
@@ -120,7 +120,7 @@ query{
 										}
 										else if(act.type === "MANGA_LIST"){
 											entry.classList.add("activity-manga_list")
-										};
+										}
 let wrap = create("div","wrap",false,entry);
 	let content = create("div",false,false,wrap);
 		if(act.type === "TEXT" || act.type === "MESSAGE"){

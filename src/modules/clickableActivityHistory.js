@@ -16,7 +16,7 @@ exportModule({
 			if(!activityHistory){
 				setTimeout(waiter,1000);
 				return
-			};
+			}
 			activityHistory.onclick = function(event){
 				let target = event.target;
 				if(target && target.classList.contains("history-day")){

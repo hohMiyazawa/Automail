@@ -7,7 +7,7 @@ async function addForumMediaTitle(){
 	if(!forumThreads.length){
 		setTimeout(addForumMediaTitle,200);
 		return;
-	};
+	}
 	if(forumThreads.some(
 		thread => thread && ["anime","manga"].includes(thread.innerText.toLowerCase())
 	)){
@@ -24,7 +24,7 @@ async function addForumMediaTitle(){
 				if(title.length > 40){
 					forumThreads[index].title = title;
 					title = title.slice(0,35) + "…";
-				};
+				}
 				forumThreads[index].innerText = title;
 			}
 		})

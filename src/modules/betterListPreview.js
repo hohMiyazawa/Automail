@@ -8,7 +8,7 @@ function betterListPreview(){
 		let hohListPreviewToRemove = document.getElementById("hohListPreview");
 		if(hohListPreviewToRemove){
 			hohListPreviewToRemove.remove()
-		};
+		}
 		document.querySelectorAll(".list-preview-wrap").forEach(wrap => {
 			wrap.style.display = "block"
 		})
@@ -17,7 +17,7 @@ function betterListPreview(){
 	let hohListPreview = document.getElementById("hohListPreview");
 	if(hohListPreview){
 		return
-	};
+	}
 	let buildPreview = function(data,overWrite){try{
 		if(!data){
 			return
@@ -28,7 +28,7 @@ function betterListPreview(){
 			if(!listPreviews.length){
 				setTimeout(function(){buildPreview(data)},200);
 				return
-			};
+			}
 			hohListPreview = create("div","#hohListPreview");
 			listPreviews[0].parentNode.parentNode.parentNode.parentNode.insertBefore(hohListPreview,listPreviews[0].parentNode.parentNode.parentNode);
 			listPreviews.forEach(heading => {
@@ -39,7 +39,7 @@ function betterListPreview(){
 					heading.childNodes[0].textContent = translate("$preview_mangaSection_title")
 				}
 			})
-		};
+		}
 		if(overWrite){
 			let mediaLists = data.data.Page.mediaList.map((mediaList,index) => {
 				mediaList.index = index;
@@ -153,19 +153,19 @@ function betterListPreview(){
 				}
 				else{
 					create("h2",false,name,airingSectionHeader,"font-size: 1.4rem;font-weight: 500;")
-				};
+				}
 				if(moveExpander && document.querySelector(".size-toggle")){
 					airingSectionHeader.appendChild(document.querySelector(".size-toggle"))
-				};
+				}
 				let airingListPreview = create("div","list-preview",false,airingSection,"display:grid;grid-template-columns: repeat(5,85px);grid-template-rows: repeat(auto-fill,115px);grid-gap: 20px;padding: 20px;background: rgb(var(--color-foreground));");
 				list.forEach((air,index) => {
 					let card = create("div",["media-preview-card","small","hohFallback"],false,airingListPreview,"width: 85px;height: 115px;background: rgb(var(--color-foreground));border-radius: 3px;display: inline-grid;");
 					if(air.media.coverImage.color){
 						card.style.backgroundColor = air.media.coverImage.color
-					};
+					}
 					if((index % 5 > 1) ^ useScripts.rightToLeft){
 						card.classList.add("info-left")
-					};
+					}
 					let cover = create("a","cover",false,card,"background-position: 50%;background-repeat: no-repeat;background-size: cover;text-align: center;border-radius: 3px;");
 					cover.style.backgroundImage = "url(\"" + air.media.coverImage.large + "\")";
 					cover.href = "/anime/" + air.media.id + "/" + safeURL(air.media.title.userPreferred);
@@ -179,7 +179,7 @@ function betterListPreview(){
 							if(air.media.nextAiringEpisode.timeUntilAiring <= 0){
 								create("span",false,"Recently aired",imageTextWrapper);
 								return;
-							};
+							}
 							let days = Math.floor(air.media.nextAiringEpisode.timeUntilAiring/(60*60*24));
 							let hours = Math.floor((air.media.nextAiringEpisode.timeUntilAiring - days*(60*60*24))/3600);
 							let minutes = Math.round((air.media.nextAiringEpisode.timeUntilAiring - days*(60*60*24) - hours*3600)/60);
@@ -190,7 +190,7 @@ function betterListPreview(){
 									days++;
 									hours = 0;
 								}
-							};
+							}
 							if(days){
 								create("span",false,days + translate("$time_short_day",null,"d") + " ",imageTextWrapper)
 							}
@@ -238,13 +238,13 @@ function betterListPreview(){
 							pBar.high = air.media.nextAiringEpisode.episode - 1;
 							pBar.optimum = air.media.nextAiringEpisode.episode - 1;
 						}
-					};
+					}
 					let progress = create("div",false,translate("$preview_progress") + " " + air.progress + (air.media.episodes ? "/" + air.media.episodes : ""),info);
 					let isBlocked = false;
 					plusProgress.onclick = function(e){
 						if(isBlocked){
 							return
-						};
+						}
 						if(air.media.episodes){
 							if(air.progress < air.media.episodes){
 								if(useScripts.progressBar){
@@ -316,7 +316,7 @@ function betterListPreview(){
 								data => {}
 							);
 							localStorage.setItem("hohListPreview",JSON.stringify(data));
-						};
+						}
 						if(air.media.nextAiringEpisode){
 							if(air.progress === air.media.nextAiringEpisode.episode - 1){
 								if(card.querySelector(".behind-accent")){

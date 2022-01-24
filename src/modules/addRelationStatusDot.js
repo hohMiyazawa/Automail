@@ -1,14 +1,14 @@
 function addRelationStatusDot(id){
 	if(!location.pathname.match(/^\/(anime|manga)/)){
 		return;
-	};
+	}
 	let relations = document.querySelector(".relations");
 	if(relations){
 		if(relations.classList.contains("hohRelationStatusDots")){
 			return
-		};
+		}
 		relations.classList.add("hohRelationStatusDots");
-	};
+	}
 	authAPIcall(
 `query($id: Int){
 	Media(id:$id){
@@ -71,7 +71,7 @@ function addRelationStatusDot(id){
 				}
 				if(mangaAnimeMatch[2] !== id){
 					return
-				};
+				}
 				let recs = data.data.Media.recommendations.nodes.map(
 					item => item.mediaRecommendation
 				).filter(
@@ -96,7 +96,7 @@ function addRelationStatusDot(id){
 							toggle.addEventListener("click",function(){
 								setTimeout(function(){adder(recs)},1000)
 							})
-						};
+						}
 						if(!init_completed){
 							init_completed = true;
 							if(toggle && parseInt(toggle.innerText.match(/\d+/)) > 25){

@@ -1,7 +1,7 @@
 async function addForumMediaNoAWC(){
 	if(location.pathname !== "/home"){
 		return
-	};
+	}
 	let buildPreview = function(data){
 		if(location.pathname !== "/home"){
 			return
@@ -10,7 +10,7 @@ async function addForumMediaNoAWC(){
 		if(!(forumPreview && forumPreview.childElementCount)){
 			setTimeout(function(){buildPreview(data)},400);
 			return;
-		};
+		}
 		forumPreview.classList.add("hohNoAWC");
 		removeChildren(forumPreview)
 		data.Page.threads.filter(
@@ -55,7 +55,7 @@ async function addForumMediaNoAWC(){
 				timer.style.top = "unset";
 				timer.style.fontSize = "1.3rem";
 				contextText.appendChild(timer);
-			};
+			}
 			let categories = create("div","categories",false,footer);
 			thread.categories.forEach(category => {
 				category.name = translate("$forumCategory_" + category.id,null,category.name)
@@ -71,7 +71,7 @@ async function addForumMediaNoAWC(){
 			else{
 				let mediaTitle = titlePicker(thread.mediaCategories[0]);
 				if(mediaTitle.length > 25){
-					mediaTitle = mediaTitle.replace(/(2nd|Second)\ Season/,"2").replace(/\((\d+)\)/g,(string,year) => year);
+					mediaTitle = mediaTitle.replace(/(2nd|Second) Season/,"2").replace(/\((\d+)\)/g,(string,year) => year);
 					let lastIndex = mediaTitle.slice(0,25).lastIndexOf(" ");
 					if(lastIndex > 20){
 						mediaTitle.slice(0,lastIndex);
