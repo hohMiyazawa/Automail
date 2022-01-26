@@ -45,7 +45,7 @@ function addMoreStats(){
 	let hohSiteStats = create("a","hohStatsTrigger",translate("$stats_siteStats_title"),filterGroup);
 	hohSiteStats.href = "/site-stats";
 	cheapReload(hohSiteStats,{name: "SiteStats"});
-	let generateStatPage = function(){
+	let generateStatPage = async function(){
 		let personalStats = create("div","#personalStats",translate("$stats_loadingAnime"),hohStats);
 		let personalStatsManga = create("div","#personalStatsManga",translate("$stats_loadingManga"),hohStats);
 		let miscQueries = create("div","#miscQueries",false,hohStats);
@@ -764,7 +764,7 @@ function addMoreStats(){
 			}
 		};
 //get anime list
-		let personalStatsCallback = function(data,filterSettings,onlyStats){
+		let personalStatsCallback = async function(data,filterSettings,onlyStats){
 			personalStats.innerText = "";
 			create("hr","hohSeparator",false,personalStats);
 
@@ -1269,161 +1269,166 @@ function addMoreStats(){
 			drawTable(listOfTags,animeFormatter,regularAnimeTable,true,false);
 			semaPhoreAnime = list;
 			nativeTagsReplacer();
-			generalAPIcall(queryMediaListStaff,{name: user,listType: "ANIME"},function(data){
-				if(!data){
+
+			const staffData = await anilistAPI(queryMediaListStaff, {
+				variables: {name: user,listType: "ANIME"},
+				cacheKey: "hohListCacheAnimeStaff" + user,
+				duration: 15*60*1000
+			})
+			if(staffData.errors){
+				return
+			}
+			let rawStaff = returnList(staffData);
+			rawStaff.forEach((raw,index) => {
+				raw.status = list[index].status;
+				raw.watchedDuration = list[index].watchedDuration;
+				raw.scoreRaw = list[index].scoreRaw
+			});
+			let staffMap = {};
+			rawStaff.filter(obj => obj.status !== "PLANNING").forEach(media => {
+				media.media.staff.forEach(staff => {
+					if(!staffMap[staff.id]){
+						staffMap[staff.id] = {
+							watchedDuration: 0,
+							count: 0,
+							scoreCount: 0,
+							scoreSum: 0,
+							id: staff.id,
+							name: staff.name
+						}
+					}
+					if(media.watchedDuration){
+						staffMap[staff.id].watchedDuration += media.watchedDuration;
+						staffMap[staff.id].count++
+					}
+					if(media.scoreRaw){
+						staffMap[staff.id].scoreSum += media.scoreRaw;
+						staffMap[staff.id].scoreCount++
+					}
+				})
+			});
+			let staffList = [];
+			Object.keys(staffMap).forEach(
+				key => staffList.push(staffMap[key])
+			);
+			staffList = staffList.filter(
+				obj => obj.count >= 1
+			).sort(
+				(b,a) => a.count - b.count || a.watchedDuration - b.watchedDuration
+			);
+			if(staffList.length > 300){
+				staffList = staffList.filter(obj => obj.count >= 3)
+			}
+			if(staffList.length > 300){
+				staffList = staffList.filter(obj => obj.count >= 5)
+			}
+			if(staffList.length > 300){
+				staffList = staffList.filter(obj => obj.count >= 10)
+			}
+			let staffHasScores = staffList.some(a => a.scoreCount);
+			let drawStaffList = function(){
+				removeChildren(animeStaff)
+				animeStaff.innerText = "";
+				let table        = create("div",["table","hohTable","hohNoPointer"],false,animeStaff);
+				let headerRow    = create("div",["header","row","good"],false,table);
+				let nameHeading  = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
+				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
+				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
+				if(!staffHasScores){
+					scoreHeading.style.display = "none"
+				}
+				let timeHeading = create("div",false,"Time Watched",headerRow,"cursor:pointer;");
+				staffList.forEach(function(staff,index){
+					let row = create("div",["row","good"],false,table);
+					let nameCel = create("div",false,(index + 1) + " ",row);
+					let staffLink = create("a",["link","newTab"],(staff.name.first + " " + (staff.name.last || "")).trim(),nameCel);
+					staffLink.href = "/staff/" + staff.id;
+					create("div",false,staff.count,row);
+					if(staffHasScores){
+						create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row);
+					}
+					let timeCel = create("div",false,formatTime(staff.watchedDuration*60),row);
+					timeCel.title = (staff.watchedDuration/60).roundPlaces(1) + " hours";
+				});
+				let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",animeStaff,"margin-top:10px;");
+				let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",animeStaff,"margin-top:10px;");
+				csvButton.onclick = function(){
+					let csvContent = 'Staff,Count,"Mean Score","Time Watched"\n';
+					staffList.forEach(staff => {
+						csvContent += csvEscape(
+							[staff.name.first,staff.name.last].filter(TRUTHY).join(" ")
+						) + ",";
+						csvContent += staff.count + ",";
+						csvContent += (staff.scoreSum/staff.scoreCount).roundPlaces(2) + ",";
+						csvContent += (staff.watchedDuration/60).roundPlaces(1) + "\n"
+					});
+					saveAs(csvContent,"Anime staff stats for " + user + ".csv",true)
+				};
+				jsonButton.onclick = function(){
+					saveAs({
+						type: "ANIME",
+						user: user,
+						timeStamp: NOW(),
+						version: "1.00",
+						scriptInfo: scriptInfo,
+						url: document.URL,
+						description: "Anilist anime staff stats for " + user,
+						fields: [
+							{name: "name",   description: "The full name of the staff member, as firstname lastname"},
+							{name: "staffID",description: "The staff member's database number in the Anilist database"},
+							{name: "count",  description: "The total number of media this staff member has credits for, for the current user"},
+							{name: "score",  description: "The current user's mean score for the staff member out of 100"},
+							{name: "minutesWatched",description: "How many minutes of this staff member's credited media the current user has watched"}
+						],
+						data: staffList.map(staff => {
+							return {
+								name: (staff.name.first + " " + (staff.name.last || "")).trim(),
+								staffID: staff.id,
+								count: staff.count,
+								score: (staff.scoreSum/staff.scoreCount).roundPlaces(2),
+								minutesWatched: staff.watchedDuration
+							}
+						})
+					},"Anime staff stats for " + user + ".json");
+				}
+				nameHeading.onclick = function(){
+					staffList.sort(ALPHABETICAL(a => a.name.first + " " + (a.name.last || "")));
+					drawStaffList()
+				};
+				countHeading.onclick = function(){
+					staffList.sort((b,a) => a.count - b.count || a.watchedDuration - b.watchedDuration);
+					drawStaffList()
+				};
+				scoreHeading.onclick = function(){
+					staffList.sort((b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount);
+					drawStaffList()
+				};
+				timeHeading.onclick = function(){
+					staffList.sort((b,a) => a.watchedDuration - b.watchedDuration);
+					drawStaffList()
+				}
+			};
+			let staffClickOnce = function(){
+				drawStaffList();
+				let place = document.querySelector(`[href$="/stats/anime/staff"]`);
+				if(place){
+					place.removeEventListener("click",staffClickOnce)
+				}
+			}
+			let staffWaiter = function(){
+				if(location.pathname.includes("/stats/anime/staff")){
+					staffClickOnce();
 					return
 				}
-				let rawStaff = returnList(data);
-				rawStaff.forEach((raw,index) => {
-					raw.status = list[index].status;
-					raw.watchedDuration = list[index].watchedDuration;
-					raw.scoreRaw = list[index].scoreRaw
-				});
-				let staffMap = {};
-				rawStaff.filter(obj => obj.status !== "PLANNING").forEach(media => {
-					media.media.staff.forEach(staff => {
-						if(!staffMap[staff.id]){
-							staffMap[staff.id] = {
-								watchedDuration: 0,
-								count: 0,
-								scoreCount: 0,
-								scoreSum: 0,
-								id: staff.id,
-								name: staff.name
-							}
-						}
-						if(media.watchedDuration){
-							staffMap[staff.id].watchedDuration += media.watchedDuration;
-							staffMap[staff.id].count++
-						}
-						if(media.scoreRaw){
-							staffMap[staff.id].scoreSum += media.scoreRaw;
-							staffMap[staff.id].scoreCount++
-						}
-					})
-				});
-				let staffList = [];
-				Object.keys(staffMap).forEach(
-					key => staffList.push(staffMap[key])
-				);
-				staffList = staffList.filter(
-					obj => obj.count >= 1
-				).sort(
-					(b,a) => a.count - b.count || a.watchedDuration - b.watchedDuration
-				);
-				if(staffList.length > 300){
-					staffList = staffList.filter(obj => obj.count >= 3)
+				let place = document.querySelector(`[href$="/stats/anime/staff"]`);
+				if(place){
+					place.addEventListener("click",staffClickOnce)
 				}
-				if(staffList.length > 300){
-					staffList = staffList.filter(obj => obj.count >= 5)
+				else{
+					setTimeout(staffWaiter,200)
 				}
-				if(staffList.length > 300){
-					staffList = staffList.filter(obj => obj.count >= 10)
-				}
-				let hasScores = staffList.some(a => a.scoreCount);
-				let drawStaffList = function(){
-					removeChildren(animeStaff)
-					animeStaff.innerText = "";
-					let table        = create("div",["table","hohTable","hohNoPointer"],false,animeStaff);
-					let headerRow    = create("div",["header","row","good"],false,table);
-					let nameHeading  = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
-					let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
-					let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
-					if(!hasScores){
-						scoreHeading.style.display = "none"
-					}
-					let timeHeading = create("div",false,"Time Watched",headerRow,"cursor:pointer;");
-					staffList.forEach(function(staff,index){
-						let row = create("div",["row","good"],false,table);
-						let nameCel = create("div",false,(index + 1) + " ",row);
-						let staffLink = create("a",["link","newTab"],(staff.name.first + " " + (staff.name.last || "")).trim(),nameCel);
-						staffLink.href = "/staff/" + staff.id;
-						create("div",false,staff.count,row);
-						if(hasScores){
-							create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row);
-						}
-						let timeCel = create("div",false,formatTime(staff.watchedDuration*60),row);
-						timeCel.title = (staff.watchedDuration/60).roundPlaces(1) + " hours";
-					});
-					let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",animeStaff,"margin-top:10px;");
-					let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",animeStaff,"margin-top:10px;");
-					csvButton.onclick = function(){
-						let csvContent = 'Staff,Count,"Mean Score","Time Watched"\n';
-						staffList.forEach(staff => {
-							csvContent += csvEscape(
-								[staff.name.first,staff.name.last].filter(TRUTHY).join(" ")
-							) + ",";
-							csvContent += staff.count + ",";
-							csvContent += (staff.scoreSum/staff.scoreCount).roundPlaces(2) + ",";
-							csvContent += (staff.watchedDuration/60).roundPlaces(1) + "\n"
-						});
-						saveAs(csvContent,"Anime staff stats for " + user + ".csv",true)
-					};
-					jsonButton.onclick = function(){
-						saveAs({
-							type: "ANIME",
-							user: user,
-							timeStamp: NOW(),
-							version: "1.00",
-							scriptInfo: scriptInfo,
-							url: document.URL,
-							description: "Anilist anime staff stats for " + user,
-							fields: [
-								{name: "name",   description: "The full name of the staff member, as firstname lastname"},
-								{name: "staffID",description: "The staff member's database number in the Anilist database"},
-								{name: "count",  description: "The total number of media this staff member has credits for, for the current user"},
-								{name: "score",  description: "The current user's mean score for the staff member out of 100"},
-								{name: "minutesWatched",description: "How many minutes of this staff member's credited media the current user has watched"}
-							],
-							data: staffList.map(staff => {
-								return {
-									name: (staff.name.first + " " + (staff.name.last || "")).trim(),
-									staffID: staff.id,
-									count: staff.count,
-									score: (staff.scoreSum/staff.scoreCount).roundPlaces(2),
-									minutesWatched: staff.watchedDuration
-								}
-							})
-						},"Anime staff stats for " + user + ".json");
-					}
-					nameHeading.onclick = function(){
-						staffList.sort(ALPHABETICAL(a => a.name.first + " " + (a.name.last || "")));
-						drawStaffList()
-					};
-					countHeading.onclick = function(){
-						staffList.sort((b,a) => a.count - b.count || a.watchedDuration - b.watchedDuration);
-						drawStaffList()
-					};
-					scoreHeading.onclick = function(){
-						staffList.sort((b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount);
-						drawStaffList()
-					};
-					timeHeading.onclick = function(){
-						staffList.sort((b,a) => a.watchedDuration - b.watchedDuration);
-						drawStaffList()
-					}
-				};
-				let clickOnce = function(){
-					drawStaffList();
-					let place = document.querySelector(`[href$="/stats/anime/staff"]`);
-					if(place){
-						place.removeEventListener("click",clickOnce)
-					}
-				}
-				let waiter = function(){
-					if(location.pathname.includes("/stats/anime/staff")){
-						clickOnce();
-						return
-					}
-					let place = document.querySelector(`[href$="/stats/anime/staff"]`);
-					if(place){
-						place.addEventListener("click",clickOnce)
-					}
-					else{
-						setTimeout(waiter,200)
-					}
-				};waiter();
-			},"hohListCacheAnimeStaff" + user,15*60*1000);
+			};staffWaiter();
+
 			let studioMap = {};
 			list.forEach(function(anime){
 				anime.media.studios.nodes.forEach(function(studio){
@@ -1481,7 +1486,7 @@ function addMoreStats(){
 			studioList.forEach(
 				studio => studio.media.sort((b,a) => a.score - b.score)
 			);
-			let hasScores = studioList.some(a => a.scoreCount);
+			let studioHasScores = studioList.some(a => a.scoreCount);
 			let drawStudioList = function(){
 				removeChildren(animeStudios)
 				animeStudios.innerText = "";
@@ -1490,7 +1495,7 @@ function addMoreStats(){
 				let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
 				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
 				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
-				if(!hasScores){
+				if(!studioHasScores){
 					scoreHeading.style.display = "none"
 				}
 				let timeHeading = create("div",false,"Time Watched",headerRow,"cursor:pointer;");
@@ -1529,7 +1534,7 @@ function addMoreStats(){
 						}
 					});
 					create("div",false,studio.count,row);
-					if(hasScores){
+					if(studioHasScores){
 						let scoreCel = create("div",false,(studio.scoreSum/studio.scoreCount).roundPlaces(2),row);
 						scoreCel.title = studio.scoreCount + " ratings";
 					}
@@ -1655,48 +1660,44 @@ function addMoreStats(){
 					drawStudioList();
 				};
 			};
-			let clickOnce = function(){
+			let studioClickOnce = function(){
 				drawStudioList();
 				let place = document.querySelector(`[href$="/stats/anime/studios"]`);
 				if(place){
-					place.removeEventListener("click",clickOnce)
+					place.removeEventListener("click",studioClickOnce)
 				}
 			}
-			let waiter = function(){
+			let studioWaiter = function(){
 				if(location.pathname.includes("/stats/anime/studios")){
-					clickOnce();
+					studioClickOnce();
 					return;
 				}
 				let place = document.querySelector(`[href$="/stats/anime/studios"]`);
 				if(place){
-					place.addEventListener("click",clickOnce)
+					place.addEventListener("click",studioClickOnce)
 				}
 				else{
-					setTimeout(waiter,200)
+					setTimeout(studioWaiter,200)
 				}
-			};waiter();
+			};studioWaiter();
+			return
 		};
 		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("ANIME",function(data){
-				personalStatsCallback({
-					data: {
-						MediaListCollection: data
-					}
-				})
+				personalStatsCallback(data)
 			})
 		}
 		else{
-			generalAPIcall(
-				queryMediaListAnime,
-				{
-					name: user,
-					listType: "ANIME"
-				},
-				function(data){personalStatsCallback(data)}
-			)
+			const animeData = await anilistAPI(queryMediaListAnime, {
+				variables: {name: user, listType: "ANIME"}
+			})
+			if(animeData.errors){
+				return
+			}
+			personalStatsCallback(animeData)
 		}
 //manga stats
-		let personalStatsMangaCallback = function(data){
+		let personalStatsMangaCallback = async function(data){
 			personalStatsManga.innerText = "";
 			create("hr","hohSeparator",false,personalStatsManga);
 			create("h1","hohStatHeading",translate("$stats_manga_heading",user),personalStatsManga);
@@ -2091,275 +2092,279 @@ function addMoreStats(){
 			drawTable(listOfTags,mangaFormatter,regularMangaTable,true,false);
 			semaPhoreManga = list;
 			nativeTagsReplacer();
-			generalAPIcall(queryMediaListStaff_simple,{name: user,listType: "MANGA"},function(data){
-				let rawStaff = returnList(data);
-				let cacheOffset = 0;
-				rawStaff.forEach(function(raw,index){
-					if(raw.mediaId === list[index - cacheOffset].mediaId){
-						raw.status = list[index - cacheOffset].status;
-						raw.chaptersRead = list[index - cacheOffset].chaptersRead;
-						raw.volumesRead = list[index - cacheOffset].volumesRead;
-						raw.scoreRaw = list[index - cacheOffset].scoreRaw
-					}
-					else{
-						cacheOffset++;
-						raw.status = "CURRENT";
-						raw.chaptersRead = 0;
-						raw.volumesRead = 0;
-						raw.scoreRaw = 0
-					}
-				});
-				let staffMap = {};
-				rawStaff.filter(obj => obj.status !== "PLANNING").forEach(function(media){
-					media.media.staff.edges.forEach(function(staff){
-						if(!staffMap[staff.node.id]){
-							staffMap[staff.node.id] = {
-								chaptersRead: 0,
-								volumesRead: 0,
-								count: 0,
-								scoreCount: 0,
-								scoreSum: 0,
-								id: staff.node.id,
-								name: staff.node.name,
-								roles: []
-							}
-						}
-						staffMap[staff.node.id].roles.push(staff.role);
-						if(media.chaptersRead || media.volumesRead){
-							staffMap[staff.node.id].volumesRead += media.volumesRead;
-							staffMap[staff.node.id].chaptersRead += media.chaptersRead;
-							staffMap[staff.node.id].count++
-						}
-						if(media.scoreRaw){
-							staffMap[staff.node.id].scoreSum += media.scoreRaw;
-							staffMap[staff.node.id].scoreCount++
-						}
-					})
-				});
-				let staffList = [];
-				Object.keys(staffMap).forEach(
-					key => staffList.push(staffMap[key])
-				);
-				staffList = staffList.filter(obj => obj.count >= 1).sort(
-					(b,a) => a.count - b.count || a.chaptersRead - b.chaptersRead || a.volumesRead - b.volumesRead
-				);
-				if(staffList.length > 300){
-					staffList = staffList.filter(
-						obj => obj.count >= 3
-						|| (obj.count >= 2 && obj.chaptersRead > 100)
-						|| obj.chaptersRead > 200
-					)
+
+			const staffSimpleData = await anilistAPI(queryMediaListStaff_simple, {
+				variables: {name: user,listType: "MANGA"},
+				cacheKey: "hohListCacheMangaStaff" + user,
+				duration: 10*60*1000
+			})
+			if(staffSimpleData.errors){
+				return
+			}
+			let rawStaff = returnList(staffSimpleData);
+			let cacheOffset = 0;
+			rawStaff.forEach(function(raw,index){
+				if(raw.mediaId === list[index - cacheOffset].mediaId){
+					raw.status = list[index - cacheOffset].status;
+					raw.chaptersRead = list[index - cacheOffset].chaptersRead;
+					raw.volumesRead = list[index - cacheOffset].volumesRead;
+					raw.scoreRaw = list[index - cacheOffset].scoreRaw
 				}
-				if(staffList.length > 300){
-					staffList = staffList.filter(
-						obj => obj.count >= 5
-						|| (obj.count >= 2 && obj.chaptersRead > 200)
-						|| obj.chaptersRead > 300
-					)
+				else{
+					cacheOffset++;
+					raw.status = "CURRENT";
+					raw.chaptersRead = 0;
+					raw.volumesRead = 0;
+					raw.scoreRaw = 0
 				}
-				if(staffList.length > 300){
-					staffList = staffList.filter(
-						obj => obj.count >= 10
-						|| (obj.count >= 2 && obj.chaptersRead > 300)
-						|| obj.chaptersRead > 400
-					)
+			});
+			let staffMap = {};
+			rawStaff.filter(obj => obj.status !== "PLANNING").forEach(function(media){
+				media.media.staff.edges.forEach(function(staff){
+					if(!staffMap[staff.node.id]){
+						staffMap[staff.node.id] = {
+							chaptersRead: 0,
+							volumesRead: 0,
+							count: 0,
+							scoreCount: 0,
+							scoreSum: 0,
+							id: staff.node.id,
+							name: staff.node.name,
+							roles: []
+						}
+					}
+					staffMap[staff.node.id].roles.push(staff.role);
+					if(media.chaptersRead || media.volumesRead){
+						staffMap[staff.node.id].volumesRead += media.volumesRead;
+						staffMap[staff.node.id].chaptersRead += media.chaptersRead;
+						staffMap[staff.node.id].count++
+					}
+					if(media.scoreRaw){
+						staffMap[staff.node.id].scoreSum += media.scoreRaw;
+						staffMap[staff.node.id].scoreCount++
+					}
+				})
+			});
+			let staffList = [];
+			Object.keys(staffMap).forEach(
+				key => staffList.push(staffMap[key])
+			);
+			staffList = staffList.filter(obj => obj.count >= 1).sort(
+				(b,a) => a.count - b.count || a.chaptersRead - b.chaptersRead || a.volumesRead - b.volumesRead
+			);
+			if(staffList.length > 300){
+				staffList = staffList.filter(
+					obj => obj.count >= 3
+					|| (obj.count >= 2 && obj.chaptersRead > 100)
+					|| obj.chaptersRead > 200
+				)
+			}
+			if(staffList.length > 300){
+				staffList = staffList.filter(
+					obj => obj.count >= 5
+					|| (obj.count >= 2 && obj.chaptersRead > 200)
+					|| obj.chaptersRead > 300
+				)
+			}
+			if(staffList.length > 300){
+				staffList = staffList.filter(
+					obj => obj.count >= 10
+					|| (obj.count >= 2 && obj.chaptersRead > 300)
+					|| obj.chaptersRead > 400
+				)
+			}
+			let hasScores = staffList.some(a => a.scoreCount);
+			let story_filter;
+			let art_filter;
+			let assistant_filter;
+			let translator_filter;
+			let drawStaffList = function(){
+				if(mangaStaff.querySelector(".table")){
+					mangaStaff.querySelector(".table").remove()
 				}
-				let hasScores = staffList.some(a => a.scoreCount);
-				let story_filter;
-				let art_filter;
-				let assistant_filter;
-				let translator_filter;
-				let drawStaffList = function(){
-					if(mangaStaff.querySelector(".table")){
-						mangaStaff.querySelector(".table").remove()
-					}
-					if(mangaStaff.querySelector(".jsonExport")){
-						mangaStaff.querySelector(".jsonExport").remove();
-						mangaStaff.querySelector(".csvExport").remove()
-					}
-					else{
-						mangaStaff.innerText = "";
-						story_filter = createCheckbox(mangaStaff);
-						create("span",false,translate("$role_Story",null,"Story"),mangaStaff,"margin-right:5px;");
-						art_filter = createCheckbox(mangaStaff);
-						create("span",false,translate("$role_Art",null,"Art"),mangaStaff,"margin-right:5px;");
-						assistant_filter = createCheckbox(mangaStaff);
-						create("span",false,"Assistants",mangaStaff,"margin-right:5px;");
-						translator_filter = createCheckbox(mangaStaff);
-						create("span",false,"Translators",mangaStaff,"margin-right:5px;");
-						story_filter.checked = true;
-						art_filter.checked = true;
-						assistant_filter.checked = true;
-						translator_filter.checked = true;
-						story_filter.oninput = drawStaffList;
-						art_filter.oninput = drawStaffList;
-						assistant_filter.oninput = drawStaffList;
-						translator_filter.oninput = drawStaffList;
-					}
-					let table = create("div",["table","hohTable","hohNoPointer"],false,mangaStaff);
-					let headerRow = create("div",["header","row","good"],false,table);
-					let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
-					let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
-					let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
-					if(!hasScores){
-						scoreHeading.style.display = "none"
-					}
-					let timeHeading = create("div",false,"Chapters Read",headerRow,"cursor:pointer;");
-					let volumeHeading = create("div",false,"Volumes Read",headerRow,"cursor:pointer;");
-					staffList.forEach(function(staff,index){
-						if(
-							(!story_filter.checked && art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/story/) && !role.toLowerCase().match(/art/)))
-							|| (story_filter.checked && !art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/art/) && !role.toLowerCase().match(/story/)))
-							|| (
-								!story_filter.checked
-								&& !art_filter.checked
-								&& (
-									staff.roles.every(role => role.toLowerCase().match(/art|story/))
-									|| !staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up|assistant|assistance/))
-								)
+				if(mangaStaff.querySelector(".jsonExport")){
+					mangaStaff.querySelector(".jsonExport").remove();
+					mangaStaff.querySelector(".csvExport").remove()
+				}
+				else{
+					mangaStaff.innerText = "";
+					story_filter = createCheckbox(mangaStaff);
+					create("span",false,translate("$role_Story",null,"Story"),mangaStaff,"margin-right:5px;");
+					art_filter = createCheckbox(mangaStaff);
+					create("span",false,translate("$role_Art",null,"Art"),mangaStaff,"margin-right:5px;");
+					assistant_filter = createCheckbox(mangaStaff);
+					create("span",false,"Assistants",mangaStaff,"margin-right:5px;");
+					translator_filter = createCheckbox(mangaStaff);
+					create("span",false,"Translators",mangaStaff,"margin-right:5px;");
+					story_filter.checked = true;
+					art_filter.checked = true;
+					assistant_filter.checked = true;
+					translator_filter.checked = true;
+					story_filter.oninput = drawStaffList;
+					art_filter.oninput = drawStaffList;
+					assistant_filter.oninput = drawStaffList;
+					translator_filter.oninput = drawStaffList;
+				}
+				let table = create("div",["table","hohTable","hohNoPointer"],false,mangaStaff);
+				let headerRow = create("div",["header","row","good"],false,table);
+				let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
+				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
+				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
+				if(!hasScores){
+					scoreHeading.style.display = "none"
+				}
+				let timeHeading = create("div",false,"Chapters Read",headerRow,"cursor:pointer;");
+				let volumeHeading = create("div",false,"Volumes Read",headerRow,"cursor:pointer;");
+				staffList.forEach(function(staff,index){
+					if(
+						(!story_filter.checked && art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/story/) && !role.toLowerCase().match(/art/)))
+						|| (story_filter.checked && !art_filter.checked && staff.roles.every(role => role.toLowerCase().match(/art/) && !role.toLowerCase().match(/story/)))
+						|| (
+							!story_filter.checked
+							&& !art_filter.checked
+							&& (
+								staff.roles.every(role => role.toLowerCase().match(/art|story/))
+								|| !staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up|assistant|assistance/))
 							)
-							|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assistant|assistance/)))
-							|| (!translator_filter.checked && staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up/)))
-						){
-							return
-						}
-						let row = create("div",["row","good"],false,table);
-						let nameCel = create("div",false,(index + 1) + " ",row);
-						create("a","newTab",staff.name.first + " " + (staff.name.last || ""),nameCel)
-							.href = "/staff/" + staff.id;
-						create("div",false,staff.count,row);
-						if(hasScores){
-							create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row)
-						}
-						create("div",false,staff.chaptersRead,row);
-						create("div",false,staff.volumesRead,row)
-					});
-					let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",mangaStaff,"margin-top:10px;");
-					let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",mangaStaff,"margin-top:10px;");
-					csvButton.onclick = function(){
-						let csvContent = 'Staff,Count,"Mean Score","Chapters Read","Volumes Read"\n';
-						staffList.forEach(staff => {
-							csvContent += csvEscape(
-								[staff.name.first,staff.name.last].filter(TRUTHY).join(" ")
-							) + ",";
-							csvContent += staff.count + ",";
-							csvContent += (staff.scoreSum/staff.scoreCount).roundPlaces(2) + ",";
-							csvContent += staff.chaptersRead + ",";
-							csvContent += staff.volumesRead + "\n";
-						});
-						saveAs(csvContent,"Manga staff stats for " + user + ".csv",true)
-					};
-					jsonButton.onclick = function(){
-						saveAs({
-							type: "MANGA",
-							user: user,
-							timeStamp: NOW(),
-							version: "1.00",
-							scriptInfo: scriptInfo,
-							url: document.URL,
-							description: "Anilist manga staff stats for " + user,
-							fields: [
-								{name: "name",description: "The full name of the staff member, as firstname lastname"},
-								{name: "staffID",description: "The staff member's database number in the Anilist database"},
-								{name: "count",description: "The total number of media this staff member has credits for, for the current user"},
-								{name: "score",description: "The current user's mean score for the staff member out of 100"},
-								{name: "chaptersRead",description: "How many chapters of this staff member's credited media the current user has read"},
-								{name: "volumesRead",description: "How many volumes of this staff member's credited media the current user has read"}
-							],
-							data: staffList.map(staff => {
-								return {
-									name: (staff.name.first + " " + (staff.name.last || "")).trim(),
-									staffID: staff.id,
-									count: staff.count,
-									score: (staff.scoreSum/staff.scoreCount).roundPlaces(2),
-									chaptersRead: staff.chaptersRead,
-									volumesRead: staff.volumesRead
-								}
-							})
-						},"Manga staff stats for " + user + ".json")
-					}
-					nameHeading.onclick = function(){
-						staffList.sort(ALPHABETICAL(a => a.name.first + " " + (a.name.last || "")));
-						drawStaffList()
-					};
-					countHeading.onclick = function(){
-						staffList.sort(
-							(b,a) => a.count - b.count
-								|| a.chaptersRead - b.chaptersRead
-								|| a.volumesRead - b.volumesRead
-								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-						);
-						drawStaffList()
-					};
-					scoreHeading.onclick = function(){
-						staffList.sort(
-							(b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-								|| a.count - b.count
-								|| a.chaptersRead - b.chaptersRead
-								|| a.volumesRead - b.volumesRead
-						);
-						drawStaffList()
-					};
-					timeHeading.onclick = function(){
-						staffList.sort(
-							(b,a) => a.chaptersRead - b.chaptersRead
-								|| a.volumesRead - b.volumesRead
-								|| a.count - b.count
-								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-						);
-						drawStaffList()
-					};
-					volumeHeading.onclick = function(){
-						staffList.sort(
-							(b,a) => a.volumesRead - b.volumesRead
-								|| a.chaptersRead - b.chaptersRead
-								|| a.count - b.count
-								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-						);
-						drawStaffList()
-					}
-				};
-				let clickOnce = function(){
-					drawStaffList();
-					let place = document.querySelector(`[href$="/stats/manga/staff"]`);
-					if(place){
-						place.removeEventListener("click",clickOnce)
-					}
-				}
-				let waiter = function(){
-					if(location.pathname.includes("/stats/manga/staff")){
-						clickOnce();
+						)
+						|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assistant|assistance/)))
+						|| (!translator_filter.checked && staff.roles.some(role => role.toLowerCase().match(/translator|lettering|touch-up/)))
+					){
 						return
 					}
-					let place = document.querySelector(`[href$="/stats/manga/staff"]`);
-					if(place){
-						place.addEventListener("click",clickOnce)
+					let row = create("div",["row","good"],false,table);
+					let nameCel = create("div",false,(index + 1) + " ",row);
+					create("a","newTab",staff.name.first + " " + (staff.name.last || ""),nameCel)
+						.href = "/staff/" + staff.id;
+					create("div",false,staff.count,row);
+					if(hasScores){
+						create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row)
 					}
-					else{
-						setTimeout(waiter,200)
-					}
-				};waiter();
-			},"hohListCacheMangaStaff" + user,10*60*1000);
+					create("div",false,staff.chaptersRead,row);
+					create("div",false,staff.volumesRead,row)
+				});
+				let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",mangaStaff,"margin-top:10px;");
+				let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",mangaStaff,"margin-top:10px;");
+				csvButton.onclick = function(){
+					let csvContent = 'Staff,Count,"Mean Score","Chapters Read","Volumes Read"\n';
+					staffList.forEach(staff => {
+						csvContent += csvEscape(
+							[staff.name.first,staff.name.last].filter(TRUTHY).join(" ")
+						) + ",";
+						csvContent += staff.count + ",";
+						csvContent += (staff.scoreSum/staff.scoreCount).roundPlaces(2) + ",";
+						csvContent += staff.chaptersRead + ",";
+						csvContent += staff.volumesRead + "\n";
+					});
+					saveAs(csvContent,"Manga staff stats for " + user + ".csv",true)
+				};
+				jsonButton.onclick = function(){
+					saveAs({
+						type: "MANGA",
+						user: user,
+						timeStamp: NOW(),
+						version: "1.00",
+						scriptInfo: scriptInfo,
+						url: document.URL,
+						description: "Anilist manga staff stats for " + user,
+						fields: [
+							{name: "name",description: "The full name of the staff member, as firstname lastname"},
+							{name: "staffID",description: "The staff member's database number in the Anilist database"},
+							{name: "count",description: "The total number of media this staff member has credits for, for the current user"},
+							{name: "score",description: "The current user's mean score for the staff member out of 100"},
+							{name: "chaptersRead",description: "How many chapters of this staff member's credited media the current user has read"},
+							{name: "volumesRead",description: "How many volumes of this staff member's credited media the current user has read"}
+						],
+						data: staffList.map(staff => {
+							return {
+								name: (staff.name.first + " " + (staff.name.last || "")).trim(),
+								staffID: staff.id,
+								count: staff.count,
+								score: (staff.scoreSum/staff.scoreCount).roundPlaces(2),
+								chaptersRead: staff.chaptersRead,
+								volumesRead: staff.volumesRead
+							}
+						})
+					},"Manga staff stats for " + user + ".json")
+				}
+				nameHeading.onclick = function(){
+					staffList.sort(ALPHABETICAL(a => a.name.first + " " + (a.name.last || "")));
+					drawStaffList()
+				};
+				countHeading.onclick = function(){
+					staffList.sort(
+						(b,a) => a.count - b.count
+							|| a.chaptersRead - b.chaptersRead
+							|| a.volumesRead - b.volumesRead
+							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+					);
+					drawStaffList()
+				};
+				scoreHeading.onclick = function(){
+					staffList.sort(
+						(b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+							|| a.count - b.count
+							|| a.chaptersRead - b.chaptersRead
+							|| a.volumesRead - b.volumesRead
+					);
+					drawStaffList()
+				};
+				timeHeading.onclick = function(){
+					staffList.sort(
+						(b,a) => a.chaptersRead - b.chaptersRead
+							|| a.volumesRead - b.volumesRead
+							|| a.count - b.count
+							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+					);
+					drawStaffList()
+				};
+				volumeHeading.onclick = function(){
+					staffList.sort(
+						(b,a) => a.volumesRead - b.volumesRead
+							|| a.chaptersRead - b.chaptersRead
+							|| a.count - b.count
+							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+					);
+					drawStaffList()
+				}
+			};
+			let clickOnce = function(){
+				drawStaffList();
+				let place = document.querySelector(`[href$="/stats/manga/staff"]`);
+				if(place){
+					place.removeEventListener("click",clickOnce)
+				}
+			}
+			let waiter = function(){
+				if(location.pathname.includes("/stats/manga/staff")){
+					clickOnce();
+					return
+				}
+				let place = document.querySelector(`[href$="/stats/manga/staff"]`);
+				if(place){
+					place.addEventListener("click",clickOnce)
+				}
+				else{
+					setTimeout(waiter,200)
+				}
+			};waiter();
+			return
 		};
 		if(user === whoAmI && reliablePersistentStorage){
 			cache.getList("MANGA",data => {
-				personalStatsMangaCallback({
-					data: {
-						MediaListCollection: data
-					}
-				})
+				personalStatsMangaCallback(data)
 			})
 		}
 		else{
-			generalAPIcall(
-				queryMediaListManga,
-				{
-					name: user,
-					listType: "MANGA"
-				},
-				personalStatsMangaCallback
-			)
+			const mangaData = await anilistAPI(queryMediaListManga, {
+				variables: {name: user, listType: "MANGA"}
+			})
+			if(mangaData.errors){
+				return
+			}
+			personalStatsMangaCallback(mangaData)
 		}
+		return
 	};
 	let tabWaiter = function(){
 		let tabMenu = filterGroup.querySelectorAll(".filter-group > a");
