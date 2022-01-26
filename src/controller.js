@@ -167,7 +167,6 @@ function handleScripts(url,oldUrl){
 	if(
 		url.match(/^https:\/\/anilist\.co\/.+\/(anime|manga)list\/?(.*)?$/)
 	){
-		drawListStuff();
 		if(useScripts.viewAdvancedScores){
 			viewAdvancedScores(url)
 		}
