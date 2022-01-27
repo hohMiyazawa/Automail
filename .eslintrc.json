@@ -14,7 +14,21 @@
         "no-undef": "off",
         "no-extra-semi": "warn",
         "no-useless-escape": "warn",
-	"array-callback-return": "warn"
+	"array-callback-return": "warn",
+	"no-await-in-loop": "warn",
+	"no-constructor-return": "warn",
+	"no-promise-executor-return": "warn",
+	"no-self-compare": "warn",
+	"no-template-curly-in-string": "warn",
+	"no-unmodified-loop-condition": "warn",
+	"no-unreachable-loop": "warn",
+	"no-use-before-define": "warn",
+	"no-caller": "warn",
+	"no-eval": "warn",
+	"no-implied-eval": "warn",
+	"no-extend-native": "warn",
+	"no-extra-bind": "warn",
+	"no-floating-decimal": "warn"
     },
     "globals": {
         "DOMPurify": "readonly",
