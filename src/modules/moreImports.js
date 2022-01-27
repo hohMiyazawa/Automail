@@ -56,7 +56,7 @@ function moreImports(){
 	exportErrors.onclick = function() {
 		var link = create("a")
 		let dataTitles = ""
-		uncheckedTitles.map(title => {
+		uncheckedTitles.forEach(title => {
 			dataTitles += `Unchecked title : ${title}\n`			
 		})
 		link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(dataTitles + "\n" + missingList.innerText.replace(/[\n\r]+/g, "\n"))
@@ -274,6 +274,7 @@ function moreImports(){
 									indexMap = index
 									return true
 								}
+								return false
 							})
 							return indexMap
 						}
