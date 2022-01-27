@@ -13,7 +13,8 @@
         "no-unused-vars": "off",
         "no-undef": "off",
         "no-extra-semi": "warn",
-        "no-useless-escape": "warn"
+        "no-useless-escape": "warn",
+	"array-callback-return": "warn"
     },
     "globals": {
         "DOMPurify": "readonly",
