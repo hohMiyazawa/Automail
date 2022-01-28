@@ -7,7 +7,8 @@
 		"maintainer": "SoulBlade17",
 		"maintainer_link": "https://anilist.co/user/SoulBlade17/",
 		"discussion_link": "https://github.com/hohMiyazawa/Automail/issues/69",
-		"notes": "Japanese is not my first language, so errors may be present in the translation. Please let me know if you find any errors."
+		"notes": "Japanese is not my first language, so errors may be present in the translation. Please let me know if you find any errors.",
+		"translators": ["SoulBlade17","hoh"]
 	},
 	"keys": {
 "$loading": "読み込んでいます...",

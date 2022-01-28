@@ -7,7 +7,8 @@
 		"maintainer": "hoh",
 		"maintainer_link": "https://anilist.co/user/hoh/",
 		"discussion_link": "",
-		"notes": ""
+		"notes": "",
+		"translators": ["hoh"]
 	},
 	"keys": {
 "$meta_scriptDescription": "Ekstradelar for Anilist.co",
