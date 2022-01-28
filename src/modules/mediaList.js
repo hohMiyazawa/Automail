@@ -289,8 +289,20 @@ fragment mediaListEntry on MediaList{
 					customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
 					let drawTags = function(){
 						removeChildren(tagIndex);
-						let sortName = create("span",false,"▲",tagIndex,"cursor:pointer");
-						let sortNumber = create("span",false,"▼",tagIndex,"cursor:pointer;float:right");
+						if(customTags.length > 1){
+							let sortName = create("span",false,"▲",tagIndex,"cursor:pointer");
+							sortName.title = "sort by name";
+							let sortNumber = create("span",false,"▼",tagIndex,"cursor:pointer;float:right");
+							sortNumber.title = "sort by count";
+							sortName.onclick = function(){
+								customTags.sort((b,a) => b.name.localeCompare(a.name));
+								drawTags()
+							}
+							sortNumber.onclick = function(){
+								customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
+								drawTags()
+							}
+						}
 						customTags.forEach(tag => {
 							if(tag.name.match(/,(malSync|last)::/)){
 								return
@@ -308,15 +320,7 @@ fragment mediaListEntry on MediaList{
 									document.body.scrollTop = document.documentElement.scrollTop = 0
 								}
 							}
-						});
-						sortName.onclick = function(){
-							customTags.sort((b,a) => b.name.localeCompare(a.name));
-							drawTags()
-						}
-						sortNumber.onclick = function(){
-							customTags.sort((b,a) => a.count - b.count || b.name.localeCompare(a.name));
-							drawTags()
-						}
+						})
 					};
 					if(customTags.some(tag => !tag.name.match(/,(malSync|last)::/))){
 						drawTags()
