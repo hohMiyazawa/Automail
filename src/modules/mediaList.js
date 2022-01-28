@@ -92,6 +92,147 @@ exportModule({
 			if(useScripts.newChapters && URLstuff[2] === "mangalist"){
 				newChaptersInsertion(extraFilters)
 			}
+			if(URLstuff[2] === "mangalist"){
+				let alMangaButton = create("button",["button","hohButton"],"Export JSON",extraFilters);
+				alMangaButton.onclick = function(){
+					generalAPIcall(
+						`
+query($name: String!){
+	MediaListCollection(userName: $name, type: MANGA){
+		lists{
+			name
+			isCustomList
+			isSplitCompletedList
+			entries{
+				... mediaListEntry
+			}
+		}
+	}
+	User(name: $name){
+		name
+		id
+		mediaListOptions{
+			scoreFormat
+		}
+	}
+}
+
+fragment mediaListEntry on MediaList{
+	mediaId
+	status
+	progress
+	progressVolumes
+	repeat
+	notes
+	priority
+	hiddenFromStatusLists
+	customLists
+	advancedScores
+	startedAt{
+		year
+		month
+		day
+	}
+	completedAt{
+		year
+		month
+		day
+	}
+	updatedAt
+	createdAt
+	media{
+		idMal
+		title{romaji native english}
+	}
+	score
+}
+				`,
+						{name: decodeURIComponent(URLstuff[1])},
+						function(data){
+							if(!data){
+								alert("Export failed");
+								return
+							}
+							data.data.version = "1.01";
+							data.data.scriptInfo = scriptInfo;
+							data.data.type = "MANGA";
+							data.data.url = document.URL;
+							data.data.timeStamp = NOW();
+							saveAs(data.data,"AnilistMangaList_" + decodeURIComponent(URLstuff[1]) + ".json");
+						}
+					)
+				}
+			}
+			if(URLstuff[2] === "animelist"){
+				let alAnimeButton = create("button",["button","hohButton"],"Export JSON",extraFilters);
+				alAnimeButton.onclick = function(){
+					generalAPIcall(
+						`
+query($name: String!){
+	MediaListCollection(userName: $name, type: ANIME){
+		lists{
+			name
+			isCustomList
+			isSplitCompletedList
+			entries{
+				... mediaListEntry
+			}
+		}
+	}
+	User(name: $name){
+		name
+		id
+		mediaListOptions{
+			scoreFormat
+		}
+	}
+}
+
+fragment mediaListEntry on MediaList{
+	mediaId
+	status
+	progress
+	repeat
+	notes
+	priority
+	hiddenFromStatusLists
+	customLists
+	advancedScores
+	startedAt{
+		year
+		month
+		day
+	}
+	completedAt{
+		year
+		month
+		day
+	}
+	updatedAt
+	createdAt
+	media{
+		idMal
+		title{romaji native english}
+	}
+	score
+}
+				`,
+						{name: decodeURIComponent(URLstuff[1])},
+						function(data){
+							if(!data){
+								alert("Export failed");
+								return
+							}
+							data.data.version = "1.01";
+							data.data.scriptInfo = scriptInfo;
+							data.data.type = "ANIME";
+							data.data.url = document.URL;
+							data.data.timeStamp = NOW();
+							saveAs(data.data,"AnilistAnimeList_" + decodeURIComponent(URLstuff[1]) + ".json");
+						}
+					)
+				}
+			}
 			if(useScripts.tagIndex && (!useScripts.mobileFriendly)){
 				let tagIndex = create("div","tagIndex",false,extraFilters);
 				let collectNotes = function(data){
