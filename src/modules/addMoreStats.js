@@ -337,7 +337,7 @@ function addMoreStats(){
 			if(autoHide){
 				let tableHider = create("span",["hohMonospace","hohTableHider"],"[-]",header);
 				let regularTagsSetting = create("p",false,false,tableLocation);
-				let regularTagsSettingLabel = create("span",false," Regular tags included (applied on reload): ",regularTagsSetting);
+				let regularTagsSettingLabel = create("span",false,translate("$stats_regularTags"),regularTagsSetting);
 				let regularTagsSettingContent = create("span",false,false,regularTagsSetting);
 				let regularTagsSettingNew = create("input",false,false,regularTagsSetting);
 				let regularTagsSettingAdd = create("button",["hohButton","button"],"+",regularTagsSetting);
@@ -493,7 +493,7 @@ function addMoreStats(){
 								if(data[index].status[status]){
 									let statusSumDot = create("div","hohSummableStatus",data[index].status[status],nameCellStatus);
 									statusSumDot.style.background = distributionColours[status];
-									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
+									statusSumDot.title = data[index].status[status] + " " + capitalize(statusTypes[status]);
 									if(data[index].status[status] > 99){
 										statusSumDot.style.fontSize = "8px"
 									}
@@ -1073,9 +1073,9 @@ function addMoreStats(){
 				create("p",false,translate("$stats_firstLoggedAnime") + [oldest.year, oldest.month, oldest.day].filter(TRUTHY).join("-") + ". " + translate("$stats_firstLoggedAnime_note"),personalStats)
 			}
 			let animeFormatter = {
-				title: "Custom Anime Tags",
+				title: translate("$stats_customTagsAnime"),
 				display: !useScripts.hideCustomTags,
-				headings: [translate("$stats_tag"),translate("$stats_count"),"Mean Score","Time Watched","Episodes","Eps remaining"],
+				headings: [translate("$stats_tag"),translate("$stats_count"),translate("$stats_meanScore"),"Time Watched","Episodes","Eps remaining"],
 				focus: -1,
 				celData: [
 					function(cel,data,index,isPrimary){
@@ -1157,13 +1157,13 @@ function addMoreStats(){
 						}
 						else{
 							cel.innerText = formatTime(data[index].duration*60,"short");
-							cel.title = (data[index].duration/60).roundPlaces(1) + " hours"
+							cel.title = (data[index].duration/60).roundPlaces(1) + " " + translate("$time_medium_Mhour")
 						}
 					},
 					function(cel,data,index,isPrimary){
 						if(isPrimary){
 							if(!data[index].list.length){
-								cel.innerText = "-"
+								cel.innerText = translate("$missing_N/A_data")
 							}
 							else{
 								cel.innerText = data[index].episodes
@@ -1175,10 +1175,10 @@ function addMoreStats(){
 					},
 					function(cel,data,index,isPrimary){
 						if(data[index].episodes === 0 && data[index].remaining === 0 || isPrimary && !data[index].list.length){
-							cel.innerText = "-"
+							cel.innerText = translate("$missing_N/A_data")
 						}
 						else if(data[index].remaining === 0){
-							cel.innerText = "completed"
+							cel.innerText = translate("$mediaStatus_completed")
 						}
 						else{
 							if(useScripts.timeToCompleteColumn){
@@ -1333,7 +1333,7 @@ function addMoreStats(){
 				let headerRow    = create("div",["header","row","good"],false,table);
 				let nameHeading  = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
 				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
-				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
+				let scoreHeading = create("div",false,translate("$stats_meanScore"),headerRow,"cursor:pointer;");
 				if(!staffHasScores){
 					scoreHeading.style.display = "none"
 				}
@@ -1936,9 +1936,9 @@ function addMoreStats(){
 			}
 //
 			let mangaFormatter = {
-				title: "Custom Manga Tags",
+				title: translate("$stats_customTagsManga"),
 				display: !useScripts.hideCustomTags,
-				headings: [translate("$stats_tag"),translate("$stats_count"),"Mean Score","Chapters","Volumes"],
+				headings: [translate("$stats_tag"),translate("$stats_count"),translate("$stats_meanScore"),translate("$stats_chapters"),translate("$stats_volumes")],
 				focus: -1,
 				celData: [
 					function(cel,data,index,isPrimary){
@@ -1950,7 +1950,7 @@ function addMoreStats(){
 								if(data[index].status && data[index].status[status]){
 									let statusSumDot = create("div","hohSummableStatus",data[index].status[status],nameCellStatus);
 									statusSumDot.style.background = distributionColours[status];
-									statusSumDot.title = data[index].status[status] + " " + capitalize(status.toLowerCase());
+									statusSumDot.title = data[index].status[status] + " " + capitalize(statusTypes[status]);
 									if(data[index].status[status] > 99){
 										statusSumDot.style.fontSize = "8px"
 									}
@@ -2209,7 +2209,7 @@ function addMoreStats(){
 				let headerRow = create("div",["header","row","good"],false,table);
 				let nameHeading = create("div",false,translate("$stats_name"),headerRow,"cursor:pointer;");
 				let countHeading = create("div",false,translate("$stats_count"),headerRow,"cursor:pointer;");
-				let scoreHeading = create("div",false,"Mean Score",headerRow,"cursor:pointer;");
+				let scoreHeading = create("div",false,translate("$stats_meanScore"),headerRow,"cursor:pointer;");
 				if(!hasScores){
 					scoreHeading.style.display = "none"
 				}
