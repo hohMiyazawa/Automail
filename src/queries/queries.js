@@ -1,7 +1,6 @@
 m4_include(queries/firstActivity.js)
 m4_include(queries/rank.js)
 m4_include(queries/hiddenMediaEntries.js)
-m4_include(queries/notificationCount.js)
 m4_include(queries/relatedAnime.js)
 m4_include(queries/relatedManga.js)
 m4_include(queries/compatibility.js)
