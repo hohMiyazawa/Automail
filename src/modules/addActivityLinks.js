@@ -136,7 +136,7 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 			pdata.Activity.recipientId = data.Activity.recipientId;
 			pdata.Activity.recipient = data.Activity.recipient;
 			prevRes.next = document.URL;
-			saveCache("hohActivity" + pdata.Activity.id, Object.assign(prevRes,{data: pdata}), 20*60);
+			saveCache("hohActivity" + pdata.Activity.id, Object.assign(prevRes,{data: pdata}), 20*60*1000);
 		}
 		if(res.next){
 			let link = create("a","hohPostLink","→",false,"right:-25px;");
@@ -165,7 +165,7 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 			ndata.Activity.recipientId = data.Activity.recipientId;
 			ndata.Activity.recipient = data.Activity.recipient;
 			nextRes.previous = document.URL;
-			saveCache("hohActivity" + ndata.Activity.id, Object.assign(nextRes,{data: ndata}), 20*60);
+			saveCache("hohActivity" + ndata.Activity.id, Object.assign(nextRes,{data: ndata}), 20*60*1000);
 		}
 		return;
 	}
