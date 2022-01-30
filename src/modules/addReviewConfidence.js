@@ -11,6 +11,18 @@ exportModule({
 		let pageCount = 0;
 		const adultContent = userObject ? userObject.options.displayAdultContent : false;
 
+		function watchElem(selector, parent) {
+			return new Promise(resolve => {
+				new MutationObserver((_mutations, observer) => {
+					const elem = (parent || document).querySelector(selector);
+					if (elem) {
+						observer.disconnect()
+						resolve(elem)
+					}
+				}).observe(document.body, { subtree: true, childList: true })
+			})
+		}
+
 		const addReviewConfidence = async function(){
 			pageCount++
 			const {data, errors} = await anilistAPI("query($page:Int){Page(page:$page,perPage:30){reviews(sort:ID_DESC){id rating ratingAmount}}}", {
@@ -22,46 +34,41 @@ exportModule({
 			if(errors){
 				return;
 			}
-			const adder = function(){
-				const locationForIt = document.querySelector(".recent-reviews .review-wrap");
-				if(!locationForIt){
-					setTimeout(adder,200);
-					return;
-				}
-				data.Page.reviews.forEach(review => {
-					const wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
-					const extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
-					extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
-					extraScore.style.marginRight = "3px";
-					const findParent = function(){
-						const parent = locationForIt.querySelector('[href="/review/' + review.id + '"] .votes');
-						if(!parent){
-							setTimeout(findParent,200);
-							return;
-						}
-						parent.insertBefore(extraScore,parent.firstChild);
-						if(wilsonLowerBound < 0.05){
-							parent.parentNode.parentNode.style.opacity = "0.5" // dim review-card
-						}
-					}; findParent();
-				})
-				return;
-			};adder();
-		}
-		addReviewConfidence()
-
-		const checkMore = function(){
-			const loadMore = document.querySelector(".recent-reviews .load-more");
-			if(!loadMore){
-				setTimeout(checkMore,200);
+			const locationForIt = document.querySelector(".recent-reviews");
+			if(!locationForIt){
 				return;
 			}
+			const reviewWrap = locationForIt.querySelector(".review-wrap") || await watchElem(".review-wrap", locationForIt);
+			data.Page.reviews.forEach(review => {
+				const wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
+				const extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
+				extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
+				extraScore.style.marginRight = "3px";
+				const parent = reviewWrap.querySelector('[href="/review/' + review.id + '"] .votes');
+				if(!parent){
+					return;
+				}
+				parent.insertBefore(extraScore,parent.firstChild);
+				if(wilsonLowerBound < 0.05){
+					parent.parentNode.parentNode.style.opacity = "0.5" // dim review-card
+				}
+			})
+			return;
+		}
+
+		const checkMore = async function(){
+			const container = document.querySelector(".recent-reviews");
+			if(!container){
+				return;
+			}
+			const loadMore = container.querySelector(".load-more") || await watchElem(".load-more", container);
+			addReviewConfidence()
 			loadMore.addEventListener("click", async () => {
-				await addReviewConfidence() // run twice to counteract the offset created when scrolling
 				await addReviewConfidence()
 				checkMore() // a different load more button is created, so the listener needs to be reattached
 				return;
 			})
+			return;
 		};checkMore();
 	},
 	css: `
