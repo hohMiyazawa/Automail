@@ -8,30 +8,60 @@ exportModule({
 		return url === "https://anilist.co/reviews"
 	},
 	code: function(){
-		generalAPIcall("query{Page(page:1,perPage:30){reviews(sort:ID_DESC){id rating ratingAmount}}}",{},function(data){
-			let adder = function(){
-				if(location.pathname !== "/reviews"){
-					return
-				}
-				let locationForIt = document.querySelector(".recent-reviews .review-wrap");
+		let pageCount = 0;
+		let reviewCount = 0;
+
+		const addReviewConfidence = async function(){
+			pageCount++
+			const {data, errors} = await anilistAPI("query($page:Int){Page(page:$page,perPage:30){reviews(sort:ID_DESC){id rating ratingAmount}}}", {
+				variables: {page: pageCount},
+				cacheKey: "hohRecentReviewsPage" + pageCount,
+				duration: 30*1000
+			})
+			if(errors){
+				return;
+			}
+			const adder = function(){
+				const locationForIt = document.querySelector(".recent-reviews .review-wrap");
 				if(!locationForIt){
 					setTimeout(adder,200);
 					return;
 				}
-				data.data.Page.reviews.forEach((review,index) => {
-					let wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
-					let extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
+				data.Page.reviews.forEach(review => {
+					reviewCount++
+					const wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
+					const extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
 					extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
 					extraScore.style.marginRight = "3px";
-					let parent = locationForIt.querySelector('[href="/review/' + review.id + '"] .votes');
-					if(parent){
+					const findParent = function(){
+						const parent = locationForIt.querySelector('[href="/review/' + review.id + '"] .votes');
+						if(!parent){
+							setTimeout(findParent,200);
+							return;
+						}
 						parent.insertBefore(extraScore,parent.firstChild);
 						if(wilsonLowerBound < 0.05){
-							locationForIt.children[index].style.opacity = "0.5"
+							locationForIt.children[reviewCount - 1].style.opacity = "0.5"
 						}
-					}
+					}; findParent();
 				})
+				return;
 			};adder();
-		},"hohRecentReviews",30*1000);
+		}
+		addReviewConfidence()
+
+		const checkMore = function(){
+			const loadMore = document.querySelector(".recent-reviews .load-more");
+			if(!loadMore){
+				setTimeout(checkMore,200);
+				return;
+			}
+			loadMore.addEventListener("click", addReviewConfidence)
+		};checkMore();
+	},
+	css: `
+	.recent-reviews .review-wrap .review-card .summary {
+		margin-bottom: 15px;
 	}
+	`
 })
