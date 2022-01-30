@@ -9,14 +9,15 @@ exportModule({
 	},
 	code: function(){
 		let pageCount = 0;
-		let reviewCount = 0;
+		const adultContent = userObject ? userObject.options.displayAdultContent : false;
 
 		const addReviewConfidence = async function(){
 			pageCount++
 			const {data, errors} = await anilistAPI("query($page:Int){Page(page:$page,perPage:30){reviews(sort:ID_DESC){id rating ratingAmount}}}", {
 				variables: {page: pageCount},
 				cacheKey: "hohRecentReviewsPage" + pageCount,
-				duration: 30*1000
+				duration: 30*1000,
+				auth: adultContent // api doesn't return reviews for adult content unless authed + have the option enabled
 			})
 			if(errors){
 				return;
@@ -28,7 +29,6 @@ exportModule({
 					return;
 				}
 				data.Page.reviews.forEach(review => {
-					reviewCount++
 					const wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
 					const extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
 					extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
@@ -41,7 +41,7 @@ exportModule({
 						}
 						parent.insertBefore(extraScore,parent.firstChild);
 						if(wilsonLowerBound < 0.05){
-							locationForIt.children[reviewCount - 1].style.opacity = "0.5"
+							parent.parentNode.parentNode.style.opacity = "0.5" // dim review-card
 						}
 					}; findParent();
 				})
@@ -56,7 +56,12 @@ exportModule({
 				setTimeout(checkMore,200);
 				return;
 			}
-			loadMore.addEventListener("click", addReviewConfidence)
+			loadMore.addEventListener("click", async () => {
+				await addReviewConfidence() // run twice to counteract the offset created when scrolling
+				await addReviewConfidence()
+				checkMore() // a different load more button is created, so the listener needs to be reattached
+				return;
+			})
 		};checkMore();
 	},
 	css: `
