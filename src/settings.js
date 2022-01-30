@@ -79,7 +79,6 @@ let useScripts = {
 	embedHentai: false,
 	comparissionPage: true,
 	noImagePolyfill: false,
-	reviewConfidence: true,
 	blockWord: false,
 	showMarkdown: true,
 	myThreads: false,
