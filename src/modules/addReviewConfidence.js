@@ -5,7 +5,7 @@ exportModule({
 	categories: ["Browse"],
 	visible: true,
 	urlMatch: function(url){
-		return url === "https://anilist.co/reviews"
+		return /^https:\/\/anilist\.co\/reviews/.test(url)
 	},
 	code: function(){
 		let pageCount = 0;
