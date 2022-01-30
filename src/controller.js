@@ -435,8 +435,11 @@ if(useScripts.automailAPI){
 		generalAPIcall: generalAPIcall,//query,variables,callback[,cacheKey[,timeFresh[,useLocalStorage]]]
 		authAPIcall: authAPIcall,
 		queryPacker: queryPacker,
-		settings: useScripts,
-		logOut: function(){//makes Automail forget the access token (but it's still valid)
+		api: anilistAPI,//APIv2
+		settings: useScripts,//this contains an access token, if granted. Be careful!
+		logOut: function(){
+			//makes Automail forget the access token (but it's still valid)
+			//to disable an access token, go to https://anilist.co/settings/apps, and click "revoke app".
 			useScripts.accessToken = "";
 			useScripts.save()
 		}

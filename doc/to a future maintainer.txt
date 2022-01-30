@@ -4,3 +4,11 @@ videoMimeTypeFixer:
 purify.js:
 	check for new versions of this every six months or so, to keep up with the xss meta
 
+"remind hoh to update the commonUnfinishedManga list"
+	/src/data/commonUnfinishedManga.json contains a mini-database of unfinished manga.
+	edit the timestamp in /src/utilities.js to make it stop nagging
+
+How do I publish the firefox addon?
+	You have to register a firefox account, and publish it separately.
+
+If hoh can't be reached, ask synthtech about the architecture of the script

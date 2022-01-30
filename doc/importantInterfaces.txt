@@ -24,6 +24,8 @@ Current interfaces:
 
 	automailAPI.automailAPI
 		-- an object containing various info about the version of Automail running. Can be found in src/scriptInfo.js
+	automailAPI.api
+		-- the new Automail internal Graphql API
 	automailAPI.generalAPIcall
 	automailAPI.authAPIcall
 	automailAPI.queryPacker

@@ -2,6 +2,10 @@
 
 ---
 
+There's also an eslint config.
+
+---
+
 As with any project, follow its established coding style.
 
 Your contributions may still be accepted if you don't but there will be less cleanup job for me.
@@ -46,7 +50,7 @@ if(
 
 13. Avoid calling anilist code.
 (permitted, for opening the list editor: document.getElementById("app").__vue__.$store.dispatch("medialistEditor/open",mediaID) )
-(permitted, for loading other parts of the site from memory: document.getElementById("app").__vue__._router.push() BUT MAKE SURE IT FALLS BACK TO A REGULA LINK!)
+(permitted, for loading other parts of the site from memory: document.getElementById("app").__vue__._router.push() BUT MAKE SURE IT FALLS BACK TO A REGULAR LINK!)
 
 14. All communication with the Anilist API must be done via the interfaces defined in src/graphql.js
 

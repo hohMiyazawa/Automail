@@ -1,7 +1,7 @@
 Automail has configurable settings.
 If those settings are to be kept, they have to be stored somewhere.
 
-Since Automail makes to use of a central server, they have to be saved locally on your computer.
+Since Automail DOES NOT make use of a central server, they have to be saved locally on your computer.
 Browsers provide several APIs for this, generally known as cookies.
 
 
@@ -26,7 +26,8 @@ Patching default settings:
 
 
 src/settings.js contains an object called "useScripts" with the default settings.
+(some modules are not listed there. But you can still add their keys there, and it will work. For instance, if you look at the file "/src/modules/hollowHearts.js", you can take the id "hollowHearts", and place it in the usescript settings as "hollowHearts: true")
 
 Edit this to your taste, and build the script. (you can also save your access token here, which should be in the URL when you click the sign in button on the settings page)
 
-(if you are editing a build correctly, the relevant code can be located by searching for "let useScripts =")
+(if you are editing a compiled build, the relevant code can be located by searching for "let useScripts =")
