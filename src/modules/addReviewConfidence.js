@@ -39,19 +39,21 @@ exportModule({
 				return;
 			}
 			const reviewWrap = locationForIt.querySelector(".review-wrap") || await watchElem(".review-wrap", locationForIt);
-			data.Page.reviews.forEach(review => {
+			data.Page.reviews.forEach(async (review) => {
 				const wilsonLowerBound = wilson(review.rating,review.ratingAmount).left
-				const extraScore = create("span",false,"~" + Math.round(100*wilsonLowerBound));
+				const extraScore = create("span","wilson","~" + Math.round(100*wilsonLowerBound));
 				extraScore.style.color = "hsl(" + wilsonLowerBound*120 + ",100%,50%)";
 				extraScore.style.marginRight = "3px";
-				const parent = reviewWrap.querySelector('[href="/review/' + review.id + '"] .votes');
-				if(!parent){
+				const votes = `[href="/review/${review.id}"] .votes`;
+				const parent = reviewWrap.querySelector(votes) || await watchElem(votes, reviewWrap);
+				if(parent.querySelector(".wilson")){
 					return;
 				}
 				parent.insertBefore(extraScore,parent.firstChild);
 				if(wilsonLowerBound < 0.05){
 					parent.parentNode.parentNode.style.opacity = "0.5" // dim review-card
 				}
+				return;
 			})
 			return;
 		}
@@ -63,10 +65,9 @@ exportModule({
 			}
 			const loadMore = container.querySelector(".load-more") || await watchElem(".load-more", container);
 			addReviewConfidence()
-			loadMore.addEventListener("click", async () => {
-				await addReviewConfidence()
+			loadMore.addEventListener("click", () => {
+				addReviewConfidence()
 				checkMore() // a different load more button is created, so the listener needs to be reattached
-				return;
 			})
 			return;
 		};checkMore();
