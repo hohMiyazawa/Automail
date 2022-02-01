@@ -30,10 +30,6 @@ function handleScripts(url,oldUrl){
 		enhanceNotifications();
 		return
 	}
-	else if(url === "https://anilist.co/reviews" && useScripts.reviewConfidence){
-		addReviewConfidence();
-		return
-	}
 	else if(url === "https://anilist.co/user/" + whoAmI + "/social#my-threads"){
 		selectMyThreads()
 	}

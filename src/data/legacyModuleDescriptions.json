@@ -41,8 +41,6 @@
 },{"id": "entryScore",
 	"description": "$entryScore_description",
 	"categories": ["Media","Login"]
-},{"id": "reviewConfidence",
-	"description": "Add confidence scores to reviews"
 },{"id": "betterReviewRatings",
 	"description": "Add the total number of ratings to reviews on the home page"
 },{"id": "activityTimeline",
