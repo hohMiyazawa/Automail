@@ -19,7 +19,7 @@ exportModule({
 						observer.disconnect()
 						resolve(elem)
 					}
-				}).observe(document.body, { subtree: true, childList: true })
+				}).observe(parent || document.body, { subtree: true, childList: true })
 			})
 		}
 
