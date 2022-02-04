@@ -67,13 +67,13 @@ function enhanceNotifications(forceFlag){
 			let softBlockSpan = create("span",false,translate("$notifications_softBlock"),possibleButton.parentNode,"cursor: pointer;font-size: small;display: block;margin: 10px 0px;");
 			softBlockSpan.onclick = function(){
 				let manager = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Soft block");
-				create("p",false,"Hide notifications from specific people. A much less drastic solution than blocking them entirely (if that's what you actually want, this is the wrong place).",manager);
-				create("p",false,"The notifications aren't gone, just hidden. 'Show default notifications' should make them visible. Un-soft-blocking will also bring them back. You may also be interested in the 'Notification Dot Colours' and 'Block stuff in the home feed' sections on the settings page.",manager);
-				create("p",false,"As an arbitrary decision, I made these people will still show up when grouping similar notifications, since that's not extra spam.",manager);
+				create("p",false,translate("$notifications_softBlock_description1"),manager);
+				create("p",false,translate("$notifications_softBlock_description1"),manager);
+				create("p",false,translate("$notifications_softBlock_description1"),manager);
 				let form = create("div",false,false,manager);
 				create("span",false,"Username: ",form);
 				let userInput = create("input","hohNativeInput",false,form);
-				let userAdd = create("button","hohButton","Add",form,"margin-left: 10px");
+				let userAdd = create("button","hohButton",translate("$button_add"),form,"margin-left: 10px");
 				let userList = create("div",false,false,manager);
 				let renderSoftBlock = function(){
 					removeChildren(userList);
