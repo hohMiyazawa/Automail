@@ -250,8 +250,8 @@
 "$anisongs_ending": "Ending",
 "$menu_home": "home",
 "$menu_profile": "profile",
-"$menu_animelist": "anime list",
-"$menu_mangalist": "manga list",
+"$menu_animelist": "Anime List",
+"$menu_mangalist": "Manga List",
 "$menu_browse": "browse",
 "$menu_forum": "forum",
 "$submenu_stats": "Stats",
@@ -394,6 +394,7 @@
 "$make3x3": "Make 3x3",
 "$make3x3_title": "Click this button, then 9 entries on your list",
 "$forum_preview_reply": "replied ",
+"$forum_singleThread": "You're viewing a single comment. View the entire thread?",
 "$staff_filterHelp": "Filter help",
 "$staff_hoursWatched": "Hours Watched: ",
 "$staff_chaptersRead": " Chapters Read: ",
@@ -520,6 +521,7 @@
 "$forumCategory_15": "Recommendations",
 "$forumCategory_16": "Forum Games",
 "$forumCategory_17": "Misc",
-"$forumCategory_18": "AniList Apps"
+"$forumCategory_18": "AniList Apps",
+"$menu_overview": "Overview"
 	}
 }

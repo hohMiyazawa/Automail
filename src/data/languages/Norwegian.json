@@ -89,6 +89,7 @@
 "$placeholder_reply": "Skriv eit svar...",
 "$placeholder_message": "Skriv ei melding...",
 "$placeholder_forum": "Skriv ein forumtråd...",
+"$forum_singleThread": "Vis heile forumtråden",
 "$publishingReply": "Postar svar...",
 "$settings_title": "Innstillingar for Automail",
 "$settings_version": "Versjon: ",
@@ -467,6 +468,7 @@
 "$forumCategory_18": "Program og Utvidingar",
 "$forumMedia_backlink": "Legg til ei lenkje til databasen på forumstraumen til eit verk",
 "$debug_tip": "(Legg ved denne fila når du melder frå om feil)",
+"$menu_overview": "Oversyn",
 
 "$role_Original Creator": "Skapar",
 "$role_Creator": "Skapar",

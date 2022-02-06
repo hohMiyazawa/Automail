@@ -100,6 +100,84 @@ exportModule({
 						lookup: ".activity-feed-wrap ul li:nth-child(4)",
 						selectIndex: 1,
 						replacement: "$feedSelect_list"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 0,
+						replacement: "$menu_overview"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 2,
+						replacement: "$menu_animelist"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 4,
+						replacement: "$menu_mangalist"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 6,
+						replacement: "$submenu_favourites"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 8,
+						replacement: "$submenu_stats"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 10,
+						replacement: "$submenu_social"
+					},
+					{
+						lookup: ".user .nav.container",
+						selectIndex: 12,
+						replacement: "$submenu_reviews"
+					},
+					{
+						lookup: ".user .nav.container [href$=submissions]",
+						replacement: "$submenu_submissions"
+					}
+				]
+			},
+			{
+				regex: /\.co\/forum\/thread\/\d+\/comment\//,
+				elements: [
+					{
+						lookup: ".comments-header a",
+						replacement: "$forum_singleThread"
+					}
+				]
+			},
+			{
+				regex: /\.co\/(manga|anime)\//,
+				elements: [
+					{
+						lookup: ".media .nav",
+						selectIndex: 0,
+						replacement: "$menu_overview"
+					},
+					{
+						lookup: ".media .nav [href$=characters]",
+						replacement: "$submenu_characters"
+					},
+					{
+						lookup: ".media .nav [href$=staff]",
+						replacement: "$submenu_staff"
+					},
+					{
+						lookup: ".media .nav [href$=reviews]",
+						replacement: "$submenu_reviews"
+					},
+					{
+						lookup: ".media .nav [href$=stats]",
+						replacement: "$submenu_stats"
+					},
+					{
+						lookup: ".media .nav [href$=social]",
+						replacement: "$submenu_social"
 					}
 				]
 			},
