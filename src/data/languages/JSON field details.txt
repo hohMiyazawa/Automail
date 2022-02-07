@@ -8,7 +8,7 @@ In "info":
 	"maintainer": The name you wish to be addressed as. Does not have to be your real name. Your Anilist name or Github name are good candidates, but it doesn't have to be one of those.
 	"maintainer_link": Were people can contact you. An anilist user page or a Github page are good candidates. But you can also use a nick on some chat platform if that's your preference. Can be left blank. Add "I do not wish to be contacted" + the same in your language if you really do not wish people to contact you.
 	"discussion_link": Where people can discuss this translation. Use "https://github.com/hohMiyazawa/Automail/issues/69" if you don't have a dedicated place for discussion.
-	(Optional) "notes": Anything
+	(Optional) "notes": Anything. You can also create your own text file in the /src/data/languages directory if you have more detailed notes
 	(Optional) "translators": A list of translators, if multiple people have contributed. But there can only be one maintainer.
 	(Optional) "locale": a BCP 47 code identifying the language. Mostly the same as the ISO 639 two and three letter language codes.
 
@@ -16,3 +16,23 @@ In "info":
 
 In "keys":
 	language keys, all starting with "$". You do not have to translate all the keys as the script will fall back to English or the dedicated fallback languages.
+
+
+Example:
+
+{
+	"info": {
+		"language": "Norsk",
+		"language_english": "Norwegian",
+		"locale": "nn-NO",
+		"fallback": ["Svenska","English"],
+		"maintainer": "hoh",
+		"maintainer_link": "https://anilist.co/user/hoh/",
+		"discussion_link": "https://github.com/hohMiyazawa/Automail/issues/69",
+		"notes": "",
+		"translators": ["hoh"]
+	},
+	"keys": {
+		"$logo_home": "Heim"
+	}
+}

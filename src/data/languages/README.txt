@@ -43,3 +43,14 @@ A: You can proofread the English language file ("/src/data/English.json), as I'm
 Q: <x> is not a real language! It's a dialect/version of <y>!
 
 A: That's not a problem. It's up to the individual translators if making the translation is worth their time.
+
+
+Q: In what order are languages ordered?
+
+A: The order is determined by the list at the bottom of /src/data/legacyModuleDescriptions.json
+The order should be the following
+	1. English, the default Anilist language
+	2. Translations to other languages
+		- As a main rule, languages are ordered by the *completeness* of the translation, most complete first
+		- A possible measure of "completeness" is the number of keys translated.
+	3. English variations
