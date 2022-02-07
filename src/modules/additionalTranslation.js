@@ -62,6 +62,34 @@ exportModule({
 					{
 						lookup: ".theme-selector > h2",
 						replacement: "$footer_siteTheme"
+					},
+					{
+						lookup: ".footer [href=\"https://submission-manual.anilist.co/\"]",
+						replacement: "$footer_addData"
+					},
+					{
+						lookup: ".footer [href=\"/moderators\"]",
+						replacement: "$footer_moderators"
+					},
+					{
+						lookup: ".footer [href=\"mailto:contact@anilist.co\"]",
+						replacement: "$footer_contact"
+					},
+					{
+						lookup: ".footer [href=\"/terms\"]",
+						replacement: "$footer_terms"
+					},
+					{
+						lookup: ".footer [href=\"/sitemap/index.xml\"]",
+						replacement: "$footer_siteMap"
+					},
+					{
+						lookup: ".footer [href=\"/site-stats\"]",
+						replacement: "$stats_siteStats_title"
+					},
+					{
+						lookup: ".footer [href=\"/recommendations\"]",
+						replacement: "$submenu_recommendations"
 					}
 				]
 			},
@@ -178,6 +206,22 @@ exportModule({
 					{
 						lookup: ".media .nav [href$=social]",
 						replacement: "$submenu_social"
+					},
+					{
+						lookup: ".overview .characters > h2",
+						replacement: "$submenu_characters"
+					},
+					{
+						lookup: ".overview .staff > h2",
+						replacement: "$submenu_staff"
+					},
+					{
+						lookup: ".overview .recommendations > h2",
+						replacement: "$submenu_recommendations"
+					},
+					{
+						lookup: ".overview .reviews > h2",
+						replacement: "$submenu_reviews"
 					}
 				]
 			},

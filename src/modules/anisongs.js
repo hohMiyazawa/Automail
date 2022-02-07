@@ -64,7 +64,7 @@ class VideoElement {
 
 function insert(songs, parent) {
   if (!songs || !songs.length) {
-    create("div",false,"No songs to show (つ﹏<)･ﾟ｡",parent,"text-align:center");
+    create("div",false,translsate("$anisongs_noSongs") + " (つ﹏<)･ﾟ｡",parent,"text-align:center");
   }
   else {
     songs.forEach( (song, i) => {

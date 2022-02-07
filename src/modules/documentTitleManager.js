@@ -9,6 +9,10 @@ let titleObserver = new MutationObserver(mutations => {
 	if(badApostropheMatch){
 		document.title = badApostropheMatch[1] + "' profile" + badApostropheMatch[2]
 	}
+	let name = title.match(/^(\S+?)'s\sprofile(.*)/);
+	if(name && translate("$profile_title","") !== "'s profile"){
+		document.title = translate("$profile_title",name[1]);
+	}
 	if(useScripts.additionalTranslation){
 		[
 ["Home · AniList","$documentTitle_home"],
