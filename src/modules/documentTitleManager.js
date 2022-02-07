@@ -1,17 +1,26 @@
+let mutated = false;
+
 let titleObserver = new MutationObserver(mutations => {
+	if(mutated){
+		mutated = false;
+		return
+	}
 	let title = document.querySelector("head > title").textContent;
 	let titleMatch = title.match(/(.*)\s\((\d+)\)\s\((.*)\s\(\2\)\)(.*)/);//ugly nested paranthesis like "Tetsuwan Atom (1980) (Astro Boy (1980)) · AniList"
 	if(titleMatch){
 		//change to the form "Tetsuwan Atom (Astro Boy 1980) · AniList"
 		document.title = titleMatch[1] + " (" + titleMatch[3] + " " + titleMatch[2] + ")" + titleMatch[4];
+		mutated = true
 	}
 	let badApostropheMatch = title.match(/^(\S+?s)'s\sprofile(.*)/);
 	if(badApostropheMatch){
-		document.title = badApostropheMatch[1] + "' profile" + badApostropheMatch[2]
+		document.title = badApostropheMatch[1] + "' profile" + badApostropheMatch[2];
+		mutated = true
 	}
 	let name = title.match(/^(\S+?)'s\sprofile(.*)/);
-	if(name && translate("$profile_title","") !== "'s profile"){
+	if(name && useScripts.partialLocalisationLanguage !== "English" && translate("$profile_title","") !== "'s profile"){
 		document.title = translate("$profile_title",name[1]);
+		mutated = true
 	}
 	if(useScripts.additionalTranslation){
 		[
@@ -29,7 +38,8 @@ let titleObserver = new MutationObserver(mutations => {
 		})
 	}
 	if(useScripts.SFWmode && title !== "Table of Contents"){//innocent looking
-		document.title = "Table of Contents"
+		document.title = "Table of Contents";
+		mutated = true
 	}
 });
 if(document.title){
