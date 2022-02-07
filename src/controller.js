@@ -77,6 +77,11 @@ function handleScripts(url,oldUrl){
 		}
 	}
 	if(/^https:\/\/anilist\.co\/user/.test(url)){
+		if(
+			useScripts.partialLocalisationLanguage !== "English"
+		){
+			addFeedFilters_user()
+		}
 		if(useScripts.completedScore || useScripts.droppedScore){//we also want this script to run on user pages
 			addCompletedScores()
 		}
