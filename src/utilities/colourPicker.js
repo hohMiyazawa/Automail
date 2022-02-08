@@ -75,15 +75,6 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 				"--color-yellow",
 				"--color-green"
 			];
-			let colourChanger = function(){
-				useScripts.colourSettings[cpSelector.value] = {
-					"initial" :  (cpInitialBox.checked  ? cpInput.value : false),
-					"dark" :     (cpDarkBox.checked     ? cpInput.value : false),
-					"contrast" : (cpContrastBox.checked ? cpInput.value : false)
-				}
-				applyColourStyles();
-				useScripts.save()
-			};
 			let cpContainer = create("div","hohColourPicker",false,colourPickerLocation);
 			let cpTitle = create("h2",false,translate("$adjustColours_title"),cpContainer);
 			let cpInput = create("input",false,false,cpContainer);
@@ -112,6 +103,15 @@ if(useScripts.colourPicker && (!useScripts.mobileFriendly)){
 				cpContrastBox.checked = false;
 			};
 			cpSelector.onchange = cpSelectorChanger;
+			let colourChanger = function(){
+				useScripts.colourSettings[cpSelector.value] = {
+					"initial" :  (cpInitialBox.checked  ? cpInput.value : false),
+					"dark" :     (cpDarkBox.checked     ? cpInput.value : false),
+					"contrast" : (cpContrastBox.checked ? cpInput.value : false)
+				}
+				applyColourStyles();
+				useScripts.save()
+			};
 			cpInput.onchange = colourChanger;
 			cpInitialBox.onchange = colourChanger;
 			cpDarkBox.onchange = colourChanger;

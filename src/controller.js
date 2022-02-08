@@ -1,6 +1,8 @@
 //begin "controller.js"
 const modules = [];
 
+let current = "";
+
 function handleScripts(url,oldUrl){
 	modules.forEach(module => {
 		if(useScripts[module.id] && module.urlMatch && module.code && module.urlMatch(url,oldUrl)){
@@ -385,7 +387,6 @@ function handleScripts(url,oldUrl){
 }
 
 let useScriptsDefinitions = m4_include(data/legacyModuleDescriptions.json)
-let current = "";
 let mainLoop = setInterval(() => {
 	if(document.URL !== current){
 		let oldURL = current + "";

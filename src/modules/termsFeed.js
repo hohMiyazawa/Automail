@@ -739,102 +739,6 @@ let viewSingleActivity = function(id){
 //notiLink.href = "/notifications";
 notiLink.onclick = function(){
 	loading.innerText = translate("$loading");
-	let callNots = function(){
-		authAPIcall(
-`
-query{
-	Viewer{
-		unreadNotificationCount
-	}
-	Page(perPage: 25){
-		notifications{
-... on AiringNotification{type createdAt episode media{id title{native romaji english}}}
-... on FollowingNotification{type createdAt user{name}}
-... on ActivityMessageNotification{
-	type createdAt user{name}
-	activityId
-}
-... on ActivityMentionNotification{type createdAt user{name}}
-... on ActivityReplyNotification{
-	type createdAt user{name}
-	activity{
-... on TextActivity{id type}
-... on ListActivity{id type progress}
-... on MessageActivity{id type}
-	}
-}
-... on ActivityReplySubscribedNotification{
-	type createdAt user{name}
-	activity{
-... on TextActivity{
-	id
-	type
-}
-... on ListActivity{
-	id
-	type
-	progress
-}
-	}
-}
-... on ActivityLikeNotification{
-	type createdAt user{name}
-	activity{
-... on TextActivity{
-	id
-	type
-}
-... on ListActivity{
-	id
-	type
-	progress
-}
-	}
-}
-... on ActivityReplyLikeNotification{
-	type createdAt user{name}
-	activity{
-... on TextActivity{
-	id
-	type
-}
-... on MessageActivity{
-	id
-	type
-}
-... on ListActivity{
-	id
-	type
-	progress
-}
-	}
-}
-... on MediaDataChangeNotification{type createdAt}
-... on MediaMergeNotification{type createdAt}
-... on MediaDeletionNotification{type createdAt}
-... on ThreadCommentMentionNotification{type createdAt}
-... on ThreadCommentReplyNotification{type createdAt}
-... on ThreadCommentSubscribedNotification{type createdAt}
-... on ThreadCommentLikeNotification{type createdAt}
-... on ThreadLikeNotification{type createdAt}
-... on RelatedMediaAdditionNotification{
-	type createdAt
-	media{id type title{romaji native english}}
-}
-		}
-	}
-}`,
-			{},
-			function(data){
-				if(!data){
-					loading.innerText = translate("$error_connection");
-					return
-				}
-				notiLink.title = "no unread notifications"
-				renderNots(data)
-			}
-		)
-	};callNots();
 	let renderNots = function(data){
 		loading.innerText = "";
 		removeChildren(feedContent);
@@ -934,6 +838,102 @@ query{
 			}
 		})
 	}
+	let callNots = function(){
+		authAPIcall(
+`
+query{
+	Viewer{
+		unreadNotificationCount
+	}
+	Page(perPage: 25){
+		notifications{
+... on AiringNotification{type createdAt episode media{id title{native romaji english}}}
+... on FollowingNotification{type createdAt user{name}}
+... on ActivityMessageNotification{
+	type createdAt user{name}
+	activityId
+}
+... on ActivityMentionNotification{type createdAt user{name}}
+... on ActivityReplyNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{id type}
+... on ListActivity{id type progress}
+... on MessageActivity{id type}
+	}
+}
+... on ActivityReplySubscribedNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on ActivityLikeNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on ActivityReplyLikeNotification{
+	type createdAt user{name}
+	activity{
+... on TextActivity{
+	id
+	type
+}
+... on MessageActivity{
+	id
+	type
+}
+... on ListActivity{
+	id
+	type
+	progress
+}
+	}
+}
+... on MediaDataChangeNotification{type createdAt}
+... on MediaMergeNotification{type createdAt}
+... on MediaDeletionNotification{type createdAt}
+... on ThreadCommentMentionNotification{type createdAt}
+... on ThreadCommentReplyNotification{type createdAt}
+... on ThreadCommentSubscribedNotification{type createdAt}
+... on ThreadCommentLikeNotification{type createdAt}
+... on ThreadLikeNotification{type createdAt}
+... on RelatedMediaAdditionNotification{
+	type createdAt
+	media{id type title{romaji native english}}
+}
+		}
+	}
+}`,
+			{},
+			function(data){
+				if(!data){
+					loading.innerText = translate("$error_connection");
+					return
+				}
+				notiLink.title = "no unread notifications"
+				renderNots(data)
+			}
+		)
+	};callNots();
 }
 let buildPage = function(activities,type,requestTime){
 	if(requestTime < lastUpdated){
