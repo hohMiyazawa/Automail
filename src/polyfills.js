@@ -1,3 +1,5 @@
+/* eslint-disable no-extend-native */
+
 if(!String.prototype.includes){//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 	String.prototype.includes = function(search,start){
 		'use strict';
@@ -132,4 +134,6 @@ if (!Array.prototype.flat) {
 
 	};
 }
+
+/* eslint-enable no-extend-native */
 
