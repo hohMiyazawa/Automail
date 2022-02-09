@@ -96,7 +96,7 @@ let useScripts = {
 	pinned: "",
 	negativeCustomList: false,
 	globalCustomList: false,
-	betterListPreview: false,
+	betterListPreview: true,
 	homeScroll: true,
 	blockWordValue: "nsfw",
 	hideGlobalFeed: false,

@@ -160,7 +160,7 @@ function betterListPreview(){
 				let airingListPreview = create("div","list-preview",false,airingSection,"display:grid;grid-template-columns: repeat(5,85px);grid-template-rows: repeat(auto-fill,115px);grid-gap: 20px;padding: 20px;background: rgb(var(--color-foreground));");
 				list.forEach((air,index) => {
 					let card = create("div",["media-preview-card","small","hohFallback"],false,airingListPreview,"width: 85px;height: 115px;background: rgb(var(--color-foreground));border-radius: 3px;display: inline-grid;");
-					if(air.media.coverImage.color){
+					if(air.media.coverImage.color && !useScripts.SFWmode){
 						card.style.backgroundColor = air.media.coverImage.color
 					}
 					if((index % 5 > 1) ^ useScripts.rightToLeft){

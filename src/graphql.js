@@ -235,19 +235,6 @@ query($page: Int,$name: String){
 }
 `;
 
-const titlePicker = function(media){
-	if(aliases.has(media.id)){
-		return aliases.get(media.id)
-	}
-	if(useScripts.titleLanguage === "NATIVE" && media.title.native){
-		return media.title.native
-	}
-	else if(useScripts.titleLanguage === "ENGLISH" && media.title.english){
-		return media.title.english
-	}
-	return media.title.romaji
-}
-
 const ANILIST_WEIGHT = 41;//weighting center for the weighted score formula
 
 let APIlimit = 90;

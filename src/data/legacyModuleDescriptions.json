@@ -239,7 +239,7 @@
 	"description": "Allow drag-and-drop of text into navbar for search",
 	"categories": ["Navigation"]
 },{"id": "SFWmode",
-	"description": "A less flashy version of the site for school or the workplace [under development]",
+	"description": "A less flashy version of the site for school or the workplace",
 	"categories": ["Script"]
 },{"id": "annoyingAnimations",
 	"description": "Remove annoying UI animations",

@@ -459,7 +459,7 @@ const removeGroupedDuplicates = function(
 };
 
 //for the school/workplace methods
-let badWords = ["hentai","loli","nsfw","ecchi","sex","gore","porn","violence","lewd","fuck","waifu","nigger",];//woooo so bad.
+let badWords = ["hentai","loli","nsfw","ecchi","sex","gore","porn","violence","lewd","fuck","waifu","nigger","卍"];//woooo so bad.
 const badTags = ["gore","nudity","ahegao","irrumatio","sex toys","ashikoki","defloration","paizuri","tekoki","nakadashi","large breasts","facial","futanari","public sex","flat chest","voyeur","fellatio","incest","threesome","anal sex","bondage","cunnilingus","harem","masturbation","slavery","gyaru","rape","netori","milf","handjob","blackmail","sumata","watersports","boobjob","femdom","exhibitionism","human pet","virginity","group sex"];
 badWords = badWords.concat(badTags);
 
@@ -927,6 +927,25 @@ function emojiSanitize(string){
 function looseMatcher(string,searcher){
 	return string.toLowerCase().includes(searcher.toLowerCase())
 	|| RegExp(searcher,"i").test(string.toLowerCase())
+}
+
+const titlePicker = function(media){
+	let title = media.title.romaji
+	if(aliases.has(media.id)){
+		title = aliases.get(media.id)
+	}
+	else if(useScripts.titleLanguage === "NATIVE" && media.title.native){
+		title = media.title.native
+	}
+	else if(useScripts.titleLanguage === "ENGLISH" && media.title.english){
+		title = media.title.english
+	}
+	if(useScripts.SFWmode){
+		badWords.forEach(word => {
+			title = title.replace(word,"*")
+		})
+	}
+	return title
 }
 
 function cheapReload(linkElement,vueData){
