@@ -42,12 +42,12 @@
 	"description": "$entryScore_description",
 	"categories": ["Media","Login"]
 },{"id": "betterReviewRatings",
-	"description": "Add the total number of ratings to reviews on the home page"
+	"description": "$betterReviewRatings_description"
 },{"id": "activityTimeline",
 	"description": "$activityTimeline_description",
 	"categories": ["Media","Navigation"]
 },{"id": "browseFilters",
-	"description": "Add more sorting options to browse",
+	"description": "$browseFilters_description",
 	"categories": ["Browse"]
 },{"id": "completedScore",
 	"description": "$completedScore_description",
@@ -56,7 +56,7 @@
 	"description": "$droppedScore_description",
 	"categories": ["Feeds"]
 },{"id": "tagIndex",
-	"description": "Show an index of custom tags on anime and manga lists",
+	"description": "$tagIndex_description",
 	"categories": ["Lists"]
 },{"id": "CSSfollowCounter",
 	"description": "$CSSfollowCounter_description",
@@ -64,8 +64,8 @@
 },{
 	"id": "dubMarker",
 	"subSettings": ["dubMarkerLanguage"],
-	"description": "Add a notice on top of the other data on an anime page if a dub is available",
-	"extendedDescription": "Works by checking for voice actors",
+	"description": "$dubMarker_description",
+	"extendedDescription": "Works by checking the database for voice actors",
 	"categories": ["Media"]
 },{
 	"id": "dubMarkerLanguage",
@@ -76,28 +76,28 @@
 	"displayValues": ["$language_English","$language_German","$language_Italian","$language_Spanish","$language_French","$language_Korean","$language_Portuguese","$language_Hebrew","$language_Hungarian","$language_Chinese","$language_Japanese","$language_Arabic","$language_Filipino","$language_Catalan","$language_Polish","$language_Norwegian"],
 	"values": ["English","German","Italian","Spanish","French","Korean","Portuguese","Hebrew","Hungarian","Chinese","Japanese","Arabic","Filipino","Catalan","Polish","Norwegian"]
 },{"id": "mangaGuess",
-	"description": "Make a guess for the number of chapters for releasing manga",
+	"description": "$mangaGuess_description",
 	"categories": ["Media"]
 },{"id": "replaceNativeTags",
 	"description": "$replaceNativeTags_description",
 	"categories": ["Stats"]
 },{"id": "allStudios",
-	"description": "Include companies that aren't animation studios in the extended studio table",
+	"description": "$allStudios_description",
 	"categories": ["Stats"]
 },{"id": "noRewatches",
-	"description": "Don't include progress from rewatches/rereads in stats",
+	"description": "$noRewatches_description",
 	"categories": ["Stats"]
 },{"id": "hideCustomTags",
-	"description": "Hide the custom tags tables by default",
+	"description": "$hideCustomTags_description",
 	"categories": ["Stats"]
 },{"id": "negativeCustomList",
-	"description": "Add an entry in the custom tag tables with all media not on a custom list",
+	"description": "$negativeCustomList_description",
 	"categories": ["Stats"]
 },{"id": "globalCustomList",
-	"description": "Add an entry in the custom tag tables with all media",
+	"description": "$globalCustomList_description",
 	"categories": ["Stats"]
 },{"id": "timeToCompleteColumn",
-	"description": "Add 'time to complete' info to the tag tables",
+	"description": "$timeToCompleteColumn_description",
 	"categories": ["Stats"]
 },{"id": "comparissionPage",
 	"description": "$setting_compare",
@@ -109,14 +109,14 @@
 	"description": "$hideGlobalFeed_description",
 	"categories": ["Feeds"]
 },{"id": "feedCommentFilter",
-	"description": "Add filter options to the feeds to hide posts with few comments or likes",
+	"description": "$feedCommentFilter_description",
 	"categories": ["Feeds"]
 },{"id": "statusBorder",
 	"description": "$statusBorder_description",
 	"categories": ["Feeds"]
 },{"id": "blockWord",
 	"description": "$blockWord_description",
-	"extendedDescription": "RegEx syntax accepted too, do not use /delimeters/.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
+	"extendedDescription": "RegEx syntax accepted too, do not use slash /delimeters/.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
 	"categories": ["Feeds"]
 },{
 	"id": "blockWordValue",
@@ -156,7 +156,7 @@
 	"description": "$CSScompactBrowse_description",
 	"categories": ["Browse"]
 },{"id": "customCSS",
-	"description": "Enable custom profile CSS and pinned activities",
+	"description": "$customCSS_description",
 	"categories": ["Profiles","Login"]
 },{"id": "CSSgreenManga",
 	"description": "$setting_CSSgreenManga",
@@ -190,7 +190,7 @@
 },{"id": "hideOtherThreads",
 	"description": "Hide additional low-quality forum threads on the home page",
 	"extendedDescription": "Curated list of high-volume threads with little reading value.\nRequest threads added: https://github.com/hohMiyazawa/Automail/issues\n\nhttps://anilist.co/forum/thread/15346\nhttps://anilist.co/forum/thread/2340/\nhttps://anilist.co/forum/thread/1\n\"Where can I watch/read/find\"",
-	"categories": ["Forum","Newly Added"]
+	"categories": ["Forum"]
 },{"id": "expandRight",
 	"description": "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
 	"categories": ["Feeds"]
@@ -242,21 +242,22 @@
 	"description": "A less flashy version of the site for school or the workplace",
 	"categories": ["Script"]
 },{"id": "annoyingAnimations",
-	"description": "Remove annoying UI animations",
+	"description": "$annoyingAnimations_description",
 	"categories": ["Navigation"]
 },{"id": "CSSverticalNav",
 	"description": "$CSSverticalNav_description",
 	"extendedDescription": "hoh's personal preferences",
 	"categories": ["Navigation"]
 },{"id": "browseSubmenu",
-	"description": "Replace the native 'browse' submenu when using the vertical nav",
+	"description": "$browseSubmenu_description",
 	"categories": ["Navigation"]
 },{
 	"id": "partialLocalisationLanguage",
 	"description": "$settings_partialLocalisationLanguage_description",
 	"extendedDescription": "Partial localisation, translates Automail-specific elements.\nCheck \"Translate additional parts of the Anilist UI\" for translating more fo the site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
 	"type": "select",
-	"categories": ["Script","Newly Added"],
-	"values": ["English","Português","Español","Norsk","日本語","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
+	"importance": 100,
+	"categories": ["Script"],
+	"values": ["English","Español","Português","Norsk","日本語","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
 }
 ]
