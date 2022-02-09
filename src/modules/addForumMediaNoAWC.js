@@ -81,7 +81,10 @@ async function addForumMediaNoAWC(){
 					}
 				}
 				let catWrap;
-				if(thread.categories.length && thread.categories[0].id !== 1 && thread.categories[0].id !== 2){
+				if(
+					thread.categories.length && thread.categories[0].id !== 1 && thread.categories[0].id !== 2
+					&& !(mediaTitle.length > 30 && thread.categories[0].id === 5)//give priority to showing the whole title if it's just a release discussion
+				){
 					catWrap = create("span",false,false,categories);
 					let category = create("a",["category","default"],thread.categories[0].name,catWrap);
 					category.href = "/forum/recent?category=" + thread.categories[0].id;
