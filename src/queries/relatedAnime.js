@@ -51,7 +51,7 @@
 			(b,a) => a.host - b.host
 		);
 		miscResults.innerText = "";
-		create("p",false,"Found " + found.length + " anime:",miscResults);
+		let foundCount = create("p",false,"Found " + found.length + " anime:",miscResults);
 		let filters = create("div",false,false,miscResults);
 
 		let row1 = create("p",false,false,filters);
@@ -87,6 +87,7 @@
 		let f_results = create("div",false,false,miscResults);
 		let render = function(){
 			removeChildren(f_results);
+			let count = 0;
 			found.forEach(item => {
 				if(
 					(
@@ -99,9 +100,11 @@
 					&& (checkBox6.checked || item.isDropped.some(val => !val))
 				){
 					create("a",["link","newTab"],item.node.title.romaji,f_results,"display:block;padding:5px;")
-						.href = "/anime/" + item.node.id
+						.href = "/anime/" + item.node.id;
+					count++;
 				}
-			})
+			});
+			foundCount.innerText = "Found " + count + " anime:";
 		};
 		checkBox1.onchange = render;
 		checkBox2.onchange = render;
