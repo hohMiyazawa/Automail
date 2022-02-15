@@ -13,7 +13,7 @@
 		let userId = data.data.User.id;
 		let currentLocation = location.pathname;
 		loadingStatus.innerText = "Loading media list...";
-		let typeList = document.getElementById("typeSelect").value;
+		let typeList = document.getElementById("typeSelect").value + "";
 		generalAPIcall(
 			queryMediaListCompat,
 			{
@@ -22,7 +22,7 @@
 			},
 			function(data){
 				loadingStatus.innerText = "Loading users...";
-				let comDisplay = create("div",false,false,miscResults);
+				let comDisplay = create("div","hohComDisplay",false,miscResults);
 				let list = returnList(data).filter(element => element.scoreRaw);
 				let comCache = [];
 				let drawComCache = function(){
@@ -46,6 +46,10 @@
 					})
 				};
 				let friendsCaller = function(page){
+					if(document.getElementById("typeSelect").value !== typeList){
+						loadingStatus.innerText = "Query aborted";
+						return
+					}
 					generalAPIcall(
 						`query($id: Int!,$page: Int){
 							Page(page: $page){
@@ -62,6 +66,10 @@
 							let index = 0;
 							let delayer = function(){
 								if(location.pathname !== currentLocation){
+									return
+								}
+								if(document.getElementById("typeSelect").value !== typeList){
+									loadingStatus.innerText = "Query aborted";
 									return
 								}
 								loadingStatus.innerText = "Comparing with " + data.data.Page.following[index].name + "...";
@@ -87,7 +95,7 @@
 						}
 					)
 				};friendsCaller(1);
-			},"hohCompatANIME" + user,5*60*1000
+			},"hohCompat" + typeList + user,5*60*1000
 		);
 	},"hohIDlookup" + user.toLowerCase());
 }},
