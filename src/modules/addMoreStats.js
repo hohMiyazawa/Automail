@@ -1752,12 +1752,12 @@ function addMoreStats(){
 						return commonUnfinishedManga[mediaId].volumes
 					}
 					else if(mode === "volumesNow"){
-						if(commonUnfinishedManga[mediaId].chapters <= mediaProgress){
+						if(commonUnfinishedManga[mediaId].chapters <= (mediaProgress || 0)){
 							return commonUnfinishedManga[mediaId].volumes
 						}
 						else{
 							//if much behind, assume volumes scale linearly
-							return Math.floor(commonUnfinishedManga[mediaId].volumes * commonUnfinishedManga[mediaId].chapters/mediaProgress)
+							return Math.floor(commonUnfinishedManga[mediaId].volumes * mediaProgress/commonUnfinishedManga[mediaId].chapters)
 						}
 					}
 					return 0;//fallback
