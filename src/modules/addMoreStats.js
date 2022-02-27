@@ -1052,12 +1052,12 @@ function addMoreStats(){
 						}
 					}
 				}
-				addStat(
-					translate("$stats_timeWatched"),
-					(sumDuration/(60*24)).roundPlaces(2),
-					" " + translate("$time_medium_Mday") + " (" + singleText + ")"
-				)
 			}
+			addStat(
+				translate("$stats_timeWatched"),
+				(sumDuration/(60*24)).roundPlaces(2),
+				" " + translate("$time_medium_Mday") + " (" + singleText + ")"
+			)
 			let TVepisodes = 0;
 			let TVepisodesLeft = 0;
 			list.filter(show => show.media.format === "TV").forEach(function(show){
