@@ -493,6 +493,7 @@
 "$browseSubmenu_description": "Replace the native 'browse' submenu when using the vertical nav",
 "$annoyingAnimations_description": "Remove annoying UI animations",
 "$customCSS_description": "Enable custom profile CSS and pinned activities",
+"$pinned": "Pinned",
 "$dblclickZoom_extendedDescription": "There are likely better browser accessibility addons for this.",
 "$staff_animeRoles": "Anime Staff Roles",
 "$staff_mangaRoles": "Manga Staff Roles",
