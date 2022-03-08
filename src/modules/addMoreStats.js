@@ -994,62 +994,62 @@ function addMoreStats(){
 					}
 				}
 //longest activity
-				let singleText = translate("$stats_longestTime",[(100*longestDuration.time/sumDuration).roundPlaces(2),longestDuration.name]) + ". ";
-				if(longestDuration.rewatch === 0){
-					if(longestDuration.status === "CURRENT"){
-						singleText += translate("$stats_longest_watching")
+			}
+			let singleText = translate("$stats_longestTime",[(100*longestDuration.time/sumDuration).roundPlaces(2),longestDuration.name]) + ". ";
+			if(longestDuration.rewatch === 0){
+				if(longestDuration.status === "CURRENT"){
+					singleText += translate("$stats_longest_watching")
+				}
+				else if(longestDuration.status === "PAUSED"){
+					singleText += translate("$stats_longest_paused")
+				}
+				else if(longestDuration.status === "DROPPED"){
+					singleText += translate("$stats_longest_dropped")
+				}
+			}
+			else{
+				if(longestDuration.status === "COMPLETED"){
+					if(longestDuration.rewatch === 1){
+						singleText += translate("$stats_longest_1rewatch")
 					}
-					else if(longestDuration.status === "PAUSED"){
-						singleText += translate("$stats_longest_paused")
+					else if(longestDuration.rewatch === 2){
+						singleText += translate("$stats_longest_2rewatch")
 					}
-					else if(longestDuration.status === "DROPPED"){
-						singleText += translate("$stats_longest_dropped")
+					else{
+						singleText += translate("$stats_longest_Mrewatch",longestDuration.rewatch)
 					}
 				}
-				else{
-					if(longestDuration.status === "COMPLETED"){
-						if(longestDuration.rewatch === 1){
-							singleText += translate("$stats_longest_1rewatch")
-						}
-						else if(longestDuration.rewatch === 2){
-							singleText += translate("$stats_longest_2rewatch")
-						}
-						else{
-							singleText += translate("$stats_longest_Mrewatch",longestDuration.rewatch)
-						}
+				else if(longestDuration.status === "CURRENT" || status === "REPEATING"){
+					if(longestDuration.rewatch === 1){
+						singleText += translate("$stats_longest_1rewatching")
 					}
-					else if(longestDuration.status === "CURRENT" || status === "REPEATING"){
-						if(longestDuration.rewatch === 1){
-							singleText += translate("$stats_longest_1rewatching")
-						}
-						else if(longestDuration.rewatch === 2){
-							singleText += translate("$stats_longest_2rewatching")
-						}
-						else{
-							singleText += translate("$stats_longest_Mrewatching",longestDuration.rewatch)
-						}
+					else if(longestDuration.rewatch === 2){
+						singleText += translate("$stats_longest_2rewatching")
 					}
-					else if(longestDuration.status === "PAUSED"){
-						if(longestDuration.rewatch === 1){
-							singleText += translate("$stats_longest_1rewatchPaused")
-						}
-						else if(longestDuration.rewatch === 2){
-							singleText += translate("$stats_longest_2rewatchPaused")
-						}
-						else{
-							singleText += translate("$stats_longest_MrewatchPaused",longestDuration.rewatch)
-						}
+					else{
+						singleText += translate("$stats_longest_Mrewatching",longestDuration.rewatch)
 					}
-					else if(longestDuration.status === "DROPPED"){
-						if(longestDuration.rewatch === 1){
-							singleText += translate("$stats_longest_1rewatchDropped")
-						}
-						else if(longestDuration.rewatch === 2){
-							singleText += translate("$stats_longest_2rewatchDropped")
-						}
-						else{
-							singleText += translate("$stats_longest_MrewatchDropped",longestDuration.rewatch)
-						}
+				}
+				else if(longestDuration.status === "PAUSED"){
+					if(longestDuration.rewatch === 1){
+						singleText += translate("$stats_longest_1rewatchPaused")
+					}
+					else if(longestDuration.rewatch === 2){
+						singleText += translate("$stats_longest_2rewatchPaused")
+					}
+					else{
+						singleText += translate("$stats_longest_MrewatchPaused",longestDuration.rewatch)
+					}
+				}
+				else if(longestDuration.status === "DROPPED"){
+					if(longestDuration.rewatch === 1){
+						singleText += translate("$stats_longest_1rewatchDropped")
+					}
+					else if(longestDuration.rewatch === 2){
+						singleText += translate("$stats_longest_2rewatchDropped")
+					}
+					else{
+						singleText += translate("$stats_longest_MrewatchDropped",longestDuration.rewatch)
 					}
 				}
 			}
