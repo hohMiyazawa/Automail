@@ -969,4 +969,22 @@ function cheapReload(linkElement,vueData){
 function hasOwn(obj, prop){
 	return Object.hasOwn ? Object.hasOwn(obj, prop) : Object.prototype.hasOwnProperty.call(obj, prop)
 }
+
+/**
+ * Watch for an element's existence
+ * @param {string} selector
+ * @param {any} [parent]
+ * @returns {Promise<Element>}
+ */
+function watchElem(selector, parent) {
+	return new Promise(resolve => {
+		new MutationObserver((_mutations, observer) => {
+			const elem = (parent || document).querySelector(selector);
+			if (elem) {
+				observer.disconnect()
+				resolve(elem)
+			}
+		}).observe(parent || document.body, { subtree: true, childList: true })
+	})
+}
 //end "utilities.js"
