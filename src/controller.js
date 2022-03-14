@@ -144,12 +144,6 @@ function handleScripts(url,oldUrl){
 		}
 	}
 	else if(
-		url.match(/^https:\/\/anilist\.co\/character\/.*/)
-		&& useScripts.characterFavouriteCount
-	){
-		enhanceCharacter()
-	}
-	else if(
 		url.match(/^https:\/\/anilist\.co\/studio\/.*/)
 	){
 		if(useScripts.studioFavouriteCount){
