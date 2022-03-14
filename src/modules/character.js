@@ -2,34 +2,25 @@ async function enhanceCharacter(){//adds an exact favourite count on every chara
 	if(!location.pathname.match(/^\/character(\/.*)?/)){
 		return
 	}
-	let favCallback = function(data){
-		let adder = function(){
-			if(!document.URL.match(/^https:\/\/anilist\.co\/character\/.*/)){
-				return
-			}
-			let favCount = document.querySelector(".favourite .count");
-			if(favCount){
-				favCount.parentNode.onclick = function(){
-					if(favCount.parentNode.classList.contains("isFavourite")){
-						favCount.innerText = Math.max(parseInt(favCount.innerText) - 1,0)//0 or above, just to avoid looking silly
-					}
-					else{
-						favCount.innerText = parseInt(favCount.innerText) + 1
-					}
-				};
-				if(data.Character.favourites === 0 && favCount[0].classList.contains("isFavourite")){//safe to assume
-					favCount.innerText = data.Character.favourites + 1
-				}
-				else{
-					favCount.innerText = data.Character.favourites
-				}
+	const favWrap = document.querySelector(".favourite") || await watchElem(".favourite");
+	const favCount = favWrap.querySelector(".count");
+	if(!favCount){
+		return;
+	}
+	if(!isNaN(favCount.textContent)){
+		return; // abort early since the site already displays exact fav count if under 1000
+	}
+	const favCallback = function(data){
+		favWrap.onclick = function(){
+			if(favWrap.classList.contains("isFavourite")){
+				favCount.textContent = parseInt(favCount.textContent) - 1;
 			}
 			else{
-				setTimeout(adder,200)
+				favCount.textContent = parseInt(favCount.textContent) + 1;
 			}
 		};
 		if(data.Character.favourites){
-			adder()
+			favCount.textContent = data.Character.favourites;
 		}
 	};
 	const query = `query($id: Int!){
@@ -37,7 +28,7 @@ async function enhanceCharacter(){//adds an exact favourite count on every chara
 			favourites
 		}
 	}`;
-	const variables = {id: parseInt(document.URL.match(/\/character\/(\d+)\/?/)[1])};
+	const variables = {id: parseInt(location.pathname.match(/\/character\/(\d+)\/?/)[1])};
 	const {data, errors} = await anilistAPI(query, {
 		variables,
 		cacheKey: "hohCharacterFavs" + variables.id,
