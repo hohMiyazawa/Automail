@@ -47,13 +47,6 @@ m4_include(css/notifications.css)
 	color: rgb(var(--color-text));
 	font-weight: 500;
 }
-#hohFavCount{
-	position: absolute;
-	right: 30px;
-	color: rgba(var(--color-red));
-	top: 10px;
-	font-weight: 400;
-}
 .hohSlidePlayer{
 	display: block;
 	position: relative;

@@ -2,9 +2,6 @@ async function enhanceCharacter(){//adds an exact favourite count on every chara
 	if(!location.pathname.match(/^\/character(\/.*)?/)){
 		return
 	}
-	if(document.getElementById("hohFavCount")){
-		return
-	}
 	let favCallback = function(data){
 		let adder = function(){
 			if(!document.URL.match(/^https:\/\/anilist\.co\/character\/.*/)){
