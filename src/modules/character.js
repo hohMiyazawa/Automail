@@ -8,8 +8,9 @@ exportModule({
 		return /^https:\/\/anilist\.co\/character(\/.*)?/.test(url)
 	},
 	code: async function(){
-		const favWrap = document.querySelector(".favourite") || await watchElem(".favourite");
-		const favCount = favWrap.querySelector(".count");
+		const charWrap = document.querySelector(".character");
+		const favWrap = charWrap.querySelector(".favourite") || await watchElem(".favourite", charWrap);
+		const favCount = favWrap.querySelector(".count") || await watchElem(".count", favWrap);
 		if(!favCount){
 			return;
 		}
