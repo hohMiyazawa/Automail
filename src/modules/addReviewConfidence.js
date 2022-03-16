@@ -11,18 +11,6 @@ exportModule({
 		let pageCount = 0;
 		const adultContent = userObject ? userObject.options.displayAdultContent : false;
 
-		function watchElem(selector, parent) {
-			return new Promise(resolve => {
-				new MutationObserver((_mutations, observer) => {
-					const elem = (parent || document).querySelector(selector);
-					if (elem) {
-						observer.disconnect()
-						resolve(elem)
-					}
-				}).observe(parent || document.body, { subtree: true, childList: true })
-			})
-		}
-
 		const addReviewConfidence = async function(){
 			pageCount++
 			const {data, errors} = await anilistAPI("query($page:Int){Page(page:$page,perPage:30){reviews(sort:ID_DESC){id rating ratingAmount}}}", {

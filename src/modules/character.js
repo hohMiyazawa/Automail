@@ -1,51 +1,49 @@
-function enhanceCharacter(){//adds a favourite count on every character page
-	if(!location.pathname.match(/^\/character(\/.*)?/)){
-		return
-	}
-	if(document.getElementById("hohFavCount")){
-		return
-	}
-	let oldData = false;
-	let favCallback = function(data){
-		let adder = function(){
-			if(!document.URL.match(/^https:\/\/anilist\.co\/character\/.*/)){
-				return
-			}
-			let favCount = document.querySelector(".favourite .count");
-			if(favCount){
-				favCount.parentNode.onclick = function(){
-					if(favCount.parentNode.classList.contains("isFavourite")){
-						favCount.innerText = Math.max(parseInt(favCount.innerText) - 1,0)//0 or above, just to avoid looking silly
-					}
-					else{
-						favCount.innerText = parseInt(favCount.innerText) + 1
-					}
-				};
-				if(data.data.Character.favourites === 0 && favCount[0].classList.contains("isFavourite")){//safe to assume
-					favCount.innerText = data.data.Character.favourites + 1
+exportModule({
+	id: "characterFavouriteCount",
+	description: "Add an exact favourite count to character pages",
+	isDefault: true,
+	categories: ["Media"],
+	visible: false,
+	urlMatch: function(url){
+		return /^https:\/\/anilist\.co\/character(\/.*)?/.test(url)
+	},
+	code: async function(){
+		const charWrap = document.querySelector(".character");
+		const favWrap = charWrap.querySelector(".favourite") || await watchElem(".favourite", charWrap);
+		const favCount = favWrap.querySelector(".count") || await watchElem(".count", favWrap);
+		if(!favCount){
+			return;
+		}
+		if(!isNaN(favCount.textContent)){
+			return; // abort early since the site already displays exact fav count if under 1000
+		}
+		const favCallback = function(data){
+			favWrap.onclick = function(){
+				if(favWrap.classList.contains("isFavourite")){
+					favCount.textContent = parseInt(favCount.textContent) - 1;
 				}
 				else{
-					favCount.innerText = data.data.Character.favourites
+					favCount.textContent = parseInt(favCount.textContent) + 1;
 				}
-			}
-			else{
-				setTimeout(adder,200)
+			};
+			if(data.Character.favourites){
+				favCount.textContent = data.Character.favourites;
 			}
 		};
-		if(data.data.Character.favourites){
-			adder()
-		}
-	};
-	const variables = {id: parseInt(document.URL.match(/\/character\/(\d+)\/?/)[1])};
-	generalAPIcall(
-		`query($id: Int!){
+		const query = `query($id: Int!){
 			Character(id: $id){
 				favourites
 			}
-		}`,
-		variables,
-		favCallback,
-		"hohCharacterFavs" + variables.id + "page1",
-		60*60*1000
-	)
-}
+		}`;
+		const variables = {id: parseInt(location.pathname.match(/\/character\/(\d+)\/?/)[1])};
+		const {data, errors} = await anilistAPI(query, {
+			variables,
+			cacheKey: "hohCharacterFavs" + variables.id,
+			duration: 60*60*1000
+		});
+		if(errors){
+			return;
+		}
+		return favCallback(data);
+	}
+})

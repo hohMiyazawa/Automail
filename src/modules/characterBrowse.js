@@ -1,48 +1,59 @@
 exportModule({
-	id: "characterFavouriteCount",
-	description: "add fav counts to character browse",
+	id: "characterBrowseFavouriteCount",
+	description: "Add favourite counts to character browse pages",
 	isDefault: true,
 	categories: ["Browse"],
 	visible: false,
-	urlMatch: function(url,oldUrl){
-		return url.match(/^https:\/\/anilist\.co\/search\/characters/)
+	urlMatch: function(url){
+		return /^https:\/\/anilist\.co\/search\/characters\/?(favorites)?$/.test(url)
 	},
 	code: function(){
-		if(
-			!document.URL.match(/\/search\/characters\/?(favorites)?$/)
-		){
-			return
-		}
+		let pageCount = 0;
+		let perPage = 30;
 		const query = `
-query($page: Int!){
-	Page(page: $page,perPage: 20){
+query($page: Int!,$perPage: Int!){
+	Page(page: $page,perPage: $perPage){
 		characters(sort: [FAVOURITES_DESC]){
 			id
 			favourites
 		}
 	}
 }`;
-		let favCallback = function(data,page){
-			if(!document.URL.match(/\/search\/characters\/?(favorites)?$/)){
-				return
-			}
-			let resultsToTag = document.querySelectorAll(".results.cover .staff-card,.landing-section.characters .staff-card");
-			if(resultsToTag.length < page*data.data.Page.characters.length){
-				setTimeout(function(){
-					favCallback(data,page)
-				},200);//may take some time to load
-				return;
-			}
-			data = data.data.Page.characters;
-			data.forEach((character,index) => create(
+		const results = document.querySelector(".landing-section.characters > .results, .results.cover");
+		let charCount = results.childElementCount;
+
+		const insertFavs = function(data){
+			const chars = data.Page.characters;
+			chars.forEach((character,index) => create(
 				"span",
 				"hohFavCountBrowse",
 				character.favourites,
-				resultsToTag[(page - 1)*data.length + index]
+				results.children[(pageCount - 1)*chars.length + index]
 			).title = translate("$characterBrowseTooltip"));
-			generalAPIcall(query,{page:page+1},data => favCallback(data,page+1));
-		};
-		generalAPIcall(query,{page:1},data => favCallback(data,1))
+		}
+
+		const getFavs = async function(){
+			pageCount++
+			const {data, errors} = await anilistAPI(query, {
+				variables: {page: pageCount, perPage}
+			})
+			if(errors){
+				return;
+			}
+			return insertFavs(data);
+		}
+
+		if(!/\/search\/characters\/?$/.test(location.pathname)){ // full favorites page
+			perPage = 20;
+			new MutationObserver((_mutations) => {
+				if(results.childElementCount !== charCount && results.childElementCount % 20 === 0){
+					charCount = results.childElementCount;
+					getFavs();
+				}
+			}).observe(results, { subtree: true, childList: true })
+		}
+
+		getFavs();
 	},
 	css: `
 .hohFavCountBrowse{
