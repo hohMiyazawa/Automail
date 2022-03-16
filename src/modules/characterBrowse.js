@@ -1,6 +1,6 @@
 exportModule({
-	id: "characterFavouriteCount",
-	description: "add fav counts to character browse",
+	id: "characterBrowseFavouriteCount",
+	description: "Add favourite counts to character browse pages",
 	isDefault: true,
 	categories: ["Browse"],
 	visible: false,
