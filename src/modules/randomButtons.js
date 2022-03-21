@@ -27,7 +27,13 @@ exportModule({
 				place[index].innerText = "";
 				let link = create("a","link",currentText,place[index],"cursor:pointer;");
 				link.title = "Click to pick one at random";
-				let selected = Math.floor(Math.random()*data.data.Page.pageInfo.total);
+				let maximum = data.data.Page.pageInfo.total;
+				let list = place[index].parentNode.parentNode.querySelectorAll(".point-label");
+				let val = parseInt(list[list.length - 1].textContent.trim());
+				if(val && val > 5000){
+					maximum = val
+				}
+				let selected = Math.floor(Math.random()*maximum);
 				link.onclick = function(){
 					generalAPIcall(
 						`query($page:Int){
