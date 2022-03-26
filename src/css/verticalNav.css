@@ -421,6 +421,9 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .activity-feed-wrap{
 	margin-top:25px;
 }
+.user .activity-feed{
+	width: 100%;
+}
 .logo{
 	position: absolute;
 	margin-bottom: -500px;

@@ -492,7 +492,7 @@
 "$feedCommentFilter_description": "Add filter options to the feeds to hide posts with few comments or likes",
 "$browseSubmenu_description": "Replace the native 'browse' submenu when using the vertical nav",
 "$annoyingAnimations_description": "Remove annoying UI animations",
-"$customCSS_description": "Enable custom profile CSS and pinned activities",
+"$customCSS_description": "Enable custom profile CSS and replacement pinned activities",
 "$pinned": "Pinned",
 "$dblclickZoom_extendedDescription": "There are likely better browser accessibility addons for this.",
 "$staff_animeRoles": "Anime Staff Roles",

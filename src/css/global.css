@@ -68,7 +68,7 @@ m4_include(css/notifications.css)
 	opacity: 0.5;
 }
 .hohSlide:hover{
-	background-color: rgb(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.4);
 	cursor: pointer;
 	opacity: 1;
 }
