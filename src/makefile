@@ -14,6 +14,8 @@ build/automail.js: automail.m4 settings.js alias.js css/global.css conditionalSt
 
 build/boneless.js: boneless.m4 settings.js alias.js css/global.css conditionalStyles.js utilities.js purify.js graphql.js localisation.js controller.js build/userModules.js HOWTO.js
 	m4 --prefix-builtins boneless.m4 > build/boneless.js
+	sed -i 's/Automail/Boneless/' build/boneless.js
+	sed -i 's/automail/boneless/' build/boneless.js
 	date +"%s" | sed 's_^_//Boneless built at _' >> build/boneless.js
 
 build/userModules.js: modules

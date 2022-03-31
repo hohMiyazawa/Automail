@@ -20,7 +20,7 @@ const options = {
   class: 'anisongs', // container class
 }
 
-const songCache = localforage.createInstance({name: "automail", storeName: "anisongs"});
+const songCache = localforage.createInstance({name: script_type.toLowerCase(), storeName: "anisongs"});
 
 const API = {
   async getSongs(mal_id) {

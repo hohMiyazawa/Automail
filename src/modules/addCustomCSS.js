@@ -1,5 +1,5 @@
 function addCustomCSS(){
-	if(useScripts.SFWmode){
+	if(useScripts.SFWmode || script_type === "Boneless"){
 		return
 	}
 	let URLstuff = location.pathname.match(/^\/user\/([^/]*)\/?/);

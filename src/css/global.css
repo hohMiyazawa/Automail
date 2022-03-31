@@ -611,9 +611,6 @@ tr.hohAnimeTable:nth-child(2n+1){
 .media-card .list-status[status="Repeating"]{
 	background: violet;
 }
-.sense-wrap{
-	display: none;
-}
 .hohDismiss{
 	cursor: pointer;
 	transform: translate(20px,-11px);
@@ -993,14 +990,6 @@ meter::-moz-meter-bar{
 .user[type="anime"][page="studios"]:not(.hohSpecialPage) #animeStudios,
 .user[type="manga"][page="staff"]:not(.hohSpecialPage) #mangaStaff{
 	display: block!important;
-}
-.user[type="anime"][page="tags"] .increase-stats::after,
-.user[type="manga"][page="tags"] .increase-stats::after,
-.user[type="anime"][page="staff"] .increase-stats::after,
-.user[type="anime"][page="studios"] .increase-stats::after,
-.user[type="manga"][page="staff"] .increase-stats::after{
-	content: "Or view the full list below:";
-	display: block;
 }
 .user .hohMilestones .milestones .milestone:nth-child(2)::after{
 	display: none;
@@ -1980,9 +1969,6 @@ body.TMPreviewScore > .el-tooltip__popper{
 .search .filter > .icon{
 	display: inline-block;
 }
-.rules-notice{
-	display: none;
-}
 .sidebar .ranking{
 	padding-left: 8px;
 	padding-right: 8px;
@@ -2130,7 +2116,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 	top: 0px;
 }
 .forum-thread .comments .nav{
-	z-index: 2; /*the forum navigation should beat Automail UI elements*/
+	z-index: 2; /*the forum navigation should beat script UI elements*/
 }
 a.external-link.Official.Site[href*=".jp"]::after{
 	content: "(JP)";
@@ -2148,9 +2134,6 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .ilink:hover{
 	color: rgb(var(--color-blue));
 	cursor: pointer;
-}
-.settings .nav a[href="/settings/apps"]::after{
-	content: " & Automail";
 }
 .forum-thread h1.title.locked ~ div .nav svg[data-icon="reply"]{/*letting people write out entire comments before telling them the thread is locked is cruel*/
 	display: none;

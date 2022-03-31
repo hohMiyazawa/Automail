@@ -24,7 +24,8 @@
 	"description": "$draw3x3_description",
 	"categories": ["Lists"]
 },{"id": "automailAPI",
-	"description": "Enable an API for other scripts to control automail [Don't enable this unless you know what you are doing]",
+	"boneless_disable": true,
+	"description": "Enable an API for other scripts to control this script [Don't enable this unless you know what you are doing]",
 	"categories": ["Script","Login"]
 },{"id": "MALscore",
 	"description": "$setting_MALscore",
@@ -79,6 +80,7 @@
 	"description": "$mangaGuess_description",
 	"categories": ["Media"]
 },{"id": "replaceNativeTags",
+	"boneless_disable": true,
 	"description": "$replaceNativeTags_description",
 	"categories": ["Stats"]
 },{"id": "allStudios",
@@ -156,6 +158,7 @@
 	"description": "$CSScompactBrowse_description",
 	"categories": ["Browse"]
 },{"id": "customCSS",
+	"boneless_disable": true,
 	"description": "$customCSS_description",
 	"categories": ["Profiles","Login"]
 },{"id": "CSSgreenManga",
@@ -254,7 +257,7 @@
 },{
 	"id": "partialLocalisationLanguage",
 	"description": "$settings_partialLocalisationLanguage_description",
-	"extendedDescription": "Partial localisation, translates Automail-specific elements.\nCheck \"Translate additional parts of the Anilist UI\" for translating more fo the site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
+	"extendedDescription": "Partial localisation, translates script-specific elements.\nCheck \"Translate additional parts of the Anilist UI\" for translating more fo the site.\nFor Japanese, you may also want to change your title language at https://anilist.co/settings/media\n\nWant to contribute? See: https://github.com/hohMiyazawa/Automail/issues/69",
 	"type": "select",
 	"importance": 100,
 	"categories": ["Script"],

@@ -5,7 +5,7 @@ let current = "";
 
 function handleScripts(url,oldUrl){
 	modules.forEach(module => {
-		if(useScripts[module.id] && module.urlMatch && module.code && module.urlMatch(url,oldUrl)){
+		if(useScripts[module.id] && (script_type !== "Boneless" || !module.boneless_disable) && module.urlMatch && module.code && module.urlMatch(url,oldUrl)){
 			module.code()
 		}
 	})
@@ -394,7 +394,7 @@ let mainLoop = setInterval(() => {
 		}
 	}
 },200);
-console.log("Automail " + scriptInfo.version);
+console.log(script_type + " " + scriptInfo.version);
 Object.keys(localStorage).forEach(key => {
 	if(key.includes("hohListActivityCall")){
 		let cacheItem = JSON.parse(localStorage.getItem(key));
@@ -419,14 +419,14 @@ Not that this tag has any force behind it, but we can at least kindly ask them.
 	document.head.appendChild(dnt_tag)
 }
 
-if(useScripts.automailAPI){
-	if(document.automailAPI){
-		console.warn("Multiple copies of Automail running? Shutting down this instance.");
+if(useScripts[script_type.toLowerCase() + "API"]){
+	if(document[script_type.toLowerCase() + "API"]){
+		console.warn("Multiple copies of the script running? Shutting down this instance.");
 		clearInterval(mainLoop);
 		clearInterval(likeLoop);
 		clearInterval(tweetLoop);
 	}
-	document.automailAPI = {
+	document[script_type.toLowerCase() + "API"] = {
 		scriptInfo: scriptInfo,
 		generalAPIcall: generalAPIcall,//query,variables,callback[,cacheKey[,timeFresh[,useLocalStorage]]]
 		authAPIcall: authAPIcall,
@@ -434,7 +434,7 @@ if(useScripts.automailAPI){
 		api: anilistAPI,//APIv2
 		settings: useScripts,//this contains an access token, if granted. Be careful!
 		logOut: function(){
-			//makes Automail forget the access token (but it's still valid)
+			//makes the script forget the access token (but it's still valid)
 			//to disable an access token, go to https://anilist.co/settings/apps, and click "revoke app".
 			useScripts.accessToken = "";
 			useScripts.save()

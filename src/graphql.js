@@ -906,15 +906,15 @@ async function anilistAPI(query, queryArgs){
 
 /** Runs an API cache checkup weekly */
 const cacheCheckup = () => {
-	const check = localStorage.getItem("automail-db-check")
+	const check = localStorage.getItem("db-check")
 	if(check){
 		if(NOW() > check){
-			localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+			localStorage.setItem("db-check", NOW()+7*24*60*60*1000)
 			flushCache();
 		}
 	}
 	else{
-		localStorage.setItem("automail-db-check", NOW()+7*24*60*60*1000)
+		localStorage.setItem("db-check", NOW()+7*24*60*60*1000)
 	}
 };
 cacheCheckup()

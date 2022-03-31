@@ -3,7 +3,7 @@
 /*
 create()
 
-This is the main framework code of Automail.
+This is the main framework code of the script
 It shortens the otherwise verbose procedure of creating a new HTML element and inserting it into the DOM.
 Instead of:
 

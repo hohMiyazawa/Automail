@@ -114,7 +114,6 @@ let useScripts = {
 	titleLanguage: "ROMAJI",
 	dubMarkerLanguage: "English",
 	accessToken: "",
-	automailAPI: false,
 	comparisionColourFilter: true,
 	comparisionSystemFilter: false,
 	annoyingAnimations: true,

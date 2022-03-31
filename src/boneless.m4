@@ -22,6 +22,8 @@ const scriptInfo = {
 	"version" : "BONELESS_VERSION",
 	"name" : "Boneless",
 	"author" : "hoh",
+	"repo" : "https://share.wildbook.me/q27wQBFlc5ONyU9E.xz",
+	"link" : "PENDING",
 	"authorLink" : "https://anilist.co/user/hoh/",
 	"license" : "GPL-3.0-or-later"
 };

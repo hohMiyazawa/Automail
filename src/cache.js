@@ -5,7 +5,7 @@ if (navigator.storage && navigator.storage.persist){
 	navigator.storage.persist().then(function(persistent){
 		if(!persistent){
 			reliablePersistentStorage = false;
-			console.log("Automail was denied persistent storage, and may run slower/use more data since it can't keep a cache. Consider enabling persistent storage in 'site info' > 'permissions'")
+			console.log(script_type + " was denied persistent storage, and may run slower/use more data since it can't keep a cache. Consider enabling persistent storage in 'site info' > 'permissions'")
 		}
 	})
 }
@@ -92,7 +92,7 @@ query($name: String!){
 		if(!cache.scheduled){
 			cache.scheduled = true;
 			setTimeout(function(){
-				localStorage.setItem("automailListCache",cache.list);
+				localStorage.setItem(script_type.toLowerCase() + "ListCache",cache.list);
 				cache.scheduled = false
 			},10*1000)
 		}
@@ -110,7 +110,7 @@ query($name: String!){
 			duration: 60*60*1000,
 			data: data
 		}
-		localforage.setItem("automailListCache" + type,cache.list[type]);
+		localforage.setItem(script_type.toLowerCase() + "ListCache" + type,cache.list[type]);
 		cache.lockedCallbacks[type].forEach(a => a.callback(cache.list[a.type].data));
 		cache.lockedCallbacks[type] = [];
 		cache.lock[type] = false;
@@ -132,7 +132,7 @@ query($name: String!){
 			cache.lockedCallbacks[type].push({callback: callback,type: type})
 			if(!cache.lock[type]){
 				cache.lock[type] = true;
-				localforage.getItem("automailListCache" + type,function(err,value){
+				localforage.getItem(script_type.toLowerCase() + "ListCache" + type,function(err,value){
 					if(err){
 						console.log(err);
 						return

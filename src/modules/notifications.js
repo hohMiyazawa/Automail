@@ -145,7 +145,7 @@ You can also turn off this notice there.`,setting)
 				}
 			}
 			catch(e){
-				console.warn("Unexpected Anilist UI. Is Automail up to date?")
+				console.warn("Unexpected Anilist UI. Is " + script_type + " up to date?")
 			}
 		}
 	}

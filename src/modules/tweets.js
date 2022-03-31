@@ -7,7 +7,8 @@ Be adviced that Twitter embedding displays NSFW content no differently than othe
 	`,
 	isDefault: false,
 	categories: ["Feeds"],
-	visible: true
+	visible: true,
+	boneless_disabled: true
 })
 
 let tweetLoop = setInterval(function(){
@@ -39,14 +40,14 @@ let tweetLoop = setInterval(function(){
 					This is not allowed for Firefox addons, even if this setting is disabled by default.
 					Hence this check
 				*/
-				if(document.getElementById("automailTwitterEmbed") && window.twttr){
+				if(document.getElementById("hohTwitterEmbed") && window.twttr){
 					window.twttr.widgets.load(tweet)
 				}
 				else{
 					let script = document.createElement("script");
 					script.setAttribute("src","https://platform.twitter.com/widgets.js");
 					script.setAttribute("async","");
-					script.id = "automailTwitterEmbed";
+					script.id = "hohTwitterEmbed";
 					document.head.appendChild(script)
 				}
 			}

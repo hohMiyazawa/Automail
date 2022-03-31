@@ -337,7 +337,7 @@ function moreImports(){
 						},
 						function(data){
 							if(data.data.Viewer.name !== whoAmI){
-								alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
+								alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke " + script_type + "'s permissions, and sign in with the scirpt again to fix this.");
 								return;
 							}
 							let list = returnList(data,true).map(a => a.mediaId);
@@ -785,7 +785,7 @@ function moreImports(){
 							return
 						}
 						if(data2.data.Viewer.name !== whoAmI){
-							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the script again to fix this.");
+							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data2.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke " + script_type + "'s permissions, and sign in with the script again to fix this.");
 							return
 						}
 						let existing = new Set(data2.data.MediaListCollection.lists.map(list => list.entries).flat().map(entry => entry.mediaId));
@@ -940,7 +940,7 @@ function moreImports(){
 							return;
 						}
 						if(dataAnime.data.Viewer.name !== whoAmI){
-							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke Automail's permissions, and sign in with the scirpt again to fix this.");
+							alert("Signed in as\"" + whoAmI + "\" to Anilist, but as \"" + data.data.Viewer.name + "\" to the script.\n Go to settings > apps, revoke " + script_type + "'s permissions, and sign in with the scirpt again to fix this.");
 							return;
 						}
 						let listAnime = new Set(returnList(dataAnime,true).map(a => a.mediaId));

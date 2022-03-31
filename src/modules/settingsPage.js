@@ -58,13 +58,18 @@ exportModule({
 		create("span","hohStatValue",scriptInfo.version,sVersion);
 		let sHome = create("p",false,translate("$settings_homepage"),scriptStats);
 		let sHomeLink = create("a","external",scriptInfo.link,sHome);
+		sHomeLink.href = scriptInfo.link;
 		let sHome2 = create("p",false,translate("$settings_repository"),scriptStats);
 		let sHomeLink2 = create("a","external",scriptInfo.repo,sHome2);
-		if(!useScripts.accessToken){
-			create("p",false,"Faded options only have limited functionallity without signing in to the script (scroll down to the bottom of the page for that) which also requires persistent cookies, see https://github.com/hohMiyazawa/Automail/issues/26#issuecomment-623677462",scriptStats)
-		}
-		sHomeLink.href = scriptInfo.link;
 		sHomeLink2.href = scriptInfo.repo;
+		if(!useScripts.accessToken){
+			if(script_type === "Boneless"){
+				create("p",false,"Faded options only have limited functionallity without signing in to the script (scroll down to the bottom of the page for that) which also requires persistent cookies",scriptStats)
+			}
+			else{
+				create("p",false,"Faded options only have limited functionallity without signing in to the script (scroll down to the bottom of the page for that) which also requires persistent cookies, see https://github.com/hohMiyazawa/Automail/issues/26#issuecomment-623677462",scriptStats)
+			}
+		}
 		let categories = create("div",["container","hohCategories"],false,scriptStats);
 		let catList = ["Notifications","Feeds","Forum","Lists","Profiles","Stats","Media","Navigation","Browse","Script","Login","Newly Added"];
 		let activeCategory = "";
@@ -94,7 +99,7 @@ exportModule({
 		useScriptsDefinitions.sort((b,a) => (a.importance || 0) - (b.importance || 0));
 		useScriptsDefinitions.forEach(function(def){
 			let setting = create("p","hohSetting",false,scriptSettings);
-			if(def.visible === false){
+			if(def.visible === false || (script_type === "Boneless" && def.boneless_disable)){
 				setting.style.display = "none"
 			}
 			if(hasOwn(def, "type")){//other kinds of input
@@ -441,7 +446,7 @@ Changes take effect on reload.`;
 			};
 			hohSettings.appendChild(create("hr"));
 		}
-		if(useScripts.customCSS && useScripts.accessToken){
+		if(useScripts.customCSS && useScripts.accessToken && script_type !== "Boneless"){
 			let backgroundSettings = create("div",false,false,hohSettings);
 			create("p",false,translate("$settings_CSSadd"),backgroundSettings);
 			let inputField = create("textarea",false,false,backgroundSettings,"width: 100%;scrollbar-width: auto;");
@@ -501,7 +506,7 @@ Changes take effect on reload.`;
 			};
 			hohSettings.appendChild(create("hr"))
 		}
-		if(useScripts.customCSS && useScripts.accessToken){
+		if(useScripts.customCSS && useScripts.accessToken && script_type !== "Boneless"){
 			let pinSettings = create("div",false,false,hohSettings);
 			create("p",false,translate("$settings_pinnedActivity"),pinSettings);
 			let inputField = create("input",false,false,pinSettings);
@@ -632,27 +637,29 @@ query{
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
 		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
-		create("h4",false,"Alternative signin method: Self-hosting the script",hohSettings);
-		create("p",false,"1. Go to settings > developer > \"Create New Client\"",hohSettings);
-		create("p",false,"2. Give it any name, and use \"https://anilist.co/home\" for the redirect URL",hohSettings);
-		create("p",false,"3. Take a screenshot so you don't loose the info",hohSettings);
-		let ele = create("p",false,"4. ",hohSettings);
-		let lonk = create("span",false,"Click here and input the Client ID",ele,"color:rgb(var(--color-blue));cursor:pointer");
-		lonk.onclick = function(){
-			let id = parseInt(prompt("Client ID:"));
-			if(id){
-				useScripts.client_id = id;
-				useScripts.save();
-				window.location = "https://anilist.co/api/v2/oauth/authorize?client_id=" + id + "&response_type=token"
+		if(script_type !== "Boneless"){
+			create("h4",false,"Alternative signin method: Self-hosting the script",hohSettings);
+			create("p",false,"1. Go to settings > developer > \"Create New Client\"",hohSettings);
+			create("p",false,"2. Give it any name, and use \"https://anilist.co/home\" for the redirect URL",hohSettings);
+			create("p",false,"3. Take a screenshot so you don't loose the info",hohSettings);
+			let ele = create("p",false,"4. ",hohSettings);
+			let lonk = create("span",false,"Click here and input the Client ID",ele,"color:rgb(var(--color-blue));cursor:pointer");
+			lonk.onclick = function(){
+				let id = parseInt(prompt("Client ID:"));
+				if(id){
+					useScripts.client_id = id;
+					useScripts.save();
+					window.location = "https://anilist.co/api/v2/oauth/authorize?client_id=" + id + "&response_type=token"
+				}
+				else{
+					alert("Error: Client not found")
+				}
 			}
-			else{
-				alert("Error: Client not found")
+			if(useScripts.accessToken){
+				create("hr","hohSeparator",false,hohSettings);
+				create("p",false,"Current access token (do not share with others):",hohSettings);
+				create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;line-break: anywhere;")
 			}
-		}
-		if(useScripts.accessToken){
-			create("hr","hohSeparator",false,hohSettings);
-			create("p",false,"Current access token (do not share with others):",hohSettings);
-			create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;line-break: anywhere;")
 		}
 
 		hohSettings.appendChild(create("hr"));
@@ -670,10 +677,10 @@ query{
 				export_settings.accessToken = "[REDACTED]"
 			}
 			if(whoAmI){
-				saveAs(export_settings,"automail_settings_" + whoAmI + ".json")
+				saveAs(export_settings,script_type + "_settings_" + whoAmI + ".json")
 			}
 			else{
-				saveAs(export_settings,"automail_settings.json")
+				saveAs(export_settings,script_type + "_settings.json")
 			}
 		}
 		debugImport.oninput = function(){
@@ -688,7 +695,7 @@ query{
 					alert("error parsing JSON")
 					return
 				}
-				if(!hasOwn(data, "automailAPI")){//sanity check
+				if(!hasOwn(data, "socialTab")){//sanity check
 					alert("not a settings file")
 					return
 				}

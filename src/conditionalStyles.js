@@ -338,7 +338,29 @@ if(useScripts.rightToLeft){
 m4_include(css/rightToLeft.css)
 	`
 }
-if(useScripts.partialLocalisationLanguage === "Português" || useScripts.partialLocalisationLanguage === "Español"){//https://github.com/hohMiyazawa/Automail/pull/123
+if(script_type !== "Boneless"){
+	moreStyle.textContent += `
+.user[type="anime"][page="tags"] .increase-stats::after,
+.user[type="manga"][page="tags"] .increase-stats::after,
+.user[type="anime"][page="staff"] .increase-stats::after,
+.user[type="anime"][page="studios"] .increase-stats::after,
+.user[type="manga"][page="staff"] .increase-stats::after{
+	content: "Or view the full list below:";
+	display: block;
+}
+.rules-notice{
+	display: none;
+}
+.sense-wrap{
+	display: none;
+}`
+}
+moreStyle.textContent += `
+.settings .nav a[href="/settings/apps"]::after{
+	content: " & ${script_type}";
+}
+`
+if(useScripts.partialLocalisationLanguage === "Português" || useScripts.partialLocalisationLanguage === "Español"){
 	moreStyle.textContent += `
 #app #nav.nav .wrap .links a.link{
 	text-transform: none;
@@ -349,7 +371,7 @@ if(useScripts.partialLocalisationLanguage === "Português" || useScripts.partial
 documentHead.appendChild(moreStyle);
 let customStyle = create("style");
 let currentUserCSS = "";
-customStyle.id = "customCSS-automail-styles";
+customStyle.id = "customCSS-" + script_type.toLowerCase() + "-styles";
 customStyle.type = "text/css";
 documentHead.appendChild(customStyle);
 

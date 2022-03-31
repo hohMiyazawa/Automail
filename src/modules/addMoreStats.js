@@ -1270,6 +1270,7 @@ function addMoreStats(){
 			semaPhoreAnime = list;
 			nativeTagsReplacer();
 
+	if(script_type !== "Boneless"){
 			const staffData = await anilistAPI(queryMediaListStaff, {
 				variables: {name: user,listType: "ANIME"},
 				cacheKey: "hohListCacheAnimeStaff" + user,
@@ -1428,6 +1429,7 @@ function addMoreStats(){
 					setTimeout(staffWaiter,200)
 				}
 			};staffWaiter();
+
 
 			let studioMap = {};
 			list.forEach(function(anime){
@@ -1680,6 +1682,7 @@ function addMoreStats(){
 					setTimeout(studioWaiter,200)
 				}
 			};studioWaiter();
+	}//end boneless check
 			return
 		};
 		if(user === whoAmI && reliablePersistentStorage){
@@ -2394,9 +2397,11 @@ function addMoreStats(){
 		regularTagsTable = create("div","#regularTagsTable",translate("$loading"),hohGenres);
 		regularAnimeTable = create("div","#regularAnimeTable",translate("$loading"),statsWrap);
 		regularMangaTable = create("div","#regularMangaTable",translate("$loading"),statsWrap);
-		animeStaff = create("div","#animeStaff",translate("$loading"),statsWrap);
-		mangaStaff = create("div","#mangaStaff",translate("$loading"),statsWrap);
-		animeStudios = create("div","#animeStudios",translate("$loading"),statsWrap);
+		if(script_type !== "Boneless"){
+			animeStaff = create("div","#animeStaff",translate("$loading"),statsWrap);
+			mangaStaff = create("div","#mangaStaff",translate("$loading"),statsWrap);
+			animeStudios = create("div","#animeStudios",translate("$loading"),statsWrap);
+		}
 		hohStats.calculated = false;
 		generateStatPage()
 	}

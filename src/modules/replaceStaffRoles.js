@@ -77,7 +77,7 @@ Text in the field will be matched against all titles, roles, genres tags, your s
 Regular expressions are permitted for titles.
 
 If you want to limit it to just one filter type, you can do it like "genre:mecha" or "status:watching"
-(status filtering only works if you have granted Automail permission to view your list data)
+(status filtering only works if you have granted ${script_type} permission to view your list data)
 
 The start year can also be a range like "2000-2005"`
 };
