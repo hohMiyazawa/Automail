@@ -632,6 +632,23 @@ query{
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
 		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
+		create("h4",false,"Alternative signin method: Self-hosting the script",hohSettings);
+		create("p",false,"1. Go to settings > developer > \"Create New Client\"",hohSettings);
+		create("p",false,"2. Give it any name, and use \"https://anilist.co/home\" for the redirect URL",hohSettings);
+		create("p",false,"3. Take a screenshot so you don't loose the info",hohSettings);
+		let ele = create("p",false,"4. ",hohSettings);
+		let lonk = create("span",false,"Click here and input the Client ID",ele,"color:rgb(var(--color-blue));cursor:pointer");
+		lonk.onclick = function(){
+			let id = parseInt(prompt("Client ID:"));
+			if(id){
+				useScripts.client_id = id;
+				useScripts.save();
+				window.location = "https://anilist.co/api/v2/oauth/authorize?client_id=" + id + "&response_type=token"
+			}
+			else{
+				alert("Error: Client not found")
+			}
+		}
 		if(useScripts.accessToken){
 			create("hr","hohSeparator",false,hohSettings);
 			create("p",false,"Current access token (do not share with others):",hohSettings);

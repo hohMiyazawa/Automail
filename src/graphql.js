@@ -252,7 +252,10 @@ let handleResponse = function(response){
 	})
 };
 const url = "https://graphql.anilist.co";//Current Anilist API location
-const authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = automail, 1933 = aniscripts(legacy)
+let authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = automail, 1933 = aniscripts(legacy)
+if(useScripts.client_id){
+	authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=" + useScripts.client_id + "&response_type=token"
+}
 
 if(useScripts.autoLogin && !useScripts.accessToken && !useScripts.loginAttempted){
 	useScripts.loginAttempted = true;
