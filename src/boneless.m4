@@ -1,11 +1,11 @@
 m4_divert(-1)m4_dnl
 m4_changequote(<m4<,>m4>)
-m4_define(AUTOMAIL_VERSION,10.0)
+m4_define(BONELESS_VERSION,10.0)
 m4_divert(0)m4_dnl
 // ==UserScript==
-// @name         Automail
+// @name         Boneless
 // @namespace    http://tampermonkey.net/
-// @version      AUTOMAIL_VERSION
+// @version      BONELESS_VERSION
 // @description  Extra parts for Anilist.co
 // @description:nn-NO Ekstradelar for Anilist.co
 // @author       hoh
@@ -13,18 +13,14 @@ m4_divert(0)m4_dnl
 // @grant        GM_xmlhttpRequest
 // @license      GPL-3.0-or-later
 // ==/UserScript==
-// SPDX-FileCopyrightText: 2019-2022 hoh and the Automail contributors
+// SPDX-FileCopyrightText: 2019-2022 hoh and the Boneless contributors
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 (function(){
 "use strict";
 const scriptInfo = {
-	"version" : "AUTOMAIL_VERSION",
-	"name" : "Automail",
-	"link" : "https://greasyfork.org/en/scripts/370473-automail",
-	"repo" : "https://github.com/hohMiyazawa/Automail",
-	"firefox" : "https://github.com/hohMiyazawa/Automail/releases",
-	"chrome" : "NO KNOWN BUILDS",
+	"version" : "BONELESS_VERSION",
+	"name" : "Boneless",
 	"author" : "hoh",
 	"authorLink" : "https://anilist.co/user/hoh/",
 	"license" : "GPL-3.0-or-later"
@@ -52,7 +48,7 @@ Other than that, some data loaded from MyAnimelist is the only external resource
 
 Optionally, a user may give the script privileges through the Anilist grant system, enabling some additional modules
 */
-const script_type = "Automail"
+const script_type = "Boneless"
 
 /* GENERAL STRUCTURE:
  1. Settings
@@ -67,7 +63,7 @@ m4_include(settings.js)
 m4_include(alias.js)
 //a shared style node for all the modules. Most custom classes are prefixed by "hoh" to avoid collisions with native Anilist classes
 let style = document.createElement("style");
-style.id = "automail-styles";
+style.id = "boneless-styles";
 style.type = "text/css";
 
 //The default colour is rgb(var(--color-blue)) provided by Anilist, but rgb(var(--color-green)) is preferred for things related to manga
@@ -92,4 +88,3 @@ m4_include(controller.js)
 m4_include(build/userModules.js)
 m4_include(HOWTO.js)
 })()
-//wanna translate Automail? https://github.com/hohMiyazawa/Automail/issues/69

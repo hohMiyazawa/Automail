@@ -252,7 +252,10 @@ let handleResponse = function(response){
 	})
 };
 const url = "https://graphql.anilist.co";//Current Anilist API location
-let authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = automail, 1933 = aniscripts(legacy)
+let authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = main, 1933 = aniscripts(legacy), 7895 boneless
+if(script_type === "Boneless"){
+	authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=7895&response_type=token"
+}
 if(useScripts.client_id){
 	authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=" + useScripts.client_id + "&response_type=token"
 }
@@ -269,7 +272,7 @@ if(!window.MutationObserver){//either the older webkit implementation, or just a
 
 let aniCast = {postMessage: function(){}};//dummy object for Safari
 if(window.BroadcastChannel){
-	aniCast = new BroadcastChannel("automail");
+	aniCast = new BroadcastChannel("aniScripts");
 	aniCast.onmessage = function(message){
 		if(message.data.type){
 			if(message.data.type === "cache"){
@@ -294,7 +297,7 @@ else{
 	 * it will just not print the warning when BroadcastChannel isn't available
 	 */
 	if(!window.safari){
-		console.warn("BroadcastChannel not available. Automail will not be able to share cached data between tabs")
+		console.warn("BroadcastChannel not available. " + script_type + " will not be able to share cached data between tabs")
 	}
 }
 //mandatory: query,variables,callback
@@ -348,7 +351,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 					sessionStorage.setItem(cacheKey,saltedHam)
 				}
 				catch(err){
-					console.error("Automail cache is full. Searching for expired items...");
+					console.error(script_type + " cache is full. Searching for expired items...");
 					let purgeCounter = 0;
 					Object.keys(sessionStorage).forEach(key => {
 						try{
@@ -377,7 +380,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 						sessionStorage.setItem(cacheKey,saltedHam)
 					}
 					catch(err){
-						console.error("The Automail cache failed for the key '" + cacheKey + "'. ");
+						console.error("The " + script_type + " cache failed for the key '" + cacheKey + "'. ");
 						if(saltedHam.length > 50000){
 							console.warn("The cache item is possibly too large (approx. " + saltedHam.length + " bytes)")
 						}
@@ -531,10 +534,10 @@ query{
 
 function accessTokenRetractedInfo(){
 	console.warn("Access token retracted.");
-	let box = createDisplayBox("width:600px;height:500px;top:100px;left:220px","Automail");
+	let box = createDisplayBox("width:600px;height:500px;top:100px;left:220px",script_type);
 	let title = create("h4",false,"Access token retracted",box);
 	let body = create("p",false,`
-The authentication access token you gave automail has been retracted.
+The authentication access token you gave ${script_type} has been retracted.
 
 This means some modules that require elevated priviledges will not work. Other parts of the script will work fine.
 
@@ -550,7 +553,7 @@ You can try getting a new token by clicking this link:
 	link.href = authUrl;
 	link.style.color = "rgb(var(--color-blue))";
 	let note = create("p",false,`
-(If you always want to sign in again when this happens, enable "Warn me when I get signed out from Automail" in the settings. That will cause this dialogue to always pop up when the token is missing)
+(If you always want to sign in again when this happens, enable "Warn me when I get signed out from ${script_type}" in the settings. That will cause this dialogue to always pop up when the token is missing)
 `,box);
 }
 
@@ -644,10 +647,10 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 }
 const ANILIST_QUERY_LIMIT = 90;
 
-localforage.config({name: "automail"});
+localforage.config({name: script_type.toLowerCase()});
 
 //begin api v2
-const apiCache = localforage.createInstance({name: "automail", storeName: "api"});
+const apiCache = localforage.createInstance({name: script_type.toLowerCase(), storeName: "api"});
 let apiResetLimit;
 
 /** Provides default arguments for an {@link anilistAPI()} request */

@@ -5,7 +5,7 @@ try{
 	localStorage.removeItem("test");
 }
 catch(e){
-	console.log("LocalStorage, required for saving settings, is not available. Automail may not work correctly.")
+	console.log("LocalStorage, required for saving settings, is not available. " + script_type + " may not work correctly.")
 }
 
 const notificationColourDefaults = {
@@ -149,16 +149,19 @@ else{
 	}
 }
 
-if(userObject && (userObject.donatorTier > 0 && (new Date()).valueOf() > (new Date('2020-09-01T03:24:00')).valueOf()) && userObject.name !== "hoh" && !userObject.moderatorStatus){
-	alert("Sorry, Automail does not work for donators")
+//Script is boneless: enable
+//User is mod: enable
+//user is hoh: enable
+if(script_type !== "Boneless" && userObject && (userObject.donatorTier > 0 && (new Date()).valueOf() > (new Date('2020-09-01T03:24:00')).valueOf()) && userObject.name !== "hoh" && !userObject.moderatorStatus){
+	alert("Sorry, " + script_type + " does not work for donators")
 	return
 }
 
 if(document.hohTypeScriptRunning){
-	console.warn("Duplicate script detected. Please make sure you don't have more than one instance of Automail or similar installed");
+	console.warn("Duplicate script detected. Please make sure you don't have more than one instance of " + script_type + " or similar installed");
 	return
 }
-document.hohTypeScriptRunning = "Automail"
+document.hohTypeScriptRunning = script_type;
 
 let forceRebuildFlag = false;
 
