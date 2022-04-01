@@ -1266,11 +1266,10 @@ function addMoreStats(){
 			if(listOfTags.length > 50){
 				listOfTags = listOfTags.filter(a => a.list.length >= 3)
 			}
-			drawTable(listOfTags,animeFormatter,regularAnimeTable,true,false);
 			semaPhoreAnime = list;
-			nativeTagsReplacer();
-
 	if(script_type !== "Boneless"){
+			drawTable(listOfTags,animeFormatter,regularAnimeTable,true,false);
+			nativeTagsReplacer();
 			const staffData = await anilistAPI(queryMediaListStaff, {
 				variables: {name: user,listType: "ANIME"},
 				cacheKey: "hohListCacheAnimeStaff" + user,
@@ -2092,9 +2091,11 @@ function addMoreStats(){
 			if(listOfTags.length > 50){
 				listOfTags = listOfTags.filter(a => a.list.length >= 3)
 			}
-			drawTable(listOfTags,mangaFormatter,regularMangaTable,true,false);
 			semaPhoreManga = list;
+	if(script_type !== "Boneless"){
+			drawTable(listOfTags,mangaFormatter,regularMangaTable,true,false);
 			nativeTagsReplacer();
+	}
 
 			const staffSimpleData = await anilistAPI(queryMediaListStaff_simple, {
 				variables: {name: user,listType: "MANGA"},
@@ -2394,10 +2395,10 @@ function addMoreStats(){
 		hohGenres = create("div","#hohGenres",false,statsWrap,"display:none;");
 		regularFilterHeading = create("div","#regularFilterHeading",false,hohGenres);
 		regularGenresTable = create("div","#regularGenresTable",translate("$loading"),hohGenres);
-		regularTagsTable = create("div","#regularTagsTable",translate("$loading"),hohGenres);
-		regularAnimeTable = create("div","#regularAnimeTable",translate("$loading"),statsWrap);
-		regularMangaTable = create("div","#regularMangaTable",translate("$loading"),statsWrap);
 		if(script_type !== "Boneless"){
+			regularTagsTable = create("div","#regularTagsTable",translate("$loading"),hohGenres);
+			regularAnimeTable = create("div","#regularAnimeTable",translate("$loading"),statsWrap);
+			regularMangaTable = create("div","#regularMangaTable",translate("$loading"),statsWrap);
 			animeStaff = create("div","#animeStaff",translate("$loading"),statsWrap);
 			mangaStaff = create("div","#mangaStaff",translate("$loading"),statsWrap);
 			animeStudios = create("div","#animeStudios",translate("$loading"),statsWrap);
