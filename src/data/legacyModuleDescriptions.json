@@ -84,6 +84,7 @@
 	"description": "$replaceNativeTags_description",
 	"categories": ["Stats"]
 },{"id": "allStudios",
+	"boneless_disable": true,
 	"description": "$allStudios_description",
 	"categories": ["Stats"]
 },{"id": "noRewatches",
