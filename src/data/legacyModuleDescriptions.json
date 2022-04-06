@@ -206,7 +206,7 @@
 	"categories": ["Feeds","Profiles","Lists"]
 },{"id": "titlecaseRomaji",
 	"description": "Uppercase killer. Title alias pack to turn unnecessary UPPERCASE to Titlecase",
-	"categories": ["Feeds","Profiles","Lists","Newly Added"]
+	"categories": ["Feeds","Profiles","Lists"]
 },{"id": "CSSprofileClutter",
 	"description": "Remove clutter from profiles (milestones, history chart, genres)",
 	"categories": ["Profiles"]
