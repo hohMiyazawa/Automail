@@ -29,6 +29,7 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 			}
 			let setting = create("span","hohNoSequelSetting",false,place,"position: absolute;right: 100px;top: 50px;");
 			let input = createCheckbox(setting);
+			input.classList.add("hohNoSequelSetting_input");
 			input.checked = useScripts.noSequel_value;
 			input.onchange = function(){
 				useScripts.noSequel_value = this.checked;
@@ -37,9 +38,12 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 			create("span",false,"No sequels",setting);
 			let remover = setInterval(function(){
 				if(!/^\/search\/anime/.test(location.pathname)){
+					clearInterval(remove);
 					return
 				}
+				let input = document.querySelector(".hohNoSequelSetting_input");
 				if(!input){
+					clearInterval(remove);
 					return
 				}
 				Array.from(document.querySelectorAll(".media-card")).forEach(hit => {
