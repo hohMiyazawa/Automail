@@ -3,7 +3,7 @@ const sequelList_manga = new Set(m4_include(data/sequels_manga.json))
 
 exportModule({
 	id: "noSequel",
-	description: "Add a 'no sequels' filter option on the browse page (manga version is still experimental)",
+	description: "Add a 'hide sequels' filter option on the browse page",
 	extendedDescription: `
 Attemps to remove sequels and spinoffs from the results when active. This is a fuzzy problem, so the script will not always get it right, producing both false positives and false negatives.
 	`,
@@ -36,7 +36,7 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 				useScripts.noSequel_value = this.checked;
 				useScripts.save();
 			}
-			create("span",false,"No sequels",setting);
+			create("span",false,translate("$hideSequels"),setting);
 			let remover = setInterval(function(){
 				if(!(/^\/search\/anime/.test(location.pathname) || /^\/search\/manga/.test(location.pathname))){
 					clearInterval(remover);
@@ -53,7 +53,7 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 						let id = (link.href || "").match(/(anime|manga)\/(\d+)\//);
 						if(id && id[2]){
 							id = parseInt(id[2]);
-							if(sequelList.has(id) && input.checked){
+							if((sequelList.has(id) || sequelList_manga.has(id)) && input.checked){
 								hit.classList.add("hohHiddenSequel")
 							}
 							else{

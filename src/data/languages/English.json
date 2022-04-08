@@ -283,6 +283,7 @@
 "$input_user_placeholder": "User",
 "$error_userNotFound": "User not found",
 "$error_connection": "Connection error",
+"$hideSequels": "Hide Sequels",
 "$myThreads_link": "My Threads",
 "$piracy_message": "THIS BE BAD LINK, IT'S NOW VEWY DISPOSED OF OwO (click the report button to call the mods on this naughty user)",
 "$compare_default": "Show default compare",

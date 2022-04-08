@@ -35,3 +35,11 @@ Added:
 	13851 ova
 	5252 one piece
 	101695 ova
+	7472 gintama
+
+Removed
+	101517 jujutsu kaisen 0
+	69625 kagerou days
+	30336 GTO
+	37776 railgun
+	104271 abimusang
