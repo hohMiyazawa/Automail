@@ -128,14 +128,14 @@ function moreImports(){
 
 					selectedValues[show.apData.name] = parseInt(selectEntry.value)
 					let aniLink = create("a", ["hohButton","button","link","newTab"], "View", row, "margin: 0 10px")
-					aniLink.href = "/" + type + "/" + selectEntry.value
+					aniLink.href = "/" + type + "/" + parseInt(selectEntry.value)
 
 					const image = create("img", false, false, row, "margin-right: 10px")
 					image.src = images[selectEntry.value]
 
 					selectEntry.onchange = () => { 
 						selectedValues[show.apData.name] = parseInt(selectEntry.value)
-						aniLink.href = "/" + type + "/" + selectEntry.value
+						aniLink.href = "/" + type + "/" + parseInt(selectEntry.value)
 						image.src = images[selectEntry.value]
 					}
 
