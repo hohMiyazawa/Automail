@@ -19,6 +19,8 @@ If you for any reason need the default look, you can click the "Show default not
 let prevLength = 0;
 let displayMode = "hoh";
 
+let reasons = new Map();
+
 function enhanceNotifications(forceFlag){
 	//method: the real notifications are parsed, then hidden and a new list of notifications are created using a mix of parsed data and API calls.
 	//alternative method: auth (not implemented)
@@ -265,8 +267,21 @@ You can also turn off this notice there.`,setting)
 	};
 	let findAct = function(act){
 		let modi = document.querySelector("#hohNotifications [href='" + act.href + "'");
+		let ide = act.href.match(/(anime|manga)\/(\d+)\//);
 		if(modi){
-			modi.parentNode.querySelector(".hohDataChange").innerHTML = DOMPurify.sanitize(act.text)
+			modi.parentNode.querySelector(".hohDataChange").innerHTML = DOMPurify.sanitize(act.text);
+			if(!modi.parentNode.querySelector(".reason-markdown")){
+				if(ide && reasons.has(parseInt(ide[2]))){
+					let text = reasons.get(parseInt(ide[2]));
+					let anchor = modi.parentNode.querySelector(".hohDataChange").children[0];
+					let cont = create("div","reason-markdown",false,anchor);
+					let contCont = create("div","markdown",false,cont);
+					create("p",false,text,contCont)
+				}
+			}
+			else if(ide){
+				reasons.set(parseInt(ide[2]),modi.parentNode.querySelector(".reason-markdown p").innerText)
+			}
 		}
 	}
 	let notificationDrawer = function(activities){
@@ -737,6 +752,29 @@ You can also turn off this notice there.`,setting)
 		enhanceNotifications(true)
 	});
 	observer.observe(document.querySelector(".page-content .notifications"),mutationConfig);
+	if(useScripts.accessToken && reasons.size === 0){
+		authAPIcall(`query{
+    Page{
+    notifications(type_in:[MEDIA_DATA_CHANGE,MEDIA_MERGE,MEDIA_DELETION]){
+      ... on MediaMergeNotification{
+        reason mediaId
+      }
+      ... on MediaDeletionNotification{
+        reason
+      }
+      ... on MediaDataChangeNotification{
+        reason mediaId
+      }
+    }
+  }
+}`,{},function(data){
+			data.data.Page.notifications.forEach(noti => {
+				if(noti.mediaId){
+					reasons.set(noti.mediaId,noti.reason)
+				}
+			});
+		})
+	}
 	Array.from(notifications).forEach(function(notification){//parse real notifications
 		notification.already = true;
 		notification.style.display = "none";

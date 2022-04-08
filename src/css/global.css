@@ -1098,6 +1098,10 @@ meter::-moz-meter-bar{
 	padding: 5px;
 	margin-right: 5px;
 }
+.reason-markdown{
+	font-size: 1.3rem;
+	line-height: 1.4;
+}
 
 m4_include(css/termsFeed.css)
 
