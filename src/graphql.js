@@ -239,17 +239,27 @@ const ANILIST_WEIGHT = 41;//weighting center for the weighted score formula
 
 let APIlimit = 90;
 let APIcallsUsed = 0;//this is NOT a reliable way to figure out how many more calls we can use, just a way to set some limit
+let APIcallsUsed_shortTerm = 0;
 let pending = {};
-let APIcounter = setTimeout(function(){
+let APIcounter = setInterval(function(){
 	APIcallsUsed = 0;
 },60*1000);//reset counter every minute, as our quota grows back
+let APIcounter2 = setInterval(function(){
+	APIcallsUsed_shortTerm = 0;
+},10*1000);//shortTerm
 
 let handleResponse = function(response){
 	APIlimit = response.headers.get("x-ratelimit-limit");
 	APIcallsUsed = APIlimit - response.headers.get("x-ratelimit-remaining");
-	return response.json().then(function(json){
-		return (response.ok ? json : Promise.reject(json))
-	})
+	try{
+		return response.json().then(function(json){
+			return (response.ok ? json : Promise.reject(json))
+		})
+	}
+	catch(e){
+		console.warn(e,response);
+		throw e
+	}
 };
 const url = "https://graphql.anilist.co";//Current Anilist API location
 let authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = main, 1933 = aniscripts(legacy), 7895 boneless
@@ -303,6 +313,12 @@ else{
 //mandatory: query,variables,callback
 //optional: cacheKey, and optionally even then, how long the item is fresh in the cache
 function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback){
+	if(APIcallsUsed_shortTerm > 18 || APIcallsUsed > (APIlimit - 2)){
+		setTimeout(function(){
+			generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback);
+		},1000*2);
+		return
+	}
 	if(typeof query === "object"){
 		variables = query.variables;
 		callback = query.callback;
@@ -414,6 +430,7 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
 	APIcallsUsed++;
+	APIcallsUsed_shortTerm++;
 }
 /*
 rawQueries = [
@@ -562,6 +579,12 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 		generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback)
 		return
 	}
+	if(APIcallsUsed_shortTerm > 18 || APIcallsUsed > (APIlimit - 2)){
+		setTimeout(function(){
+			authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback);
+		},1000*2);
+		return
+	}
 	if(typeof query === "object"){
 		variables = query.variables;
 		callback = query.callback;
@@ -643,7 +666,8 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 		}
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
-	APIcallsUsed++
+	APIcallsUsed++;
+	APIcallsUsed_shortTerm++;
 }
 const ANILIST_QUERY_LIMIT = 90;
 
