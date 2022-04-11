@@ -474,7 +474,7 @@ function addMoreStats(){
 							let nameCellTag = create("a",false,data[index].name,cel,"cursor:pointer;");
 							if(isTag){
 								if(mixedFormatter.anime && data[index].list.some(media => media.type === "ANIME")){
-									nameCellTag.href = "/search/anime?includedTags=" + data[index].name + "&onList=true"
+									nameCellTag.href = "/search/anime?includedTags=" + data[index].name + "&onList=true";
 								}
 								else{
 									nameCellTag.href = "/search/manga?includedTags=" + data[index].name + "&onList=true"
@@ -486,6 +486,9 @@ function addMoreStats(){
 								}
 								else{
 									nameCellTag.href = "/search/manga?includedGenres=" + data[index].name + "&onList=true"
+								}
+								if(data[index].name === "Hentai"){
+									nameCellTag.href += "&adult=true"
 								}
 							}
 							let nameCellStatus = create("span","hohSummableStatusContainer",false,cel);
