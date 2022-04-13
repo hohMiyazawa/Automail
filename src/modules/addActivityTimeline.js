@@ -165,7 +165,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		if(lookingElseInput.value){
 			lookingElseError.innerText = "...";
 			const {data, errors} = await anilistAPI("query($name:String){User(name:$name){id}}", {
-				variables: {name: lookingElseInput.value},
+				variables: {name: lookingElseInput.value.trim()},
 				cacheKey: "hohIDlookup" + lookingElseInput.value.toLowerCase(),
 				duration: 5*60*1000
 			});
