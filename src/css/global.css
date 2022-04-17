@@ -2125,7 +2125,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 a.external-link.Official.Site[href*=".jp"]::after{
 	content: "(JP)";
 }
-.forum-feed .filter-group [href="/forum/subscribed"] + a[href="/forum/search"]::after{
+.forum-feed .filter-group [href^="/forum/subscribed"] + a[href="/forum/search"]::after{
 	content: " 🔎";
 }
 .list-preview-wrap .size-toggle,
