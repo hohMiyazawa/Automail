@@ -704,6 +704,9 @@ select{
 .media-preview-card .cover{
 	z-index: 3;
 }
+.home .review-card{/*prevents hiding the score for unbreakable text*/
+	grid-template-columns: 100%;
+}
 .hohChangeScore{
 	font-family: monospace;
 	cursor: pointer;
