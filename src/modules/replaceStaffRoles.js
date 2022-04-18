@@ -1018,14 +1018,12 @@ query($id: Int,$page: Int){
 		}
 	}
 }`;
-let variables = {
+const variables = {
 	page: 1,
-	type: "ANIME",
 	id: URLstuff[1]
 };
-authAPIcall(staffQuery,variables,animeHandler);
-variables.type = "MANGA";
-authAPIcall(staffQuery,variables,mangaHandler);
+authAPIcall(staffQuery,Object.assign({type:"ANIME"},variables),animeHandler);
+authAPIcall(staffQuery,Object.assign({type:"MANGA"},variables),mangaHandler);
 authAPIcall(staffVoice,variables,voiceHandler)
 };
 selfcaller();
