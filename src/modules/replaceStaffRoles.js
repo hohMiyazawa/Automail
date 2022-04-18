@@ -751,18 +751,16 @@ let refreshAutocomplete = function(){
 	)
 };
 let animeHandler = function(data){
-	if(data.data.Staff.staffMedia.pageInfo.currentPage === 1){
-		for(let i=2;i<=data.data.Staff.staffMedia.pageInfo.lastPage;i++){
-			authAPIcall(
-				staffQuery,
-				{
-					page: i,
-					type: "ANIME",
-					id: URLstuff[1]
-				},
-				animeHandler
-			)
-		}
+	if(data.data.Staff.staffMedia.pageInfo.hasNextPage === true){
+		authAPIcall(
+			staffQuery,
+			{
+				page: data.data.Staff.staffMedia.pageInfo.currentPage + 1,
+				type: "ANIME",
+				id: URLstuff[1]
+			},
+			animeHandler
+		)
 	}
 	data.data.Staff.staffMedia.edges.forEach(edge => {
 		let anime = {
@@ -810,18 +808,16 @@ let animeHandler = function(data){
 	listRenderer();
 };
 let mangaHandler = function(data){
-	if(data.data.Staff.staffMedia.pageInfo.currentPage === 1){
-		for(let i=2;i<=data.data.Staff.staffMedia.pageInfo.lastPage;i++){
-			authAPIcall(
-				staffQuery,
-				{
-					page: i,
-					type: "MANGA",
-					id: URLstuff[1]
-				},
-				mangaHandler
-			)
-		}
+	if(data.data.Staff.staffMedia.pageInfo.hasNextPage === true){
+		authAPIcall(
+			staffQuery,
+			{
+				page: data.data.Staff.staffMedia.pageInfo.currentPage + 1,
+				type: "MANGA",
+				id: URLstuff[1]
+			},
+			mangaHandler
+		)
 	}
 	data.data.Staff.staffMedia.edges.forEach(edge => {
 		let manga = {
@@ -869,17 +865,15 @@ let mangaHandler = function(data){
 	listRenderer()
 };
 let voiceHandler = function(data){
-	if(data.data.Staff.characters.pageInfo.currentPage === 1){
-		for(let i=2;i<=data.data.Staff.characters.pageInfo.lastPage;i++){
-			authAPIcall(
-				staffVoice,
-				{
-					page: i,
-					id: URLstuff[1]
-				},
-				voiceHandler
-			)
-		}
+	if(data.data.Staff.characters.pageInfo.hasNextPage === true){
+		authAPIcall(
+			staffVoice,
+			{
+				page: data.data.Staff.characters.pageInfo.currentPage + 1,
+				id: URLstuff[1]
+			},
+			voiceHandler
+		)
 	}
 	data.data.Staff.characters.edges.forEach(edge => {
 		edge.role = capitalize(edge.role.toLowerCase());
@@ -971,6 +965,7 @@ query($id: Int,$page: Int,$type: MediaType){
 			pageInfo{
 				currentPage
 				lastPage
+				hasNextPage
 			}
 		}
 	}
@@ -1018,18 +1013,17 @@ query($id: Int,$page: Int){
 			pageInfo{
 				currentPage
 				lastPage
+				hasNextPage
 			}
 		}
 	}
 }`;
-let variables = {
+const variables = {
 	page: 1,
-	type: "ANIME",
 	id: URLstuff[1]
 };
-authAPIcall(staffQuery,variables,animeHandler);
-variables.type = "MANGA";
-authAPIcall(staffQuery,variables,mangaHandler);
+authAPIcall(staffQuery,Object.assign({type:"ANIME"},variables),animeHandler);
+authAPIcall(staffQuery,Object.assign({type:"MANGA"},variables),mangaHandler);
 authAPIcall(staffVoice,variables,voiceHandler)
 };
 selfcaller();
