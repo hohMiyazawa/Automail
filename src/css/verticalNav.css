@@ -670,3 +670,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .markdown .markdown-spoiler.spoiler-visible i.hide-spoiler{
 	right: -10px;
 }
+.hohNoSequelSetting{
+	right: 100px;
+	top: 50px;
+}

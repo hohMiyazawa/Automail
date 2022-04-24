@@ -28,7 +28,7 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 			if(document.querySelector(".hohNoSequelSetting")){
 				return
 			}
-			let setting = create("span","hohNoSequelSetting",false,place,"position: absolute;right: 100px;top: 50px;");
+			let setting = create("span","hohNoSequelSetting",false,place);
 			let input = createCheckbox(setting);
 			input.classList.add("hohNoSequelSetting_input");
 			input.checked = useScripts.noSequel_value;
