@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Anilist graphql example</title>
+	</head>
+	<body>
+		<div class="wrapper" id="main" style="display: inline-block">
+			<p>Nothing here. Source code has template code to gather sequels</p>
+			<script>
+
+const url = 'https://graphql.anilist.co'; //the current location of the anilist API
+
+/*
+	query = a graphql query as a string
+	variables = an object with the variables as properties
+	callback = the function that receives the data
+*/
+let generalAPIcall = function(query,variables,callback){
+	let handleResponse = function(response){
+		try{
+		return response.json().then(function(json){
+			return response.ok ? json : Promise.reject(json);
+		});
+		}
+		catch(e){
+			console.log("oof")
+		}
+	};
+	let handleData = function(data){
+		callback(data);
+	};
+	let handleError = function(error){
+		alert("Error, check console"); //or insert your own error handling here
+		console.error(error);
+	};
+	let options = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json",
+		},
+		body: JSON.stringify({
+			query: query,
+			variables: variables
+		})
+	};
+	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
+};
+
+//usage example.
+//tip: use the template literal syntax for easy to read queries ``
+
+let lost = [];
+
+function fuzzyDateCompare(first,second){//returns an INDEX, not to be used for sorting. That is, "-1" means they are equal.
+	if(!first.year || !second.year){
+		return -1
+	}
+	if(first.year > second.year){
+		return 0
+	}
+	else if(first.year < second.year){
+		return 1
+	}
+	if(!first.month || !second.month){
+		return -1
+	}
+	if(first.month > second.month){
+		return 0
+	}
+	else if(first.month < second.month){
+		return 1
+	}
+	if(!first.day || !second.day){
+		return -1
+	}
+	if(first.day > second.day){
+		return 0
+	}
+	else if(first.day < second.day){
+		return 1
+	}
+	return -1
+}
+
+let takenPage = new Set();
+
+let calli = function(i){
+	if(takenPage.has(i)){
+		return
+	}
+generalAPIcall(
+	`
+query($page: Int){
+  Page(page: $page){
+	media(type: ANIME,sort:POPULARITY_DESC){
+    id
+    startDate{year month day}
+    relations{
+      edges{
+        relationType(version:2)
+        node{
+          type
+          startDate{year month day}
+        }
+      }
+    }
+	}
+  }
+}
+	`,
+	{
+		page: i
+	},
+	function(data){
+		takenPage.add(i);
+		data.data.Page.media.forEach(entry => {
+			let toast = entry.relations.edges.some(rel => {
+				if(rel.node.type === "MANGA"){
+					return false
+				}
+				let soFar = rel.relationType === "PREQUEL" || rel.relationType === "PARENT";
+				let compare = fuzzyDateCompare(entry.startDate,rel.node.startDate);
+				if(compare === 1){
+					soFar = false
+				}
+				return soFar
+			});
+			if(toast){
+				lost.push(entry)
+			}
+		})
+	}
+);
+}
+
+
+			</script>
+		</div>
+	</body>
+</html>
