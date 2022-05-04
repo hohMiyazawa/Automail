@@ -26,7 +26,7 @@ exportModule({
 						},
 						id: id
 					});
-					let floatyWindowThingy = createDisplayBox("min-width:400px;min-height:300px;",title);
+					let floatyWindowThingy = createDisplayBox("min-width:500px;min-height:300px;",title);
 					floatyWindowThingy.style.maxWidth = "80ch";
 					floatyWindowThingy.style.lineHeight = "1.4";
 					floatyWindowThingy.style.marginRight = "12px";
@@ -90,5 +90,6 @@ exportModule({
 			},2000)
 		};
 		clickHandler()
-	}
+	},
+	css: ".list-entries .entry-card .notes{cursor: pointer}"
 })
