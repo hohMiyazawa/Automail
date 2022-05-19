@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 exportModule({
 	id: "hollowHearts",
 	description: "Make unliked hearts hollow [by Reina]",
-	isDefault: false,
+	isDefault: true,
 	importance: 0,
 	categories: ["Feeds"],
 	visible: true,
