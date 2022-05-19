@@ -1,5 +1,5 @@
 async function addActivityTimeline(){
-	const URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w-]*\/social/);
+	const URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)(\/[\w-]*)?\/social/);
 	if(!URLstuff){
 		return
 	}

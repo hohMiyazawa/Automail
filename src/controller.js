@@ -41,7 +41,7 @@ function handleScripts(url,oldUrl){
 	else if(url === "https://anilist.co/404"){
 		possibleBlocked(oldUrl)
 	}
-	if(/^https:\/\/anilist\.co\/(anime|manga)\/\d*\/[\w-]*\/social/.test(url)){
+	if(/^https:\/\/anilist\.co\/(anime|manga)\/\d*(\/[\w-]*)?\/social/.test(url)){
 		if(useScripts.socialTab){
 			enhanceSocialTab();
 		}

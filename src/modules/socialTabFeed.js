@@ -1,5 +1,5 @@
 function enhanceSocialTabFeed(){
-	let URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)\/[\w-]*\/social/);
+	let URLstuff = location.pathname.match(/^\/(anime|manga)\/(\d+)(\/[\w-]*)?\/social/);
 	if(!URLstuff){
 		return
 	}

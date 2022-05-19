@@ -161,7 +161,7 @@ const MakeStats = () => {
 }
 
 function enhanceSocialTab(){
-	if(!location.pathname.match(/^\/(anime|manga)\/\d*\/[\w-]*\/social/)){
+	if(!location.pathname.match(/^\/(anime|manga)\/\d*(\/[\w-]*)?\/social/)){
 		return
 	}
 	let listOfFollowers = Array.from(document.getElementsByClassName("follow"));
