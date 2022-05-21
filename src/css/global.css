@@ -1098,8 +1098,9 @@ meter::-moz-meter-bar{
 .social input[list="socialUsers"]{
 	background: rgb(var(--color-foreground));
 	border-width: 0px;
-	padding: 5px;
+	padding: 7px;
 	margin-right: 5px;
+	border-radius: 3px;
 }
 .reason-markdown{
 	font-size: 1.3rem;
@@ -1346,12 +1347,20 @@ m4_include(css/termsFeed.css)
 .queryResults .message img{
 	max-width: 100%;
 }
+#activityTimeline{
+	margin-top: 25px;
+}
 .hohTimelineEntry{
-	margin: 7px;
-	position: relative;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	margin-bottom: 7px;
 	padding: 7px;
-	border-radius: 2px;
+	border-radius: 3px;
 	background: rgb(var(--color-foreground));
+}
+.hohTimelineGap{
+	margin-bottom: 7px;
+	padding: 7px;
 }
 .hohImport .dropbox{
 	align-items: center;

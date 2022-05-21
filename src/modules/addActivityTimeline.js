@@ -69,7 +69,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		data.data.Page.activities.forEach(function(activity){
 			let diffTime = activity.createdAt - previousTime;
 			if(previousTime && diffTime > 60*60*24*30*3){//three months
-				create("div","hohTimelineGap","--- " + formatTime(diffTime) + " ---",activityTimeline)
+				create("div","hohTimelineGap","― " + formatTime(diffTime) + " ―",activityTimeline)
 			}
 			let activityEntry = create("div","hohTimelineEntry",false,activityTimeline);
 			if(activity.replyCount){
@@ -140,8 +140,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			let datestring = (new Date(activity.createdAt*1000)).toLocaleDateString(locale,options)
 			create("span",false,
 				" " + datestring,
-				activityEntry,
-				"position:absolute;right:7px;"
+				activityEntry
 			).title = (new Date(activity.createdAt*1000)).toLocaleString();
 			previousTime = activity.createdAt;
 		});
