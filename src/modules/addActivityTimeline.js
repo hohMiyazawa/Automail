@@ -36,7 +36,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 	Page(page: $page){
 		pageInfo{
 			currentPage
-			lastPage
+			hasNextPage
 		}
 		activities(userId: $userId, mediaId: $mediaId, sort: ID){
 			... on ListActivity{
@@ -144,8 +144,8 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			).title = (new Date(activity.createdAt*1000)).toLocaleString();
 			previousTime = activity.createdAt;
 		});
-		if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage && data.data.Page.pageInfo.currentPage < 10){//yet another workaround fro broken API
-			variables.page++;
+		if(data.data.Page.pageInfo.hasNextPage === true){
+			variables.page = data.data.Page.pageInfo.currentPage + 1;
 			lineCaller(query,variables)
 		}
 		return
