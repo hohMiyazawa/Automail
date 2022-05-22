@@ -163,9 +163,10 @@ query($userId: Int,$mediaId: Int,$page: Int){
 	lookingElseButton.onclick = async function(){
 		if(lookingElseInput.value){
 			lookingElseError.innerText = "...";
+			const userName = lookingElseInput.value.trim();
 			const {data, errors} = await anilistAPI("query($name:String){User(name:$name){id}}", {
-				variables: {name: lookingElseInput.value.trim()},
-				cacheKey: "hohIDlookup" + lookingElseInput.value.toLowerCase(),
+				variables: {name: userName},
+				cacheKey: "hohIDlookup" + userName.toLowerCase(),
 				duration: 5*60*1000
 			});
 			if(errors){
