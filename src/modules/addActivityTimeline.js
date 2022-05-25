@@ -36,7 +36,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 	Page(page: $page){
 		pageInfo{
 			currentPage
-			lastPage
+			hasNextPage
 		}
 		activities(userId: $userId, mediaId: $mediaId, sort: ID){
 			... on ListActivity{
@@ -69,7 +69,7 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		data.data.Page.activities.forEach(function(activity){
 			let diffTime = activity.createdAt - previousTime;
 			if(previousTime && diffTime > 60*60*24*30*3){//three months
-				create("div","hohTimelineGap","--- " + formatTime(diffTime) + " ---",activityTimeline)
+				create("div","hohTimelineGap","― " + formatTime(diffTime) + " ―",activityTimeline)
 			}
 			let activityEntry = create("div","hohTimelineEntry",false,activityTimeline);
 			if(activity.replyCount){
@@ -140,13 +140,12 @@ query($userId: Int,$mediaId: Int,$page: Int){
 			let datestring = (new Date(activity.createdAt*1000)).toLocaleDateString(locale,options)
 			create("span",false,
 				" " + datestring,
-				activityEntry,
-				"position:absolute;right:7px;"
+				activityEntry
 			).title = (new Date(activity.createdAt*1000)).toLocaleString();
 			previousTime = activity.createdAt;
 		});
-		if(data.data.Page.pageInfo.currentPage < data.data.Page.pageInfo.lastPage && data.data.Page.pageInfo.currentPage < 10){//yet another workaround fro broken API
-			variables.page++;
+		if(data.data.Page.pageInfo.hasNextPage === true){
+			variables.page = data.data.Page.pageInfo.currentPage + 1;
 			lineCaller(query,variables)
 		}
 		return
@@ -164,9 +163,10 @@ query($userId: Int,$mediaId: Int,$page: Int){
 	lookingElseButton.onclick = async function(){
 		if(lookingElseInput.value){
 			lookingElseError.innerText = "...";
+			const userName = lookingElseInput.value.trim();
 			const {data, errors} = await anilistAPI("query($name:String){User(name:$name){id}}", {
-				variables: {name: lookingElseInput.value.trim()},
-				cacheKey: "hohIDlookup" + lookingElseInput.value.toLowerCase(),
+				variables: {name: userName},
+				cacheKey: "hohIDlookup" + userName.toLowerCase(),
 				duration: 5*60*1000
 			});
 			if(errors){
