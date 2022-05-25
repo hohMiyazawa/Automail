@@ -317,10 +317,9 @@ m4_include(css/notifications.css)
 }
 [list="staffRoles"]{
 	background: rgb(var(--color-foreground));
-	background: rgb(var(--color-foreground));
-	padding: 5px;
+	padding: 5px 10px;
 	border-width: 0px;
-	border-radius: 2px;
+	border-radius: 3px;
 	margin-left: 20px;
 	color: rgb(var(--color-text));
 }
@@ -1774,7 +1773,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 #hohStaffTabFilter{
 	display: grid;
 	margin-bottom: 15px;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 2fr auto 1fr;
 }
 #hohStaffTabFilter > input{
 	margin-left: 0;
@@ -1782,6 +1781,8 @@ body.TMPreviewScore > .el-tooltip__popper{
 }
 #hohFilterRemover{
 	display: none;
+	grid-column: 2;
+	padding: 5px 8px;
 }
 #hohFilterRemover:hover{
 	cursor: pointer;
