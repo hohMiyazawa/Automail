@@ -1773,7 +1773,7 @@ body.TMPreviewScore > .el-tooltip__popper{
 #hohStaffTabFilter{
 	display: grid;
 	margin-bottom: 15px;
-	grid-template-columns: 2fr auto 1fr;
+	grid-template-columns: 3fr 30px 1fr;
 }
 #hohStaffTabFilter > input{
 	margin-left: 0;
