@@ -20,15 +20,17 @@ exportModule({
 				setTimeout(function(){waiter(0)},250);
 				return
 			}
-			if(mediaStaff.children[0].children.length > 9){
-				let filterBoxContainer = create("div","#hohStaffTabFilter",false,mediaStaff.parentNode);
+			let staffGrid = mediaStaff.querySelector(".grid-wrap");
+			if(staffGrid.children.length > 9){
+				let filterBoxContainer = create("div","#hohStaffTabFilter");
+				mediaStaff.prepend(filterBoxContainer);
 				let filterRemover = create("span","#hohFilterRemover",svgAssets.cross,filterBoxContainer)
 				let filterBox = create("input",false,false,filterBoxContainer);
-				filterBox.placeholder = translate("$mediaStaff_filter");
+				filterBox.placeholder = "Filter by name or role";
 				filterBox.setAttribute("list","staffRoles");
 				let filterer = function(){
 					let val = filterBox.value;
-					Array.from(mediaStaff.children[0].children).forEach(card => {
+					Array.from(staffGrid.children).forEach(card => {
 						if(
 							looseMatcher(card.querySelector(".name").innerText,val)
 							|| looseMatcher(card.querySelector(".role").innerText,val)
@@ -54,7 +56,7 @@ exportModule({
 				let dataList = create("datalist","#staffRoles",false,filterBoxContainer);
 				let buildStaffRoles = function(){
 					let autocomplete = new Set();
-					Array.from(mediaStaff.children[0].children).forEach(card => {
+					Array.from(staffGrid.children).forEach(card => {
 						autocomplete.add(card.querySelector(".name").innerText);
 						autocomplete.add(card.querySelector(".role").innerText.replace(/\s*\(.*\)\.?\s*/,""));
 						if(card.querySelector(".role").innerText.includes("OP")){
@@ -78,7 +80,7 @@ exportModule({
 					filterer();
 					buildStaffRoles()
 				});
-				observer.observe(mediaStaff.children[0],mutationConfig)
+				observer.observe(staffGrid,mutationConfig)
 			}
 			else{
 				setTimeout(function(){waiter(++tries)},250 + tries*100)

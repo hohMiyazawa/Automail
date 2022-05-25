@@ -1772,17 +1772,13 @@ body.TMPreviewScore > .el-tooltip__popper{
 	min-height: 340px;
 }
 #hohStaffTabFilter{
-	display: none;
-	position: absolute;
-	right: 0px;
-	top: -25px;
-}
-.media-staff + #hohStaffTabFilter{
-	display: inline;
+	display: grid;
+	margin-bottom: 15px;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 #hohStaffTabFilter > input{
-	height: 20px;
-	margin-left: 3px;
+	margin-left: 0;
+	grid-column: 3;
 }
 #hohFilterRemover{
 	display: none;
