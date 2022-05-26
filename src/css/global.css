@@ -317,10 +317,9 @@ m4_include(css/notifications.css)
 }
 [list="staffRoles"]{
 	background: rgb(var(--color-foreground));
-	background: rgb(var(--color-foreground));
-	padding: 5px;
+	padding: 5px 10px;
 	border-width: 0px;
-	border-radius: 2px;
+	border-radius: 3px;
 	margin-left: 20px;
 	color: rgb(var(--color-text));
 }
@@ -1781,20 +1780,18 @@ body.TMPreviewScore > .el-tooltip__popper{
 	min-height: 340px;
 }
 #hohStaffTabFilter{
-	display: none;
-	position: absolute;
-	right: 0px;
-	top: -25px;
-}
-.media-staff + #hohStaffTabFilter{
-	display: inline;
+	display: grid;
+	margin-bottom: 15px;
+	grid-template-columns: 3fr 30px 1fr;
 }
 #hohStaffTabFilter > input{
-	height: 20px;
-	margin-left: 3px;
+	margin-left: 0;
+	grid-column: 3;
 }
 #hohFilterRemover{
 	display: none;
+	grid-column: 2;
+	padding: 5px 8px;
 }
 #hohFilterRemover:hover{
 	cursor: pointer;
