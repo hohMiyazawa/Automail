@@ -28,7 +28,7 @@ const API = {
     return res.json()
   },
   async getVideos(anilist_id) {
-    const res = await fetch(`https://staging.animethemes.moe/api/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
+    const res = await fetch(`https://api.animethemes.moe/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=animethemes.animethemeentries.videos`)
     return res.json()
   }
 }
