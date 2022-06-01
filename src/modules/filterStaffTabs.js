@@ -15,7 +15,7 @@ exportModule({
 			mediaStaff.prepend(filterBoxContainer);
 			let filterRemover = create("span","#hohFilterRemover",svgAssets.cross,filterBoxContainer)
 			let filterBox = create("input",false,false,filterBoxContainer);
-			filterBox.placeholder = "Filter by name or role";
+			filterBox.placeholder = translate("$mediaStaff_filter");
 			filterBox.setAttribute("list","staffRoles");
 			let filterer = function(){
 				let val = filterBox.value;

@@ -231,7 +231,7 @@ exportModule({
 					{
 						lookup: ".filters-wrap [placeholder='Filter']",
 						textType: "placeholder",
-						replacement: "$mediaStaff_filter"
+						replacement: "$mediaList_filter"
 					},
 					{
 						lookup: ".filters-wrap [placeholder='Genres']",
