@@ -370,7 +370,7 @@
 "$terms_option_reviews": "レビュー",
 "$terms_option_user": "ユーザー",
 "$terms_option_media": "メディア",
-"$mediaStaff_filter": "フィルター",
+"$mediaList_filter": "フィルター",
 "$socialTab_tooManyChapters": "データベースが更新された可能性が高いです。",
 "$socialTab_users": "ユーザー",
 "$socialTab_shortAverage": "平均",
@@ -469,6 +469,6 @@
 "$role_Theme Song Performance (ED)": "テーマ曲演奏（ED）",
 "$role_Character Design": "キャラクターデザイン",
 "$role_Sound Director": "音響監督",
-"$role_Chief Animation Director": "総作画監督",
+"$role_Chief Animation Director": "総作画監督"
 	}
 }

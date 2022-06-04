@@ -441,7 +441,7 @@
 "$terms_option_reviews": "Resenhas",
 "$terms_option_user": "Usuário",
 "$terms_option_media": "Mídia",
-"$mediaStaff_filter": "Filtro",
+"$mediaList_filter": "Filtro",
 "$socialTab_tooManyChapters": "Possivelmente o total da base de dados atualizou-se",
 "$socialTab_users": "Usuários",
 "$socialTab_shortAverage": "Média",
