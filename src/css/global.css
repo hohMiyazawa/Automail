@@ -256,14 +256,6 @@ m4_include(css/notifications.css)
 .recommendation-card .hohStatusDot{
 	transform: translate(-5px,-5px);
 }
-.studio .container.header{
-	position: relative;
-}
-.studio .favourite{
-	position: absolute;
-	top: 10px;
-	right: 30px;
-}
 .filter .view-all{
 	background-color: rgb(var(--color-foreground));
 	height: 32px;
