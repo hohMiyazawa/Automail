@@ -281,7 +281,7 @@
 			name: "badEncoding",
 			description: "Bad character encoding in description",
 			code: media => {
-				return ["</br>","&#39","[1]","[2]","â€™"].some(error => media.description.includes(error))
+				return media.description !== null ? ["</br>","&#39","[1]","[2]","â€™"].some(error => media.description.includes(error)) : false
 			},
 			require: ["description"]
 		},
@@ -289,28 +289,28 @@
 			name: "badSpelling",
 			description: "Bad character encoding in description",
 			code: media => {
-				return ["animes ","mangas "].some(error => media.description.includes(error))
+				return media.description !== null ? ["animes ","mangas "].some(error => media.description.includes(error)) : false
 			},
 			require: ["description"]
 		},
 		{
 			name: "noDescription",
 			description: "No description",
-			code: media => media.description.length < 15,
+			code: media => media.description !== null ? media.description.length < 15 : true,
 			require: ["description"]
 		},
 		{
 			name: "longDescription",
 			description: "Very long description",
-			code: media => media.description.length > 4000,
+			code: media => media.description !== null ? media.description.length > 4000 : false,
 			require: ["description"]
 		},
 		{
 			name: "outdatedDescription",
 			description: "Likely outdated description",
-			code: media => [
+			code: media => media.description !== null ? [
 "upcoming adaptation","will cover","sceduled for","next year","will adapt","announced","will air"," tba"
-			].some(text => media.description.toLowerCase().includes(text)) && media.status === "FINISHED",
+			].some(text => media.description.toLowerCase().includes(text)) && media.status === "FINISHED" : false,
 			require: ["description","status"]
 		}
 	];
