@@ -281,36 +281,36 @@
 			name: "badEncoding",
 			description: "Bad character encoding in description",
 			code: media => {
-				return ["</br>","&#39","[1]","[2]","â€™"].some(error => media.description.includes(error))
+				return media.description !== null ? ["</br>","&#39","[1]","[2]","â€™"].some(error => media.description.includes(error)) : false
 			},
 			require: ["description"]
 		},
 		{
 			name: "badSpelling",
-			description: "Bad character encoding in description",
+			description: "Commonly misspelled words in description",
 			code: media => {
-				return ["animes ","mangas "].some(error => media.description.includes(error))
+				return media.description !== null ? ["animes ","mangas "].some(error => media.description.includes(error)) : false
 			},
 			require: ["description"]
 		},
 		{
 			name: "noDescription",
 			description: "No description",
-			code: media => media.description.length < 15,
+			code: media => media.description !== null ? media.description.length < 15 : true,
 			require: ["description"]
 		},
 		{
 			name: "longDescription",
 			description: "Very long description",
-			code: media => media.description.length > 4000,
+			code: media => media.description !== null ? media.description.length > 4000 : false,
 			require: ["description"]
 		},
 		{
 			name: "outdatedDescription",
 			description: "Likely outdated description",
-			code: media => [
+			code: media => media.description !== null ? [
 "upcoming adaptation","will cover","sceduled for","next year","will adapt","announced","will air"," tba"
-			].some(text => media.description.toLowerCase().includes(text)) && media.status === "FINISHED",
+			].some(text => media.description.toLowerCase().includes(text)) && media.status === "FINISHED" : false,
 			require: ["description","status"]
 		}
 	];
@@ -326,6 +326,7 @@ query($type: MediaType,$page: Int){
 		pageInfo{
 		currentPage
 		lastPage
+		hasNextPage
 	}
 	media(type: $type,sort: POPULARITY_DESC){
 		id
@@ -342,6 +343,7 @@ query($type: MediaType,$page: Int){
 		pageInfo{
 			currentPage
 			lastPage
+			hasNextPage
 		}
 		mediaList(type: $type,sort: MEDIA_ID,userName: "${user}"){
 			media{
@@ -356,12 +358,14 @@ query($type: MediaType,$page: Int){
 	}
 	miscResults.innerText = "";
 	let flag = true;
+	let page = 1;
 	let stopButton = create("button",["button","hohButton"],"Stop",miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
+		page = 1;
 	};
-	let caller = function(page){
+	let caller = function(){
 		generalAPIcall(query,{type: type,page: page},function(data){
 			data = data.data.Page;
 			if(data.mediaList){
@@ -379,9 +383,10 @@ query($type: MediaType,$page: Int){
 					create("span",false,matches.join(", "),row);
 				};
 			});
-			if(flag && data.pageInfo.currentPage < data.pageInfo.lastPage && document.getElementById("queryOptions")){
-				setTimeout(function(){caller(page + 1)},1000)
+			if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
+				page = data.pageInfo.currentPage + 1;
+				setTimeout(function(){caller()},1000)
 			}
 		});
-	};caller(1);
+	};caller();
 }},
