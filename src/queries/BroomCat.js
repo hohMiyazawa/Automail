@@ -326,6 +326,7 @@ query($type: MediaType,$page: Int){
 		pageInfo{
 		currentPage
 		lastPage
+		hasNextPage
 	}
 	media(type: $type,sort: POPULARITY_DESC){
 		id
@@ -342,6 +343,7 @@ query($type: MediaType,$page: Int){
 		pageInfo{
 			currentPage
 			lastPage
+			hasNextPage
 		}
 		mediaList(type: $type,sort: MEDIA_ID,userName: "${user}"){
 			media{
@@ -356,12 +358,14 @@ query($type: MediaType,$page: Int){
 	}
 	miscResults.innerText = "";
 	let flag = true;
+	let page = 1;
 	let stopButton = create("button",["button","hohButton"],"Stop",miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
+		page = 1;
 	};
-	let caller = function(page){
+	let caller = function(){
 		generalAPIcall(query,{type: type,page: page},function(data){
 			data = data.data.Page;
 			if(data.mediaList){
@@ -379,9 +383,10 @@ query($type: MediaType,$page: Int){
 					create("span",false,matches.join(", "),row);
 				};
 			});
-			if(flag && data.pageInfo.currentPage < data.pageInfo.lastPage && document.getElementById("queryOptions")){
-				setTimeout(function(){caller(page + 1)},1000)
+			if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
+				page = data.pageInfo.currentPage + 1;
+				setTimeout(function(){caller()},1000)
 			}
 		});
-	};caller(1);
+	};caller();
 }},
