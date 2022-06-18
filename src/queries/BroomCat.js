@@ -287,7 +287,7 @@
 		},
 		{
 			name: "badSpelling",
-			description: "Bad character encoding in description",
+			description: "Commonly misspelled words in description",
 			code: media => {
 				return media.description !== null ? ["animes ","mangas "].some(error => media.description.includes(error)) : false
 			},
