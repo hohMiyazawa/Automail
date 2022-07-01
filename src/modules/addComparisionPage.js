@@ -41,6 +41,32 @@ function addComparisionPage(){
 		};
 		compareLocation.parentNode.style.position = "relative"
 	}
+	let guideLabel = create("p",false,"Usage guide",compareArea,"cursor:pointer;color:rgb(var(--color-blue))");
+	guideLabel.onclick = function(){
+		let scrollableContent = createDisplayBox("min-width:600px;width:700px;z-index:9000");
+		create("h3",false,"What is this?",scrollableContent);
+		create("p",false,"This is a tool for comparing the ratings of two or more users. To add another user, write their name and click the 'add' button in the rightmost colum",scrollableContent);
+		create("h3",false,"General options",scrollableContent);
+		create("p",false,"Filter: What media type to include",scrollableContent);
+		create("p",false,"Min. ratings: How many of the users in the table must have given something a rating for it to appear in the table",scrollableContent);
+		create("p",false,"Individual rating systems: By default, all ratings are converted to the 1-100 scale. This overides that, and displays ratings as smiley faces, 1-10 points, stars, or whatver else people use. A golden star next to the rating means the user has this on their favourite list.",scrollableContent);
+		create("p",false,"Normalise ratings: Converts ratings of users based on their average rating and rating spread.",scrollableContent);
+		create("p",false,"Colour entire cell: Cell colour shows users media status (completed, watching, etc.)",scrollableContent);
+		create("h3",false,"Aggregate column",scrollableContent);
+		create("p",false,"Shows 'average' by default. Other settings of interest: 'Average~0' adds a 0 score to every average, making the score more pessimistic towards entries few people have rated.",scrollableContent);
+		create("p",false,"'#' means number, '$' means global stats",scrollableContent);
+		create("h3",false,"User filters",scrollableContent);
+		create("p",false,"List filters, click to cycle through",scrollableContent);
+		create("span","hohFilterSort","☵",scrollableContent);
+		create("span",false,"Neutral",scrollableContent);
+		create("br",false,false,scrollableContent);
+		create("span","hohFilterSort","✓",scrollableContent,"color:green");
+		create("span",false,"Only include media this person has rated",scrollableContent);
+		create("br",false,false,scrollableContent);
+		create("span","hohFilterSort","✕",scrollableContent,"color:red");
+		create("span",false,"Only include media this person has NOT rated (mark yourself with this to find good stuff you haven't seen yet)",scrollableContent);
+		create("br",false,false,scrollableContent);
+	}
 	let formatFilterLabel = create("span",false,"Filter:",compareArea);
 	formatFilterLabel.style.padding = "5px";
 	let formatFilter = create("select","hohNativeInput",false,compareArea);
@@ -300,10 +326,10 @@ function addComparisionPage(){
 		})
 		shows.forEach(function(show){
 			let display = users.every(function(user,index){
-				if(user.demand === 1 && show.score[index] === 0){
+				if(user.demand === 1 && !show.score[index]){
 					return false
 				}
-				else if(user.demand === -1 && show.score[index] !== 0){
+				else if(user.demand === -1 && show.score[index]){
 					return false
 				}
 				return (!user.status || show.status[index] === user.status);
@@ -446,7 +472,7 @@ function addComparisionPage(){
 		removeChildren(table)
 		let userRow = create("tr");
 		let resetCel = create("td",false,false,userRow);
-		let resetButton = create("button",["hohButton","button"],translate("$button_add"),resetCel,"margin-top:0px;");
+		let resetButton = create("button",["hohButton","button"],translate("$button_reset"),resetCel,"margin-top:0px;");
 		resetButton.onclick = function(){
 			users = [];
 			shows = [];
