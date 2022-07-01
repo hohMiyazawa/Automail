@@ -138,10 +138,10 @@ function formatTime(diff,type){
 	];
 	let timeIndex = 0;
 	let significantValue = 0;
-	let reminder = 0;
+	let remainder = 0;
 	do{
 		significantValue = diff/times[timeIndex].value;
-		reminder = (diff - Math.floor(significantValue) * times[timeIndex].value)/times[timeIndex + 1].value;
+		remainder = (diff - Math.floor(significantValue) * times[timeIndex].value)/times[timeIndex + 1].value;
 		timeIndex++;
 	}while(!Math.floor(significantValue) && timeIndex < (times.length - 1));
 	timeIndex--;
@@ -158,15 +158,27 @@ function formatTime(diff,type){
 		if(type === "short"){
 			return magRound(significantValue) + times[timeIndex].short
 		}
+		else if(type === "twoPart"){
+			let rem = magRound(remainder);
+			if(rem === 1){
+				return Math.floor(significantValue) + " " + times[timeIndex].Mmedium + " 1 " + times[timeIndex + 1].medium	
+			}
+			else if(rem){
+				return Math.floor(significantValue) + " "+ times[timeIndex].Mmedium + " " + rem + " " + times[timeIndex + 1].Mmedium	
+			}
+			else{
+				return magRound(significantValue) + " " + times[timeIndex].Mmedium;
+			}
+		}
 		return magRound(significantValue) + " " + times[timeIndex].Mmedium;
 	}
-	if(magRound(reminder) > 1){
+	if(magRound(remainder) > 1){
 		if(type === "short"){
-			return "1" + times[timeIndex].short + " " + magRound(reminder) + times[timeIndex + 1].short	
+			return "1" + times[timeIndex].short + " " + magRound(remainder) + times[timeIndex + 1].short	
 		}
-		return "1 " + times[timeIndex].medium + " " + magRound(reminder) + " " + times[timeIndex + 1].Mmedium
+		return "1 " + times[timeIndex].medium + " " + magRound(remainder) + " " + times[timeIndex + 1].Mmedium
 	}
-	if(magRound(reminder) === 1){
+	if(magRound(remainder) === 1){
 		if(type === "short"){
 			return "1" + times[timeIndex].short + " 1" + times[timeIndex + 1].short	
 		}
