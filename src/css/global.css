@@ -2162,6 +2162,9 @@ a.external-link.Official.Site[href*=".jp"]::after{
 	right: 0px;
 	top: 10px;
 }
+.user .activity-feed{
+	width: 100%;
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
