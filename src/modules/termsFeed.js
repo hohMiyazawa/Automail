@@ -1785,26 +1785,49 @@ onlyMediaInput.onblur = function(){
 										progressInput.value = 0
 									}
 
+									let scoreLabel = create("p",false,translate("$preview_score"),editor);
+									let scoreInput = create("input","hohInput",false,editor);
+									scoreInput.type = "number";
+									scoreInput.min = 0;
+									if(entry && entry.data.MediaList.score){
+										scoreInput.value = entry.data.MediaList.score
+									}
+
 									create("hr",false,false,editor);
 
 									let saveButton = create("button","hohButton","Save",editor);
+									let hohSpinner = create("span","hohSpinner","",editor);
 									saveButton.onclick = function(){
+										hohSpinner.innerText = svgAssets.loading;
+										hohSpinner.classList.remove("spinnerError");
+										hohSpinner.classList.remove("spinnerDone");
+										hohSpinner.classList.add("spinnerLoading");
 										if(entry){
 											authAPIcall(
-												`mutation($progress: Int,$id: Int){
-													SaveMediaListEntry(progress: $progress,id:$id){id}
+												`mutation($progress: Int,$score: Float,$id: Int){
+													SaveMediaListEntry(progress: $progress,id:$id, score: $score){id}
 												}`,
-												{id: entry.data.MediaList.id, progress: parseInt(progressInput.value)},
-												data => {}
+												{id: entry.data.MediaList.id, progress: parseInt(progressInput.value), score: parseFloat(scoreInput.value)},
+												data => {
+													console.log(data);
+													hohSpinner.innerText = svgAssets.check;
+													hohSpinner.classList.add("spinnerDone");
+													hohSpinner.classList.remove("spinnerLoading");
+												}
 											)
 										}
 										else{
 											authAPIcall(
-												`mutation($progress: Int,$id: Int){
-													SaveMediaListEntry(progress: $progress,mediaId:$id){id}
+												`mutation($progress: Int,$score: Float,$id: Int){
+													SaveMediaListEntry(progress: $progress, score: $score),mediaId:$id){id}
 												}`,
-												{id: media.id, progress: parseInt(progressInput.value)},
-												data => {}
+												{id: media.id, progress: parseInt(progressInput.value), score: parseFloat(scoreInput.value)},
+												data => {
+													console.log(data);
+													hohSpinner.innerText = svgAssets.check;
+													hohSpinner.classList.add("spinnerDone");
+													hohSpinner.classList.remove("spinnerLoading");
+												}
 											)
 										}
 									}

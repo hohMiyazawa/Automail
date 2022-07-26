@@ -245,6 +245,7 @@
 "$preview_1behind": "1 episode behind",
 "$preview_Mbehind": "{0} episodes behind",
 "$preview_progress": "Progress:",
+"$preview_score": "Score:",
 "$publishingReply": "Publishing reply...",
 "$anisongs_openings": "Openings",
 "$anisongs_opening": "Opening",
