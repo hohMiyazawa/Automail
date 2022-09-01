@@ -31,7 +31,7 @@ let generalAPIcall = function(query,variables,callback){
 		callback(data);
 	};
 	let handleError = function(error){
-		alert("Error, check console"); //or insert your own error handling here
+		alert("Error, check console");
 		console.error(error);
 	};
 	let options = {
@@ -47,9 +47,6 @@ let generalAPIcall = function(query,variables,callback){
 	};
 	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
 };
-
-//usage example.
-//tip: use the template literal syntax for easy to read queries ``
 
 let lost = [];
 
@@ -94,7 +91,7 @@ generalAPIcall(
 	`
 query($page: Int){
   Page(page: $page){
-	media(type: ANIME,sort:POPULARITY_DESC){
+   media(type: ANIME,sort:UPDATED_AT){
     id
     startDate{year month day}
     relations{
@@ -106,7 +103,7 @@ query($page: Int){
         }
       }
     }
-	}
+   }
   }
 }
 	`,
