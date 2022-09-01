@@ -46,11 +46,12 @@ const scriptInfo = {
 	<https://www.gnu.org/licenses/>.
 */
 /*
-"useScripts" contains the defaults for the various modules. This is stored in the user's localStorage.
+"useScripts" contains the defaults for many modules. This is stored in the user's localStorage.
+(development debugging tip: if you enable "Enable an API for other scripts to control this script" in the settings, the settings object will be exposed in the DOM as document.automailAPI.document.automailAPI.settings)
 Many of the modules are closely tied to the Anilist API
-Other than that, some data loaded from MyAnimelist is the only external resource
+Other than that, some data loaded from MyAnimelist is the only external resource (opt-in)
 
-Optionally, a user may give the script privileges through the Anilist grant system, enabling some additional modules
+Optionally, a user may give the script higher privileges (e.g, editing list data) through the Anilist grant system, enabling some additional modules
 */
 const script_type = "Automail"
 
