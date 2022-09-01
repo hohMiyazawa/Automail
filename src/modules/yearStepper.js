@@ -38,7 +38,7 @@ exportModule({
 						clickSlider(maxYear)
 					}
 					else{
-						clickSlider(minYear)
+						clickSlider(minYear + 1)
 					}
 				}
 				else{
@@ -50,8 +50,8 @@ exportModule({
 				return
 			}
 			slider.style.position = "relative";
-			let decButton = create("span","hohStepper","<",slider,"left:-27px;font-size:200%;top:0px;");
-			let incButton = create("span","hohStepper",">",slider,"right:-27px;font-size:200%;top:0px;");
+			let decButton = create("span",["hohStepper","noselect"],"<",slider,"left:-27px;font-size:200%;top:0px;");
+			let incButton = create("span",["hohStepper","noselect"],">",slider,"right:-27px;font-size:200%;top:0px;");
 			decButton.onclick = function(){
 				adjuster(-1)
 			};
