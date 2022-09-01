@@ -97,6 +97,7 @@ let useScripts = {
 	negativeCustomList: false,
 	globalCustomList: false,
 	betterListPreview: true,
+	previewMaxRows: 4,
 	homeScroll: true,
 	blockWordValue: "nsfw",
 	hideGlobalFeed: false,

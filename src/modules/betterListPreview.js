@@ -127,7 +127,7 @@ function betterListPreview(){
 			);
 			let airingImportant = mediaLists.filter(
 				(mediaList,index) => mediaList.media.nextAiringEpisode && (
-					index < 20
+					index < useScripts.previewMaxRows*5
 					|| mediaList.media.nextAiringEpisode.timeUntilAiring < 60*60*4
 					|| (
 						mediaList.media.nextAiringEpisode.timeUntilAiring < 60*60*12
@@ -340,12 +340,12 @@ function betterListPreview(){
 					airing.slice(0,airingImportant),translate("$preview_airingSection_title"),true
 				);
 				drawSection(
-					notAiring.slice(0,5*Math.ceil((20 - airingImportant)/5)),translate("$preview_animeSection_title")
+					notAiring.slice(0,5*Math.ceil((useScripts.previewMaxRows*5 - airingImportant)/5)),translate("$preview_animeSection_title")
 				)
 			}
 			else{
-				let remainderAiring = airing.slice(0,airingImportant).filter(air => air.index >= 20);
-				drawSection(mediaLists.slice(0,20 - remainderAiring.length).concat(remainderAiring),translate("$preview_animeSection_title"),true)
+				let remainderAiring = airing.slice(0,airingImportant).filter(air => air.index >= useScripts.previewMaxRows*5);
+				drawSection(mediaLists.slice(0,useScripts.previewMaxRows*5 - remainderAiring.length).concat(remainderAiring),translate("$preview_animeSection_title"),true)
 			}
 		}
 	}catch(e){errorHandler(e)}}

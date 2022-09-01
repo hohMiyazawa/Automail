@@ -149,6 +149,14 @@
 },{"id": "betterListPreview",
 	"description": "Alternative list preview",
 	"categories": ["Feeds","Lists","Login"]
+},{
+	"id": "previewMaxRows",
+	"requires": ["betterListPreview"],
+	"description": "Alternative list preview, max rows per section",
+	"type": "number",
+	"min": 0,
+	"max": 10,
+	"categories": ["Feeds","Lists","Login"]
 },{"id": "homeScroll",
 	"description": "Make the 'home' button scroll to the top on the home feed",
 	"categories": ["Feeds"]
