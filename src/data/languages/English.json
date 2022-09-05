@@ -496,6 +496,8 @@
 "$browseSubmenu_description": "Replace the native 'browse' submenu when using the vertical nav",
 "$annoyingAnimations_description": "Remove annoying UI animations",
 "$customCSS_description": "Enable custom profile CSS and replacement pinned activities",
+"$sfw_description": "A less flashy version of the site for school or the workplace",
+"$milestone_description": "Add total episodes and volumes to profile milestones",
 "$pinned": "Pinned",
 "$dblclickZoom_extendedDescription": "There are likely better browser accessibility addons for this.",
 "$staff_animeRoles": "Anime Staff Roles",

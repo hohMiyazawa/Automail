@@ -236,7 +236,7 @@
 	"description": "$setting_CSSbannerShadow",
 	"categories": ["Profiles","Media"]
 },{"id": "milestones",
-	"description": "Add total episodes and volumes to profile milestones",
+	"description": "$milestone_description",
 	"categories": ["Profiles"]
 },{"id": "CSSdarkDropdown",
 	"description": "Use a dark menu dropdown in dark mode",
@@ -251,7 +251,7 @@
 	"description": "Allow drag-and-drop of text into navbar for search",
 	"categories": ["Navigation"]
 },{"id": "SFWmode",
-	"description": "A less flashy version of the site for school or the workplace",
+	"description": "$sfw_description",
 	"categories": ["Script"]
 },{"id": "annoyingAnimations",
 	"description": "$annoyingAnimations_description",
@@ -270,6 +270,6 @@
 	"type": "select",
 	"importance": 100,
 	"categories": ["Script"],
-	"values": ["English","Español","Português","Norsk","日本語","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
+	"values": ["English","Português","Español","Norsk","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
 }
 ]
