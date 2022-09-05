@@ -80,6 +80,10 @@ exportModule({
 						replacement: "$footer_terms"
 					},
 					{
+						lookup: ".footer .links [href=\"/apps\"]",
+						replacement: "$footer_apps"
+					},
+					{
 						lookup: ".footer [href=\"/sitemap/index.xml\"]",
 						replacement: "$footer_siteMap"
 					},
@@ -222,6 +226,10 @@ exportModule({
 					{
 						lookup: ".overview .reviews > h2",
 						replacement: "$submenu_reviews"
+					},
+					{
+						lookup: ".sidebar .review.button span",
+						replacement: "$button_review"
 					}
 				]
 			},

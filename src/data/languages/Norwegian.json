@@ -85,6 +85,7 @@
 "$button_defaultSettings": "Nullstill alle innstillingar",
 "$button_publish": "Post",
 "$button_cancel": "Avbryt",
+"$button_review": "Skriv Omtale",
 "$placeholder_status": "Skriv ein post...",
 "$placeholder_reply": "Skriv eit svar...",
 "$placeholder_message": "Skriv ei melding...",
@@ -423,6 +424,7 @@
 "$footer_contact": "Kontakt",
 "$footer_terms": "Vilkår og Personvern",
 "$footer_siteMap": "Sidekart",
+"$footer_apps": "Appar",
 "$theme_default": "Lyst",
 "$theme_dark": "Mørkt",
 "$theme_highContrast": "Kontrast",
@@ -476,6 +478,7 @@
 "$forumMedia_backlink": "Legg til ei lenkje til databasen på forumstraumen til eit verk",
 "$debug_tip": "(Legg ved denne fila når du melder frå om feil)",
 "$menu_overview": "Oversyn",
+"$mediaStaff_filter": "Filtrer etter namn eller rolle",
 
 "$role_Original Creator": "Skapar",
 "$role_Creator": "Skapar",
