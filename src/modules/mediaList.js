@@ -24,60 +24,78 @@ exportModule({
 			let extraFilters = create("div","hohExtraFilters");
 			extraFilters.style.marginTop = "15px";
 			if(useScripts.draw3x3){
-				let buttonDraw3x3 = create("span","#hohDraw3x3",translate("$make3x3"),extraFilters);
+				let buttonDraw3x3 = create("button",["#hohDraw3x3","hohButton","button"],translate("$make3x3"),extraFilters);
 				buttonDraw3x3.title = translate("$make3x3_title");
 				buttonDraw3x3.onclick = function(){
-					this.style.color = "rgb(var(--color-blue))";
-					let counter = 0;
+					//this.style.color = "rgb(var(--color-blue))";
+					let displayBox = createDisplayBox(false,"3x3 maker");
+					create("p",false,translate("Click 9 media entries, then save the image below"),displayBox);
+						
 					let linkList = [];
 					let keepUpdating = true;
+					let image_width = 230;
+					let image_height = 345;
+					let margin = 0;
+
+					displayBox.parentNode.querySelector(".hohDisplayBoxClose").onclick = function(){
+						displayBox.parentNode.remove();
+						keepUpdating = false;
+						cardList.forEach(function(card){
+							card.draw3x3selected = false;
+							card.style.borderStyle = "none"
+						});
+						counter = 0;
+						linkList = []
+					};
+
+					let finalCanvas = create("canvas",false,false,displayBox);
+					let ctx = finalCanvas.getContext("2d");
+					finalCanvas.width = image_width*3;
+					finalCanvas.height = image_height*3;
+
+					let updateDrawing = function(){
+						ctx.clearRect(0,0,finalCanvas.width,finalCanvas.height);
+						let drawStuff = function(image,x,y,width,height){
+							let img = new Image();
+							img.onload = function(){
+								ctx.drawImage(img,x,y,width,height)
+							}
+							img.src = image
+						};
+						for(var i=0;i<3;i++){
+							for(var j=0;j<3;j++){
+								if(linkList[i*3+j] !== "empty"){
+									drawStuff(linkList[i*3+j],j*image_width,i*image_height,image_width,image_height)
+								}
+							}
+						}
+					}
+
 					let updateCards = function(){
 						let cardList = document.querySelectorAll(".entry-card.row,.entry.row");
 						cardList.forEach(card => {
 							card.onclick = function(){
 								if(this.draw3x3selected){
-									counter--;
-									linkList[this.draw3x3selected - 1] = "";
+									//linkList.splice(linkList.indexOf(this.draw3x3selected),1);
+									linkList[linkList.indexOf(this.draw3x3selected)] = "empty";
 									this.draw3x3selected = false;
 									this.style.borderStyle = "none"
 								}
 								else{
-									counter++;
-									linkList.push(this.querySelector(".cover .image").style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',""));
-									this.draw3x3selected = +linkList.length;
-									this.style.borderStyle = "solid";
-									if(counter === 9){
-										linkList = linkList.filter(e => e !== "");
-										let displayBox = createDisplayBox(false,"3x3 maker");
-										create("p",false,"Save the image below:",displayBox);
-										displayBox.parentNode.querySelector(".hohDisplayBoxClose").onclick = function(){
-											displayBox.parentNode.remove();
-											keepUpdating = false;
-											cardList.forEach(function(card){
-												card.draw3x3selected = false;
-												card.style.borderStyle = "none"
-											});
-											counter = 0;
-											linkList = []
-										};
-										let finalCanvas = create("canvas",false,false,displayBox);
-										finalCanvas.width = 230*3;
-										finalCanvas.height = 345*3;
-										let ctx = finalCanvas.getContext("2d");
-										let drawStuff = function(image,x,y,width,height){
-											let img = new Image();
-											img.onload = function(){
-												ctx.drawImage(img,x,y,width,height)
-											}
-											img.src = image
-										};
-										for(var i=0;i<3;i++){
-											for(var j=0;j<3;j++){
-												drawStuff(linkList[i*3+j],j*230,i*345,230,345)
-											}
+									let val = this.querySelector(".cover .image").style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
+									if(!linkList.some((place,index) => {
+										if(place === "empty"){
+											linkList[index] = val;
+											return true
 										}
+										return false
+									})){
+										linkList.push(val);
 									}
+									this.draw3x3selected = val;
+									this.style.borderStyle = "solid"
 								}
+								updateDrawing()
 							}
 						})
 					};

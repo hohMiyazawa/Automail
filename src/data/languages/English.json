@@ -421,6 +421,8 @@
 "$sort_score": "Score",
 "$sort_myScore": "My Score",
 "$sort_myProgress": "My Progress",
+"$sortBy_name": "sort by name",
+"$sortBy_count": "sort by count",
 "$milestones_totalVolumes": "Total Volumes",
 "$milestones_totalEpisodes": "Total Episodes",
 "$milestones_daysWatched": "{0} Days Watched",
