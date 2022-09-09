@@ -171,6 +171,31 @@ exportModule({
 					{
 						lookup: ".user .nav.container [href$=submissions]",
 						replacement: "$submenu_submissions"
+					},
+					{
+						lookup: ".user .overview h2.section-header",
+						multiple: [
+							{
+								ofText: "characters",
+								replacement: "$submenu_characters"
+							},
+							{
+								ofText: "Activity History",
+								replacement: "$heading_activityHistory"
+							},
+							{
+								ofText: "Genre Overview",
+								replacement: "$heading_genreOverview"
+							},
+							{
+								ofText: "staff",
+								replacement: "$submenu_staff"
+							},
+							{
+								ofText: "studios",
+								replacement: "$submenu_studios"
+							}
+						]
 					}
 				]
 			},
@@ -264,6 +289,47 @@ exportModule({
 							{
 								ofText: "Sort",
 								replacement: "$staff_sort"
+							}
+						]
+					},
+					{
+						lookup: ".filters .filter-group > span",
+						multiple: [
+							{
+								ofText: "all",
+								replacement: "$mediaStatus_all"
+							},
+							{
+								ofText: "Watching",
+								replacement: "$mediaStatus_watching"
+							},
+							{
+								ofText: "Reading",
+								replacement: "$mediaStatus_reading"
+							},
+							{
+								ofText: "Rewatching",
+								replacement: "$mediaStatus_rewatching"
+							},
+							{
+								ofText: "Rereading",
+								replacement: "$mediaStatus_rereading"
+							},
+							{
+								ofText: "Completed",
+								replacement: "$mediaStatus_completed"
+							},
+							{
+								ofText: "Paused",
+								replacement: "$mediaStatus_paused"
+							},
+							{
+								ofText: "Dropped",
+								replacement: "$mediaStatus_dropped"
+							},
+							{
+								ofText: "Planning",
+								replacement: "$mediaStatus_planning"
 							}
 						]
 					}

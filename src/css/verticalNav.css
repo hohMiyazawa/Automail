@@ -671,3 +671,6 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 	right: 100px;
 	top: 50px;
 }
+.user .genre-overview .genre .amount .label{
+	display: none;
+}
