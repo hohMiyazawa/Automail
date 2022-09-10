@@ -29,13 +29,59 @@ exportModule({
 				buttonDraw3x3.onclick = function(){
 					//this.style.color = "rgb(var(--color-blue))";
 					let displayBox = createDisplayBox(false,"3x3 maker");
-					create("p",false,translate("Click 9 media entries, then save the image below"),displayBox);
+					let col_input = create("input","hohNativeInput",false,displayBox);
+					let col_label = create("span",false,"columns",displayBox,"margin: 5px");
+					col_input.type = "number";
+					col_input.value = 3;
+					col_input.step = 1;
+					col_input.min = 0;
+					let row_input = create("input","hohNativeInput",false,displayBox);
+					let row_label = create("span",false,"rows",displayBox,"margin: 5px");
+					create("br",false,false,displayBox)
+					row_input.type = "number";
+					row_input.value = 3;
+					row_input.step = 1;
+					row_input.min = 0;
+					let margin_input = create("input","hohNativeInput",false,displayBox);
+					let margin_label = create("span",false,"spacing (px)",displayBox,"margin: 5px");
+					create("br",false,false,displayBox)
+					margin_input.type = "number";
+					margin_input.value = 0;
+					margin_input.min = 0;
+					let width_input = create("input","hohNativeInput",false,displayBox);
+					let width_label = create("span",false,"image width (px)",displayBox,"margin: 5px");
+					width_input.type = "number";
+					width_input.value = 230;
+					width_input.min = 0;
+					let height_input = create("input","hohNativeInput",false,displayBox);
+					let height_label = create("span",false,"image height (px)",displayBox,"margin: 5px");
+					create("br",false,false,displayBox)
+					height_input.type = "number";
+					height_input.value = 345;
+					height_input.min = 0;
+					let fitMode = create("select","hohNativeInput",false,displayBox);
+					let fitMode_label = create("span",false,"image fitting",displayBox,"margin	: 5px");
+					let addOption = function(value,text){
+						let newOption = create("option",false,text,fitMode);
+						newOption.value = value;
+					};
+					addOption("scale","scale");
+					addOption("crop","crop");
+					addOption("hybrid","scale/crop hybrid");
+					addOption("letterbox","letterbox");
+					addOption("transparent","transparent letterbox");
+
+
+					let recipe = create("p",false,translate("Click 9 media entries, then save the image below"),displayBox);
 						
 					let linkList = [];
 					let keepUpdating = true;
 					let image_width = 230;
 					let image_height = 345;
 					let margin = 0;
+					let columns = 3;
+					let rows = 3;
+					let mode = fitMode.value;
 
 					displayBox.parentNode.querySelector(".hohDisplayBoxClose").onclick = function(){
 						displayBox.parentNode.remove();
@@ -48,28 +94,106 @@ exportModule({
 						linkList = []
 					};
 
-					let finalCanvas = create("canvas",false,false,displayBox);
+					let finalCanvas = create("canvas",false,false,displayBox,"max-height: 60%;max-width: 90%");
 					let ctx = finalCanvas.getContext("2d");
-					finalCanvas.width = image_width*3;
-					finalCanvas.height = image_height*3;
 
 					let updateDrawing = function(){
+						finalCanvas.width = image_width*columns + (columns - 1) * margin;
+						finalCanvas.height = image_height*rows + (rows - 1) * margin;
 						ctx.clearRect(0,0,finalCanvas.width,finalCanvas.height);
 						let drawStuff = function(image,x,y,width,height){
 							let img = new Image();
 							img.onload = function(){
-								ctx.drawImage(img,x,y,width,height)
+								let sx = 0;
+								let sy = 0;
+								let sWidth = img.width;
+								let sHeight = img.height;
+								let dx = x;
+								let dy = y;
+								let dWidth = width
+								let dHeight = height;
+								//https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+								if(mode === "crop"){
+									if(img.width/img.height > width/height){//crop sides
+										let factor = img.height / height;
+										sWidth = width * factor;
+										sx = (img.width - sWidth)/2;
+									}
+									else{//crop top and bottom
+										let factor = img.width / width;
+										sHeight = height * factor;
+										sy = (img.height - sHeight)/2;
+									}
+								}
+								else if(mode === "hybrid"){
+									if(img.width/img.height > width/height){//crop sides
+										let factor = img.height / height;
+										sWidth = width * factor;
+										sWidth += (img.width - sWidth)/2
+										sx = (img.width - sWidth)/2;
+									}
+									else{//crop top and bottom
+										let factor = img.width / width;
+										sHeight = height * factor;
+										sHeight += (img.height - sHeight)/2;
+										sy = (img.height - sHeight)/2;
+									}
+								}
+								else if(mode === "letterbox" || mode === "transparent"){
+									if(img.width/img.height > width/height){//too wide
+										let factor = img.width / width;
+										dHeight = img.height / factor;
+										dy = y + (height - dHeight)/2;
+									}
+									else{//too tall
+										let factor = img.height / height;
+										dWidth = img.width / factor;
+										dx = x + (width - dWidth)/2;
+									}
+									if(mode === "letterbox"){
+										ctx.fillStyle = "black"
+										ctx.fillRect(x,y,width,height)
+									}
+
+								}
+								else{//scale
+								}
+								ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 							}
 							img.src = image
 						};
-						for(var i=0;i<3;i++){
-							for(var j=0;j<3;j++){
-								if(linkList[i*3+j] !== "empty"){
-									drawStuff(linkList[i*3+j],j*image_width,i*image_height,image_width,image_height)
+						for(var y=0;y<rows;y++){
+							for(var x=0;x<columns;x++){
+								if(linkList[y*columns+x] !== "empty"){
+									drawStuff(
+										linkList[y*columns+x],
+										x*image_width + x*margin,
+										y*image_height + y*margin,
+										image_width,
+										image_height
+									)
 								}
 							}
 						}
 					}
+
+					let updateConfig = function(){
+						columns = parseInt(col_input.value) || 3;
+						rows = parseInt(row_input.value) || 3;
+						margin = parseInt(margin_input.value) || 0;
+						image_width = parseInt(width_input.value) || 230;
+						image_height = parseInt(height_input.value) || 345;
+						mode = fitMode.value;
+						displayBox.parentNode.querySelector(".hohDisplayBoxTitle").textContent = columns + "x" + rows + " maker";
+						recipe.innerText = "Click " + (rows*columns) + " media entries, then save the image below"
+						updateDrawing();
+					}
+					col_input.oninput = updateConfig;
+					row_input.oninput = updateConfig;
+					margin_input.oninput = updateConfig;
+					width_input.oninput = updateConfig;
+					height_input.oninput = updateConfig;
+					fitMode.oninput = updateConfig;
 
 					let updateCards = function(){
 						let cardList = document.querySelectorAll(".entry-card.row,.entry.row");
@@ -309,9 +433,9 @@ fragment mediaListEntry on MediaList{
 						removeChildren(tagIndex);
 						if(customTags.length > 1){
 							let sortName = create("span",false,"▲",tagIndex,"cursor:pointer");
-							sortName.title = "sort by name";
+							sortName.title = translate("$sortBy_name");
 							let sortNumber = create("span",false,"▼",tagIndex,"cursor:pointer;float:right");
-							sortNumber.title = "sort by count";
+							sortNumber.title = translate("$sortBy_count");
 							sortName.onclick = function(){
 								customTags.sort((b,a) => b.name.localeCompare(a.name));
 								drawTags()
