@@ -314,6 +314,8 @@
 "$review_reviewTitle": "Review of {0} by\u00a0{1}",
 "$updates_noNewManga": "No new items found :(",
 "$staff_filter_placeholder": "Filter by title, role, etc.",
+"$placeholder_searchAnilist": "Search Anilist",
+"$search_hint": "Hint: Hit Ctrl-S to quickly toggle Quick Search",
 "$relations_following_only": "Following Only",
 "$relations_followers_only": "Followers Only",
 "$relations_mutuals": "Mutuals",

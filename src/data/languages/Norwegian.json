@@ -363,6 +363,8 @@
 "$filter_following": "Fylgjer",
 "$staff_sort": "Sorter",
 "$staff_filter_placeholder": "Filtrer etter tittel, rolle, osb.",
+"$placeholder_searchAnilist": "Anilistsøk",
+"$search_hint": "Hint: Ctrl-S for hurtigsøk",
 "$sort_alphabetical": "Alfabetisk",
 "$sort_newest": "Nytt",
 "$sort_oldest": "Gamalt",

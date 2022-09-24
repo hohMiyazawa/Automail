@@ -93,7 +93,17 @@ exportModule({
 					},
 					{
 						lookup: ".footer [href=\"/recommendations\"]",
-						replacement: "$submenu_recommendations"
+						replacement: "$submenu_recommendations",
+						selectIndex: 1,
+					},
+					{
+						lookup: "#nav .quick-search input",
+						textType: "placeholder",
+						replacement: "$placeholder_searchAnilist"
+					},
+					{
+						lookup: "#nav .quick-search .hint",
+						replacement: "$search_hint"
 					}
 				]
 			},

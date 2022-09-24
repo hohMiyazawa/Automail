@@ -137,7 +137,6 @@ catch(err){
 }
 if(userObject){
 	whoAmI = userObject.name
-	useScripts.titleLanguage = userObject.options.titleLanguage;
 	whoAmIid = userObject.id
 }
 else{
@@ -174,6 +173,9 @@ if(useScriptsSettings){
 	keys.forEach(//this is to keep the default settings if the version in local storage is outdated
 		key => useScripts[key] = useScriptsSettings[key]
 	)
+}
+if(userObject){
+	useScripts.titleLanguage = userObject.options.titleLanguage
 }
 useScripts.save();
 //end "settings.js"
