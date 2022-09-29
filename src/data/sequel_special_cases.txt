@@ -41,6 +41,15 @@ Added:
 	112300 raisha
 	21509 danganropa
 	21825 danganropa
+	105596 gundam recap
+	102622 gundam prologue
+	114841 gundam commercial
+	5051 macross commercial
+	129549 macross rec
+	4454 macross alt
+	5310 macross mov
+	4939 macross fluff
+	101126 macross mov
 
 Removed
 	101517 jujutsu kaisen 0
@@ -48,3 +57,6 @@ Removed
 	30336 GTO
 	37776 railgun
 	104271 abimusang
+	95 turn a gundam
+	82 war in the pocket
+	96 g gundam
