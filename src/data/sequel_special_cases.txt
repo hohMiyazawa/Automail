@@ -36,6 +36,11 @@ Added:
 	5252 one piece
 	101695 ova
 	7472 gintama
+	20593 hanamonogatari
+	20918 tsukimonogatari
+	112300 raisha
+	21509 danganropa
+	21825 danganropa
 
 Removed
 	101517 jujutsu kaisen 0
