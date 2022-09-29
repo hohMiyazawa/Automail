@@ -53,7 +53,7 @@ Attemps to remove sequels and spinoffs from the results when active. This is a f
 						let id = (link.href || "").match(/(anime|manga)\/(\d+)\//);
 						if(id && id[2]){
 							id = parseInt(id[2]);
-							if((sequelList.has(id) || sequelList_manga.has(id) || (link.href || "").match(/2nd/)) && input.checked){
+							if((sequelList.has(id) || sequelList_manga.has(id) || (link.href || "").match(/2nd|season-2|season-3/i)) && input.checked){
 								hit.classList.add("hohHiddenSequel")
 							}
 							else{
