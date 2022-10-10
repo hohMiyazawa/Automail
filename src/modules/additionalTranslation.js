@@ -45,7 +45,12 @@ exportModule({
 						place.placeholder = translate(element.replacement)
 					}
 					else{
-						place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
+						if(place.childNodes[element.selectIndex || 0]){
+							place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
+						}
+						else{
+							console.warn("translation key failed", element, place)
+						}
 					}
 				}
 				else if(counter < times.length){
