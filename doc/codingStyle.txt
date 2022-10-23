@@ -8,7 +8,7 @@ There's also an eslint config.
 
 As with any project, follow its established coding style.
 
-Your contributions may still be accepted if you don't but there will be less cleanup job for me.
+Your contributions may still be accepted if you don't but there will be less of a cleanup job for me.
 
 1. Indent with tabs, not spaces
 
@@ -16,7 +16,7 @@ Your contributions may still be accepted if you don't but there will be less cle
 
 3. There's no space between control flow statements and the opening curly {
 
-4. If statements should always have curly brackets {}, even when trivial
+4. If statements should always have curly brackets {}, even when trivial. Also always ()
 
 5. Omit semicolons when possible
 
@@ -36,9 +36,9 @@ if(
 
 ---
 
-7. Use double quotes, not single quotes.
+7. Use double quotes, not single quotes. (single quotes may be used for single characters, like in c)
 
-8. Make HTML elements with the "create" function.
+8. Make HTML elements with the "create" function. (see /src/utilities.js)
 
 9. All usage of "innerHTML" should be avoided if possible (innerText, textContent), and if that's unavoidable, you MUST use DOMPurify.sanitize
 
@@ -56,4 +56,4 @@ if(
 
 15. Joke comments are permitted.
 
-16. m4 and make are the only permitted pre-processing tools (Python scripts, using the standard library only, can be permitted)
+16. m4 and make are the only permitted pre-processing tools (Python3 scripts, using the standard library only, can be permitted)

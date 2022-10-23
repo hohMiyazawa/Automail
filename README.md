@@ -8,6 +8,7 @@ Automail primarily deals with:
 - Statistics
 - Styling
 - Navigation
+- UI translation (Japanese, Spanish, Portuguese, German, Turkish, Norwegian)
 
 ## Available releases
 
@@ -19,7 +20,7 @@ As a Firefox addon: https://github.com/hohMiyazawa/Automail/releases
 "src/" contains a makefile, run "make" there.
 Requires make, m4 and basic shell utilities
 
-Will build the userscript and the Firefox addon in src/build/
+Will build the userscript and a Firefox addon in src/build/
 
 If you have an archived version of this repo, updated code can be found at
 https://github.com/hohMiyazawa/Automail

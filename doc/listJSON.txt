@@ -20,7 +20,7 @@ Implements the following keys:
 	"4,7x5,1-3x4"
 
 
-Implemented in the fuction "parseListJSON"
+Implemented in the function "parseListJSON"
 
 
 Other list note stuff:

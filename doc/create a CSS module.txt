@@ -1,6 +1,6 @@
 --- new way:
 
-Follow the template in src/HOWTO.js, insert your css in the css field
+Follow the template in src/HOWTO.css, insert your css in the css field, and save in /src/modules/yourModule.js
 
 --- old way:
 

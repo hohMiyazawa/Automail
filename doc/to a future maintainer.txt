@@ -10,5 +10,11 @@ purify.js:
 
 How do I publish the firefox addon?
 	You have to register a firefox account, and publish it separately.
+	The existing firefox addon is currently not kept up to date
+
+sequels.json, sequels_manga.json
+	These are also databases, and must manually be kept up to date.
+	/src/data/sequel_scripts has some code, were you run the calli() function with page numbers (wait some time, or get throttled) until the entire database is scanned.
+	Then merge this somehow. Be aware of special cases in sequels_special_cases.txt
 
 If hoh can't be reached, ask synthtech about the architecture of the script
