@@ -46,7 +46,7 @@ function viewAdvancedScores(url){
 						).filter(
 							a => a[1]
 						);
-						dollar.title = reasonable.map(
+						dollar.dataset.tooltip = reasonable.map(
 							a => a[0] + ": " + a[1]
 						).join("\n");
 						if(!reasonable.length){

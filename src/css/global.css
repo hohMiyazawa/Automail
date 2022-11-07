@@ -1086,6 +1086,21 @@ meter::-moz-meter-bar{
 	font-weight: bold;
 	margin-left: 9px;
 }
+.hohAdvancedDollar:hover:before{
+	background: rgba(var(--color-overlay),.9);
+	color: rgb(var(--color-text-bright));
+	content: attr(data-tooltip);
+	position: absolute;
+	margin-left: 30px;
+	margin-top: -8px;
+	padding: 10px;
+	border-radius: 4px;
+	font-weight: normal;
+	font-size: 1.3rem;
+	text-align-last: justify;
+	white-space: pre-line;
+	z-index: 1000;
+}
 .social input[list="socialUsers"]{
 	background: rgb(var(--color-foreground));
 	border-width: 0px;
