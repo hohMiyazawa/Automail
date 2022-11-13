@@ -5,6 +5,11 @@
 	let mangaOption = create("option",false,"Manga",select);
 	animeOption.value = "ANIME";
 	mangaOption.value = "MANGA";
+	let sortSelect = create("select","#sortSelect",false,miscOptions);
+	let popOption = create("option",false,"Popularity",sortSelect);
+	let idOption = create("option",false,"Date Added",sortSelect);
+	popOption.value = "POPULARITY_DESC";
+	idOption.value = "ID_DESC";
 	createCheckbox(miscOptions,"restrictToList");
 	create("span",false,"Restrict to personal list",miscOptions);
 	create("h3",false,"Config",miscOptions);
@@ -64,6 +69,7 @@
 	].forEach(ig => conf(...ig));
 },code: function(){
 	let type = document.getElementById("typeSelect").value;
+	let sort = document.getElementById("sortSelect").value;
 	let restrict = document.getElementById("restrictToList").checked;
 	let require = new Set();
 	let malIDs = new Set();
@@ -321,18 +327,18 @@
 		}
 	});
 	let query = `
-query($type: MediaType,$page: Int){
+query($type: MediaType,$sort: [MediaSort],$page: Int){
 	Page(page: $page){
 		pageInfo{
-		currentPage
-		lastPage
-		hasNextPage
-	}
-	media(type: $type,sort: POPULARITY_DESC){
-		id
-		title{romaji native english}
-		format
-		${[...require].join(" ")}
+			currentPage
+			lastPage
+			hasNextPage
+		}
+		media(type: $type,sort: $sort){
+			id
+			title{romaji native english}
+			format
+			${[...require].join(" ")}
 		}
 	}
 }`;
