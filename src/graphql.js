@@ -910,7 +910,7 @@ async function anilistAPI(query, queryArgs){
 				}
 				else{
 					apiResetLimit = (NOW()+60*1000)/1000;
-					throw new Error("Exceeded AniList API request limit. Please report the issue at https://github.com/hohMiyazawa/Automail/issues")
+					console.error("Exceeded AniList API burst limit.")
 				}
 			}
 			else if(res.status !== 404){
