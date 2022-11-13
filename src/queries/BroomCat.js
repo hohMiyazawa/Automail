@@ -382,7 +382,7 @@ query($type: MediaType,$page: Int){
 			}
 			return create("p",false,"API error occurred",miscResults);
 		}
-		const data = res.Page;
+		const data = res.data.Page;
 		if(data.mediaList){
 			data.media = data.mediaList.map(item => item.media);
 		}
