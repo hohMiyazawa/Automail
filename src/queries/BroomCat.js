@@ -400,7 +400,7 @@ query($type: MediaType,$page: Int){
 		});
 		if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
 			page = data.pageInfo.currentPage + 1;
-			checkData()
+			return setTimeout(function(){checkData()},1000);
 		}
 	}
 	checkData()
