@@ -31,6 +31,7 @@ function characterIsSupported(character, font = getComputedStyle(document.body).
 }
 
 const infoChar = (characterIsSupported("🛈") ? "🛈" : "i");
+const downloadChar = (characterIsSupported("⭳") ? "⭳" : "↓");
 
 exportModule({
 	id: "settingsPage",

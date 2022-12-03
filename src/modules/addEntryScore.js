@@ -26,6 +26,7 @@ function addEntryScore(id,tries){
 						let MediaList = data.data.MediaList;
 						let scoreSpanContainer = create("div","hohMediaScore",false,miniHolder);
 						let scoreSpan = create("span",false,false,scoreSpanContainer);
+						scoreSpan.title = "Score";
 						let minScore = 1;
 						let maxScore = 100;
 						let stepSize = 1;
@@ -94,6 +95,7 @@ function addEntryScore(id,tries){
 						}
 						if(type !== "Completed"){
 							let progressPlace = create("span","hohMediaScore",false,miniHolder,"right:0px;");
+							progressPlace.title = "Progress";
 							let progressVal = create("span",false,MediaList.progress + (MediaList.media.episodes ? "/" + MediaList.media.episodes : MediaList.media.chapters ? "/" + MediaList.media.chapters : ""),progressPlace);
 							if(useScripts.accessToken){
 								let changePluss = create("span","hohChangeScore","+",progressPlace,"padding:2px;position:absolute;top:-2.5px;");
