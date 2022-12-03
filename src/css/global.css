@@ -401,9 +401,9 @@ m4_include(css/notifications.css)
 }
 .hohMediaScore{
 	color: rgb(var(--color-text-lighter));
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	position: absolute;
-	top: -10px;
+	top: -5px;
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-left: -10px;
