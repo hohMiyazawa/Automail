@@ -19,7 +19,7 @@ function addEntryScore(id,tries){
 		if(["Reading","Completed","Watching","Paused","Repeating","Dropped"].includes(type)){
 			let updateSubInfo = function(override){
 				generalAPIcall(
-					"query($id:Int,$name:String){MediaList(mediaId:$id,userName:$name){score progress}}",
+					"query($id:Int,$name:String){MediaList(mediaId:$id,userName:$name){score progress media{episodes chapters}}}",
 					{id: id,name: whoAmI},
 					function(data){
 						removeChildren(miniHolder);
@@ -94,7 +94,7 @@ function addEntryScore(id,tries){
 						}
 						if(type !== "Completed"){
 							let progressPlace = create("span","hohMediaScore",false,miniHolder,"right:0px;");
-							let progressVal = create("span",false,MediaList.progress,progressPlace);
+							let progressVal = create("span",false,MediaList.progress + (MediaList.media.episodes ? "/" + MediaList.media.episodes : MediaList.media.chapters ? "/" + MediaList.media.chapters : ""),progressPlace);
 							if(useScripts.accessToken){
 								let changePluss = create("span","hohChangeScore","+",progressPlace,"padding:2px;position:absolute;top:-2.5px;");
 								changePluss.onclick = function(){
@@ -109,13 +109,13 @@ function addEntryScore(id,tries){
 										data => {
 											if(!data){
 												MediaList.progress--;
-												progressVal.innerText = MediaList.progress;
+												progressVal.innerText = MediaList.progress + (MediaList.media.episodes ? "/" + MediaList.media.episodes : MediaList.media.chapters ? "/" + MediaList.media.chapters : "");
 												progressVal.style.color = "rgb(var(--color-red))";
 												progressVal.title = "Updating progress failed"
 											}
 										}
 									);
-									progressVal.innerText = MediaList.progress;
+									progressVal.innerText = MediaList.progress + (MediaList.media.episodes ? "/" + MediaList.media.episodes : MediaList.media.chapters ? "/" + MediaList.media.chapters : "");
 									let hohGuesses = Array.from(document.querySelectorAll(".hohGuess"));
 									if(hohGuesses.length === 2){
 										let oldProgress = parseInt(hohGuesses[0].innerText.match(/\d+/));
