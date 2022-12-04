@@ -101,10 +101,11 @@ function handleScripts(url,oldUrl){
 					//do not create banner download icon
 					return
 				}
-				let bannerLink = create("a","hohDownload",downloadChar,banner);
+				let bannerLink = create("a","hohDownload",null,banner);
 				const linkPlace = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
 				bannerLink.href = linkPlace;
 				bannerLink.title = translate("$download_banner_tooltip");
+				bannerLink.appendChild(svgAssets2.download.cloneNode(true))
 				if(linkPlace === "null"){
 					bannerLink.style.display = "none"
 				}
@@ -219,9 +220,10 @@ function handleScripts(url,oldUrl){
 			}
 			let banner = document.querySelector(".media .banner");
 			if(banner){
-				let bannerLink = create("a","hohDownload",downloadChar,banner);
+				let bannerLink = create("a","hohDownload",null,banner);
 				bannerLink.title = translate("$download_banner_tooltip");
 				bannerLink.href = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"");
+				bannerLink.appendChild(svgAssets2.download.cloneNode(true))
 			}
 			else{
 				setTimeout(adder,500)
