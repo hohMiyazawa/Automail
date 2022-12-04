@@ -921,6 +921,9 @@ async function anilistAPI(query, queryArgs){
 	}
 	catch(e){
 		console.error(e)
+		if(e.message === "NetworkError when attempting to fetch resource."){//assume burst limit has been reached
+			apiResetLimit = (NOW()+60*1000)/1000;
+		}
 		return {
 			"data": null,
 			"errors": [{"message": e,"status": null}]
