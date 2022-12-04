@@ -193,8 +193,9 @@ exportModule({
 			}
 			create("span",false,translate(def.description),setting);
 			if(def.extendedDescription){
-				let infoButton = create("span","hohInfoButton",infoChar,setting);
+				let infoButton = create("span","hohInfoButton",null,setting);
 				infoButton.title = translate("$settings_moreInfo_tooltip");
+				infoButton.appendChild(svgAssets2.info.cloneNode(true))
 				infoButton.onclick = function(){
 					createDisplayBox(false,"Module info").innerText = translate(def.extendedDescription)
 				}
