@@ -19,7 +19,8 @@ exportModule({
 							if(tmp_target.classList.contains("entry-dropdown")){
 								let item = document.getElementById(tmp_target.children[0].getAttribute("aria-controls"));
 								if(item){
-									item.querySelector(".el-dropdown-menu__item--divided").click()
+									item.querySelector(".el-dropdown-menu__item--divided").click();
+									item.hidden = true
 								}
 								break
 							}
