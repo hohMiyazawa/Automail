@@ -7,3 +7,6 @@
 
 # Code fragments
 /src/queries/
+
+# Build artifacts
+/src/build/
