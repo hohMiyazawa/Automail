@@ -843,8 +843,6 @@ select{
 	position: absolute;
 	right: 10px;
 	top: 305px;
-	font-weight: bolder;
-	font-size: 120%;
 }
 .media .hohDownload{
 	top: 375px;
@@ -1028,6 +1026,7 @@ meter::-moz-meter-bar{
 	-ms-user-select: none;
 	user-select: none;
 	border-radius: 3px;
+	cursor: pointer;
 }
 .hohCategory:hover{
 	background-color: inherit;
@@ -1962,10 +1961,11 @@ body.TMPreviewScore > .el-tooltip__popper{
 	border-bottom-style: solid;
 }
 .hohInfoButton{
-	position: absolute;
-	right: 0px;
-	top: 0px;
+	margin-left: 5px;
 	cursor: pointer;
+}
+.hohInfoButton:hover{
+	color: rgb(var(--color-blue));
 }
 .anisong-entry{
 	background: rgb(var(--color-foreground));
