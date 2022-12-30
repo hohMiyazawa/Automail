@@ -13,13 +13,19 @@ function createDisplayBox(cssProperties,windowTitle){
 	};
 	let resizePearl = create("span","hohResizePearl",false,displayBox);
 	displayBox.addEventListener("mousedown",function(e){
-		if(!["P","PRE"].includes(e.target.tagName)){//don't annoy people trying to copy-paste
-			isDown = true;
-			offset = [
-				displayBox.offsetLeft - e.clientX,
-				displayBox.offsetTop - e.clientY
-			];
+		console.log(e);
+		let root = e.target;
+		while(root.parentNode){//don't annoy people trying to copy-paste
+			if(root.classList.contains("scrollableContent")){
+				return
+			}
+			root = root.parentNode
 		}
+		isDown = true;
+		offset = [
+			displayBox.offsetLeft - e.clientX,
+			displayBox.offsetTop - e.clientY
+		];
 	},true);
 	resizePearl.addEventListener("mousedown",function(event){
 		event.stopPropagation();
