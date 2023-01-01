@@ -218,7 +218,8 @@ function addMoreStats(){
 				(b,a) => a.list.length - b.list.length || b.name.localeCompare(a.name)
 			)
 		};
-		let regularTagsCollection = function(list,fields,extracter){
+		let regularTagsCollection = function(list,fields,extracter,settings){
+			settings = settings || {avg: "average"};
 			let tags = new Map();
 			list.forEach(media => {
 				let item = {};
@@ -238,18 +239,82 @@ function addMoreStats(){
 			tags.forEach(tag => {
 				tag.amountCount = 0;
 				tag.average = 0;
-				tag.list.forEach(item => {
-					if(item.score){
-						tag.amountCount++;
-						tag.average += item.score;
-					}
-					fields.forEach(field => {
-						if(field.sumable){
-							tag[field.key] = field.sumable(tag[field.key],item[field.key])
+				if(settings.avg === "average"){
+					tag.list.forEach(item => {
+						if(item.score){
+							tag.amountCount++;
+							tag.average += item.score;
 						}
-					})
-				});
-				tag.average = tag.average/tag.amountCount || 0;
+						fields.forEach(field => {
+							if(field.sumable){
+								tag[field.key] = field.sumable(tag[field.key],item[field.key])
+							}
+						})
+					});
+					tag.average = tag.average/tag.amountCount || 0;
+				}
+				else if(settings.avg === "max"){
+					let maxi = 0
+					tag.list.forEach(item => {
+						if(item.score){
+							tag.amountCount++;
+							maxi = Math.max(maxi,item.score)
+						}
+						fields.forEach(field => {
+							if(field.sumable){
+								tag[field.key] = field.sumable(tag[field.key],item[field.key])
+							}
+						})
+					});
+					tag.average = maxi || 0;
+				}
+				else if(settings.avg === "min"){
+					let maxi = 100;
+					tag.list.forEach(item => {
+						if(item.score){
+							tag.amountCount++;
+							maxi = Math.min(maxi,item.score)
+						}
+						fields.forEach(field => {
+							if(field.sumable){
+								tag[field.key] = field.sumable(tag[field.key],item[field.key])
+							}
+						})
+					});
+					tag.average = maxi;
+					if(tag.amountCount){
+						tag.average = 0
+					}
+				}
+				else if(settings.avg === "avg0"){
+					tag.list.forEach(item => {
+						if(item.score){
+							tag.amountCount++;
+							tag.average += item.score;
+						}
+						fields.forEach(field => {
+							if(field.sumable){
+								tag[field.key] = field.sumable(tag[field.key],item[field.key])
+							}
+						})
+					});
+					tag.average = tag.average/(1+tag.amountCount) || 0;
+				}
+				else if(settings.avg === "median"){
+					let listi = []
+					tag.list.forEach(item => {
+						if(item.score){
+							tag.amountCount++;
+							listi.push(item.score)
+						}
+						fields.forEach(field => {
+							if(field.sumable){
+								tag[field.key] = field.sumable(tag[field.key],item[field.key])
+							}
+						})
+					});
+					tag.average = Stats.median(listi) || 0;
+				}
 				tag.list.sort((b,a) => a.score - b.score)
 			});
 			return [...tags].map(
@@ -258,7 +323,10 @@ function addMoreStats(){
 				(b,a) => (a.average*a.amountCount + ANILIST_WEIGHT)/(a.amountCount + 1) - (b.average*b.amountCount + ANILIST_WEIGHT)/(b.amountCount + 1) || a.list.length - b.list.length
 			)
 		};
-		let drawTable = function(data,formatter,tableLocation,isTag,autoHide){
+		let drawTable = function(data,formatter,tableLocation,settings){
+			settings = settings || {};
+			let isTag = settings.isTag;
+			let autoHide = settings.autoHide;
 			removeChildren(tableLocation)
 			tableLocation.innerText = "";
 			let hasScores = data.some(elem => elem.average);
@@ -282,7 +350,7 @@ function addMoreStats(){
 				columnTitle.addEventListener("click",function(){
 					formatter.focus = this.index;
 					data.sort(formatter.sorting[this.index]);
-					drawTable(data,formatter,tableLocation,isTag,autoHide)
+					drawTable(data,formatter,tableLocation,{isTag: isTag,autoHide: autoHide})
 				});
 				indexAccumulator++;
 			});
@@ -670,6 +738,15 @@ function addMoreStats(){
 						}
 					})
 
+					create("p",false,"Aggregate mean score calculation",filters);
+					let modeSelect = create("select","hohSetting",false,filters);
+					create("option",false,"Average",modeSelect).value = "average";
+					create("option",false,"Median",modeSelect).value = "median";
+					create("option",false,"Max",modeSelect).value = "max";
+					create("option",false,"Min",modeSelect).value = "min";
+					create("option",false,"0-weighted Average",modeSelect).value = "avg0";
+					modeSelect.value = "average";//default
+
 					input_m.onchange = function(){
 						if(input_m.checked){
 							minChapterSetting.style.opacity = 1;
@@ -697,6 +774,8 @@ function addMoreStats(){
 						}
 					}
 
+					create("br",false,false,filters);
+
 					let applyButton = create("button",["hohButton","button"],translate("$button_submit"),filters);
 					applyButton.onclick = function(){
 						let base_media = collectedMedia;
@@ -723,13 +802,14 @@ function addMoreStats(){
 								&& statusFilter[mediaEntry.status]
 								&& formatFilter[mediaEntry.media.format]
 						})
-						listOfTags = regularTagsCollection(base_media,mixedFields,media => media.media.tags);
-						drawTable(listOfTags,mixedFormatter,regularTagsTable,true);
+						listOfTags = regularTagsCollection(base_media,mixedFields,media => media.media.tags,{avg: modeSelect.value});
+						drawTable(listOfTags,mixedFormatter,regularTagsTable,{isTag: true});
 						drawTable(
 							regularTagsCollection(
 								base_media,
 								mixedFields,
-								media => media.media.genres.map(a => ({name: a}))
+								media => media.media.genres.map(a => ({name: a})),
+								{avg: modeSelect.value}
 							),
 							mixedFormatter,
 							regularGenresTable
@@ -748,7 +828,7 @@ function addMoreStats(){
 					}
 
 				}
-				drawTable(listOfTags,mixedFormatter,regularTagsTable,true);
+				drawTable(listOfTags,mixedFormatter,regularTagsTable,{isTag: true});
 				//recycle most of the formatter for genres
 				drawTable(
 					regularTagsCollection(
@@ -1258,7 +1338,7 @@ function addMoreStats(){
 			let customTags = customTagsCollection(list,animeFormatter.title,animeFields);
 			if(customTags.length){
 				let customTagsAnimeTable = create("div","#customTagsAnimeTable",false,personalStats);
-				drawTable(customTags,animeFormatter,customTagsAnimeTable,true,true)
+				drawTable(customTags,animeFormatter,customTagsAnimeTable,{isTag: true,autoHide: true})
 			}
 
 			if(onlyStats){
@@ -1271,7 +1351,7 @@ function addMoreStats(){
 			}
 			semaPhoreAnime = list;
 	if(script_type !== "Boneless"){
-			drawTable(listOfTags,animeFormatter,regularAnimeTable,true,false);
+			drawTable(listOfTags,animeFormatter,regularAnimeTable,{isTag: true,autoHide: false});
 			nativeTagsReplacer();
 			const staffData = await anilistAPI(queryMediaListStaff, {
 				variables: {name: user,listType: "ANIME"},
@@ -2088,7 +2168,7 @@ function addMoreStats(){
 			let customTags = customTagsCollection(list,mangaFormatter.title,mangaFields);
 			if(customTags.length){
 				let customTagsMangaTable = create("div","#customTagsMangaTable",false,personalStatsManga);
-				drawTable(customTags,mangaFormatter,customTagsMangaTable,true,true)
+				drawTable(customTags,mangaFormatter,customTagsMangaTable,{isTag: true,autoHide: true})
 			}
 			let listOfTags = regularTagsCollection(list,mangaFields,media => media.media.tags);
 			if(listOfTags.length > 50){
@@ -2096,7 +2176,7 @@ function addMoreStats(){
 			}
 			semaPhoreManga = list;
 	if(script_type !== "Boneless"){
-			drawTable(listOfTags,mangaFormatter,regularMangaTable,true,false);
+			drawTable(listOfTags,mangaFormatter,regularMangaTable,{isTag: true,autoHide: false});
 			nativeTagsReplacer();
 	}
 
