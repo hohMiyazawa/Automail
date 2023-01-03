@@ -21,22 +21,54 @@ Does not hide scores set by other Automail options
 				};
 				let avgNode = allNode.find(element => element.innerText === "Average Score");
 				if(avgNode){
-					avgNode.parentNode.children[1].style = "background-color: rgba(var(--color-black),0.5); color: transparent; padding: 0px 10px; border-radius: 3px; user-select: none;";
+					avgNode.parentNode.children[1].style = "background-color: rgba(var(--color-black),0.5); color: transparent; padding: 0px 10px; border-radius: 3px; user-select: none; cursor: pointer;";
 					avgNode.parentNode.children[1].onmouseover = function(){
 						this.style.color = 'white'
 					};
 					avgNode.parentNode.children[1].onmouseout = function(){
 						this.style.color = 'transparent'
+					};
+					avgNode.parentNode.children[1].onclick = function(){
+						if(this.onmouseover){
+							this.onmouseover = null;
+							this.onmouseout = null;
+							this.style.color = 'white'
+						}
+						else{
+							this.onmouseover = function(){
+								this.style.color = 'white'
+							};
+							this.onmouseout = function(){
+								this.style.color = 'transparent'
+							};
+							this.style.color = 'transparent'
+						}
 					}
 				};
 				let meanNode = allNode.find(element => element.innerText === "Mean Score");
 				if(meanNode){
-					meanNode.parentNode.children[1].style = "background-color: rgba(var(--color-black),0.5); color: transparent; padding: 0px 10px; border-radius: 3px; user-select: none;";
+					meanNode.parentNode.children[1].style = "background-color: rgba(var(--color-black),0.5); color: transparent; padding: 0px 10px; border-radius: 3px; user-select: none; cursor: pointer;";
 					meanNode.parentNode.children[1].onmouseover = function(){
 						this.style.color = 'white'
 					};
 					meanNode.parentNode.children[1].onmouseout = function(){
 						this.style.color = 'transparent'
+					}
+                    meanNode.parentNode.children[1].onclick = function(){
+						if(this.onmouseover){
+							this.onmouseover = null;
+							this.onmouseout = null;
+							this.style.color = 'white'
+						}
+						else{
+							this.onmouseover = function(){
+								this.style.color = 'white'
+							};
+							this.onmouseout = function(){
+								this.style.color = 'transparent'
+							};
+							this.style.color = 'transparent'
+						}
 					}
 				};
 				return (avgNode && meanNode ? true : false)
@@ -76,6 +108,9 @@ Does not hide scores set by other Automail options
 		}
 	},
 	css: `
+	.overview .media-score-distribution:not(:hover){
+		background-color: rgba(var(--color-black),0.5);
+	}
 	.overview .media-score-distribution .ct-chart-bar:not(:hover), .media-card .score, .overview .follow .score:not(:hover){
 		opacity: 0;
 		user-select: none;
