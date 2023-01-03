@@ -81,8 +81,8 @@ Does not hide scores set by other Automail options
 		user-select: none;
 	}
 	.overview .follow span{
-    	text-align: center;
-    	border-radius: 3px;
+		text-align: center;
+		border-radius: 3px;
 		background-color: rgba(var(--color-black),0.5);
 		color: white;
 		user-select: none;
