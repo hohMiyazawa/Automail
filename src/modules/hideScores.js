@@ -54,7 +54,7 @@ Does not hide scores set by other Automail options
 					meanNode.parentNode.children[1].onmouseout = function(){
 						this.style.color = 'transparent'
 					}
-                    meanNode.parentNode.children[1].onclick = function(){
+					meanNode.parentNode.children[1].onclick = function(){
 						if(this.onmouseover){
 							this.onmouseover = null;
 							this.onmouseout = null;
