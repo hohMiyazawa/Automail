@@ -1,8 +1,8 @@
 exportModule({
 	id: "altBanner",
-	description: "Alternative banner style on media pages for wider resolutions",
+	description: "Alternative banner style on media pages for wider screen resolutions",
 	extendedDescription: `
-Prevents the banner on media pages from stretching and cropping on resolutions wider than 1920 pixels
+Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels
 Instead, it always displays the banner in full with sides filled in by the blurred original banner
 	`,
 	isDefault: false,
