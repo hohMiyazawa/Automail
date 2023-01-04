@@ -14,7 +14,7 @@ Does not hide scores set by other Automail options
 	},
 	code: function(){
 		if(/^\/(anime|manga)\/.*/.test(location.pathname)){
-			let scoreSpoiler = function(){
+			let scoreSpoiler = function(mutations,observer){
 				let sidebarNode = Array.from(document.querySelectorAll(".sidebar .data .data-set .type"));
 				if(!sidebarNode.length){
 					return
@@ -24,6 +24,7 @@ Does not hide scores set by other Automail options
 				let findMean = sidebarNode.find(element => element.innerText === "Mean Score");
 				findAvg && scoreNode.push(findAvg);
 				findMean && scoreNode.push(findMean);
+				findAvg && findMean && observer && observer.disconnect();
 				if(scoreNode.length){
 					scoreNode.forEach(score => {
 						if(!score.parentNode.children[1].hasAttribute("data-click")){
@@ -68,7 +69,7 @@ Does not hide scores set by other Automail options
 				subtree: true
 			};
 			let observer = new MutationObserver(scoreSpoiler);
-			observer.observe(document.body,mutationConfig);
+			observer.observe(document.body,mutationConfig)
 		};
 		if(/^\/home\/?$/.test(location.pathname) || /^\/forum\/thread\/.*/.test(location.pathname) || /^\/user\/.*/.test(location.pathname)){
 			let removeEmbedScore = function(){
