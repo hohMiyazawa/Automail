@@ -1,8 +1,8 @@
 exportModule({
 	id: "altBanner",
-	description: "Alternative banner style on media pages for wider screen resolutions",
+	description: "Alternative banner style on media pages for wider resolutions",
 	extendedDescription: `
-Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels
+Prevents the banner on media pages from stretching and cropping on resolutions wider than 1920 pixels
 Instead, it always displays the banner in full with sides filled in by the blurred original banner
 	`,
 	isDefault: false,
@@ -14,18 +14,22 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 	},
 	code: function(){
 		let banner;
-		let adder = function(mutations, observer){
+		let adder = function(mutations,observer){
 			banner = document.querySelector(".media .banner");
 			if(!banner){
 				return
 			};
-			if(banner){
-				observer && observer.disconnect();
-				banner.classList.add("blur-filter");
-				let bannerFull = create("img","altBanner",null,banner);
-				bannerFull.height = "400";
-				bannerFull.src = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"")
-			}
+			observer && observer.disconnect();
+			let existingAlt = Array.from(document.querySelectorAll(".altBanner"));
+			if (existingAlt.length){
+				existingAlt.forEach(oldBanner => {
+				oldBanner.remove()
+				})
+			};
+			banner.classList.add("blur-filter");
+			let bannerFull = create("img","altBanner",null,banner);
+			bannerFull.height = "400";
+			bannerFull.src = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"")
 		};
 		adder();
 		let mutationConfig = {
@@ -42,7 +46,7 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 		position: relative;
 		z-index: -2;
 	}
-	.blur-filter::after{
+	.blur-filter::after {
 		backdrop-filter: blur(10px);
 		content: "";
 		display: block;
