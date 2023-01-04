@@ -42,7 +42,7 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 		position: relative;
 		z-index: -2;
 	}
-	.blur-filter::after {
+	.blur-filter::after{
 		backdrop-filter: blur(5px);
 		content: "";
 		display: block;
