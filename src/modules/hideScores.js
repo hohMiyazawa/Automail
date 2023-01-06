@@ -14,6 +14,14 @@ Does not hide scores set by other Automail options
 	},
 	code: function(){
 		if(/^\/(anime|manga)\/.*/.test(location.pathname)){
+			let existing = Array.from(document.querySelectorAll(".altSpoiler"));
+			if (existing.length){
+				existing.forEach(oldRow => {
+					oldRow.classList.remove("altSpoiler");
+					oldRow.removeAttribute("onclick");
+					oldRow.removeAttribute("data-click")
+				})
+			};
 			let scoreSpoiler = function(mutations,observer){
 				let sidebarNode = Array.from(document.querySelectorAll(".sidebar .data .data-set .type"));
 				if(!sidebarNode.length){
@@ -27,49 +35,24 @@ Does not hide scores set by other Automail options
 				findAvg && findMean && observer && observer.disconnect();
 				if(scoreNode.length){
 					scoreNode.forEach(score => {
-						if(!score.parentNode.children[1].hasAttribute("data-click")){
-							score.parentNode.children[1].style = "background-color: rgba(var(--color-black),0.5); color: transparent; padding: 0px 10px; border-radius: 3px; user-select: none; cursor: pointer;"
-						};
-						score.parentNode.children[1].onmouseover = function(){
-							if(this.getAttribute("data-click") != "1"){
-								this.style.color = 'white'
-							}
-						};
-						score.parentNode.children[1].onmouseout = function(){
-							if(this.getAttribute("data-click") != "1"){
-								this.style.color = 'transparent'
-							}
-						};
+						!score.parentNode.children[1].classList.contains("altSpoiler") && score.parentNode.children[1].classList.add("altSpoiler");
 						score.parentNode.children[1].onclick = function(event){
 							event.stopPropagation();
-							if(!this.hasAttribute("data-click") || this.getAttribute("data-click") == "0"){
-								this.onmouseover = null;
-								this.onmouseout = null;
-								this.setAttribute("data-click","1");
-								this.style.color = 'white'
-							}
-							else{
-								this.onmouseover = function(){
-									this.style.color = 'white'
-								};
-								this.onmouseout = function(){
-									this.style.color = 'transparent'
-								};
-								this.setAttribute("data-click","0");
-								this.style.color = 'transparent'
-							}
+							this.hasAttribute("data-click") ? this.removeAttribute("data-click") : this.setAttribute("data-click","1")
 						}
 					})
+				};
+				if(findAvg && findMean){
+					return true
 				}
 			};
-			scoreSpoiler();
 			let mutationConfig = {
 				attributes: false,
 				childList: true,
 				subtree: true
 			};
 			let observer = new MutationObserver(scoreSpoiler);
-			observer.observe(document.body,mutationConfig)
+			!scoreSpoiler() && observer.observe(document.body,mutationConfig)
 		};
 		if(/^\/home\/?$/.test(location.pathname) || /^\/forum\/thread\/.*/.test(location.pathname) || /^\/user\/.*/.test(location.pathname)){
 			let removeEmbedScore = function(){
@@ -112,6 +95,17 @@ Does not hide scores set by other Automail options
 	}
 	.overview .follow span:not(:hover), .table .media-card .score .percentage:not(:hover), .table .media-card .score .popularity:not(:hover), .media-card .data .score .percentage:not(:hover){
 		color: transparent;
+	}
+	.value.altSpoiler{
+		background-color: rgba(var(--color-black),0.5);
+		color: transparent;
+		padding: 0px 10px;
+		border-radius: 3px;
+		user-select: none;
+		cursor: pointer;
+	}
+	.value.altSpoiler:hover, .value.altSpoiler[data-click]{
+		color: white;
 	}
 	`
 })
