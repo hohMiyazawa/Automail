@@ -15,19 +15,13 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 	code: function(){
 		let banner;
 		let adder = function(mutations,observer){
-			banner = document.querySelector(".media .banner");
+			banner = document.querySelector(".media .header-wrap .banner");
 			if(!banner){
 				return
 			};
 			observer && observer.disconnect();
-			let existingAlt = Array.from(document.querySelectorAll(".altBanner"));
-			if (existingAlt.length){
-				existingAlt.forEach(oldBanner => {
-				oldBanner.remove()
-				})
-			};
 			banner.classList.add("blur-filter");
-			let bannerFull = create("img","altBanner",null,banner);
+			let bannerFull = document.querySelector(".altBanner") || create("img","altBanner",null,banner);
 			bannerFull.height = "400";
 			bannerFull.src = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"")
 		};
@@ -41,7 +35,7 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 		!banner && observer.observe(document.body,mutationConfig)
 	},
 	css: `
-	.media .banner{
+	.media .header-wrap .banner{
 		margin-top: 0px !important;
 		position: relative;
 		z-index: -2;
