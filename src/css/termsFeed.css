@@ -86,6 +86,10 @@
 .hohFeed .activity:hover > .time{
 	color: rgb(var(--color-blue));
 }
+.hohFeed .activity > .time{
+	overflow: hidden;
+	white-space: nowrap;
+}
 
 .hohSearchResult{
 	width: 18.5%;
