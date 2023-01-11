@@ -529,7 +529,7 @@
 "$theme_highContrastDark": "Contraste élevé sombre",
 "$feed_header": "Activité",
 "$feedSelect_all": "Tous",
-"$feedSelect_text": "Text Status",
+"$feedSelect_text": "Status textuels",
 "$feedSelect_list": "Progrès des listes",
 "$feedSelect_status": "Status",
 "$feedSelect_message": "Messages",
