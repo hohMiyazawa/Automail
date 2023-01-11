@@ -270,6 +270,6 @@
 	"type": "select",
 	"importance": 100,
 	"categories": ["Script"],
-	"values": ["English","French","Português","Español","Norsk","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
+	"values": ["English","Français","Português","Español","Norsk","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
 }
 ]
