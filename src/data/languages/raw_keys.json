@@ -1,0 +1,14 @@
+{
+	"info": {
+		"language": "$raw_keys",
+		"language_english": "$raw_translator_keys",
+		"locale": "",
+		"fallback": [],
+		"maintainer": "(translator mode)",
+		"maintainer_link": "",
+		"discussion_link": "https://github.com/hohMiyazawa/Automail/issues/69",
+		"notes": "This is a special language file, used to see raw keys in the UI. DO NOT USE THIS FILE AS A TEMPLATE FOR YOUR OWN TRANSLATION FILE (use English.json, or Norwegian.json, or read the documentation)",
+		"translators": ["(translator mode)"]
+	},
+	"keys": {}
+}
