@@ -86,6 +86,8 @@
 "$button_edit": "Edit",
 "$button_publish": "Publish",
 "$button_cancel": "Cancel",
+"$button_save": "Save",
+"$button_delete": "Delete",
 "$button_review": "Write Review",
 "$placeholder_status": "Write a status...",
 "$placeholder_reply": "Write a reply...",
@@ -156,6 +158,8 @@
 "$mediaStatus_paused": "paused",
 "$mediaStatus_dropped": "dropped",
 "$mediaStatus_planning": "planning",
+"$mediaStatus_planningAnime": "plan to watch",
+"$mediaStatus_planningManga": "plan to read",
 "$mediaStatus_planning_time": "planned {0}",
 "$mediaReleaseStatus_finished": "Finished",
 "$mediaReleaseStatus_releasing": "Releasing",
@@ -606,6 +610,19 @@
 "$forumCategory_16": "Forum Games",
 "$forumCategory_17": "Misc",
 "$forumCategory_18": "AniList Apps",
-"$menu_overview": "Overview"
+"$menu_overview": "Overview",
+"$editor_status": "Status",
+"$editor_statusPlaceholder": "Status",
+"$editor_score": "Score",
+"$editor_progress": "Progress",
+"$editor_startDate": "Start Date",
+"$editor_finishDate": "Finish Date",
+"$editor_notes": "Notes",
+"$editor_mangaRepeat": "Total Rereads",
+"$editor_volumes": "Volume Progress",
+"$editor_animeRepeat": "Total Rewatches",
+"$editor_hideFromStatusLists": "Hide from status lists",
+"$editor_private": "Private",
+"$editor_customLists": "Custom Lists"
 	}
 }
