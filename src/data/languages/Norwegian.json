@@ -85,6 +85,8 @@
 "$button_defaultSettings": "Nullstill alle innstillingar",
 "$button_publish": "Post",
 "$button_cancel": "Avbryt",
+"$button_save": "Lagra",
+"$button_delete": "Slett",
 "$button_review": "Skriv Omtale",
 "$placeholder_status": "Skriv ein post...",
 "$placeholder_reply": "Skriv eit svar...",
@@ -275,6 +277,8 @@
 "$mediaStatus_planning_time": "planla {0}",
 "$mediaStatus_not": "Legg til",
 "$mediaStatus_all": "alle",
+"$mediaStatus_planningAnime": "vil sjå",
+"$mediaStatus_planningManga": "vil lesa",
 "$mediaReleaseStatus_releasing": "Går no",
 "$mediaReleaseStatus_finished": "Ferdig",
 "$mediaReleaseStatus_notYetReleased": "Komande",
@@ -611,6 +615,19 @@
 "$role_Assistant": "Assistent",
 "$role_Main": "Hovudrolle",
 "$role_Supporting": "Siderolle",
-"$role_Background": "Bakgrunnsrolle"
+"$role_Background": "Bakgrunnsrolle",
+"$editor_status": "Status",
+"$editor_statusPlaceholder": "Status",
+"$editor_score": "Vurdering",
+"$editor_progress": "Framgang",
+"$editor_startDate": "Startdato",
+"$editor_finishDate": "Sluttdato",
+"$editor_notes": "Notat",
+"$editor_volumes": "Band",
+"$editor_mangaRepeat": "Lese Oppatt",
+"$editor_animeRepeat": "Sett Oppatt",
+"$editor_hideFromStatusLists": "Gøym frå standardlister",
+"$editor_private": "Privat",
+"$editor_customLists": "Eigne Lister"
 	}
 }

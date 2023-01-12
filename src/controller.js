@@ -446,6 +446,33 @@ if(useScripts[script_type.toLowerCase() + "API"]){
 	}
 }
 
+if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !== "English"){
+	(function(){
+		let pNode;
+		let checker = function(){
+			pNode = document.getElementById("app");
+			if(!pNode){
+				setTimeout(checker,200);
+				return
+			}
+			let mutationConfig = {
+				attributes: false,
+				childList: true,
+				subtree: false
+			};
+			let observer = new MutationObserver(function(){
+				let editor = document.querySelector(".list-editor");
+				if(editor && !editor.classList.contains("hohTranslated")){
+					editor.classList.add("hohTranslated");
+					editor_translate(editor)//in additionalTranslation.js
+				}
+			});
+			observer.observe(pNode,mutationConfig)
+		}
+		checker();
+	})()
+}
+
 function exportModule(module){
 	useScriptsDefinitions.push({
 		id: module.id,

@@ -12,8 +12,13 @@ const languageFiles = {//key: language name in language ("日本語"), filename:
 	"Svenska": m4_include(data/languages/Swedish.json),
 	"English (US)": m4_include(data/languages/English_US.json),
 	"English (short)": m4_include(data/languages/English_short.json),
-	"Español": m4_include(data/languages/Spanish.json)
+	"Español": m4_include(data/languages/Spanish.json),
+	"$raw_keys": m4_include(data/languages/raw_keys.json)
 }
+Object.keys(languageFiles["English"].keys).forEach(key => {
+	languageFiles["$raw_keys"].keys[key] = key
+})
+
 function translate(key,subs,fallback){
 	if(key[0] !== "$"){
 		return key
