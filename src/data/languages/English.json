@@ -606,7 +606,6 @@
 "$termsFeedNoImages_extendedDescription": "Refers to the feed located at https://anilist.co/terms if the setting 'low bandwidth feed' is turned on.\nFor very slow connections, images are going to be the most difficult part of the page to load.\nSee if your addblocker also supports setting a size limit for media, which may help if you are struggling.",
 "$moreImports_description": "Add more list import and list export options",
 "$plussMinus_description": "Add + and - buttons to quickly change scores on your list",
-"$navbarDroptext_description": "Allow drag-and-drop of text into navbar for search",
-
+"$navbarDroptext_description": "Allow drag-and-drop of text into navbar for search"
 	}
 }
