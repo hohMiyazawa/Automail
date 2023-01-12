@@ -440,3 +440,187 @@ exportModule({
 		})
 	}
 })
+
+function editor_translate(editor){
+	let times = [100,200,400,1000,2000,3000,5000,7000,10000,15000];
+	let caller = function(element,counter){
+		if(element.multiple){
+			let place = editor.querySelectorAll(element.lookup);
+			if(place){
+				Array.from(place).forEach(elem => {
+					element.multiple.forEach(possible => {
+						if(elem.childNodes[0].textContent.trim() === possible.ofText){
+							elem.childNodes[0].textContent = translate(possible.replacement)
+							possible.translated = true
+						}
+					})
+				})
+				if(counter < times.length && !element.multiple.every(possible => possible.translated)){
+					setTimeout(function(){
+						caller(url,element,counter + 1)
+					},times[counter])
+				}
+			}
+			else if(counter < times.length){
+				setTimeout(function(){
+					caller(element,counter + 1)
+				},times[counter])
+			}
+		}
+		else{
+			let place = editor.querySelector(element.lookup);
+			if(place){
+				if(element.textType === "placeholder"){
+					place.placeholder = translate(element.replacement)
+				}
+				else{
+					if(place.childNodes[element.selectIndex || 0]){
+						place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
+					}
+					else{
+						console.warn("editor translation key failed", element, place)
+					}
+				}
+			}
+			else if(counter < times.length){
+				setTimeout(function(){
+					caller(element,counter + 1)
+				},times[counter])
+			}
+		}
+	};
+	[
+		{
+			elements: [
+				{
+					lookup: ".form.status > .input-title",
+					replacement: "$editor_status"
+				},
+				{
+					lookup: ".form.score > .input-title",
+					replacement: "$editor_score"
+				},
+				{
+					lookup: ".form.progress > .input-title",
+					replacement: "$editor_progress"
+				},
+				{
+					lookup: ".form.start > .input-title",
+					replacement: "$editor_startDate"
+				},
+				{
+					lookup: ".form.finish > .input-title",
+					replacement: "$editor_finishDate"
+				},
+				{
+					lookup: ".form.notes > .input-title",
+					replacement: "$editor_notes"
+				},
+				{
+					lookup: ".manga .form.repeat > .input-title",
+					replacement: "$editor_mangaRepeat"
+				},
+				{
+					lookup: ".manga .form.volumes > .input-title",
+					replacement: "$editor_volumes"
+				},
+				{
+					lookup: ".anime .form.repeat > .input-title",
+					replacement: "$editor_animeRepeat"
+				},
+				{
+					lookup: ".save-btn",
+					replacement: "$button_save"
+				},
+				{
+					lookup: ".delete-btn",
+					replacement: "$button_delete"
+				},
+				{
+					lookup: ".custom-lists > .input-title",
+					replacement: "$editor_customLists"
+				},
+				{
+					lookup: ".custom-lists ~ .checkbox .el-checkbox__label",
+					multiple: [
+						{
+							ofText: "Hide from status lists",
+							replacement: "$editor_hideFromStatusLists"
+						},
+						{
+							ofText: "Private",
+							replacement: "$editor_private"
+						}
+					]
+				},
+				{
+					lookup: ".status .el-input__inner",
+					textType: "placeholder",
+					replacement: "$editor_statusPlaceholder"
+				},
+				{
+					lookup: ".anime .status .el-select-dropdown__item span",
+					multiple: [
+						{
+							ofText: "Watching",
+							replacement: capitalize(translate("$mediaStatus_watching"))
+						},
+						{
+							ofText: "Plan to watch",
+							replacement: capitalize(translate("$mediaStatus_planningAnime"))
+						},
+						{
+							ofText: "Completed",
+							replacement: capitalize(translate("$mediaStatus_completedWatching"))
+						},
+						{
+							ofText: "Rewatching",
+							replacement: capitalize(translate("$mediaStatus_rewatching"))
+						},
+						{
+							ofText: "Paused",
+							replacement: capitalize(translate("$mediaStatus_paused"))
+						},
+						{
+							ofText: "Dropped",
+							replacement: capitalize(translate("$mediaStatus_dropped"))
+						},
+					]
+				},
+				{
+					lookup: ".manga .status .el-select-dropdown__item span",
+					multiple: [
+						{
+							ofText: "Reading",
+							replacement: capitalize(translate("$mediaStatus_reading"))
+						},
+						{
+							ofText: "Plan to read",
+							replacement: capitalize(translate("$mediaStatus_planningManga"))
+						},
+						{
+							ofText: "Completed",
+							replacement: capitalize(translate("$mediaStatus_completedReading"))
+						},
+						{
+							ofText: "Rereading",
+							replacement: capitalize(translate("$mediaStatus_rereading"))
+						},
+						{
+							ofText: "Paused",
+							replacement: capitalize(translate("$mediaStatus_paused"))
+						},
+						{
+							ofText: "Dropped",
+							replacement: capitalize(translate("$mediaStatus_dropped"))
+						},
+					]
+				},
+			]
+		},
+	].forEach(matchset => {
+		matchset.elements.forEach(element => {
+			caller(element,0)
+		})
+	})
+}
