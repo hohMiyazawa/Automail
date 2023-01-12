@@ -455,21 +455,21 @@ if(useScripts.additionalTranslation && useScripts.partialLocalisationLanguage !=
 				setTimeout(checker,200);
 				return
 			}
+			let mutationConfig = {
+				attributes: false,
+				childList: true,
+				subtree: false
+			};
+			let observer = new MutationObserver(function(){
+				let editor = document.querySelector(".list-editor");
+				if(editor && !editor.classList.contains("hohTranslated")){
+					editor.classList.add("hohTranslated");
+					editor_translate(editor)//in additionalTranslation.js
+				}
+			});
+			observer.observe(pNode,mutationConfig)
 		}
 		checker();
-		let mutationConfig = {
-			attributes: false,
-			childList: true,
-			subtree: false
-		};
-		let observer = new MutationObserver(function(){
-			let editor = document.querySelector(".list-editor");
-			if(editor && !editor.classList.contains("hohTranslated")){
-				editor.classList.add("hohTranslated");
-				editor_translate(editor)//in additionalTranslation.js
-			}
-		});
-		observer.observe(pNode,mutationConfig)
 	})()
 }
 

@@ -444,7 +444,6 @@ exportModule({
 function editor_translate(editor){
 	let times = [100,200,400,1000,2000,3000,5000,7000,10000,15000];
 	let caller = function(element,counter){
-		console.log(element,counter);
 		if(element.multiple){
 			let place = editor.querySelectorAll(element.lookup);
 			if(place){
