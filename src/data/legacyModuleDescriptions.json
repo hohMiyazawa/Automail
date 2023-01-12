@@ -4,7 +4,7 @@
 	"categories": ["Notifications"]
 },{"id": "settingsTip",
 	"description": "$settingsTip_description",
-	"extendedDescription": "Options with the 🛈 button has more information available if you click it",
+	"extendedDescription": "$settingsTip_extendedDescription",
 	"categories": ["Notifications"]
 },{"id": "dismissDot",
 	"description": "$dismissDot_description",
@@ -14,18 +14,18 @@
 	"categories": ["Media"]
 },{"id": "socialTabFeed",
 	"description": "$socialTabFeed_description",
-	"extendedDescription": "'Has replies' is the only filter that works if not signed in with the script. A 'Following' filter becomes available if you do.",
+	"extendedDescription": "$socialTabFeed_extendedDescription",
 	"categories": ["Media","Login"]
 },{"id": "forumMedia",
 	"description": "$forumMedia_description",
-	"extendedDescription": "The forum preview only shows one tag by default, so it's just going to say 'anime' or 'manga' without telling you which media it's about. This module adds a second tag, shortening the title somewhat if there's not enough space.",
+	"extendedDescription": "$forumMedia_extendedDescription",
 	"categories": ["Forum"]
 },{"id": "draw3x3",
 	"description": "$draw3x3_description",
 	"categories": ["Lists"]
 },{"id": "automailAPI",
 	"boneless_disable": true,
-	"description": "Enable an API for other scripts to control this script [Don't enable this unless you know what you are doing]",
+	"description": "$automailAPI_description",
 	"categories": ["Script","Login"]
 },{"id": "MALscore",
 	"description": "$setting_MALscore",
@@ -66,7 +66,7 @@
 	"id": "dubMarker",
 	"subSettings": ["dubMarkerLanguage"],
 	"description": "$dubMarker_description",
-	"extendedDescription": "Works by checking the database for voice actors",
+	"extendedDescription": "$dubMarker_extendedDescription",
 	"categories": ["Media"]
 },{
 	"id": "dubMarkerLanguage",
@@ -119,7 +119,7 @@
 	"categories": ["Feeds"]
 },{"id": "blockWord",
 	"description": "$blockWord_description",
-	"extendedDescription": "RegEx syntax accepted too, do not use slash /delimeters/.\nMost common use, blocking multiple words: \"word1|word2|word3\"",
+	"extendedDescription": "$blockWord_extendedDescription",
 	"categories": ["Feeds"]
 },{
 	"id": "blockWordValue",
@@ -128,7 +128,7 @@
 	"type": "text",
 	"categories": ["Feeds"]
 },{"id": "profileBackground",
-	"description": "Enable profile backgrounds",
+	"description": "$profileBackground_description",
 	"categories": ["Profiles","Login"]
 },{
 	"id": "profileBackgroundValue",
@@ -138,30 +138,30 @@
 	"type": "text",
 	"categories": ["Profiles"]
 },{"id": "colourPicker",
-	"description": "Add a colour picker in the footer for adjusting the site themes",
+	"description": "$colourPicker_description",
 	"categories": ["Script"]
 },{"id": "progressBar",
-	"description": "Add progress bars to the list previews",
+	"description": "$progressBar_description",
 	"categories": ["Feeds"]
 },{"id": "embedHentai",
-	"description": "Make cards for links to age restricted content",
+	"description": "$embedHentai_description",
 	"categories": ["Feeds"]
 },{"id": "betterListPreview",
-	"description": "Alternative list preview",
+	"description": "$betterListPreview_description",
 	"categories": ["Feeds","Lists","Login"]
 },{
 	"id": "previewMaxRows",
 	"requires": ["betterListPreview"],
-	"description": "Alternative list preview, max rows per section",
+	"description": "$previewMaxRows_description",
 	"type": "number",
 	"min": 0,
 	"max": 10,
 	"categories": ["Feeds","Lists","Login"]
 },{"id": "homeScroll",
-	"description": "Make the 'home' button scroll to the top on the home feed",
+	"description": "$homeScroll_description",
 	"categories": ["Feeds"]
 },{"id": "CSSfavs",
-	"description": "Use 5-width favourite layout at all screen sizes",
+	"description": "$cssfavs_description",
 	"categories": ["Profiles"]
 },{"id": "CSScompactBrowse",
 	"description": "$CSScompactBrowse_description",
@@ -177,19 +177,19 @@
 	"description": "$cleanSocial_description",
 	"categories": ["Media","Forum"]
 },{"id": "limitProgress10",
-	"description": "Limit the 'in progress' sections to 10 entries",
+	"description": "$limitProgress10_description",
 	"categories": ["Feeds"]
 },{"id": "limitProgress8",
-	"description": "Limit the 'in progress' sections to 8 entries",
+	"description": "$limitProgress8_description",
 	"categories": ["Feeds"]
 },{"id": "showRecVotes",
-	"description": "Always show the recommendation voting data",
+	"description": "$showRecVotes_description",
 	"categories": ["Media"]
 },{"id": "myThreads",
-	"description": "Add a 'my threads' link in the forum",
+	"description": "$myThreads_description",
 	"categories": ["Forum","Profiles"]
 },{"id": "hideAWC",
-	"description": "Hide AWC threads from the forum preview on the home page. Number of AWC-free threads to display:",
+	"description": "$hideAWC_description",
 	"categories": ["Forum"]
 },{
 	"id": "forumPreviewNumber",
@@ -200,37 +200,37 @@
 	"max": 50,
 	"categories": ["Forum"]
 },{"id": "hideOtherThreads",
-	"description": "Hide additional low-quality forum threads on the home page",
-	"extendedDescription": "Curated list of high-volume threads with little reading value.\nRequest threads added: https://github.com/hohMiyazawa/Automail/issues\n\nhttps://anilist.co/forum/thread/15346\nhttps://anilist.co/forum/thread/2340/\nhttps://anilist.co/forum/thread/1\n\"Where can I watch/read/find\"",
+	"description": "$hideOtherThreads_description",
+	"extendedDescription": "$hideOtherThreads_extendedDescription",
 	"categories": ["Forum"]
 },{"id": "expandRight",
-	"description": "Load the expanded view of 'in progress' in the usual place instead of full width if left in that state [weird hack]",
+	"description": "$expandRight_description",
 	"categories": ["Feeds"]
 },{"id": "noImagePolyfill",
-	"description": "Add fallback text for missing images in the sidebar and favourite sections",
+	"description": "$noImagePolyfill_description",
 	"categories": ["Feeds","Profiles"]
 },{"id": "shortRomaji",
-	"description": "Short romaji titles for everyday use. Life is too short for light novel titles",
+	"description": "$shortRomaji_description",
 	"categories": ["Feeds","Profiles","Lists"]
 },{"id": "titlecaseRomaji",
-	"description": "Uppercase killer. Title alias pack to turn unnecessary UPPERCASE to Titlecase",
+	"description": "$titlecaseRomaji_description",
 	"categories": ["Feeds","Profiles","Lists"]
 },{"id": "CSSprofileClutter",
-	"description": "Remove clutter from profiles (milestones, history chart, genres)",
+	"description": "$CSSprofileClutter_description",
 	"categories": ["Profiles"]
 },{"id": "CSSdecimalPoint",
-	"description": "Give whole numbers a \".0\" suffix when using the 10 point decimal scoring system",
+	"description": "$CSSdecimalPoint_description",
 	"categories": ["Lists"]
 },{"id": "viewAdvancedScores",
-	"description": "View advanced scores",
+	"description": "$viewAdvancedScores_description",
 	"categories": ["Lists"]
 },{"id": "rightToLeft",
-	"description": "Support for right-to-left flow [under development]",
-	"extendedDescription": "A baseline for adjusting Anilist to act more like a native RTL language site would.\nNot complete.",
+	"description": "$rightToLeft_description",
+	"extendedDescription": "$rightToLeft_extendedDescription",
 	"categories": ["Script"]
 },{"id": "termsFeedNoImages",
-	"description": "Do not load images on the low bandwidth feed",
-	"extendedDescription": "Refers to the feed located at https://anilist.co/terms if the setting 'low bandwidth feed' is turned on.\nFor very slow connections, images are going to be the most difficult part of the page to load.\nSee if your addblocker also supports setting a size limit for media, which may help if you are struggling.",
+	"description": "$termsFeedNoImages_description",
+	"extendedDescription": "$termsFeedNoImages_extendedDescription",
 	"categories": ["Feeds","Login"]
 },{"id": "CSSbannerShadow",
 	"description": "$setting_CSSbannerShadow",
@@ -239,16 +239,16 @@
 	"description": "$milestone_description",
 	"categories": ["Profiles"]
 },{"id": "CSSdarkDropdown",
-	"description": "Use a dark menu dropdown in dark mode",
+	"description": "$CSSdarkDropdown_description",
 	"categories": ["Navigation"]
 },{"id": "moreImports",
-	"description": "Add more list import and list export options",
+	"description": "$moreImports_description",
 	"categories": ["Script","Login"]
 },{"id": "plussMinus",
-	"description": "Add + and - buttons to quickly change scores on your list",
+	"description": "$plussMinus_description",
 	"categories": ["Lists","Login"]
 },{"id": "navbarDroptext",
-	"description": "Allow drag-and-drop of text into navbar for search",
+	"description": "$navbarDroptext_description",
 	"categories": ["Navigation"]
 },{"id": "SFWmode",
 	"description": "$sfw_description",
@@ -258,7 +258,7 @@
 	"categories": ["Navigation"]
 },{"id": "CSSverticalNav",
 	"description": "$CSSverticalNav_description",
-	"extendedDescription": "hoh's personal preferences",
+	"extendedDescription": "$CSSverticalNav_extendedDescription",
 	"categories": ["Navigation"]
 },{"id": "browseSubmenu",
 	"description": "$browseSubmenu_description",
@@ -270,6 +270,6 @@
 	"type": "select",
 	"importance": 100,
 	"categories": ["Script"],
-	"values": ["English","Français","Português","Español","Norsk","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
+	"values": ["English","Italiano","Português","Español","Norsk","Français","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (short)"]
 }
 ]
