@@ -227,10 +227,6 @@ exportModule({
 				regex: /\.co\/notifications/,
 				elements: [
 					{
-						lookup: ".comments-header a",
-						replacement: "$forum_singleThread"
-					},
-					{
 						lookup: ".notifications-feed .filter-group div.link",
 						multiple: [
 							{
