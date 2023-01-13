@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Anilist graphql example</title>
+	</head>
+	<body>
+		<div class="wrapper" id="main" style="display: inline-block">
+			<p>Nothing here. Source code has template code to gather reviews</p>
+			<script>
+
+const url = 'https://graphql.anilist.co'; //the current location of the anilist API
+
+/*
+	query = a graphql query as a string
+	variables = an object with the variables as properties
+	callback = the function that receives the data
+*/
+let generalAPIcall = function(query,variables,callback){
+	let handleResponse = function(response){
+		try{
+		return response.json().then(function(json){
+			return response.ok ? json : Promise.reject(json);
+		});
+		}
+		catch(e){
+			console.log("oof")
+		}
+	};
+	let handleData = function(data){
+		callback(data);
+	};
+	let handleError = function(error){
+		alert("Error, check console");
+		console.error(error);
+	};
+	let options = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json",
+		},
+		body: JSON.stringify({
+			query: query,
+			variables: variables
+		})
+	};
+	fetch(url,options).then(handleResponse).then(handleData).catch(handleError);
+};
+
+let wilson = function(positiveScore,total){
+	if(total === 0){
+		return {
+			left: 0,
+			right: 0
+		}
+	}
+	// phat is the proportion of successes
+	// in a Bernoulli trial process
+	let phat = positiveScore / total;
+	// z is 1-alpha/2 percentile of a standard
+	// normal distribution for error alpha=5%
+	const z = 1.959963984540;
+	// implement the algorithm https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval
+	let a = phat + z * z / (2 * total);
+	let b = z * Math.sqrt((phat * (1 - phat) + z * z / (4 * total)) / total);
+	let c = 1 + z * z / total;
+	return {
+		left: (a - b) / c,
+		right: Math.min(1,(a + b) / c)
+	}
+};
+
+const Stats = {
+	average: function(list){
+		return list.reduce((a,b) => (a || 0) + (b || 0))/list.length
+	},
+	median: function(list){
+		let temp = [...list].sort((a,b) => a - b);
+		return (
+			temp[Math.floor((temp.length - 1)/2)]
+			+ temp[Math.ceil((temp.length - 1)/2)]
+		)/2;
+	},
+	mode: function(list){
+		return [...list].sort(
+			(b,a) => list.filter(
+				e => e === a
+			).length - list.filter(
+				e => e === b
+			).length
+		)[0];
+	}
+}
+
+let lost = [];
+
+function fuzzyDateCompare(first,second){//returns an INDEX, not to be used for sorting. That is, "-1" means they are equal.
+	if(!first.year || !second.year){
+		return -1
+	}
+	if(first.year > second.year){
+		return 0
+	}
+	else if(first.year < second.year){
+		return 1
+	}
+	if(!first.month || !second.month){
+		return -1
+	}
+	if(first.month > second.month){
+		return 0
+	}
+	else if(first.month < second.month){
+		return 1
+	}
+	if(!first.day || !second.day){
+		return -1
+	}
+	if(first.day > second.day){
+		return 0
+	}
+	else if(first.day < second.day){
+		return 1
+	}
+	return -1
+}
+
+let takenPage = new Set();
+
+let calli = function(i){
+	if(takenPage.has(i)){
+		return
+	}
+generalAPIcall(
+	`
+query ($page: Int){
+  Page (page: $page){
+    reviews{
+      id
+      rating
+      ratingAmount
+      score
+      user{
+        name
+        id
+      }
+      media{
+        id
+        title{romaji}
+      }
+    }
+  }
+}
+	`,
+	{
+		page: i
+	},
+	function(data){
+		takenPage.add(i);
+		lost.push(data);
+	}
+);
+}
+
+let listi = [];
+let top150 = [];
+
+let reviewers = new Map();
+let ratings = 0;
+let positiveRatings = 0;
+
+let final = function(){
+	lost.forEach(call => {
+		call.data.Page.reviews.forEach(review => {
+			listi.push(review)
+		})
+	})
+
+	top150 = listi.sort((a,b)=>wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left).slice(0,150);
+
+	list.forEach(rev => {
+		ratings += rev.ratingAmount;
+		positiveRatings += rev.rating;
+		if(rev.user){
+			if(rev.user.id){
+				if(!reviewers.has(rev.user.id)){
+					reviewers.set(rev.user.id,{
+						id: rev.user.id,
+						name: rev.user.name,
+						rating: 0,
+						ratingAmount: 0,
+						amount: 0
+					})
+				}
+				let person = reviewers.get(rev.user.id);
+				person.rating += rev.rating;
+				person.ratingAmount += rev.ratingAmount;
+				person.amount++;
+			}
+		}
+	});
+
+	reviewers = [...reviewers].map(
+		pair => pair[1]
+	).sort(
+		(b,a) => wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left
+	);
+
+	//console.log(JSON.stringify(bob.map(lars => [lars.id,lars.media.id,lars.media.title.romaji,lars.rating,lars.ratingAmount,lars.score,lars.user.id,lars.user.name]) )) 
+
+/*
+		reviewers.sort(function(b,a){
+			if(a.amount === b.amount){//rating as tie-breaker
+				return a.rating/a.ratingAmount - b.rating/b.ratingAmount;
+			}
+			else{
+				return a.amount - b.amount
+			}
+		});
+
+		let lowRatingRating = 69065;
+		let lowRatingAmount = 152647;
+		let lowRatingCount = 1986;
+		let highRatingRating = 349671;
+		let highRatingAmount = 460273;
+		let highRatingCount = 10059;
+		let topRatingRating = 89024;
+		let topRatingAmount = 108245;
+		let topRatingCount = 1718;
+		let distribution = new Array(101).fill(0);//0 to 100 inclusive, since 0 is a valid review score
+		listi.forEach(review => {
+			distribution[review.score]++;
+			if(review.score <= 50){
+				lowRatingRating += review.rating;
+				lowRatingAmount+= review.ratingAmount;
+				lowRatingCount++
+			}
+			else{
+				highRatingRating += review.rating;
+				highRatingAmount+= review.ratingAmount;
+				highRatingCount++;
+				if(review.score == 100){
+					topRatingRating += review.rating;
+					topRatingAmount+= review.ratingAmount;
+					topRatingCount++
+				}
+			}
+		});
+*/
+}
+
+			</script>
+		</div>
+	</body>
+</html>

@@ -16,6 +16,17 @@ if(titleAliases){
 	titleAliases.forEach(createAlias)
 }
 
+if(useScripts.mediaTranslation && (languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime || languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga)){
+	aliasFlag = true;
+	(Object.keys(languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime || {}) || []).forEach(key => {
+		createAlias(["/anime/" + key + "/",languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime[key]])
+	});
+	(Object.keys(languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga || {}) || []).forEach(key => {
+		createAlias(["/manga/" + key + "/",languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga[key]])
+	})
+}
+
+
 if(aliasFlag){
 	moreStyle.textContent += `
 a.title::before
@@ -387,4 +398,16 @@ shortRomaji.concat(
 		aliases.set(parseInt(matches[2]),alias[1])
 	}
 });
+
+if(useScripts.mediaTranslation && (languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime || languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga)){
+	(Object.keys(languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime || {}) || []).forEach(key => {
+		aliases.set(parseInt(key),languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesAnime[key])
+	});
+	(Object.keys(languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga || {}) || []).forEach(key => {
+		aliases.set(parseInt(key),languageFiles[useScripts.partialLocalisationLanguage].mediaTitlesManga[key])
+	})
+}
+if("ontouchstart" in document.documentElement){
+	document.documentElement.className += "hoh-touch-device";
+}
 //end "conditionalStyles.js"

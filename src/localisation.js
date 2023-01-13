@@ -1,17 +1,24 @@
 //begin "localisation.js"
-const languageFiles = {
+const languageFiles = {//key: language name in language ("日本語"), filename: language name in English ("Japanese.json")
 	"English": m4_include(data/languages/English.json),
+	"Français": m4_include(data/languages/French.json),
 	"Português": m4_include(data/languages/Portuguese.json),
 	"Deutsch": m4_include(data/languages/German.json),
 	"日本語": m4_include(data/languages/Japanese.json),
+	"Italiano": m4_include(data/languages/Italian.json),
 	"Türkçe": m4_include(data/languages/Turkish.json),
 	"Åarjelsaemie": m4_include(data/languages/SouthernSami.json),
 	"Norsk": m4_include(data/languages/Norwegian.json),
 	"Svenska": m4_include(data/languages/Swedish.json),
 	"English (US)": m4_include(data/languages/English_US.json),
 	"English (short)": m4_include(data/languages/English_short.json),
-	"Español": m4_include(data/languages/Spanish.json)
+	"Español": m4_include(data/languages/Spanish.json),
+	"$raw_keys": m4_include(data/languages/raw_keys.json)
 }
+Object.keys(languageFiles["English"].keys).forEach(key => {
+	languageFiles["$raw_keys"].keys[key] = key
+})
+
 function translate(key,subs,fallback){
 	if(key[0] !== "$"){
 		return key
