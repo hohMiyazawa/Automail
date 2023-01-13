@@ -1,0 +1,18 @@
+showdown:
+
+	txt = txt.replace(/([\\*_~|`])/g, '\\$1');
+	// backport: escape escape characters!
+
+	var root = window;
+
+
+purify:
+	(function (global, factory) {
+	  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	  typeof define === 'function' && define.amd ? define(factory) :
+	  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DOMPurify = factory());
+	})(window, (function () { 'use strict';
+
+
+
+Remember to remove sourcemaps!
