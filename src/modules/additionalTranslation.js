@@ -97,9 +97,12 @@ exportModule({
 						replacement: "$stats_siteStats_title"
 					},
 					{
-						lookup: ".footer [href=\"/recommendations\"]",
-						replacement: "$submenu_recommendations",
-						selectIndex: 1,
+						lookup: ".footer .links [href=\"/recommendations\"]",
+						replacement: "$submenu_recommendations"
+					},
+					{
+						lookup: ".footer .links [href=\"https://github.com/AniList/ApiV2-GraphQL-Docs\"]",
+						replacement: "$footer_api"
 					},
 					{
 						lookup: "#nav .quick-search input",
@@ -220,6 +223,40 @@ exportModule({
 					{
 						lookup: ".comments-header a",
 						replacement: "$forum_singleThread"
+					}
+				]
+			},
+			{
+				regex: /\.co\/notifications/,
+				elements: [
+					{
+						lookup: ".notifications-feed .filter-group div.link",
+						multiple: [
+							{
+								ofText: "All",
+								replacement: "$notifications_all"
+							},
+							{
+								ofText: "Airing",
+								replacement: "$notifications_airing"
+							},
+							{
+								ofText: "Activity",
+								replacement: "$notifications_activity"
+							},
+							{
+								ofText: "Forum",
+								replacement: "$notifications_forum"
+							},
+							{
+								ofText: "Follows",
+								replacement: "$notifications_follows"
+							},
+							{
+								ofText: "Media",
+								replacement: "$notifications_media"
+							}
+						]
 					}
 				]
 			},

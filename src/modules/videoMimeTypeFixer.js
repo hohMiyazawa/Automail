@@ -19,5 +19,17 @@ if(useScripts.videoMimeTypeFixer){
 		document.querySelectorAll('source[src$=".mp4"][type="video/webm"]').forEach(video => {
 			video.setAttribute("type","video/mp4")
 		})
+		document.querySelectorAll('source[src$=".avi"][type="video/webm"]').forEach(video => {
+			video.setAttribute("type","video/x-msvideo")
+		})
+		document.querySelectorAll('source[src$=".mpeg"][type="video/webm"]').forEach(video => {
+			video.setAttribute("type","video/mpeg")
+		})
+		document.querySelectorAll('source[src$=".ogg"][type="video/webm"]').forEach(video => {
+			video.setAttribute("type","video/ogv")
+		})
+		document.querySelectorAll('source[src$=".ts"][type="video/webm"]').forEach(video => {
+			video.setAttribute("type","video/mp2t")
+		})
 	},2000)
 }

@@ -261,6 +261,12 @@
 "$notifications_comments": "svar",
 "$notifications_softBlock": "Mjukblokk",
 "$notifications_hideLike": "Skjul alle 'likte […]'",
+"$notifications_all": "Alle",
+"$notifications_airing": "På lufta",
+"$notifications_activity": "Aktvitetar",
+"$notifications_forum": "Forum",
+"$notifications_follows": "Fylgjarar",
+"$notifications_media": "Media",
 "$setting_CSSgreenManga": "Grøne mangatitlar",
 "$mediaStatus_reading": "les",
 "$mediaStatus_watching": "ser",
@@ -367,6 +373,7 @@
 "$mobileFriendly_description": "Mobiljusteringar. Gjer naudsynte endringar for at skriptet skal virka greit på telefonar",
 "$ALbuttonReload_description": "Gjer at 'AL'-logoen lastar oppatt straumen på hovudsida",
 "$markdown_help_description": "Legg til formateringshjelp i nedre venstre hjørne",
+"$nonJumpScroll_description": "Hald tekst i postar stødig når du skrollar [Reina]",
 "$markdown_help_title": "Formateringshjelp",
 "$markdown_help_images_header": "Bilete",
 "$markdown_help_infixOr": "eller",
@@ -629,5 +636,20 @@
 "$editor_hideFromStatusLists": "Gøym frå standardlister",
 "$editor_private": "Privat",
 "$editor_customLists": "Eigne Lister"
+	},
+	"mediaTitlesAnime": {
+		"164": "Princesse Mononoke",
+		"199": "Chihiro og heksene",
+		"416": "Porco Rosso",
+		"512": "Kikis budservice",
+		"513": "Laputa – himmelslottet",
+		"523": "Min nabo Totoro",
+		"572": "Nausicaä – prinsessen fra Vindens dal",
+		"578": "Ildfluens grav",
+		"1029": "Dagen i går",
+		"10029": "Møte på valmueåsen"
+	},
+	"mediaTitlesManga": {
+		"31061": "Mesterdetektiven Conan"
 	}
 }

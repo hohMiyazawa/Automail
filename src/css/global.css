@@ -2180,6 +2180,29 @@ a.external-link.Official.Site[href*=".jp"]::after{
 .user .activity-feed{
 	width: 100%;
 }
+@media (pointer: coarse), (hover: none){
+	time[title], .time[title]{
+		position: relative;
+		display: inline-flex;
+		justify-content: center;
+	}
+	time[title]:hover::after, .time[title]:hover::after{
+		content: attr(title);
+		position: absolute;
+		top: 90%;
+		right: 0;
+		color: white;
+		background-color: #2b2a33;
+		border: 1px solid;
+		width: fit-content;
+		padding: 3px;
+		font-size: 1.2rem;
+		font-weight: normal;
+		white-space: pre;
+		line-height: 1;
+		z-index: 1;
+	}
+}
 
 m4_include(css/footerLinks.css)
 m4_include(css/displayBox.css)
