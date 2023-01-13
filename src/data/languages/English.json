@@ -138,6 +138,7 @@
 "$setting_MALrecs": "Add MAL recs to media",
 "$cssTooBig": "Custom CSS is over 1MB. Make it smaller, or use a link instead.",
 "$cssfavs_description": "Use 5-width favourite layout at all screen sizes",
+"$mediaTranslation_description": "Translate media titles into the script language when available",
 "$jsonTooBig": "Profile JSON is over 1MB",
 "$debug_tip": "(Hey, it would be nice if you include this file when you report bugs. Makes my life easier)",
 "$profileBackground_description": "Enable profile backgrounds",

@@ -636,5 +636,20 @@
 "$editor_hideFromStatusLists": "Gøym frå standardlister",
 "$editor_private": "Privat",
 "$editor_customLists": "Eigne Lister"
+	},
+	"mediaTitlesAnime": {
+		"164": "Princesse Mononoke",
+		"199": "Chihiro og heksene",
+		"416": "Porco Rosso",
+		"512": "Kikis budservice",
+		"513": "Laputa – himmelslottet",
+		"523": "Min nabo Totoro",
+		"572": "Nausicaä – prinsessen fra Vindens dal",
+		"578": "Ildfluens grav",
+		"1029": "Dagen i går",
+		"10029": "Møte på valmueåsen"
+	},
+	"mediaTitlesManga": {
+		"31061": "Mesterdetektiven Conan"
 	}
 }

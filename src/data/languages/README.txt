@@ -3,6 +3,7 @@ Q: How do I add a translation?
 A: You create a file named "yourlanguage.json" in this directory. Copy one of the existing translations to get the right structure. (or see "JSON field details.txt")
 To get it added to Automail I prefer pull requests (https://github.com/hohMiyazawa/Automail/), but just sending me a translation file is fine.
 
+
 Q: How do I activate my translation in the Automail code?
 
 A: I will happily do this for you, but if you want to do this yourself, you must add an entry near the top of the file in "/src/localisation.js", and a settings option near the bottom of "/src/data/legacyModuleDescriptions.json".
@@ -53,4 +54,6 @@ The order should be the following
 	2. Translations to other languages
 		- As a main rule, languages are ordered by the *completeness* of the translation, most complete first
 		- A possible measure of "completeness" is the number of keys translated.
+		- If multiple languages are complete, the complete translations should be ordered as Japanese first, then alphabetically by English name.
 	3. English variations
+	4. $raw_keys translator mode file
