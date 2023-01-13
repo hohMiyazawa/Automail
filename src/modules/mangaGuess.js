@@ -1,7 +1,6 @@
 function mangaGuess(cleanAnime,id){
 	let sidebarData;
 	let adder = function(mutations,observer){
-		console.log("mangaloop");
 		let sidebarChecker = function(){
 			sidebarData = document.querySelector(".sidebar .data");
 			if(!sidebarData){
