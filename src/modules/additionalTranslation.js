@@ -224,6 +224,44 @@ exportModule({
 				]
 			},
 			{
+				regex: /\.co\/notifications/,
+				elements: [
+					{
+						lookup: ".comments-header a",
+						replacement: "$forum_singleThread"
+					},
+					{
+						lookup: ".notifications-feed .filter-group div.link",
+						multiple: [
+							{
+								ofText: "All",
+								replacement: "$notifications_all"
+							},
+							{
+								ofText: "Airing",
+								replacement: "$notifications_airing"
+							},
+							{
+								ofText: "Activity",
+								replacement: "$notifications_activity"
+							},
+							{
+								ofText: "Forum",
+								replacement: "$notifications_forum"
+							},
+							{
+								ofText: "Follows",
+								replacement: "$notifications_follows"
+							},
+							{
+								ofText: "Media",
+								replacement: "$notifications_media"
+							}
+						]
+					}
+				]
+			},
+			{
 				regex: /\.co\/(manga|anime)\//,
 				elements: [
 					{
