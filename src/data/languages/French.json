@@ -738,7 +738,32 @@
 "$editor_customLists": "Listes personnalisées",
 "$button_delete": "Supprimer",
 "$mediaStatus_planningAnime": "À visionner",
-"$mediaStatus_planningManga": "À lire"
+"$mediaStatus_planningManga": "À lire",
+
+"$mediaTranslation_description": "Traduire, si possible, les titres dans la langue du script",
+"$notifications_all": "Tous",
+"$notifications_airing": "En diffusion",
+"$notifications_activity": "Activité",
+"$notifications_forum": "Forum",
+"$notifications_follows": "Abonnements",
+"$notifications_media": "Médias",
+"$footer_api": "API"
+	},
+
+	"mediaTitlesAnime": {
+		"164": "Princesse Mononoké",
+		"199": "Le Voyage de Chihiro",
+		"416": "Porco Rosso",
+		"512": "Kiki la Petite Sorcière",
+		"513": "Le Château dans le Ciel",
+		"523": "Mon Voisin Totoro",
+		"572": "Nausicaä de la Vallée du Vent",
+		"578": "Le Tombeau des Lucioles",
+		"1029": "Souvenirs Goutte à Goutte",
+		"10029": "La Colline aux Coquelicots"
+	},
+	"mediaTitlesManga": {
+		"31061": "Détective Conan"
 	}
 }
 
