@@ -101,7 +101,7 @@ exportModule({
 						replacement: "$submenu_recommendations"
 					},
 					{
-						lookup: ".footer .links [href=\"https://github.com/AniList/ApiV2-GraphQL-Docs"\"]",
+						lookup: ".footer .links [href=\"https://github.com/AniList/ApiV2-GraphQL-Docs\"]",
 						replacement: "$footer_api"
 					},
 					{

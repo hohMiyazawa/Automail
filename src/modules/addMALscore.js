@@ -21,6 +21,10 @@ async function addMALscore(type,id){
 		}
 	}
 	let possibleReleaseStatus = Array.from(document.querySelectorAll(".data-set .type"));
+	if(useScripts.MALscore === false && useScripts.MALserial === true && useScripts.MALrecs === false && type === "anime"){
+		//there can't be magazine data on anime
+		return
+	}
 	const MALlocation = possibleReleaseStatus.find(element => element.innerText === "Mean Score");
 	if(MALlocation){
 		MALscore = create("div","data-set");
