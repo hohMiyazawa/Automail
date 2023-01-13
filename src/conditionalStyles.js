@@ -387,4 +387,8 @@ shortRomaji.concat(
 		aliases.set(parseInt(matches[2]),alias[1])
 	}
 });
+
+if("ontouchstart" in document.documentElement){
+	document.documentElement.className += "hoh-touch-device";
+}
 //end "conditionalStyles.js"
