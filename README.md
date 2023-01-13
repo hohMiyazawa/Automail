@@ -8,7 +8,7 @@ Automail primarily deals with:
 - Statistics
 - Styling
 - Navigation
-- UI translation (Japanese, Spanish, Portuguese, German, Turkish, Norwegian)
+- UI translation (Japanese, Spanish, Portuguese, German, Turkish, Norwegian, Southern Sami, Italian, French)
 
 ## Available releases
 
