@@ -97,9 +97,12 @@ exportModule({
 						replacement: "$stats_siteStats_title"
 					},
 					{
-						lookup: ".footer [href=\"/recommendations\"]",
-						replacement: "$submenu_recommendations",
-						selectIndex: 1,
+						lookup: ".footer .links [href=\"/recommendations\"]",
+						replacement: "$submenu_recommendations"
+					},
+					{
+						lookup: ".footer .links [href=\"https://github.com/AniList/ApiV2-GraphQL-Docs"\"]",
+						replacement: "$footer_api"
 					},
 					{
 						lookup: "#nav .quick-search input",
