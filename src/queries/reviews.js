@@ -35,7 +35,6 @@ let cache = {
 
 	let render = function(){
 		list.sort((b,a) => wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left);
-		console.log(JSON.stringify(list));
 		create("h3",false,"100 best reviews on Anilist",miscResults);
 		let datalist1 = create("div",false,false,miscResults);
 		list.slice(0,100).forEach((review,index) => {
