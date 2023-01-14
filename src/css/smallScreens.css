@@ -142,6 +142,28 @@
 		padding-left: 0px;
 		padding-top: 15px;
 	}
+	.hohAdvancedDollar{
+		margin-left: 20px;
+	}
+	.hohAdvancedDollar:hover:before{
+		right: 5%;
+	}
+	.title .notes{
+		margin-left: 20px;
+	}
+	.repeat[label]:hover:after{
+		background: rgba(var(--color-overlay),.9);
+		color: rgb(var(--color-text-bright));
+		content: attr(label);
+		position: absolute;
+		top: 35%;
+		padding: 5px;
+		border-radius: 4px;
+		font-weight: normal;
+		font-size: 1.3rem;
+		white-space: pre;
+		z-index: 1000;
+	}
 }
 @media(max-width: 500px){
 	.footer [href="https://anilist.co"],
