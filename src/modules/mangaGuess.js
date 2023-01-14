@@ -100,11 +100,21 @@ query($id: Int){
 			if(guesses.length){
 				let bestGuess = guesses[0];
 				if(guesses.length > 2){
+					if(guesses.filter(val => val < 7000).length){
+						guesses = guesses.filter(val => val < 7000)
+					}
 					let diff = guesses[0] - guesses[1];
 					let inverseDiff = 1 + Math.ceil(25/(diff+1));
 					if(guesses.length >= inverseDiff){
-						if(guesses[1] === guesses[inverseDiff] || guesses[0] - guesses[1] > 500){
-							bestGuess = guesses[1]
+						if(
+							guesses[1] === guesses[inverseDiff]
+							|| guesses[0] - guesses[1] > 500
+							|| (guesses[0] - guesses[1] > 100 && guesses[1] >= guesses[inverseDiff] - 1)
+						){
+							bestGuess = guesses[1];
+							if(guesses.length > 15 && guesses[1] - guesses[2] > 50 && guesses[2] = guesses[guesses.length - 1]){
+								bestGuess = guesses[2]
+							}
 						}
 					}
 				}
