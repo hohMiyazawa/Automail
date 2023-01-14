@@ -128,6 +128,42 @@
 	.media p.description:empty{
 		display: none;
 	}
+	.hohDisplayBox{
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		min-width: 50px!important;
+		width: 100%;
+		min-height: 100px!important;
+		height: 80%;
+	}
+	.hohDisplayBox .scrollableContent{
+		padding: 10px;
+		padding-left: 0px;
+		padding-top: 15px;
+	}
+	.hohAdvancedDollar{
+		margin-left: 20px;
+	}
+	.hohAdvancedDollar:hover:before{
+		right: 5%;
+	}
+	.title .notes{
+		margin-left: 20px;
+	}
+	.repeat[label]:hover:after{
+		background: rgba(var(--color-overlay),.9);
+		color: rgb(var(--color-text-bright));
+		content: attr(label);
+		position: absolute;
+		top: 35%;
+		padding: 5px;
+		border-radius: 4px;
+		font-weight: normal;
+		font-size: 1.3rem;
+		white-space: pre;
+		z-index: 1000;
+	}
 }
 @media(max-width: 500px){
 	.footer [href="https://anilist.co"],
@@ -142,5 +178,19 @@
 	}
 	.hohColourPicker{
 		display: none;
+	}
+}
+@media(max-height: 500px){
+	.hohDisplayBox{
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		min-height: 100px!important;
+		height: 90%;
+	}
+	.hohDisplayBox .scrollableContent{
+		padding: 10px;
+		padding-left: 0px;
+		padding-top: 15px;
 	}
 }
