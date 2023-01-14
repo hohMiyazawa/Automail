@@ -74,6 +74,7 @@
 "$dubMarker_notice": "Har {0} tale",
 "$button_submit": "Send inn",
 "$button_search": "Søk",
+"$missing_N/A_data": "-",
 "$button_next": "Neste →",
 "$button_previous": "← Forrige",
 "$button_refresh": "Last på nytt",
@@ -126,6 +127,11 @@
 "$jsonTooBig": "Profil-JSON er over 1MB",
 "$settings_errorInvalidJSON": "Ugyldig profil-JSON",
 "$noScrollPosts_description": "Ikkje kort ned tekstpostar, uansett kor lange dei er",
+"$customCSS_description": "Skru på profil-CSS og mogleheit for å festa postar",
+"$profileBackground_description": "Skru på profilbakgrunnar",
+"$footer_api": "Programmeringsgrensesnitt",
+"$cssfavs_description": "Gjer favorittar 5 kolonnar brei uansett skjermstorleik",
+"$mediaTranslation_description": "Bruk norske anime- og mangatitlar når dei finnst",
 "$notImplemented": "Ikkje implementert",
 "$socialTabFeed_noActivities": "Ingen treff",
 "$rewatch_suffix_1": "[sett oppatt]",
@@ -635,7 +641,9 @@
 "$editor_animeRepeat": "Sett Oppatt",
 "$editor_hideFromStatusLists": "Gøym frå standardlister",
 "$editor_private": "Privat",
-"$editor_customLists": "Eigne Lister"
+"$editor_customLists": "Eigne Lister",
+"$editor_format": "Format",
+"$editor_country": "Country",
 	},
 	"mediaTitlesAnime": {
 "164": "Prinsesse Mononoke",
@@ -664,6 +672,10 @@
 "3841": "Chis lune hjem",
 "30658": "Blade den udødelige",
 "31061": "Mesterdetektiven Conan",
-"85486": "Mitt helteakademia"
+"85486": "Mitt helteakademia",
+"30928": "Pokémon-eventyrene",
+"30015": "Negima",
+"33281": "Gen - Gutten fra Hiroshima",
+"40179": "Min fars dagbok"
 	}
 }

@@ -197,7 +197,7 @@ exportModule({
 				infoButton.title = translate("$settings_moreInfo_tooltip");
 				infoButton.appendChild(svgAssets2.info.cloneNode(true))
 				infoButton.onclick = function(){
-					createDisplayBox(false,"Module info").innerText = translate(def.extendedDescription)
+					createDisplayBox(false,translate("$extendedDescription_windowTitle")).innerText = translate(def.extendedDescription)
 				}
 			}
 		});
@@ -309,8 +309,7 @@ Block stuff in the home feed.
 
 Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
 Example2: To block a specific piece of media, fill out that field and leave the other two blank.
-
-Changes take effect on reload.`;
+`;
 		let blockInput = create("div","#blockInput",false,blockSettings);
 		create("span",false,"User: ",blockInput);
 		let blockUserInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
@@ -347,7 +346,7 @@ Changes take effect on reload.`;
 				blockMediaInput.value = pastedData
 			}
 		});
-		let blockAddInput = create("button",["button","hohButton"],"Add",blockInput);
+		let blockAddInput = create("button",["button","hohButton"],translate("$button_add"),blockInput);
 		let blockVisual = create("div",false,false,blockSettings);
 		let drawBlockList = function(){
 			removeChildren(blockVisual)

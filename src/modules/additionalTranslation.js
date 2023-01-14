@@ -116,7 +116,7 @@ exportModule({
 				]
 			},
 			{
-				regex: /\/user\/([^/]+)\/?$/,
+				regex: /\/user\/([^/]+)\/?/,
 				elements: [
 					{
 						lookup: ".activity-edit .el-textarea__inner",
@@ -322,6 +322,21 @@ exportModule({
 						lookup: ".filters-wrap [placeholder='Genres']",
 						textType: "placeholder",
 						replacement: "$stats_genre"
+					},
+					{
+						lookup: ".filters-wrap [placeholder='Format']",
+						textType: "placeholder",
+						replacement: "$editor_format"
+					},
+					{
+						lookup: ".filters-wrap [placeholder='Status']",
+						textType: "placeholder",
+						replacement: "$editor_status"
+					},
+					{
+						lookup: ".filters-wrap [placeholder='Country']",
+						textType: "placeholder",
+						replacement: "$editor_country"
 					},
 					{
 						lookup: ".filters .filter-group .group-header",

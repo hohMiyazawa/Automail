@@ -653,7 +653,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 	height: 20px;
 	display: block;
 	/*update stroke-dasharray every few years*/
-	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="20" viewBox="0 0 200 20"><g fill="rgb(61,180,242)" stroke="rgb(61,180,242)"><line stroke-width="27" x1="0" y1="20" x2="200" y2="20" stroke-dasharray="1 26.6"/><text font-size="8" x="141" y="19">00</text><text font-size="6" x="86" y="19">LAMU</text><text font-size="6" x="31" y="19">ATOM</text></g></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="20" viewBox="0 0 200 20"><g fill="rgb(61,180,242)" stroke="rgb(61,180,242)"><line stroke-width="27" x1="0" y1="20" x2="200" y2="20" stroke-dasharray="1 25.8"/><text font-size="8" x="138" y="19">00</text><text font-size="6" x="83" y="19">LAMU</text><text font-size="6" x="30" y="19">ATOM</text></g></svg>');
 	background-size: cover;
 }
 .user .el-slider[aria-valuemin="1950"] .el-slider__runway::after{

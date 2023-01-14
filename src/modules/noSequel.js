@@ -3,10 +3,8 @@ const sequelList_manga = new Set(m4_include(data/sequels_manga.json))
 
 exportModule({
 	id: "noSequel",
-	description: "Add a 'hide sequels' filter option on the browse page",
-	extendedDescription: `
-Attemps to remove sequels and spinoffs from the results when active. This is a fuzzy problem, so the script will not always get it right, producing both false positives and false negatives.
-	`,
+	description: "noSequel_description",
+	extendedDescription: "noSequel_extendedDescription",
 	isDefault: true,
 	importance: 1,
 	categories: ["Browse","Newly Added"],

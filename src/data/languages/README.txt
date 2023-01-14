@@ -46,6 +46,11 @@ Q: <x> is not a real language! It's a dialect/version of <y>!
 A: That's not a problem. It's up to the individual translators if making the translation is worth their time.
 
 
+Q: Should I translate keys that are exactly the same in my language (Like "Format" in English is "Format" in my language)
+
+A: Yes.
+
+
 Q: In what order are languages ordered?
 
 A: The order is determined by the list at the bottom of /src/data/legacyModuleDescriptions.json
