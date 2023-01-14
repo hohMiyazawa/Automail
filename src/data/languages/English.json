@@ -561,6 +561,8 @@
 "$timeline_search_description": "Looking for the activities of someone else?",
 "$noScrollPosts_description": "Display all status posts in full regardless of their length",
 "$ALbuttonReload_description": "Make the 'AL' button reload the feeds on the homepage",
+"$altBanner_description": "Alternative banner style on media pages for wider screen resolutions",
+"$altBanner_extendedDescription": "Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels\nInstead, it always displays the banner in full with sides filled in by the blurred original banner",
 "$heading_activityHistory": "Activity History",
 "$heading_genreOverview": "Genre Overview",
 "$amount_label": "Entries",
