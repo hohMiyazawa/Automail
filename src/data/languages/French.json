@@ -744,7 +744,7 @@
 "$altBanner_description": "Bannière alternative sur les pages des médias pour les récolutions plus larges",
 "$noSequel_description": "Ajoute un bouton permettant de masquer les suites dans la page de navigation",
 "$noSequel_extendedDescription": "Tente d'enlever les suites et les séries dérivées des résultats. Résultats non garantis — il peut y avoir de faux positifs et faux négatifs.",
-"$altBanner_extendedDescription": "Empêche la bnanière sur les pages des médias de s'étirer et se couper sur les résolutions dépassant une largeur de 1920 pixels.\nÀ la place, la bannière est affichée en entier, avec une version floutée en arrière-plan pour combler les vides.",
+"$altBanner_extendedDescription": "Empêche la bannière sur les pages des médias de s'étirer et de se couper sur les résolutions dépassant une largeur de 1920 pixels.\nÀ la place, la bannière est entièrement affichée, avec une version floutée en arrière-plan pour combler les vides.",
 "$editor_format": "Format",
 "$editor_country": "Pays",
 
