@@ -1,10 +1,7 @@
 exportModule({
 	id: "altBanner",
-	description: "Alternative banner style on media pages for wider screen resolutions",
-	extendedDescription: `
-Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels
-Instead, it always displays the banner in full with sides filled in by the blurred original banner
-	`,
+	description: "$altBanner_description",
+	extendedDescription: "$altBanner_extendedDescription",
 	isDefault: false,
 	importance: 0,
 	categories: ["Media","Newly Added"],
@@ -13,26 +10,36 @@ Instead, it always displays the banner in full with sides filled in by the blurr
 		return /^https:\/\/anilist\.co\/(anime|manga)\/.*/.test(url)
 	},
 	code: function(){
-		let banner;
 		let adder = function(mutations,observer){
-			banner = document.querySelector(".media .header-wrap .banner");
-			if(!banner){
+			let pNode = document.querySelector(".media .header-wrap");
+			if(!pNode){
+				setTimeout(adder,200);
 				return
-			};
+			}
+			if(pNode.childNodes[0] && pNode.childNodes[0].nodeType === 8){
+				return
+			}
+			let banner = pNode.querySelector(".banner");
+			if(!banner && !observer){
+				let mutationConfig = {
+					attributes: false,
+					childList: true,
+					subtree: false
+				}
+				let observer = new MutationObserver(adder);
+				observer.observe(pNode,mutationConfig);
+				return
+			}
+			else if(!banner){
+				return
+			}
 			observer && observer.disconnect();
 			banner.classList.add("blur-filter");
 			let bannerFull = document.querySelector(".altBanner") || create("img","altBanner",null,banner);
 			bannerFull.height = "400";
 			bannerFull.src = banner.style.backgroundImage.replace("url(","").replace(")","").replace('"',"").replace('"',"")
-		};
-		adder();
-		let mutationConfig = {
-			attributes: false,
-			childList: true,
-			subtree: true
-		};
-		let observer = new MutationObserver(adder);
-		!banner && observer.observe(document.body,mutationConfig)
+		}
+		adder()
 	},
 	css: `
 	.media .header-wrap .banner{
