@@ -411,7 +411,7 @@
 "$forumHeading_recentlyActive": "最近アクティブなスレッド",
 "$forumHeading_releaseDiscussion": "リリースに関するディスカッションスレッド",
 "$hideOtherThreads_description": "ホームページに追加された低品質なフォーラムスレッドを非表示にする",
-"$hideOtherThreads_extendedDescription": "読み応えがない大量のスレッドをキュレーションしたリスト。\nスレッドの追加を頼む: https://github.com/hohMiyazawa/Automail/issues\n\nhttps://anilist.co/forum/thread/15346\nhttps://anilist.co/forum/thread/2340/\nhttps://anilist.co/forum/thread/1\n\"どこで読める・見える・見つけられる"",
+"$hideOtherThreads_extendedDescription": "読み応えがない大量のスレッドをキュレーションしたリスト。\nスレッドの追加を頼む: https://github.com/hohMiyazawa/Automail/issues\n\nhttps://anilist.co/forum/thread/15346\nhttps://anilist.co/forum/thread/2340/\nhttps://anilist.co/forum/thread/1\n\"どこで読める・見える・見つけられる",
 "$automailAPI_description": "他のスクリプトからこのスクリプトを制御するためのAPIを有効にする。 [何をやっているかわからない場合は、これを有効にしないでください。]",
 "$progressBar_description": "リストのプレビューにプログレスバーを追加する",
 "$embedHentai_description": "年齢制限のあるコンテンツへのリンク用カードを作成する",
@@ -509,7 +509,6 @@
 "$menu_forum": "フォーラム",
 "$generic_anime": "アニメ",
 "$generic_manga": "漫画",
-
 "$role_Animation Director": "アニメーション監督",
 "$role_Director": "監督",
 "$role_Assistant Director": "助監督",
@@ -529,8 +528,7 @@
 "$role_Theme Song Performance (ED)": "テーマ曲演奏（ED）",
 "$role_Character Design": "キャラクターデザイン",
 "$role_Sound Director": "音響監督",
-"$role_Chief Animation Director": "総作画監督"
-		
+"$role_Chief Animation Director": "総作画監督",
 "$editor_status": "ステータス",
 "$editor_format": "フォーマット",
 "$editor_statusPlaceholder": "ステータス",

@@ -112,7 +112,7 @@ query($id: Int){
 							|| (guesses[0] - guesses[1] > 100 && guesses[1] >= guesses[inverseDiff] - 1)
 						){
 							bestGuess = guesses[1];
-							if(guesses.length > 15 && guesses[1] - guesses[2] > 50 && guesses[2] = guesses[guesses.length - 1]){
+							if(guesses.length > 15 && guesses[1] - guesses[2] > 50 && guesses[2] === guesses[guesses.length - 1]){
 								bestGuess = guesses[2]
 							}
 						}
