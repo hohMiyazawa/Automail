@@ -46,17 +46,23 @@ exportModule({
 					return
 				}
 				Array.from(document.querySelectorAll(".media-card")).forEach(hit => {
-					let link = hit.querySelector(".cover");
-					if(link){
-						let id = (link.href || "").match(/(anime|manga)\/(\d+)\//);
-						if(id && id[2]){
-							id = parseInt(id[2]);
-							if((sequelList.has(id) || sequelList_manga.has(id) || (link.href || "").match(/2nd|season-2|season-3/i)) && input.checked){
-								hit.classList.add("hohHiddenSequel")
-							}
-							else{
-								hit.classList.remove("hohHiddenSequel")
-							}
+					const cover = hit.querySelector(".cover");
+					if(!cover) return
+					let link = "";
+					if(cover.href) link = cover.href;
+					else{
+						let img = cover.querySelector(".image-link");
+						if(img && img.href) link = img.href;
+						else return
+					}
+					let id = link.match(/(anime|manga)\/(\d+)\//);
+					if(id && id[2]){
+						id = parseInt(id[2]);
+						if((sequelList.has(id) || sequelList_manga.has(id) || link.match(/2nd|season-2|season-3/i)) && input.checked){
+							hit.classList.add("hohHiddenSequel")
+						}
+						else{
+							hit.classList.remove("hohHiddenSequel")
 						}
 					}
 				})
