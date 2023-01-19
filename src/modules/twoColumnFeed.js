@@ -44,5 +44,29 @@ if(useScripts.twoColumnFeed && !useScripts.CSSverticalNav){
 		margin-right: -25px;
 	}
 }
+@media(max-width: 1040px){
+	.home .activity-anime_list .details,.home .activity-manga_list .details{
+		padding-right: 15px;
+	}
+}
+@media(max-width: 760px){
+	.home .activity-anime_list .details,.home .activity-manga_list .details{
+		padding-top: 35px;
+	}
+}
+@media(max-width: 500px){
+	.home .activity-anime_list .cover,.home .activity-manga_list .cover{
+		padding-top: 35px;
+		max-height: 120px;
+	}
+	.home .activity-entry > .wrap > .actions{
+		width: calc(100% - 25px);
+		bottom: 7px;
+		display: flex;
+	}
+	.home .activity-feed{
+		grid-column-gap: 10px;
+	}
+}
 `
 }

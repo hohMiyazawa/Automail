@@ -25,6 +25,29 @@
 	.status > .name{
 		padding: 5px;
 	}
+	.home .activity-anime_list .details,
+	.home .activity-manga_list .details,
+	.user .activity-anime_list .details,
+	.uer .activity-manga_list .details{
+		margin-bottom: 20px;
+	}
+	.home .activity-entry > .wrap > .actions,
+	.user .activity-entry > .wrap > .actions{
+		width: calc(100% - 150px);
+		bottom: 7px;
+		display: flex;
+	}
+	.home .activity-entry.activity-text > .wrap > .actions,
+	.user .activity-entry.activity-text > .wrap > .actions{
+		width: calc(100% - 150px);
+		bottom: 7px;
+		display: flex;
+	}
+	.home .activity-entry > .wrap > .actions .action,
+	.user .activity-entry > .wrap > .actions .action{
+		flex: 50%;
+		text-align: center;
+	}
 }
 @media(max-width: 760px){
 	#hohMALscore{
