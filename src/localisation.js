@@ -11,6 +11,7 @@ const languageFiles = {//key: language name in language ("日本語"), filename:
 	"Norsk": m4_include(data/languages/Norwegian.json),
 	"Svenska": m4_include(data/languages/Swedish.json),
 	"English (US)": m4_include(data/languages/English_US.json),
+	"English (CA)": m4_include(data/languages/English_CA.json),
 	"English (short)": m4_include(data/languages/English_short.json),
 	"Español": m4_include(data/languages/Spanish.json),
 	"$raw_keys": m4_include(data/languages/raw_keys.json)

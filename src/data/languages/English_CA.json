@@ -1,0 +1,19 @@
+{
+	"info": {
+		"language": "English (CA)",
+		"language_english": "English (CA)",
+		"variation_of": "English",
+		"locale": "en-CA",
+		"fallback": ["English"],
+		"maintainer": "Zarin",
+		"maintainer_link": "https://github.com/kazzarin",
+		"discussion_link": "",
+		"notes": "There's in general no need to translate all the keys, since the default fallback is English."
+	},
+	"keys": {
+"$MAL_serialization": "Serialization",
+"$compare_normalizeRatings": "Normalize ratings:",
+"$setting_MALserial": "Add MAL serialization info to manga",
+"$forumCategory_14": "List Customization"
+	}
+}

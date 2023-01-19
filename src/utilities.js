@@ -194,8 +194,8 @@ function nativeTimeElement(timestamp){//time in seconds
 	let dateObj = new Date(timestamp*1000);
 	let elem = create("time","hohTimeGeneric");
 	elem.setAttribute("datetime",dateObj);
-	let locale = languageFiles[useScripts.partialLocalisationLanguage].info.locale || "en-UK";
-	elem.title = dateObj.toLocaleDateString(locale,{weekday: undefined, year: "numeric", month: "numeric", day: "numeric"}) + ", " + dateObj.toLocaleTimeString(locale);
+	let locale = languageFiles[useScripts.partialLocalisationLanguage].info.locale || undefined;
+	elem.title = dateObj.toLocaleString(locale);
 	let calculateTime = function(){
 		let now = new Date();
 		let diff = Math.round(now.valueOf()/1000) - Math.round(dateObj.valueOf()/1000);
