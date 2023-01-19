@@ -21,7 +21,7 @@ exportModule({
 			if(!place){
 				setTimeout(optionInserter,500);
 				return
-			};
+			}
 			place.style.position = "relative";
 			if(document.querySelector(".hohNoSequelSetting")){
 				return
