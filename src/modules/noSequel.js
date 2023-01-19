@@ -4,7 +4,7 @@ const sequelList_manga = new Set(m4_include(data/sequels_manga.json))
 exportModule({
 	id: "$noSequel",
 	description: "$noSequel_description",
-	extendedDescription: "noSequel_extendedDescription",
+	extendedDescription: "$noSequel_extendedDescription",
 	isDefault: true,
 	importance: 1,
 	categories: ["Browse","Newly Added"],
@@ -21,7 +21,7 @@ exportModule({
 			if(!place){
 				setTimeout(optionInserter,500);
 				return
-			};
+			}
 			place.style.position = "relative";
 			if(document.querySelector(".hohNoSequelSetting")){
 				return
@@ -46,17 +46,23 @@ exportModule({
 					return
 				}
 				Array.from(document.querySelectorAll(".media-card")).forEach(hit => {
-					let link = hit.querySelector(".cover");
-					if(link){
-						let id = (link.href || "").match(/(anime|manga)\/(\d+)\//);
-						if(id && id[2]){
-							id = parseInt(id[2]);
-							if((sequelList.has(id) || sequelList_manga.has(id) || (link.href || "").match(/2nd|season-2|season-3/i)) && input.checked){
-								hit.classList.add("hohHiddenSequel")
-							}
-							else{
-								hit.classList.remove("hohHiddenSequel")
-							}
+					const cover = hit.querySelector(".cover");
+					if(!cover) return
+					let link = "";
+					if(cover.href) link = cover.href;
+					else{
+						let img = cover.querySelector(".image-link");
+						if(img && img.href) link = img.href;
+						else return
+					}
+					let id = link.match(/(anime|manga)\/(\d+)\//);
+					if(id && id[2]){
+						id = parseInt(id[2]);
+						if((sequelList.has(id) || sequelList_manga.has(id) || link.match(/2nd|season-2|season-3/i)) && input.checked){
+							hit.classList.add("hohHiddenSequel")
+						}
+						else{
+							hit.classList.remove("hohHiddenSequel")
 						}
 					}
 				})
