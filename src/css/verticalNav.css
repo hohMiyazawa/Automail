@@ -512,7 +512,6 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 }
 .status{
 	display: inline-block!important;
-	margin-right: 75px;
 }
 .avatar{
 	display: block!important;
