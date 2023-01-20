@@ -10,7 +10,17 @@
 	let idOption = create("option",false,"Date Added",sortSelect);
 	popOption.value = "POPULARITY_DESC";
 	idOption.value = "ID_DESC";
-	createCheckbox(miscOptions,"restrictToList");
+	let listRestrict = createCheckbox(miscOptions,"restrictToList");
+	listRestrict.onchange = function(){
+		if(this.checked){
+			sortSelect.setAttribute("disabled", "")
+			sortSelect.style.opacity = 0.5;
+		}
+		else{
+			sortSelect.removeAttribute("disabled")
+			sortSelect.style.opacity = 1;
+		}
+	}
 	create("span",false,"Restrict to personal list",miscOptions);
 	create("h3",false,"Config",miscOptions);
 	let conf = function(description,id,defaultValue,titleText){
