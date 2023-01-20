@@ -363,12 +363,14 @@ query($type: MediaType,$page: Int){
 }`;
 	}
 	miscResults.innerText = "";
+	let throttle;
 	let flag = true;
 	let page = 1;
 	let stopButton = create("button",["button","hohButton"],"Stop",miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
+		clearTimeout(throttle)
 		page = 1;
 	};
 	const checkData = async function(){
@@ -400,7 +402,7 @@ query($type: MediaType,$page: Int){
 		});
 		if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
 			page = data.pageInfo.currentPage + 1;
-			return setTimeout(function(){checkData()},(Math.floor(Math.random()*3)+1)*1000);
+			return throttle = setTimeout(function(){checkData()},(Math.floor(Math.random()*3)+1)*1000);
 		}
 	}
 	checkData()
