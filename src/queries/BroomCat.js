@@ -366,12 +366,14 @@ query($type: MediaType,$page: Int){
 	let throttle;
 	let flag = true;
 	let page = 1;
-	let stopButton = create("button",["button","hohButton"],"Stop",miscResults);
+	let stopButton = create("button",["button","danger","hohButton"],"Stop",miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
 		clearTimeout(throttle)
 		page = 1;
+		this.textContent = "Stopped";
+		this.setAttribute("disabled", "")
 	};
 	const checkData = async function(){
 		const res = await anilistAPI(query, {
