@@ -7,7 +7,8 @@ function mangaGuess(cleanAnime,id){
 		}
 		sidebarData = document.querySelector(".sidebar .data");
 		if(!sidebarData){
-			setTimeout(adder,200)
+			setTimeout(adder,200);
+			return
 		}
 		let possibleMangaGuess = sidebarData.querySelector(".data-set .value[data-media-id]");
 		if(possibleMangaGuess && (
@@ -19,7 +20,7 @@ function mangaGuess(cleanAnime,id){
 		if(cleanAnime){
 			return
 		}
-		let status = Array.from(sidebarData.querySelectorAll(".data-set .type")).find(element => element.innerText === "Status");
+		let status = Array.from(sidebarData.querySelectorAll(".data-set .type")).find(element => element.innerText === "Status" || element.innerText === translate("$dataSet_status"));
 		if(!status || status.parentNode.childElementCount != 2){
 			return true
 		}
@@ -149,5 +150,8 @@ query($id: Int){
 		subtree: true
 	};
 	let observer = new MutationObserver(adder);
-	adder() && observer.observe(sidebarData,mutationConfig)
+	adder();
+	if(sidebarData){
+		observer.observe(sidebarData,mutationConfig)
+	}
 }

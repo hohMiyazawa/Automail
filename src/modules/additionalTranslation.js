@@ -21,7 +21,7 @@ exportModule({
 					Array.from(place).forEach(elem => {
 						element.multiple.forEach(possible => {
 							if(elem.childNodes[0].textContent.trim() === possible.ofText){
-								elem.childNodes[0].textContent = translate(possible.replacement)
+								elem.childNodes[0].textContent = translate(possible.replacement,undefined,possible.ofText)
 								possible.translated = true
 							}
 						})
@@ -349,6 +349,91 @@ exportModule({
 						lookup: ".media .header .actions .list .add",
 						ofText: "Completed",
 						replacement: capitalize(translate("$mediaStatus_completedWatching"))
+					},
+					{
+						lookup: ".sidebar .data-set .type",
+						multiple: [
+							{
+								ofText: "Format",
+								replacement: "$dataSet_format"
+							},
+							{
+								ofText: "Episodes",
+								replacement: "$dataSet_episodes"
+							},
+							{
+								ofText: "Episode\n\t\t\tDuration",
+								replacement: "$dataSet_episodeDuration"
+							},
+							{
+								ofText: "Status",
+								replacement: "$dataSet_status"
+							},
+							{
+								ofText: "Start Date",
+								replacement: "$dataSet_startDate"
+							},
+							{
+								ofText: "End Date",
+								replacement: "$dataSet_endDate"
+							},
+							{
+								ofText: "Season",
+								replacement: "$dataSet_season"
+							},
+							{
+								ofText: "Average Score",
+								replacement: "$dataSet_averageScore"
+							},
+							{
+								ofText: "Mean Score",
+								replacement: "$dataSet_meanScore"
+							},
+							{
+								ofText: "Popularity",
+								replacement: "$dataSet_popularity"
+							},
+							{
+								ofText: "Favorites",
+								replacement: "$dataSet_favorites"
+							},
+							{
+								ofText: "Studios",
+								replacement: "$dataSet_studios"
+							},
+							{
+								ofText: "Producers",
+								replacement: "$dataSet_producers"
+							},
+							{
+								ofText: "Source",
+								replacement: "$dataSet_source"
+							},
+							{
+								ofText: "Hashtag",
+								replacement: "$dataSet_hashtag"
+							},
+							{
+								ofText: "Genres",
+								replacement: "$dataSet_genres"
+							},
+							{
+								ofText: "Romaji",
+								replacement: "$dataSet_romaji"
+							},
+							{
+								ofText: "English",
+								replacement: "$dataSet_english"
+							},
+							{
+								ofText: "Native",
+								replacement: "$dataSet_native"
+							},
+							{
+								ofText: "Synonyms",
+								replacement: "$dataSet_synonyms"
+							}
+						]
 					}
 				]
 			},
@@ -364,6 +449,79 @@ exportModule({
 						lookup: ".media .header .actions .list .add",
 						ofText: "Completed",
 						replacement: capitalize(translate("$mediaStatus_completedReading"))
+					},
+					{
+						lookup: ".sidebar .data-set .type",
+						multiple: [
+							{
+								ofText: "Format",
+								replacement: "$dataSet_format"
+							},
+							{
+								ofText: "Chapters",
+								replacement: "$dataSet_chapters"
+							},
+							{
+								ofText: "Volumes",
+								replacement: "$dataSet_volumes"
+							},
+							{
+								ofText: "Status",
+								replacement: "$dataSet_status"
+							},
+							{
+								ofText: "Start Date",
+								replacement: "$dataSet_startDate"
+							},
+							{
+								ofText: "End Date",
+								replacement: "$dataSet_endDate"
+							},
+							{
+								ofText: "Average Score",
+								replacement: "$dataSet_averageScore"
+							},
+							{
+								ofText: "Mean Score",
+								replacement: "$dataSet_meanScore"
+							},
+							{
+								ofText: "Popularity",
+								replacement: "$dataSet_popularity"
+							},
+							{
+								ofText: "Favorites",
+								replacement: "$dataSet_favorites"
+							},
+							{
+								ofText: "Source",
+								replacement: "$dataSet_source"
+							},
+							{
+								ofText: "Hashtag",
+								replacement: "$dataSet_hashtag"
+							},
+							{
+								ofText: "Genres",
+								replacement: "$dataSet_genres"
+							},
+							{
+								ofText: "Romaji",
+								replacement: "$dataSet_romaji"
+							},
+							{
+								ofText: "English",
+								replacement: "$dataSet_english"
+							},
+							{
+								ofText: "Native",
+								replacement: "$dataSet_native"
+							},
+							{
+								ofText: "Synonyms",
+								replacement: "$dataSet_synonyms"
+							}
+						]
 					}
 				]
 			},
