@@ -416,6 +416,11 @@ query($type: MediaType,$page: Int){
 			page = data.pageInfo.currentPage + 1;
 			return throttle = setTimeout(function(){checkData()},(Math.floor(Math.random()*3)+1)*1000);
 		}
+		else if(!data.pageInfo.hasNextPage && document.getElementById("queryOptions")){
+			stopButton.textContent = "Completed";
+			stopButton.classList.remove("danger")
+			stopButton.setAttribute("disabled", "")
+		}
 	}
 	checkData()
 }},
