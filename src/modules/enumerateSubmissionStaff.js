@@ -1,6 +1,6 @@
 exportModule({
 	id: "enumerateSubmissionStaff",
-	description: "Enumerate the multiple credits for staff in the submission form to help avoid duplicates",
+	description: "$enumerateSubmissionStaff_description",
 	isDefault: true,
 	categories: [/*"Submissions",*/"Profiles"],
 	visible: true,

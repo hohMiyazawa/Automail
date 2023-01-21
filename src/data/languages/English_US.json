@@ -22,6 +22,7 @@
 "$MAL_serialization": "Serialization",
 "$compare_normalizeRatings": "Normalize ratings:",
 "$setting_MALserial": "Add MAL serialization info to manga",
-"$forumCategory_14": "List Customization"
+"$forumCategory_14": "List Customization",
+"$CSSoldDarkTheme_description":"Use the old dark theme colors"
 	}
 }

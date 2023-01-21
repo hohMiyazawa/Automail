@@ -7,8 +7,8 @@ const anisongs_temp = {
 
 exportModule({
 	id: "anisongs",
-	description: "Add OP/ED data to media pages [by Morimasa]",
-	isDefault: false,
+	description: "$anisongs_description",
+	isDefault: true,
 	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url,oldUrl){

@@ -130,7 +130,9 @@
 "$customCSS_description": "Skru på profil-CSS og mogleheit for å festa postar",
 "$profileBackground_description": "Skru på profilbakgrunnar",
 "$footer_api": "Programmeringsgrensesnitt",
+"$footer_logout": "Logg ut",
 "$cssfavs_description": "Gjer favorittar 5 kolonnar brei uansett skjermstorleik",
+"$CSSoldDarkTheme_description": "Bruk fargane frå den gamle mørke sidedrakta",
 "$mediaTranslation_description": "Bruk norske anime- og mangatitlar når dei finnst",
 "$notImplemented": "Ikkje implementert",
 "$socialTabFeed_noActivities": "Ingen treff",
@@ -499,6 +501,7 @@
 "$mediaFormat_MANGA" : "Manga",
 "$mediaFormat_NOVEL" : "Lettroman",
 "$mediaFormat_ONE_SHOT" : "Enkeltvis",
+"$forumCategory_all": "Alle",
 "$forumCategory_1": "Anime",
 "$forumCategory_2": "Manga",
 "$forumCategory_3": "Lettromanar",
@@ -643,7 +646,7 @@
 "$editor_private": "Privat",
 "$editor_customLists": "Eigne Lister",
 "$editor_format": "Format",
-"$editor_country": "Country",
+"$editor_country": "Country"
 	},
 	"mediaTitlesAnime": {
 "164": "Prinsesse Mononoke",

@@ -1,6 +1,6 @@
 exportModule({
 	id: "reviewConfidence",
-	description: "Add confidence scores to reviews",
+	description: "$reviewConfidence_description",
 	isDefault: true,
 	categories: ["Browse"],
 	visible: true,

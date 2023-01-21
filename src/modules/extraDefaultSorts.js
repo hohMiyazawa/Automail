@@ -1,11 +1,7 @@
 exportModule({
 	id: "extraDefaultSorts",
-	description: "Make all list sort options available as options for the default setting",
-	extendedDescription: `
-Default list order can be selected at https://anilist.co/settings/lists
-
-This module will add extra options in that dropdown.
-	`,
+	description: "$extraDefaultSorts_description",
+	extendedDescription: "$extraDefaultSorts_extendedDescription",
 	isDefault: true,
 	importance: 0,
 	categories: ["Lists","Newly Added"],

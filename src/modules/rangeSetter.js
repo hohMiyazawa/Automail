@@ -1,11 +1,7 @@
 exportModule({
 	id: "rangeSetter",
-	description: "Add a progress range setter to the list editor",
-	extendedDescription: `
-When changing the number in the "progress" field, a button will appear.
-When clicked, it sets the lower number on an activity ("user read chapter 65 - 69 of manga")
-You then change the field to the higher number and click save as usual.
-	`,
+	description: "$rangeSetter_description",
+	extendedDescription: "$rangeSetter_extendedDescription",
 	isDefault: true,
 	importance: 0,
 	categories: ["Media","Newly Added","Lists","Login"],

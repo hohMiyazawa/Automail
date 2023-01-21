@@ -1,6 +1,6 @@
 exportModule({
 	id: "CSSoldDarkTheme",
-	description: "Use the old dark theme colours",
+	description: "$CSSoldDarkTheme_description",
 	isDefault: false,
 	categories: [],
 	visible: true,

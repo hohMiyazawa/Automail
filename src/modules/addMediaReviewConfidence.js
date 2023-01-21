@@ -1,6 +1,6 @@
 exportModule({
 	id: "addMediaReviewConfidence",
-	description: "Add confidence scores to reviews on media pages",
+	description: "$addMediaReviewConfidence_description",
 	isDefault: true,
 	categories: ["Media"],
 	visible: true,

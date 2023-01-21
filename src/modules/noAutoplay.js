@@ -1,6 +1,6 @@
 exportModule({
 	id: "noAutoplay",
-	description: "Do not autoplay videos",
+	description: "$noAutoplay_description",
 	extendedDescription: `
 Your browser may also provide ways to control this:
 

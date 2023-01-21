@@ -1,7 +1,7 @@
 exportModule({
 	id: "expandedListNotes",
-	description: "Click list notes for an expanded view",
-	extendedDescription: "For those who write entire essays in their list notes",
+	description: "$expandedListNotes_description",
+	extendedDescription: "$expandedListNotes_extendedDescription",
 	isDefault: true,
 	importance: 0,
 	categories: ["Lists"],

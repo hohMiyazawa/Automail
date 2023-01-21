@@ -69,6 +69,14 @@ exportModule({
 						replacement: "$footer_siteTheme"
 					},
 					{
+						lookup: ".footer .links [href=\"/forum/thread/2340\"]",
+						replacement: "$footer_donate"
+					},
+					{
+						lookup: ".footer [href=\"#\"]",
+						replacement: "$footer_logout"
+					},
+					{
 						lookup: ".footer [href=\"https://submission-manual.anilist.co/\"]",
 						replacement: "$footer_addData"
 					},
@@ -467,7 +475,7 @@ exportModule({
 				]
 			},
 			{
-				regex: /\/forum\/(overview|recent)\/?$/,
+				regex: /\/forum\/?(overview|recent)?\/?$/,
 				elements: [
 					{
 						lookup: ".overview-header[href='/forum/recent']",
@@ -480,6 +488,70 @@ exportModule({
 					{
 						lookup: ".overview-header[href='/forum/new']",
 						replacement: "$forumHeading_newThreads"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=7']",
+						replacement: "$forumCategory_7"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=1']",
+						replacement: "$forumCategory_1"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=2']",
+						replacement: "$forumCategory_2"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=5']",
+						replacement: "$forumCategory_5"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=13']",
+						replacement: "$forumCategory_13"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=8']",
+						replacement: "$forumCategory_8"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=9']",
+						replacement: "$forumCategory_9"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=10']",
+						replacement: "$forumCategory_10"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=4']",
+						replacement: "$forumCategory_4"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=3']",
+						replacement: "$forumCategory_3"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=16']",
+						replacement: "$forumCategory_16"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=15']",
+						replacement: "$forumCategory_15"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=11']",
+						replacement: "$forumCategory_11"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=12']",
+						replacement: "$forumCategory_12"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=18']",
+						replacement: "$forumCategory_18"
+					},
+					{
+						lookup: ".filter-group [href='/forum/recent?category=17']",
+						replacement: "$forumCategory_17"
 					}
 				]
 			},

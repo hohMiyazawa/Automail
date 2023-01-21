@@ -235,7 +235,7 @@ exportModule({
 				newChaptersInsertion(extraFilters)
 			}
 			if(URLstuff[2] === "mangalist"){
-				let alMangaButton = create("button",["button","hohButton"],"Export JSON",extraFilters);
+				let alMangaButton = create("button",["button","hohButton"],translate("$export_JSON"),extraFilters);
 				alMangaButton.onclick = function(){
 					generalAPIcall(
 						`
