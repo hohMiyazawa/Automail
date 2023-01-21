@@ -1,10 +1,7 @@
 exportModule({
 	id: "hideScores",
-	description: "Hide scores on embedded cards, browse and media overview pages",
-	extendedDescription: `
-Scores and charts on media overview pages will be hidden within a spoiler (Hover to reveal)
-Does not hide scores set by other Automail options
-	`,
+	description: "$hideScores_description",
+	extendedDescription: "$hideScores_extendedDescription",
 	isDefault: false,
 	importance: 0,
 	categories: ["Feeds","Forum","Media","Browse","Newly Added"],
@@ -12,24 +9,33 @@ Does not hide scores set by other Automail options
 	urlMatch: function(url){
 		return /^https:\/\/anilist\.co\/home\/?$/.test(url) || /^https:\/\/anilist\.co\/(anime|manga|user)\/.*/.test(url) || /^https:\/\/anilist\.co\/forum\/thread\/.*/.test(url)
 	},
-	code: function(){
+	code: async function(){
 		if(/^\/(anime|manga)\/.*/.test(location.pathname)){
-			let existing = Array.from(document.querySelectorAll(".altSpoiler"));
+			const sidebarNode = document.querySelector(".sidebar .data") || await watchElem(".sidebar .data");
+			let existing = Array.from(sidebarNode.querySelectorAll(".altSpoiler"));
 			if (existing.length){
 				existing.forEach(oldRow => {
 					oldRow.classList.remove("altSpoiler");
 					oldRow.removeAttribute("onclick");
 					oldRow.removeAttribute("data-click")
 				})
-			};
+			}
 			let scoreSpoiler = function(mutations,observer){
-				let sidebarNode = Array.from(document.querySelectorAll(".sidebar .data .data-set .type"));
-				if(!sidebarNode.length){
+				let sidebarData = Array.from(sidebarNode.querySelectorAll(".data-set .type"));
+				if(!sidebarData.length){
 					return
 				};
+				let status = sidebarData.find(element => element.innerText === "Status");
+				if(!status || status.parentNode.childElementCount != 2){
+					return
+				}
+				if(status.parentNode.children[1].firstChild.nodeValue === "Not Yet Released"){
+					observer && observer.disconnect();
+					return true
+				}
 				let scoreNode = new Array();
-				let findAvg = sidebarNode.find(element => element.innerText === "Average Score");
-				let findMean = sidebarNode.find(element => element.innerText === "Mean Score");
+				let findAvg = sidebarData.find(element => element.innerText === "Average Score");
+				let findMean = sidebarData.find(element => element.innerText === "Mean Score");
 				findAvg && scoreNode.push(findAvg);
 				findMean && scoreNode.push(findMean);
 				findAvg && findMean && observer && observer.disconnect();
@@ -41,7 +47,7 @@ Does not hide scores set by other Automail options
 							this.hasAttribute("data-click") ? this.removeAttribute("data-click") : this.setAttribute("data-click","1")
 						}
 					})
-				};
+				}
 				if(findAvg && findMean){
 					return true
 				}
@@ -52,16 +58,27 @@ Does not hide scores set by other Automail options
 				subtree: true
 			};
 			let observer = new MutationObserver(scoreSpoiler);
-			!scoreSpoiler() && observer.observe(document.body,mutationConfig)
-		};
+			!scoreSpoiler() && observer.observe(sidebarNode,mutationConfig)
+		}
 		if(/^\/home\/?$/.test(location.pathname) || /^\/forum\/thread\/.*/.test(location.pathname) || /^\/user\/.*/.test(location.pathname)){
-			let removeEmbedScore = function(){
-				let embed = Array.from(document.querySelectorAll(".embed .wrap .info"));
+			let pNode;
+			if(/^\/home\/?$/.test(location.pathname) || /^\/user\/.*/.test(location.pathname)){
+				pNode = document.querySelector(".activity-feed-wrap") || await watchElem(".activity-feed-wrap");
+			}
+			else{
+				pNode = document.querySelector(".forum-thread") || await watchElem(".forum-thread");
+			}
+			let removeEmbedScore = function(mutations,observer){
+				let embed = Array.from(pNode.querySelectorAll(".embed .wrap .info:not(.hohEmbedHiddenScore)"));
 				if(embed.length){
 					embed.forEach(element => {
+						if(element.children[2] && element.children[2].innerText.includes("Not Yet Released")){
+							element.classList.add("hohEmbedHiddenScore");
+						}
 						if(element.children[4] && /^([1-9][0-9]?|100)%$/.test(element.children[4].innerText.trim().slice(-3))){
-							element.children[4].innerText = ""
-						};
+							element.children[4].innerText = "";
+							element.classList.add("hohEmbedHiddenScore")
+						}
 						if(element.children[3] && element.children[3].innerText.trim().slice(-1) == "·"){
 							element.children[3].innerText = element.children[3].innerText.replace("·","").trim()
 						}
@@ -75,7 +92,7 @@ Does not hide scores set by other Automail options
 				subtree: true
 			};
 			let observer = new MutationObserver(removeEmbedScore);
-			observer.observe(document.body,mutationConfig)
+			observer.observe(pNode,mutationConfig)
 		}
 	},
 	css: `
