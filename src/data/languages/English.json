@@ -591,6 +591,8 @@
 "$extraDefaultSorts_extendedDescription": "Default list order can be selected at https://anilist.co/settings/lists\n\nThis module will add extra options in that dropdown.",
 "$noSequel_extendedDescription": "Attemps to remove sequels and spinoffs from the results when active. This is a fuzzy problem, so the script will not always get it right, producing both false positives and false negatives.",
 "$altBanner_extendedDescription": "Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels\nInstead, it always displays the banner in full with sides filled in by the blurred original banner",
+"$hideScores_description": "Hide scores on embedded cards, browse and media overview pages",
+"$hideScores_extendedDescription": "Scores and charts on media overview pages will be hidden within a spoiler (Hover or click to reveal)\nDoes not hide scores set by other Automail options",
 "$heading_activityHistory": "Activity History",
 "$heading_genreOverview": "Genre Overview",
 "$amount_label": "Entries",
