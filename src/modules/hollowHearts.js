@@ -12,9 +12,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 //updated code here: https://github.com/Reinachan/AniList-High-Contrast-Dark-Theme
 exportModule({
 	id: "hollowHearts",
-	description: "Make unliked hearts hollow [by Reina]",
+	description: "$hollowHearts_description",
 	isDefault: true,
-	importance: 0,
+	importance: 0.9,
 	categories: ["Feeds"],
 	visible: true,
 	css: `

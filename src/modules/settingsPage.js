@@ -203,13 +203,7 @@ exportModule({
 		});
 		let titleAliasSettings = create("div");
 		let titleAliasInstructions = create("p");
-		titleAliasInstructions.innerText = `
-	Add title aliases. Use the format /type/id/alias , one per line. Examples:
-
-	/anime/5114/Fullmetal Alchemist
-	/manga/30651/Nausicaä
-
-	Changes take effect on reload.`;
+		titleAliasInstructions.innerText = translate("$settings_aliasHelp");
 		let titleAliasInput = create("textarea","#titleAliasInput");
 		(
 			JSON.parse(localStorage.getItem("titleAliases")) || []

@@ -1,8 +1,6 @@
 exportModule({
 	id: "extraFavs",
-	description: "Make scrollable favourite sections on profiles",
-	extendedDescription: `
-Work in progress. Only anime and manga so far.`,
+	description: "$extraFavs_description",
 	isDefault: true,
 	importance: 0,
 	categories: ["Profiles"],

@@ -2,6 +2,7 @@ exportModule({
 	id: "CSSoldDarkTheme",
 	description: "$CSSoldDarkTheme_description",
 	isDefault: false,
+	importance: -3,
 	categories: [],
 	visible: true,
 	css: `

@@ -46,7 +46,9 @@ exportModule({
 					}
 					else{
 						if(place.childNodes[element.selectIndex || 0]){
-							place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
+							if(!element.ofText || element.ofText === place.childNodes[element.selectIndex || 0].textContent.trim()){
+								place.childNodes[element.selectIndex || 0].textContent = translate(element.replacement)
+							}
 						}
 						else{
 							console.warn("translation key failed", element, place)
@@ -301,6 +303,18 @@ exportModule({
 						replacement: "$submenu_characters"
 					},
 					{
+						lookup: ".overview .relations > h2",
+						replacement: "$submenu_relations"
+					},
+					{
+						lookup: ".overview .status-distribution > h2",
+						replacement: "$submenu_statusDistribution"
+					},
+					{
+						lookup: ".overview .trailer > h2",
+						replacement: "$submenu_trailer"
+					},
+					{
 						lookup: ".overview .staff > h2",
 						replacement: "$submenu_staff"
 					},
@@ -315,6 +329,41 @@ exportModule({
 					{
 						lookup: ".sidebar .review.button:not(.edit) span",
 						replacement: "$button_review"
+					},
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Add to List",
+						replacement: capitalize(translate("$mediaStatus_not"))
+					}
+				]
+			},
+			{
+				regex: /\.co\/anime\//,
+				elements: [
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Watching",
+						replacement: capitalize(translate("$mediaStatus_watching"))
+					},
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Completed",
+						replacement: capitalize(translate("$mediaStatus_completedWatching"))
+					}
+				]
+			},
+			{
+				regex: /\.co\/manga\//,
+				elements: [
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Reading",
+						replacement: capitalize(translate("$mediaStatus_reading"))
+					},
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Completed",
+						replacement: capitalize(translate("$mediaStatus_completedReading"))
 					}
 				]
 			},

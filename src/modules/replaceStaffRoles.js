@@ -1,6 +1,6 @@
 exportModule({
 	id: "replaceStaffRoles",
-	description: "Hoh's version of sortable staff pages",
+	description: "$replaceStaffRoles_description",
 	isDefault: !!useScripts.accessToken,
 	categories: ["Media","Login"],
 	visible: true,

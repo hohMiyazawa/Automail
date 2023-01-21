@@ -1,6 +1,6 @@
 exportModule({
 	id: "CSSexpandFeedFilters",
-	description: "Expand the feed filters",
+	description: "$CSSexpandFeedFilters_description",
 	isDefault: true,
 	categories: ["Feeds"],
 	visible: true

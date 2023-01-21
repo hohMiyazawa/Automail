@@ -1,6 +1,6 @@
 exportModule({
 	id: "slimNav",
-	description: "Slim navbar",
+	description: "$slimNav_description",
 	isDefault: false,
 	importance: -2,
 	categories: ["Navigation"],
