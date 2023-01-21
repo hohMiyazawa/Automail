@@ -5,7 +5,22 @@
 	let mangaOption = create("option",false,"Manga",select);
 	animeOption.value = "ANIME";
 	mangaOption.value = "MANGA";
-	createCheckbox(miscOptions,"restrictToList");
+	let sortSelect = create("select","#sortSelect",false,miscOptions);
+	let popOption = create("option",false,"Popularity",sortSelect);
+	let idOption = create("option",false,"Date Added",sortSelect);
+	popOption.value = "POPULARITY_DESC";
+	idOption.value = "ID_DESC";
+	let listRestrict = createCheckbox(miscOptions,"restrictToList");
+	listRestrict.onchange = function(){
+		if(this.checked){
+			sortSelect.setAttribute("disabled", "")
+			sortSelect.style.opacity = 0.5;
+		}
+		else{
+			sortSelect.removeAttribute("disabled")
+			sortSelect.style.opacity = 1;
+		}
+	}
 	create("span",false,"Restrict to personal list",miscOptions);
 	create("h3",false,"Config",miscOptions);
 	let conf = function(description,id,defaultValue,titleText){
@@ -64,6 +79,7 @@
 	].forEach(ig => conf(...ig));
 },code: function(){
 	let type = document.getElementById("typeSelect").value;
+	let sort = document.getElementById("sortSelect").value;
 	let restrict = document.getElementById("restrictToList").checked;
 	let require = new Set();
 	let malIDs = new Set();
@@ -321,18 +337,18 @@
 		}
 	});
 	let query = `
-query($type: MediaType,$page: Int){
+query($type: MediaType,$sort: [MediaSort],$page: Int){
 	Page(page: $page){
 		pageInfo{
-		currentPage
-		lastPage
-		hasNextPage
-	}
-	media(type: $type,sort: POPULARITY_DESC){
-		id
-		title{romaji native english}
-		format
-		${[...require].join(" ")}
+			currentPage
+			lastPage
+			hasNextPage
+		}
+		media(type: $type,sort: $sort){
+			id
+			title{romaji native english}
+			format
+			${[...require].join(" ")}
 		}
 	}
 }`;
@@ -357,36 +373,54 @@ query($type: MediaType,$page: Int){
 }`;
 	}
 	miscResults.innerText = "";
+	let throttle;
 	let flag = true;
 	let page = 1;
-	let stopButton = create("button",["button","hohButton"],"Stop",miscResults);
+	let stopButton = create("button",["button","danger","hohButton"],"Stop",miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
+		clearTimeout(throttle)
 		page = 1;
+		this.textContent = "Stopped";
+		this.setAttribute("disabled", "")
 	};
-	let caller = function(){
-		generalAPIcall(query,{type: type,page: page},function(data){
-			data = data.data.Page;
-			if(data.mediaList){
-				data.media = data.mediaList.map(item => item.media);
-			};
-			data.media.forEach(media => {
-				progress.innerText = "Page " + page + " of " + data.pageInfo.lastPage;
-				let matches = config.filter(
-					setting => setting.active && setting.code(media)
-				).map(setting => setting.description);
-				if(matches.length){
-					let row = create("p",false,false,miscResults);
-					create("a",["link","newTab"],"[" + media.format + "] " + media.title.romaji,row,"width:440px;display:inline-block;")
-						.href = "/" + type.toLowerCase() + "/" + media.id;
-					create("span",false,matches.join(", "),row);
-				};
-			});
-			if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
-				page = data.pageInfo.currentPage + 1;
-				setTimeout(function(){caller()},1000)
-			}
+	const checkData = async function(){
+		const res = await anilistAPI(query, {
+			variables: {type, sort, page}
 		});
-	};caller();
+		if(res.errors){
+			if(res.errors.some(thing => thing.status === 429)){
+				const wait = Math.max(1000, NOW() - apiResetLimit*1000);
+				return setTimeout(function(){checkData()},wait);
+			}
+			return create("p",false,"API error occurred",miscResults);
+		}
+		const data = res.data.Page;
+		if(data.mediaList){
+			data.media = data.mediaList.map(item => item.media);
+		}
+		data.media.forEach(media => {
+			progress.innerText = "Page " + page + " of " + data.pageInfo.lastPage;
+			let matches = config.filter(
+				setting => setting.active && setting.code(media)
+			).map(setting => setting.description);
+			if(matches.length){
+				let row = create("p",false,false,miscResults);
+				create("a",["link","newTab"],"[" + media.format + "] " + media.title.romaji,row,"width:440px;display:inline-block;")
+					.href = "/" + type.toLowerCase() + "/" + media.id;
+				create("span",false,matches.join(", "),row);
+			};
+		});
+		if(flag && data.pageInfo.hasNextPage === true && document.getElementById("queryOptions")){
+			page = data.pageInfo.currentPage + 1;
+			return throttle = setTimeout(function(){checkData()},(Math.floor(Math.random()*3)+1)*1000);
+		}
+		else if(!data.pageInfo.hasNextPage && document.getElementById("queryOptions")){
+			stopButton.textContent = "Completed";
+			stopButton.classList.remove("danger")
+			stopButton.setAttribute("disabled", "")
+		}
+	}
+	checkData()
 }},
