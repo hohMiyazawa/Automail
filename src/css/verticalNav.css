@@ -510,8 +510,9 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 .actions{
 	margin-bottom: 5px!important;
 }
-.status{
+.activity-entry .details .status{
 	display: inline-block!important;
+	margin-right: 75px;
 }
 .avatar{
 	display: block!important;
