@@ -2,7 +2,7 @@ const sequelList = new Set(m4_include(data/sequels.json))
 const sequelList_manga = new Set(m4_include(data/sequels_manga.json))
 
 exportModule({
-	id: "$noSequel",
+	id: "noSequel",
 	description: "$noSequel_description",
 	extendedDescription: "$noSequel_extendedDescription",
 	isDefault: true,
