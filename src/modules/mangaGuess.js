@@ -1,14 +1,14 @@
 function mangaGuess(cleanAnime,id){
 	let sidebarData;
 	let adder = function(mutations,observer){
-		let sidebarChecker = function(){
-			sidebarData = document.querySelector(".sidebar .data");
-			if(!sidebarData){
-				setTimeout(sidebarChecker,200);
-				return
-			}
+		let URLstuff = location.pathname.match(/^\/manga\/(\d+)\/?(.*)?/);
+		if(!URLstuff){
+			return
 		}
-		sidebarChecker();
+		sidebarData = document.querySelector(".sidebar .data");
+		if(!sidebarData){
+			setTimeout(adder,200)
+		}
 		let possibleMangaGuess = sidebarData.querySelector(".data-set .value[data-media-id]");
 		if(possibleMangaGuess && (
 			cleanAnime
@@ -17,10 +17,6 @@ function mangaGuess(cleanAnime,id){
 			removeChildren(possibleMangaGuess)
 		}
 		if(cleanAnime){
-			return
-		}
-		let URLstuff = location.pathname.match(/^\/manga\/(\d+)\/?(.*)?/);
-		if(!URLstuff){
 			return
 		}
 		let status = Array.from(sidebarData.querySelectorAll(".data-set .type")).find(element => element.innerText === "Status");
