@@ -1,27 +1,34 @@
 {name: "BroomCat linter",setup: function(){
 	create("p",false,"Welcome to BroomCat. It will help you find stray database items",miscOptions);
+	create("p",false,"It runs a selection of sanity checks on media data, flagging those with potential problems (not necessarily wrong, just worth looking into)",miscOptions);
 	let select = create("select","#typeSelect",false,miscOptions);
 	let animeOption = create("option",false,"Anime",select);
 	let mangaOption = create("option",false,"Manga",select);
 	animeOption.value = "ANIME";
 	mangaOption.value = "MANGA";
 	let sortSelect = create("select","#sortSelect",false,miscOptions);
-	let popOption = create("option",false,"Popularity",sortSelect);
-	let idOption = create("option",false,"Date Added",sortSelect);
-	popOption.value = "POPULARITY_DESC";
-	idOption.value = "ID_DESC";
+	create("option",false,"Popularity",sortSelect).value = "POPULARITY_DESC";
+	create("option",false,"Date Added (new)",sortSelect).value = "ID_DESC";
+	create("option",false,"Date Added (old)",sortSelect).value = "ID";
+	create("option",false,"Title",sortSelect).value = "TITLE_ROMAJI";
+	create("option",false,"Score",sortSelect).value = "SCORE_DESC";
+	create("option",false,"Trending",sortSelect).value = "TRENDING_DESC";
 	let listRestrict = createCheckbox(miscOptions,"restrictToList");
+	create("span",false,"Restrict to personal list",miscOptions);
+	let onlyAiring = createCheckbox(miscOptions,"restrictToAiring");
+	let onlyAiring_desc = create("span",false,"Only currently airing/publishing",miscOptions);
 	listRestrict.onchange = function(){
 		if(this.checked){
 			sortSelect.setAttribute("disabled", "")
 			sortSelect.style.opacity = 0.5;
+			onlyAiring_desc.innerText = "Only currently reading/watching"
 		}
 		else{
 			sortSelect.removeAttribute("disabled")
 			sortSelect.style.opacity = 1;
+			onlyAiring_desc.innerText = "Only currently airing/publishing"
 		}
 	}
-	create("span",false,"Restrict to personal list",miscOptions);
 	create("h3",false,"Config",miscOptions);
 	let conf = function(description,id,defaultValue,titleText){
 		let option = create("p",false,false,miscOptions);
@@ -34,13 +41,14 @@
 			descriptionText.title = titleText
 		}
 	};
-	[
+	[//[Title text, ID, isDefault, extra info]
 		["End date before start date","startEnd",true],
 		["Dates before 1900","earlyDates",true],
 		["Missing dates","missingDates",true],
 		["Incomplete dates","incompleteDates"],
 		["No tags","noTags"],
 		["No genres","noGenres"],
+		["No format","noFormat",true],
 		["Duplicate tags","doubleTags",false,"Has a tag appearing twice, which is not valid"],
 		["Has tag below 20%","lowTag",false,"Tags start out at 20%, so if it's below it's controversial"],
 		["Has invalid genre","badGenre",true,"There's a fixed list of 19 genres, so anything else must be wrong"],
@@ -66,7 +74,7 @@
 		["No extraLarge cover image","extraLarge"],
 		["Temporary title","tempTitle",true,"Common for manga announcements"],
 		["Romaji inconsistencies","badRomaji",true,"Catches some common romanisation errors"],
-		["Weird spacing in title","weirdSpace",true],
+		["Weird spacing in title","weirdSpace","Leading and trailing whitespace, double whitespace"],
 		["TV/TV Short mixup","tvShort"],
 		["Duplicated studio","duplicatedStudio"],
 		["Has Twitter hashtag","hashtag",false,"Keep up with news"],
@@ -81,6 +89,7 @@
 	let type = document.getElementById("typeSelect").value;
 	let sort = document.getElementById("sortSelect").value;
 	let restrict = document.getElementById("restrictToList").checked;
+	let restrictAiring = document.getElementById("restrictToAiring").checked;
 	let require = new Set();
 	let malIDs = new Set();
 	let config = [
@@ -142,6 +151,9 @@
 		{name: "noGenres",description: "No genres",code: function(media){
 			return media.genres.length === 0;
 		},require: ["genres"]},
+		{name: "noFormat",description: "No format",code: function(media){
+			return !media.format;
+		},require: []},
 		{name: "lowTag",description: "Has tag below 20%",code: function(media){
 			return media.tags.some(tag => tag.rank < 20);
 		},require: ["tags{rank name}"]},
@@ -344,7 +356,7 @@ query($type: MediaType,$sort: [MediaSort],$page: Int){
 			lastPage
 			hasNextPage
 		}
-		media(type: $type,sort: $sort){
+		media(type: $type,sort: $sort${(restrictAiring ? ", status: RELEASING" : "")}){
 			id
 			title{romaji native english}
 			format
@@ -361,7 +373,7 @@ query($type: MediaType,$page: Int){
 			lastPage
 			hasNextPage
 		}
-		mediaList(type: $type,sort: MEDIA_ID,userName: "${user}"){
+		mediaList(type: $type,sort: MEDIA_ID,userName: "${user}"${(restrictAiring ? ", status: CURRENT" : "")}){
 			media{
 				id
 				title{romaji native english}
@@ -376,13 +388,13 @@ query($type: MediaType,$page: Int){
 	let throttle;
 	let flag = true;
 	let page = 1;
-	let stopButton = create("button",["button","danger","hohButton"],"Stop",miscResults);
+	let stopButton = create("button",["button","danger","hohButton"],translate("$button_stop"),miscResults);
 	let progress = create("p",false,false,miscResults);
 	stopButton.onclick = function(){
 		flag = false;
 		clearTimeout(throttle)
 		page = 1;
-		this.textContent = "Stopped";
+		this.textContent =  translate("$button_stopped");
 		this.setAttribute("disabled", "")
 	};
 	const checkData = async function(){
@@ -417,7 +429,7 @@ query($type: MediaType,$page: Int){
 			return throttle = setTimeout(function(){checkData()},(Math.floor(Math.random()*3)+1)*1000);
 		}
 		else if(!data.pageInfo.hasNextPage && document.getElementById("queryOptions")){
-			stopButton.textContent = "Completed";
+			stopButton.textContent = translate("$button_completed");
 			stopButton.classList.remove("danger")
 			stopButton.setAttribute("disabled", "")
 		}

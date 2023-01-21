@@ -313,7 +313,7 @@ exportModule({
 						replacement: "$submenu_reviews"
 					},
 					{
-						lookup: ".sidebar .review.button span",
+						lookup: ".sidebar .review.button:not(.edit) span",
 						replacement: "$button_review"
 					}
 				]
