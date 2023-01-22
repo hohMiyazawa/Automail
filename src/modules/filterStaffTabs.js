@@ -1,6 +1,6 @@
 exportModule({
 	id: "filterStaffTabs",
-	description: "Add filtering to media staff tabs",
+	description: "$filterStaffTabs_description",
 	isDefault: true,
 	categories: ["Media"],
 	visible: true,

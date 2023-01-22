@@ -1,6 +1,6 @@
 exportModule({
 	id: "interestingRecs",
-	description: "Add a 'For You' filter to the recommendations page",
+	description: "$interestingRecs_description",
 	isDefault: true,
 	categories: ["Login"],
 	visible: true,

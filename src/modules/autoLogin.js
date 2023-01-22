@@ -1,7 +1,7 @@
 exportModule({
 	boneless_disable: true,
 	id: "autoLogin",
-	description: "Attempt automatic login when visiting anilist.co [read description]",
+	description: "$autoLogin_description",
 	extendedDescription: `
 Normally, ${script_type} will stay signed in even if you close your browser.
 

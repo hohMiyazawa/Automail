@@ -1,6 +1,6 @@
 exportModule({
 	id: "rightSideNavbar",
-	description: "Move the vertical navbar to the right side of the screen",
+	description: "$rightSideNavbar_description",
 	isDefault: false,
 	categories: ["Navigation"],
 	visible: true

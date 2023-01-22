@@ -1,6 +1,6 @@
 exportModule({
 	id: "imageFreeEditor",
-	description: "Don't display the cover and banner image in the list editor",
+	description: "$imageFreeEditor_description",
 	isDefault: false,
 	importance: -2,
 	categories: ["Media","Lists"],

@@ -334,6 +334,11 @@ exportModule({
 						lookup: ".media .header .actions .list .add",
 						ofText: "Add to List",
 						replacement: capitalize(translate("$mediaStatus_not"))
+					},
+					{
+						lookup: ".media .header .actions .list .add",
+						ofText: "Dropped",
+						replacement: capitalize(translate("$mediaStatus_dropped"))
 					}
 				]
 			},
@@ -678,6 +683,58 @@ exportModule({
 					{
 						lookup: ".load-more",
 						replacement: "$load_more"
+					}
+				]
+			},
+			{
+				regex: /\/activity\//,
+				elements: [
+					{
+						lookup: "[placeholder='Write a reply...']",
+						textType: "placeholder",
+						replacement: "$placeholder_reply"
+					}
+				]
+			},
+			{
+				regex: /\/search\//,
+				elements: [
+					{
+						lookup: ".primary-filters .filter-select > .name",
+						multiple: [
+							{
+								ofText: "Search",
+								replacement: "$filters_search"
+							},
+							{
+								ofText: "genres",
+								replacement: "$filters_genres"
+							},
+							{
+								ofText: "year",
+								replacement: "$filters_year"
+							},
+							{
+								ofText: "season",
+								replacement: "$filters_season"
+							},
+							{
+								ofText: "format",
+								replacement: "$filters_format"
+							},
+							{
+								ofText: "airing status",
+								replacement: "$filters_airingStatus"
+							},
+							{
+								ofText: "publishing status",
+								replacement: "$filters_publishingStatus"
+							},
+							{
+								ofText: "country of origin",
+								replacement: "$filters_countryOfOrigin"
+							}
+						]
 					}
 				]
 			},

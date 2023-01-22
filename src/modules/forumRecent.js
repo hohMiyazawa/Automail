@@ -1,6 +1,6 @@
 exportModule({
 	id: "forumRecent",
-	description: "Make the 'Forum' navbar item lead directly to /forum/recent",
+	description: "$forumRecent_description",
 	isDefault: false,
 	categories: ["Forum","Navigation"],
 	visible: true,

@@ -1,6 +1,6 @@
 exportModule({
 	id: "webmResize",
-	description: "Resize videos with a width in the URL hash (like #220 or #40%)",
+	description: "$webmResize_description",
 	isDefault: true,
 	categories: ["Feeds"],
 	visible: true

@@ -1,6 +1,6 @@
 exportModule({
 	id: "videoMimeTypeFixer",
-	description: "Detect video mime type by file extension [you probably don't need this]",
+	description: "$videoMimeTypeFixer_description",
 	extendedDescription: `
 Anilist by default serves all video as "video/webm".
 However, it's common to use non-webm video, as brower support is common.

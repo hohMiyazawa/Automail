@@ -1,6 +1,6 @@
 exportModule({
 	id: "forumLikes",
-	description: "Add a full list of likes to forum threads",
+	description: "$forumLikes_description",
 	isDefault: true,
 	categories: ["Forum"],
 	visible: false,

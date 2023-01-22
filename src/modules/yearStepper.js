@@ -1,6 +1,6 @@
 exportModule({
 	id: "yearStepper",
-	description: "Add buttons to step the year slider up and down",
+	description: "$yearStepper_description",
 	isDefault: true,
 	importance: 0,
 	categories: ["Lists"],
