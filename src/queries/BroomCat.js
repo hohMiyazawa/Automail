@@ -404,7 +404,7 @@ query($type: MediaType,$page: Int){
 		if(res.errors){
 			if(res.errors.some(thing => thing.status === 429)){
 				const wait = Math.max(1000, NOW() - apiResetLimit*1000);
-				return setTimeout(function(){checkData()},wait);
+				return throttle = setTimeout(function(){checkData()},wait);
 			}
 			return create("p",false,"API error occurred",miscResults);
 		}
