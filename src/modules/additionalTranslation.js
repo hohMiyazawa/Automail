@@ -682,6 +682,90 @@ exportModule({
 				]
 			},
 			{
+				regex: /co\/staff\/?/,
+				elements: [
+					{
+						lookup: ".description-wrap .data-point .label",
+						multiple: [
+							{
+								ofText: "Birth:",
+								replacement: "$staffData_birth"
+							},
+							{
+								ofText: "Death:",
+								replacement: "$staffData_death"
+							},
+							{
+								ofText: "Age:",
+								replacement: "$staffData_age"
+							},
+							{
+								ofText: "Gender:",
+								replacement: "$staffData_gender"
+							},
+							{
+								ofText: "Years active:",
+								replacement: "$staffData_yearsActive"
+							},
+							{
+								ofText: "Hometown:",
+								replacement: "$staffData_hometown"
+							},
+							{
+								ofText: "Blood Type:",
+								replacement: "$staffData_bloodType"
+							},
+							{
+								ofText: "Circle:",
+								replacement: "$staffData_circle"
+							},
+							{
+								ofText: "Residency:",
+								replacement: "$staffData_residency"
+							},
+							{
+								ofText: "Graduated:",
+								replacement: "$staffData_graduated"
+							}
+						]
+					}
+				]
+			},
+			{
+				regex: /co\/character\/?/,
+				elements: [
+					{
+						lookup: ".description-wrap .data-point .label",
+						multiple: [
+							{
+								ofText: "Birthday:",
+								replacement: "$staffData_birthday_DUPLICATE"
+							},
+							{
+								ofText: "Death:",
+								replacement: "$staffData_death"
+							},
+							{
+								ofText: "Age:",
+								replacement: "$staffData_age"
+							},
+							{
+								ofText: "Gender:",
+								replacement: "$staffData_gender"
+							},
+							{
+								ofText: "Hometown:",
+								replacement: "$staffData_hometown"
+							},
+							{
+								ofText: "Blood Type:",
+								replacement: "$staffData_bloodType"
+							}
+						]
+					}
+				]
+			},
+			{
 				regex: /\/forum\/?(overview|recent)?\/?$/,
 				elements: [
 					{
