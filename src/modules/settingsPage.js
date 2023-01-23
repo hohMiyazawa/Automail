@@ -307,7 +307,7 @@ exportModule({
 		let blockStatusInput = create("select",false,false,blockInput,"margin-right:10px;");
 		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"]; //TODO: We should also find a way to localize these
 		blockStatuses.forEach(
-			status => create("option",false,capitalize(translate("$blockStatus_" + status)),blockStatusInput)
+			status => create("option",false,(status ? capitalize(translate("$blockStatus_" + status)) : ""),blockStatusInput)
 				.value = status
 		);
 		blockStatusInput.value = "";
