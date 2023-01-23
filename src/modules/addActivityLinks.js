@@ -11,6 +11,70 @@ async function addActivityLinks(activityID){
 			let activityLocation = document.querySelector(".activity-entry");
 			if(activityLocation){
 				activityLocation.appendChild(link);
+				let status = document.querySelector(".status");
+				if(useScripts.additionalTranslation && status){
+					status = status.childNodes[0];
+					let cont = status.textContent.trim().match(/(.+?)(\s(\d+|\d+ - \d+) of)/);
+					if(cont){
+						let prog = cont[3];
+						let type = cont[1];
+						if(document.querySelector(".activity-entry").classList.contains("activity-anime_list")){
+							if(type === "Completed"){
+								status.textContent = translate("$listActivity_completedAnime");
+							}
+							else if(type === "Watched episode" && prog){
+								status.textContent = translate("$listActivity_MwatchedEpisode",prog);
+							}
+							else if(type === "Dropped" && prog){
+								status.textContent = translate("$listActivity_MdroppedAnime",prog);
+							}
+							else if(type === "Dropped"){
+								status.textContent = translate("$listActivity_droppedAnime");
+							}
+							else if(type === "Rewatched episode" && prog){
+								status.textContent = translate("$listActivity_MrepeatingAnime",prog);
+							}
+							else if(type === "Rewatched"){
+								status.textContent = translate("$listActivity_repeatedAnime");
+							}
+							else if(type === "Paused watching"){
+								status.textContent = translate("$listActivity_pausedAnime");
+							}
+							else if(type === "Plans to watch"){
+								status.textContent = translate("$listActivity_planningAnime");
+							}
+						}
+						else if(document.querySelector(".activity-entry").classList.contains("activity-manga_list")){
+							if(type === "Completed"){
+								status.textContent = translate("$listActivity_completedManga");
+							}
+							else if(type === "Read chapter" && prog){
+								status.textContent = translate("$listActivity_MreadChapter",prog);
+							}
+							else if(type === "Dropped" && prog){
+								status.textContent = translate("$listActivity_MdroppedManga",prog);
+							}
+							else if(type === "Dropped"){
+								status.textContent = translate("$listActivity_droppedManga");
+							}
+							else if(type === "Reread chapter" && prog){
+								status.textContent = translate("$listActivity_MrepeatingManga",prog);
+							}
+							else if(type === "Reread"){
+								status.textContent = translate("$listActivity_repeatedManga");
+							}
+							else if(type === "Paused reading"){
+								status.textContent = translate("$listActivity_pausedManga");
+							}
+							else if(type === "Plans to read"){
+								status.textContent = translate("$listActivity_planningManga");
+							}
+						}
+						if(useScripts.partialLocalisationLanguage === "日本語"){
+							status.parentNode.classList.add("hohReverseTitle")
+						}
+					}
+				}
 				return;
 			}
 			else{
@@ -119,24 +183,23 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 			res.previous = "FIRST";
 			const prevRes = await anilistAPI(queryPrevious, {variables});
 			const {data: pdata, errors} = prevRes;
-			if(errors){
-				return;
+			if(!errors){
+				let link = create("a","hohPostLink","←",false,"left:-25px;");
+				link.title = "Previous activity";
+				link.rel = "prev";
+				link.href = pdata.Activity.siteUrl;
+				adder(link);
+				res.previous = pdata.Activity.siteUrl;
+				updateCache("hohActivity" + activityID, res);
+				pdata.Activity.type = data.Activity.type;
+				pdata.Activity.userId = variables.userId;
+				pdata.Activity.media = data.Activity.media;
+				pdata.Activity.messengerId = data.Activity.messengerId;
+				pdata.Activity.recipientId = data.Activity.recipientId;
+				pdata.Activity.recipient = data.Activity.recipient;
+				prevRes.next = document.URL;
+				saveCache("hohActivity" + pdata.Activity.id, Object.assign(prevRes,{data: pdata}), 20*60*1000);
 			}
-			let link = create("a","hohPostLink","←",false,"left:-25px;");
-			link.title = "Previous activity";
-			link.rel = "prev";
-			link.href = pdata.Activity.siteUrl;
-			adder(link);
-			res.previous = pdata.Activity.siteUrl;
-			updateCache("hohActivity" + activityID, res);
-			pdata.Activity.type = data.Activity.type;
-			pdata.Activity.userId = variables.userId;
-			pdata.Activity.media = data.Activity.media;
-			pdata.Activity.messengerId = data.Activity.messengerId;
-			pdata.Activity.recipientId = data.Activity.recipientId;
-			pdata.Activity.recipient = data.Activity.recipient;
-			prevRes.next = document.URL;
-			saveCache("hohActivity" + pdata.Activity.id, Object.assign(prevRes,{data: pdata}), 20*60*1000);
 		}
 		if(res.next){
 			let link = create("a","hohPostLink","→",false,"right:-25px;");
@@ -167,7 +230,7 @@ query($userId: Int,$messengerId: Int,$createdAt: Int){
 			nextRes.previous = document.URL;
 			saveCache("hohActivity" + ndata.Activity.id, Object.assign(nextRes,{data: ndata}), 20*60*1000);
 		}
-		return;
+		return
 	}
 
 	const dataQuery = `

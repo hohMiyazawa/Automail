@@ -271,6 +271,15 @@ exportModule({
 				]
 			},
 			{
+				regex: /\.co\/(manga|anime)\/\d+\/.*\/stats\/?/,
+				elements: [
+					{
+						lookup: ".media-stats .status-distribution > h2",
+						replacement: "$submenu_statusDistribution"
+					},
+				]
+			},
+			{
 				regex: /\.co\/(manga|anime)\//,
 				elements: [
 					{
