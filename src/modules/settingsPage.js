@@ -257,7 +257,7 @@ exportModule({
 			let nColourType = create("select",false,false,notificationColour);
 			let nColourValue = create("select",false,false,notificationColour);
 			let supressOption = createCheckbox(notificationColour);
-			let supressOptionText = create("span",false,"Don't show dot for this type",notificationColour);
+			let supressOptionText = create("span",false,translate("$settings_notificationDot_None"),notificationColour);
 			notificationTypes.forEach(
 				type => create("option",false,type,nColourType)
 					.value = type
@@ -298,25 +298,20 @@ exportModule({
 		}
 		let blockSettings = create("div");
 		let blockInstructions = create("p",false,false,blockSettings);
-		blockInstructions.innerText = `
-Block stuff in the home feed.
-
-Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
-Example2: To block a specific piece of media, fill out that field and leave the other two blank.
-`;
+		blockInstructions.innerText = translate("$settings_blockInstructions");
 		let blockInput = create("div","#blockInput",false,blockSettings);
-		create("span",false,"User: ",blockInput);
+		create("span",false,translate("$settings_blockUser") + " ",blockInput);
 		let blockUserInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockUserInput.value = "";
-		create("span",false," Status: ",blockInput);
+		create("span",false," " + translate("$settings_blockStatus") + " ",blockInput);
 		let blockStatusInput = create("select",false,false,blockInput,"margin-right:10px;");
 		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"];
 		blockStatuses.forEach(
-			status => create("option",false,capitalize(status),blockStatusInput)
+			status => create("option",false,(status ? capitalize(translate("$blockStatus_" + status)) : ""),blockStatusInput)
 				.value = status
 		);
 		blockStatusInput.value = "";
-		create("span",false," Media ID: ",blockInput);
+		create("span",false," " + translate("$settings_blockMediaId") + " ",blockInput);
 		let blockMediaInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockMediaInput.type = "number";
 		blockMediaInput.value = "";
@@ -621,7 +616,7 @@ query{
 			hohSettings.appendChild(create("hr"))
 		}
 
-		create("p",false,"Delete all custom settings. Re-installing the script will not do that by itself.",hohSettings);
+		create("p",false,translate("$settings_resetDefaultSettings"),hohSettings);
 		let cleanEverything= create("button",["hohButton","button","danger"],translate("$button_defaultSettings"),hohSettings);
 		cleanEverything.onclick = function(){
 			localStorage.removeItem("hohSettings");
@@ -631,28 +626,28 @@ query{
 		let loginURL = create("a",false,translate("$terms_signin_link"),hohSettings,"font-size: x-large;");
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
-		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
+		create("p",false,translate("$terms_signin_description"),hohSettings);
 		if(script_type !== "Boneless"){
-			create("h4",false,"Alternative signin method: Self-hosting the script",hohSettings);
-			create("p",false,"1. Go to settings > developer > \"Create New Client\"",hohSettings);
-			create("p",false,"2. Give it any name, and use \"https://anilist.co/home\" for the redirect URL",hohSettings);
-			create("p",false,"3. Take a screenshot so you don't loose the info",hohSettings);
+			create("h4",false,translate("$terms_signin_selfhost_title"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line1"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line2"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line3"),hohSettings);
 			let ele = create("p",false,"4. ",hohSettings);
-			let lonk = create("span",false,"Click here and input the Client ID",ele,"color:rgb(var(--color-blue));cursor:pointer");
+			let lonk = create("span",false,translate("$terms_signin_selfhost_line4"),ele,"color:rgb(var(--color-blue));cursor:pointer");
 			lonk.onclick = function(){
-				let id = parseInt(prompt("Client ID:"));
+				let id = parseInt(prompt(translate("$terms_signin_selfhost_clientid")));
 				if(id){
 					useScripts.client_id = id;
 					useScripts.save();
 					window.location = "https://anilist.co/api/v2/oauth/authorize?client_id=" + id + "&response_type=token"
 				}
 				else{
-					alert("Error: Client not found")
+					alert(translate("$terms_signin_selfhost_error_client_not_found"))
 				}
 			}
 			if(useScripts.accessToken){
 				create("hr","hohSeparator",false,hohSettings);
-				create("p",false,"Current access token (do not share with others):",hohSettings);
+				create("p",false,translate("$settings_currentAccessToken"),hohSettings);
 				create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;line-break: anywhere;")
 			}
 		}
@@ -687,18 +682,18 @@ query{
 					data = JSON.parse(evt.target.result)
 				}
 				catch(e){
-					alert("error parsing JSON")
+					alert(translate("$error_JSONparsing"))
 					return
 				}
 				if(!hasOwn(data, "socialTab")){//sanity check
-					alert("not a settings file")
+					alert(translate("$settings_import_error_invalid_file"))
 					return
 				}
 				Object.keys(data).forEach(//this is to keep the default settings if the version imported is outdated
 					key => {
 						if(key === "accessToken"){
 							if(!useScripts.accessToken && data[key] === "[REDACTED]"){
-								alert("Access tokens are not stored in settings files for security reasons. You have to click the 'Sign in with the script' button again")
+								alert(translate("$settings_import_token_not_saved"))
 							}
 						}
 						else{
@@ -707,10 +702,10 @@ query{
 					}
 				)
 				useScripts.save();
-				alert("settings imported!")
+				alert(translate("$settings_import_successful"))
 			}
 			reader.onerror = function(evt){
-				alert("error reading file")
+				alert(translate("$settings_import_error_reading_file"))
 			}
 		}
 		create("p",false,translate("$debug_tip"),hohSettings);
