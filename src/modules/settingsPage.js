@@ -647,7 +647,7 @@ query{
 			}
 			if(useScripts.accessToken){
 				create("hr","hohSeparator",false,hohSettings);
-				create("p",false,"Current access token (do not share with others):",hohSettings);
+				create("p",false,translate("$settings_currentAccessToken"),hohSettings);
 				create("p","hohMonospace",useScripts.accessToken,hohSettings,"word-wrap: anywhere;font-size: small;line-break: anywhere;")
 			}
 		}
@@ -682,18 +682,18 @@ query{
 					data = JSON.parse(evt.target.result)
 				}
 				catch(e){
-					alert("error parsing JSON")
+					alert(translate("$settings_import_parser_error"))
 					return
 				}
 				if(!hasOwn(data, "socialTab")){//sanity check
-					alert("not a settings file")
+					alert(translate("$settings_import_error_invalid_file"))
 					return
 				}
 				Object.keys(data).forEach(//this is to keep the default settings if the version imported is outdated
 					key => {
 						if(key === "accessToken"){
 							if(!useScripts.accessToken && data[key] === "[REDACTED]"){
-								alert("Access tokens are not stored in settings files for security reasons. You have to click the 'Sign in with the script' button again")
+								alert(translate("$settings_import_token_not_saved"))
 							}
 						}
 						else{
@@ -702,10 +702,10 @@ query{
 					}
 				)
 				useScripts.save();
-				alert("settings imported!")
+				alert(translate("$settings_import_successful"))
 			}
 			reader.onerror = function(evt){
-				alert("error reading file")
+				alert(translate("$settings_import_error_reading_file"))
 			}
 		}
 		create("p",false,translate("$debug_tip"),hohSettings);
