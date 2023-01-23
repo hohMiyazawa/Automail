@@ -298,12 +298,12 @@ exportModule({
 		}
 		let blockSettings = create("div");
 		let blockInstructions = create("p",false,false,blockSettings);
-		blockInstructions.innerText = translate($settings_blockInstructions);
+		blockInstructions.innerText = translate("$settings_blockInstructions");
 		let blockInput = create("div","#blockInput",false,blockSettings);
-		create("span",false,translate($settings_blockUser) + " ",blockInput);
+		create("span",false,translate("$settings_blockUser") + " ",blockInput);
 		let blockUserInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockUserInput.value = "";
-		create("span",false," " + translate($settings_blockStatus) + " ",blockInput);
+		create("span",false," " + translate("$settings_blockStatus") + " ",blockInput);
 		let blockStatusInput = create("select",false,false,blockInput,"margin-right:10px;");
 		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"]; //TODO: We should also find a way to localize these
 		blockStatuses.forEach(
@@ -311,7 +311,7 @@ exportModule({
 				.value = status
 		);
 		blockStatusInput.value = "";
-		create("span",false," " + translate($settings_blockMediaId) + " ",blockInput);
+		create("span",false," " + translate("$settings_blockMediaId") + " ",blockInput);
 		let blockMediaInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockMediaInput.type = "number";
 		blockMediaInput.value = "";
@@ -616,7 +616,7 @@ query{
 			hohSettings.appendChild(create("hr"))
 		}
 
-		create("p",false,translate($settings_resetDefaultSettings),hohSettings);
+		create("p",false,translate("$settings_resetDefaultSettings"),hohSettings);
 		let cleanEverything= create("button",["hohButton","button","danger"],translate("$button_defaultSettings"),hohSettings);
 		cleanEverything.onclick = function(){
 			localStorage.removeItem("hohSettings");
