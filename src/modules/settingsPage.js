@@ -257,7 +257,7 @@ exportModule({
 			let nColourType = create("select",false,false,notificationColour);
 			let nColourValue = create("select",false,false,notificationColour);
 			let supressOption = createCheckbox(notificationColour);
-			let supressOptionText = create("span",false,"Don't show dot for this type",notificationColour);
+			let supressOptionText = create("span",false,translate("$settings_notificationDot_None"),notificationColour);
 			notificationTypes.forEach(
 				type => create("option",false,type,nColourType)
 					.value = type

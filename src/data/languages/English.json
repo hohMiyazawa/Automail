@@ -136,6 +136,7 @@
 "$settings_resetDefaultSettings": "Delete all custom settings. Re-installing the script will not do that by itself.",
 "$extendedDescription_windowTitle": "Module info",
 "$settings_notificationDotColour": "Notification Dot Colours",
+"$settings_notificationDot_None": "Don't show dot for this type",
 "$settings_blockInstructions": "Block stuff in the home feed.\n\nExample1: To block \"planning\" activities by a specific user, fill out those two fields and leave the media field blank.\nExample2: To block a specific piece of media, fill out that field and leave the other two blank.",
 "$settings_blockUser": "User:",
 "$settings_blockStatus": "Status:",
