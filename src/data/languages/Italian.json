@@ -586,7 +586,7 @@
 "$accessTokenWarning_description": "Avvisami quando vengo disconnesso dallo script",
 "$autoLogin_description": "Tenta l'accesso automatico quando si visita anilist.co [leggi la descrizione]",
 "$filterStaffTabs_description": "Aggiungi filtri alle schede dello staff nelle pagine dei media",
-"$forumLikes_description": "Aggiungi un elenco completo dei Mi piace alle discussioni del forum",
+"$forumLikes_description": "Aggiungi un elenco completo dei like alle discussioni del forum",
 "$forumRecent_description": "Fai in modo che la voce \"Forum\" nella barra di navigazione porti direttamente a /forum/recent",
 "$pinned": "Fissato",
 "$dblclickZoom_extendedDescription": "Probabilmente esistono estensioni di accessibilità migliori per questo scopo",
