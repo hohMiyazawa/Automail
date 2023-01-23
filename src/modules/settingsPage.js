@@ -626,23 +626,23 @@ query{
 		let loginURL = create("a",false,translate("$terms_signin_link"),hohSettings,"font-size: x-large;");
 		loginURL.href = authUrl;
 		loginURL.style.color = "rgb(var(--color-blue))";
-		create("p",false,"Enables or improves every module in the \"Login\" tab, improves those greyed out.",hohSettings);
+		create("p",false,translate("$terms_signin_description"),hohSettings);
 		if(script_type !== "Boneless"){
-			create("h4",false,"Alternative signin method: Self-hosting the script",hohSettings);
-			create("p",false,"1. Go to settings > developer > \"Create New Client\"",hohSettings);
-			create("p",false,"2. Give it any name, and use \"https://anilist.co/home\" for the redirect URL",hohSettings);
-			create("p",false,"3. Take a screenshot so you don't loose the info",hohSettings);
+			create("h4",false,translate("$terms_signin_selfhost_title"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line1"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line2"),hohSettings);
+			create("p",false,translate("$terms_signin_selfhost_line3"),hohSettings);
 			let ele = create("p",false,"4. ",hohSettings);
-			let lonk = create("span",false,"Click here and input the Client ID",ele,"color:rgb(var(--color-blue));cursor:pointer");
+			let lonk = create("span",false,translate("$terms_signin_selfhost_line4"),ele,"color:rgb(var(--color-blue));cursor:pointer");
 			lonk.onclick = function(){
-				let id = parseInt(prompt("Client ID:"));
+				let id = parseInt(prompt(translate("$terms_signin_selfhost_clientid")));
 				if(id){
 					useScripts.client_id = id;
 					useScripts.save();
 					window.location = "https://anilist.co/api/v2/oauth/authorize?client_id=" + id + "&response_type=token"
 				}
 				else{
-					alert("Error: Client not found")
+					alert(translate("$terms_signin_selfhost_error_client_not_found"))
 				}
 			}
 			if(useScripts.accessToken){
