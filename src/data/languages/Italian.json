@@ -555,7 +555,7 @@
 "$nonJumpScroll_description": "Impedisci al contenuto dell'attività di saltare quando si utilizzano le barre di scorrimento [da Reina]",
 "$blockWord_description": "Nascondi i messaggi sullo stato che contengono questa parola:",
 "$blockWord_extendedDescription": "Anche la sintassi RegEx è accettata, non utilizzare la barra /delimitatori/.\nUso più comune, blocco di più parole: \"parola1|parola2|parola3\"",
-"$statusBorder_description": "Codice colore del bordo destro delle attività in base allo stato dei media",
+"$statusBorder_description": "Modifica il codice colore del bordo destro delle attività in base allo stato del media",
 "$betterReviewRatings_description": "Aggiungi il numero totale di valutazioni alle recensioni nella home page",
 "$browseFilters_description": "Aggiungi altre opzioni di ordinamento per la navigazione",
 "$tagIndex_description": "Mostra un indice di tag personalizzati sulle liste anime e manga",
