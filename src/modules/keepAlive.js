@@ -1,7 +1,7 @@
 exportModule({
 	boneless_disable: true,
 	id: "keepAlive",
-	description: "$keepAlive_description",
+	description: translate("$keepAlive_description") + " " + translate("$settings_experimental_suffix"),
 	extendedDescription: "$keepAlive_extendedDescription",
 	isDefault: false,
 	importance: 0,
