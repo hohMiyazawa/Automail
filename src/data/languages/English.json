@@ -752,6 +752,21 @@
 "$dataSet_romaji": "Romaji",
 "$dataSet_english": "English",
 "$dataSet_native": "Native",
-"$dataSet_synonyms": "Synonyms"
+"$dataSet_synonyms": "Synonyms",
+
+"$blockStatus_all": "All",
+"$blockStatus_status": "Status",
+"$blockStatus_progress": "Progress",
+"$blockStatus_anime": "Anime",
+"$blockStatus_manga": "Manga",
+"$blockStatus_planning": "Planning",
+"$blockStatus_watching": "Watching",
+"$blockStatus_reading": "Reading",
+"$blockStatus_pausing": "Pausing",
+"$blockStatus_dropping": "Dropping",
+"$blockStatus_rewatching": "Rewatching",
+"$blockStatus_rereading": "Rereading",
+"$blockStatus_rewatched": "Rewatched",
+"$blockStatus_reread": "Reread"
 	}
 }
