@@ -2,7 +2,7 @@ exportModule({
 	boneless_disable: true,
 	id: "keepAlive",
 	description: "$keepAlive_description",
-	extendedDescription: `Not perfectly working yet. Info: https://github.com/hohMiyazawa/Automail/issues/65`,
+	extendedDescription: "$keepAlive_extendedDescription",
 	isDefault: false,
 	importance: 0,
 	categories: ["Script"],

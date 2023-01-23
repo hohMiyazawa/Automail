@@ -151,6 +151,7 @@
 "$extraFavs_description": "Make scrollable favourite sections on profiles",
 "$replaceStaffRoles_description": "Enhanced staff pages",
 "$keepAlive_description": "Keep connections alive to prevent 'Session expired' errors [EXPERIMENTAL]",
+"$keepAlive_extendedDescription": "Not perfectly working yet. Info: https://github.com/hohMiyazawa/Automail/issues/65",
 "$rightSideNavbar_description": "Move the vertical navbar to the right side of the screen",
 "$videoMimeTypeFixer_description": "Detect video mime type by file extension [you probably don't need this]",
 "$webmResize_description": "Resize videos with a width in the URL hash (like #220 or #40%)",
