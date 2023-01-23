@@ -511,7 +511,7 @@ div#nav.nav .link.router-link-exact-active.router-link-active,
 	margin-bottom: 5px!important;
 }
 .activity-entry .details .status{
-	display: inline-block!important;
+	display: inline-block;
 	margin-right: 75px;
 }
 .avatar{
