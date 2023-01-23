@@ -1,7 +1,7 @@
 exportModule({
 	boneless_disable: true,
 	id: "keepAlive",
-	description: translate("$keepAlive_description") + " " + translate("$settings_experimental_suffix"),
+	description: "$keepAlive_description",
 	extendedDescription: `Not perfectly working yet. Info: https://github.com/hohMiyazawa/Automail/issues/65`,
 	isDefault: false,
 	importance: 0,
