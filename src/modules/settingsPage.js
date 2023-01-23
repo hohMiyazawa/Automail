@@ -298,25 +298,20 @@ exportModule({
 		}
 		let blockSettings = create("div");
 		let blockInstructions = create("p",false,false,blockSettings);
-		blockInstructions.innerText = `
-Block stuff in the home feed.
-
-Example1: To block "planning" activities by a specific user, fill out those two fields and leave the media field blank.
-Example2: To block a specific piece of media, fill out that field and leave the other two blank.
-`;
+		blockInstructions.innerText = translate($settings_blockInstructions);
 		let blockInput = create("div","#blockInput",false,blockSettings);
-		create("span",false,"User: ",blockInput);
+		create("span",false,translate($settings_blockUser) + " ",blockInput);
 		let blockUserInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockUserInput.value = "";
-		create("span",false," Status: ",blockInput);
+		create("span",false," " + translate($settings_blockStatus) + " ",blockInput);
 		let blockStatusInput = create("select",false,false,blockInput,"margin-right:10px;");
-		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"];
+		const blockStatuses = ["","all","status","progress","anime","manga","planning","watching","reading","pausing","dropping","rewatching","rereading","rewatched","reread"]; //TODO: We should also find a way to localize these
 		blockStatuses.forEach(
 			status => create("option",false,capitalize(status),blockStatusInput)
 				.value = status
 		);
 		blockStatusInput.value = "";
-		create("span",false," Media ID: ",blockInput);
+		create("span",false," " + translate($settings_blockMediaId) + " ",blockInput);
 		let blockMediaInput = create("input",false,false,blockInput,"width:100px;margin-right:10px;");
 		blockMediaInput.type = "number";
 		blockMediaInput.value = "";
