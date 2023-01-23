@@ -682,7 +682,7 @@ query{
 					data = JSON.parse(evt.target.result)
 				}
 				catch(e){
-					alert(translate("$settings_import_parser_error"))
+					alert(translate("$error_JSONparsing"))
 					return
 				}
 				if(!hasOwn(data, "socialTab")){//sanity check
