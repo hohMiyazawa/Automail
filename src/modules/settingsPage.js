@@ -616,7 +616,7 @@ query{
 			hohSettings.appendChild(create("hr"))
 		}
 
-		create("p",false,"Delete all custom settings. Re-installing the script will not do that by itself.",hohSettings);
+		create("p",false,translate($settings_resetDefaultSettings),hohSettings);
 		let cleanEverything= create("button",["hohButton","button","danger"],translate("$button_defaultSettings"),hohSettings);
 		cleanEverything.onclick = function(){
 			localStorage.removeItem("hohSettings");
