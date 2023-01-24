@@ -14,9 +14,9 @@
   },
   "homepage": "https://github.com/hohMiyazawa/Automail",
   "scripts": {
-    "dev": "serve src/build/automail.js",
+    "dev": "serve src/build/automail.user.js",
     "lint": "eslint \"**/*.js\"",
-    "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.js"
+    "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
