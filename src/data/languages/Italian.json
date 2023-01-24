@@ -762,7 +762,7 @@
 "$blockStatus_planning": "Pianificazione",
 "$blockStatus_watching": "Guardando",
 "$blockStatus_reading": "Leggendo",
-"$blockStatus_pausing": "Pausare",
+"$blockStatus_pausing": "Pausa",
 "$blockStatus_dropping": "Abbandonando",
 "$blockStatus_rewatching": "Revisionando",
 "$blockStatus_rereading": "Rileggendo",
