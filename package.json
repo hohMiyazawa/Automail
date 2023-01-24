@@ -14,8 +14,8 @@
   },
   "homepage": "https://github.com/hohMiyazawa/Automail",
   "scripts": {
-    "build": "cd src && make",
-    "build-wsl": "cd src && wsl make",
+    "build": "make -C src",
+    "build-wsl": "wsl make -C src",
     "dev": "serve src/build/",
     "lint": "eslint \"**/*.js\"",
     "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js"
