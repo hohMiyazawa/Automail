@@ -334,6 +334,7 @@
 "$error_userNotFound": "User not found",
 "$error_connection": "Connection error",
 "$error_JSONparsing": "Error parsing JSON",
+"$error_markdown": "error loading markdown",
 "$hideSequels": "Hide Sequels",
 "$myThreads_link": "My Threads",
 "$myThreads_description": "Add a 'my threads' link in the forum",

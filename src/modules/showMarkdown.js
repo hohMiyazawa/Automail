@@ -18,7 +18,10 @@ function showMarkdown(id){
 	codeLink.onclick = function(){
 		let activityMarkdown = document.querySelector(".activity-markdown");
 		if(activityMarkdown.style.display === "none"){
-			document.querySelector(".hohMarkdownSource").style.display = "none";
+			let markdownSource = document.querySelector(".hohMarkdownSource");
+			if(markdownSource){
+				markdownSource.style.display = "none"
+			}
 			activityMarkdown.style.display = "initial"
 		}
 		else{
@@ -30,7 +33,11 @@ function showMarkdown(id){
 			else{
 				const caller = (document.querySelector(".private-badge") ? authAPIcall : generalAPIcall);
 				caller("query($id:Int){Activity(id:$id){...on MessageActivity{text:message}...on TextActivity{text}}}",{id:id},function(data){
-					if(!location.pathname.match(id) || !data){
+					if(!location.pathname.match(id)){
+						return
+					}
+					if(!data){
+						markdownSource = create("div",["activity-markdown","hohMarkdownSource","hohError"],translate("$error_markdown"),activityMarkdown.parentNode);
 						return
 					}
 					markdownSource = create("div",["activity-markdown","hohMarkdownSource"],data.data.Activity.text,activityMarkdown.parentNode);
