@@ -590,6 +590,10 @@
 "$dataSet_english": "Engelsk",
 "$dataSet_native": "Opphaveleg",
 "$dataSet_synonyms": "Synonym",
+"$searchLanding_popularSeason": "Denne sesongen",
+"$searchLanding_nextSeason": "Neste sesong",
+"$searchLanding_popular": "Populært",
+"$searchLanding_topAnime": "Topp 100",
 
 "$role_Original Creator": "Skapar",
 "$role_Creator": "Skapar",

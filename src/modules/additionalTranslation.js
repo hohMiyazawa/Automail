@@ -126,6 +126,72 @@ exportModule({
 				]
 			},
 			{
+				regex: /\/user\/([^/]+)\/?$/,
+				elements: [,
+					{
+						lookup: ".overview .genre-overview .genre > .name",
+						multiple: [
+							{
+								ofText: "Action",
+								replacement: "$genre_action"
+							},
+							{
+								ofText: "Adventure",
+								replacement: "$genre_adventure"
+							},
+							{
+								ofText: "Comedy",
+								replacement: "$genre_comedy"
+							},
+							{
+								ofText: "Drama",
+								replacement: "$genre_drama"
+							},
+							{
+								ofText: "Ecchi",
+								replacement: "$genre_ecchi"
+							},
+							{
+								ofText: "Fantasy",
+								replacement: "$genre_fantasy"
+							},
+							{
+								ofText: "Horror",
+								replacement: "$genre_horror"
+							},
+							{
+								ofText: "Mahou Shoujo",
+								replacement: "$genre_mahouShoujo"
+							},
+							{
+								ofText: "Mecha",
+								replacement: "$genre_mecha"
+							},
+							{
+								ofText: "Music",
+								replacement: "$genre_music"
+							},
+							{
+								ofText: "Mystery",
+								replacement: "$genre_mystery"
+							},
+							{
+								ofText: "Psychological",
+								replacement: "$genre_psychological"
+							},
+							{
+								ofText: "Romance",
+								replacement: "$genre_romance"
+							},
+							{
+								ofText: "Hentai",//does this show up on profiles?
+								replacement: "$genre_hentai"
+							}
+						]
+					}
+				]
+			},
+			{
 				regex: /\/user\/([^/]+)\/?/,
 				elements: [
 					{
@@ -724,24 +790,74 @@ exportModule({
 								replacement: "$filters_year"
 							},
 							{
-								ofText: "season",
-								replacement: "$filters_season"
-							},
-							{
 								ofText: "format",
 								replacement: "$filters_format"
 							},
 							{
+								ofText: "country of origin",
+								replacement: "$filters_countryOfOrigin"
+							}
+						]
+					}
+				]
+			},
+			{
+				regex: /\/search\/anime/,
+				elements: [
+					{
+						lookup: ".primary-filters .filter-select > .name",
+						multiple: [
+							{
+								ofText: "season",
+								replacement: "$filters_season"
+							},
+							{
 								ofText: "airing status",
 								replacement: "$filters_airingStatus"
+							}
+						]
+					}
+				]
+			},
+			{
+				regex: /\/search\/anime\/?$/,
+				elements: [
+					{
+						lookup: ".search-landing h3",
+						multiple: [
+							{
+								ofText: "Trending now",
+								replacement: "$searchLanding_trending"
 							},
+							{
+								ofText: "Popular this season",
+								replacement: "$searchLanding_popularSeason"
+							},
+							{
+								ofText: "Upcoming next season",
+								replacement: "$searchLanding_nextSeason"
+							},
+							{
+								ofText: "All time popular",
+								replacement: "$searchLanding_popular"
+							},
+							{
+								ofText: "Top 100 Anime",
+								replacement: "$searchLanding_topAnime"
+							}
+						]
+					}
+				]
+			},
+			{
+				regex: /\/search\/manga/,
+				elements: [
+					{
+						lookup: ".primary-filters .filter-select > .name",
+						multiple: [
 							{
 								ofText: "publishing status",
 								replacement: "$filters_publishingStatus"
-							},
-							{
-								ofText: "country of origin",
-								replacement: "$filters_countryOfOrigin"
 							}
 						]
 					}

@@ -140,6 +140,11 @@
 "$forumCategory_12": "Bugs",
 "$forumCategory_13": "Announcements",
 "$forumCategory_18": "Apps",
-"$forum_singleThread": "View thread"
+"$forum_singleThread": "View thread",
+"$searchLanding_trending": "Trending",
+"$searchLanding_popularSeason": "This season",
+"$searchLanding_nextSeason": "Next season",
+"$searchLanding_popular": "Popular",
+"$searchLanding_topAnime": "Top 100",
 	}
 }
