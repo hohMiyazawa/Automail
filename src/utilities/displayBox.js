@@ -13,7 +13,6 @@ function createDisplayBox(cssProperties,windowTitle){
 	};
 	let resizePearl = create("span","hohResizePearl",false,displayBox);
 	displayBox.addEventListener("mousedown",function(e){
-		console.log(e);
 		let root = e.target;
 		while(root.parentNode){//don't annoy people trying to copy-paste
 			if(root.classList.contains("scrollableContent")){

@@ -27,7 +27,7 @@ async function addForumMediaNoAWC(){
 			avatar.style.backgroundImage = "url(\"" + (thread.replyUser || thread.user).avatar.large + "\")";
 			let name = create("div","name",false,footer);
 			if(thread.replyCount === 0){
-				let contextText = create("a",false,"By",name);
+				let contextText = create("a",false,translate("$particle_by"),name);
 				name.appendChild(document.createTextNode(" "));
 				let nameWrap = create("a",false,false,name);
 				nameWrap.href = (thread.replyUser || thread.user).name;
@@ -35,7 +35,7 @@ async function addForumMediaNoAWC(){
 				let nameInner = create("span",false,(thread.replyUser || thread.user).name,nameWrap);
 			}
 			else if(!thread.replyUser){
-				let contextText = create("a",false,"By",name);
+				let contextText = create("a",false,translate("$particle_by"),name);
 				name.appendChild(document.createTextNode(" "));
 				let nameWrap = create("a",false,false,name);
 				nameWrap.href = "/user/" + thread.user.name;
