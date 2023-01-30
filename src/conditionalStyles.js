@@ -349,6 +349,13 @@ if(useScripts.rightToLeft){
 m4_include(css/rightToLeft.css)
 	`
 }
+if(useScripts.titlecaseRomaji){
+	moreStyle.textContent += `
+.search .landing-section h3{
+	text-transform: none;
+}
+	`
+}
 if(script_type !== "Boneless"){
 	moreStyle.textContent += `
 .user[type="anime"][page="tags"] .increase-stats::after,
