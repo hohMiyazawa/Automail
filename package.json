@@ -16,7 +16,7 @@
   "scripts": {
     "build": "make -C src",
     "build-wsl": "wsl make -C src",
-    "dev": "http-server src/build -c5 -o automail.user.js",
+    "dev": "http-server src/build -s -c5 -o automail.user.js",
     "lint": "eslint \"**/*.js\"",
     "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js"
   },
