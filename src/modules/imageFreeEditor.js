@@ -11,13 +11,32 @@ exportModule({
 }
 .list-editor-wrap .header{
 	background-image: none!important;
-	height: 0px;
+	height: auto;
+	box-shadow: none;
+	background: rgb(var(--color-foreground));
+}
+.list-editor-wrap .header::after{
+	background: none;
 }
 .list-editor-wrap .header .content{
-	padding-top: 2px;
-	padding-left: 35px;
-	padding-right: 120px;
-	height: 60px;
+	align-items: center;
+}
+.list-editor-wrap .header .title{
+	padding: 0;
+}
+.list-editor-wrap .header .favourite{
+	margin-bottom: 0;
+}
+.list-editor-wrap .header .save-btn{
+	margin-bottom: 0;
+}
+.list-editor-wrap .list-editor .body{
+	padding-top: 20px;
+}
+@media (max-width: 760px){
+	.list-editor-wrap .header .content{
+		padding-top: 60px;
+	}
 }
 	`
 })
