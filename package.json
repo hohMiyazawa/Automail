@@ -16,13 +16,13 @@
   "scripts": {
     "build": "make -C src",
     "build-wsl": "wsl make -C src",
-    "dev": "serve src/build/",
+    "dev": "http-server src/build -s -c5 -o automail.user.js",
     "lint": "eslint \"**/*.js\"",
     "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js"
   },
   "devDependencies": {
-    "eslint": "^8.6.0",
-    "eslint-plugin-compat": "^4.0.1",
-    "serve": "^14.1.2"
+    "eslint": "^8.33.0",
+    "eslint-plugin-compat": "^4.1.1",
+    "http-server": "^14.1.1"
   }
 }
