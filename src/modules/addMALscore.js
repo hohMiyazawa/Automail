@@ -114,19 +114,13 @@ async function addMALscore(type,id){
 					adder()
 				}
 			}
-			if(window.GM_xmlhttpRequest){
+			if(GM_xmlhttpRequest){
 				GM_xmlhttpRequest({
 					method: "GET",
 					anonymous: true,
 					url: "https://myanimelist.net/" + type + "/" + data.data.Media.idMal + "/placeholder/userrecs",
 					onload: function(response){handler(response)}
 				})
-			}
-			else{
-				let oReq = new XMLHttpRequest();
-				oReq.addEventListener("load",function(){handler(this)});
-				oReq.open("GET","https://myanimelist.net/" + type + "/" + data.data.Media.idMal + "/placeholder/userrecs");
-				oReq.send()
 			}
 		}
 	}
