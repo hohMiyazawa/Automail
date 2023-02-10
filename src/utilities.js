@@ -740,12 +740,16 @@ function returnList(list,skipProcessing){
 		return null
 	}
 	let retl = [];
-	list.data.MediaListCollection.lists.forEach(mediaList => {
-		mediaList.entries.forEach(entry => {
-			if(!skipProcessing){
-				entry.isCustomList = mediaList.isCustomList;
+	if(skipProcessing){
+		retl = list.data.MediaListCollection.lists.map(list => list.entries).flat();
+	}
+	else {
+		retl = list.data.MediaListCollection.lists.map(list => {
+			return list.entries.map(_entry => {
+				const entry = structuredClone(_entry);
+				entry.isCustomList = list.isCustomList;
 				if(entry.isCustomList){
-					entry.listLocations = [mediaList.name]
+					entry.listLocations = [list.name]
 				}
 				else{
 					entry.listLocations = []
@@ -773,10 +777,10 @@ function returnList(list,skipProcessing){
 				if(entry.status === "REPEATING" && entry.repeat === 0){
 					entry.repeat = 1
 				}
-			}
-			retl.push(entry);
-		})
-	})
+				return entry;
+			})
+		}).flat();
+	}
 	return removeGroupedDuplicates(
 		retl,
 		e => e.mediaId,
