@@ -739,7 +739,7 @@ function returnList(_list,skipProcessing){
 	if(!_list){
 		return null
 	}
-	const list = structuredClone(_list);
+	const list = window.structuredClone ? structuredClone(_list) : _list;
 	let retl = [];
 	if(skipProcessing){
 		retl = list.data.MediaListCollection.lists.map(list => list.entries).flat();
