@@ -122,6 +122,12 @@ async function addMALscore(type,id){
 					onload: function(response){handler(response)}
 				})
 			}
+			else{
+				let oReq = new XMLHttpRequest();
+				oReq.addEventListener("load",function(){handler(this)});
+				oReq.open("GET","https://myanimelist.net/" + type + "/" + data.data.Media.idMal + "/placeholder/userrecs");
+				oReq.send()
+			}
 		}
 	}
 	else{
