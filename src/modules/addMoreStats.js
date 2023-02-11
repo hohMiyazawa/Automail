@@ -1767,10 +1767,17 @@ function addMoreStats(){
 	}//end boneless check
 			return
 		};
-		if(user === whoAmI && reliablePersistentStorage){
-			cache.getList("ANIME",function(data){
-				personalStatsCallback(data)
-			})
+		if(user === whoAmI){
+			const animeData = await anilistAPI(cache.listQuery.ANIME, {
+				variables: {name: user},
+				cacheKey: "ListCacheANIME" + user,
+				duration: 60*60*1000,
+				auth: true
+			});
+			if(animeData.errors){
+				return
+			}
+			personalStatsCallback(animeData)
 		}
 		else{
 			const animeData = await anilistAPI(queryMediaListAnime, {
@@ -2437,10 +2444,17 @@ function addMoreStats(){
 			};waiter();
 			return
 		};
-		if(user === whoAmI && reliablePersistentStorage){
-			cache.getList("MANGA",data => {
-				personalStatsMangaCallback(data)
-			})
+		if(user === whoAmI){
+			const mangaData = await anilistAPI(cache.listQuery.MANGA, {
+				variables: {name: user},
+				cacheKey: "ListCacheMANGA" + user,
+				duration: 60*60*1000,
+				auth: true
+			});
+			if(mangaData.errors){
+				return
+			}
+			personalStatsMangaCallback(mangaData)
 		}
 		else{
 			const mangaData = await anilistAPI(queryMediaListManga, {

@@ -114,7 +114,7 @@ async function addMALscore(type,id){
 					adder()
 				}
 			}
-			if(window.GM_xmlhttpRequest){
+			if(typeof GM_xmlhttpRequest === "function"){
 				GM_xmlhttpRequest({
 					method: "GET",
 					anonymous: true,
