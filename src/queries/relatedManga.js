@@ -15,6 +15,7 @@
 								id
 								title{romaji}
 								type
+								format
 							}
 						}
 					}
@@ -78,11 +79,16 @@
 		let checkBox6 = createCheckbox(row6);
 		let label6 = create("span",false,"Include media related to dropped manga",row6);
 
+		let row7 = create("p",false,false,filters);
+		let checkBox7 = createCheckbox(row7);
+		let label7 = create("span",false,"Include light novels in related media",row7);
+
 		checkBox1.checked = true;
 		checkBox2.checked = true;
 		checkBox3.checked = true;
 		checkBox4.checked = true;
 		checkBox5.checked = true;
+		checkBox7.checked = true;
 
 		let f_results = create("div",false,false,miscResults);
 		let render = function(){
@@ -98,6 +104,7 @@
 						|| (checkBox5.checked && item.relationType.some(type => ["ADAPTATION","CHARACTER","SUMMARY","SPIN_OFF","OTHER","SOURCE","COMPILATION","CONTAINS"].includes(type)))
 					)
 					&& (checkBox6.checked || item.isDropped.some(val => !val))
+					&& (checkBox7.checked || item.node.format !== "NOVEL")
 				){
 					create("a",["link","newTab"],item.node.title.romaji,f_results,"display:block;padding:5px;")
 						.href = "/manga/" + item.node.id;
@@ -112,6 +119,7 @@
 		checkBox4.onchange = render;
 		checkBox5.onchange = render;
 		checkBox6.onchange = render;
+		checkBox7.onchange = render;
 		render();
 	})
 }},
