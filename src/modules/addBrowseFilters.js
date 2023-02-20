@@ -33,7 +33,7 @@ function addBrowseFilters(type){
 			+ "//"
 			+ location.host
 			+ location.pathname.replace(
-				/\/(popular|top-100|next-season|this-season|trending|top-manhwa)$/,
+				/\/(popular|top-100|next-season|this-season|trending|top-manhwa|new)$/,
 				""
 			)
 			+ "?" + url.toString()
