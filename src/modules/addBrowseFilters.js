@@ -23,48 +23,28 @@ function addBrowseFilters(type){
 		}
 		let alreadyAdded = document.querySelectorAll(".hohSorts");
 		alreadyAdded.forEach(aready => aready.remove());
-		let URLredirect = function(property,value){
-			let url = new URLSearchParams(location.search);
-			url.set(property,value);
-			if(location.pathname.match(/\/top-manhwa$/)){
-				url.set("country of origin","KR")
+		const linkHandler = function(elem, query){
+			const pageQuery = Object.fromEntries(new URLSearchParams(location.search));
+			if(/\/top-manhwa$/.test(location.pathname)){
+				pageQuery["country of origin"] = "KR";
 			}
-			window.location.href = location.protocol
-			+ "//"
-			+ location.host
-			+ location.pathname.replace(
-				/\/(popular|top-100|next-season|this-season|trending|top-manhwa|new)$/,
-				""
-			)
-			+ "?" + url.toString()
+			cheapReload(elem, {...{name: "Search", params: {type}}, ...{query: pageQuery}, ...query})
 		};
 		if(type === "anime"){
 			let episodeSort = create("div",["option","hohSorts"],"Episodes ↓",dropdown);
 			let episodeSortb = create("div",["option","hohSorts"],"Episodes ↑",dropdown);
-			episodeSort.onclick = function(){
-				URLredirect("sort","EPISODES_DESC")
-			};
-			episodeSortb.onclick = function(){
-				URLredirect("sort","EPISODES")
-			}
+			linkHandler(episodeSort, {query: {sort: "EPISODES_DESC"}})
+			linkHandler(episodeSortb, {query: {sort: "EPISODES"}})
 		}
 		else if(type === "manga"){
 			let chapterSort = create("div",["option","hohSorts"],"Chapters ↓",dropdown);
 			let chapterSortb = create("div",["option","hohSorts"],"Chapters ↑",dropdown);
 			let volumeSort = create("div",["option","hohSorts"],"Volumes ↓",dropdown);
 			let volumeSortb = create("div",["option","hohSorts"],"Volumes ↑",dropdown);
-			chapterSort.onclick = function(){
-				URLredirect("sort","CHAPTERS_DESC")
-			};
-			chapterSortb.onclick = function(){
-				URLredirect("sort","CHAPTERS")
-			};
-			volumeSort.onclick = function(){
-				URLredirect("sort","VOLUMES_DESC")
-			};
-			volumeSortb.onclick = function(){
-				URLredirect("sort","VOLUMES")
-			}
+			linkHandler(chapterSort, {query: {sort: "CHAPTERS_DESC"}})
+			linkHandler(chapterSortb, {query: {sort: "CHAPTERS"}})
+			linkHandler(volumeSort, {query: {sort: "VOLUMES_DESC"}})
+			linkHandler(volumeSortb, {query: {sort: "VOLUMES"}})
 		}
 	}
 	sorts.addEventListener("click", applySorts)
