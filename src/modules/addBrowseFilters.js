@@ -67,5 +67,5 @@ function addBrowseFilters(type){
 			}
 		}
 	}
-	sorts.onclick = applySorts();
+	sorts.addEventListener("click", applySorts)
 }
