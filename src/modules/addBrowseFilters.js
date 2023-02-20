@@ -23,28 +23,27 @@ function addBrowseFilters(type){
 		}
 		let alreadyAdded = document.querySelectorAll(".hohSorts");
 		alreadyAdded.forEach(aready => aready.remove());
-		const linkHandler = function(elem, query){
-			const pageQuery = Object.fromEntries(new URLSearchParams(location.search));
-			if(/\/top-manhwa$/.test(location.pathname)){
-				pageQuery["country of origin"] = "KR";
+		const linkHandler = function(elem, sort){
+			elem.onclick = () => {
+				sorts.__vue__.setSort(sort);
+				sorts.__vue__.close();
 			}
-			cheapReload(elem, {...{name: "Search", params: {type}}, ...{query: pageQuery}, ...query})
 		};
 		if(type === "anime"){
 			let episodeSort = create("div",["option","hohSorts"],"Episodes ↓",dropdown);
 			let episodeSortb = create("div",["option","hohSorts"],"Episodes ↑",dropdown);
-			linkHandler(episodeSort, {query: {sort: "EPISODES_DESC"}})
-			linkHandler(episodeSortb, {query: {sort: "EPISODES"}})
+			linkHandler(episodeSort, "EPISODES_DESC")
+			linkHandler(episodeSortb, "EPISODES")
 		}
 		else if(type === "manga"){
 			let chapterSort = create("div",["option","hohSorts"],"Chapters ↓",dropdown);
 			let chapterSortb = create("div",["option","hohSorts"],"Chapters ↑",dropdown);
 			let volumeSort = create("div",["option","hohSorts"],"Volumes ↓",dropdown);
 			let volumeSortb = create("div",["option","hohSorts"],"Volumes ↑",dropdown);
-			linkHandler(chapterSort, {query: {sort: "CHAPTERS_DESC"}})
-			linkHandler(chapterSortb, {query: {sort: "CHAPTERS"}})
-			linkHandler(volumeSort, {query: {sort: "VOLUMES_DESC"}})
-			linkHandler(volumeSortb, {query: {sort: "VOLUMES"}})
+			linkHandler(chapterSort, "CHAPTERS_DESC")
+			linkHandler(chapterSortb, "CHAPTERS")
+			linkHandler(volumeSort, "VOLUMES_DESC")
+			linkHandler(volumeSortb, "VOLUMES")
 		}
 	}
 	sorts.addEventListener("click", applySorts)
