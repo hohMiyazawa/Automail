@@ -47,9 +47,6 @@
 },{"id": "activityTimeline",
 	"description": "$activityTimeline_description",
 	"categories": ["Media","Navigation"]
-},{"id": "browseFilters",
-	"description": "$browseFilters_description",
-	"categories": ["Browse"]
 },{"id": "completedScore",
 	"description": "$completedScore_description",
 	"categories": ["Feeds"]

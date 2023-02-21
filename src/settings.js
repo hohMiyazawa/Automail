@@ -75,7 +75,6 @@ let useScripts = {
 	entryScore: true,
 	showRecVotes: true,
 	activityTimeline: true,
-	browseFilters: true,
 	embedHentai: false,
 	comparissionPage: true,
 	noImagePolyfill: false,
