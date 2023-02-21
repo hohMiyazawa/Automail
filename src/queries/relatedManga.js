@@ -1,6 +1,6 @@
-{name: "Related manga not on list",code: function(){
-	generalAPIcall(
-`query($name: String!){
+{name: "Related manga not on list",code: async () => {
+	const relationQuery = `
+query($name: String!){
 	MediaListCollection(userName: $name,type: MANGA){
 		lists{
 			entries{
@@ -23,8 +23,8 @@
 			}
 		}
 	}
-}`,
-	{name: user},function(data){
+}`;
+	function relatedManga(data){
 		let list = returnList(data,true);
 		let listEntries = new Set(list.map(a => a.mediaId));
 		let found = [];
@@ -135,5 +135,9 @@
 		checkBox8.onchange = render;
 		checkBox9.onchange = render;
 		render();
-	})
+	}
+	const data = await anilistAPI(relationQuery, {
+		variables: {name: user}
+	});
+	relatedManga(data)
 }},
