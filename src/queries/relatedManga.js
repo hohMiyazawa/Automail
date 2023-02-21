@@ -81,7 +81,15 @@
 
 		let row7 = create("p",false,false,filters);
 		let checkBox7 = createCheckbox(row7);
-		let label7 = create("span",false,"Include light novels in related media",row7);
+		let label7 = create("span",false,"Include manga in related media",row7);
+
+		let row8 = create("p",false,false,filters);
+		let checkBox8 = createCheckbox(row8);
+		let label8 = create("span",false,"Include one shots in related media",row8);
+
+		let row9 = create("p",false,false,filters);
+		let checkBox9 = createCheckbox(row9);
+		let label9 = create("span",false,"Include light novels in related media",row9);
 
 		checkBox1.checked = true;
 		checkBox2.checked = true;
@@ -89,6 +97,8 @@
 		checkBox4.checked = true;
 		checkBox5.checked = true;
 		checkBox7.checked = true;
+		checkBox8.checked = true;
+		checkBox9.checked = true;
 
 		let f_results = create("div",false,false,miscResults);
 		let render = function(){
@@ -104,7 +114,9 @@
 						|| (checkBox5.checked && item.relationType.some(type => ["ADAPTATION","CHARACTER","SUMMARY","SPIN_OFF","OTHER","SOURCE","COMPILATION","CONTAINS"].includes(type)))
 					)
 					&& (checkBox6.checked || item.isDropped.some(val => !val))
-					&& (checkBox7.checked || item.node.format !== "NOVEL")
+					&& (checkBox7.checked || item.node.format !== "MANGA")
+					&& (checkBox8.checked || item.node.format !== "ONE_SHOT")
+					&& (checkBox9.checked || item.node.format !== "NOVEL")
 				){
 					create("a",["link","newTab"],item.node.title.romaji,f_results,"display:block;padding:5px;")
 						.href = "/manga/" + item.node.id;
@@ -120,6 +132,8 @@
 		checkBox5.onchange = render;
 		checkBox6.onchange = render;
 		checkBox7.onchange = render;
+		checkBox8.onchange = render;
+		checkBox9.onchange = render;
 		render();
 	})
 }},
