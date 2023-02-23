@@ -5,10 +5,10 @@ exportModule({
 	categories: ["Media"],
 	visible: true,
 	urlMatch: function(url){
-		return /^https:\/\/anilist\.co\/(anime|manga)\/[0-9]+\/.*\/reviews/.test(url)
+		return /^https:\/\/anilist\.co\/(anime|manga)\/[0-9]+\/(.*\/)?reviews/.test(url)
 	},
 	code: function(){
-		const [,id] = location.pathname.match(/^\/(?:anime|manga)\/([0-9]+)\/.*\/reviews/)
+		const [,id] = location.pathname.match(/^\/(?:anime|manga)\/([0-9]+)\/(.*\/)?reviews/)
 		const query = `
 query media($id: Int, $page: Int) {
 	Media(id: $id) {
