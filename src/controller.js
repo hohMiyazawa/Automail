@@ -203,16 +203,6 @@ function handleScripts(url,oldUrl){
 			enhanceStaffBrowse()
 		}
 	}
-	else if(url.match(/^https:\/\/anilist\.co\/search\/anime/)){
-		if(useScripts.browseFilters){
-			addBrowseFilters("anime")
-		}
-	}
-	else if(url.match(/^https:\/\/anilist\.co\/search\/manga/)){
-		if(useScripts.browseFilters){
-			addBrowseFilters("manga")
-		}
-	}
 	let mangaAnimeMatch = url.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 	if(mangaAnimeMatch){
 		let adder = function(){
