@@ -18,7 +18,8 @@
     "build-wsl": "wsl make -C src",
     "dev": "http-server src/build -s -c5 -o automail.user.js",
     "lint": "eslint \"**/*.js\"",
-    "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js"
+    "lint-build": "eslint --rule \"no-unused-vars: warn\" --rule \"no-undef: warn\" --no-ignore src/build/automail.user.js",
+    "update-anime-sequels": "node src/data/sequel_scripts/getAnimeSequels.mjs"
   },
   "devDependencies": {
     "eslint": "^8.33.0",
