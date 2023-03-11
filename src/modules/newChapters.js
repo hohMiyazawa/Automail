@@ -89,7 +89,7 @@ buttonFindChapters.onclick = function(){
 			data.data.Page.activities.forEach(function(activity){
 				if(activity.progress){
 					let chapterMatch = parseInt(activity.progress.match(/\d+$/)[0]);
-					if(!userIdCache.has(activity.userId)){
+					if(!userIdCache.has(activity.userId) && chapterMatch !== 65535){
 						guesses.push(chapterMatch);
 						userIdCache.add(activity.userId)
 					}
@@ -99,6 +99,9 @@ buttonFindChapters.onclick = function(){
 			if(guesses.length){
 				let bestGuess = guesses[0];
 				if(guesses.length > 2){
+					if(guesses.filter(val => val < 7000).length){
+						guesses = guesses.filter(val => val < 7000)
+					}
 					let diff = guesses[0] - guesses[1];
 					let inverseDiff = 1 + Math.ceil(20/(diff+1));
 					if(guesses.length >= inverseDiff){

@@ -87,7 +87,7 @@ query($id: Int){
 			data.data.Page.activities.forEach(activity => {
 				if(activity.progress){
 					let chapterMatch = parseInt(activity.progress.match(/\d+$/)[0]);
-					if(!userIdCache.has(activity.userId)){
+					if(!userIdCache.has(activity.userId) && chapterMatch !== 65535){
 						guesses.push(chapterMatch);
 						userIdCache.add(activity.userId)
 					}
