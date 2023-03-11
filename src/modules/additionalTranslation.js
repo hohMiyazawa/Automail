@@ -458,6 +458,10 @@ exportModule({
 								replacement: "$dataSet_endDate"
 							},
 							{
+								ofText: "Release Date",
+								replacement: "$dataSet_releaseDate"
+							},
+							{
 								ofText: "Season",
 								replacement: "$dataSet_season"
 							},

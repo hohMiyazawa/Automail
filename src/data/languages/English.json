@@ -741,6 +741,7 @@
 "$dataSet_status": "Status",
 "$dataSet_startDate": "Start Date",
 "$dataSet_endDate": "End Date",
+"$dataSet_releaseDate": "Release Date",
 "$dataSet_season": "Season",
 "$dataSet_averageScore": "Average Score",
 "$dataSet_meanScore": "Mean Score",
