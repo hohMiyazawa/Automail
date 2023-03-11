@@ -16,7 +16,7 @@ function addEntryScore(id,tries){
 		let miniHolder = create("div","#hohEntryScore",false,possibleLocation.parentNode.parentNode,"position:relative;");
 		miniHolder.dataset.mediaId = id;
 		let type = possibleLocation.innerText;
-		if(["Reading","Completed","Watching","Paused","Repeating","Dropped"].includes(type)){
+		if(type !== "Add to List" && type !== translate("$mediaStatus_not")){
 			let updateSubInfo = function(override){
 				generalAPIcall(
 					"query($id:Int,$name:String){MediaList(mediaId:$id,userName:$name){score progress media{episodes chapters}}}",
@@ -93,7 +93,7 @@ function addEntryScore(id,tries){
 								changePluss.onclick = function(){updateScore(true)};
 							}
 						}
-						if(type !== "Completed"){
+						if(type !== "Completed" && type !== translate("$mediaStatus_completed")){
 							let progressPlace = create("span","hohMediaScore",false,miniHolder,"right:0px;");
 							progressPlace.title = "Progress";
 							let progressVal = create("span",false,MediaList.progress + (MediaList.media.episodes ? "/" + MediaList.media.episodes : MediaList.media.chapters ? "/" + MediaList.media.chapters : ""),progressPlace);
