@@ -121,7 +121,7 @@ if(useScripts.CSSbannerShadow){
 }
 if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.availWidth <= 1040)){
 	moreStyle.textContent += `
-.home{
+.home:not(.full-width){
 	grid-template-columns: auto 545px!important;
 }
 @media(min-width: 1040px) and (max-width: 1540px){
