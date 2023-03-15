@@ -905,7 +905,8 @@
 "$blockStatus_rewatching": "En revisionnage",
 "$blockStatus_rereading": "En relecture",
 "$blockStatus_rewatched": "Revisionné",
-"$blockStatus_reread": "Relu"
+"$blockStatus_reread": "Relu",
+"$dataSet_releaseDate": "Date de sortie"
 	},
 
 	"mediaTitlesAnime": {
