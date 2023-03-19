@@ -174,7 +174,7 @@ function betterListPreview(){
 						let imageTextWrapper = create("div","countdown",false,imageText);
 						let createCountDown = function(){
 							removeChildren(imageTextWrapper)
-							create("span",false,"Ep " + air.media.nextAiringEpisode.episode,imageTextWrapper);
+							create("span",false,translate("$notification_epShort",air.media.nextAiringEpisode.episode),imageTextWrapper);
 							create("br",false,false,imageTextWrapper);
 							if(air.media.nextAiringEpisode.timeUntilAiring <= 0){
 								create("span",false,"Recently aired",imageTextWrapper);

@@ -20,7 +20,7 @@ function enhanceSocialTabFeed(){
 	else{
 		isFollowing.parentNode.style.display = "none"
 	}
-	let feedHeader = create("h2",false,"Recent Activity",hohFeed,"display:none;");
+	let feedHeader = create("h2",false,translate("$feedHeader"),hohFeed,"display:none;");
 	let feedContent = create("div",false,false,hohFeed,"display:none;");
 	let loadMore = create("div","load-more",translate("$load_more"),hohFeed);
 	let query = "";
