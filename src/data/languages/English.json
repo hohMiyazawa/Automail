@@ -738,6 +738,7 @@
 "$dataSet_format": "Format",
 "$dataSet_episodes": "Episodes",
 "$dataSet_episodeDuration": "Episode\n\t\t\tDuration",
+"$dataSet_duration": "Duration",
 "$dataSet_status": "Status",
 "$dataSet_startDate": "Start Date",
 "$dataSet_endDate": "End Date",

@@ -20,9 +20,17 @@ exportModule({
 				if(place){
 					Array.from(place).forEach(elem => {
 						element.multiple.forEach(possible => {
-							if(elem.childNodes[0].textContent.trim() === possible.ofText){
-								elem.childNodes[0].textContent = translate(possible.replacement,undefined,possible.ofText)
-								possible.translated = true
+							if(possible.topNode){
+								if(elem.textContent.trim() === possible.ofText){
+									elem.textContent = translate(possible.replacement,undefined,possible.ofText)
+									possible.translated = true
+								}
+							}
+							else{
+								if(elem.childNodes[0].textContent.trim() === possible.ofText){
+									elem.childNodes[0].textContent = translate(possible.replacement,undefined,possible.ofText)
+									possible.translated = true
+								}
 							}
 						})
 					})
@@ -443,7 +451,12 @@ exportModule({
 							},
 							{
 								ofText: "Episode\n\t\t\tDuration",
+								topNode: true,
 								replacement: "$dataSet_episodeDuration"
+							},
+							{
+								ofText: "Duration",
+								replacement: "$dataSet_duration"
 							},
 							{
 								ofText: "Status",

@@ -40,14 +40,15 @@ exportModule({
 				let found = false
 				Array.from(side.children).forEach(child => {
 					if(child.querySelector(".type")){
-						if(child.querySelector(".type").innerText === "Episodes"){
+						if(["Episodes",translate("$dataSet_episodes")].includes(child.querySelector(".type").innerText)){
 							eps = parseInt(child.querySelector(".value").innerText)
 						}
-						else if((child.querySelector(".type").innerText === "Duration" || child.querySelector(".type").innerText === "Episode Duration")){
+						else if(["Duration","Episode Duration",translate("$dataSet_episodeDuration"),translate("$dataSet_duration")].includes(child.querySelector(".type").innerText)){
 							anchor = child.querySelector(".value");
 							found = true;
-							let parse = anchor.innerText.match(/((\d+) hours?,)?(\d+) mins?/);
-							dur = parseInt(parse[2] || 0) * 60 + parseInt(parse[3] || 0);
+							let hours = parseInt((anchor.innerText.match(/(\d+) hours?/) || [null,"0"])[1]);
+							let minutes = parseInt((anchor.innerText.match(/(\d+) mins?/) || [null,"0"])[1]);
+							dur = hours * 60 + minutes
 						}
 					}
 				})
