@@ -2249,22 +2249,25 @@ function addMoreStats(){
 			if(staffList.length > 300){
 				staffList = staffList.filter(
 					obj => obj.count >= 3
-					|| (obj.count >= 2 && obj.chaptersRead > 100)
-					|| obj.chaptersRead > 200
+					|| (obj.count >= 2 && obj.chaptersRead >= 100)
+					|| obj.chaptersRead >= 200
+					|| obj.volumesRead >= 10
 				)
 			}
 			if(staffList.length > 300){
 				staffList = staffList.filter(
 					obj => obj.count >= 5
-					|| (obj.count >= 2 && obj.chaptersRead > 200)
-					|| obj.chaptersRead > 300
+					|| (obj.count >= 2 && obj.chaptersRead >= 200)
+					|| obj.chaptersRead >= 300
+					|| obj.volumesRead >= 15
 				)
 			}
 			if(staffList.length > 300){
 				staffList = staffList.filter(
 					obj => obj.count >= 10
-					|| (obj.count >= 2 && obj.chaptersRead > 300)
-					|| obj.chaptersRead > 400
+					|| (obj.count >= 2 && obj.chaptersRead >= 300)
+					|| obj.chaptersRead >= 400
+					|| obj.volumesRead >= 25
 				)
 			}
 			let hasScores = staffList.some(a => a.scoreCount);
