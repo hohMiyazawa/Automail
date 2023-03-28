@@ -2321,10 +2321,10 @@ function addMoreStats(){
 							&& !art_filter.checked
 							&& (
 								staff.roles.every(role => role.toLowerCase().match(/art|story/))
-								|| !staff.roles.some(role => role.toLowerCase().match(/translator|translation|lettering|touch-up|assist(a|e)nt|assistance/i))
+								|| !staff.roles.some(role => role.toLowerCase().match(/translator|storyboard|translation|lettering|touch-up|assist(a|e)nt|assistance/i))
 							)
 						)
-						|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assist(a|e)nt|assistance/i)))
+						|| (!assistant_filter.checked && staff.roles.every(role => role.toLowerCase().match(/assist(a|e)nt|storyboard|assistance/i)))
 						|| (!translator_filter.checked && staff.roles.some(role => role.toLowerCase().match(/translator|translation|lettering|touch-up/i)))
 					){
 						return
