@@ -16,13 +16,13 @@ async function anilistAPI(query, variables){
 		}
 		apiResetLimit = undefined;
 	}
-	const req = new Request("https://graphql.anilist.co", {
-		method: "POST",
-		headers: {"Content-Type": "application/json"},
-		body: JSON.stringify({query, variables})
-	});
+	//const req = new Request(");
 	try{
-		const res = await fetch(req);
+		const res = await fetch("https://graphql.anilist.co", {
+			method: "POST",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify({query, variables})
+		});
 		const data = await res.json();
 		if(res.status === 429){
 			apiResetLimit = res.headers.has("x-ratelimit-reset") ? res.headers.get("x-ratelimit-reset") : (Date.now()+60*1000)/1000;

@@ -63,7 +63,7 @@ async function getAnime(){
 					}
 					return sequel;
 				});
-				if(isSequel){
+				if(isSequel && ![101517,69625,30336,37776,104271,95,82,96].includes(entry.id)){
 					sequels.add(entry.id)
 				}
 			})
@@ -84,8 +84,10 @@ async function init(){
 	await getAnime()
 	const filePath = join(__dirname, "../sequels.json");
 	const sequelFile = await readFile(filePath, "utf8");
-	console.log("Reading anime sequels file")
+	console.log("Reading anime sequels file");
 	const fileSet = new Set(JSON.parse(sequelFile));
+	//const diff =Array.from(sequels).filter(seq => !fileSet.has(seq)));
+	//await writeFile("diff.json", JSON.stringify(diff), "utf8");
 	const combinedSet = new Set([...fileSet, ...sequels]);
 	await writeFile(filePath, JSON.stringify(Array.from(combinedSet)), "utf8");
 	console.log("Updated anime sequels file")
