@@ -63,7 +63,6 @@ function addRelationStatusDot(id){
 					}
 				}
 			};adder();
-			let init_completed = false;
 			let recsAdder = function(){
 				let mangaAnimeMatch = document.URL.match(/^https:\/\/anilist\.co\/(anime|manga)\/(\d+)\/?([^/]*)?\/?(.*)?/);
 				if(!mangaAnimeMatch){
@@ -84,28 +83,28 @@ function addRelationStatusDot(id){
 						let adder = function(recs){
 							recs.forEach(media => {
 								let target = findCard.querySelector("[href^=\"/" + media.type.toLowerCase() + "/" + media.id + "/\"]");
-								if(target){
+								if(target && !target.querySelector(".hohStatusDot")){
 									let statusDot = create("div","hohStatusDot",false,target);
 									statusDot.style.background = distributionColours[media.mediaListEntry.status];
 									statusDot.title = media.mediaListEntry.status.toLowerCase();
 								}
 							});
 						};adder(recs);
-						let toggle = document.querySelector(".recommendations .view-all .toggle");
-						if(toggle){
-							toggle.addEventListener("click",function(){
-								setTimeout(function(){adder(recs)},1000)
-							})
-						}
-						if(!init_completed){
-							init_completed = true;
-							if(toggle && parseInt(toggle.innerText.match(/\d+/)) > 25){
+						let mutationConfig = {
+							attributes: false,
+							childList: true,
+							subtree: false
+						};
+						let observer = new MutationObserver(function(){
+							let recsCount = findCard.querySelectorAll(".recommendation-card").length
+							if(recsCount > 25){
 								let recs2 = [];
-								toggle.addEventListener("mouseover",function(){
-									authAPIcall(
-`query($id: Int){
+								let page = Math.trunc(recsCount/25);
+								recsCount % 25 !== 0 && page++;
+								authAPIcall(
+`query($id: Int, $page: Int){
 	Media(id:$id){
-		recommendations(sort:RATING_DESC,page:2){
+		recommendations(sort:RATING_DESC,page:$page){
 			nodes{
 				mediaRecommendation{
 					id
@@ -116,24 +115,22 @@ function addRelationStatusDot(id){
 		}
 	}
 }`,
-									{id: id},
+									{id: id, page: page},
 									function(data){
 										recs2 = data.data.Media.recommendations.nodes.map(
 											item => item.mediaRecommendation
 										).filter(
 											item => item.mediaListEntry
 										);
+										adder(recs2)
 									}
-									)
-								})
-								toggle.addEventListener("click",function(){
-									setTimeout(function(){adder(recs2)},1000);//eh, good enough
-									setTimeout(function(){adder(recs2)},5000);
-									setTimeout(function(){adder(recs2)},10000);
-									setTimeout(function(){adder(recs2)},15000)
-								})
+								)
 							}
-						}
+							else{
+								adder(recs)
+							}
+						});
+						observer.observe(findCard,mutationConfig)
 					}
 					else{
 						setTimeout(recsAdder,300)
