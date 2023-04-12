@@ -72,7 +72,7 @@ filterExplanation.title = translate("$staff_filterHelp");
 filterExplanation.onclick = function(){
 	let scrollableContent = createDisplayBox("min-width:400px;width:700px;");
 	scrollableContent.innerText = `
-Text in the field will be matched against all titles, roles, genres tags, your status, the media format and the start year. If it matches one of them, the media is displayed.
+Text in the field will be matched against all titles, roles, genres, tags, your status, the media format and the start year. If it matches one of them, the media is displayed.
 
 Regular expressions are permitted for titles.
 
@@ -462,21 +462,22 @@ let listRenderer = function(){
 		}
 	})
 	const mediaMatcher = {
-		"title-romaji": (query,media) => media.titleRomaji && (
+		"romaji": (query,media) => media.titleRomaji && (
 			media.titleRomaji.toLowerCase().match(query.toLowerCase())
 			|| media.titleRomaji.toLowerCase().includes(query.toLowerCase())
 		),
-		"title-english": (query,media) => media.titleEnglish && (
+		"english": (query,media) => media.titleEnglish && (
 			media.titleEnglish.toLowerCase().match(query.toLowerCase())
 			|| media.titleEnglish.toLowerCase().includes(query.toLowerCase())
 		),
-		"title-native": (query,media) => media.titleNative && (
+		"native": (query,media) => media.titleNative && (
 			media.titleNative.toLowerCase().match(query.toLowerCase())
 			|| media.titleNative.toLowerCase().includes(query.toLowerCase())
 		),
 		"format": (query,media) => (media.format || "").replace("_","").toLowerCase().match(
 			query.toLowerCase().replace(/\s|-|_/,"")
 		),
+		"type": (query,media) => media.type === query.trim().toUpperCase().replace(/\s|-|_/,""),
 		"status": (query,media) => media.myStatus && (
 			media.myStatus.status.toLowerCase() === query.toLowerCase()
 			|| media.myStatus.status === "CURRENT"  && ["reading","watching"].includes(query.toLowerCase())
@@ -504,9 +505,9 @@ let listRenderer = function(){
 				return role.toLowerCase().match(query.toLowerCase())
 			}
 		),
-		"title": (query,media) => mediaMatcher["title-romaji"](query,media)
-			|| mediaMatcher["title-english"](query,media)
-			|| mediaMatcher["title-native"](query,media)
+		"title": (query,media) => mediaMatcher["romaji"](query,media)
+			|| mediaMatcher["english"](query,media)
+			|| mediaMatcher["native"](query,media)
 	}
 	let voiceYear = 0;
 	if(sortSelect.value === "chronological2"){
@@ -782,6 +783,7 @@ let animeHandler = function(data){
 			genres: edge.node.genres.map(genre => genre.toLowerCase()),
 			tags: edge.node.tags.map(tag => tag.name.toLowerCase()),
 			myStatus: edge.node.mediaListEntry,
+			type: "ANIME",
 			listJSON: edge.node.mediaListEntry ? parseListJSON(edge.node.mediaListEntry.notes) : null
 		};
 		if(anime.myStatus && anime.myStatus.status === "REPEATING" && anime.myStatus.repeat === 0){
@@ -839,6 +841,7 @@ let mangaHandler = function(data){
 			genres: edge.node.genres.map(genre => genre.toLowerCase()),
 			tags: edge.node.tags.map(tag => tag.name.toLowerCase()),
 			myStatus: edge.node.mediaListEntry,
+			type: "MANGA",
 			listJSON: edge.node.mediaListEntry ? parseListJSON(edge.node.mediaListEntry.notes) : null
 		};
 		if(manga.myStatus && manga.myStatus.status === "REPEATING" && manga.myStatus.repeat === 0){
@@ -914,6 +917,7 @@ let voiceHandler = function(data){
 				character: character,
 				genres: thingy.genres.map(genre => genre.toLowerCase()),
 				tags: thingy.tags.map(tag => tag.name.toLowerCase()),
+				type: "ANIME",
 				listJSON: thingy.mediaListEntry ? parseListJSON(thingy.mediaListEntry.notes) : null
 			};
 			if(anime.myStatus && anime.myStatus.status === "REPEATING" && anime.myStatus.repeat === 0){
