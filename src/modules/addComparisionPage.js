@@ -103,7 +103,14 @@ function addComparisionPage(){
 	normalFilter.checked = false;
 	let colourLabel = create("span",false,translate("$compare_colourCell"),compareArea,"padding:5px;");
 	let colourFilter = createCheckbox(compareArea);
-	colourFilter.checked = useScripts.comparisionColourFilter;		
+	colourFilter.checked = useScripts.comparisionColourFilter;	
+	let sequelLabel = create("span",false,translate("$hideSequels"),compareArea,"padding:5px;");
+	let sequelFilter = createCheckbox(compareArea);
+	sequelFilter.checked = false;
+	if(type === "manga"){
+		sequelLabel.style.display = "none";
+		sequelFilter.style.display = "none"
+	}
 	let tableContainer = create("table",false,false,compareArea);
 	let table = create("tbody",false,false,tableContainer);
 	let digestSelect = {value:"average"};//placeholder
@@ -336,11 +343,14 @@ function addComparisionPage(){
 			});
 			if(formatFilter.value !== "all"){
 				if(formatFilter.value !== show.format){
-					display = false
+					return
 				}
 			}
 			if(show.numberWatched < ratingFilter.value){
-				display = false
+				return
+			}
+			if(sequelFilter.checked && sequelList.has(show.id)){
+				return
 			}
 			if(!display){
 				return
@@ -534,7 +544,11 @@ function addComparisionPage(){
 				addUser(addInput.value);
 				addButton.innerText = "...";
 				addButton.disabled = true;
-				addInput.readOnly = true
+				setTimeout(function(){//prevent double click, but don't soft lock on lookup failure
+					if(addButton.disabled){
+						addButton.disabled = false
+					}
+				},5000)
 			}
 		};
 		userRow.appendChild(addCel);
@@ -675,7 +689,7 @@ function addComparisionPage(){
 				list.forEach(alia => {
 					alia.media.id = alia.mediaId;
 					alia.media.title = titlePicker(alia.media);
-					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat);
+					alia.scoreRaw = convertScore(alia.score,data.data.MediaListCollection.user.mediaListOptions.scoreFormat) || 0;
 					if(alia.scoreRaw){
 						averageSum += alia.scoreRaw;
 						averageCount++
@@ -896,6 +910,9 @@ fragment mediaListEntry on MediaList{
 		useScripts.comparisionColourFilter = colourFilter.checked;
 		useScripts.save();
 		drawTable();changeUserURL()
+	};
+	sequelFilter.onclick = function(){
+		drawTable()
 	};
 	let searchParams = new URLSearchParams(location.search);
 	let paramFormat = searchParams.get("filter");

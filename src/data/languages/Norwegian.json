@@ -393,7 +393,7 @@
 "$timeline_title": "Tidslinje",
 "$input_user_placeholder": "Namn",
 "$error_userNotFound": "Fann ikkje brukarnamnet",
-"$timeline_search_description": "Ser du etter ein anna person?",
+"$timeline_search_description": "Ser du etter aktivitetane til nokon?",
 "$recs_forYou": "For Deg",
 "$recs_description": "Kvart par er noko du liker + noko du ikkje har sett enno\nBest fyrst",
 "$mobileFriendly_description": "Mobiljusteringar. Gjer naudsynte endringar for at skriptet skal virka greit på telefonar",

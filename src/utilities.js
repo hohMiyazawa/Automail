@@ -624,13 +624,13 @@ function scoreFormatter(score,format){
 
 function convertScore(score,format){
 	if(format === "POINT_100"){
-		return score
+		return score || 0
 	}
 	else if(
 		format === "POINT_10_DECIMAL" ||
 		format === "POINT_10"
 	){
-		return score*10
+		return score*10 || 0
 	}
 	else if(format === "POINT_3"){
 		if(score === 3){
@@ -648,7 +648,7 @@ function convertScore(score,format){
 		if(score === 0){
 			return 0
 		}
-		return score*20 - 10
+		return (score*20 - 10) || 0
 	}
 }
 
