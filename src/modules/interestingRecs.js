@@ -71,30 +71,40 @@ fragment stuff on MediaList{
 `,
 						{id: whoAmIid},
 						function(data){
+							if(!data){
+								let pairCard = create("div",["recommendation-pair-card","error"],"error loading data",fakeContent);
+								return
+							}
 							let possRecs = [];
 							data.data.Page.mediaList.concat(data.data.Page2.mediaList).forEach(entry => {
 								entry.media.recommendations.nodes.forEach(node => {
-									possRecs.push({
-										first: {
-											id: entry.media.id,
-											score: entry.rawScore,
-											title: entry.media.title,
-											siteUrl: entry.media.siteUrl,
-											coverImage: entry.media.coverImage
-										},
-										second: {
-											id: node.mediaRecommendation.id,
-											mediaListEntry: node.mediaRecommendation.mediaListEntry,
-											title: node.mediaRecommendation.title,
-											siteUrl: node.mediaRecommendation.siteUrl,
-											averageScore: node.mediaRecommendation.averageScore,
-											coverImage: node.mediaRecommendation.coverImage
-										},
-										rating: node.rating,
-										userRating: node.userRating
-									})
+									if(node.mediaRecommendation){
+										possRecs.push({
+											first: {
+												id: entry.media.id,
+												score: entry.rawScore,
+												title: entry.media.title,
+												siteUrl: entry.media.siteUrl,
+												coverImage: entry.media.coverImage
+											},
+											second: {
+												id: node.mediaRecommendation.id,
+												mediaListEntry: node.mediaRecommendation.mediaListEntry,
+												title: node.mediaRecommendation.title,
+												siteUrl: node.mediaRecommendation.siteUrl,
+												averageScore: node.mediaRecommendation.averageScore,
+												coverImage: node.mediaRecommendation.coverImage
+											},
+											rating: node.rating,
+											userRating: node.userRating
+										})
+									}
 								})
 							});
+							if(possRecs.length === 0){
+								let pairCard = create("div",["recommendation-pair-card","error"],"no recommendations found :(",fakeContent);
+								return
+							}
 							possRecs.filter(
 								rec => ((!rec.second.mediaListEntry) || rec.second.mediaListEntry.status === "PLANNING")
 									&& rec.rating > 0
