@@ -180,5 +180,71 @@ query($userId: Int,$mediaId: Int,$page: Int){
 		}
 		return
 	}
-	return
+	let favFindQuery = `query (
+      $mediaId: Int,
+      $page: Int
+){
+  Page (page: $page) {
+    mediaList (mediaId: $mediaId, sort: SCORE_DESC) {
+      scoreRaw: score(format: POINT_100) user {
+        name favourites {${URLstuff[1]} {nodes {id}}
+}}}}}
+`;
+	create("hr",false,false,followingLocation.parentNode);
+	let findFavs = create("div",false,false,followingLocation.parentNode);
+	let findFavsButton = create("button",["button","hohButton"],"People with this in favs",findFavs);
+	findFavsButton.onclick = async function(){
+		let resultsArea = create("div",false,false,findFavs);
+		let searchStatus = create("div",false,"searching...",resultsArea);
+		let searchResults = create("div",false,false,resultsArea);
+		let userList = new Map();
+		let caller = async function(page){
+			const {data, errors} = await anilistAPI(favFindQuery, {
+				variables: {page: page, mediaId: parseInt(URLstuff[2])},
+				cacheKey: "hohFavFinder" + page + "id" + parseInt(URLstuff[2]),
+				duration: 10*60*1000
+			});
+			if(errors){
+				searchStatus.innerText = "error searching page " + page;
+				return
+			}
+			else{
+				searchStatus.innerText = "searching... page " + page;
+				data.Page.mediaList.forEach(listing => {
+					if(listing.user && listing.user.favourites){
+						if(listing.user.favourites[URLstuff[1]].nodes.some(fav => fav.id === parseInt(URLstuff[2]))){
+							userList.set(listing.user.name, {
+								isFavourite: true,
+								score: listing.scoreRaw,
+								first: listing.user.favourites[URLstuff[1]].nodes[0].id === parseInt(URLstuff[2])
+							})
+						}
+					}
+				})
+				removeChildren(searchResults);
+				Array.from(userList).sort((b,a) => 
+					(+a[1].first) - (+b[1].first)
+					|| a[1].scoreRaw - b[1].scoreRaw
+				).forEach(user => {
+					let row = create("p",false,false,searchResults);
+					create("a",false,user[0],row).href = "https://anilist.co/user/" + user[0];
+					if(user[1].first){
+						create("span",false," #1",row)
+					}
+				})
+				if(data.Page.mediaList.length && (page < 15 || (userList.size < 3 && page < 20))){
+					caller(page + 1)
+				}
+				else{
+					if(userList.size === 0){
+						searchStatus.innerText = "search completed. No users found."
+					}
+					else{
+						searchStatus.innerText = "search completed."
+					}
+				}
+			}
+		}
+		caller(1)
+	}
 }
