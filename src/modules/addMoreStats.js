@@ -2224,7 +2224,12 @@ function addMoreStats(){
 							scoreSum: 0,
 							id: staff.node.id,
 							name: staff.node.name,
-							roles: []
+							roles: [],
+							ownChaptersRead: 0,
+							ownVolumesRead: 0,
+							ownCount: 0,
+							ownScoreCount: 0,
+							ownScoreSum: 0,
 						}
 					}
 					staffMap[staff.node.id].roles.push(staff.role);
@@ -2236,6 +2241,17 @@ function addMoreStats(){
 					if(media.scoreRaw){
 						staffMap[staff.node.id].scoreSum += media.scoreRaw;
 						staffMap[staff.node.id].scoreCount++
+					}
+					if(!staff.role.toLowerCase().match(/assist(a|e)nt|storyboard|assistance/i)){
+						if(media.chaptersRead || media.volumesRead){
+							staffMap[staff.node.id].ownVolumesRead += media.volumesRead;
+							staffMap[staff.node.id].ownChaptersRead += media.chaptersRead;
+							staffMap[staff.node.id].ownCount++
+						}
+						if(media.scoreRaw){
+							staffMap[staff.node.id].ownScoreSum += media.scoreRaw;
+							staffMap[staff.node.id].ownScoreCount++
+						}
 					}
 				})
 			});
@@ -2334,11 +2350,20 @@ function addMoreStats(){
 					create("a","newTab",staff.name.first + " " + (staff.name.last || ""),nameCel)
 						.href = "/staff/" + staff.id;
 					create("div",false,staff.count,row);
-					if(hasScores){
-						create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row)
+					if(assistant_filter.checked){
+						if(hasScores){
+							create("div",false,(staff.scoreSum/staff.scoreCount).roundPlaces(2),row)
+						}
+						create("div",false,staff.chaptersRead,row);
+						create("div",false,staff.volumesRead,row)
 					}
-					create("div",false,staff.chaptersRead,row);
-					create("div",false,staff.volumesRead,row)
+					else{
+						if(hasScores){
+							create("div",false,(staff.ownScoreSum/staff.ownScoreCount).roundPlaces(2),row)
+						}
+						create("div",false,staff.ownChaptersRead,row);
+						create("div",false,staff.ownVolumesRead,row)
+					}
 				});
 				let csvButton = create("button",["csvExport","button","hohButton"],"CSV data",mangaStaff,"margin-top:10px;");
 				let jsonButton = create("button",["jsonExport","button","hohButton"],"JSON data",mangaStaff,"margin-top:10px;");
@@ -2389,39 +2414,111 @@ function addMoreStats(){
 					drawStaffList()
 				};
 				countHeading.onclick = function(){
-					staffList.sort(
-						(b,a) => a.count - b.count
-							|| a.chaptersRead - b.chaptersRead
-							|| a.volumesRead - b.volumesRead
-							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-					);
+					if(assistant_filter.checked){
+						staffList.sort(
+							(b,a) => a.count - b.count
+								|| a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+								|| a.ownCount - b.ownCount
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+						)
+					}
+					else{
+						staffList.sort(
+							(b,a) => a.ownCount - b.ownCount
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+								|| a.count - b.count
+								|| a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+						)
+					}
 					drawStaffList()
 				};
 				scoreHeading.onclick = function(){
-					staffList.sort(
-						(b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-							|| a.count - b.count
-							|| a.chaptersRead - b.chaptersRead
-							|| a.volumesRead - b.volumesRead
-					);
+					if(assistant_filter.checked){
+						staffList.sort(
+							(b,a) => a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+								|| a.count - b.count
+								|| a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+								|| a.ownCount - b.ownCount
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+						)
+					}
+					else{
+						staffList.sort(
+							(b,a) => a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+								|| a.ownCount - b.ownCount
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+								|| a.count - b.count
+								|| a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+						)
+					}
 					drawStaffList()
 				};
 				timeHeading.onclick = function(){
-					staffList.sort(
-						(b,a) => a.chaptersRead - b.chaptersRead
-							|| a.volumesRead - b.volumesRead
-							|| a.count - b.count
-							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-					);
+					if(assistant_filter.checked){
+						staffList.sort(
+							(b,a) => a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+								|| a.count - b.count
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownCount - b.ownCount
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+						)
+					}
+					else{
+						staffList.sort(
+							(b,a) => a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownCount - b.ownCount
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+								|| a.chaptersRead - b.chaptersRead
+								|| a.volumesRead - b.volumesRead
+								|| a.count - b.count
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+						)
+					}
 					drawStaffList()
 				};
 				volumeHeading.onclick = function(){
-					staffList.sort(
-						(b,a) => a.volumesRead - b.volumesRead
-							|| a.chaptersRead - b.chaptersRead
-							|| a.count - b.count
-							|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
-					);
+					if(assistant_filter.checked){
+						staffList.sort(
+							(b,a) => a.volumesRead - b.volumesRead
+								|| a.chaptersRead - b.chaptersRead
+								|| a.count - b.count
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+								|| a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownCount - b.ownCount
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+						)
+					}
+					else{
+						staffList.sort(
+							(b,a) => a.ownVolumesRead - b.ownVolumesRead
+								|| a.ownChaptersRead - b.ownChaptersRead
+								|| a.ownCount - b.ownCount
+								|| a.ownScoreSum/a.ownScoreCount - b.ownScoreSum/b.ownScoreCount
+								|| a.volumesRead - b.volumesRead
+								|| a.chaptersRead - b.chaptersRead
+								|| a.count - b.count
+								|| a.scoreSum/a.scoreCount - b.scoreSum/b.scoreCount
+						)
+					}
 					drawStaffList()
 				}
 			};
