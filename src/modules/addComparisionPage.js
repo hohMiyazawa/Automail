@@ -88,6 +88,8 @@ function addComparisionPage(){
 		addOption("MANGA","Manga");
 		addOption("NOVEL","Novel");
 		addOption("ONE_SHOT","One Shot");
+		addOption("MANHWA","Manhwa");
+		addOption("MANHUA","Manhua");
 	}
 	let ratingFilterLabel = create("span",false,translate("$compare_minRatings"),compareArea);
 	ratingFilterLabel.style.padding = "5px";
@@ -342,7 +344,7 @@ function addComparisionPage(){
 				return (!user.status || show.status[index] === user.status);
 			});
 			if(formatFilter.value !== "all"){
-				if(formatFilter.value !== show.format){
+				if(formatFilter.value !== show.format && !((formatFilter.value === "MANHWA" && show.country === "KR") || (formatFilter.value === "MANHUA" && show.country === "CN"))){
 					return
 				}
 			}
@@ -729,6 +731,7 @@ function addComparisionPage(){
 					average: mediaEntry.scoreRaw,
 					title: mediaEntry.media.title,
 					format: mediaEntry.media.format,
+					country: mediaEntry.media.countryOfOrigin,
 					score: Array(userIndeks).fill(null),
 					scorePersonal: Array(userIndeks).fill(null),
 					scoreNormal: Array(userIndeks).fill(null),
@@ -851,6 +854,7 @@ fragment mediaListEntry on MediaList{
 		title{romaji native english}
 		averageScore
 		popularity
+		countryOfOrigin
 	}
 }`
 			const data = await anilistAPI(listQuery, {
