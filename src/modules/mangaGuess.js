@@ -21,12 +21,12 @@ function mangaGuess(cleanAnime,id){
 			return
 		}
 		let status = Array.from(sidebarData.querySelectorAll(".data-set .type")).find(element => element.innerText === "Status" || element.innerText === translate("$dataSet_status"));
-		if(!status || status.parentNode.childElementCount != 2){
+		if(!status || status.parentNode.childElementCount !== 2){
 			return true
 		}
 		observer && observer.disconnect();
 		let possibleReleaseStatus = status.parentNode.children[1];
-		if(possibleReleaseStatus.firstChild.nodeValue != "Releasing"){
+		if(possibleReleaseStatus.firstChild.nodeValue !== "Releasing" && possibleReleaseStatus.firstChild.nodeValue !== "Hiatus"){
 			return
 		}
 		if(
