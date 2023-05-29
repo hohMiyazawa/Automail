@@ -235,6 +235,137 @@ query($page: Int,$name: String){
 }
 `;
 
+const backupQueryManga = `
+query($name: String!){
+	MediaListCollection(userName: $name, type: MANGA){
+		lists{
+			name
+			isCustomList
+			isSplitCompletedList
+			entries{
+				... mediaListEntry
+			}
+		}
+	}
+	User(name: $name){
+		name
+		id
+		mediaListOptions{
+			scoreFormat
+			rowOrder
+			animeList{
+				sectionOrder
+				splitCompletedSectionByFormat
+				customLists
+				advancedScoring
+				advancedScoringEnabled
+			}
+			mangaList{
+				sectionOrder
+				splitCompletedSectionByFormat
+				customLists
+				advancedScoring
+				advancedScoringEnabled
+			}
+		}
+	}
+}
+
+fragment mediaListEntry on MediaList{
+	mediaId
+	status
+	progress
+	progressVolumes
+	repeat
+	notes
+	priority
+	hiddenFromStatusLists
+	customLists
+	advancedScores
+	startedAt{
+		year
+		month
+		day
+	}
+	completedAt{
+		year
+		month
+		day
+	}
+	updatedAt
+	createdAt
+	media{
+		idMal
+		title{romaji native english}
+	}
+	score
+}`;
+
+const backupQueryAnime = `
+query($name: String!){
+	MediaListCollection(userName: $name, type: ANIME){
+		lists{
+			name
+			isCustomList
+			isSplitCompletedList
+			entries{
+				... mediaListEntry
+			}
+		}
+	}
+	User(name: $name){
+		name
+		id
+		mediaListOptions{
+			scoreFormat
+			rowOrder
+			animeList{
+				sectionOrder
+				splitCompletedSectionByFormat
+				customLists
+				advancedScoring
+				advancedScoringEnabled
+			}
+			mangaList{
+				sectionOrder
+				splitCompletedSectionByFormat
+				customLists
+				advancedScoring
+				advancedScoringEnabled
+			}
+		}
+	}
+}
+
+fragment mediaListEntry on MediaList{
+	mediaId
+	status
+	progress
+	repeat
+	notes
+	priority
+	hiddenFromStatusLists
+	customLists
+	advancedScores
+	startedAt{
+		year
+		month
+		day
+	}
+	completedAt{
+		year
+		month
+		day
+	}
+	updatedAt
+	createdAt
+	media{
+		idMal
+		title{romaji native english}
+	}
+	score
+}`
+
 const ANILIST_WEIGHT = 41;//weighting center for the weighted score formula
 
 let APIlimit = 90;

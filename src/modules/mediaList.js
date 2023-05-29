@@ -237,65 +237,14 @@ exportModule({
 			if(URLstuff[2] === "mangalist"){
 				let alMangaButton = create("button",["button","hohButton"],translate("$export_JSON"),extraFilters);
 				alMangaButton.onclick = function(){
-					generalAPIcall(
-						`
-query($name: String!){
-	MediaListCollection(userName: $name, type: MANGA){
-		lists{
-			name
-			isCustomList
-			isSplitCompletedList
-			entries{
-				... mediaListEntry
-			}
-		}
-	}
-	User(name: $name){
-		name
-		id
-		mediaListOptions{
-			scoreFormat
-		}
-	}
-}
-
-fragment mediaListEntry on MediaList{
-	mediaId
-	status
-	progress
-	progressVolumes
-	repeat
-	notes
-	priority
-	hiddenFromStatusLists
-	customLists
-	advancedScores
-	startedAt{
-		year
-		month
-		day
-	}
-	completedAt{
-		year
-		month
-		day
-	}
-	updatedAt
-	createdAt
-	media{
-		idMal
-		title{romaji native english}
-	}
-	score
-}
-				`,
+					generalAPIcall(backupQueryManga,
 						{name: decodeURIComponent(URLstuff[1])},
 						function(data){
 							if(!data){
 								alert("Export failed");
 								return
 							}
-							data.data.version = "1.01";
+							data.data.version = "1.02";
 							data.data.scriptInfo = scriptInfo;
 							data.data.type = "MANGA";
 							data.data.url = document.URL;
@@ -309,63 +258,14 @@ fragment mediaListEntry on MediaList{
 				let alAnimeButton = create("button",["button","hohButton"],"Export JSON",extraFilters);
 				alAnimeButton.onclick = function(){
 					generalAPIcall(
-						`
-query($name: String!){
-	MediaListCollection(userName: $name, type: ANIME){
-		lists{
-			name
-			isCustomList
-			isSplitCompletedList
-			entries{
-				... mediaListEntry
-			}
-		}
-	}
-	User(name: $name){
-		name
-		id
-		mediaListOptions{
-			scoreFormat
-		}
-	}
-}
-
-fragment mediaListEntry on MediaList{
-	mediaId
-	status
-	progress
-	repeat
-	notes
-	priority
-	hiddenFromStatusLists
-	customLists
-	advancedScores
-	startedAt{
-		year
-		month
-		day
-	}
-	completedAt{
-		year
-		month
-		day
-	}
-	updatedAt
-	createdAt
-	media{
-		idMal
-		title{romaji native english}
-	}
-	score
-}
-				`,
+						backupQueryAnime,
 						{name: decodeURIComponent(URLstuff[1])},
 						function(data){
 							if(!data){
 								alert("Export failed");
 								return
 							}
-							data.data.version = "1.01";
+							data.data.version = "1.02";
 							data.data.scriptInfo = scriptInfo;
 							data.data.type = "ANIME";
 							data.data.url = document.URL;

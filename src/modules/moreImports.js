@@ -563,63 +563,14 @@ function moreImports(){
 	let alAnimeButton = create("button",["button","hohButton"],"Export Anime",alAnimeExp);
 	alAnimeButton.onclick = function(){
 		generalAPIcall(
-			`
-	query($name: String!){
-		MediaListCollection(userName: $name, type: ANIME){
-			lists{
-				name
-				isCustomList
-				isSplitCompletedList
-				entries{
-					... mediaListEntry
-				}
-			}
-		}
-		User(name: $name){
-			name
-			id
-			mediaListOptions{
-				scoreFormat
-			}
-		}
-	}
-
-	fragment mediaListEntry on MediaList{
-		mediaId
-		status
-		progress
-		repeat
-		notes
-		priority
-		hiddenFromStatusLists
-		customLists
-		advancedScores
-		startedAt{
-			year
-			month
-			day
-		}
-		completedAt{
-			year
-			month
-			day
-		}
-		updatedAt
-		createdAt
-		media{
-			idMal
-			title{romaji native english}
-		}
-		score
-	}
-	`,
+			backupQueryAnime,
 			{name: userName.value},
 			function(data){
 				if(!data){
 					alert("Export failed");
 					return
 				}
-				data.data.version = "1.01";
+				data.data.version = "1.02";
 				data.data.scriptInfo = scriptInfo;
 				data.data.type = "ANIME";
 				data.data.url = document.URL;
@@ -632,64 +583,14 @@ function moreImports(){
 	let alMangaButton = create("button",["button","hohButton"],"Export Manga",alAnimeExp);
 	alMangaButton.onclick = function(){
 		generalAPIcall(
-			`
-	query($name: String!){
-		MediaListCollection(userName: $name, type: MANGA){
-			lists{
-				name
-				isCustomList
-				isSplitCompletedList
-				entries{
-					... mediaListEntry
-				}
-			}
-		}
-		User(name: $name){
-			name
-			id
-			mediaListOptions{
-				scoreFormat
-			}
-		}
-	}
-
-	fragment mediaListEntry on MediaList{
-		mediaId
-		status
-		progress
-		progressVolumes
-		repeat
-		notes
-		priority
-		hiddenFromStatusLists
-		customLists
-		advancedScores
-		startedAt{
-			year
-			month
-			day
-		}
-		completedAt{
-			year
-			month
-			day
-		}
-		updatedAt
-		createdAt
-		media{
-			idMal
-			title{romaji native english}
-		}
-		score
-	}
-	`,
+			backupQueryManga,
 			{name: userName.value},
 			function(data){
 				if(!data){
 					alert("Export failed");
 					return
 				}
-				data.data.version = "1.01";
+				data.data.version = "1.02";
 				data.data.scriptInfo = scriptInfo;
 				data.data.type = "MANGA";
 				data.data.url = document.URL;
@@ -751,7 +652,8 @@ function moreImports(){
 					return;
 				}
 			}
-//
+			//version 1.01: added type ANIME or MANGA to list files
+			//version 1.02: added rowOrder and animeList and mangaList on mediaListOptions
 			if(data.User.name.toLowerCase() !== whoAmI.toLowerCase()){
 				resultsWarningsAL.innerText = "List for \"" + data.User.name + "\" loaded, but currently signed in as \"" + whoAmI + "\". Are you sure this is right?"
 			}
