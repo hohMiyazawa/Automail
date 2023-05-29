@@ -47,10 +47,10 @@ function addComparisionPage(){
 		create("h3",false,"What is this?",scrollableContent);
 		create("p",false,"This is a tool for comparing the ratings of two or more users. To add another user, write their name and click the 'add' button in the rightmost colum",scrollableContent);
 		create("h3",false,"General options",scrollableContent);
-		create("p",false,"Filter: What media type to include",scrollableContent);
-		create("p",false,"Min. ratings: How many of the users in the table must have given something a rating for it to appear in the table",scrollableContent);
-		create("p",false,"Individual rating systems: By default, all ratings are converted to the 1-100 scale. This overides that, and displays ratings as smiley faces, 1-10 points, stars, or whatver else people use. A golden star next to the rating means the user has this on their favourite list.",scrollableContent);
-		create("p",false,"Normalise ratings: Converts ratings of users based on their average rating and rating spread.",scrollableContent);
+		create("p",false,"Filter: What media type to include.",scrollableContent);
+		create("p",false,"Min. ratings: How many of the users in the table must have given something a rating for it to appear in the table.",scrollableContent);
+		create("p",false,"Individual rating systems: By default, all ratings are converted to the 1-100 scale. When you override this, ratings appear as smiley faces, 1-10 points, stars, or whatver else people use. A golden star next to the rating means the user has this on their favourite list.",scrollableContent);
+		create("p",false,"Normalise ratings: Converts ratings to a unified scale based on their average and rating spread.",scrollableContent);
 		create("p",false,"Colour entire cell: Cell colour shows users media status (completed, watching, etc.)",scrollableContent);
 		create("h3",false,"Aggregate column",scrollableContent);
 		create("p",false,"Shows 'average' by default. Other settings of interest: 'Average~0' adds a 0 score to every average, making the score more pessimistic towards entries few people have rated.",scrollableContent);
@@ -58,14 +58,17 @@ function addComparisionPage(){
 		create("h3",false,"User filters",scrollableContent);
 		create("p",false,"List filters, click to cycle through",scrollableContent);
 		create("span","hohFilterSort","☵",scrollableContent);
-		create("span",false,"Neutral",scrollableContent);
+		create("span",false,"Neutral. This user doesn't affect what media gets displayed.",scrollableContent);
+		create("br",false,false,scrollableContent);
 		create("br",false,false,scrollableContent);
 		create("span","hohFilterSort","✓",scrollableContent,"color:green");
-		create("span",false,"Only include media this person has rated",scrollableContent);
+		create("span",false,"Only display media this person has rated",scrollableContent);
+		create("br",false,false,scrollableContent);
 		create("br",false,false,scrollableContent);
 		create("span","hohFilterSort","✕",scrollableContent,"color:red");
-		create("span",false,"Only include media this person has NOT rated (mark yourself with this to find good stuff you haven't seen yet)",scrollableContent);
+		create("span",false,"Only display media this person has NOT rated (mark yourself with this to find recommendations)",scrollableContent);
 		create("br",false,false,scrollableContent);
+		create("p",false,"Status filters (tiny dot). Click to cycle through (reading, dropped, not on list, etc.)",scrollableContent);
 	}
 	let formatFilterLabel = create("span",false,"Filter:",compareArea);
 	formatFilterLabel.style.padding = "5px";
@@ -111,11 +114,12 @@ function addComparisionPage(){
 	sequelFilter.checked = false;
 	if(type === "manga"){
 		sequelLabel.style.display = "none";
-		sequelFilter.style.display = "none"
+		sequelFilter.parentNode.style.display = "none"
 	}
 	let tableContainer = create("table",false,false,compareArea);
 	let table = create("tbody",false,false,tableContainer);
 	let digestSelect = {value:"average"};//placeholder
+	let digestValue = "average";
 	let shows = [];//the stuff we are displaying in the table
 	let users = [];
 	let listCache = {};//storing raw anime data
@@ -166,7 +170,8 @@ function addComparisionPage(){
 			formatFilter: formatFilter.value,
 			digestValue: digestSelect.value,
 			type: capitalize(type),
-			version: "1.00",
+			version: "1.1",
+			description: "Anilist media list comparision",
 			scriptInfo: scriptInfo,
 			url: document.URL,
 			timeStamp: NOW(),
@@ -518,8 +523,12 @@ function addComparisionPage(){
 		if(["title","titleInverse","user","userInverse"].includes(ratingMode)){
 			digestSelect.value = ratingMode;
 		}
+		if(digestValue){
+			digestSelect.value = digestValue
+		}
 		digestSelect.oninput = function(){
 			ratingMode = digestSelect.value;
+			digestValue = digestSelect.value;
 			sortShows();
 			drawTable();
 			changeUserURL()
@@ -555,7 +564,7 @@ function addComparisionPage(){
 		};
 		userRow.appendChild(addCel);
 		let headerRow = create("tr");
-		let typeCel = create("th");
+		let typeCel = create("th",false,false,headerRow);
 		let downArrowa = create("span","hohArrowSort","▼",typeCel);
 		downArrowa.onclick = function(){
 			ratingMode = "title";
@@ -569,7 +578,6 @@ function addComparisionPage(){
 			sortShows();
 			drawTable()
 		};
-		headerRow.appendChild(typeCel);
 		let digestSortCel = create("td");
 		digestSortCel.style.textAlign = "center";
 		let downArrow = create("span","hohArrowSort","▼",digestSortCel);
@@ -626,6 +634,11 @@ function addComparisionPage(){
 			let downArrow = create("span","hohArrowSort","▼");
 			downArrow.onclick = function(){
 				ratingMode = "user";
+				let active = headerRow.querySelector(".hohArrowSelected");
+				if(active){
+					active.classList.remove("hohArrowSelected")
+				}
+				downArrow.classList.add("hohArrowSelected")
 				guser = index;
 				sortShows();
 				drawTable()
@@ -633,6 +646,11 @@ function addComparisionPage(){
 			let upArrow = create("span","hohArrowSort","▲");
 			upArrow.onclick = function(){
 				ratingMode = "userInverse";
+				let active = headerRow.querySelector(".hohArrowSelected");
+				if(active){
+					active.classList.remove("hohArrowSelected")
+				}
+				upArrow.classList.add("hohArrowSelected")
 				guser = index;
 				sortShows();
 				drawTable()
@@ -680,6 +698,7 @@ function addComparisionPage(){
 		let handleData = function(data,cached){
 			users.push({
 				name: userName,
+				id: data.data.MediaListCollection.user.id,
 				demand: (paramDemand ? (paramDemand === "-" ? -1 : 1) : 0),
 				system: data.data.MediaListCollection.user.mediaListOptions.scoreFormat,
 				status: false
@@ -941,6 +960,7 @@ fragment mediaListEntry on MediaList{
 	}
 	let paramSort = searchParams.get("sort");
 	if(paramSort){
+		digestValue = paramSort;
 		ratingMode = paramSort
 	}
 	let paramUsers = searchParams.get("users");
