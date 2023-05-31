@@ -267,6 +267,6 @@
 	"type": "select",
 	"importance": 100,
 	"categories": ["Script"],
-	"values": ["English","Italiano","Français","Português","Español","Norsk","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (CA)","English (short)","$raw_keys"]
+	"values": ["English","Italiano","Français","Norsk","Português","Español","日本語","Türkçe","Deutsch","Åarjelsaemie","Svenska","English (US)","English (CA)","English (short)","$raw_keys"]
 }
 ]

@@ -394,6 +394,31 @@ exportModule({
 						replacement: "$submenu_statusDistribution"
 					},
 					{
+						lookup: ".status-distribution .statuses .status .name",
+						multiple: [
+							{
+								ofText: "Current",
+								replacement: capitalize(translate("$mediaStatus_current"))
+							},
+							{
+								ofText: "Planning",
+								replacement: capitalize(translate("$mediaStatus_planning"))
+							},
+							{
+								ofText: "Dropped",
+								replacement: capitalize(translate("$mediaStatus_dropped"))
+							},
+							{
+								ofText: "Paused",
+								replacement: capitalize(translate("$mediaStatus_paused"))
+							},
+							{
+								ofText: "Completed",
+								replacement: capitalize(translate("$mediaStatus_completed"))
+							}
+						]
+					},
+					{
 						lookup: ".overview .trailer > h2",
 						replacement: "$submenu_trailer"
 					},
@@ -441,6 +466,10 @@ exportModule({
 					{
 						lookup: ".sidebar .data-set .type",
 						multiple: [
+							{
+								ofText: "Airing",
+								replacement: "$dataSet_airing"
+							},
 							{
 								ofText: "Format",
 								replacement: "$dataSet_format"

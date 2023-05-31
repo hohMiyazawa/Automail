@@ -1,13 +1,7 @@
 exportModule({
 	id: "noAutoplay",
 	description: "$noAutoplay_description",
-	extendedDescription: `
-Your browser may also provide ways to control this:
-
-Firefox: about:config > media.autoplay has a wide range of options
-
-Chrome: chrome://flags/#autoplay-policy
-`,
+	extendedDescription: "$noAutoplay_extendedDescription",
 	isDefault: false,
 	categories: ["Feeds"],
 	visible: true
