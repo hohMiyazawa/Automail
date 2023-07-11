@@ -22,7 +22,12 @@ new MutationObserver(function(){
 			}
 			window.al_token = token;
 			//alert the other tabs so they don't have to do the same
-			aniCast.postMessage({type:"sessionToken",value:token});
+			try{
+				aniCast.postMessage({type:"sessionToken",value:token});
+			}
+			catch(e){
+				aniCastFailure(e)
+			}
 			//fetch the alert list again, they may have piled up while fetching
 			Array.from(document.querySelectorAll(".el-message--error.is-closable")).forEach(message => {
 				if(message.textContent === "Session expired, please refresh"){

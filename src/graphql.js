@@ -441,6 +441,10 @@ else{
 		console.warn("BroadcastChannel not available. " + script_type + " will not be able to share cached data between tabs")
 	}
 }
+let aniCastFailure = function(error){
+	aniCast = {postMessage: function(){}};//If broadcasting stops working for some reason, default to stop using it.
+	console.warn("BroadcastChannel failed",error)
+}
 //mandatory: query,variables,callback
 //optional: cacheKey, and optionally even then, how long the item is fresh in the cache
 function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage,overWrite,oldCallback){
@@ -536,7 +540,12 @@ function generalAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStor
 						}
 					}
 				}
-				aniCast.postMessage({type:"cache",key:cacheKey,value:saltedHam});
+				try{
+					aniCast.postMessage({type:"cache",key:cacheKey,value:saltedHam});
+				}
+				catch(e){
+					aniCastFailure(e)
+				}
 			}
 		}
 	};
@@ -761,7 +770,12 @@ function authAPIcall(query,variables,callback,cacheKey,timeFresh,useLocalStorage
 			}
 			else{
 				sessionStorage.setItem(cacheKey,saltedHam);
-				aniCast.postMessage({type:"cache",key:cacheKey,value:saltedHam})
+				try{
+					aniCast.postMessage({type:"cache",key:cacheKey,value:saltedHam})
+				}
+				catch(e){
+					aniCastFailure(e)
+				}
 			}
 		}
 	};

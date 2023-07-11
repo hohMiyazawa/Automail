@@ -121,7 +121,12 @@ query($name: String!){
 		let found = false;
 		//logic here
 		if(different){
-			aniCast.postMessage({type:"cachev2",mediaData: mediaData});
+			try{
+				aniCast.postMessage({type:"cachev2",mediaData: mediaData});
+			}
+			catch(e){
+				aniCastFailure(e)
+			}
 			if(!doNotWrite){
 				cache.synch()
 			}
