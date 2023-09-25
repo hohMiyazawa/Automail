@@ -466,6 +466,7 @@
 "$error_JSONparsing": "Feil ved lesing av JSON",
 "$viewAdvancedScores_description": "Vis utvida vurderingar",
 "$noAutoplay_description": "Ikkje spel av videoar automatisk",
+"$hollowHearts_description": "Gjer hjarta hole om du ikkje har likt dei [av Reina]",
 "$settings_export_description": "Kjekt å ha ein tryggingskopi. Viss du slettar cache/cookies kan Automailinnstillingane også bli borte",
 "$error_connection": "Koplingsfeil",
 "$hideGlobalFeed_description": "Skjul globalstraumen",
