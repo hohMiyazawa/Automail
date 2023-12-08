@@ -81,7 +81,7 @@
 								splitProgress[splitProgress.length - 1]
 							)
 						}
-						else if(entry.status === "completed"){
+						else if(entry.status === "completed" || entry.status === "rewatched"){
 							addDefault();
 							animeEntries[entry.media.id].highestProgress = animeEntries[entry.media.id].total || 1;
 							animeEntries[entry.media.id].completionCount++
@@ -109,7 +109,7 @@
 								splitProgress[splitProgress.length - 1]
 							)
 						}
-						else if(entry.status === "completed"){
+						else if(entry.status === "completed" || entry.status === "reread"){
 							addDefault();
 							mangaEntries[entry.media.id].highestProgress = mangaEntries[entry.media.id].total || 1;
 							mangaEntries[entry.media.id].completionCount++
