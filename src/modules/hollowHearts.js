@@ -20,41 +20,41 @@ exportModule({
 	css: `
 /* Like heart */
 .action.likes .button,
-.like-wrap.thread_comment .button{
+.like-wrap.thread_comment .button {
 	color: rgb(var(--color-blue-dim));
 }
 .action.likes .button:hover,
-.like-wrap.thread_comment .button:hover{
+.like-wrap.thread_comment .button:hover {
 	color: rgb(var(--color-blue));
 }
 .action.likes .button .fa-heart,
-.like-wrap.thread_comment .button .fa-heart{
+.like-wrap.thread_comment .button .fa-heart {
 	color: #0000;
 	stroke: rgb(var(--color-blue-dim));
 	stroke-width: 70;
-	stroke-alignment: inner;
-	font-size: 0.870em;
+	font-size: 0.87em;
 	padding-bottom: 0.08em;
 	padding-top: 0.05em;
 }
 .action.likes .button .fa-heart:hover,
-.like-wrap.thread_comment .button .fa-heart:hover{
+.like-wrap.thread_comment .button .fa-heart:hover {
 	stroke: rgb(var(--color-blue));
 }
 .action.likes .button.liked,
-.like-wrap.thread_comment .button.liked{
+.like-wrap.thread_comment .button.liked {
 	color: rgb(var(--color-red));
 }
 .action.likes .button.liked:hover,
-.like-wrap.thread_comment .button.liked:hover{
-	color: rgb(var(--color-blue-dim));
+.like-wrap.thread_comment .button.liked:hover {
+	--color-red: 246, 124, 144;
+	color: rgb(var(--color-red));
 }
 .action.likes .button.liked:hover .fa-heart,
-.like-wrap.thread_comment .button.liked:hover .fa-heart{
-	color: rgb(var(--color-blue-dim));
+.like-wrap.thread_comment .button.liked:hover .fa-heart {
+	color: rgb(var(--color-red));
 }
 .action.likes .button.liked .fa-heart,
-.like-wrap.thread_comment .button.liked .fa-heart{
+.like-wrap.thread_comment .button.liked .fa-heart {
 	color: var(--color-red);
 	stroke: rgba(0, 0, 0, 0);
 	stroke-width: 0;
@@ -63,20 +63,23 @@ exportModule({
 	padding-top: 0;
 }
 .action.likes .button.liked .fa-heart:hover,
-.like-wrap.thread_comment .button.liked .fa-heart:hover{
-	color: rgb(var(--color-blue-dim));
+.like-wrap.thread_comment .button.liked .fa-heart:hover {
+	color: rgb(var(--color-red));
 }
 /* forum thread, favourite like heart */
 .like-wrap.thread .button .fa-heart,
-.actions .favourite .fa-heart{
+.actions .favourite .fa-heart,
+.studio .favourite .fa-heart {
 	color: #0000;
 	stroke: rgb(var(--color-white));
 	stroke-width: 70;
 }
 .like-wrap.thread .button.liked .fa-heart,
 .actions .favourite.liked .fa-heart,
+.studio .favourite.liked .fa-heart,
 .like-wrap.thread .button.isFavourite .fa-heart,
-.actions .favourite.isFavourite .fa-heart{
+.actions .favourite.isFavourite .fa-heart,
+.studio .favourite.isFavourite .fa-heart {
 	color: rgb(var(--color-white)) !important;
 	stroke: rgba(0, 0, 0, 0) !important;
 }
