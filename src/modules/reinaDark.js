@@ -694,6 +694,7 @@ if(useScripts.reinaDark){
 .media .nav .link.router-link-exact-active.router-link-active {
 	color: rgb(var(--color-blue));
 	border-radius: 3px 3px 0 0;
+	padding: 15px 30px;
 }
 /* Reduce transparancy of card view notes to make them less easier to miss (accessibility) */
 .medialist.cards .entry-card .notes,
