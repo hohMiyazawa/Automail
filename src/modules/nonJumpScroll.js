@@ -20,65 +20,69 @@ exportModule({
 	css: `
 /* Scrollbar */
 * {
-	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0.2);
 	scrollbar-width: thin;
 }
 ::-webkit-scrollbar {
 	width: 4px;
 	height: 8px;
 }
-
 ::-webkit-scrollbar-button {
 	display: none;
 }
-
 ::-webkit-scrollbar-track {
 	background-color: #1110;
 	width: 0px;
 }
-
 ::-webkit-scrollbar-track-piece {
 	display: none;
 }
-
 ::-webkit-scrollbar-thumb {
 	background-color: rgb(var(--color-blue));
 }
-
-.markdown::-webkit-scrollbar-thumb,
-.about .content-wrap::-webkit-scrollbar-thumb {
+.activity-markdown .markdown {
+	overflow-y: scroll !important;
+	scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+.activity-markdown .markdown:hover {
+	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+}
+.activity-markdown .markdown::-webkit-scrollbar-thumb,
+.activity-markdown .markdown .about .content-wrap::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0);
 }
-
-.markdown:hover::-webkit-scrollbar-thumb,
-.about .content-wrap:hover::-webkit-scrollbar-thumb {
+.activity-markdown .markdown:hover::-webkit-scrollbar-thumb,
+.activity-markdown .markdown .about .content-wrap:hover::-webkit-scrollbar-thumb {
 	background-color: rgb(var(--color-blue));
 }
-
 ::-webkit-scrollbar-corner {
 	display: none;
 }
-
-.markdown {
-	overflow-y: scroll!important;
-	scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-}
-.markdown:hover {
-	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
-}
-
-.about .content-wrap .markdown {
-	overflow: hidden!important;
-}
-
+/*::-webkit-resizer {
+	display: none;
+}*/
 .about .content-wrap {
-	overflow-y: scroll!important;
+	overflow-y: scroll !important;
 	scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 }
-
+.about .content-wrap .markdown {
+	overflow: hidden !important;
+}
 .about .content-wrap:hover {
-	overflow-y: scroll!important;
+	overflow-y: scroll !important;
 	scrollbar-color: rgb(var(--color-blue)) rgba(0, 0, 0, 0);
+}
+.about .content-wrap .markdown::after {
+	content: '';
+	display: block;
+	height: 10px;
+	width: 10px;
+}
+.list-editor .custom-lists {
+	overflow-y: auto;
+}
+.list-editor .custom-lists:hover {
+	margin-right: 0;
 }
 `
 })
