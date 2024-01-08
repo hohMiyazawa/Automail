@@ -256,6 +256,9 @@ m4_include(css/notifications.css)
 .recommendation-card .hohStatusDot{
 	transform: translate(-5px,-5px);
 }
+.recommendation-card:has(.hohStatusDot):not(:hover){
+	opacity: 0.3;
+}
 .filter .view-all{
 	background-color: rgb(var(--color-foreground));
 	height: 32px;
