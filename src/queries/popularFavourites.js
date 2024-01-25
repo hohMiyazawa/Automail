@@ -97,25 +97,25 @@ fragment stuff on User{
 				});
 				miscResults.innerText = "";
 				create("h1",false,translate("$heading_anime"),miscResults,"color:rgb(var(--color-blue))");
-				Object.keys(animeFavs).map(key => animeFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
+				Object.keys(animeFavs).map(key => ({ ...animeFavs[key], key })).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
 					create("p",false,entry.count + ": " + titlePicker({//pretend we have all this fancy API info
 						title: {
 							native: entry.title,
 							romaji: entry.title,
 							english: entry.title
 						},
-						id: parseInt(key)
+						id: parseInt(entry.key)
 					}),miscResults)
 				});
 				create("h1",false,translate("$heading_manga"),miscResults,"color:rgb(var(--color-blue))");
-				Object.keys(mangaFavs).map(key => mangaFavs[key]).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
+				Object.keys(mangaFavs).map(key => ({ ...mangaFavs[key], key })).sort((b,a) => a.count - b.count).slice(0,25).forEach(function(entry){
 					create("p",false,entry.count + ": " + titlePicker({
 						title: {
 							native: entry.title,
 							romaji: entry.title,
 							english: entry.title
 						},
-						id: parseInt(key)
+						id: parseInt(entry.key)
 					}),miscResults)
 				});
 				create("h1",false,translate("$heading_similarFavs"),miscResults,"color:rgb(var(--color-blue))");
