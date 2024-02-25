@@ -660,6 +660,7 @@
 "$altBanner_extendedDescription": "Prevents the banner on media pages from stretching and cropping on screen resolutions wider than 1920 pixels\nInstead, it always displays the banner in full with sides filled in by the blurred original banner",
 "$hideScores_description": "Hide scores on embedded cards, browse and media overview pages",
 "$hideScores_extendedDescription": "Scores and charts on media overview pages will be hidden within a spoiler (Hover or click to reveal)\nDoes not hide scores set by other Automail options",
+"$recommendationsFade_description": "Fade out recommendations on media pages that are already in your lists",
 "$heading_activityHistory": "Activity History",
 "$heading_genreOverview": "Genre Overview",
 "$amount_label": "Entries",
