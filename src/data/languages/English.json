@@ -543,6 +543,7 @@
 "$socialTab_shortAverage": "Avg",
 "$query_firstActivity": "First Activity",
 "$query_autorecs": "Autorecs",
+"$query_reviews": "Reviews",
 "$query_autorecs_collecting": "Collecting list data...",
 "$query_autorecs_processing": "Processing...",
 "$query_autorecs_info": "Top picks, based on your ratings, the ratings of others, and the recommendation database. Best matches on top",
