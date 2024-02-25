@@ -177,9 +177,10 @@ let final = function(){
 		})
 	})
 
-	top150 = listi.sort((a,b)=>wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left).slice(0,150);
+	top150 = listi.sort((b,a)=>wilson(a.rating,a.ratingAmount).left - wilson(b.rating,b.ratingAmount).left).slice(0,150);
+	bottom150 = listi.sort((a,b)=>wilson(a.rating,a.ratingAmount).right - wilson(b.rating,b.ratingAmount).right).slice(0,150);
 
-	list.forEach(rev => {
+	listi.forEach(rev => {
 		ratings += rev.ratingAmount;
 		positiveRatings += rev.rating;
 		if(rev.user){
