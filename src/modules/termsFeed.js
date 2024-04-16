@@ -1804,29 +1804,39 @@ onlyMediaInput.onblur = function(){
 										hohSpinner.classList.add("spinnerLoading");
 										if(entry){
 											authAPIcall(
-												`mutation($progress: Int,$score: Float,$id: Int){
-													SaveMediaListEntry(progress: $progress,id:$id, score: $score){id}
+												`mutation($progress: Int${(parseFloat(scoreInput.value) ? ",$score: Float" : "")},$id: Int){
+													SaveMediaListEntry(progress: $progress,id:$id${(parseFloat(scoreInput.value) ? ", score: $score" : "")}){id}
 												}`,
 												{id: entry.data.MediaList.id, progress: parseInt(progressInput.value), score: parseFloat(scoreInput.value)},
 												data => {
-													console.log(data);
-													hohSpinner.innerText = svgAssets.check;
-													hohSpinner.classList.add("spinnerDone");
 													hohSpinner.classList.remove("spinnerLoading");
+													if(data && data[0] && data[0].message){
+														hohSpinner.classList.add("spinnerError");
+														hohSpinner.innerText = svgAssets.cross;
+													}
+													else{
+														hohSpinner.innerText = svgAssets.check;
+														hohSpinner.classList.add("spinnerDone");
+													}
 												}
 											)
 										}
 										else{
 											authAPIcall(
-												`mutation($progress: Int,$score: Float,$id: Int){
-													SaveMediaListEntry(progress: $progress, score: $score),mediaId:$id){id}
+												`mutation($progress: Int${(parseFloat(scoreInput.value) ? ",$score: Float" : "")},$id: Int){
+													SaveMediaListEntry(progress: $progress${(parseFloat(scoreInput.value) ? ", score: $score" : "")}),mediaId:$id){id}
 												}`,
 												{id: media.id, progress: parseInt(progressInput.value), score: parseFloat(scoreInput.value)},
 												data => {
-													console.log(data);
-													hohSpinner.innerText = svgAssets.check;
-													hohSpinner.classList.add("spinnerDone");
 													hohSpinner.classList.remove("spinnerLoading");
+													if(data && data[0] && data[0].message){
+														hohSpinner.classList.add("spinnerError");
+														hohSpinner.innerText = svgAssets.cross;
+													}
+													else{
+														hohSpinner.innerText = svgAssets.check;
+														hohSpinner.classList.add("spinnerDone");
+													}
 												}
 											)
 										}
