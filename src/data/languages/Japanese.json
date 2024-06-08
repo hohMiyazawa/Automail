@@ -359,7 +359,7 @@
 "$sort_popularity": "人気",
 "$sort_score": "スコア",
 "$sort_myScore": "自分のスコア",
-"$sort_myProgress": "私の進歩",
+"$sort_myProgress": "自分の進歩",
 "$milestones_totalVolumes": "全巻共通",
 "$milestones_totalEpisodes": "全話数",
 "$milestones_daysWatched": "{0} 視聴日数",
