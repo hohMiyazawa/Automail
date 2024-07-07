@@ -177,6 +177,9 @@ async function launch(currentid) {
     const {idMal: mal_id, status} = data.Media;
     if (mal_id) {
       const {data} = await API.getSongs(mal_id);
+      if(!data){
+        return "No songs"
+      }
       let {openings: opening_themes, endings: ending_themes} = data;
       // add songs to cache if they're not empty and query videos
       if (opening_themes.length || ending_themes.length) {
