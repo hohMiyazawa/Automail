@@ -3,6 +3,7 @@ if(useScripts.browseSubmenu && useScripts.CSSverticalNav && whoAmI && !useScript
 		let navThingy = document.querySelector(`.nav .links .browse-wrap`);
 		if(navThingy){
 			navThingy.classList.add("subMenuContainer");
+			navThingy.style = "position:relative;width:100%;min-height:50px;z-index:134;display:inline-flex;";
 			let subMenu = create("div","hohSubMenu",false,navThingy);
 
 			[
