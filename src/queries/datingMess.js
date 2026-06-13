@@ -1,5 +1,5 @@
 {name: "Fix your dating mess",code: function(){
-	generalAPIcall("query($name:String){User(name:$name){id}}",{name: user},function(iddata){
+	authAPIcall("query($name:String){User(name:$name){id}}",{name: user},function(iddata){
 		let delay = 0;
 		miscResults.innerText = "";
 		removeChildren(miscResults)
@@ -82,7 +82,7 @@
 						create("span",false,"Repeats: " + item.repeat + " \n",chance);
 					}
 					setTimeout(function(){
-						generalAPIcall(
+						authAPIcall(
 							`
 							query($userId: Int,$mediaId: Int){
 								first:Activity(userId: $userId,mediaId: $mediaId,sort: ID){... on ListActivity{createdAt siteUrl status progress}}
@@ -141,7 +141,7 @@
 					}
 				}
 			}`;
-		generalAPIcall(
+		authAPIcall(
 			query,
 			{
 				name: user,
@@ -149,7 +149,7 @@
 			},
 			function(data){proc(data,"MANGA")}
 		);
-		generalAPIcall(
+		authAPIcall(
 			query,
 			{
 				name: user,
