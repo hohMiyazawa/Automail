@@ -392,7 +392,7 @@ let handleResponse = function(response){
 		throw e
 	}
 };
-const url = "https://graphql.anilist.co";//Current Anilist API location
+const url = "https://anilist.co/graphql";//Current Anilist API location
 let authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=2751&response_type=token";//2751 = main, 1933 = aniscripts(legacy), 7895 boneless
 if(script_type === "Boneless"){
 	authUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=7895&response_type=token"
