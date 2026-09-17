@@ -3,7 +3,7 @@ exportModule({
 	description: "Add favourite counts to character browse pages",
 	isDefault: true,
 	categories: ["Browse"],
-	visible: false,
+	visible: true,
 	urlMatch: function(url){
 		return /^https:\/\/anilist\.co\/search\/characters\/?(favorites)?$/.test(url)
 	},
