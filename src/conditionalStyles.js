@@ -124,6 +124,9 @@ if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.a
 .home:not(.full-width){
 	grid-template-columns: auto 545px!important;
 }
+.home.full-width .list-preview{
+	justify-content: space-between;
+}
 @media(min-width: 1040px) and (max-width: 1540px){
 	.page-content > .container{
 		max-width: 1300px;
@@ -131,7 +134,7 @@ if(useScripts.betterListPreview && !(window.screen.availWidth && window.screen.a
 	.list-preview{
 		gap: 15px!important;
 	}
-	.home{
+	.home:not(.full-width){
 		grid-template-columns: auto 525px!important;
 	}
 }
