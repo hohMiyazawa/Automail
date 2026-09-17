@@ -3,7 +3,7 @@ exportModule({
 	description: "Add an exact favourite count to character pages",
 	isDefault: true,
 	categories: ["Media"],
-	visible: false,
+	visible: true,
 	urlMatch: function(url){
 		return /^https:\/\/anilist\.co\/character(\/.*)?/.test(url)
 	},
