@@ -9,7 +9,7 @@
 	};
 	let warning = create("b",false,"Clicking on red buttons means changes to your data!",miscResults);
 	let description = create("p",false,"When run, this will do the following:",miscResults);
-	create("p",false,"- Completed entries with 1 episode/chapter, no rewatches, no start date, but a completion date will have the start date set equal to the completion date",miscResults);
+	create("p",false,"- Completed entries with 1 episode/chapter, no repeat watches/reads and only one of start/end dates, will have the empty date set equal to the filled date",miscResults);
 	create("p",false,"- A list of all the changes will be printed.",miscResults);
 	create("p",false,"- This will run slowly, and can be stopped at any time.",miscResults);
 	let dryRun = create("button",["button","hohButton"],"Dry run",miscResults);
@@ -31,10 +31,10 @@
 		allowRunner = false;
 		fullRun.disabled = true;	
 		dryRun.disabled = true;
-		generalAPIcall("query($name:String){User(name:$name){id}}",{name: user},function(iddata){
+		authAPIcall("query($name:String){User(name:$name){id}}",{name: user},function(iddata){
 			let proc = function(data){
 				list = list.concat((returnList(data,true) || []).filter(
-					item => item.status === "COMPLETED" && (item.media.episodes || item.media.chapters) === 1 && (!item.startedAt.year) && item.completedAt.year && !item.repeat
+					item => item.status === "COMPLETED" && (item.media.episodes || item.media.chapters) === 1 && ((!item.startedAt.year && item.completedAt.year) || (item.startedAt.year && !item.completedAt.year)) && !item.repeat
 				));
 				if(firstTime){
 					firstTime = false;
@@ -47,28 +47,38 @@
 					changeLog.innerText = "Found no entries to change";
 					return
 				};
+				const ol = create("ol", false, "Found " + list.length + " entries.", changeLog);
 				create("p",false,"Found " + list.length + " entries.",changeLog);
-				let changer = function(index){
+				list.forEach(item => {
 					if(!allowRun){
 						return
 					};
-					create("p",false,list[index].media.title.romaji + " start date set to " + list[index].completedAt.year + "-" + list[index].completedAt.month + "-" + list[index].completedAt.day,changeLog);
+					const hasStart = item.startedAt.year > 0;
+					const li = create("li", false, false, ol);
+					const hl = create("a", ["link", "newTab"], item.media.title.romaji, li, "width:440px;display:inline-block;");
+					hl.href = "/" + item.media.type.toLowerCase() + "/" + item.mediaId + "/" + safeURL(item.media.title.romaji);
+					li.append(
+						(hasStart ? "End" : "Start")  + " date " +
+						(isDryRun ? "will be" : "was") + " set to " +
+						item[hasStart ? "startedAt" : "completedAt"].year + "-" +
+						item[hasStart ? "startedAt" : "completedAt"].month + "-" +
+						item[hasStart ? "startedAt" : "completedAt"].day
+					)
 					if(!isDryRun){
 						authAPIcall(
 							`mutation($date: FuzzyDateInput,$mediaId: Int){
-								SaveMediaListEntry(startedAt: $date,mediaId: $mediaId){
+								SaveMediaListEntry(${[hasStart ? "completedAt" : "startedAt"]}: $date,mediaId: $mediaId){
 									id
 								}
 							}`,
-							{mediaId: list[index].mediaId,date: list[index].completedAt},
+							{mediaId: item.mediaId,date: item[hasStart ? "startedAt" : "completedAt"]},
 							data => {}
-						)
+						);
 					};
-					index++;
-					if(index < list.length){
-						setTimeout(function(){changer(index)},1000)
-					};
-				};changer(0);
+				})
+				stopRun.disabled = true;
+				fullRun.disabled = false;
+				dryRun.disabled = false;
 			};
 			const query = `query($name: String!, $listType: MediaType){
 					MediaListCollection(userName: $name, type: $listType){
@@ -81,6 +91,7 @@
 								repeat
 								media{
 									title{romaji english native}
+									type
 									chapters
 									episodes
 								}
@@ -88,7 +99,7 @@
 						}
 					}
 				}`;
-			generalAPIcall(
+			authAPIcall(
 				query,
 				{
 					name: user,
@@ -96,7 +107,7 @@
 				},
 				proc
 			);
-			generalAPIcall(
+			authAPIcall(
 				query,
 				{
 					name: user,
@@ -108,7 +119,9 @@
 	};
 	stopRun.onclick = function(){
 		allowRun = false;
-		stopRun.disable = true;
+		stopRun.disabled = true;
+		fullRun.disabled = false;
+		dryRun.disabled = false;
 		alert("Stopped!")
 	};
 	fullRun.onclick = function(){
