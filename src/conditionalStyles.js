@@ -332,9 +332,13 @@ if(useScripts.cleanSocial){
 	display: flex;
 	flex-direction: column;
 }
-.social .activity-feed + div > div:first-child{
+.social .activity-feed + div > div{
 	order: 2;
 	margin-top: 25px;
+}
+.social .activity-feed + div > div:has(.following){
+	order: 1;
+	margin-top: 0px;
 }`
 }
 if(useScripts.statusBorder){
